@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+		<target>lightningCommunity__Page</target>
+		<target>lightningCommunity__Default</target>
+	</targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" type="String" label="Title" default=""/>
+            <property name="subtext" type="String" label="Subtext" default=""/>
+            <property name="bannerImage" type="String" label="Image URL" default="start-banner.png"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

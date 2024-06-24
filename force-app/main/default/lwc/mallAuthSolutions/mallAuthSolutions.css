@@ -1,0 +1,5 @@
+.solution-container { width: 100%; padding-top: 30px;}
+
+.solution-container .tittleText { padding-bottom: 20px; font-size: 18px; color: #0033AA;}
+
+.solution-container_inner { width: 100%; background-color: #f8f8f8; border-radius: 12px; overflow: hidden; padding: 35px 30px;}

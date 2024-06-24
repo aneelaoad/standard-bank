@@ -1,0 +1,184 @@
+<!--
+-->
+<template>
+  <div>
+    <article class="slds-card">
+      <div>
+        <div class="slds-card__header slds-p-around_none slds-text-align_center">
+          <header>
+            <h2 class="slds-text-heading_medium slds-hyphenate">{headerValue}</h2>
+          </header>
+        </div>
+        <div if:true={errorMessage}>
+          <h3 slot="title">
+            {errorMessage.statusText}
+          </h3>
+          <p class="slds-p-horizontal_small slds-text-color_error">{errorMessage.body.message}</p>
+        </div>
+      </div>
+      <div data-id="modalBody" class="slds-card__body" style={modalBodyStyle}>
+        <div if:false={showForDesktop}>
+          <lightning-layout class="slds-p-around_none slds-m-around_none" multiple-rows="true">
+            <template for:each={data} for:item="record">
+              <lightning-layout-item class="slds-card_boundary" size="12" key={record.contactId}>
+                <lightning-layout multiple-rows="false">
+                  <lightning-layout-item size="2" flexibility="auto" class="slds-align_absolute-center">
+                    <lightning-input type="checkbox" disabled={record.isOwner} checked={record.addRemove}
+                                     variant="label-hidden" label="" onchange={handleAddRemove} data-item={record.contactId}></lightning-input>
+                  </lightning-layout-item>
+                  <lightning-layout-item size="10" flexibility="auto" class="slds-border_left slds-p-top_x-small">
+                    <lightning-layout multiple-rows="false" horizontal-align="spread" vertical-align="stretch"
+                                      class="slds-border_bottom">
+                      <lightning-layout-item size="6" class="slds-p-horizontal_x-small slds-border_right">
+                        <lightning-layout multiple-rows="true">
+                          <lightning-layout-item size="12">
+                            Attendee Name
+                          </lightning-layout-item>
+                          <lightning-layout-item size="12">
+                            <b>{record.contactName}</b>
+                            <div if:false={_isInternal}>{record.accountName}</div>
+                          </lightning-layout-item>
+                        </lightning-layout>
+                      </lightning-layout-item>
+                      <lightning-layout-item size="6" class="slds-p-horizontal_x-small">
+                        <lightning-layout multiple-rows="true">
+                          <lightning-layout-item size="12">
+                            {roleOrTitle}
+                          </lightning-layout-item>
+                          <lightning-layout-item size="12">
+                            <b if:true={_isInternal}>{record.roleName}</b>
+                            <b if:false={_isInternal}>{record.contactTitle}</b>
+                          </lightning-layout-item>
+                        </lightning-layout>
+                      </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout-item size="12" flexibility="auto">
+                      <label for="select" class="slds-p-left_x-small">Status</label>
+                      <lightning-combobox id="select" name="status" label="" variant="label-hidden"
+                                          value={record.status} options={statusValues} data-item={record.contactId}
+                                          onchange={handleStatusChange}></lightning-combobox>
+                    </lightning-layout-item>
+                    <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12">
+                      {distance}
+                    </lightning-layout-item>
+                  </lightning-layout>
+                  <lightning-layout-item size="12">
+                    <b if:true={_isInternal}>{record.distance}</b>
+                  </lightning-layout-item>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </div>
+        <div if:true={showForDesktop}>
+          <table class="slds-table slds-table_bordered">
+            <thead>
+            <tr>
+              <th scope="col" title="Add/Remove" class="slds-size_1-of-12">Add/Remove</th>
+              <th scope="col" title="Attendee Name" class="slds-size_4-of-12">Attendee Name</th>
+              <th scope="col" title={roleOrTitle} class="slds-size_4-of-12">{roleOrTitle}</th>
+            <th scope="col" title="Status" class="slds-size_3-of-12">Status</th>
+            <template if:true={_isBCBUser} >
+              <th scope="col" title={distance} class="slds-size_3-of-12"> 
+                <div class="slds-cell-wrap">  
+                {distance} </div>
+              </th>  
+            </template>   
+          </tr>
+            </thead>
+            <tbody>
+            <template for:each={data} for:item="record">
+              <tr key={record.contactId}>
+                <td scope="row" class="slds-size_1-of-12 slds-p-around_xxx-small">
+                  <lightning-input type="checkbox" label="" disabled={record.isOwner} variant="label-hidden"
+                                   data-item={record.contactId} onchange={handleAddRemove}
+                                   checked={record.addRemove} class="slds-align_absolute-center"></lightning-input>
+                </td>
+                <td scope="row" class="slds-size_4-of-12 slds-p-around_xxx-small">
+                  <div>
+                    <div class="slds-cell-wrap"><b>{record.contactName}</b></div>
+                    <div if:false={_isInternal} class="slds-cell-wrap">{record.accountName}</div>
+                  </div>
+                </td>
+                <td scope="row" class="slds-size_4-of-12 slds-p-around_xxx-small">
+                  <div if:true={_isInternal} class="slds-cell-wrap">{record.roleName}</div>
+                  <div if:false={_isInternal} class="slds-cell-wrap">{record.contactTitle}</div>
+                </td>
+                <td scope="row" class="slds-size_3-of-12 slds-p-around_xxx-small">
+                  <lightning-combobox data-id="select" name="status" label="" variant="label-hidden"
+                                      value={record.status} options={statusValues} data-item={record.contactId}
+                                      onchange={handleStatusChange}></lightning-combobox>
+                </td>
+                <td scope="row" class="slds-size_4-of-12 slds-p-around_xxx-medium">
+                  <div if:true={_isInternal} >
+                    <template if:true={_isBCBUser} >  
+                     <lightning-input type="number" disabled={record.disabledDistance} value={record.distance} onchange={handleDistanceInput} data-item={record.contactId} ></lightning-input> 
+                     </br> </template>
+                  </div>                  
+                </td>
+              </tr>
+            </template>
+            </tbody>
+          </table>
+        </div>
+        <div if:true={showAdditional} class="slds-form-element">
+          <label class="slds-form-element__label" for="combobox-input-id-1">Please put at least 2 symbols</label>
+          <button class="slds-button slds-button_icon slds-float_right" title="Close" onclick={handleCloseSuggestion}
+                  style="zoom:60%">
+            <lightning-icon icon-name="utility:close"></lightning-icon>
+          </button>
+          <div class="slds-form-element__control">
+            <div class="slds-combobox_container">
+              <div class={dropdownStyle}>
+                <template if:true={showInputSpinner} class="slds-is-relative">
+                  <lightning-spinner variant="brand" size="small" alternative-text="Loading..."></lightning-spinner>
+                </template>
+                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                  <input id="combobox-input-id-1" data-id="combobox-input-id-1" type="text"
+                         class="slds-input slds-combobox__input" role="textbox" oninput={onInput}
+                         aria-controls="listbox-id-1" aria-haspopup="listbox"/>
+                  <lightning-icon icon-name="utility:search" class="slds-input__icon slds-input__icon_right"
+                                  size="x-small"></lightning-icon>
+                </div>
+                <div if:true={showNothingToSuggest}>
+                  <span class="slds-listbox__option-text slds-listbox__option-text_entity">Nothing to suggest</span>
+                </div>
+                <div role="listbox" id="listbox-id-1" data-id="listbox-id-1"
+                     class="slds-dropdown slds-dropdown_fluid slds-scrollable_y slds-p-around_none"
+                     style="max-height: 20vh">
+                  <ul id="suggestion-list" class="slds-listbox slds-listbox_vertical" role="presentation">
+                    <template for:each={suggestions} for:item="suggestion">
+                      <li role="presentation" class="slds-listbox__item slds-box_border" key={suggestion.Id}
+                          data-item={suggestion.Id} onclick={handleSelectSuggestion}>
+                        <div aria-selected="true" class="slds-media slds-media_center slds-listbox__option slds-listbox__option_entity
+                                 slds-has-focus" role="option">
+                              <span class="slds-media__body">
+                                <span class="slds-listbox__option-text slds-listbox__option-text_entity"><b>{suggestion.Name}</b></span>
+                                  <span if:false={_isInternal}
+                                        class="slds-listbox__option-meta slds-listbox__option-meta_entity">{suggestion.AccountName}</span>
+                              </span>
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="slds-docked-form-footer slds-p-around_xxx-small" style="position: sticky; bottom: -1em;">
+    <lightning-button-group class="slds-text-align_center">
+      <lightning-button label="Cancel" onclick={handleCancel}></lightning-button>
+      <lightning-button label="Add Row" onclick={handleAddRow}></lightning-button>
+      <lightning-button label="Save" variant="brand" onclick={handleSave}></lightning-button>
+    </lightning-button-group>
+  </div>
+  <template if:true={showSpinner} class="slds-is-relative slds-align_absolute-center">
+    <lightning-spinner variant="brand" size="medium" alternative-text="Loading..."></lightning-spinner>
+  </template>
+</template>

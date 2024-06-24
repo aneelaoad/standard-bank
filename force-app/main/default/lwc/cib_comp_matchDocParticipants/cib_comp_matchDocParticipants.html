@@ -1,0 +1,125 @@
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Specify a Certification Official for each document</h2>
+    </article>
+    <div class="aob_info-text mt_20 slds-p-bottom--large">
+      <img src={helpIcon} alt="check" />
+      <p>
+        Please confirm which certification official is responsible for which
+        document by dragging the document to the appropriate certification
+        official.
+      </p>
+    </div>
+    <div class="slds-grid slds-grid--align-spread">
+      <div class="slds-p-around_x-small slds-size_6-of-12">
+        <div class="aob_card-container">
+          <c-cmn_comp_spinner
+            if:false={participants.length}
+          ></c-cmn_comp_spinner>
+          <form>
+            <template for:each={participants} for:item="item" for:index="index">
+              <div key={item.CIB_Sequence__c} class="">
+                <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="slds-form-element mb_8">
+                      <label
+                        class="slds-form-element__label"
+                        for="form-element-05"
+                      >
+                        Name
+                      </label>
+                      <div class="slds-form-element__control">{item.Name}</div>
+                    </div>
+                  </div>
+                  <div
+                    ondrop={handleDrop}
+                    ondragover={handleDragover}
+                    ondragenter={ondragenter}
+                    ondragleave={ondragleave}
+                    data-id={item.Id}
+                    data-index={index}
+                    class="slds-col slds-size_1-of-1 doc-container"
+                  >
+                    <template
+                      for:each={item.documents}
+                      for:item="doc"
+                      for:index="idx"
+                    >
+                      <lightning-layout
+                        key={doc.Id}
+                        draggable="true"
+                        ondragstart={handleDragStart}
+                        ondragover={handleDragOver}
+                        data-type="participant"
+                        data-index={index}
+                        data-doc-index={idx}
+                        data-name={doc.Document_Label__c}
+                        data-id={doc.Id}
+                      >
+                        <lightning-layout-item size="2" padding="around-small">
+                          <lightning-icon
+                            icon-name={doc.iconName}
+                            size="small"
+                          ></lightning-icon>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="10" padding="around-small">
+                          <div
+                            key={doc.Id}
+                            class="slds-text-body_regular slds-truncate"
+                          >
+                            {doc._Name}
+                          </div>
+                        </lightning-layout-item>
+                      </lightning-layout>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </form>
+        </div>
+      </div>
+      <div class="slds-p-around_x-small slds-size_6-of-12">
+        <div class="aob_card-container">
+          <c-cmn_comp_spinner
+            if:false={displayDocuments.length}
+          ></c-cmn_comp_spinner>
+          <template for:each={displayDocuments} for:item="doc">
+            <lightning-layout
+              key={doc.Id}
+              draggable="true"
+              ondragstart={handleDragStart}
+              ondragover={handleDragOver}
+              data-type="sidebar"
+              data-id={doc.Id}
+              data-name={doc.Document_Label__c}
+            >
+              <lightning-layout-item size="2" padding="around-small">
+                <lightning-icon
+                  icon-name={doc.iconName}
+                  size="small"
+                ></lightning-icon>
+              </lightning-layout-item>
+              <lightning-layout-item size="10" padding="around-small">
+                <div key={doc.Id} class="slds-text-body_regular slds-truncate">
+                  {doc._Name}
+                </div>
+              </lightning-layout-item>
+            </lightning-layout>
+          </template>
+        </div>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

@@ -1,0 +1,26 @@
+<template>
+    <div class="product-nav-container">
+        <div class="search-section slds-form-element">
+            <div class="search-alignment">
+                <div
+                    class="search-input slds-form-element__control slds-input-has-icon slds-input-has-icon_left"
+                >
+                    <lightning-icon
+                        size="x-small"
+                        class="slds-icon slds-float_right slds-input__icon slds-input__icon_left slds-icon-text-default"
+                        icon-name="utility:search"
+                    ></lightning-icon>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        data-id="searchInput"
+                        data-text="Application Gallery | Search for Application"
+                        onkeyup={handleSearch}
+                        placeholder="Search"
+                        class="slds-input product-nav-input"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

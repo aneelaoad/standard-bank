@@ -1,0 +1,70 @@
+.aob_estimation_block_container{
+    /* box-shadow: 0 12px 29px 0 rgba(0, 0, 0, 0.2); */
+    width: 100%;
+}
+.aob_bundle_block h4{
+    padding-top: 15px; 
+    text-align:left;
+    font-family: 'bentonsans-regular-webfont';
+}
+.aob_add_bundle{
+    font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #fff;
+}
+.aob-bundle-header{
+    font-family: 'bentonsans-extra-light-webfont';
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #3c4b6c;
+}
+.aob_bundle-actions-content{
+    text-align: left;
+}
+.subtitle{
+    font-family: 'bentonsans-bold-webfont';
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.64;
+  letter-spacing: 1px;
+  color: #858d9d;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.5rem 0 0 1.5rem;
+}
+.vrline{
+    
+    margin-top: 6px;
+    color:red;
+}
+.smalltext::before {
+    content: attr(data-currency);
+    font-size: 10px;
+    font-weight: 900;
+    margin-right: 6px;
+    margin-top: -10px;
+}
+.crosswordsize{
+    font-family: bentonsans-extra-light-webfont, "bentonsans-extra-light-webfont", sans-serif;
+    font-size: 21px;
+}
+.card-title{
+    position: relative;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.29;
+    color: #3c4b6c;
+    /* margin-bottom: 30px;
+    padding: 15px 0; */
+}

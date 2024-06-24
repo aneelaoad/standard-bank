@@ -1,0 +1,31 @@
+.aob_screen-title {
+    font-size: 28px!important;
+}
+.aob_screen-text-lowlight{
+    font-size: 14px;
+}
+.btn-primary{
+    width:320px;
+    height: 51px;
+    margin: 20px;
+    border: none;
+} 
+.heading{
+    color: #3c4b6c !important;
+    padding-bottom: 16px !important;
+}
+.callback{
+    padding-top: 16px!important;
+
+}
+.cont{
+    background-color: white;
+    padding: 13px;
+}
+
+
+@media (max-width: 767px){
+    .btn-primary{
+        width:260px;
+    }
+}

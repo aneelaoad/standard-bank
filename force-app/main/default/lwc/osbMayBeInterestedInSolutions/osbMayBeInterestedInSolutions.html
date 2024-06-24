@@ -1,0 +1,163 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="MainInterestedInSection">
+            <div class="HeadingSection">
+                <p>Featured Applications</p>
+            </div>
+            <div class="ApplicationSection">
+                <div class="AppCommmon AppOne">
+                    <div class="TagHolder SolutionTagThird">
+                        <div class="Thirdrectangle"></div>
+                        <div class="Thirdtriangle"></div>
+                    </div>
+                    <div class="ImageLoader skeleton-loader">
+                    </div>
+                    <div class="TextLoader">
+                        <div class="HeaderTextLoader skeleton-loader">
+                        </div>
+                        <div class="DescriptionTextLoader skeleton-loader">
+                        </div>
+                        <div class="ReadLinkLoader skeleton-loader">
+                        </div>
+                    </div>
+                </div>
+                <div class="AppCommmon AppTwo" >
+                    <div class="TagHolder SolutionTagThird">
+                        <div class="Thirdrectangle"></div>
+                        <div class="Thirdtriangle"></div>
+                    </div>
+                    <div class="ImageLoader skeleton-loader">
+                    </div>
+                    <div class="TextLoader">
+                        <div class="HeaderTextLoader skeleton-loader">
+                        </div>
+                        <div class="DescriptionTextLoader skeleton-loader">
+                        </div>
+                        <div class="ReadLinkLoader skeleton-loader">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={SolutionsRequest}>
+        <div class="MainInterestedInSection">
+            <div class="HeadingSection">
+                <p>Featured Applications</p>
+            </div>
+            <div class="ApplicationSection">
+                <div class="AppCommmon AppOne" data-value={solSiteOne}>
+                    <template if:true={solThirdOne}>
+                        <div class="TagHolder SolutionTagThird">
+                            <div class="Thirdrectangle"></div>
+                            <div class="Thirdtriangle"></div>
+                        </div>
+                    </template>
+                    <template if:false={solThirdOne}>
+                        <div class="TagHolder SolutionTag">
+                            <div class="rectangle"></div>
+                            <div class="triangle"></div>
+                        </div>
+                    </template>
+                    <div class="ImageSection">
+                        <img src={ApplicationImageOne} class="SolutionImage">
+                    </div>
+                    <div class="TextSection">
+                        <div class="HeaderTextSection">
+                            <template if:true={solTMOne}>
+                                <p>{solTitleOne}<sup class="tmClass">TM</sup></p>
+                            </template>
+                            <template if:false={solTMOne}>
+                                <p>{solTitleOne}</p>
+                            </template>
+                        </div>
+                        <div class="DescriptionTextSection">
+                            <p>{solIntroOne}</p>
+                        </div>
+                        <div class="ReadLinkSection">
+                            <a onclick={visitWebsiteOne} data-id="featuredAppOnelink"
+                            data-text={adobeScopeOne} data-intent="informational" data-scope='Featured Applications'>Read more</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="AppCommmon AppTwo" data-value={solSiteTwo}>
+                    <template if:true={solThirdTwo}>
+                        <div class="TagHolder SolutionTagThird">
+                            <div class="Thirdrectangle"></div>
+                            <div class="Thirdtriangle"></div>
+                        </div>
+                    </template>
+                    <template if:false={solThirdTwo}>
+                        <div class="TagHolder SolutionTag">
+                            <div class="rectangle"></div>
+                            <div class="triangle"></div>
+                        </div>
+                    </template>
+                    <div class="ImageSection">
+                        <img src={ApplicationImageTwo} class="SolutionImage">
+                    </div>
+                    <div class="TextSection">
+                        <div class="HeaderTextSection">
+                            <template if:true={solTMTwo}>
+                                <p>{solTitleTwo}<sup class="tmClass">TM</sup></p>
+                            </template>
+                            <template if:false={solTMTwo}>
+                                <p>{solTitleTwo}</p>
+                            </template>
+                        </div>
+                        <div class="DescriptionTextSection">
+                            <p>{solIntroTwo}</p>
+                        </div>
+                        <div class="ReadLinkSection">
+                            <a onclick={visitWebsiteTwo} data-id="featuredAppTwolink"
+                            data-text={adobeScopeTwo} data-intent="informational" data-scope='Featured Application'>Read more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={SolutionRequestOne}>
+        <div class="SingleMainInterestedInSection">
+            <div class="HeadingSection">
+                <p>Featured Applications</p>
+            </div>
+            <div class="SingleApplicationSection">
+                <div class="AppCommmon" data-value={solSiteOne}>
+                    <template if:true={solThirdOne}>
+                        <div class="TagHolder SolutionTagThird">
+                            <div class="Thirdrectangle"></div>
+                            <div class="Thirdtriangle"></div>
+                        </div>
+                    </template>
+                    <template if:false={solThirdOne}>
+                        <div class="TagHolder SolutionTag">
+                            <div class="rectangle"></div>
+                            <div class="triangle"></div>
+                        </div>
+                    </template>
+                    <div class="ImageSection">
+                        <img src={ApplicationImageOne} class="SolutionImage">
+                    </div>
+                    <div class="TextSection">
+                        <div class="HeaderTextSection">
+                            <template if:true={solTMOne}>
+                                <p>{solTitleOne}<sup class="tmClass">TM</sup></p>
+                            </template>
+                            <template if:false={solTMOne}>
+                                <p>{solTitleOne}</p>
+                            </template>
+                        </div>
+                        <div class="DescriptionTextSection">
+                            <p>{solIntroOne}</p>
+                        </div>
+                        <div class="ReadLinkSection">
+                            <a onclick={visitWebsiteOne} data-id="featuredAppOnelink"
+                            data-text={adobeScopeOne} data-intent="informational" data-scope='Featured Applications'>Read more</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

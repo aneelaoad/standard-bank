@@ -1,0 +1,113 @@
+<!--
+@description       : 
+@author            : Franco.Pieterse@standardbank.co.za
+@group             : 
+@last modified on  : 09-27-2021
+@last modified by  : 
+Modifications Log 
+Ver   Date         Author                   Modification
+-->
+<template>
+    <div if:false={failing}>
+        <div class="aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius">
+            <img if:true={isShowingCloseButton} alt="Close button Icon" src={closeIcon}
+                class="aob_modal_close_button slds-m-right_xx-small slds-m-left_large"
+                onclick={handleOpenClosePageModal}>
+
+            <template if:true={isLoaded}>
+                <c-aob_comp_screen-header hide-product="true" record-id={applicationId}
+                    title={label.AOB_PersonalDetails_title} sub-title={label.AOB_PersonalDetails_subTitle}>
+                </c-aob_comp_screen-header>
+                <div class="aob_form">
+                    <div class="aob_form_input slds-hidden">
+                        <lightning-input type="text" variant="label-hidden" name="dummy"></lightning-input>
+                    </div>
+                    <div class="slds-grid aob_form_row slds-gutters_large slds-wrap">
+                        <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2">
+                            <c-aob_comp_acpicklist label={label.AOB_NATIONALITY} value={nationality} sapfield="CNTRY"
+                                required="required" missing-value-message={label.AOB_Nationality_Message_Value_Missing}
+                                placeholder={label.AOB_Nationality_Placeholder} onchange={nationalityOnChange} helptext={label.AOB_Nationality_HelpText}>
+                            </c-aob_comp_acpicklist>
+                            <p class="aob_error_input_label">{nationalityError}</p>
+                         </div>
+                        <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2">
+                            <c-aob_comp_acpicklist label={label.AOB_CITIZENSHIP} value={citizenship} sapfield="CNTRY"
+                                required="required" missing-value-message={label.AOB_Citizenship_Message_Value_Missing}
+                                placeholder={label.AOB_Citizenship_Placeholder} onchange={citizenOnChange} helptext={label.AOB_Citizenship_HelpText}>
+                            </c-aob_comp_acpicklist>
+                            <p class="aob_error_input_label">{citizenshipError}</p>
+                         </div>
+                    </div>
+
+                    <div>
+                        <label class="aob_screen-field-label slds-m-bottom_none"> {label.AOB_PublicAuthority}
+                            <c-aob_comp_tooltip message={label.AOB_RelatedToAuthorityHelpText}></c-aob_comp_tooltip>
+                        </label>
+                        <div class="slds-grid aob_form_row aob_grid_sm">
+                            <div class="slds-p-right_xx-large">
+                                <input type="radio" id="publicOffYes" name="publicOfficial"
+                                    onchange={publicOfficialChangeHandler}>
+                                <label class="aob_screen-section-paragraph">
+                                    {label.AOB_Yes}</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="publicOffNo" name="publicOfficial"
+                                    onchange={publicOfficialChangeHandler}>
+                                <label class="aob_screen-section-paragraph">
+                                    {label.AOB_No}</label>
+                            </div>
+                        </div>
+                        <p class="aob_error_input_label">{publicOfficialError}</p>
+                    </div>
+                    <div if:true={isNotPublicOfficial}>
+                        <label
+                            class="aob_screen-field-label slds-m-bottom_none aob_additional_width">{label.AOB_RelatedPublicAuthority}
+                            <c-aob_comp_tooltip message={label.AOB_NatureOfRelationHelpText}></c-aob_comp_tooltip>
+                        </label>
+                        <div class="slds-grid aob_form_row aob_grid_sm">
+                            <div class="slds-p-right_xx-large">
+                                <input type="radio" id="publicOffRelatedYes" name="relatedToPublicOfficial"
+                                    onchange={relatedToPublicOfficialChangeHandler}>
+                                <label class="aob_screen-section-paragraph">
+                                    {label.AOB_Yes}</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="publicOffRelatedNo" name="relatedToPublicOfficial"
+                                    onchange={relatedToPublicOfficialChangeHandler}>
+                                <label class="aob_screen-section-paragraph">
+                                    {label.AOB_No}</label>
+                            </div>
+                        </div>
+                        <p class="aob_error_input_label">{relatedToPublicOfficialError}</p>
+
+                    </div>
+                    <div if:true={isRelatedToPublic}>
+                        <div class="slds-grid aob_form_row slds-gutters_large slds-wrap">
+                            <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2">
+                                    <c-aob_comp_acpicklist label={label.AOB_NatureAssociation} value={natureAssociation} sapfield="PMIFP_RLTNP"
+                                        required="required" missing-value-message={label.AOB_NatureAssociation_Message_Value_Missing}
+                                        placeholder={label.AOB_NatureAssociation_Placeholder} onchange={natureAssociationOnChange} helptext={label.AOB_NatureOfRelationHelpText}>
+                                    </c-aob_comp_acpicklist>
+                                    <p class="aob_error_input_label">{natureAssociationError}</p>
+                            </div>
+                            <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2">
+                                <label class="aob_screen-field-label slds-m-bottom_none">{label.AOB_NameSurnameAssociation}</label>
+                                <lightning-input type="text" variant="label-hidden" name="nameofTheIndividual"
+                                    onchange={nameofTheIndividualChange}>
+                                </lightning-input>
+                                <p class="aob_error_input_label">{nameofTheIndividualError}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Navigation Buttons-->
+                    <div class="aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1 aob_margin_horizontal_auto slds-m-vertical_small aob_navigation_buttons">
+                        <lightning-button class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                        variant="neutral" label="Back" title="Back" onclick={backToPreviousPage}></lightning-button>
+                        <lightning-button class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                        variant="brand" label="continue" title="continue" onclick={continueToNextPage}></lightning-button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

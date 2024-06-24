@@ -1,0 +1,246 @@
+<!--
+  @description       : 
+  @author            : devi.ravuri@salesforce.com
+  @group             : 
+  Ver   Date         Author                   Modification
+  1.0   12-09-2022   devi.ravuri@salesforce.com   Initial Version
+-->
+<template>
+    <div class="slds-container_center ao-slds sb cAOB_SBTheme container">
+        <div
+            class="aob_card_container_pocketbiz scrollCls slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius">
+            <h6 class="mymob_title slds-m-bottom_large">{productShortName} {label.APPLICATION}</h6>
+            <p class="mymob_subtitle slds-m-bottom_xx-small">{label.AOB_PA_SubTitle}</p>
+            <p class="mymob_content"> {label.AOB_PA_Content2}</p>
+
+            <form id="preapplicationForm" data-frmcontainer="mymobiz application" method="POST">
+                <div class="slds-grid slds-gutters_large slds-wrap">
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.NAME}
+                        </label>
+                        <lightning-input class="validate" placeholder="Enter your first name" name="Name" type="text"
+                            variant="label-hidden" message-when-value-missing="Please complete this field"
+                            data-name="Name" pattern="[a-zA-Z][a-zA-Z '-]+" maxlength="80" required
+                            onchange={genericFieldChange} onfocus={adobepagestart}>
+                        </lightning-input>
+                    </div>
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.SURNAME}
+                        </label>
+                        <lightning-input class="validate" placeholder="Enter your surname" name="Surname" type="text"
+                            variant="label-hidden" message-when-value-missing="Please complete this field"
+                            data-name="Surname" pattern="[a-zA-Z][a-zA-Z '-]+" maxlength="40" required
+                            onchange={genericFieldChange}>
+                        </lightning-input>
+                    </div>
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.IDNUMBER}</label>
+                        <lightning-input class="validateID" placeholder="Enter your ID number" name="IdNum" type="text"
+                            variant="label-hidden" message-when-value-missing="Please complete this field"
+                            data-name="IdNum"
+                            pattern="^(((\d{2}((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8])))|([02468][048]|[13579][26])0229))(( |-)(\d{4})( |-)(\d{3})|(\d{7}))$"
+                            required onchange={genericFieldChange} onblur={validateSAID}>
+                        </lightning-input>
+                    </div>
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.CELLPHONE}
+                        </label>
+                        <lightning-input class="validate" placeholder="Enter your phone number" name="PhoneNumber"
+                            type="text" variant="label-hidden" message-when-value-missing="Please complete this field"
+                            data-name="PhoneNumber" pattern="^(\+27|0|27)[6-8][0-9]{8}$" required
+                            onchange={genericFieldChange}>
+                        </lightning-input>
+                    </div>
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <label
+                            class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.EMAILADDRESS}</label>
+                        <lightning-input class="validate" placeholder="Force@gmail.com" name="EmailAddress" type="text"
+                            variant="label-hidden" message-when-value-missing="Please complete this field"
+                            data-name="EmailAddress" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required
+                            onchange={genericFieldChange} oncommit={changeEmailValue}>
+                        </lightning-input>
+                    </div>
+                </div>
+
+                <div class="aob_screen-section-title slds-align_absolute-center">{label.Companydetails}</div>
+                <hr />
+
+                <div class="slds-grid slds-gutters_large slds-wrap">
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.ofthecompany}
+                        </label>
+                        <div class="slds-grid aob_form_row aob_grid_sm">
+                            <div class="slds-p-right_xx-large ">
+                                <input type="radio" data-name="soleOwner" data-value="true" name="soleOwner"
+                                    class="w-20" onchange={genericRadioChange}>
+                                <label class="aob_screen-section-paragraph" for="soleOwner">{label.Yes}</label>
+                            </div>
+                            <div class="slds-p-right_xx-large">
+                                <input type="radio" data-name="soleOwner" data-value="false" name="soleOwner"
+                                    onchange={genericRadioChange} class="w-20">
+                                <label class="aob_screen-section-paragraph" for="soleOwner">{label.No}</label>
+                            </div>
+                        </div>
+                        <p class="aob_error_input_label" if:true={showOwnerError}>
+                            {label.AOB_ZA_PleaseCompletethisfield}</p>
+                    </div>
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                    </div>
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        <label
+                            class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.AOB_ZA_BusinessType}</label>
+                        <c-aob_comp_acpicklist name="businessType" placeholder="Business type"
+                            onblur={genericComponentChangeBlur} onchange={genericComponentChange}
+                            data-name="businessType" required="true" data-value={selectedPicklistValue}>
+                        </c-aob_comp_acpicklist>
+                    </div>
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                    </div>
+                    <template if:true={showSS}>
+                        <div
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                            <label
+                                class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.AOB_ZA_Areyouthesole}</label>
+                            <div class="slds-grid aob_form_row aob_grid_sm">
+                                <div class="slds-p-right_xx-large">
+                                    <input type="radio" data-name="soleShareholder" data-value="true"
+                                        name="soleShareholder" onchange={genericRadioChange}>
+                                    <label class="aob_screen-section-paragraph"
+                                        for="soleShareholder">{label.Yes}</label>
+                                </div>
+                                <div class="slds-p-right_xx-large">
+                                    <input type="radio" data-name="soleShareholder" data-value="false"
+                                        name="soleShareholder" onchange={genericRadioChange}>
+                                    <label class="aob_screen-section-paragraph" for="soleShareholder">{label.No}</label>
+                                </div>
+                            </div>
+                            <p class="aob_error_input_label" if:true={showShareHoldError}>
+                                {label.AOB_ZA_PleaseCompletethisfield}
+                            </p>
+                        </div>
+                        <div
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        </div>
+                    </template>
+
+                    <template if:true={showBusinessBlock}>
+                        <div
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                            <label
+                                class="aob_screen-field-label slds-m-bottom_none aob_label_wrap bName">{businessNameLabel}</label>
+                            <lightning-input class="validate" placeholder="Enter your business name" name="businessName"
+                                type="text" variant="label-hidden"
+                                message-when-value-missing="Please complete this field" data-name="businessName"
+                                required onchange={genericFieldChange}>
+                            </lightning-input>
+                        </div>
+                        <div
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                            <label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">
+                                {label.AOB_ZA_GrossAnualTurnover}</label>
+                            <lightning-input class="validate" placeholder="R" name="businessTurnover" type="number"
+                                formatter="currency" min="100" step="0.01" variant="label-hidden"
+                                message-when-value-missing="Please complete this field" data-name="businessTurnover"
+                                required onchange={genericFieldChange}>
+                            </lightning-input>
+                        </div>
+                    </template>
+                    <template if:true={showRegistration}>
+                        <div
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                            <label
+                                class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.AOB_ZA_RegistrationNumber}</label>
+                            <lightning-input class="validate" placeholder="Enter your business name"
+                                name="businessRegistrationNumber" type="text" variant="label-hidden"
+                                pattern="^(\d{12}|(\d{4}/\d{2}){2})$"
+                                message-when-value-missing="Please complete this field" maxlength="14"
+                                onkeyup={addSlashForNumber} data-name="businessRegistrationNumber" required
+                                onchange={genericFieldChange}>
+                            </lightning-input>
+                        </div>
+                        <div
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                        </div>
+                    </template>
+                    <template if:true={showBusinessBlock}>
+                        <div
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                            <label
+                                class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.AOB_ZA_Province}</label>
+                            <c-aob_comp_acpicklist sapfield="province" name="businessProvince"
+                                placeholder="Please select" onblur={genericComponentChangeBlur}
+                                onchange={genericComponentChange} data-name="businessProvince" required="true"
+                                data-value={selectedPicklistValue}>
+                            </c-aob_comp_acpicklist>
+                        </div>
+                        <div if:true={showCity}
+                            class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                            <label
+                                class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.AOB_ZA_City}</label>
+                            <c-aob_comp_acpicklist name="businessCity" placeholder="Please select"
+                                onblur={genericComponentChangeBlur} required="true" onchange={genericComponentChange}
+                                data-name="businessCity" data-value={selectedPicklistValue}>
+                            </c-aob_comp_acpicklist>
+                        </div>
+                    </template>
+                </div>
+
+                <c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
+                <div class="slds-grid slds-gutters_large slds-wrap">
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                        <c-aob_comp_data-privacy product-name={productShortName}></c-aob_comp_data-privacy>
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-gutters_large slds-wrap">
+                    <div
+                        class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                        <div class="slds-grid aob_form_row aob_grid_sm">
+                            <div>
+                                <lightning-input class="consent" type="checkbox" data-name="consent" data-id="checkbox"
+                                    required="true" onchange={genericCheckboxChange}></lightning-input>
+                            </div>
+                            <label class="aob_screen-section-paragraph " for="consent" style="display: inline">
+                                <lightning-formatted-rich-text value={label.AOB_ZA_PA_Consent} onclick={privacyclick}
+                                    data-id={adobePageTag.dataId} data-intent={adobePageTag.privacyintent}
+                                    data-scope={adobePageTag.privacyscope} data-text={adobePageTag.privacylinkclick}>
+                                </lightning-formatted-rich-text>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="aob_display-flex  aob_mobile_1_of_1 slds-size_1-of-1  slds-m-vertical_small aob_navigation_buttons button_reverse">
+                    <lightning-button
+                        class="slds-size_1-of-2 margin_horizontal_auto aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                        data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                        data-scope={adobePageTag.dataScope} data-text={adobePageTag.cancelButtonText} variant="neutral"
+                        label="Cancel" title="Cancel" onclick={backToHome}></lightning-button>
+
+                    <lightning-button class="slds-size_1-of-2 margin_horizontal_auto aob_mobile_1_of_1 slds-m-vertical_xx-small
+						aob_text_align_center slds-p-horizontal_small" data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                        data-text={adobePageTag.continueButtonText} variant="brand" label="continue" title="Continue"
+                        onclick={continueToNextPage}>
+                    </lightning-button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <c-aob_comp_error technical={technicalerror} product-name={productShortName} oncancel={closemodal}
+        onretry={retryInitiateAPI} application-id={applicationId}></c-aob_comp_error>
+    <c-Pbp_comp_-application-cant-completed if:true={errorCIPC} onretryedit={editApplication}>
+    </c-Pbp_comp_-application-cant-completed>
+</template>

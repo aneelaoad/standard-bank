@@ -1,0 +1,227 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<template>
+    <div style="display: none;">
+        {recordId}
+    </div>
+    <template if:true={blnSpinner}>
+        <lightning-spinner variant="brand" size="medium"> </lightning-spinner>
+    </template>
+
+    <div class="main">
+        <template if:true={blnStep1}>
+            <div class="header">
+                <lightning-icon icon-name="standard:drafts" alternative-text="Draft" title="Draft" class="my-icon">
+                </lightning-icon>
+                <b> Step 1: Add Funds To Onboard</b>
+            </div>
+            <table aria-multiselectable="true" class="slds-table slds-table_bordered slds-table_fixed-layout"
+                role="grid">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th aria-label="Managed Fund Number" aria-sort="none" class="slds-cell_action-mode" scope="col">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Managed Fund Number">Managed Fund ID</span>
+                            </div>
+                        </th>
+
+                        <th aria-label="Fund Registration Number" aria-sort="none" class="slds-cell_action-mode"
+                            scope="col">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Fund Registration Number">Fund Registration
+                                    Number</span>
+                            </div>
+                        </th>
+
+                        <th aria-label="Registration Name" aria-sort="none" class="slds-cell_action-mode" scope="col">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Registered Fund Name">Registered Fund Name</span>
+                            </div>
+                        </th>
+
+                        <th aria-label="Fund Type" aria-sort="none" class=" slds-cell_action-mode" scope="col">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Fund Type">Fund Type</span>
+                            </div>
+
+                        </th>
+                        <th aria-label="Fund CIF Number" aria-sort="none" class="slds-cell_action-mode" scope="col">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Fund CIF Number">Fund CIF Number</span>
+                            </div>
+                        </th>
+                        <th aria-label="Edit" aria-sort="none" class="slds-cell_action-mode" scope="col"
+                            style="width:6%">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Edit">Edit</span>
+                            </div>
+                        </th>
+                        <th aria-label="Attach" aria-sort="none" class="slds-cell_action-mode" scope="col"
+                            style="width:6%">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Attach">Attach</span>
+                            </div>
+                        </th>
+                        <th aria-label="Delete" aria-sort="none" class="slds-cell_action-mode" scope="col"
+                            style="width:6%">
+                            <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                <span class="slds-truncate" title="Delete">Delete</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template if:true={list_ManagedFundRecord}>
+                        <template for:each={list_ManagedFundRecord} for:item="item" for:index="index">
+                            <tr aria-selected="false" class="slds-hint-parent" key={item.id}>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title={item.Name}>
+                                        <a href="#" data-index={index} onclick={handleRedirect}
+                                            name="Id">{item.Name}</a>
+                                    </div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title={item.Registration_Number__c}>
+                                        {item.Fund__r.Registration_Number__c}
+                                    </div>
+                                </td>
+                                <th class="slds-cell_action-mode" scope="row">
+                                    <div class="slds-truncate" title={item.Fund__r.Name}>
+                                        <a href="#" data-index={index} onclick={handleRedirect}
+                                            name="Fund__c">{item.Fund__r.Name}</a>
+                                    </div>
+                                </th>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title={item.FundType__c}>{item.Fund__r.FundType__c}</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title={item.CIF__c}>{item.Fund__r.CIF__c}</div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Edit">
+                                        <lightning-button-icon icon-name="utility:edit" variant="bare"
+                                            alternative-text="Edit" title="Edit" onclick={handleEditRecord}
+                                            value={index} disabled={blnCancelledDisabled}></lightning-button-icon>
+                                    </div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Attach">
+                                        <lightning-button-icon icon-name="utility:attach" variant="bare"
+                                            alternative-text="Attach" title="Attach" value={index}
+                                            onclick={handleAttachment} disabled={blnCancelledDisabled}></lightning-button-icon>
+                                    </div>
+                                </td>
+                                <td class="slds-cell_action-mode" role="gridcell">
+                                    <div class="slds-truncate" title="Delete">
+                                        <lightning-button-icon icon-name="utility:delete" variant="bare"
+                                            alternative-text="Delete" title="Delete" onclick={handleDelete}
+                                            value={index} disabled={blnCancelledDisabled}></lightning-button-icon>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </template>
+                </tbody>
+            </table>
+
+
+            <!-- Footer-->
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="9"
+                    padding="around-small">
+
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="2"
+                    padding="around-small">
+                    <lightning-button variant="brand" label="Add Fund" title="Add Fund" onclick={handleAddFund}
+                        class="slds-float_right" disabled={blnAddFundDisabled}></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="1"
+                    padding="around-small">
+                    <lightning-button variant="Neutral" label="Next" title="Next" class="slds-float_right"
+                        onclick={handleNext} disabled={blnNextDisabled}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <!--Add New Record-->
+            <template if:true={blnAddManagedFund}>
+                <c-omf_add-managed-fund-record record-id={recordId} edit-record-id={strSelectedRecordId}
+                    action={strAction} onrecordcreated={handleAddRow}
+                    onclosemodal={handlenAddManagedFundClose}></c-omf_add-managed-fund-record>
+            </template>
+
+            <!--Attact the file-->
+            <template if:true={blnAttachDocument}>
+                <c-omf_upload-documents str-managed-fund-id={strSelectedRecordId}
+                    onclosemodal={handleAttachDocumentClose} bln-kyc-upload-document=false></c-omf_upload-documents>
+            </template>
+
+            <!--Delete Row-->
+            <template if:true={blnDeleteRow}>
+                <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+                    class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={handleCloseModal}>
+                                <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                    size="small" ></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                                <lightning-icon icon-name="utility:warning" alternative-text="Warning" title="Warning"
+                                    size="small" style="--sds-c-icon-color-foreground-default:#FFB75D !important">
+                                </lightning-icon>&nbsp;
+                                Warning: Delete Row
+                            </h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+                            <template if:true={blnModalSpinner}>
+                                <lightning-spinner variant="brand" size="medium"> </lightning-spinner>
+                            </template>
+                            Are you sure you want to delete the row entry for <b>{strSelectedRowName}?</b>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <div class="slds-clearfix">
+                                <div class="slds-float_right">
+                                    <button class="slds-button slds-button_brand" onclick={handleDeleteConfirm}
+                                        type="submit">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </template>
+        </template>
+
+        <!--Required Upload Document Screen-->
+        <template if:true={blnStep2}>
+            <div class="header">
+                <lightning-icon icon-name="standard:document" alternative-text="Document" title="Document"
+                    class="my-icon">
+                </lightning-icon>
+                <b> Step 2: Upload Required Documents</b>
+            </div>
+            <c-omf_upload-documents list-managed-fund-id={list_ManagedFundRecordId}
+                ondisablesubmitbutton={handleDisableSubmitButton} bln-kyc-upload-document=true></c-omf_upload-documents>
+            <br />
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="8"
+                    padding="around-small">
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto" padding="around-small">
+                    <lightning-button variant="neutral" label="Previous" title="Previous" onclick={handlePrevious}
+                        class="slds-float_right"></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto" padding="around-small"
+                    class="slds-col slds-align_absolute-center">
+                    <lightning-button variant="brand" label="Submit For Onboarding" title="Submit For Onboarding"
+                        class="slds-float_right" onclick={handleSubmitForOnboarding}
+                        disabled={blnDisableSubmitButton}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+
+        </template>
+    </div>
+</template>

@@ -1,0 +1,94 @@
+<!--
+  @description       : This is used for Annexure A Declaration screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 11-01-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Annexure A: Declaration</h2>
+    </div>
+
+    <br />
+    <div class="aob_card-container">
+      <div class="aob_title-sm">Declaration</div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12">
+          <label class="slds-form-element__label" for="form-element-01">
+            <p>
+              We undertake to inform Standard Bank(Mauritius) Limited in writing
+              of any change in the Annexure A sections in the future. We
+              understand that it is a criminal offence to delibeartely or
+              intentionally provide false information on this form
+            </p>
+          </label>
+        </div>
+      </div>
+
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required"> </abbr>Full
+              Name</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                placeholder="Please enter Text"
+                type="text"
+                id="form-element-02"
+                data-fieldname="CIB_AA_D_FullName__c"
+                value={applicationRecord.CIB_AA_D_FullName__c}
+                data-type="application"
+                name="CIB_AA_D_FullName__c"
+                aria-describedby="form-error-02"
+                required="true"
+                message-when-pattern-mismatch="Only Character are allowed"
+                pattern="[a-zA-Z\s]+"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required"> </abbr>Passport/ID
+              number</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                placeholder="Please enter Number"
+                type="text"
+                id="form-element-03"
+                data-fieldname="CIB_AA_D_IdNumber__c"
+                value={applicationRecord.CIB_AA_D_IdNumber__c}
+                data-type="application"
+                name="CIB_AA_D_IdNumber__c"
+                required="true"
+                aria-describedby="form-error-02"
+                message-when-pattern-mismatch="Only numbers are allowed"
+                pattern="[a-zA-Z0-9]+"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

@@ -1,0 +1,222 @@
+<!--
+  @description       : This is used for Annexure B:Controlling Person screen 
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 11-01-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Annexure B: Controlling person</h2>
+    </div>
+    <article class="slds-card aob_todo-card">
+      <div class="aob_info-text mt_40">
+        <img src={helpIcon} alt="check" />
+        <p>
+          If you have confirmed in sections above that the Entity is a Passive
+          Non-Financial Foreign Entity or a Passive Non-Financial Entity, then
+          please complete a copy of the following section on Controlling Person.
+        </p>
+      </div>
+    </article>
+    <div class="aob_card-container mt_40">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span>Controlling person
+        information
+      </div>
+      <div class="aob_info-text mt_40">
+        <img src={helpIcon} alt="check" />
+        <p>
+          For any Entities that are Passive NFEs or Passive NFFEs you must
+          complete this section. The following sections can be completed by
+          either the Entity or the Controlling Person
+        </p>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required">* </abbr>Full
+              name</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                id="form-element-04"
+                placeholder="Please enter the name"
+                required
+                aria-describedby="form-error-04"
+                data-fieldname="CIB_AB_CP_FullName__c"
+                data-type="application"
+                name="CIB_AB_CP_FullName__c"
+                variant="label-hidden"
+                value={applicationRecord.CIB_AB_CP_FullName__c}
+                pattern="^[A-Za-z]+(?: [A-Za-z]+)*$"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label" for="date-input-id-default">
+              <abbr class="slds-required" title="required">* </abbr>Date of
+              birth</label
+            >
+            <c-cmn_comp_date-picker
+              message-when-value-missing="Please enter this field"
+              data-fieldname="CIB_AB_CP_DateOfBirth__c"
+              data-type="application"
+              required
+              value={applicationRecord.CIB_AB_CP_DateOfBirth__c}
+            >
+            </c-cmn_comp_date-picker>
+            <div
+              lwc:if={noValueIncorporation}
+              class="slds-form-element__help"
+              style="margin-bottom: -20px"
+            >
+              Please enter this field
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required">* </abbr>Country of
+              birth
+            </label>
+            <c-cmn_comp_acpicklist
+              data-fieldname="CIB_AB_CP_CountryOfBirth__c"
+              data-type="application"
+              s-object-name="Application__c"
+              name="CIB_AB_CP_CountryOfBirth__c"
+              s-object-field-name="CIB_AB_CP_CountryOfBirth__c"
+              value={applicationRecord.CIB_AB_CP_CountryOfBirth__c}
+              placeholder="Please select Birth Country"
+              is-country-picklist
+              required
+            >
+            </c-cmn_comp_acpicklist>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required">* </abbr>Residential
+              address</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                type="text"
+                id="form-element-06"
+                data-fieldname="CIB_AB_CP_ResidentialAddress__c"
+                data-type="application"
+                placeholder="Please enter the address"
+                value={applicationRecord.CIB_AB_CP_ResidentialAddress__c}
+                aria-describedby="form-error-06"
+                aria-invalid="true"
+                required
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span>Declaration of Tax
+        Residence
+      </div>
+      <div class="aob_info-text mt_40">
+        <img src={helpIcon} alt="check" />
+        <p>
+          I/We certify that the Controlling Person is resident for tax purposes
+          in the jurisdictions detailed in the boxes below
+        </p>
+      </div>
+      <div class="aob_col-gutter">
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr>*</abbr>All jurisdictions in which the Controlling Person
+                has a tax residence. If they are citizen of the USA also state
+                ‘USA’
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  type="text"
+                  id="form-element-07"
+                  value={applicationRecord.CIB_AB_CP_TaxJuristiction__c}
+                  placeholder="Please enter the value"
+                  required
+                  data-fieldname="CIB_AB_CP_TaxJuristiction__c"
+                  data-type="application"
+                  aria-describedby="form-error-04"
+                  aria-invalid="true"
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr>*</abbr>Tax Identification number for the jurisdiction of
+                tax residence, (unless it does not supply one, if so please
+                state N/A)</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  type="text"
+                  id="form-element-08"
+                  placeholder="Please enter the value"
+                  required
+                  aria-describedby="form-error-06"
+                  data-fieldname="CIB_AB_CP_TaxNumber__c"
+                  data-type="application"
+                  value={applicationRecord.CIB_AB_CP_TaxNumber__c}
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <lightning-radio-group
+        name="CIB_AB_CP_ControllingPersonType__c"
+        class="full-width"
+        label="Type of controlling person"
+        options={options}
+        type="radio"
+        value={applicationRecord.CIB_AB_CP_ControllingPersonType__c}
+        data-fieldname="CIB_AB_CP_ControllingPersonType__c"
+        data-type="application"
+        required
+      ></lightning-radio-group>
+    </div>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

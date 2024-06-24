@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="icon" label="Icon" type="String" default="/icon-opportunity.png"/>
+            <property name="backgroundImg" label="Background Image" type="String" default="/sidbarbg.png"/>
+            <property name="headingOne" label="Heading 1" type="String" default="Opportunities"/>
+            <property name="headingTwo" label="Heading 2" type="String" default="Opportunities"/>
+            <property name="textOne" label="Text 1" type="String" default="Together "/>
+            <property name="textTwo" label="Text 2" type="String" default="We Create"/>
+            <property name="textThree" label="Text 3" type="String" default="Success"/>
+            <property name="textFour" label="Text 4" type="String" default=""/>
+       
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

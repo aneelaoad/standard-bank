@@ -1,0 +1,94 @@
+@import "c/ppCssLibrary";
+
+.main-container {
+    margin-top: 52px;
+    font-family: system-ui;
+    margin-bottom: 24px;
+}
+
+.lline {
+    background: #e2e5ea;
+    height: 1px;
+}
+
+.container {
+    width: 460px;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 12px 20px #83a3ed41;
+    border-radius: 4px;
+    opacity: 1;
+    padding: 24px 0px 32px 0px;
+    margin-bottom: 167px;
+}
+
+.text {
+    line-height: 1.54;
+    color: #6a7286;
+    font-size: 13px;
+}
+
+.next-btn {
+    text-align: center;
+    min-width: 396px;
+    height: 40px;
+    padding: 16px 1px 14px;
+    border-radius: 2px;
+    background-color: #0089ff !important;
+    color: #ffffff !important;
+    border-color: #0089ff;
+}
+
+.btn {
+    text-align: center;
+    width: 187px;
+    height: 40px;
+    padding: 16px 1px 14px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    color: #0089ff;
+    border-color: #0089ff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-next {
+    background-color: #0089ff !important;
+    color: #ffffff !important;
+}
+
+.btn-container {
+    padding-right: 32px;
+}
+
+.back-btn-container {
+    padding-left: 32px;
+}
+
+.sec-padding {
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+@media (max-width: 414px) {
+    .next-btn {
+        min-width: 291px;
+    }
+
+    .btn {
+        width: 140px;
+    }
+    .container {
+        width: 340px;
+    }
+    .sec-padding {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    .btn-container {
+        padding-right: 24px;
+    }
+
+    .back-btn-container {
+        padding-left: 24px;
+    }
+}

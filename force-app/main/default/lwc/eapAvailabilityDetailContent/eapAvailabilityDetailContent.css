@@ -1,0 +1,98 @@
+@import 'c/eapCssLibrary';
+
+.relleno{
+    min-height: 18vh;
+    background-color:  var(--background-grey);
+    box-shadow: inset 0 5px 5px -6px #888;
+}
+
+.v1_card_first{
+    padding: 1em;
+    background-color:  white;
+}
+
+img.v1_img_addButton {
+    width: 45px;
+}
+
+img.v1_img_header{
+    min-width: 100%;
+    height: 15em;
+    object-fit: cover;
+}
+
+.v1_div_info {
+    display: flex;
+    font-size: 14px;
+}
+
+.v1_p_date {
+    color: var(--main-light-blue);
+    font-weight: bold;
+    margin-left: auto;
+}
+
+.v1_div_instructions {
+    color: var(--main-dark-blue);
+    padding: 2em 0 1em;
+}
+
+.v1_p_warning {
+    color: red;
+    padding-top: 1em;
+}
+
+.v1_div_buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.v1_div_picklistContainer {
+    display: flex;
+}
+
+.v1_layout_icon {
+    display: flex;
+    justify-content: center;
+}
+
+.v1_img_icon {
+    height: 2em;
+    padding: 0 2px;
+    cursor: pointer;
+}
+
+select[name="Corporates"] {
+    margin-bottom: 0;
+}
+
+.v1_layout_corporates {
+    margin-bottom: 20px;
+}
+
+/*
+.v1_div_corporatesContainer {
+    display: flex;
+    align-items: baseline;
+}
+
+select[multiple]{ 
+    height: auto;
+    min-height: 2.5em;
+}
+*/
+
+.v1_div_corporates {
+    min-height: 30vh;
+    padding: 1.5em 1em 5em;
+}
+
+.elem {
+    margin: .5em 0;
+}
+
+.v1_span_number {
+    font-weight: 300;
+    font-size: 1.2rem;
+}

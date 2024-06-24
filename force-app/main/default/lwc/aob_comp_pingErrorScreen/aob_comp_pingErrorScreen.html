@@ -1,0 +1,22 @@
+<template>
+    <c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div class="aob_form">
+        <div slot="content" class="aob_text_align_center">
+            <div slot="content" class="aob_text_align_center">
+                <label class="aob_screen-title slds-align_absolute-center">{label.AOB_ZA_PingErrorTitle}</label>
+                <div class="slds-m-top_small slds-size_1-of-1">
+                    <label
+                        class="aob_screen-text-normal aob_text_align_center">{label.AOB_ZA_PingErrorDescription}</label>
+                </div>
+                <div class="slds-m-top_small slds-size_1-of-1">
+                </div>
+            </div>
+        </div>
+        <c-aob_comp_spinner lwc:if={isLoaded}></c-aob_comp_spinner>
+        <div slot="footer" class="aob_modal_buttons_container">
+            <lightning-button class="aob_modal_button" variant="brand" label={label.AOB_ZA_BackToLogin}
+                onclick={handleBackToBrowsing}>
+            </lightning-button>
+        </div>
+    </div>
+</template>

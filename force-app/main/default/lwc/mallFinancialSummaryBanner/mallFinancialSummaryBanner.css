@@ -1,0 +1,24 @@
+.overviewFr { width: 100%; background-color: #0033AA; border-radius: 16px;overflow: hidden;}
+
+.overviewFr_info { width: 100%; display: flex;}
+
+.overviewFr_info_avatar { width: 180px;}
+.overviewFr_info_avatar span { width: 180px; display: block;}
+.overviewFr_info_avatar span img { width: 180px; display: block;}
+
+.overviewFr_info_avatarText { width: calc(100% - 190px); padding: 18px 18px 16px 26px; position: relative;}
+
+.overviewFr_info_avatarText strong { font-size: 24px; font-weight: bold; color: #fff; line-height: 30px;
+    padding-bottom: 12px;    max-width: 300px;
+    display: block;}
+
+.overviewFr_info_avatarText p { font-size: 17px; color: #fff;     padding-bottom: 23px;
+    padding-right: 60px; }
+
+.findBtn { width: 100%; display: flex; justify-content: flex-end;}
+
+.findBtn button { display: block; background-color: #0062E1; padding: 10px 12px; border: 0px; font-size: 14px; text-transform: uppercase; color: #fff; border-radius: 8px; }
+
+.badge_icn {    display: block;  position: absolute; width: 20px; left: -10px; top: 50%;  margin-top: -12px; }
+
+.badge_icn img { display: block; width: 100%;}

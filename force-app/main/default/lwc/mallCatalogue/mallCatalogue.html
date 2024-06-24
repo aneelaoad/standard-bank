@@ -1,0 +1,52 @@
+<template>
+  <div class="category-filter-container">
+    <c-mall-category-filter
+      selected-categories={selectedCategories}
+      update-selected-categories={updateSelectedCategories}
+      onfilter={handleFilter}
+    ></c-mall-category-filter>
+
+    <div class="active-categories">
+      <template for:each={selectedCategories} for:item="category">
+        <div key={category.id} class="category-pill">
+          {category.name}
+          <span
+            onclick={clearCategory}
+            data-category-id={category.id}
+            class="close"
+          ></span>
+        </div>
+      </template>
+    </div>
+  </div>
+  <div class="solution-catalogue-wrapper">
+    <div>
+      <template for:each={solutionCollection} for:item="solutionResponse">
+        <div
+          class="section-catalogue-container"
+          key={solutionResponse.category.title}
+        >
+          <div class="solution-catalogue-container">
+            <h2 class="category-heading">{solutionResponse.category.name}</h2>
+            <div class="solution-list">
+              <template
+                for:each={solutionResponse.solutions}
+                for:item="solutionItem"
+              >
+                <div
+                  class="solution-item"
+                  key={solutionItem.name}
+                  onclick={handleSolutionsClick}
+                  data-solutionid={solutionItem.id}
+                >
+                  <c-mall-offering-item item={solutionItem}>
+                  </c-mall-offering-item>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</template>

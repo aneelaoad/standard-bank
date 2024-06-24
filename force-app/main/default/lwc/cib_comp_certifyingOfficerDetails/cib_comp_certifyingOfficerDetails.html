@@ -1,0 +1,192 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Certifying Officer Details</h2>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-grid slds-wrap aob_col-gutter">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-radio-group
+            required
+            data-fieldname="CIB_IsCertOfficialRelatedParty__c"
+            name="CIB_IsCertOfficialRelatedParty__c"
+            label="Is the certifying officer a related party?"
+            options={options}
+            onchange={onchange}
+            value={CIB_IsCertOfficialRelatedParty__c}
+          ></lightning-radio-group>
+        </div>
+      </div>
+    </div>
+
+    <template lwc:if={applicationRecord.CIB_IsCertOfficialRelatedParty__c}>
+      <div class="aob_card-container">
+        <div class="slds-grid slds-wrap aob_col-gutter">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <lightning-combobox
+              data-type="application"
+              name="CIB_RelatedCertOfficer__c"
+              data-fieldname="CIB_RelatedCertOfficer__c"
+              label="Related Certifying Officer"
+              value={applicationRecord.CIB_RelatedCertOfficer__c}
+              options={allParticipants}
+              required
+            ></lightning-combobox>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <div class="aob_card-container">
+      <div
+        lwc:if={applicationRecord.CIB_IsCertOfficialRelatedParty__c}
+        class="aob_title-sm"
+      >
+        Alternative Certifying Officer
+      </div>
+      <div lwc:else class="aob_title-sm">Certifying Officer</div>
+      <div class="slds-grid slds-wrap aob_col-gutter">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required">* </span>Officer Name
+            </div>
+            <div class="slds-form-element__control mb_8">
+              <lightning-input
+                type="text"
+                id="CIB_CertOfficerName__c"
+                required
+                data-type="application"
+                data-name="CIB_CertOfficerName__c"
+                name="CIB_CertOfficerName__c"
+                data-fieldname="CIB_CertOfficerName__c"
+                value={applicationRecord.CIB_CertOfficerName__c}
+                pattern="[a-zA-Z0-9\s\(\)\.]+"
+                aria-describedby="form-error-01"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required">* </span> Officer
+              Position/Capacity
+            </div>
+            <div class="slds-form-element__control mb_8">
+              <lightning-input
+                type="text"
+                data-type="application"
+                id="CIB_CertOfficerPosition__c"
+                required
+                data-name="CIB_CertOfficerPosition__c"
+                name="CIB_CertOfficerPosition__c"
+                value={applicationRecord.CIB_CertOfficerPosition__c}
+                data-fieldname="CIB_CertOfficerPosition__c"
+                pattern="[a-zA-Z0-9\s\(\)\.]+"
+                aria-describedby="form-error-01"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required">* </span> Officer
+              Address
+            </div>
+            <div class="slds-form-element__control mb_8">
+              <lightning-input
+                type="text"
+                required
+                data-type="application"
+                id="CIB_CertOfficerAddress__c"
+                data-name="CIB_CertOfficerAddress__c"
+                name="CIB_CertOfficerAddress__c"
+                value={applicationRecord.CIB_CertOfficerAddress__c}
+                data-fieldname="CIB_CertOfficerAddress__c"
+                aria-describedby="form-error-01"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required">* </span> Officer
+              Telephone Number
+            </div>
+            <div class="slds-form-element__control mb_8">
+              <lightning-input
+                type="text"
+                id="CIB_CertOfficerTelephone__c"
+                data-type="application"
+                required
+                data-name="CIB_CertOfficerTelephone__c"
+                name="CIB_CertOfficerTelephone__c"
+                data-fieldname="CIB_CertOfficerTelephone__c"
+                value={applicationRecord.CIB_CertOfficerTelephone__c}
+                aria-describedby="form-error-01"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required">* </span> Officer
+              Email Address
+            </div>
+            <div class="slds-form-element__control mb_8">
+              <lightning-input
+                type="text"
+                data-type="application"
+                id="CIB_CertOfficerEmail__c"
+                required
+                data-name="CIB_CertOfficerEmail__c"
+                name="CIB_CertOfficerEmail__c"
+                data-fieldname="CIB_CertOfficerEmail__c"
+                value={applicationRecord.CIB_CertOfficerEmail__c}
+                pattern="[a-z0-9]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                aria-describedby="form-error-01"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

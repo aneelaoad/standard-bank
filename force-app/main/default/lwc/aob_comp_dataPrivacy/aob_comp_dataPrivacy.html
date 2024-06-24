@@ -1,0 +1,37 @@
+<!--
+  @description       : 
+  @author            : devi.ravuri@salesforce.com
+  @group             : 
+  @last modified on  : 19 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<label style="color: #858d9d;font-size: 19px;">Data Privacy</label>
+	<p style="font-size: 13px;" class="textSpace">
+		<lightning-formatted-rich-text value={label.AOB_ZA_PleasebeAdvisedThat}>
+		</lightning-formatted-rich-text>
+		<span class="dots">...</span>
+		<span class="moreText">
+			<a href={standardbankGroupLink} target="_blank" class="textLeftSpace"
+				style="text-decoration:underline;color:#0389ff;" onclick={standardbankclick}
+				data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+				data-text={adobePageTag.standardbanklinkclick}>us</a>
+			<span class="textSpace">{label.AOB_ZA_WillProcessYourPersonal}</span>
+			<span class="testCls">
+				<lightning-formatted-rich-text value={label.AOB_ZA_ThisIncludesAllSubsidiaries}>
+				</lightning-formatted-rich-text>
+			</span>
+			<br>
+			{label.AOB_ZA_OurPrivacyStatementINformsYou}
+			<a class="textclass textSpace" href={standardbankPrivacyLink} target="_blank" onclick={standardbankclick}
+				data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+				data-text={adobePageTag.standardbankurlclick}> {label.AOB_ZA_SBURL}</a>
+			{label.AOB_ZA_ANDUponRequestFromOurBranch}{label.AOB_ZA_ANDUponRequestFromOurBranch2} {label.AOB_ZA_ANDUponRequestFromOurBranch3}
+		</span><button type="button" class="moreLess" onclick={showMoreText} data-id={adobePageTag.dataId}
+			data-intent={adobePageTag.seemoreintent} data-scope={adobePageTag.dataScope}
+			data-text={adobePageTag.seemorelinkclick}>{label.AOB_ZA_SeeMore}</button>
+	</p>
+	<hr>
+</template>

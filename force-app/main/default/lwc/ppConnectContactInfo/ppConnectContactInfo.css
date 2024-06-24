@@ -1,0 +1,88 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    background-color: #ffffff;
+    padding: 24px 24px 0px 24px;
+}
+
+.contact-Information {
+    padding: 30px;
+    border-radius: 3px;
+    background-color: #F4F6FB;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.contact-us-email {
+    margin: 0px 0px 8px 8px;
+    font-weight: normal;
+    color: #6a7286;
+}
+
+.con-us-details-container {
+    width: fit-content;
+}
+
+.contact-us-phone {
+    margin: 0px 0px 0px 8px;
+    font-weight: normal;
+    color: #6a7286;
+}
+
+.heading{
+ margin-bottom: 32px;
+}
+
+.con-us-icon {
+    width: 16px;
+    height: 16px;
+    margin: 0px 0px 8px 0;
+    object-fit: contain;
+}
+
+.name {
+    margin-bottom: 4px;
+    font-weight: bold;
+    text-align: left;
+    color: #1c263c;
+}
+
+.line {
+    height: 1px;
+    opacity: 0.3;
+    background-color: #bdc4d2;
+    margin-top: 31.5px;
+}
+
+
+@media(max-width: 1024px) {
+
+    .contact-info-container {
+        padding-bottom: 20px;
+    }
+
+}
+
+@media(max-width: 414px) {
+    .contact-info-container {
+        padding-bottom: 20px;
+    }
+
+    .contact-Information {
+        margin: 0px;
+        padding: 20px;
+    }
+
+    .contact-us-email {
+        margin: 0px 0px 8px 8px;
+    }
+
+    .contact-us-phone {
+        margin: 0px 0px 0px 8px;
+    }
+}

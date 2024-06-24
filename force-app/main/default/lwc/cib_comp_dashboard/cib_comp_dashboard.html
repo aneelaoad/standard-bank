@@ -1,0 +1,132 @@
+<!--
+/***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 12-04-2024
+@ Name of the Class : Cib_comp_dashboard
+@ Description       : This class is used to manage the dashboard of the application.
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 12-04-2024
+@ Modification Description : SFP-36750
+***************************************************************************************/
+-->
+<template>
+  <div class="aob_container-two">
+    <article class="aob_page-titles slds-p-top_medium">
+      <h2>My Onboarding Applications</h2>
+      <p class="aob_page-title-caption">
+        Please continue any account onboarding application
+      </p>
+    </article>
+
+    <div
+      class="aob_table-container slds-scrollable_y"
+      style="max-height: 18rem"
+    >
+      <table
+        class="slds-table slds-table_cell-buffer slds-no-row-hover aob_table-type-one slds-table_fixed-layout slds-table_resizable-cols"
+      >
+      <caption class="slds-assistive-text">My Onboarding Applications</caption>
+        <thead>
+          <tr class="slds-line-height_reset">
+            <th class="" scope="col">
+              <div class="slds-truncates slds-truncate" title="Account Name">Client Name</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncates slds-truncate" title="Application Number">
+                Application Number
+              </div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncates slds-truncate" title="Application status">
+                Application status
+              </div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncates slds-truncate" title="Last Edited">Modified</div>
+            </th>
+            <th class="" scope="col">
+              <div class="slds-truncates" title="Stage">
+                Started
+              </div>
+            </th>
+            <th class="" scope="col" style="width: 8.75rem">
+              <div class="slds-truncates slds-truncate" title="Stage">Notifications</div>
+            </th>
+            <th class="" scope="col" style="width: 10.625rem">
+              <div class="slds-truncates slds-truncate" title="Stage"></div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <template lwc:if={isLoading}>
+            <tr style="position: relative">
+              <td colspan="6" class="slds-text-align_center">
+                <lightning-spinner
+                  size="small"
+                  alternative-text="Loading"
+                ></lightning-spinner>
+              </td>
+            </tr>
+          </template>
+          <template lwc:elseif={hasRecords}>
+            <template
+              lwc:if={processedData}
+              for:each={processedData}
+              for:item="record"
+            >
+              <tr class="slds-hint-parent" key={record.id}>
+                <td>
+                  <div class="slds-truncate" title="">
+                    {record.Client__r.Name}
+                  </div>
+                </td>
+                <td>
+                  <div class="slds-truncate" title="">{record.Name}</div>
+                </td>
+                <td>
+                  <div class="slds-truncate" title="">
+                    {record.applicationStatus}
+                  </div>
+                </td>
+                <td>
+                  <div class="slds-truncate" title="">
+                    {record.lastModifiedDifference}
+                  </div>
+                </td>
+                <td>
+                  <div class="slds-truncate" title="">
+                    {record.createdDateDifference}
+                  </div>
+                </td>
+                <td style="width: 8.75rem">
+                  <div class="slds-truncate" title="">
+                    {record.notification}
+                  </div>
+                </td>
+                <td style="width: 10.625rem; text-align: center">
+                  <div class="slds-truncate">
+                    <button class="btn-action slds-m-right_small">
+                      <img
+                        src={chevronRightIcon}
+                        alt="arrow"
+                        data-id={record.Id}
+                        onclick={navigateToPage}
+                      />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </template>
+          </template>
+          <template lwc:elseif={isEmpty}>
+            <tr>
+              <td colspan="7" class="slds-text-align_center">
+                <b>No Records Found</b>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</template>

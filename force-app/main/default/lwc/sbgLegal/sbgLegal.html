@@ -1,0 +1,19 @@
+<template>
+    <lightning-tabset active-tab-value={selectedTab.value} 
+                        data-intent="transactional" 
+                        data-scope="legal" 
+                        data-id="link_content" 
+                        data-type="click" 
+                        data-text={selectedTab.tabName}>
+        <template for:each={tabs} for:item="tab">
+            <lightning-tab label={tab.tabName} 
+                            value={tab.value} 
+                            key={tab.tabName} 
+                            onactive={handleActiveTabChange}>
+            </lightning-tab>
+        </template>
+    </lightning-tabset>
+    <div class="terms-wrapper">
+        <lightning-formatted-rich-text value={body}></lightning-formatted-rich-text>
+    </div>
+</template>

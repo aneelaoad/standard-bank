@@ -1,0 +1,88 @@
+.footer-tab-name {
+  font-weight: 500;
+  font-size: var(--font-size-body-s, 0.875rem);
+  color: var(--color-white, #fff);
+}
+
+.fraud-report-contact {
+  color: var(--color-white, #fff);
+  margin-bottom: 0.9375rem;
+  font-weight: 500;
+  font-size: var(--font-size-body-s, 0.875rem);
+  margin-top: 1rem;
+}
+
+.fraud-contact-number {
+  font-weight: 400;
+  line-height: 1.25rem;
+  font-size: var(--font-size-body-s, 0.875rem);
+}
+
+.fraud-email {
+  color: var(--color-white, #fff);
+  display: flex;
+  flex-direction: column;
+}
+
+.fraud-email-title {
+  font-weight: 500;
+  font-size: var(--font-size-body-s, 0.875rem);
+}
+
+.fraud-email-link a {
+  color: var(--color-white, #fff);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: var(--font-size-body-m, 1rem);
+  line-height: 1.25rem;
+}
+
+.fraud-wrapper {
+  margin-bottom: 4.625rem;
+}
+
+.fraud-contact-number.desktop {
+  display: none;
+}
+
+.fraud-contact-number.mobile {
+  display: block;
+  color: var(--color-white, #fff);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: var(--font-size-body-m, 1rem);
+}
+
+@media all and (min-width: 769px) {
+  .fraud-wrapper {
+    margin-bottom: 0;
+  }
+
+  .footer-tab-name {
+    font-size: var(--font-size-heading-s, 1.125rem);
+  }
+
+  .fraud-email-link a {
+    font-size: var(--font-size-body-m, 1rem);
+  }
+
+  .fraud-contact-number {
+    font-size: var(--font-size-body-m, 1rem);
+  }
+
+  .fraud-contact-number.mobile {
+    display: none;
+  }
+
+  .fraud-contact-number.desktop {
+    display: block;
+  }
+
+  .fraud-report-contact {
+    font-size: var(--font-size-body-s, 0.875rem);
+  }
+
+  .fraud-email-title {
+    font-size: var(--font-size-body-s, 0.875rem);
+  }
+}

@@ -1,0 +1,38 @@
+.imgwidth {
+  width: 83.33px;
+}
+.displayingcenter {
+  display: grid;
+  place-items: center;
+}
+.content-css {
+  color: #5c6c80;
+  font-weight: 400;
+}
+.aob_info-text p span {
+  font-weight: 700;
+  color: #0033aa;
+}
+.aob_info-text {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24px;
+}
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin: 0 0 0 16px;
+}
+.displaycontent {
+  display: flex;
+  justify-content: space-between;
+}
+.imgwidthchat {
+  width: 24px;
+}
+.bluetext p {
+  color: #0033aa;
+}

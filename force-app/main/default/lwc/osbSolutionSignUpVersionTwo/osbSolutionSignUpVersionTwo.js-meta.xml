@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+<isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="solutionLogo"
+                type="String"
+                label="Solution Logo"
+                default=""
+            />
+            <property
+                name="solutionName"
+                type="String"
+                default="New Solution"
+                label="Solution Name"
+            />
+            <property
+                name="termsConditionsDoc"
+                type="String"
+                label="Terms and conditions doc name"
+            />
+            <property
+                name="useApiRequest"
+                type="Boolean"
+                default="false"
+                label="Send requests via API"
+            />
+            <property
+                name="isInternalSolution"
+                type="Boolean"
+                default="false"
+                label="Internal solution"
+            />
+            <property name="registrationUrl" type="String" label="API URL" />
+            <property
+                name="requiredFields"
+                type="String"
+                label="Required fields"
+                description="id, name, lastName, cellNumber, email, pingId, companyIndustry, companyName, 
+                            cifNumber, registrationNumber, identityNumber, contactCountry, contactCategory,communityAccessStatus, 
+                            communityAccessRole,title, operatingCountry, accountId "
+            />
+            <property
+                name="customFields"
+                type="String"
+                label="String of custom fields in json format"
+            />
+            <property
+                name="hasEmail"
+                type="Boolean"
+                default="true"
+                label="Show Email field"
+            />
+            <property
+                name="hasMobile"
+                type="Boolean"
+                default="true"
+                label="Show Mobile field"
+            />
+            <property
+                name="hasCompany"
+                type="Boolean"
+                default="true"
+                label="Show Company field"
+            />
+            <property
+                name="hasRegion"
+                type="Boolean"
+                default="true"
+                label="Show Region field"
+            />
+
+            <property
+                name="showOperatingCountry"
+                type="Boolean"
+                default="false"
+                label="Show Operating Country"
+            />
+            
+            <property
+                name="hasIdNumber"
+                type="Boolean"
+                default="true"
+                label="Show Id Number field"
+            />
+            <property
+                name="sendEmailCheck"
+                type="Boolean"
+                default="false"
+                label="Send an email"
+                description="Sends an email to the solution owner"
+            />
+            <property
+                name="backgroundColor"
+                type="String"
+                default=""
+                label="Background Colour"
+            />
+            <property
+                name="parentFont"
+                type="String"
+                default=""
+                label="Solution font"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

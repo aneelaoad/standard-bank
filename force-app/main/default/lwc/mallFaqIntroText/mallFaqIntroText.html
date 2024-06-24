@@ -1,0 +1,20 @@
+<template>
+    <template if:true={introHeadingOutput}>
+        <h2 class="faq-intro-heading">
+            {introHeadingOutput}
+        </h2>
+    </template>
+    
+    <template if:true={introTextOutput}>
+        <p class="faq-intro-text">
+            {introTextOutput}
+        </p>
+    </template>
+
+    <template if:true={supportingText}>
+        <p class="faq-supporting-text">
+            {supportingText}
+        </p>
+    </template>
+
+</template>

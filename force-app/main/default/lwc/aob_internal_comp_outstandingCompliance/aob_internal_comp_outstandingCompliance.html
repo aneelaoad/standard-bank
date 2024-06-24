@@ -1,0 +1,107 @@
+<!--
+  @description       : 
+  @author            : Sibonelo Ngcobo
+  @group             : 
+  @last modified on  : 09-13-2023
+  @last modified by  : Sibonelo Ngcobo
+  Modifications Log
+  Ver   Date         Author            Modification
+  1.0   08-10-2023   Sibonelo Ngcobo   Initial Version
+-->
+<template>
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_medium">
+        <div class="slds-modal__container">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+            </svg>
+            <span class="slds-assistive-text">Cancel and close</span>
+          </button>
+          <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-m-vertical_medium card-title">Please Complete Outstanding Compliance</h1>
+          </div>
+
+          <div class="slds-modal__content slds-p-around_medium modal-content" id="modal-content-id-1">
+
+         
+          <div class="slds-text-align_center slds-m-horizontal_xx-large slds-m-vertical_large">
+            <span class="slds-col">
+              <input type="radio" id="rp" name="authType" checked
+                  onchange={compRpHandler}>
+              <label class="aob_screen-section-paragraph slds-m-left_small">
+                  Related Parties</label>
+          </span>
+            <span class="slds-m-left_xx-large">
+                <input type="radio" id="oc" name="authType" 
+                    onchange={compRpHandler}>
+                <label class="aob_screen-section-paragraph slds-m-left_small">
+                    Outstanding Compliance</label>
+              </span>
+          </div>
+
+            <div if:true={showOutstandingComplianceTable} class="outCompContent">
+              
+              <template if:false={showCompliance}>
+                <div class="slds-m-top_medium">
+                  <div role="status" class="slds-spinner slds-spinner_medium">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                  </div>
+                </div>
+              </template>
+              <template if:true={showCompliance}>
+                <div  class="dataTable slds-m-vertical_xx-large">
+                    <lightning-datatable
+                        key-field="key"
+                        data={data}
+                        columns={columns}
+                        hide-checkbox-column="true"
+                    ></lightning-datatable>
+                </div>
+                <div  class="button-container">
+                  <button if:true={showCust1} class="slds-button slds-button_brand-outline slds-text-align_center slds-m-vertical_small" onclick={onCustomer1st}>Navigate to Customer 1st</button>
+                  <button if:true={showRefresh} class="slds-button slds-button_brand-outline slds-text-align_center slds-m-vertical_small" onclick={handleShowRefresh}>Refresh</button>
+                </div>
+              </template>
+            </div>
+
+            <div if:true={showRelatedPartiesTable} class="relPartContent">
+              <template if:false={showTabs}>
+                <div class="slds-m-top_medium">
+                  <div role="status" class="slds-spinner slds-spinner_medium">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                  </div>
+                </div>
+              </template>
+              <template if:true={showTabs}>
+                <lightning-tabset>
+                  <lightning-tab label="Authentication"> 
+                    <c-aob_internal_comp_authenticate application-id={applicationId}></c-aob_internal_comp_authenticate>
+                  </lightning-tab>
+                  <lightning-tab label="Related Party Details">
+                    <div class="dataTable slds-m-vertical_xx-large">
+                      <lightning-datatable
+                          key-field="key"
+                          data={rpData}
+                          columns={rpColumns}
+                          hide-checkbox-column="true"
+                      ></lightning-datatable>
+                    </div>
+                  </lightning-tab>
+                </lightning-tabset>
+              </template>
+            </div>
+            
+          </div>
+          <div  class="slds-modal__footer button-container">
+            <button class="slds-button slds-button_neutral slds-text-align_center slds-m-vertical_small slds-m-right_small" onclick={cancelModal}>Cancel</button>
+            <button class="slds-button slds-button_brand slds-text-align_center slds-m-vertical_small slds-m-right_small" onclick={nextScreens}>Continue</button>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+      <c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+</template>

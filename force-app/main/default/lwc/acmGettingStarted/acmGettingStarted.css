@@ -1,0 +1,66 @@
+.container {
+    background: #f2f2f2;
+    border-radius: 12px;
+    width: 100%;
+    padding: 50px 40px;
+    text-align: left;
+    margin-bottom: 50px;
+    margin-top: 3em;
+}
+
+.container h1 {
+    font-size: 1.8em;
+    margin-bottom: 0.3em;
+    font-weight: 900;
+    font-family: BentonSans;
+}
+
+.container p {
+    font-size: 1.4em;
+}
+
+.steps {
+    width: 100%;
+    margin-bottom: 3em;
+}
+
+.step {
+    width: 100%;
+    text-align: center;
+    margin: 2em 0em;
+}
+
+.step span img {
+    height: 30px;
+    width: 30px;
+    padding: 6px;
+    background-color: #001c5d;
+    border-radius: 4px;
+}
+
+.step h1 {
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: BentonSans;
+}
+
+@media only screen and (min-width: 970px) {
+    .steps {
+        display: flex;
+        justify-content: space-between;
+        height: auto;
+        flex-wrap: wrap;
+        margin-bottom: 4em;
+    }
+    
+    .step {
+        width: 45%;
+        text-align: left;
+    }
+
+    .container {
+        padding: 50px 40% 50px 40px;
+        margin-top: 4em;
+    }
+}

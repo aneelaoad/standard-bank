@@ -1,0 +1,659 @@
+.TeamInvitesMain {
+    width: 100% !important;
+    height: auto;
+}
+
+.TeamInvitesMainHolder {
+    padding: 35px 10% 139px 10%;
+    font-family: var(--FONT-FAMILY);
+}
+
+.InviteHolder {
+    padding-top: 40px;
+}
+
+.marketplace__navigation-items {
+    list-style: none;
+}
+
+.marketplace__navigation-items .marketplace__navigation-item-container {
+    display: inline;
+}
+
+.device {
+    width: 50%;
+    font-size: 18px;
+    font-family: var(--FONT-FAMILY);
+    margin-top: 20px;
+    margin-bottom: -40px;
+}
+
+ul li+li:not(:last-of-type)::after {
+    content: "\007C";
+    padding: 10px;
+}
+
+.marketplace__navigation-items .marketplace__navigation-item-container {
+    text-decoration: none;
+}
+
+.marketplace__navigation-items .marketplace__navigation-item-container:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    font-weight: 500;
+}
+
+.marketplace__navigation-items {
+    color: #0089FF;
+    font-family: var(--FONT-FAMILY);
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.InviteFormSection {
+    padding-top: 24px;
+}
+
+.newCase__form {
+    display: grid;
+    background-color: #FFFFFF;
+    box-shadow: 0 10px 15px 0 rgb(0 0 0 / 9%);
+    height: auto;
+    padding: 40px 48px 80px 48px;
+}
+
+.add_member {
+    display: grid;
+    grid-template-columns: 26% 26% 31% 1fr;
+    grid-template-rows: auto;
+    column-gap: 16px;
+    margin-bottom: 5px;
+}
+
+.slds-input {
+    box-sizing: border-box;
+    height: 48px;
+    border: 1px solid #CCCCCC;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+}
+
+.slds-form-element__help {
+    visibility: hidden;
+    color: red;
+}
+
+.test {
+    visibility: hidden;
+    color: red;
+}
+
+.emailFormatting {
+    color: #0089FF !important;
+}
+
+a {
+    color: #0089FF;
+}
+
+.rectangle {
+    height: 50px;
+    background-color: #001648;
+}
+
+.SectionHeading {
+    display: grid;
+    padding: 13px 0px 13px 11.47px;
+    height: auto;
+    width: 100% !important;
+    background-color: #001648;
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 25px;
+}
+
+.newCase__title {
+    padding-top: 32px;
+    font-size: 20px;
+    letter-spacing: 1.17px;
+    line-height: 24px;
+    color: #222222;
+    text-align: center;
+    font-weight: 500;
+}
+
+.newCase__subtitle {
+    padding-bottom: 32PX;
+    color: #666666;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: center;
+}
+
+.align_Icon_center {
+    text-align: center;
+}
+
+.btn--darkblue .slds-button_neutral {
+    float: left;
+    margin-left: 1px;
+    color: #0089FF;
+    border: 1px solid #0089FF;
+    border-radius: 4px;
+    font-family: var(--FONT-FAMILY);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 50px;
+    width: 180px;
+    margin-top: 27px;
+}
+
+.btn--neutral .slds-button_neutral {
+    float: right;
+    margin-right: 16px;
+    border-radius: 2px;
+    color: #444444;
+    background-color: #EDEDED;
+    font-weight: bold;
+    height: 50px;
+    width: 180px;
+    margin-top: 27px;
+}
+
+.tab-menu-selected::after {
+    content: '';
+    box-sizing: border-box;
+    height: 0px;
+    width: calc(100% + 16px);
+    border: 4px solid #FFFFFF;
+    position: relative;
+    top: 36px;
+    left: -8px;
+    display: block;
+    margin-top: -10px;
+}
+
+.ReadMoreArrow {
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: baseline;
+}
+
+.newCase__buttons-container {
+    margin-bottom: 10px;
+}
+
+.newCase__buttons-container {
+    margin-top: 49px;
+}
+
+.acc-copy-61 {
+    color: #585858;
+}
+
+a {
+    height: 18px;
+    width: 143px;
+    color: #0089FF;
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.btn-add {
+    height: 15px;
+    width: 91px;
+    color: #585858;
+    font-family: var(--FONT-FAMILY);
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-left: 14px;
+}
+
+.ms-icn_add_circle {
+    font-size: xx-large;
+    color: #0033AA;
+     border: none;
+   background-color: inherit;
+}
+
+.add-another>a:hover {
+    text-decoration: none;
+}
+
+.invite__button {
+    max-height: 46px;
+    min-width: fit-content;
+}
+
+.invite__button.btn--gray {
+    height: 50px;
+    width: 180px;
+    border-radius: 4px;
+    color: #fff;
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #0089FF
+}
+
+.invite__button.btn--gray:hover,
+.invite__button.btn--gray:focus {
+    background: #0089ff;
+    color: #fff;
+}
+
+.team_Invites_sec .invite__button {
+    margin: 16px 0 40px;
+}
+
+.team_Invites_sec .invite__button:last-of-type {
+    margin-bottom: 0;
+}
+
+.team__invites-row {
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.slds-wrap {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: -20px;
+}
+
+.detail_section>p,
+.team_Approval_sec>p,
+.team_Approval_sec .InviteSentDate,
+.team_Invites_sec .InviteSentDate,
+.team_Invites_sec>p {
+    align-self: auto;
+}
+
+.detail_section,
+.team_Approval_sec,
+.team_Invites_sec {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-row-gap: 36px;
+    grid-column-gap: 1%;
+    align-items: center;
+    margin: 24px 0 32px 29px;
+}
+
+.detail_section span,
+.team_Approval_sec span,
+.team_Invites_sec span {
+    margin-top: 48px;
+    text-align: center;
+    width: 100%;
+    margin-left: -22px;
+}
+
+.teamDeatilsGrid {
+    display: grid;
+    grid-template-columns: 16% 13% 34% 14% 18%;
+    grid-template-rows: 25px;
+    column-gap: 16px;
+    row-gap: 16px;
+    grid-template-rows: 25px;
+    column-gap: 16px;
+    grid-row-gap: 38px;
+}
+
+.sentInvitesGrid {
+    display: grid;
+    grid-template-columns: 13% 17% 25% 11% 29%;
+    grid-template-rows: 25px;
+    column-gap: 16px;
+    row-gap: 16px;
+    grid-template-rows: 25px;
+    column-gap: 16px;
+    grid-row-gap: 38px;
+}
+
+.pendingApprovalsGrid {
+    display: grid;
+    grid-template-columns: 14% 19% 21% 45%;
+    column-gap: 9px;
+}
+
+.deactivate__button {
+    color: #0089FF;
+    border: 1px solid #0089FF;
+    border-radius: 4px;
+    font-family: var(--FONT-FAMILY);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 50px;
+    width: 180px;
+    background-color: #FFFFFF;
+    margin-top: -9px;
+}
+
+.resend__button {
+    color: #FFFFFF;
+    border: 1px solid #0089FF;
+    border-radius: 4px;
+    font-family: var(--FONT-FAMILY);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 50px;
+    width: 180px;
+    background-color: #0089FF;
+    margin-right: 15px;
+    margin-top: -15px;
+    float: right;
+}
+
+.decline__button {
+    color: #0089FF;
+    border: 1px solid #0089FF;
+    border-radius: 4px;
+    font-family: var(--FONT-FAMILY);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 50px;
+    width: 180px;
+    background-color: #FFFFFF;
+    margin-right: 15px;
+    float: right;
+}
+
+.approve__button {
+    color: #FFFFFF;
+    border: 1px solid #0089FF;
+    border-radius: 4px;
+    font-family: var(--FONT-FAMILY);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 50px;
+    width: 180px;
+    background-color: #0089FF;
+    margin-right: 15px;
+    float: right;
+}
+
+@media only screen and (max-device-width: 800px) {
+    .TeamInvitesMainHolder {
+        padding: 35px 6.5% 80px 6.5%;
+    }
+
+    .newCase__form {
+        padding: 40px 34px 40px 34px;
+    }
+
+    .add_member {
+        display: grid;
+        grid-template-columns: 37% 34% 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 16px;
+        row-gap: 16px;
+    }
+
+    .emailInputHolder {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .inviteToggle {
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .team_Invites_sec {
+        height: auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+        padding: 40px 0px;
+    }
+
+    .sentInvitesGrid {
+        display: grid;
+        grid-template-columns: 12% 20% 15% 1fr;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        row-gap: 16px;
+    }
+
+    .pendingApprovalsGrid {
+        display: grid;
+        grid-template-columns: 15% 18% 24% 41%;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        row-gap: 16px;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        grid-row-gap: 38px;
+    }
+
+    .teamFirstName {
+        grid-column-start: 1;
+    }
+
+    .teamEmail {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .deactivate {
+        grid-column-start: 4;
+        grid-column-end: 5;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+
+    .detail_section {
+        height: auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: auto;
+        padding: 40px 0px;
+    }
+
+    .detailEmail {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .accessRole {
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+
+    .teamDeatilsGrid {
+        display: grid;
+        grid-template-columns: 15% 20% 15% 1fr;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        row-gap: 16px;
+    }
+
+    .resend__button {
+        margin-right: 32px;
+    }
+
+    .approve__button {
+        width: 80px;
+        margin-right: 8px;
+    }
+
+    .decline__button {
+        width: 80px;
+        margin-right: 48px;
+    }
+}
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1280px) {
+    .add_member {
+        display: grid;
+        grid-template-columns: 25% 22% 31% 18%;
+        grid-template-rows: 65px;
+        column-gap: 16px;
+    }
+
+    .teamDeatilsGrid {
+        display: grid;
+        grid-template-columns: 12% 13% 30% 17% 21%;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        grid-row-gap: 38px;
+    }
+
+    .approve__button,
+    .decline__button {
+        width: 180px;
+    }
+
+    .pendingApprovalsGrid {
+        display: grid;
+        grid-template-columns: 14% 19% 21% 45%;
+        column-gap: 9px;
+    }
+}
+
+@media only screen and (max-device-width: 600px) {
+
+    .add_member {
+        display: grid;
+        grid-template-columns: 90% 90% 90% 1fr;
+        grid-template-rows: auto;
+        column-gap: 16px;
+        row-gap: 1px;
+    }
+
+    .teamDeatilsGrid {
+        display: grid;
+        grid-template-columns: 25% 21% 15% 39%;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        grid-row-gap: 38px;
+    }
+
+    .sentInvitesGrid {
+        display: grid;
+        grid-template-columns: 20% 15% 1fr 1fr;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        row-gap: 16px;
+    }
+
+    .pendingApprovalsGrid {
+        display: grid;
+        grid-template-columns: 25% 25% 50%;
+        grid-template-rows: 25px;
+        column-gap: 16px;
+        grid-row-gap: 38px;
+    }
+
+    .InviteSentDate {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+
+    .approvalsEmail {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .resend__button {
+        float: left;
+        width: 280px;
+    }
+
+    .approve__button,
+    .decline__button {
+        width: 280px;
+        float: left;
+        margin-top: -26px;
+        margin-bottom: 40px;
+    }
+
+    .btn--darkblue {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 4;
+        grid-row-end: 5;
+    }
+
+    .surnameInputHolder {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .emailInputHolder {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+
+    .inviteToggle {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 4;
+        grid-row-end: 4;
+    }
+
+    .deactivate {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 4;
+        grid-row-end: 5;
+    }
+
+    .deactivate__button {
+        width: 280px;
+        margin-left: -16px;
+    }
+
+    .btn--darkblue .slds-button_neutral,
+    .btn--neutral .slds-button_neutral {
+        margin-left: 6px;
+        width: 280px;
+    }
+
+    .device {
+        padding-left: 28%;
+        width: 50%;
+    }
+}

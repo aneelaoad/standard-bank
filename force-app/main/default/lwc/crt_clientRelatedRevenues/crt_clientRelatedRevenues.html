@@ -1,0 +1,38 @@
+<!--
+ - Created by mpesko on 9/15/2021.
+ -->
+
+<!-- Crt Client Related Revenues -->
+<template>
+    <lightning-layout class="slds-m-top_x-large">
+        <article class="slds-card lightning-card" if:true={hasUserAccess}>
+            <div class="slds-card__header slds-grid slds-theme_shade" >
+                <header class="slds-media slds-media_center slds-has-flexi-truncate ">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="standard:record" size="small"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a class="slds-card__header-link"> Global Revenue</a>
+                        </h2>
+                    </div>
+                    <div class="slds-no-flex">
+
+                    </div>
+                </header>
+            </div>
+            <template if:true={revenueList}>
+                <div if:true={hasUserAccess}>
+                    <lightning-datatable data={revenueList} columns={columns} key-field="Id">
+                    </lightning-datatable>
+                </div>
+            </template>
+            <template if:true={error}>
+                {error}
+            </template>
+        </article>
+        <div if:false={hasUserAccess}>
+            <a class="slds-card__header-link"> Limited to client team</a>
+        </div>
+    </lightning-layout>
+</template>

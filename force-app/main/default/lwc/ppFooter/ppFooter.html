@@ -1,0 +1,109 @@
+<!-- **
+* @description  : Partner Portal Partner Footer Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+
+    <template if:false={usrId}>
+        <div class="footer__container fixed-height" style="background-color: #0A2240;">
+            <div class="footer slds-grid">
+                <div
+                    class="footer__left slds-col slds-order_2 slds-small-order_1 slds-size_6-of-6 slds-medium-size_7-of-12 slds-large-size_5-of-8">
+                    <div class="footer__nav">
+                        <ul class="footer__menu">
+                            <li class="footer__menuitem">
+                                <a href="https://www.standardbank.co.za/southafrica/personal/about-us/legal/privacy-statement"
+                                    target="_blank" data-id="link_content" data-text="Footer | Legal" style="color: #fff !important"
+                                    data-intent="informational" data-scope="footer" onclick={tracker}>Legal</a>
+                            </li>
+                            <li class="footer__menuitem">
+                                <a href="https://www.standardbank.co.za/southafrica/personal/about-us/terms-and-conditions"
+                                    target="_blank" data-id="link_content"
+                                    data-text="Footer | Terms and Conditions" style="color: #fff !important"
+                                    data-intent="informational" data-scope="footer" onclick={tracker}>Terms and Conditions</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__copyright">Standard Bank is a licensed financial services provider in terms of
+                        the Financial Advisory and Intermediary Services Act and a registered credit provider in terms
+                        of the National Credit Act, registration number NCRCP15
+                    </div>
+                </div>
+                <div
+                    class="footer__right slds-col slds-order_1 slds-small-order_2 slds-size_6-of-6 slds-medium-size_3-of-12 slds-large-size_2-of-8">
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/standard-bank-group" target="_blank"
+                                data-id="link_content" data-text="Footer | LinkedIn"
+                                data-intent="social" data-scope="share-icons-banner" onclick={tracker}><i
+                                    class="ms-icn_linkedIn"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/StandardBankGroup" target="_blank"
+                                data-id="link_content" data-text="Footer | YouTube"
+                                data-intent="social" data-scope="share-icons-banner" onclick={tracker}><i
+                                    class="ms-icn_youtube"></i></a></li>
+                        <li><a href="https://www.facebook.com/standardbankgrp/" target="_blank"
+                                data-id="link_content" data-text="Footer | Facebook"
+                                data-intent="social" data-scope="share-icons-banner" onclick={tracker}>
+                                <i class="ms-icn_facebook"></i></a></li>
+                        <li><a href="https://twitter.com/SBGroup" target="_blank" data-id="link_content"
+                                data-text="Footer | Twitter" data-intent="social" data-scope="share-icons-banner"
+                                onclick={tracker}><i class="ms-icn_twitter" ></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+   <!--Logged in user footer-->
+    <template if:true={usrId}>
+        <div class="logged-in-footer">
+        <div class="footer__container fixed-height" style="background-color:#fff">
+            <div class="footer slds-grid">
+                <div
+                    class="footer__left slds-col slds-order_2 slds-small-order_1 slds-size_6-of-6 slds-medium-size_7-of-12 slds-large-size_5-of-8">
+                    <div class="footer__nav">
+                        <ul class="footer__menu">
+                            <li class="footer__menuitem">
+                                <a href="https://www.standardbank.co.za/southafrica/personal/about-us/legal/privacy-statement"
+                                    target="_blank" data-id="link_content" data-text="Footer | Legal" style="color: #0089ff"
+                                    data-intent="informational" data-scope="footer" onclick={tracker}>Legal</a>
+                            </li>
+                            <li class="footer__menuitem">
+                                <a href="https://www.standardbank.co.za/southafrica/personal/about-us/terms-and-conditions"
+                                    target="_blank" data-id="link_content"
+                                    data-text="Footer | Terms and Conditions" style="color: #0089ff"
+                                    data-intent="informational" data-scope="footer" onclick={tracker}>Terms and Conditions</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__copyright" style="color: #6a7286;">Standard Bank is a licensed financial services provider in terms of
+                        the Financial Advisory and Intermediary Services Act and a registered credit provider in terms
+                        of the National Credit Act, registration number NCRCP15
+                    </div>
+                </div>
+                <div
+                    class="footer__right slds-col slds-order_1 slds-small-order_2 slds-size_6-of-6 slds-medium-size_3-of-12 slds-large-size_2-of-8">
+                    <ul>
+                        <li><a href="https://www.linkedin.com/company/standard-bank-group" target="_blank"
+                                data-id="link_content" data-text="Footer | LinkedIn"
+                                data-intent="social" data-scope="share-icons-banner" onclick={tracker}><i
+                                    class="ms-icn_linkedIn"></i></a></li>
+                        <li><a href="https://www.youtube.com/user/StandardBankGroup" target="_blank"
+                                data-id="link_content" data-text="Footer | YouTube"
+                                data-intent="social" data-scope="share-icons-banner" onclick={tracker}><i
+                                    class="ms-icn_youtube"></i></a></li>
+                        <li><a href="https://www.facebook.com/standardbankgrp/" target="_blank"
+                                data-id="link_content" data-text="Footer | Facebook"
+                                data-intent="social" data-scope="share-icons-banner" onclick={tracker}><i
+                                    class="ms-icn_facebook"></i></a></li>
+                        <li><a href="https://twitter.com/SBGroup" target="_blank" data-id="link_content"
+                                data-text="Footer | Twitter" data-intent="social" data-scope="share-icons-banner" onclick={tracker}>
+                                <i class="ms-icn_twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </template>
+</template>

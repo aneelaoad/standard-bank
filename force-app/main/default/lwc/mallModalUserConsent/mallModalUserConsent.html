@@ -1,0 +1,124 @@
+<template>
+    <div class="consent-modal--top-paragraph">
+        We understand that your personal information is important to you. By using our products, you acknowledge that your personal information will be processed by <a href="#" onclick={handleRedirectUrlToAboutUs}>us</a> and third parties (if necessary) according to our Privacy Statement, which is in line with all applicable laws on protecting and processing personal information.
+    </div>
+
+        <div>
+            <div class="consent-modal--hiddenContent">
+                <div>
+                    <span>It is your responsibility to read and understand the contents of the Privacy Statement which is available on our website at <a href="https://www.standardbank.com/sbg/standard-bank-group/legal/privacy-statement" target="_blank">www.bcbplatform.co.za/privacy</a> or you can ask us to email it to you.</span>
+                    <span>We will maintain the confidentiality of your personal information and we will implement security safeguards to secure your personal information as set out in the Privacy Statement.</span>
+                    <span>Our Privacy Statement includes what personal information is; what information we process; how we process your information; where we collect your information; who we share your information with; your rights as a data subject and the complaints contact details of both Standard Bank and the Information Regulator.</span>
+                </div>
+            </div>
+            <button class="consent-modal--see-more-btn top-paragraph--btn" onclick={seeMore}>See more</button>
+            <div class="chevron"></div>
+        </div>
+
+    <div class="consent-modal--privacy-acceptance">
+        <span class="privacy-acceptance--checkbox">
+            <span class="filter-tab category-filter">
+                <input type="checkbox" name="checkbox" class="filter" required />
+                <label class="filter-label">
+                    <span class="filter-label-text"></span>
+                </label>
+            </span>
+        </span>
+        <span class="privacy-acceptance--text">
+            I have read and understood the contents of the 
+            <a class="privacy-acceptance--link" href="https://www.standardbank.com/sbg/standard-bank-group/legal/privacy-statement" target="_blank"> Privacy Statement.</a>
+        </span>
+    </div>
+
+    <span class="privacy-acceptance-error">This checkbox is required to continue</span>
+
+    <h2 class="consent-modal--marketing-header">Marketing:</h2>
+    <div class="consent-modal--marketing-consent">
+        Please answer the questions below regarding the processing of your personal information for marketing purposes:
+    </div>
+
+    <div class="consent-form-input--label">
+        Data sharing within the group
+        <div class="consent-modal--hiddenContent">
+            <div>
+                <span>
+                    A member of <a href="#" onclick={handleRedirectUrlToAboutUs}>the Group</a> may wish to inform you of
+                    exclusive offers and/or services that may benefit you. Are you happy for us to share your personal information within our Group for this purpose?
+                </span>
+            </div>
+        </div>
+        <button class="consent-modal--see-more-btn" onclick={seeMore}>See more</button>
+        <div class="chevron"></div>
+    </div>
+
+    <div class="consentFormInput">
+        <lightning-radio-group name="withinGroupRadio"
+        label="Data sharing within the group"
+        options={options}
+        value={value}
+        required
+        variant="label-hidden"
+        type="radio"></lightning-radio-group>
+    </div>
+
+    <div class="consent-form-input--label">
+        Data sharing with third parties
+        <div class="consent-modal--hiddenContent">
+            <div>
+                <span>
+                    We may partner with third parties outside of the Group in order to bring you exclusive offers and/or services that may benefit you. Are you happy for us to share your personal information with these third parties for this purpose?
+                </span>
+            </div>
+        </div>
+        <button class="consent-modal--see-more-btn" onclick={seeMore}>See more</button>
+        <div class="chevron"></div>
+    </div>
+
+    <div class="consentFormInput">
+        <lightning-radio-group name="thirdPartiesRadio"
+        label="Data sharing with third parties"
+        options={options}
+        value={value}
+        required
+        variant="label-hidden"
+        type="radio"></lightning-radio-group>
+    </div>
+
+    <div class="consent-form-input--label">
+        Data sharing across borders within the group
+        <div class="consent-modal--hiddenContent">
+            <div>
+                <span>
+                    A member of <a href="#" onclick={handleRedirectUrlToAboutUs}>the Group outside of this country</a> may
+                    wish to inform you of exclusive offers and/or services 
+                    that may benefit you. We will ensure that your 
+                    personal information is given the same protection 
+                    as is required locally. Are you happy for us to share 
+                    your personal information across borders within the Group for this purpose?
+                </span>
+            </div>
+        </div>
+        <button class="consent-modal--see-more-btn" onclick={seeMore}>See more</button>
+        <div class="chevron"></div>
+    </div>
+
+    <div class="consentFormInput">
+        <lightning-radio-group name="outsideCountryRadio"
+        label="Data sharing across borders within the group"
+        options={options}
+        value={value}
+        required
+        variant="label-hidden"
+        type="radio"></lightning-radio-group>
+    </div>
+
+    <div class="consent-modal--bottom-paragraph">
+        Please note that you have the right to change your consent and preferences at any time in the future at any branch, by contacting your relationship manager, calling us on 0860 123 000, emailing us on <a href="mailto:info@bcbplatform.co.za">info@bcbplatform.co.za</a> or logging in to our banking channels to update your preferences.
+    </div>
+
+    <div class="consent-modal--security-info">
+        <span class="security-info--text">
+            Your information will be managed securely.
+        </span>
+    </div>
+</template>

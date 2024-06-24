@@ -1,0 +1,32 @@
+<template>
+    <template if:true={isGuestUser}>
+        <div class="signup-main">
+            <h2 class="signup-text">{signUpText}</h2>
+            <div class="signup-button">
+                <c-mall-cmn-button 
+                variant="mall" 
+                label={registerButton}
+                title={registerButton}
+                w-class="wAuto"
+                onclick={handleSignUp} 
+                >
+                </c-mall-cmn-button>
+            </div>
+        </div>    
+    </template>
+    <template if:false={isGuestUser}>
+        <div class="become-partner">
+            <div class="signup-button">
+                <c-mall-cmn-button 
+                variant="mall" 
+                label={becomeAPartnerButton}
+                title={becomeAPartnerButton} 
+                w-class="wAuto"
+                onclick={handleBecomeAPartner} 
+                >
+                </c-mall-cmn-button>
+            </div>
+        </div>    
+    </template>
+
+</template>

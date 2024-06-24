@@ -1,0 +1,234 @@
+.accordion-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    border-radius: 0.5rem;
+    transition: background 0.2s linear;
+
+}
+
+.mall .accordion {
+    background: linear-gradient(93.67deg, #B150C5 1.23%, #665EC7 58.64%);
+}
+
+.mall .accordion:not(.open):not(:hover) {
+    background: linear-gradient(93.67deg, #B150C5 0%, #665EC7 0%);
+}
+
+.accordion:not(.open) .accordion-section {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 2rem;
+}
+
+.mall .accordion:not(.open) .accordion-heading {
+    background-color: #fff;
+    color: var(--GREY-COLOUR-MEDIUM);
+}
+
+.mall .accordion-wrapper h3 {
+    font-size: 1.1rem;
+    line-height: 2;
+    color: var(--THEME-COLOUR);
+    margin: 2.2rem 0 1.5rem;
+    font-weight: bold;
+}
+
+.accordion p {
+    color: inherit;
+}
+
+.mall .accordion-arrow {
+    display: block;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+    transform: scale(1, 1);
+    transition: transform 0.2s linear;
+}
+
+.sbg .accordion-arrow {
+    display: block;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 1rem;
+    transform: rotate(0deg);
+    transition: transform 0.2s linear;
+}
+
+.mall .accordion-arrow span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-10%, -50%) rotate(-45deg);
+    height: 1px;
+    width: 0.75rem;
+    background-color: #fff;
+}
+
+.mall .accordion-arrow span+span {
+    transform: translate(-80%, -50%) rotate(45deg);
+}
+
+.mall .accordion:not(.open) .accordion-arrow span {
+    background-color: var(--GREY-COLOUR-MEDIUM);
+}
+
+.sbg .accordion.open .accordion-arrow {
+    transform: rotate(-90deg);
+}
+
+.mall .accordion.open .accordion-arrow {
+    transform: scale(1, -1);
+}
+
+.mall .accordion-heading {
+    margin: 1px;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #fff;
+    display: flex;
+}
+
+.accordion-heading:hover {
+    cursor: pointer;
+}
+
+.mall .accordion-section {
+    color: #fff;
+    padding: 0.5rem 2rem;
+    transition: all 0.35s ease;
+}
+
+.mall .accordion-section lightning-formatted-rich-text {
+    --color-override: #fff;
+    --text-decoration-override: underline;
+    --font-weight-override: normal;
+}
+
+@media all and (min-width: 768px) {
+    .mall .accordion-wrapper h3 {
+        font-size: 1.2rem;
+    }
+}
+
+.accordion-wrapper .sbg h3 {
+    margin: 0;
+    padding: 0.75rem 0;
+}
+
+.sbg {
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.sbg+.sbg {
+    margin-top: 4rem;
+}
+
+.sbg .accordion {
+    grid-column-start: auto;
+}
+
+
+.sbg h3 {
+    font-family: var(--lwc-fontFamilyStrong);
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    color: #0034A7;
+    text-transform: initial;
+}
+
+.sbg .accordion:not(.open) .accordion-arrow span {
+    background-color: #0062E1;
+}
+
+.sbg .accordion-arrow span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-10%, -50%) rotate(-45deg);
+    height: 1px;
+    width: 0.75rem;
+    background-color: #0062E1;
+}
+
+.sbg .accordion-arrow span+span {
+    transform: translate(-80%, -50%) rotate(45deg);
+}
+
+
+.sbg .accordion-heading {
+    display: flex;
+    box-shadow: inset #DDDBDA 0 -1px 0 0;
+    padding: 0.75rem 0;
+}
+
+.sbg .accordion-heading lightning-formatted-rich-text {
+    font-family: var(--lwc-fontFamilyMedium, "bentonsans-medium-webfont");
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #546174;
+}
+
+.sbg .accordion-section {
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+}
+
+.sbg .accordion-section lightning-formatted-rich-text {
+    font-family: var(--lwc-fontFamily);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #546174;
+}
+
+
+
+@media all and (min-width:768px) {
+    .sbg {
+        grid-template-columns: 270px auto;
+    }
+
+    .sbg+.sbg {
+        margin-top: 5rem;
+    }
+
+    .sbg h3 {
+        font-size: 18px;
+        line-height: 24px;
+    }
+
+    .sbg .accordion {
+        grid-column-start: 2;
+    }
+
+    .sbg .accordion-heading lightning-formatted-rich-text {
+        font-family: var(--lwc-fontFamilyMedium, "bentonsans-medium-webfont");
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #546174;
+    }
+
+    .sbg .accordion-section lightning-formatted-rich-text {
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

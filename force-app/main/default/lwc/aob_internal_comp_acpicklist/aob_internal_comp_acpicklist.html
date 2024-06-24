@@ -1,0 +1,15 @@
+<template>
+    <label class="aob_screen-field-label slds-m-bottom_none">{label}</label>
+    <lightning-input class="inputcss validate" name={name} placeholder={placeholder} value={value} onfocus={handleFocus}
+        onblur={handleBlur} onchange={handleChange} variant="label-hidden" required
+         message-when-value-missing={missingValueMessage} field-level-help={helpText}>
+    </lightning-input>
+    <div class="aob_datalist">
+        <ul>
+            <template for:each={currentValues} for:item='item'>
+                <li key={item} data-value={item.Name} data-code={item.AOB_Code__c} onmousedown={handleMouseDown}
+                    data-id={item.Id}>{item.Name}</li>
+            </template>
+        </ul>
+    </div>
+</template>

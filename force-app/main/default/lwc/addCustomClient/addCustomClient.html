@@ -1,0 +1,92 @@
+<template>
+    <lightning-record-edit-form object-api-name={customClientTeam} onsubmit={handleSubmit} onsuccess={handleSuccess}
+                                onerror={handleError}>
+        <div class='slds-modal slds-fade-in-open slds-scrollable--y'>
+            <div class={modalClass}>
+                <div if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+                <header class='slds-modal__header'>
+                    <h2 class='slds-text-heading_medium slds-hyphenate'>New Custom Client Team</h2>
+                </header>
+
+                <div class='slds-modal__content slds-p-around--medium' style='overflow:initial'>
+                    <div>
+                        <div class='slds-grid slds-gutters slds-wrap'>
+                            <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                                <div if:false={isMobile}>
+                                    <lightning-input-field field-name={teamMember}></lightning-input-field>
+                                </div>
+                                <div if:true={isMobile}>
+                                    <c-input-search field-name="Team_Member__c" object-name='Custom_Client_Team__c'
+                                                    field-label="Team Member"
+                                                    onvaluechange={changeValueTeamMember}></c-input-search>
+                                </div>
+                            </div>
+                            <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                                <lightning-input-field field-name={clientCoordinator}></lightning-input-field>
+                            </div>
+                        </div>
+                        <div class='slds-grid slds-gutters slds-wrap'>
+                            <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                                <lightning-input-field field-name={teamRole}></lightning-input-field>
+                            </div>
+                            <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                                <lightning-input-field field-name={Gtb}></lightning-input-field>
+                            </div>
+                        </div>
+                        <div class='slds-grid slds-gutters slds-wrap'>
+                            <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                                <div if:false={isMobile}>
+                                    <lightning-input-field field-name={Client} value={account} onchange={changeValueAccount}></lightning-input-field>
+                                </div>
+                                <div if:true={isMobile}>
+                                    <c-input-search field-name='Account__c' object-name='Custom_Client_Team__c'
+                                                    field-label='Client' value={account}
+                                                    onvaluechange={changeValueAccount}></c-input-search>
+                                </div>
+                            </div>
+                            <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                                <lightning-input-field field-name={clientCoordinatorBM}></lightning-input-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div if:true={showVisibleToClientField} class='slds-grid slds-gutters slds-wrap'>
+                        <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                        </div>
+                        <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                            <lightning-input-field field-name={visibleToClient}></lightning-input-field>
+                        </div>
+                    </div>
+
+                    <div class='slds-grid slds-gutters slds-wrap'>
+                        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2">
+                            <lightning-input-field field-name={ClientAccess}></lightning-input-field>
+                        </div>
+                        <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                            <lightning-input-field field-name={OpportunityAccess}></lightning-input-field>
+                        </div>
+                    </div>
+                    <div class='slds-grid slds-gutters slds-wrap'>
+                        <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                            <lightning-input-field field-name={CaseAccess}></lightning-input-field>
+                        </div>
+                        <div class='slds-col slds-size--1-of-1 slds-medium-size--1-of-2'>
+                            <lightning-input-field field-name={ContactAccess}></lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+                <footer class='slds-modal__footer'>
+                    <button class='slds-button slds-button_neutral' type='button' onclick={onCancel}>Cancel</button>
+                    <button class='slds-button slds-button_brand' type='submit' onclick={onReplace} if:true={isReplace}>
+                        Replace
+                    </button>
+                    <button class='slds-button slds-button_brand' type='submit' onclick={onSubmit}>Save</button>
+                    <button class='slds-button slds-button_brand' type='submit' onclick={onSubmitAndNew}>Save And New</button>
+                </footer>
+            </div>
+        </div>
+    </lightning-record-edit-form>
+    <div class={fadeClass}></div>
+</template>

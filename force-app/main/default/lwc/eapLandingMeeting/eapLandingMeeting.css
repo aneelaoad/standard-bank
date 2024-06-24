@@ -1,0 +1,204 @@
+@import 'c/eapCssLibrary';
+
+.container {
+    /*position: relative;*/
+    position: absolute;
+    height: 280px;
+    left: 20px;
+    right: 20px;
+    top: 80px;
+}
+/*.rellenoTop {
+    background-color:  var(--main-dark-blue);
+    height: 10em;
+}*/
+.rellenoBody {
+    /*background-color:  var(--background-grey);*/
+    height: 10em;
+
+}
+
+:host{
+    --sds-c-card-shadow: 0px 0px 12px rgb(0 0 0 / 10%);
+    --sds-c-card-sizing-border: 0;
+}
+
+.v1_div_today {
+    position: absolute;
+    right: 0em;
+    top: -0.8em;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    line-height: 80%;
+    padding-top: 1.8em;
+    width: 10.5em;
+    height: 6em;
+    display: grid;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+}
+
+.v1_div_today span {
+    position: relative;
+    right: 12px;
+}
+
+.v1_div_today_dark {
+    position: absolute;
+    top: -1.5em;
+    right: -13px;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    line-height: 80%;
+    padding-top: 1.8em;
+    width: 10.5em;
+    height: 7em;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+}
+
+.v1_h1_date {
+    font-size: 2em;
+    font-weight: lighter;
+}
+
+.v1_div_landingCard {
+    position: absolute;
+    transform: translate(-50%, 0);
+    left: 50%;
+    top: 0em;
+    z-index: 2;
+    width: 100%;
+}
+
+.v1_h2_headingCard {
+    padding-left: 1em;
+    display: block;
+    width: 60%;
+    line-height: 120%;
+    margin-top:-10px;
+}
+.v1_h4_landing_no_meet{
+    font-size: 0.8rem;
+    text-align: center;
+    padding-bottom: 20px;
+}
+.v1_div_eventData {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+    display: inline-block;
+    color: var(--main-light-blue);
+    font-weight: bold;
+    width: 90%;
+}
+
+.v1_div_locationTime {
+    display: inline-block;
+    margin-left: 3em;
+}
+
+.v1_div_icon {
+    margin-top: .5em;
+    width: 2em;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+}
+
+.v1_div_icon img {
+    height: 1.7em;
+}
+
+.imgFilter{
+    filter: var(--filter-light-blue);
+}
+
+.v1_div_openMeeting {
+    display: flex;
+    justify-content: center;
+}
+
+.v1_div_meetingLink{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+.roundImg {
+    border-radius: 50%;
+    width: 3.5em;
+    height: 3.5em;
+}
+
+.v1_div_prettyContacts img {
+    border-radius: 50%;
+    width: 3.5em;
+    height: 3.5em;
+    border: 0.2em solid #fff;
+    position: absolute;
+    margin: 0 auto;
+    z-index: auto;
+    object-fit:cover;
+}
+
+.img1 {
+    left: 1em;
+}
+.img2 {
+    left: 3.5em;
+}
+.img3 {
+    left: 6em;
+}
+.img4 {
+    left: 8.5em;
+}
+.img5 {
+    left: 11em;
+}
+.img6 {
+    left: 13.5em;
+}
+.v1_div_relativeContacts {
+    position: relative;
+}
+.v1_div_imgContact {
+    display: inline-flex;
+}
+.v1_div_restContacts {
+    border-radius: 50%;
+    width: 3.5em;
+    height: 3.5em;
+    background-color: #d4504c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.v1_div_prettyContacts {
+    width: 50%;
+    display: inline-block;
+    height: 6em;
+}
+.v1_div_prettyContacts2 {
+    position: absolute;
+    z-index: auto;
+    height: 6em;
+    top: 1em;
+    right: 5%;
+}
+.custom-full-button {
+    margin-bottom: 1em;
+}
+
+.custom-full-button:hover {
+    background: var(--main-light-blue) radial-gradient(circle, transparent 1%, var(--main-light-blue) 1%) center/15000%;
+}
+.custom-full-button:active {
+    background-color: var(--main-light-blue);
+    background-size: 100%;
+    transition: background 0s;
+}

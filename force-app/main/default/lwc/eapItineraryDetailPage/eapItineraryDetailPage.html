@@ -1,0 +1,21 @@
+<!--
+  @description       : Lwc parent to he itinerary detail page
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-14-2021   TCK   Initial Version
+-->
+<template>
+    <template if:true={loading}>
+        <c-eap-spinner></c-eap-spinner>
+    </template>
+
+    <div class="content">
+        <c-eap-header-detail title={travelName}></c-eap-header-detail>
+        <c-eap-itinerary-detail-content event-id={eventId} travel-id={travelId} onloaded={hasLoaded} ontravelnamechange={handleTravelNameChange}></c-eap-itinerary-detail-content>
+        <c-eap-footer isfixed="true"></c-eap-footer>
+    </div>
+</template>

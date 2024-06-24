@@ -1,0 +1,183 @@
+<template>
+    <c-pbp_comp_product_business_home-banner></c-pbp_comp_product_business_home-banner>
+    <!--Trailored Business-->
+    <div class="tail-outer container" style="margin-top: 20px">
+        <h1>{label.bankingsolutions}</h1>
+        <h3>{label.Whatdoyouneedforyourbusiness}</h3>
+        <div class="info-boxes" >
+            <div class="info-box-inner" data-id={adobePageTag.dataId}
+            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.businessbankbutton} onclick={navigatetobusinessbank} >
+                <div class="info-box-inner-img"> <img src={icon_card} alt="Business bank account" 
+                      ></div>
+                <p>{label.BussinessBank}</p>
+            </div>
+            <div class="info-box-inner" data-id={adobePageTag.dataId}
+            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.Mybusinessbutton} onclick={navigatetomoneyforbusiness}>
+                <div class="info-box-inner-img"  > <img src={icon_wallet} alt="Money for my business"></div>
+                <p>{label.Mybusiness}</p>
+            </div>
+            <div class="info-box-inner" data-id={adobePageTag.dataId}
+            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.mymoneybutton} onclick={navigatetogrowmymoney}>
+                <div class="info-box-inner-img" > <img src={icons_plant} alt="Grow my money"></div>
+                <p>{label.mymoney}</p>
+            </div>
+            <div class="info-box-inner" data-id={adobePageTag.dataId}
+            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.Insuranceformybusinessbutton} onclick={navigatetoinsurancebusiness}>
+                <div class="info-box-inner-img"  ><img src={icon_umbrela} alt="Insurance for my business"></div>
+                <p>{label.Insuranceformybusiness}</p>
+            </div>
+            <div class="info-box-inner" data-id={adobePageTag.dataId}
+            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.financialsolutionsbutton} onclick={navigatetointernationalsolution}>
+                <div class="info-box-inner-img" > <img src={icon_aeroplane} alt="International financial solutions">
+                </div>
+                <p>{label.financialsolutions}</p>
+            </div>
+            <div class="info-box-inner" data-id={adobePageTag.dataId}
+            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.mycustomersbutton} onclick={navigatetopaymentsolution} >
+                <div class="info-box-inner-img" > <img src={icon_helper} alt="Payment solutions for my customers"></div>
+                <p>{label.mycustomers}</p>
+            </div>
+        </div>
+    </div>
+    <!---  Switch Component  -->
+    <div class="">
+        <c-pbp_comp_product_business_switch_component></c-pbp_comp_product_business_switch_component>
+    </div>
+    <!--Business to the next level -->
+    <section class="bsns_sol_carousel " style="overflow: hidden">
+        <div class="bs_carousel owl-theme owl-carousel offering-owl">
+            <div class="bg_primary item">
+                <div class="slide_con container">
+                    <div class="slide_lt">
+                        <h2>{label.whatyou}<br /></h2>
+                        <p>{label.explore}</p>
+                        <a href={cashFlow} class="primary_btn_blue" data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed}
+                                data-text={adobePageTag.tellmeButtontextneedgoal}
+                                onclick={tellmemmorebuttonclick} target={label.StandardBankUrl}>{label.tellmemore}</a>
+                    </div>
+                    <div class="slide_rt">
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.overdraftbutton} onclick={navigatetooverdraft}>
+                            <img class="img_fluid" src={logooverdraft} alt="overdraft">
+                            <span>{label.overdraft}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.revolvingcreditbutton} onclick={navigatetorevolving}>
+                            <img class="img_fluid" src={logorevolving} alt="overdraft">
+                            <span>{label.revolving}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.debtorfinancebutton} onclick={navigatetodebtor}>
+                            <img class="img_fluid" src={logodebtor} alt="overdraft">
+                            <span>{label.debtor}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.businessloansbutton} onclick={navigatetobusiness}>
+                            <img class="img_fluid" src={logobusiness} alt="overdraft">
+                            <span>{label.buisness}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg_primary item">
+                <div class="slide_con container">
+                    <div class="slide_lt">
+                        <h2>{label.improve}<br /> {label.financial}</h2>
+                        <p>{label.bringbankingservices}</p>
+                        <a href={financialHealth} class="primary_btn_blue
+                        " data-id={adobePageTag.dataId}
+                            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed}
+                            data-text={adobePageTag.tellmeButtontextneedgoalemployees}
+                            onclick={tellmemmorebuttonclick} target={label.StandardBankUrl}>{label.tellmemore}</a>
+                    </div>
+                    <div class="slide_rt">
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.buyforexbutton} onclick={navigatetobuyforex}>
+                            <img class="img_fluid" src={logobuyforex} alt="overdraft">
+                            <span>{label.buyforex}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.bridgingfinancebutton} onclick={navigatetobridgingfinance}>
+                            <img class="img_fluid" src={logobridging} alt="overdraft">
+                            <span>{label.bridgingfinance}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.bondsandguaranteesbutton} onclick={navigatetobondsandguarantees}>
+                            <img class="img_fluid" src={logobondsandguarantees} alt="overdraft">
+                            <span>{label.bondsandguarantees}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.cargoinsurancebutton} onclick={navigatetobuyforexcargoinsurance}>
+                            <img class="img_fluid" src={logocargoinsurance} alt="overdraft">
+                            <span>{label.cargoinsurance}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg_primary item">
+                <div class="slide_con container">
+                    <div class="slide_lt">
+                        <h2>{label.operatingfleet}<br /></h2>
+                        <p>{label.getyourfleet}</p>
+                        <a href={smallorlargefleet} class="primary_btn_blue" data-id={adobePageTag.dataId}
+                            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed}
+                            data-text={adobePageTag.tellmeButtontextneedgoaloperating}
+                            onclick={tellmemmorebuttonclick} target={label.StandardBankUrl}>{label.tellmemore}</a>
+                    </div>
+                    <div class="slide_rt">
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.vehiclefinancingbutton} onclick={navigatetovehiclefinance}>
+                            <img class="img_fluid" src={logovehicle} alt="overdraft">
+                            <span>{label.vehiclefinacing}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.financeprotectionbutton} onclick={navigatetofinanceprotection}>
+                            <img class="img_fluid" src={logofinance} alt="overdraft">
+                            <span>{label.financeprotection}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.vehicleinsurancebutton} onclick={navigatetovehicleinsurance}>
+                            <img class="img_fluid" src={logovehicleinsurance} alt="overdraft">
+                            <span>{label.vehicleinsurance}</span>
+                        </div>
+                        <div data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneed} data-text={adobePageTag.prepaidfleetcardsbutton} onclick={navigatetoprepaidfleet}>
+                            <img class="img_fluid" src={logoprepaidfleet} alt="overdraft">
+                            <span>{label.prepaidfleet}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Money starts-->
+    <c-pbp_comp_product_business_manage-money></c-pbp_comp_product_business_manage-money>
+    <!-- Manage Your Money way Ends-->
+    <!--BIZ Connect Start -->
+    <div class="pbp_main_class container ">
+        <div class="pbp_box">
+            <div class="pbp_img_container">
+                <div>
+                    <img src={bizconnectlogo}>
+                </div>
+                <div>
+                    <h2>{label.bizconnect}</h2>
+                    <h6>
+                        {label.connect}
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <button class="btn-primary" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+            data-scope={adobePageTag.dataScope} data-text={adobePageTag.tellmeButtonText}
+            onclick={handleClick}>{label.tellmemore}</button>
+    </div>
+    <!--BIZ Connect Ends -->
+    <div >
+        <c-pbp_comp_product_business_trends_insights></c-pbp_comp_product_business_trends_insights>
+    </div>
+    <div >
+        <c-pbp_comp_product_business_ucount_rewards></c-pbp_comp_product_business_ucount_rewards>
+    </div>
+</template>

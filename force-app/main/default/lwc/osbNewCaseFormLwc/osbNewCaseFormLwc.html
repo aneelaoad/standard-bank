@@ -1,0 +1,121 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <template lwc:if={isUserloggedIn}>
+            <lightning-layout-item size="12">
+                <div class="BreadCrumbSection">
+                </div>
+            </lightning-layout-item>
+        </template>
+        <template lwc:if={isLoading}>
+            <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+        </template>
+        <lightning-layout-item size="12">
+            <div class="CustomerServiceSection">
+                <div class="CustomerForm">
+                    <div lwc:if={showToastFailure}>
+                        <c-osb-toast toasttype="failure"
+                            toastmessage="Please complete all required fields and check for errors." top="202px"
+                            left="760px"></c-osb-toast>
+                    </div>
+                    <div lwc:if={showToastSuccess}>
+                        <c-osb-toast toasttype="success" toastmessage="Your message has been sent successfully."
+                            top="202px" left="760px"></c-osb-toast>
+                    </div>
+                    <div lwc:if={showPopUp}>
+                        <c-osb-market-gram-popup-lwc onclosepopupevent={handleCloseEvent}
+                            sub-title="By doing so you will clear the form to it's orginal state."
+                            title="Cancel contact form?"
+                            content="By doing so you will clear the form to its original state."></c-osb-market-gram-popup-lwc>
+                    </div>
+                    <div class="CustomerFormHolder" data-frmcontainer="contact us" id="contactUs">
+                        <div class="newCaseIcon">
+                            <i class="ms-icn_send"></i>
+                        </div>
+                        <div class="HeadingHolder">
+                            <h1 class="ContactHeading">Contact Us</h1>
+                            <p class="DescriptionHeading">
+                                We continually strive to deliver great customer service.
+                                <br />Thank you for taking the time to share your input with us.
+                            </p>
+                        </div>
+                        <div class="InputFormHolder">
+                            <div class="TitleHolder">
+                                Customer service form
+                            </div>
+                            <form data-frmcontainer="contact us" data-id="contact us" name="contact us">
+                                <div class="NewCasesSection">
+                                    <div class="slds-form-element ">
+                                        <lightning-combobox name="progress" label="Type" value={value}
+                                            onchange={setCaseItem} placeholder="Select an option" options={options}
+                                            data-id="options" class="dropdownOptions"></lightning-combobox>
+                                    </div>
+                                    <div class="slds-form-element">
+                                        <div class="slds-form-element__control">
+                                            <lightning-input label="Application" type="search"
+                                                onclick={showPicklistOptions} onfocusout={handleFocusOut}
+                                                data-id="solutionSearch" class="solutionSearch"
+                                                placeholder="Type to search" onchange={search} value={selectedValue}>
+                                            </lightning-input>
+                                            <div lwc:if={searchResults}
+                                                class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                                role="listbox">
+                                                <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                    <template for:each={searchResults} for:item="searchResult">
+                                                        <li key={searchResult.value} data-value={searchResult.value}
+                                                            role="presentation" onmousedown={selectSearchResult}
+                                                            class="slds-listbox__item">
+                                                            <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small "
+                                                                role="option">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate"
+                                                                        title={searchResult.label}>
+                                                                        {searchResult.label}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </template>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element ">
+                                        <lightning-textarea name="description" label="Description" data-id="description"
+                                            class="description" value={textValue}
+                                            placeholder="Enter your message and be as detailed as possible"
+                                            onchange={handleInputChange}></lightning-textarea>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="ButtonSection">
+                                <button onclick={cancelCase} title="Cancel"
+                                    class="slds-button slds-button_neutral btnStyle btnCancel" data-id="cancel"
+                                    data-intent="confirmational" data-text="Contact us | cancel"
+                                    data-scope="contact us">
+                                    Cancel</button>
+                                <button onclick={handleSubmit} title="Submit"
+                                    class="slds-button slds-button_neutral btnStyle btnSubmit" data-id="submit"
+                                    data-intent="confirmational" data-text="Contact us | submit"
+                                    data-scope="contact us">
+                                    Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ContactInfoSection">
+                    <div class="SupportInfoSection">
+                        <c-osb-contact-us-info-box-lwc title={infoSupportTitle} email={infoEmail}
+                            data-text="Contact us | support email" data-intent="Informational"
+                            data-scope="contact us"></c-osb-contact-us-info-box-lwc>
+                    </div>
+                    <div class="FeedbackInfoSection">
+                        <c-osb-contact-us-info-box-lwc title={eMTTitle} email={eMTEmail}
+                            addtionaltitle={eMTClientServices} phonenumber={eMTClientServicesNumber}
+                            data-text="Contact us | feedback email" data-intent="Informational"
+                            data-scope="contact us"></c-osb-contact-us-info-box-lwc>
+                    </div>
+                </div>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

@@ -1,0 +1,29 @@
+<!--
+  @description       : 
+  @author            : aouarti@salesforce.com
+  @group             : 
+  @last modified on  : 10-03-2021
+  @last modified by  : aouarti@salesforce.com
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   01-29-2021   mbourhi@salesforce.com   Initial Version
+  1.1   10-03-2021   aouarti@salesforce.com   Enhancement within DBR-2052
+-->
+<template>
+    <div class="aob_overlay">
+        <div class={aob_modal_container} >
+            <div
+                class={headerClassStyle}>
+                {header}
+                <img alt="Close button Icon" src={closeIcon}
+                    class="aob_modal_close_button slds-m-right_xx-small slds-m-left_large" onclick={closeModal}>
+            </div>
+            <div class="aob_modal_content bg-white aob_font_size_13 aob_slider_value slds-p-around_large">
+                <slot name="content"></slot>
+            </div>
+            <footer class="slds-m-bottom_medium">
+                <slot name="footer"></slot>
+            </footer>
+        </div>
+    </div>
+</template>

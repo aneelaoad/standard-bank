@@ -1,0 +1,132 @@
+.container__heading {
+    margin-bottom: 1rem;
+}
+
+.container__heading > h1 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+
+.container__heading > p {
+    font-size: 0.7rem;
+}
+
+.table__container {
+    overflow-x: auto;
+    margin: auto 0;
+}
+
+.table__heading {
+    background: #d9d9d9;
+}
+
+.table__sandbox {
+    background: #fdfdfd;
+}
+
+.table__prod {
+    background: #f3f3f3;
+}
+
+.table__heading th,
+.table__sandbox td,
+.table__prod td {
+    font-weight: 300;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.table__btn {
+    background-color: #2a74e4;
+    border-radius: 5px;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border: 2px solid transparent;
+    transition: all 100ms linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.5rem;
+    position: relative;
+}
+
+.table__btn:hover {
+    background-color: white;
+    color: #2a74e4;
+    border-color: #2a74e4;
+}
+
+.table__btn:focus-visible {
+    outline-offset: 0.5rem;
+}
+
+.tooltip {
+    z-index: 5;
+    background-color: #2a74e4;
+    color: white;
+    width: fit-content;
+    padding: 0.1rem 0.3rem;
+    position: absolute;
+    border-radius: 5px;
+    border: 2px solid #2a74e4;
+    display: flex;
+    align-items: center;
+    transform: translateX(-110%);
+    opacity: 0;
+    transition: opacity 0.75s ease;
+}
+
+.tooltip__arrow {
+    position: absolute;
+    right: -6px;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #2a74e4;
+    content: '';
+    font-size: 0;
+    line-height: 0;
+    width: 0;
+}
+
+.tooltip.active {
+    opacity: 1;
+}
+
+@media screen and (min-width: 645px) {
+    .tooltip {
+        transform: translateX(-130%);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container__heading > h1 {
+        font-size: 1.5rem;
+    }
+
+    .container__heading > p {
+        font-size: 1rem;
+    }
+
+    .table__heading th,
+    .table__sandbox td,
+    .table__prod td {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    .table__btn {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+    }
+
+    .tooltip {
+        transform: translateX(-145%);
+    }
+
+    .tooltip__arrow {
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-left: 10px solid #2a74e4;
+        margin-right: -5px;
+    }
+}

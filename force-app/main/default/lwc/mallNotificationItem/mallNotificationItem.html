@@ -1,0 +1,39 @@
+<template>
+    <template if:false={isCleared}>
+        <template if:true={setToClear}>
+            <div class="notification-clearing-item" data-read="undo">
+                <span class="notification-clearing-text--container">
+                    <span class="notification-clearing notification-clearing--text">
+                        <h3 class="notification-clearing--header">Deleting notification</h3>
+                        <p data-count={countDown}>Your notification will be deleted in </p>
+                    </span>
+                </span>
+    
+                <button class="undo-button" onclick={toggleUndo}>
+                    {undoButtonLabel}
+                </button>
+    
+            </div>
+        </template>
+        <template if:false={setToClear}>
+            <a id={id} style="text-decoration:none" class="notification-item" href={url} onclick={notificationClick} data-read={read} data-type={type}>
+                <span class="notification-message-container">
+                    <p class="notification-message notification-message-title underline" >
+                        {message}
+                    </p>
+                    <span class="date-stamp">
+                        <lightning-formatted-date-time value={dateStamp}>
+                        </lightning-formatted-date-time>
+            
+                    </span>
+                </span>
+                <p class="notification-message notification-message-desc underline" >
+                    {description}
+                </p>
+            </a>
+    
+            <button class="clear-button" onclick={triggerClearNotification}></button>
+    
+        </template>
+    </template>
+</template>

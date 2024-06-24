@@ -1,0 +1,20 @@
+.adjustImg{
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1em;
+    color: grey;
+      /* margin-top : 5%; */
+}
+
+.liftup{
+    margin-top : -10%;
+}
+.customClose{
+    margin-top: 2em;
+    }
+.aob_blue_clickable_text{
+    cursor: pointer;
+    color: rgb(18, 107, 240);
+    font-size: 10px;
+    font-weight: 500;
+}

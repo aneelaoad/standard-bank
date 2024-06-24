@@ -1,0 +1,83 @@
+<!--
+  @description       : Lwc to show resume info of the meeting
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-05-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_overviewContainer">
+        <p>{meeting.Overview}</p>
+        <div class="v1_div_meetingTime">
+            <div class="v1_div_clock">
+                <img class="imgFilter" src={iconClock}>
+            </div>
+            <span class="v1_p_information">{meeting.StartTime} - {meeting.EndTime}</span>
+        </div>
+        <div class="v1_div_meetingLocation">
+            <div class="v1_div_location">
+                <template if:true={meeting.Onsite}>
+                    <template if:true={meeting.Location}>
+                        <img class="imgFilter" src={iconLocation}>
+                    </template>
+                </template>
+                <template if:false={meeting.Onsite}>
+                    <img src={iconWeb}>
+                </template>
+            </div>
+            <div>
+                <template if:true={meeting.Location}>
+                    <p class="v1_p_information">{meeting.Entrance}</p>
+                    <p class="v1_p_information">{meeting.Location}</p>
+                </template>
+            </div>
+        </div>
+        <template if:true={meeting.Link}>
+            <button title={labels.MeetingLink} onclick={openTodayEventLink} class="custom-full-button">{labels.MeetingLink}</button>
+        </template>
+        <button title={labels.RequestChange} class="custom-empty-button" onclick={requestChange}>{labels.RequestChange}</button>
+    </div>
+
+    <div class="v1_div_attendees">
+        <p class="light_titles">{labels.Attending}</p>
+        <p class="label v1_div_search">{labels.Search}</p>
+        <div class="v1_div_searchContainer">
+            <div class="shadowSearch">
+                <input id="search" name="searchAttendee" class="v1_input_search" type="text"
+                    placeholder={labels.EnterSearch} oninput={findAttendee} />
+                <div class="v1_button_search" onclick={findAttendee}>
+                    <lightning-icon size="small" icon-name="utility:search" alternative-text={labels.Search} title={labels.Search}>
+                    </lightning-icon>
+                </div>
+            </div>
+        </div>
+        
+        <template for:each={attendees} for:item="elem">
+            <div key={elem.Id} class="elem" onclick={elem.openElem}>
+                <template if:true={elem.Img}>
+                    <img src={elem.Img} key={elem.Id} class="v1_img_listview v1_div_data">
+                </template>
+                <template if:false={elem.Img}>
+                    <div class="v1_div_initials v1_div_data">{elem.Initials}</div>
+                </template>
+    
+                <div class="v1_div_data data_values">
+                    <div class="v1_div_data">
+                        <p class="label v1_p_longData">{elem.Name}</p>
+                        <p class="v1_p_title v1_p_longData">{elem.RolInEvent}</p>
+                        <p class="v1_p_subTitle v1_p_longData">{elem.ClientName}</p>
+                    </div>
+                </div>
+    
+                <template if:true={elem.Arrow}>
+                    <div class="v1_div_data end_arrow">
+                        <lightning-icon icon-name="utility:chevronright" size="x-small" name={elem.Title}></lightning-icon>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

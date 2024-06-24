@@ -1,0 +1,50 @@
+<!--
+@description       : Component that show profile info
+@author            : TCK
+@group             : 
+@last modified on  : 09-06-2022
+@last modified by  : TCK
+Modifications Log 
+Ver   Date         Author   Modification
+1.0   07-07-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_tabs v1_div_heading">
+        <nav role="navigation">
+            <template for:each={tabs} for:item="tab">
+                <template if:true={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab active">
+                        <a href="#" title={tab.Name} onclick={handleOnClick} id={tab.Id}>
+                            <span class="slds-assistive-text">{labels.CurrentPage}</span>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+                <template if:false={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab">
+                        <a href="#" title={tab.Name} onclick={handleOnClick} id={tab.Id}>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+            </template>
+        </nav>
+    </div>
+
+    <div id="context-tab-panel-1" class="slds-show v1_all" role="tabpanel" aria-labelledby="context-tab-id-1" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
+        <!-- Overview -->
+        <template if:true={viewProfileOverview}>
+            <c-eap-profile-overview onloaded={componentsLoaded} onreload={needToLoad}></c-eap-profile-overview> 
+        </template>
+
+        <!-- Contact -->
+        <template if:true={viewProfileContactUs}>
+            <c-eap-profile-contact onloaded={componentsLoaded}></c-eap-profile-contact> 
+        </template>
+
+        <!-- Terms & Conditions -->
+        <template if:true={viewTermsConditions}>
+            <c-eap-profile-terms-conditions onloaded={componentsLoaded}></c-eap-profile-terms-conditions> 
+        </template>
+    </div>
+</template>

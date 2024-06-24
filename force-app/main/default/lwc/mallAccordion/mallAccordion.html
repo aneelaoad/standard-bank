@@ -1,0 +1,28 @@
+<template>
+    <template if:true={accordionSections}>
+        <div class="accordion-wrapper">
+            <template for:each={accordionSections} for:item="section">
+                <div class={type} key={section.id}>
+                    <template if:true={section.heading}>
+                        <h3>{section.heading}</h3>
+                    </template>
+
+                    <template for:each={section.accordionCollection} for:item="accordion">
+                        <div key={accordion.id} class="accordion">
+                            <div class="accordion-heading" onclick={toggleAccordion} data-intent="informational"
+                            data-scope="mall accordion" data-id="link_content" data-type="click" data-text={accordion.title}>
+                                <div class="accordion-arrow">
+                                    <span></span><span></span>
+                                </div>
+                                <lightning-formatted-rich-text value={accordion.title}></lightning-formatted-rich-text>
+                            </div>
+                            <div class="accordion-section">
+                                <lightning-formatted-rich-text value={accordion.description}></lightning-formatted-rich-text>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

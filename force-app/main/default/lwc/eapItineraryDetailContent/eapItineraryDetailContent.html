@@ -1,0 +1,99 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 02-09-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-14-2021   TCK   Initial Version
+-->
+<template>
+    <div class="container">
+        <template if:true={mapLoaded}>
+            <div class="v1_div_mapa">
+                <!-- <lightning-map map-markers={mapMarkers}  list-view="hidden" options={mapOptions}></lightning-map>-->
+                <iframe width="100%" height="250px" frameborder="0" src={mapLink}></iframe>
+            </div>
+        </template>
+
+        <template if:true={isFlight}>
+            <div class="v1_div_checkContainer">
+                <p class="light_titles">{labels.YouAreCheck}</p>
+                <template for:each={checkDetails} for:item="elem">
+                    <div key={elem.Id} class="v1_div_listView">
+                       <template if:true={elem.IconStart}>
+                            <div class="v1_div_prettyList">
+                                <img class="filter" src={elem.IconStart}></img>
+                            </div>
+                        </template>
+        
+                        <div class="v1_div_prettyList v1_div_title">
+                            <p class="v1_p_title">{elem.Title}</p>
+                            <template if:true={elem.Subtitle}>
+                                <p class="v1_p_subtitle">{elem.Subtitle}</p>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        
+            <template if:true={haveDetails}>
+                <div class="v1_div_flightDetails">
+                    <p class="light_titles">{labels.FlightDetails}</p>
+                    <template if:true={flight.Seat}>
+                        <p class="v1_p_details">{flight.Seat}</p>
+                    </template>
+                    <template if:true={flight.Class}>
+                        <p class="v1_p_details">{flight.Class}</p>
+                    </template>
+                </div>
+            </template>
+        </template>
+
+        <template if:false={isFlight}>
+            <div class="v1_div_checkContainer">
+                <p class="light_titles">{labels.Shuttle}</p>
+                <template for:each={checkDetails} for:item="elem">
+                    <div key={elem.Id} class="v1_div_listView">
+                        <template if:true={elem.IconStart}>
+                            <div class="v1_div_prettyList">
+                                <img class="filter" src={elem.IconStart}></img>
+                            </div>
+                        </template>
+        
+                        <div class="v1_div_prettyList v1_div_title">
+                            <p class="v1_p_title">{elem.Title}</p>
+                            <template if:true={elem.Subtitle}>
+                                <p class="v1_p_subtitle">{elem.Subtitle}</p>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:true={boarding}>
+            <div class="v1_div_boardingContainer">
+                <div class="v1_div_listView">
+                    <div class="v1_div_prettyList">
+                        <img src={iconPDF}></img>
+                    </div>
+        
+                    <div class="v1_div_prettyList v1_div_title">
+                        <p class="v1_p_title">{boarding.Name}</p>
+                        <p class="v1_p_subtitle">{boarding.Date}</p>
+                    </div>
+        
+                    <div class="v1_div_prettyList v1_div_endInfo cursor" onclick={boarding.openFile}>
+                        <img src={arrow} class="v1_icon_end"></img>
+                        <p class="v1_p_subtitle">{boarding.Size}</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:false={boarding}>
+            <div class="relleno"></div>
+        </template>
+    </div>
+</template>

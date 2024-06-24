@@ -1,0 +1,41 @@
+<!-- **
+* @description  : Post Login Sidebar Component
+* User Story : SFP-4879
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <div class="container">
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <p class="text-normal-sfProDisplay heading-1">{headingOne}</p>
+            </div>
+            <div class="slds-col slds-m-top_x-small slds-m-bottom_x-small">
+                <div class="slds-grid">
+                    <div class="slds-col" style="flex: none;">
+                        <img src={icon} class="sidebar-icon">
+                    </div>
+                    <div class="slds-col">
+                        <p class="heading-normal-sfProDisplay heading-2">{headingTwo}</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="slds-col">
+                <div class="line"></div>
+            </div>
+            <div class="slds-col slds-m-top_medium">
+                <img src={backgroundImg} class="sidebar-bg">
+                <p class="text heading-large-sfProDisplay">{textOne} <br> {textTwo} <br> {textThree}</p>
+            </div>
+
+            <div class="slds-col">
+                <p class="text-bottom">{textFour}</p>
+            </div>
+            
+
+        </div>
+    </div>
+</template>

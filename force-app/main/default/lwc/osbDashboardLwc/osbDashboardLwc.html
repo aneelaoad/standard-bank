@@ -1,0 +1,61 @@
+<template>
+    <template if:false={isMobile}>
+        <template lwc:if={isLoading}>
+            <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+        </template>
+        <template lwc:if={showDashboard}>
+            <div class="DashboardSection">
+                <template lwc:if={showToast}> </template>
+                <template lwc:if={showToastFail}> </template>
+                <template lwc:if={deviceNotRegistered}>
+                    <c-osb-new-device-modal-lwc
+                        onupdatedeviceregistered={handleDeviceRegistered}
+                        indashboard="true"
+                    >
+                    </c-osb-new-device-modal-lwc>
+                </template>
+                <div class="pageGrid">
+                    <div class="HolderOne">
+                        <c-osb-add-applications onapplication={handleEventAdd}></c-osb-add-applications>
+                    </div>
+                    <div class="HolderTwo">
+                        <div class="HolderTwoSec">
+                            <c-osb-may-be-interested-in-solutions textdata="Dashboard | Featured Application">
+                            </c-osb-may-be-interested-in-solutions>
+                        </div>
+                    </div>
+                    <div data-id="ComingSoonHolder" class="HolderThree">
+                        <c-osb-coming-soon-solution onremovecomingsoon={handleNoComingSoon}>
+                        </c-osb-coming-soon-solution>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template lwc:elseif={showApplicationMarketPlace}>
+            <div class="pageGrid">
+                <div class="MarketplaceHolderOne" data-id="ApplicationMarketPlace">
+                    <c-osb-categories-lwc show-mini-mall-filter={showMiniMall}
+                        ondisplayapplicationgallery={handleAppGalleryDisplay} add-apps={}></c-osb-categories-lwc>
+                </div>
+                <template lwc:if={showFeature}>
+                    <div class="HolderTwo">
+                        <div class="HolderTwoSec">
+                            <c-osb-may-be-interested-in-solutions textdata="Dashboard | Featured Application">
+                            </c-osb-may-be-interested-in-solutions>
+                        </div>
+                    </div>
+                    <div data-id="ComingSoonHolder" class="MarketplaceHolderThree">
+                        <c-osb-coming-soon-solution onremovecomingsoon={handleNoComingSoon}>
+                        </c-osb-coming-soon-solution>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <template lwc:elseif={showInsights}>
+            <c-osb-insights-tab-lwc></c-osb-insights-tab-lwc>
+        </template>
+        <template lwc:elseif={showApiMarketplace}>
+            <c-osbapi-product-dashboard-container></c-osbapi-product-dashboard-container>
+        </template>
+    </template>
+</template>

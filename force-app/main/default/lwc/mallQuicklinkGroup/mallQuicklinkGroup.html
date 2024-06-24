@@ -1,0 +1,43 @@
+<template>
+  <template lwc:if={service.hasUserSavedLinks}>
+    <ul id={id} aria-hidden={isHidden} class="quicklinks-list">
+      <template lwc:if={service.hasUserSavedLinks}>
+        <template for:each={collection} for:item="item">
+          <li key={item.id} data-id={item.id} class="quicklink">
+            <a
+              class="link"
+              href={item.desktopUrl}
+              onclick={navigateToLink}
+              data-id="link_content"
+              data-intent="navigational"
+              data-scope="mall dashboard"
+              data-text-before={title}
+              data-text={item.title}
+              data-text-after="quick link"
+              data-type="click"
+              data-url={item.desktopUrl}
+            >
+              <span class="icon-wrapper" style={item.linkIcon}></span>
+              {item.title}
+            </a>
+            <button
+              class="remove-item"
+              onclick={removeLink}
+              data-linkid={item.id}
+              data-id="link_content"
+              data-intent="transactional"
+              data-scope="mall dashboard"
+              data-text-before={title}
+              data-text={item.title}
+              data-text-after="quick link remove button"
+              data-type="click"
+            ></button>
+          </li>
+        </template>
+      </template>
+      <li lwc:else>
+        <p>{noQuicklinksMessage}</p>
+      </li>
+    </ul>
+  </template>
+</template>

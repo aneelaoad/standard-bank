@@ -1,0 +1,344 @@
+<template>
+    <header class="header_sec" data-f6-region>
+        <section class="main_header">
+            <a href={standardbankurlpersonalhome} class="logo_brand" target={label.standardbankurl}>
+                <img src={standardBankLogo}>
+                <img src={standardBankText}></a>
+            <div class="main_header_rt">
+                <div class="search"><img src={searchIcon} alt="search" onclick={handleSection}> </div>
+                <div class="header hamburger-menu" onclick={HandleShowingSectionMobile}>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </section>
+        <template if:true={isOpenSection}>
+            <div class="modelOpen" id="model_mob">
+                <div class="modelclose" style="background-color: white">
+                    <form class="container example all_straight">
+                        <img src={searchIconb} alt="search">
+                        <input type="search" placeholder="What are you looking for?" name="search" oninput={HandleCallSearchApi} class="search_txt" />
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="medium" onclick={closeModal} class="close_icn close_icon"> </lightning-icon>
+                    </form>
+                    <c-aob_comp_spinner if:true={isLoading}></c-aob_comp_spinner>
+                </div>
+                <template if:true={showResults}>
+                    <div class="containers falsemodelwindow" style="background-color: white">
+                        <div class="row w-100" style="justify-content: center">
+                            <div class="cardstyle">
+                                 <lightning-formatted-rich-text class={custome_row_cls} value={showResults}>                                     </lightning-formatted-rich-text>    </div>
+                        </div>
+                    </div>
+                </template>
+                <div class="slds-backdrop slds-backdrop_open" style="z-index: -1" role="presentation"></div>
+            </div>
+        </template>
+        <template if:true={showSecMobile}>
+            <section class="main_header">
+                <ul>
+                    <li class="mainheader_lt">
+                        <a href={standardbankurlpersonalhome} target={label.standardbankurl}>
+                            <div class="country_code">
+                                <img src={imageSouthAfrica} alt="country flag">
+                                <span>{label.SouthAfrica}</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="mainheader_rt">
+                        <a href={standardbankurlpersonalhome} target={label.standardbankurl}>
+                            <div class="signin_acnt">
+                                <div class="signinprofilepic">
+                                    <span>{label.SignIn}</span>
+                                    <img src={profilePic} alt="account">
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <div class="item rectangle1">
+                <ul>
+                    <li class="rotate_icon pad_15" onclick={HandlePersonalIcon}>{label.Personal}
+                        <lightning-icon size="x-small" class="iconenablepointerevetns arrow_icon marop_8 icon_moving_right slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" icon-name="utility:chevrondown"></lightning-icon>
+                    </li>
+                     <template if:true={personalIcon}>
+                        <div style="background-color : #f2f3f4;">
+                            <li class="unicons adj_padding"><a href={standardbankurlpersonalhome} target={label.standardbankurl}>{label.Overview}</a></li>
+                            <li class="rotate_icon adj_padding" onclick={handlePersonalSections}>{label.ProductandServices}
+                                <lightning-icon size="x-small"  class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" icon-name="utility:chevronright"> </lightning-icon>
+                            </li>
+                            <li class="rotate_icon adj_padding" onclick={HandleShopPersonal}>{label.Shop}
+                                <lightning-icon size="x-small"  class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon>
+                            </li>
+                            <li class="unicons adj_padding" style="text-transform: uppercase;"><a href={ucountrewardurl} target={label.standardbankurl}>{label.UcountRewards}</a> </li>
+                            <li class="rotate_icon adj_padding">{label.Learn}
+                                <a href={learnurl} target={label.standardbankurl}> <lightning-icon size="x-small"  class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default" icon-name="utility:chevronright"> </lightning-icon> </a>
+                            </li>
+                        </div>
+                    </template>
+                    <li class="rotate_icon rotateiconbusiness pad_15" onclick={HandleBusinessIcon}>{label.Buisness}
+                        <lightning-icon size="x-small" class="iconenablepointerevetns arrow_iconbusiness icon_moving_right slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"  icon-name="utility:chevrondown"></lightning-icon>
+                    </li>
+                    <template if:true={businessIconmb}>
+                        <div style="background-color:#f2f3f4;">
+                            <li class="unicons adj_padding"><a href={standardbankbusinessoverview}  target={label.standardbankurl}>{label.Overview}</a></li>
+                            <li class="rotate_icon adj_padding" onclick={HandleProdAndServBusiness} style="text-transform: uppercase;">{label.productsAndService}
+                                <lightning-icon size="x-small" class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"  icon-name="utility:chevronright">  </lightning-icon>
+                            </li>
+                            <li class="unicons adj_padding"><a href={standardbankurlbizconnect}
+                                target={label.standardbankurl}>{label.Bizconnect}</a></li>
+                            <li class="unicons adj_padding"><a href={standardbankurltradeclub}
+                                target={label.standardbankurl}>{label.Tradeclub}</a></li>
+                            <li class="unicons adj_padding"><a href={ucountsstandardurlbusiness}
+                                target={label.standardbankurl}>{label.UcountRewards}</a>
+                            </li>
+                        </div>
+                    </template>
+                    <li class="unicons"><a href={label.corporateurl}
+                        target={label.standardbankurl}>{label.CorporatesInstitutions}</a>
+                        <img src={gotoPageIcon} alt="gotopageicon">
+                    </li>
+                    <li class="rotate_icon">{label.Wealth}
+                        <a href={standardbankurlwealth} target={label.standardbankurl}>
+                            <lightning-icon size="x-small"
+                                class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                icon-name="utility:chevrondown" onclick={handleWealth}>
+                            </lightning-icon>
+                        </a>
+                    </li>
+                    <template if:true={isWealthcheck}>
+                        <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_padding"><a href={standardbankwelathinsurance} target={label.standardbankurl}>INSURANCE</a></li>
+                        <li class="unicons adj_padding"><a href={standardbankwelathFiduciary} target={label.standardbankurl}>FIDUCIAIRY</a></li>
+                        <li class="unicons adj_padding"><a href={standardbankwealthinvestments} target={label.standardbankurl}>INVESTMENTS</a></li>
+                        <li class="unicons adj_padding"><a href={standardbankwealthinvestments} target={label.standardbankurl}>WEALTH MANAGEMENT</a></li>
+                        </div>
+                    </template>
+                    <li class="unicons" style="border:none;"><a href={standardbankurlnewsandmedia}
+                        target={label.standardbankurl}>{label.NewsAndMedia}</a></li>
+                </ul>
+            </div>
+        </template>
+        <template if:true={personalSec}>
+            <div style="height:100vh;">
+                <li class="rotate_icon1 icn_padadj"  style="text-transform: uppercase;" onclick={HandleProdAndSerPersonalclose}>
+                    <lightning-icon size="x-small" class="prdservicesicnpadding icn_padadj slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default adjust_icon_text" icon-name="utility:chevronleft">  </lightning-icon>
+                    <span style="text-transform: uppercase;">{label.productsAndService}</span>
+                </li>
+                <li class="rotate_icon adj_padding rotateiconinner" style="text-transform: uppercase;" onclick={HandleBankWithUs}>{label.BankwithUs}
+                    <a> <lightning-icon size="x-small" class="slds-icon arrowiconinner slds-input__icon slds-input__icon_right slds-icon-text-default"  icon-name="utility:chevronright"></lightning-icon> </a>
+                </li>
+                <template if:true={isBankWithUs}>
+                    <div class="bg-nav-collapse">
+                        <li class="unicons adj_paddingunicons"><a href={bankaccounturl} target={label.standardbankurl}>{label.BankAccounts}</a>
+                        </li>
+                        <li class="unicons adj_paddingunicons"><a href={creditcardurl} target={label.standardbankurl}>{label.CREDITCARDS}</a>
+                        </li>
+                        <li class="unicons adj_paddingunicons"><a href={saveinginvestmenturl}
+                            target={label.standardbankurl}>{label.SavingsAndInvestment}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={digitalwalleturl} target={label.standardbankurl}>{label.DigltalWallets}</a>
+                        </li>
+                        <li class="unicons adj_paddingunicons no-border"><a href={foreignexchangeurl}
+                            target={label.standardbankurl}>{label.ForeignExchange}</a></li>
+                    </div>
+                </template>
+            <li class="rotate_icon adj_padding rotateiconinner">{label.BorrowForYourNeeds}
+                <a>
+                    <lightning-icon size="x-small"
+                        class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                        icon-name="utility:chevronright" onclick={HandleBorrowNeeds}></lightning-icon>
+                </a>
+
+                </li>
+                <template if:true={isBorrowNeeds}>
+                    <div class="bg-nav-collapse">
+                        <li class="unicons adj_paddingunicons"><a href={homeserviceurl} target={label.standardbankurl}>{label.HomeServices}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={personalloanurl} target={label.standardbankurl}>{label.PersonalLoans}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={vechilefinancingurl} target={label.standardbankurl}>{label.VehicleFinancing}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={creditcardurls} target={label.standardbankurl}>{label.CREDITCARDS}</a> </li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={studentloans} target={label.standardbankurl}>{label.PBP_ZA_StudentLoansMobile}</a> </li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnergym" onclick={HandleGrowYourMoney}> {label.GrowYourMoney}
+                    <a> <lightning-icon size="x-small" class="slds-icon arrowiconinnergym slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon> </a>
+                </li>
+                <template if:true={isGrowYourMoney}>
+                    <div class="bg-nav-collapse">
+                        <li class="unicons adj_paddingunicons"><a href={savingandinvestment} target={label.standardbankurl}>{label.PBP_ZA_SavingsAndInvestmentMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={financialplannigurl} target={label.standardbankurl}>{label.FinancialPlanning}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={investmentsolutionurl} target={label.standardbankurl}>{label.InvestmentSolutions}</a></li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={my360appurl} target={label.standardbankurl}>{label.PBP_ZA_MyAppMobile}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinneriwm" onclick={HandleInsureWhatMatters}>  {label.InsureWhatMatters}
+                    <a> <lightning-icon size="x-small" class="slds-icon arrowiconinneriwm slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon>  </a>
+                </li>
+                <template if:true={isInsureWhatMatters}>
+                    <div class="bg-nav-collapse">
+                        <li class="unicons adj_paddingunicons"><a href={yourcarurl} target={label.standardbankurl}>{label.YourCar}</a>  </li>
+                        <li class="unicons adj_paddingunicons"><a href={yourhomeurl} target={label.standardbankurl}>{label.YourHome}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={yourincomeurl} target={label.standardbankurl}>{label.YourIncome}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={yourfutureurl} target={label.standardbankurl}>{label.PBP_ZA_YourFutureMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={youselfurl} target={label.standardbankurl}>{label.YourSelf}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={yourdebturl} target={label.standardbankurl}>{label.PBP_ZA_YourDebtMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={standardbankinsurnceurl} target={label.standardbankurl}>{label.PBP_ZA_StandardBankInsuranceAppMobile}</a> </li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnerhwb" onclick={HandleWaysToBank}>{label.WaysToBank}
+                    <a>  <lightning-icon size="x-small" class="slds-icon arrowiconinnerhwb slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon> </a>
+                </li>
+                <template if:true={isWaysToBank}>
+                    <div class="bg-nav-collapse">
+                        <li class="unicons adj_paddingunicons"><a href={selfservicingurl} target={label.standardbankurl}>{label.SelfServiceBanking}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={innovativeurl} target={label.standardbankurl}>{label.PBP_ZA_innovative}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={myupdateurl} target={label.standardbankurl}>{label.MyUpdates}</a></li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={helpcentreurl} target={label.standardbankurl}>{label.PBP_ZA_HelpCentreMobile}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnercs" onclick={HandleCustomerSolutions}>CUSTOMER SOLUTIONS<a> <lightning-icon size="x-small" class="slds-icon arrowiconinnercs slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon> </a> </li>
+                <template if:true={isCustomerSol}>
+                    <div class="bg-nav-collapse">
+                        <li class="unicons adj_paddingunicons"><a href={debtmangementurl} target={label.standardbankurl}>{label.PBP_ZA_DebtManagementSolutionsMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={debtcareurl} target={label.standardbankurl}>{label.PBP_ZA_DebtCareCentreMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={decesedurl} target={label.standardbankurl}>{label.PBP_ZA_DeceasedEstatesMobile}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnersc" onclick={HandleSecurityCentre}> {label.SecurityCentre}
+                    <a> <lightning-icon size="x-small" class="slds-icon arrowiconinnersc slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon> </a>
+                </li>
+                <template if:true={isSecurityCentre}>
+                    <div class="bg-nav-collapse">
+                        <li class="unicons adj_paddingunicons"><a href={BankSafely} target={label.standardbankurl}>{label.BankSafely}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={protectyourself} target={label.standardbankurl}>{label.Protect_yourself}</a></li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={scamAndfraud} target={label.standardbankurl}>{label.PBP_ZA_Scam_And_Fraud}</a> </li>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <template if:true={shopPersonal}>
+            <div style="height:100vh;">
+                <li class="rotate_icon1 icn_padadj"  style="text-transform: uppercase;" onclick={HandleShopclose}>
+                    <a> <lightning-icon size="x-small" class="slds-icon iconalign slds-input__icon prdservicesicnpadding icn_padadj slds-input__icon_left slds-icon-text-default" icon-name="utility:chevronleft"></lightning-icon> </a>{label.Shop}
+                </li>
+                <li class="unicons adj_paddingunicons"><a href={standardbankmobileurlshopmobile} target={label.standardbankurl}>{label.PBP_ZA_STANDARDBANKMOBILEMobile}</a></li>
+                <li class="unicons adj_paddingunicons"><a href={standardbankmobileurlshopdevices} target={label.standardbankurl}>{label.PBP_ZA_STANDARDBANKDEVICESMobile}</a></li>
+                <li class="unicons adj_paddingunicons"><a href={ucountrewardsurl} target={label.standardbankurl}>{label.UcontRewardsTravelMAll}</a></li>
+                <li class="unicons adj_paddingunicons"><a href={retailonlineurl} target={label.standardbankurl}>{label.UcountRewardsRetailersOnline}</a></li>
+                <div class="slds-grid slds-gutters margin-3pc"> 
+                    <div class="slds-col"> <span><img src={baby_city} ></span>        </div>    <div class="slds-col"> <span> <img src={car_service_city}></span> </div> <div class="slds-col"> <span><img src={Coastal_hire}></span>      </div> <div class="slds-col"> <span><img src={Courier_Connexion}></span> </div> 
+                </div>
+                    <div class="slds-grid slds-gutters margin-3pc"> 
+                          <div class="slds-col"> <span><img src={Dis_Chem_Logo} ></span> </div>    <div class="slds-col"> <span><img src={ez_shuttle}></span> </div>   <div class="slds-col"> <span><img src={fresh_stop}></span> </div>  <div class="slds-col"> <span><img src={Hirschs_logo}></span> </div>
+                    </div>
+                 <div class="slds-grid slds-gutters margin-3pc">  
+                    <div class="slds-col"> <span><img src={KFC} ></span> </div>  <div class="slds-col"> <span><img src={makro} ></span></div> <div class="slds-col"><span><img src={makro_liquor} ></span> </div>   <div class="slds-col"> <span><img src={Game_Logo}></span> </div>
+                </div>
+                <div class="slds-grid slds-gutters margin-3pc">
+                    <div class="slds-col"><span><img src={altech_netstar} ></span> </div><div class="slds-col"> <span><img src={netflorist} ></span> </div>  <div class="slds-col"><span><img src={Olympic_Cycles_logo} ></span></div> <div class="slds-col"><span><img src={Samsung_logo_white} ></span></div>
+                </div>
+                <div class="slds-grid slds-gutters margin-3pc">
+                    <div class="slds-col"><span><img src={showmax} ></span> </div>  <div class="slds-col"> <span><img src={Sweep_South} ></span> </div>  <div class="slds-col"><span><img src={The_Cross_Trainer_Logo} ></span></div> <div class="slds-col"><span><img src={tiger_wheel} ></span></div>
+                </div>
+                
+                <div class="slds-grid slds-gutters margin-3pc">  
+                        <div class="slds-col"> <span><img src={wine} ></span> </div> <div class="slds-col"> <span> <img src={Xtrend_Logo}> </span> </div><div class="slds-col"> <span><img src={XKIDS_Logo}></span>   </div>   <div class="slds-col"><span><img src={zando}></span>  </div> 
+                </div>
+            </div> 
+        </template>
+        <template if:true={prodAndServicesBusiness}>
+            <div style="height:100vh;overflow-y:scroll;">
+                <li class="rotate_icon1 icn_padadj"  style="text-transform: uppercase;font-family:bentonsans-medium-webfont;" onclick={HandleProdAndSerBusinessclose}>
+                    <lightning-icon size="x-small"  class="prdservicesicnpadding slds-icon iconalign icn_padadj slds-input__icon slds-input__icon_left slds-icon-text-default"  icon-name="utility:chevronleft"> </lightning-icon> {label.productsAndService}
+                </li>
+                <li class="rotate_icon adj_padding rotateiconinnerbwus" style="text-transform:uppercase;font-size:16px;" onclick={HandleBankWithUsbusiness}> {label.BankwithUs}
+                    <lightning-icon size="x-small" class="slds-icon arrowiconinnerbwus slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon>
+                </li>
+                <template if:true={isBankWithUsBusiness}>
+                    <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_paddingunicons"><a href={bankwithusurl} target="_self">{label.PBP_ZA_BusinessBankAccountsMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={trustaccounturl} target={label.standardbankurl}>{label.PBP_ZA_TrustAccounts}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={creditcardurls} target={label.standardbankurl}>{label.PBP_ZA_BusinessAndCorporateCreditCardsMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={switchyouraccounturl} target={label.standardbankurl}>{label.PBP_ZA_SwitchYourBankAccountMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={foreginexnurl} target={label.standardbankurl}>{label.ForeignExchange}</a></li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={sharianurl} target={label.standardbankurl}>{label.PBP_ZA_ShariahBankingMobile}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnerbfyn" onclick={HandleBorrowNeedsBusiness}> {label.BorrowForYourNeeds}
+                    <lightning-icon size="x-small" class="slds-icon arrowiconinnerbfyn slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon>
+                </li>
+                <template if:true={isBorrowForyourNeeds}>
+                    <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_paddingunicons"><a href={bussinessloansurl} target={label.standardbankurl}>{label.PBP_ZA_BusinessLoansMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={vechileandassisturl} target={label.standardbankurl}>{label.PBP_ZA_VehicleAndAssetMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={commericalurl} target={label.standardbankurl}>{label.PBP_ZA_CommercialProperlyfinance}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={specialisedurl} target={label.standardbankurl}>{label.PBP_ZA_SpecialisedFinancingMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={loancalculator} target={label.standardbankurl}>{label.PBP_ZA_LoanCalculatorMobile}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnergymb" onclick={HandleGrowYourMoneyBusiness}>{label.GrowYourMoney}
+                    <a> <lightning-icon size="x-small" class="slds-icon arrowiconinnergymb slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon> </a>
+                </li>
+                <template if:true={isGrowYourBusinessbus}>
+                    <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={bussinessinvestmenturl} target={label.standardbankurl}>{label.PBP_ZA_BusinessSavingsMobile}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinneriwmb" onclick={HandleInsureWhatMattersBusiness}>{label.InsureWhatMatters}
+                    <a><lightning-icon size="x-small" class="slds-icon arrowiconinneriwmb slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon> </a>
+                </li>
+                <template if:true={isInsureWhatMattersBusiness}>
+                    <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_paddingunicons"><a href={yourbussinessurl} target={label.standardbankurl}>{label.PBP_ZA_Your_BusinessMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={loansurl} target={label.standardbankurl}>{label.PBP_ZA_LoansMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={coparaterisk} target={label.standardbankurl}>{label.PBP_ZA_CorporateRiskMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={agribussinessurl} target={label.standardbankurl}>{label.PBP_ZA_YourAgriBusinessMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={insurancevechileurl} target={label.standardbankurl}>{label.PBP_ZA_YourVehiclesMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={commericalpropertyurl} target={label.standardbankurl}>{label.PBP_ZA_CommericalProperty}</a>  </li>
+                        <li class="unicons adj_paddingunicons"><a href={engineeringriskurl} target={label.standardbankurl}>{label.PBP_ZA_EngineeringRiskMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons camelCase"><a href={newcontracturl} target={label.standardbankurl}>{label.PBP_ZA_NEWCONTRACTSMOBILE}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={cargourl} target={label.standardbankurl}>{label.PBP_ZA_CargoMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={cashurl} target={label.standardbankurl}>{label.PBP_ZA_CashMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={eventurl} target={label.standardbankurl}>{label.PBP_ZA_EventsMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={directorurl} target={label.standardbankurl}>{label.PBP_ZA_DirectorsAndOfficersMobile}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={yourpeopleurl} target={label.standardbankurl}>{label.PBP_ZA_YourPeopleMobile}</a></li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={cyberinsuranceurl} target={label.standardbankurl}>{label.PBP_ZA_CommericalPropertyInsurance}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnercsb" onclick={HandleCustomerSolutionsBusiness}>{label.CustomerSolutions}
+                    <a> <lightning-icon size="x-small" class="slds-icon arrowiconinnercsb slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon></a>
+                </li>
+                <template if:true={isCustomerSolutionBus}>
+                    <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_paddingunicons"><a href={workplacesolutions} target={label.standardbankurl}>{label.PBP_ZA_WorkplaceSolutionsMobile}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={standardbankurlspecialised} target={label.standardbankurl}>{label.PBP_ZA_SpecialisedMobile}</a>
+                        </li><li class="unicons adj_paddingunicons"><a href={fleetmanagementurl} target={label.standardbankurl}>{label.PBP_ZA_FleetManagementMobile}</a></li>
+                        </li><li class="unicons adj_paddingunicons"><a href={industryurl} target={label.standardbankurl}>{label.PBP_ZA_IndustryMobile}</a></li>
+                        </li><li class="unicons adj_paddingunicons" style="border:none;"><a href={tradepointurl} target={label.standardbankurl}>{label.PBP_ZA_TRADEPOINT}</a></li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnerwtbb" onclick={HandleWaysToBankBusiness}>{label.WaysToBank}
+                    <a><lightning-icon size="x-small" class="slds-icon arrowiconinnerwtbb slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon></a>
+                </li>
+                <template if:true={isWaysToBankBusiness}>
+                    <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_paddingunicons"><a href={selfservicebankingurl} target={label.standardbankurl}>{label.SelfServiceBanking}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={digitalbankingurl} target={label.standardbankurl}>{label.PBP_ZA_DigitalBankings}</a> </li>
+                        <li class="unicons adj_paddingunicons"><a href={innovativepaymentsolutionurl} target={label.standardbankurl}>{label.PBP_ZA_innovative}</a> </li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={myupdates} target={label.standardbankurl}>{label.MyUpdates}</a> </li>
+                    </div>
+                </template>
+                <li class="rotate_icon adj_padding rotateiconinnerscb" style="border:none;" onclick={HandleSecurityCentreBusiness}>{label.SecurityCentre}
+                    <a> <lightning-icon size="x-small" class="slds-icon arrowiconinnerscb slds-input__icon slds-input__icon_right slds-icon-text-default" icon-name="utility:chevronright"></lightning-icon> </a>
+                </li>
+                <template if:true={isSecurityCentreBusiness}>
+                    <div style="background-color:#f2f3f4;">
+                        <li class="unicons adj_paddingunicons"><a href={BankSafely} target={label.standardbankurl}>{label.BankSafely}</a></li>
+                        <li class="unicons adj_paddingunicons"><a href={protectyourself} target={label.standardbankurl}>{label.Protect_yourself}</a></li>
+                        <li class="unicons adj_paddingunicons" style="border:none;"><a href={scamAndfraud} target={label.standardbankurl}>{label.ScamAndFraud}</a> </li>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </header>
+</template>

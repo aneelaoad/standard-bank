@@ -1,0 +1,76 @@
+<template>
+  <section
+    role="dialog"
+    tabindex="-1"
+    aria-labelledby="modal-heading-01"
+    aria-modal="true"
+    aria-describedby="modal-content-id-1"
+    class="greetings-modal slds-modal slds-fade-in-open"
+  >
+    <div class="slds-modal__container">
+      <div class="slds-modal__content" id="modal-content-id-1">
+        <div class="greetings-modal-header slds-p-around_medium">
+          <p class="modal-heading">
+            Great to have you! First time at SBG mall?
+          </p>
+          <lightning-icon
+            data-intent="transactional"
+            data-scope="mall sign up"
+            data-id="link_content"
+            data-type="click"
+            data-text="close"
+            data-text-after="button"
+            class="slds-modal__close"
+            icon-name="utility:close"
+            size="small"
+            onclick={handleCloseModal}
+          >
+          </lightning-icon>
+        </div>
+
+        <div class="slds-p-around_medium greetings-modal-content">
+          <p>
+            We exclusively welcome Standard Bank clients for early access to the
+            mall.
+          </p>
+          <p>
+            Please use your <strong>existing Standard Bank ID</strong> while
+            registering. These are the details that you would use for Internet
+            Banking or Insurance online.
+          </p>
+
+          <c-mall-cmn-button
+            interaction-intent={buttonInteractionIntent}
+            interaction-scope={buttonInteractionScope}
+            interaction-type={buttonInteractionType}
+            interaction-text={buttonInteractionText}
+            action={action}
+            variant="brand"
+            label="Continue"
+            title="Continue"
+            w-class="w236"
+            destination-url={url}
+          >
+          </c-mall-cmn-button>
+
+          <p class="terms-text">
+            I understand that by using the SBG mall, I agree to the
+            <a
+              href="/mall/s/legal?tab=4"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-intent="transactional"
+              data-scope="mall sign up"
+              data-id="link_content"
+              data-type="click"
+              data-text="T&Cs"
+              data-text-after="link"
+              >T&Cs</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

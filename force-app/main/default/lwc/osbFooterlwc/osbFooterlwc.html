@@ -1,0 +1,106 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 19-09-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <div class="footer-component">
+    <div class="footer__container fixed-height">
+      <div style="background: #f3f3f4 !important">
+        <div
+          class="footer footer__top slds-grid container slds-small-order_1 slds-size_6-of-6 slds-medium-size_10-of-12 slds-large-size_7-of-8">
+          <div class="slds-col name-container slds-size_1-of-6 slds-medium-size_4-of-12 slds-large-size_2-of-8">
+            <span>Standard Bank App</span>
+          </div>
+          <div class="slds-col image slds-size_1-of-6 slds-medium-size_4-of-12 slds-large-size_2-of-8">
+            <a href="https://play.google.com/store/apps/details?id=za.co.standardbank.cibdigital.onehubauthenticator" target="_blank" data-id="googlePlay" data-scope="footer" data-text="Footer | Google Play" data-intent="navigational">
+              <img src={google} data-id="google"></img>
+            </a>
+          </div>
+          <div class="slds-col image slds-size_1-of-6 slds-medium-size_4-of-12 slds-large-size_2-of-8">
+            <a href="https://apps.apple.com/za/app/onehub-authenticator/id1562824001?platform=iphone" target="_blank" data-id="Appstore" data-scope="footer" data-text="Footer | Application Store" data-intent="navigational">
+              <img src={appStore} data-id="appStore"></img>
+            </a>
+          </div>
+          <div
+            class="slds-col ipad-container slds-size_2-of-6 slds-medium-size_4-of-12 slds-large-size_3-of-7 footer__right">
+            <img src={ipads} data-id="Ipads"></img>
+          </div>
+        </div>
+      </div>
+      <div class="footerNavigation slds-grid" style="margin: auto;">
+        <div class="footer_navigation">
+          <div class="footer_legal_links">
+            <div class="footer_menu_links">
+              <ul class="footer__menu">
+                <li class="footer__menuitem slds-col">
+                  <a href={terms} target="_blank" data-id="footer_nav_terms" data-text="Footer | Terms and Conditions" data-intent="informational" data-scope="footer">Onehub Terms and
+                    Conditions</a>
+                </li>
+                <li class="footer__menuitem slds-col">
+                  <a href={privacy} target="_blank" data-id="footer_nav_privacy" data-text="Footer | Privacy" data-intent="informational" data-scope="footer">Privacy</a>
+                </li>
+                <li class="footer__menuitem slds-col">
+                  <a href={securitycentre} target="_blank" data-id="footer_nav_security" data-text="Footer | Security Centre" data-intent="informational" data-scope="footer">Security Centre</a>
+                </li>
+                <li class="footer__menuitem slds-col">
+                  <a href={legal} target="_blank" data-id="footer_nav_legal" data-text="Footer | Legal" data-intent="informational" data-scope="footer">Legal</a>
+                </li>
+                <li class="footer__menuitem slds-col">
+                  <a href={regulartory} target="_blank" data-id="footer_nav_regulatory" data-text="Footer | Regulatory" data-intent="informational" data-scope="footer">Regulatory</a>
+                </li>
+              </ul>
+  
+            </div>
+          </div>
+          <div class="footer_social_links_holder">
+            <div class="footer_social_links">
+              <div class="social_menu_links">
+                <a href="https://www.linkedin.com/company/standard-bank-group" target="_blank"
+                data-id="footer_nav_linkedin" data-text="Footer | LinkedIn" data-intent="social" data-scope="footer">
+                <i class="ms-icn_linkedIn"></i>
+                </a>
+              </div>
+              <div class="social_menu_links">
+                <a href="https://www.youtube.com/user/StandardBankGroup" target="_blank" data-id="footer_nav_youtube" data-intent="social" data-scope="footer"
+                data-text="Footer | YouTube">
+                <i class="ms-icn_youtube"></i>
+                </a>
+              </div>
+              <div class="social_menu_links">
+                <a href="https://www.facebook.com/standardbankgrp/" target="_blank" data-id="footer_nav_face" data-intent="social" data-scope="footer"
+                data-text="Footer | Facebook">
+                <i class="ms-icn_facebook"></i>
+                </a>
+              </div>
+              <div class="social_menu_links">
+                <a href="https://twitter.com/SBGroup" target="_blank" data-id="footer_nav_twitter" data-intent="social" data-scope="footer"
+                data-text="Footer | Twitter">
+                <i class="ms-icn_twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col footer__cookies">
+          <ul class="footer__menu">
+            <li class="footer__menuitem">
+              <a href={notices} target="_blank" data-id="footer_nav_notices"
+              data-text="Footer | Important notices" data-intent="informational" data-scope="footer">Important Notices</a>
+            </li>
+            <li class="footer__menuitem">
+              <a href="/s/manage-cookies" target="_blank" data-id="footer_nav_manage_cookies" data-intent="navigational" data-scope="footer"
+              data-text="Footer | Manage Cookies">Manage Cookies</a>
+            </li>
+          </ul>
+        </div>
+        <div class="slds-col footer__copyright">
+          <lightning-formatted-rich-text value="Standard Bank is a licensed financial services provider in terms of the Financial Advisory and Intermediary Services Act </br>and a registered credit provider in terms of the National Credit Act, registration number NCRCP15">
+          </lightning-formatted-rich-text>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

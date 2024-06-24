@@ -1,0 +1,26 @@
+<template>
+  <section class={classList}>
+    <div class="Inner-wrapper">
+      <div class="slds-grid slds-grid_vertical-stretch slds-wrap">
+        <div style={slidesLargestHeight} class={contentClasses}>
+          <c-sbg-hero-banner-text c-sbg-hero-banner-text heading={title} sub-text={content} action={navigateToUrl} destination-url={destinationUrl}
+            variant="brand" button-label={buttonLabel} disabled={disabled} button-title={buttonTitle} w-class="w300"
+            show-button={showBtn}>
+          </c-sbg-hero-banner-text>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_7-of-12 slds-order_1 slds-medium-order_2 slds-large-order_2 relative-container">
+          <div class="hero-banner-item-col__image-holder">
+              <template lwc:if={imagesExist}>
+            <picture>
+              <source srcset={backgroundImageDesktop} media="(min-width: 1200px)" />
+              <source srcset={backgroundImageTablet} media="(min-width: 768px)" /> 
+              <img src={backgroundImage} alt={title} />
+            </picture> 
+              </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div if:true={isLastSlide} class="last-slide">&nbsp;</div>
+</template>

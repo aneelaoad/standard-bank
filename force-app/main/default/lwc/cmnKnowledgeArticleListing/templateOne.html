@@ -1,0 +1,73 @@
+<template>
+    <div class="container slds-align_absolute-center">
+        <div class="slds-grid slds-wrap main-grid">
+            <div class="slds-col slds-size_12-of-12">
+
+                <div class="slds-grid slds-grid_align-spread">
+
+                    <div class="slds-col slds-align-top slds-p-top_small heading-normal">
+                        <p>{heading}</p>
+                    </div>
+
+                    <div class="slds-col slds-p-top_small slds-p-right_large viewAll">
+                        <template if:true={showViewAll}>
+                            <a href={viewAllUrl} data-intent="informational" data-scope="carousel article list" data-id="link_content" 
+                                data-text="success stories | view all link click" onclick={tracker}>View All
+                                <img class="arrowIcon" src={viewIcon}><img>
+                            </a>
+                        </template>
+                    </div>
+
+                </div>
+
+                <div class="slds-grid slds-wrap">
+
+                    <template iterator:story={articles}>
+                        <div key={story.value.Id}
+                            class="slds-col slds-size_1-of-1 slds-medium-size_3-of-9 slds-large-size_1-of-3">
+
+                            <div class="slds-col box">
+                                <div class="slds-grid slds-grid_vertical">
+
+                                    <div class="slds-col story-image-container">
+                                        <img src={story.value.Image__c} class="story-image">
+                                    </div>
+
+                                    <div class="slds-col box-heading">
+                                        <p>{story.value.Title}</p>
+                                    </div>
+
+                                    <div class="slds-col box-content">
+                                        <p>{story.value.Summary}</p>
+                                    </div>
+
+                                    <div class="slds-col viewLink">
+                                        <div class="slds-grid viewArticleLink">
+
+                                            <div class="slds-col">
+                                                <a href=javascript:void(0)>
+                                                    <p data-id={story.index} onclick={handleArticleClick}
+                                                       data-intent="informational" data-scope="carousel article list" data-text={story.value.dataText}>View</p>
+                                                </a>
+                                            </div>
+
+                                            <div class="slds-col">
+                                                <img class="arrowIcon" src={viewIcon}><img>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>

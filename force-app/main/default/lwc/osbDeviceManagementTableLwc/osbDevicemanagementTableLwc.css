@@ -1,0 +1,147 @@
+table {
+
+  border-collapse: separate;
+  border-spacing: 0 40px;
+
+}
+
+.table-heading {
+  height: 24px;
+  width: 50px;
+  color: #0033aa;
+  font-family: var(--FONT-FAMILY);
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 24px;
+  padding-bottom: 80px;
+}
+
+.heading-row {
+  border: 50px solid transparent;
+}
+
+th {
+  border: 50px solid transparent;
+}
+
+.table-data {
+  padding-top: 5px;
+}
+.test{
+  width: 90%;
+}
+.data-row {
+  height: 50px;
+  width: 90%;
+  color: #0a2240;
+  font-family: var(--FONT-FAMILY);
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 14px;
+  padding-top: 20px;
+  padding-bottom: 200px;
+  border-bottom: 50px;
+}
+
+
+
+
+.deviceIcon {
+  height: 50px;
+  width: 50px;
+  padding-right: 15px;
+  font-size: 20px;
+
+}
+
+.ms-icn_phone_android {
+  padding-right: 20px;
+  height: 50px;
+  width: 50px;
+  font-size: large;
+  position: absolute;
+}
+
+.ms-icn_phone_iphone {
+  padding-right: 20px;
+  height: 24px;
+  width: 24px;
+  font-size: large;
+}
+
+.ms-icn_bin {
+  padding-right: 20px;
+  width: 20px;
+  length: 20px;
+  font-size: 20px;
+  height: 26.5px;
+}
+
+.delete-button {
+  border: none;
+}
+
+.line {
+  position: relative;
+}
+
+.line span {
+  position: absolute;
+  background: red;
+  display: inline-block;
+  height: 1px;
+  top: 41px;
+  right: -50px;
+  width: 500px;
+}
+
+.td::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 80px;
+  height: 3px;
+  bottom: -3px;
+  background: red;
+
+}
+
+.grey-line-break {
+  box-sizing: border-box;
+  height: 2px;
+  width: 237%;
+  margin-bottom: 10px;
+  border: 1px solid #da0808;
+}
+
+.testline {
+  max-width: 100%;
+}
+
+.device-table {
+  width: 100%;
+}
+
+.table-heading {
+  height: 24px;
+  width: 57px;
+  color: #0033AA;
+  font-family: var(--FONT-FAMILY);
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 24px;
+  text-align: center;
+
+}
+
+.table-contents {
+  height: 14px;
+  width: 167px;
+  color: #0A2240;
+  font-family: var(--FONT-FAMILY);
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 14px;
+}

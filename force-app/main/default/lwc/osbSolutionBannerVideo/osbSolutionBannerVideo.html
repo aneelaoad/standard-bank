@@ -1,0 +1,20 @@
+<template>
+    <div class="teaser-container" data-id="teaserosb">
+        <div class="teaser">
+            <div class="teaser__title">
+                <lightning-formatted-rich-text value={title}></lightning-formatted-rich-text>
+            </div>
+            <div data-id="text-on-right" class="teaser__columns teaser__columns--reverse slds-grid">
+                <div class="teaser__content slds-size_6-of-6 slds-large-size_6-of-12 slds-p-horizontal_small">
+                    <lightning-formatted-rich-text value={mainContent}></lightning-formatted-rich-text>
+                    <br>
+                    <lightning-formatted-rich-text value={subContent}></lightning-formatted-rich-text>
+                    <br>
+                </div>
+                <div if:true={showVideo} class="teaser__image slds-size_6-of-6 slds-large-size_6-of-12 slds-p-horizontal_small">
+                    <iframe width="100%" height="500px" src={videolink} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

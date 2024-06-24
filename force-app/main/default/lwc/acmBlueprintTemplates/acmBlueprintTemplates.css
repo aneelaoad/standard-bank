@@ -1,0 +1,165 @@
+.acm-blueprint-card {
+    display: flex;
+    margin: 0;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: .25rem;
+    background: var(--light-mode-typography-on-color-white, #FFF);
+    box-shadow: rgba(52, 105, 155, 0.27) 0px 4px 4px;
+    border-width: 1px;
+    border-radius: .3125rem;
+    position: relative;
+    min-width: 280px;
+    width: 100%;
+}
+
+.acm-blueprint-card.recommended {
+    background: var(--Linear-gradient, linear-gradient(180deg, #813E9F 0%, #18154A 100%));
+    color: var(--color-neutrals-00, #FFF);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+.recommended-badge {
+    display: flex;
+    height: 1.25rem;
+    font-size: .6875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: var(--Linear-gradient, linear-gradient(180deg, #813E9F 0%, #18154A 100%));
+    padding: .125rem 1.4375rem .3125rem .9375rem;
+    align-items: center;
+    clip-path: polygon(0% 0%, 0% 100%, 90% 100%, 100% 0%);
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+}
+
+.recommended-badge p {
+    color: var(--color-neutrals-00, #FFF);
+    font-size: .6875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: relative;
+}
+
+.acm-heading {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: #3C4B6C;
+}
+
+.acm-heading:after {
+    content: " ";
+    width: 2.5rem;
+    height: .125rem;
+    background: linear-gradient(90deg, #b150c5 0%, #ff5a00 99.57%)!important;
+    display: flex;
+    margin-top: 0px;
+}
+
+.acm-description {
+    display: flex;
+    color: #0A2240;
+    padding: 1rem 0;
+    line-height: 1.5;
+    letter-spacing: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #3c4b6c;
+    overflow: auto;
+    height: auto;
+}
+.row-heading .col.col-12.col-md-8[c-sbgtitlewithsubtitle_sbgtitlewithsubtitle] {
+    padding-left: 0px;
+}
+
+.btn-container {
+        text-align: center;
+}
+
+.button-container {
+        text-align: center;
+}
+
+
+@media (max-width: 600px) {
+  .w230[c-cmnButton_cmnButton] {
+    width: 10rem!important;
+}
+
+.acm-blueprint-card {
+ min-width: 200px;
+}
+}
+    
+    
+@media (min-width: 600px) {
+    .acm-heading {
+        font-size: 1.2rem;
+    }
+    .button-container[c-acmBlueprintTemplates_acmBlueprintTemplates] {
+    align-self: center;
+    }
+
+    .acm-description {
+        padding: 1.5rem 0;
+        overflow: auto;
+        height: 11.5625rem;
+    }
+
+    .btn-container {
+        text-align: center;
+    }
+
+    c-cmn-button>button {
+        width: 50%;
+    }
+}
+
+
+@media (min-width: 1024px) {
+    .acm-blueprint-card {
+        padding: 1.5rem;
+    }
+
+    .acm-heading {
+        font-size: 1.5rem;
+    }
+
+    .acm-description {
+        padding: 1.5rem 0;
+        overflow: auto;
+        height: 11.5625rem;
+    }
+
+    c-cmn-button>button {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 768px) {
+  .w230[c-cmnButton_cmnButton] {
+    width: 12rem!important;
+    margin:0 auto;
+}
+.acm-blueprint-card[c-acmBlueprintTemplates_acmBlueprintTemplates] {width:85%;}
+
+ .button-container[c-acmBlueprintTemplates_acmBlueprintTemplates] {
+    align-self: center;
+    }
+
+}
+
+@media (max-width: 1055px) {
+  .parent-container {
+    display: block;}
+}

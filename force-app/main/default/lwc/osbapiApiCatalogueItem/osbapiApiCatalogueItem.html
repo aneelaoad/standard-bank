@@ -1,0 +1,24 @@
+<template>
+    <div class="api-item-container">
+        <template if:true={showIcon}>
+            <div class="api-item-icon-container">
+                <template if:false={icon}>
+                    <lightning-icon
+                        class="default-api-icon"
+                        icon-name="utility:work_order_type"
+                    ></lightning-icon>
+                </template>
+            </div>
+        </template>
+        <div class="api-content-container">
+            <h1 class="api-content-title">{title}</h1>
+            <p class="api-content-description">{description}</p>
+            <a
+                class="api-content-learn-more-btn"
+                onclick={navigateToApiDetails}
+                data-id={title}
+                >DOCUMENTATION</a
+            >
+        </div>
+    </div>
+</template>

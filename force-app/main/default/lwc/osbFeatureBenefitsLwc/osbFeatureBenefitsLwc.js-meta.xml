@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" type="String" default="" label="Title"/>
+            <property name="mainContent" type="String" default="" label="Main Content"/>
+            <property name="subContent" type="String" default="" label="Sub Content"/>
+            <property name="backgroundColor" type="String" default="" label="Background Colour"/>
+            <property name="videolink" type="String" default="" label="Video Link"/>
+            <property name="ImageUrl" type="String" default="" label="Image Path" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="showVideo" type="Boolean" default="false" label="Show Video"/>
+            <property name="ImageStyle" type="String" default="" label="Image Style"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

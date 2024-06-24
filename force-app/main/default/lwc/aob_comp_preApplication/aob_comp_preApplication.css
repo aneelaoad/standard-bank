@@ -1,0 +1,65 @@
+:host{
+    --sds-c-input-color-background: white;
+    --dxp-s-form-element-color-background: white;
+}
+.mymob_title{
+    font-size: 21px;
+    font-weight: 500;
+    text-align: center;
+}
+.mymob_subtitle{
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-align: center;
+
+}
+.mymob_content{
+	display: block;
+    letter-spacing: 1px;
+  text-align: center;
+  color: slategrey;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.aob_display-flex{
+    display: flex;
+    justify-content: center;
+}
+.w-20{
+    width: 17px;
+    height: 17px;
+}
+.slds-form-element__control span{
+    margin-right: 0px!important;
+}
+
+.aob_form_row{
+    align-items: baseline;
+}
+@media (max-width: 767px){
+    .button_reverse{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}
+
+.form-position{
+    position:relative;
+}
+
+.currency-r{
+    position: absolute;
+    font-family: "bentonsans-regular-webfont", "Salesforce Sans", Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    z-index: 999;
+    top: 38px;
+    left: 31px;
+}
+
+@media (max-width: 768px){
+    .currency-r{
+       top: 38px;
+       left: 32px;
+    }
+}

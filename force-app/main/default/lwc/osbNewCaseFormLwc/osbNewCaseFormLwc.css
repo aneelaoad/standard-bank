@@ -1,0 +1,192 @@
+.CustomerServiceSection {
+    width: 100% !important;
+    height: auto;
+    padding: 2.5rem 8.4375rem 6.25rem 8.4375rem;
+    font-family: var(--FONT-FAMILY);
+}
+
+.ContactInfoSection {
+    padding-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2.375rem;
+    grid-template-rows: 17.375rem;
+}
+
+.CustomerFormHolder {
+    padding: 2.5rem 17.813rem 3.125rem 17.813rem;
+    display: grid;
+}
+
+.CustomerForm {
+    background-color: #FFFFFF;
+    box-shadow: 0 0.25rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+    display: grid;
+}
+
+.newCaseIcon {
+    height: 5rem;
+    width: 5rem;
+    background-color: #0033AA;
+    padding: 0.875rem;
+    border-radius: 50%;
+    align-self: center;
+    margin: 0 auto;
+}
+
+.newCaseIcon i {
+    font-size: 3rem;
+    color: #FFFFFF;
+}
+
+.HeadingHolder {
+    padding: 2rem 0rem 0rem 0rem;
+    display: grid;
+}
+
+.ContactHeading {
+    width: 100% !important;
+    height: 1.688rem;
+    margin: 0 auto;
+    color: #222222;
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: 0.073rem;
+    line-height: 1.813rem;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.DescriptionHeading {
+    padding-top: 0.375rem;
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 1.5rem;
+    text-align: center;
+    color: #666666;
+
+}
+
+.InputFormHolder {
+    padding-top: 1.5rem;
+    display: grid;
+}
+
+.ButtonSection {
+    padding: 2rem 0rem 0rem 0rem;
+    display: inline;
+}
+
+.btnStyle {
+    display: block;
+    box-sizing: border-box;
+    height: 3.125rem;
+    width: 11.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.063rem;
+    line-height: 3.125rem;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all .15s ease-in;
+    cursor: pointer;
+    margin: auto;
+    margin-top: 0.938rem;
+}
+
+.btnCancel {
+    color: #0089FF;
+    border: 0.063rem solid #0089FF;
+    float: left;
+}
+
+.btnSubmit {
+    background-color: rgb(0, 137, 255);
+    color: rgb(255, 255, 255);
+    float: right;
+}
+
+.NewCasesSection {
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+    display: grid;
+}
+
+.TitleHolder {
+    display: grid;
+    padding: 0.813rem 0rem 0.813rem 0.698rem;
+    background-color: #001648;
+    color: #FFFFFF;
+    text-align: left;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.563rem;
+    margin-bottom: 1rem;
+}
+
+.slds-form-element {
+    padding-top: 0.313rem;
+    color: #666666;
+}
+
+@media only screen and (max-width:1400px) {
+
+    .CustomerServiceSection {
+        padding-left: 8%;
+        padding-right: 8%;
+    }
+
+    .CustomerFormHolder {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+@media only screen and (max-width:768px) {
+
+    .CustomerServiceSection {
+        padding: 2.5rem 3.125rem 6.25rem 3.125rem;
+    }
+
+    .CustomerFormHolder {
+        padding: 2.5rem 2.125rem 2.625rem 2.125rem;
+    }
+
+    .ContactInfoSection {
+        column-gap: 1.5rem;
+    }
+}
+
+@media only screen and (max-width:740px) {
+    .ContactInfoSection {
+        padding-top: 2.25rem;
+        grid-template-columns: 1fr;
+        column-gap: 0rem;
+        row-gap: 1.5rem;
+        grid-template-rows: repeat(2, 17.375rem);
+    }
+}
+
+@media only screen and (max-width:600px) {
+
+    .CustomerServiceSection {
+        padding: 1.375rem 0rem 4.5rem 0rem;
+    }
+
+    .CustomerFormHolder {
+        padding: 1.5rem 1.188rem 2.25rem 1.188rem;
+    }
+
+    .ButtonSection {
+        padding: 1.5rem 0rem 0rem 0rem;
+        display: contents;
+    }
+
+    .btnStyle {
+        width: 100%;
+    }
+}

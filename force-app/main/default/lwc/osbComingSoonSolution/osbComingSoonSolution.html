@@ -1,0 +1,58 @@
+<template>
+    <template if:true={isLoading}>
+        <div class="ComingSoonSol">
+            <div class="ComingSoonMain Loader">
+                <div class="SolutionSizes HolderSizes">
+                    <div class="SolutionHolderLoader">
+                        <div class="ComingClassLoader skeleton-loader">
+                        </div>
+                        <div class="HeadingSectionLoader skeleton-loader">
+                        </div>
+                        <div class="DescriptionLoader skeleton-loader">
+                        </div>
+                    </div>
+                </div>
+                <div class="ImageSection HolderSizes skeleton-loader">
+                </div>
+            </div>
+        </div>
+
+    </template>
+    <template if:true={ComingSoonSolutionsRequest}>
+        <div class="ComingSoonSol">
+            <div class="ComingSoonMain">
+                <div class="SolutionSizes HolderSizes">
+                    <template if:true={solOwner}>
+                        <div class="SolutionHolder ThirdParty">
+                            <div class="ComingClass">
+                                <p>Coming Soon</p>
+                            </div>
+                            <div class="HeadingSection">
+                                <p>{solTitle}</p>
+                            </div>
+                            <div class="DescriptionTextSection">
+                                <p>{solIntro}</p>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:false={solOwner}>
+                        <div class="SolutionHolder SBParty">
+                            <div class="ComingClass">
+                                <p>Coming Soon</p>
+                            </div>
+                            <div class="HeadingSection">
+                                <p>{solTitle}</p>
+                            </div>
+                            <div class="DescriptionTextSection">
+                                <p>{solIntro}</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="ImageSection HolderSizes ">
+                    <img src={ComingSoonImage} class="SolutionImage">
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

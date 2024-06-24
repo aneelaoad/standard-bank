@@ -1,0 +1,191 @@
+body{
+    overflow: unset !important;
+    font-family: var(--FONT-FAMILY);  
+}
+
+.SignUpRequestSol{
+    background-color: #F6F6F6;
+    margin: -48px -16px!important;
+    font-family: var(--FONT-FAMILY);
+    height: 760px;
+    width: 101% !important;    
+}
+
+.slds-grid{
+    display: flex;
+}
+
+.rightImage{
+    background-color: #000524;
+    width: 55%;
+}
+
+.inputSection{
+    width: 501px;
+    padding-top: 56px;
+    padding-left: 15px;
+    margin: auto;    
+    align-items: center; 
+    margin: auto;
+    display: block;
+}
+
+.FRDMplacement{
+    padding-top: 174px;    
+}
+
+.LogoImageSection{
+    margin-top: 75px;
+    font-family: var(--FONT-FAMILY);
+}
+
+.box{
+    position: relative;
+}
+
+.title{
+    padding-top: 158px;
+    color: #444444;
+    font-family: var(--FONT-FAMILY);
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: 41px;
+    text-align: center;
+    margin-bottom:57px;   
+    font-weight: 300;
+    height: 38px;
+    width: 100%;    
+}
+
+.slds-form-element__control {
+    background-color: var(--sds-c-input-color-background, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));
+}
+
+.newRequest_section {
+    align-items: stretch;
+    width: 100%; 
+} 
+
+.btnStyle {
+    display: block;
+    height: 50px;
+    border: 0;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 50px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all .15s ease-in;
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #000524;
+    margin: auto;
+    width: 296px;
+    margin-top: 37px;
+    font-family: var(--FONT-FAMILY);
+}
+
+.tnc{
+    color: #444444;
+    margin: 10px;
+    font-family: var(--FONT-FAMILY);
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 21px;
+}
+
+.tnc_text{
+    color:#121DFF ;
+}
+
+.panellogo{
+    height: 94px;
+    width: 519.6px;
+ }
+
+.submittedSection {
+    color: #767676;
+    font-family: var(--FONT-FAMILY);
+    font-size: 22px;
+    line-height: 28px;
+    padding-right: 100px;
+    text-align: center;
+    height: 203px;
+    width: 544px;
+}
+
+@media(max-width: 1124px){
+    .SignUpRequestSol{
+        padding-left: 16px;
+    }
+
+    .title{
+        font-size: 34.7px;
+        line-height: 35px;
+    }
+
+    .panellogo{
+        height: 65px;
+        width: 359.29px;
+    }
+}
+
+@media(max-width: 649px){
+    .inputSection{
+       width:90% !important;
+       padding: 50px 15px 50px 15px;
+       height: 950px;
+       display:inline-block;
+       flex-wrap:wrap; 
+   }
+   .title{
+    font-size: 34.7px;
+    line-height: 35px;
+    }   
+    
+}
+
+@media(max-width: 375px){
+    .title{
+        font-size: 25.75px;
+        line-height: 26px;
+    }
+}
+
+@media(max-width:1124px){
+    .rightImage{
+        padding-right: 100px;
+    }
+}
+
+@media(max-width: 900px){
+    .rightImage{
+        display:none;
+    }
+}
+
+.slds-form-element__label{
+    height: 12px;
+    color: #444444;
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 15px;    
+}
+
+.slds-input[readonly]{
+    box-sizing: border-box;
+    height: 53px;
+    width: 100%;
+    border: 1px solid #767676;
+    background-color: #F6F6F6;
+    border-radius: 4px;
+    color: #767676;
+    font-family: var(--FONT-FAMILY);
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 21px;
+    padding-inline-start: 10px;
+}

@@ -1,0 +1,19 @@
+<template>
+    <template if:false={timerstepcirle}>
+        <span class="timerClock">{timerCountdown} min</span>  
+    </template>
+    <template if:true={timerstepcirle}>
+        <div class="clearFloats slds-align--absolute-center">
+            <div data-id='containerdegree' class="container p50plus">
+                <span>{timerCountdown}</span>
+                <div class="slice">
+                    <div class="bar" style="-webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg); -ms-transform: rotate(360deg);"></div>
+                    <div class="fill"></div>
+                </div>
+            </div>    
+        </div>
+        <div class="clearFloats slds-align--absolute-center legend">
+            {Legend}
+        </div>
+    </template>
+</template>

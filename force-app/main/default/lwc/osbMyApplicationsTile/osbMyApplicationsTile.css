@@ -1,0 +1,142 @@
+.TileHolder {
+    width: 12.5rem;
+    height: 9.25rem;
+    color: #0a2240;
+    font-family: var(--FONT-FAMILY);
+    background: linear-gradient(84.55deg, #ffffff 25.53%, #fafbfc 91.28%);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    position: relative;
+    animation: fadeIn 2s forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+    font-size: 1rem;
+}
+
+@keyframes fadeIn {
+    100% {
+        opacity: 1;
+    }
+}
+
+.MFAHoverSection {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0.25rem;
+    background: rgba(2, 7, 13, 0.64);
+    color: #ffffff;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    text-align: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+}
+
+.MFAHoverText {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+
+.TileHolder:hover {
+    background: linear-gradient(178.92deg, #ffffff 1.85%, #eef1f5 98.15%);
+    box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.24);
+}
+
+.TileHolder:hover .MFAHoverSection {
+    visibility: visible;
+    opacity: 1;
+    font-weight: 400;
+}
+
+.unavailableClass {
+    cursor: not-allowed;
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+.MainTile {
+    padding: 1.5rem 1rem;
+    position: relative;
+}
+
+.TileDeleteHolder {
+    position: absolute;
+    float: right;
+    right: 0.625rem;
+    top: 0.875rem;
+    z-index: 15;
+}
+
+.DeleteIconHolder {
+    color: #0062e1;
+}
+
+.deleteIcon {
+    font-size: 1.25rem;
+}
+
+.TileWrapper {
+    display: grid;
+    place-content: center;
+    text-align: center;
+}
+
+.TileRedirectHolder {
+    display: grid;
+    row-gap: 0.9375rem;
+}
+
+.TileTitle {
+    font-weight: 500;
+}
+
+.TileImage {
+    width: auto;
+    height: 2.5rem;
+}
+
+img {
+    max-width: 100%;
+    height: 100%;
+    width: auto;
+}
+
+.tmClass {
+    position: relative;
+    font-size: 40%;
+    line-height: 0;
+    vertical-align: baseline;
+    top: -1.2em;
+}
+
+@media only screen and (max-width: 425px) {
+    .TileHolder {
+        width: 15rem;
+        height: 5.25rem;
+    }
+    .MainTile {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .TileWrapper {
+        display: grid;
+        place-content: flex-start;
+        text-align: inherit;
+    }
+
+    .TileImage {
+        height: 1.625rem;
+    }
+
+    .TileTitle {
+        font-size: 0.75rem;
+    }
+}

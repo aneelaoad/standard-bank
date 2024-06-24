@@ -1,0 +1,20 @@
+<template>
+    <lightning-tabset  active-tab-value={selectedTab.value} 
+                        data-intent="transactional" 
+                        data-scope="faq" 
+                        data-id="link_content" 
+                        data-type="click" 
+                        data-text={selectedTab.tabName}
+                        data-text-after="tab">
+        <template for:each={tabs} for:item="tab">
+            <lightning-tab label={tab.tabName}
+                            value={tab.value} 
+                            key={tab.tabName} 
+                            onactive={handleTabChange}>
+            </lightning-tab>
+        </template>
+    </lightning-tabset>
+    <div class="slds-var-p-top_large">
+         <c-mall-accordion accordion-data={accordionData} type="sbg"></c-mall-accordion> 
+    </div>
+</template>

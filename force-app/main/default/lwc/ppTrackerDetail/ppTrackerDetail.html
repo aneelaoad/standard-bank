@@ -1,0 +1,136 @@
+<!-- **
+* @description  : Partner Portal Tracker Detail
+* User Story : SFP-4873
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date Aug 2021
+*/ -->
+<template>
+    <div class="container">
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <p class="heading heading-normal-sfProDisplay">{partnershipName}</p>
+                <p class="phase heading-normal-sfProDisplay">{phase}</p>
+            </div>
+            <template if:false={showCompleted}>
+                <div class="slds-col" style="margin-bottom : 24px;">
+                    <div class="slds-grid">
+                        <div class="slds-col" style="flex: none;">
+                            <p class="next-step">Next Step</p>
+                        </div>
+                        <div class="slds-col">
+                            <hr class="dotted-line">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-col">
+                    <div class="slds-grid">
+                        <div class="slds-col" style="flex: none;">
+                            <div class="icon-container" style="background-color: #ffa101;">
+                                <img src={icon} class="icon">
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <p class="heading heading-normal-sfProDisplay">{step}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col heading-normal-sfProDisplay description">
+                    <p>
+                        <lightning-formatted-text value={description}></lightning-formatted-text>
+                    </p>
+                </div>
+            </template>
+
+            <template if:true={showCompleted}>
+                <div class="slds-align_absolute-center">
+                    <img src={completedIcon} class="completed-Icon">
+                </div>
+                <div class="slds-align_absolute-center">
+                    <p class="heading-large-sfProDisplay completed-msg-heading">Congrats!</p>
+                </div>
+                <div class="slds-align_absolute-center">
+                    <p>
+                        <lightning-formatted-text value={description}></lightning-formatted-text>
+                    </p>
+                </div>
+            </template>
+
+            <div class="slds-grid slds-grid_vertical completed-steps-container">
+                <div class="slds-col" style="margin-bottom : 24px;">
+                    <div class="slds-grid">
+                        <div class="slds-col" style="flex: none;">
+                            <p class="next-step">Completed Steps</p>
+                        </div>
+                        <div class="slds-col">
+                            <hr class="dotted-line">
+                        </div>
+                        <img class="acc-arrow" src={accordionArrow} onclick={handleAccordionClick} data-id="completed-steps">
+                    </div>
+                </div>
+                <div class="show" data-id="completed-steps">
+                <template for:each={completedTasks} for:item="task">
+                    <div class="slds-col" key={task.Id} style="margin-bottom : 24px">
+                        <div class="slds-grid">
+                            <div class="slds-col" style="flex: none;">
+                                <div class="icon-container" style="background-color: #03a;">
+                                    <img src={task.Icon} class="icon">
+                                </div>
+                            </div>
+
+                            <div class="slds-col">
+                                <p class="heading heading-normal-sfProDisplay">{task.PP_Step__c}</p>
+                                <p class="completion-date text-normal-sfProDisplay">Completed on <lightning-formatted-date-time value={task.CompletedDateTime} year="numeric" month="short" day="2-digit">
+
+                                    </lightning-formatted-date-time>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            </div>
+
+            <div class="slds-grid slds-grid_vertical completed-steps-container">
+                <div class="slds-col" style="margin-bottom : 24px;">
+                    <div class="slds-grid">
+                        <div class="slds-col" style="flex: none;">
+                            <p class="next-step">Your Documents</p>
+                        </div>
+                        <div class="slds-col">
+                            <hr class="dotted-line">
+                        </div>
+                        <img class="acc-arrow" src={accordionArrow} onclick={handleAccordionClick} data-id="documents">
+                        
+                    </div>
+                </div>
+                <div class="show" data-id="documents">
+                <template if:true={noRelatedFiles}>
+                    <p class="heading heading-normal-sfProDisplay" style="margin-bottom: 16px;">No documents available</p>
+                </template>
+
+                <template for:each={filesList} for:item="file">
+                    <div class="slds-col" key={file.value} style="margin-bottom : 24px;">
+                        <div class="slds-grid">
+                            <div class="slds-col" style="flex: none;">
+                                <div class="icon-container" style="background-color: #03a;">
+                                    <img src={icon} class="icon">
+                                </div>
+                            </div>
+
+                            <div class="slds-col">
+                                <p class="heading heading-normal-sfProDisplay">{file.label}</p>
+                                <a class="doc-link heading-normal-sfProDisplay" href={file.url}>
+                                    View Document
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>

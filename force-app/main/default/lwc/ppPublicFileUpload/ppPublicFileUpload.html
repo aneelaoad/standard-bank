@@ -1,0 +1,16 @@
+<!--
+  @description       : 
+  @author            : Syed Ovais Ali
+  @group             : 
+  @last modified on  : 23-08-2021
+  @last modified by  : Syed Ovais Ali
+-->
+<template>
+    <lightning-card>
+            <p class="slds-align_absolute-center" style="color: black; font-weight: bold;">Upload Portal Visible Files</p>
+            <lightning-file-upload class="slds-align_absolute-center" name="fileUploader" record-id={recordId} onuploadfinished={handleUploadFinished}
+                multiple>
+            </lightning-file-upload>
+    </lightning-card>
+
+</template>

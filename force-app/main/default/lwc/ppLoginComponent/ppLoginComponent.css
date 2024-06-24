@@ -1,0 +1,143 @@
+@import 'c/ppCssLibrary';
+
+.container {
+  position: relative;
+  font-family: system-ui;
+}
+
+.main-grid{
+  padding-top : 100px;
+}
+
+.backgroundImg {
+  z-index: -1;
+  position: absolute;
+  width: 100vw;
+}
+
+.lg-logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 11px;
+}
+
+.lg-heading {
+  top: 356px;
+  left: 140px;
+  width: 513px;
+  height: 170px;
+  text-align: left;
+  font: normal normal bold 48px/56px;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+  margin-right: 137px;
+
+}
+
+.form-container{
+  top: 148px;
+  left: 790px;
+  width: 400px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 12px 20px #83A3ED41;
+  border-radius: 4px;
+  opacity: 1;
+  color: #021237 !important;
+  padding: 48px 32px;
+}
+
+.top-heading {
+  top: 196px;
+  left: 822px;
+  text-align: left;
+  font-size: 28px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  color: #021237;
+  opacity: 1;
+  padding-bottom: 16px;
+}
+
+.lg-text {
+  top: 280px;
+  left: 822px;
+  width: 345px;
+  text-align: center;
+  font-size: 14px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #6a7286;
+  padding-bottom: 10px;
+}
+
+.fields {
+  text-align: left;
+  font: normal normal medium 14px/16px;
+  letter-spacing: 0px;
+  color: #6A7286;
+  opacity: 1;
+  margin-top: 24px;
+}
+
+
+.forget-password {
+  width: max-content;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  letter-spacing: 0px;
+  color: #0089ff !important;
+  opacity: 1;
+  margin-top: 12px;
+}
+
+.btn-login {
+  height: 40px;
+  border-radius: 2px;
+  background-color: #0089ff;
+  width: -webkit-fill-available;
+  width: -moz-available;  
+  border-color: #0089ff !important; 
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: normal;
+  margin-top: 54px;
+}
+
+.register {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #6A7286;
+  margin-top: 12px;
+}
+
+.error {
+  top: 280px;
+  left: 822px;
+  text-align: left;
+  font: normal normal medium 14px/20px;
+  letter-spacing: 0px;
+  color: #C23934;
+  opacity: 1;
+  padding-top: 10px;
+}

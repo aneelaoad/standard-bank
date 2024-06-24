@@ -1,0 +1,307 @@
+<template>
+   <div class="service-container">
+    <div class="slds-page-header">
+       <div class="slds-page-header__row">
+          <div class="slds-page-header__col-title">
+             <div class="slds-media">
+                <div class="slds-media__figure">
+                   <span class="slds-icon_container slds-icon-standard-opportunity">
+                      <lightning-icon icon-name="standard:proposition" alternative-text="Proposition" title="Proposition"></lightning-icon>
+                   </span>
+                </div>
+                <div class="slds-media__body">
+                   <div class="slds-page-header__name">
+                      <div class="slds-page-header__name-title">
+                         <h1 class="combobox-container">
+                            <lightning-combobox
+                              name="Services"
+                              label="Services"
+                              value={selectedListView}
+                              placeholder="Select service list view"
+                              options={listViewOptions}
+                              onchange={handleListViewChange} >
+                           </lightning-combobox>
+                         </h1>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="slds-page-header__col-actions">
+             <div class="slds-page-header__controls">
+                <div class="slds-page-header__control">
+                   <ul class="slds-button-group-list">
+                        <li>
+                            <lightning-button variant="brand-outline" label="New" title="New" onclick={handleAddProduct}></lightning-button>
+                        </li>
+                   </ul>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="slds-page-header__row search-section">
+            <div class="slds-grid slds-grid_align-end">
+                <div class="slds-col">
+                    <div class="slds-page-header__control">
+                        <div onkeyup={handleKeyUp}>
+                           <lightning-input
+                              name="service-search"
+                              label="service-search"
+                              type="search"
+                              placeholder="Search this list..."
+                              variant="label-hidden"
+                           ></lightning-input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+    </div>
+    <lightning-card  variant="Narrow">
+       <lightning-datatable 
+          key-field="Id" 
+          data={products} 
+          columns={columns}
+          hide-checkbox-column
+          default-sort-direction={defaultSortDirection}
+          sorted-direction={sortDirection}
+          sorted-by={sortedBy}
+          onsort={onHandleSort} 
+          onrowaction={handleRowAction} >
+       </lightning-datatable>
+    </lightning-card>
+
+    <template if:true={showProductScreen}>
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+         aria-describedby="modal-content-id-1"
+         class="preference-modal slds-modal slds-fade-in-open slds-modal_medium">
+         <div class="slds-modal__container">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+               title="Close" onclick={closeModal}>
+               <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                  size="small"></lightning-icon>
+               <span class="slds-assistive-text">Close</span>
+            </button>
+            <header class="slds-modal__header">
+               <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                  {formTitle}
+               </h2>
+            </header>
+            <!-- modal body start -->
+            <div class="slds-modal__content slds-p-around_medium fade-right" id="modal-content-id-1">
+               <div class="slds-col slds-grow slds-text-align_right">
+                  <template if:true={showAddProductPublishButton}>
+                     <lightning-button variant="brand" label="Publish" title="Publish"
+                        onclick={handlePublish} class="slds-p-right_large"></lightning-button>
+                  </template>
+                  <template if:true={showUnpublishButton}>
+                     <lightning-button variant="brand" label="Unpublish" title="Unpublish"
+                        onclick={handleUnpublishProduct} class="slds-p-right_large"></lightning-button>
+                  </template>
+               </div>
+               <div class="c-container grid-container modal-section form">
+                  <div class="grid-item">
+                     <span class="input-wrapper">
+                        <template if:true={formProduct.productId}>
+                           <lightning-input type="text" label="Service name" disabled={viewMode}
+                              value={formProduct.name} class="productName" onchange={handleNameChange}
+                              required>
+                           </lightning-input>
+                        </template>
+                        <template if:false={formProduct.productId}>
+                           <lightning-input type="text" label="Service name" disabled={viewMode}
+                              class="productName" onchange={handleNameChange}
+                              required></lightning-input>
+                        </template>
+                     </span>
+                  </div>
+                  <div class="grid-item grid-image">
+                     <span class="slds-form-element__label">Service image</span>
+                     <span class="input-wrapper">
+                        <div class="slds-required slds-grid">
+                           <div class="slds-col slds-size_4-of-5">
+                              <template if:true={formProduct.uploadedImageUrl}>
+                                 <div class="image" data-guidelines={imageGuide}>
+                                    <img src={formProduct.uploadedImageUrl} />
+                                 </div>
+                              </template>
+                              <template if:false={formProduct.uploadedImageUrl}>
+                                 <div class="image" data-guidelines={imageGuide}>
+                                    <img src={formProduct.imageUrl} />
+                                 </div>
+                              </template>
+                              <lightning-file-upload label="" name="imageUploader"
+                                 accept={acceptedImageFormats} record-id={clonedAccountId}
+                                 onuploadfinished={handleImageUploadFinished} disabled={viewMode}>
+                              </lightning-file-upload>
+                           </div>
+                           <template if:false={viewMode}>
+                              <template if:true={formProduct.imageUploaded}>
+                                 <div class="slds-col slds-size_1-of-5 slds-p-top_large remove-link">
+                                    <a href="#" class="remove-link"
+                                       onclick={handleRemoveImage}>Remove</a>
+                                 </div>
+                              </template>
+                           </template>
+                        </div>
+                     </span>
+                  </div>
+                  <div class="grid-item">
+                     <span class="input-wrapper">
+                        <template if:true={formProduct.productId}>
+                           <lightning-input type="text" label="Service URL" disabled={viewMode}
+                              value={formProduct.productUrl} onchange={handleUrlChange}
+                              required></lightning-input>
+                        </template>
+                        <template if:false={formProduct.productId}>
+                           <lightning-input type="text" label="Service URL" disabled={viewMode}
+                              onchange={handleUrlChange} required></lightning-input>
+                        </template>
+                     </span>
+                  </div>
+                  <div class="grid-item">
+                     <span>
+                        <template if:true={viewMode}>
+                           <div class="disabled-rich-text">
+                              <c-mall-multi-select-input is-required=true input-label="Categories"
+                                 show-placeholder={showCategoryPlaceholder}
+                                 input-placeholder={categoryPlaceHolder}
+                                 select-options={categoryOptions}
+                                 show-select-dropdown={showCategoryDropdown}
+                                 onselection={handleCategorySelection}></c-mall-multi-select-input>
+                           </div>
+                        </template>
+                        <template if:false={viewMode}>
+                           <c-mall-multi-select-input is-required=true input-label="Categories"
+                              show-placeholder={showCategoryPlaceholder}
+                              select-options={categoryOptions} input-placeholder={categoryPlaceHolder}
+                              show-select-dropdown={showCategoryDropdown}
+                              onselection={handleCategorySelection}></c-mall-multi-select-input>
+                        </template>
+                     </span>
+                  </div>
+               
+                  <div class="grid-item grid-row">
+                     <div class="description input-wrapper">
+                        <template if:true={formProduct.productId}>
+                           <lightning-textarea type="text" label="Short description"
+                              disabled={viewMode} value={formProduct.shortDesc}
+                              onchange={handleShortDesc} max-length={maxLenghtShortDescription}
+                              message-when-too-long="Short description too long"
+                              required></lightning-textarea>
+                        </template>
+                        <template if:false={formProduct.productId}>
+                           <lightning-textarea max-length={maxLenghtShortDescription}
+                              message-when-too-long="Short description too long" type="text"
+                              label="Short description" disabled={viewMode} onchange={handleShortDesc}
+                              required></lightning-textarea>
+                        </template>
+                        <div class="character-count">
+                           {lengthShortDescription}/{maxLengthShortDescription}
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="grid-item grid-row">
+                     <div class="description rich-text-container input-wrapper">
+                        <template if:true={formProduct.productId}>
+                           <lightning-input-rich-text label="Long description"
+                              value={formProduct.longDesc} onchange={handleLongDesc}
+                              disabled={viewMode} max-length={maxLengthLongDescription}
+                              message-when-too-long="Long description too long" label-visible
+                              required>
+                           </lightning-input-rich-text>
+                        </template>
+                        <template if:false={formProduct.productId}>
+                           <lightning-input-rich-text label="Long description"
+                              onchange={handleLongDesc} max-length={maxLengthLongDescription}
+                              message-when-too-long="Long description too long" disabled={viewMode}
+                              label-visible required>
+                           </lightning-input-rich-text>
+                        </template>
+                        <div class="character-count">
+                           {lengthLongDescription}/{maxLengthLongDescription}
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="grid-item grid-row">
+                     <lightning-input type="checkbox" label="Service available upon approval" name="publish-selection" onchange={handleAllTimePublishing} checked={allTimePublishBool}></lightning-input>
+                     <p>Select the checkbox to ensure your service is always available. Uncheck to schedule publishing dates</p>
+                  </div>
+
+                  <div class="grid-item">
+                     <span class="input-wrapper">
+                        <template if:true={formProduct.productId}>
+                           <lightning-input type="datetime" label="Publish from" disabled={allTimePublishBool}
+                              value={formProduct.publishedFrom} onchange={handleFrom} required placeholder="Select publish start date...">
+                           </lightning-input>
+                        </template>
+                        <template if:false={formProduct.productId}>
+                           <lightning-input type="datetime" label="Publish from" disabled={allTimePublishBool}
+                              onchange={handleFrom} required placeholder="Select publish start date...">
+                           </lightning-input>
+                        </template>
+                     </span>
+                  </div>
+                  <div class="grid-item">
+                     <span class="input-wrapper">
+                        <template if:true={formProduct.productId}>
+                           <lightning-input type="datetime" label="Publish until" disabled={allTimePublishBool}
+                              value={formProduct.publishedUntil} onchange={handleUntil} required placeholder="Select publish end date...">
+                           </lightning-input>
+                        </template>
+                        <template if:false={formProduct.productId}>
+                           <lightning-input type="datetime" label="Publish until" disabled={allTimePublishBool}
+                              onchange={handleUntil} required placeholder="Select publish end date...">
+                           </lightning-input>
+                        </template>
+                     </span>
+                  </div>
+               
+                  <div class="grid-item grid-row">
+                     <span class="input-wrapper">
+                        <template if:true={formProduct.productId}>
+                           <lightning-input type="text" label="Comment" value={formProduct.comment}
+                              onchange={handleApprovalComment} disabled={viewMode} label-visible>
+                           </lightning-input>
+                        </template>
+                        <template if:false={formProduct.productId}>
+                           <lightning-input type="text" label="Comment"
+                              onchange={handleApprovalComment} disabled={viewMode} label-visible>
+                           </lightning-input>
+                        </template>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <footer class="slds-modal__footer modal-hidden">
+               <template if:false={viewMode}>
+                  <div class="slds-grid slds-wrap slds-gutters buttons">
+                     <div class="slds-text-align_left">
+                        <template if:false={addMode}>
+                           <lightning-button variant="brand-outline" label="Cancel" title="Cancel"
+                              onclick={handleCancel}></lightning-button>
+                        </template>
+                        <template if:true={addMode}>
+                           <lightning-button variant="brand-outline" label="Clear" title="Clear"
+                              onclick={handleClear}></lightning-button>
+                        </template>
+                     </div>
+                     <lightning-button variant="brand-outline" label="Save" title="Save" onclick={handleSave}
+                        class="slds-m-left_x-small"></lightning-button>
+                     <lightning-button variant="Brand" label="Submit For Approval"
+                        title="Submit For Approval" onclick={handleSubmitForApproval}
+                        class="slds-m-left_x-small slds-m-right_x-large"></lightning-button>
+                  </div>
+               </template>
+            </footer>
+         </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+   </div> 
+   <div if:true={showSpinner} style="height: 200px; position:relative">
+		<lightning-spinner variant="base" size="medium"></lightning-spinner>
+	</div>
+ </template>

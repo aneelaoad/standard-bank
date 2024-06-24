@@ -1,0 +1,577 @@
+.THIS{
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .modal-heading {
+    padding-left: 25px;
+    padding-top: 25px;
+    font-size: 20px;
+  }
+  
+    .slds-checkbox
+    [type="checkbox"]
+    + .slds-checkbox__label
+    .slds-checkbox_faux {
+    border-color: #767676;
+    border-style: solid;
+    border-width: 2px;
+  }
+  
+    .slds-checkbox
+    [type="checkbox"]
+    + .slds-checkbox__label
+    .slds-checkbox_faux::after {
+    border-color: #0089ff;
+  }
+   .checkbox-container {
+    border-color: #767676;
+  }
+   .rectangle-modal {
+    background-color: #ffffff;
+    box-shadow: 0 3px 7px 8px rgba(0, 0, 0, 0.11);
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.32);
+    position: absolute;
+    display: block;
+    min-height: 460px;
+    max-height: 700px;
+    max-width: 72.3%;
+    min-width: 76%;
+    z-index: 9001;
+    top: 17%;
+    left: 12%;
+  }
+  
+   .heading-text {
+    display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+    font-size: 15px;
+  }
+   .linked-device {
+    padding: 30px;
+  }
+   .ms-icn_lock_closed {
+    font-size: 30px;
+    padding-right: 15px;
+    color: #0033aa;
+    font-variant: normal;
+  }
+   .ms-icn_check_circle {
+    font-size: 187px;
+    color: #0089ff;
+    margin-left: -30px;
+  }
+   .appOrPayStore {
+    min-height: 120px;
+    max-height: 132px;
+    align-items: center;
+    flex-direction: column;
+  }
+   .tutorial-modal {
+    max-height: 683px;
+    min-height: 49%;
+    top: 6%;
+    left: 12%;
+  }
+   .largeIcon {
+    font-size: 170px;
+    color: #0089ff;
+    margin-left: 0;
+  }
+   .grey-line {
+    margin-left: 5px;
+    box-sizing: border-box;
+    height: 1px;
+    max-width: 99%;
+    min-width: 30%;
+    border: 1px solid #c6c6c6;
+  }
+   .rectangle-middle {
+    width: 50%;
+    padding-top: 3.6%;
+  }
+   .steps-nav {
+    display: flex;
+    line-height: 40px;
+    text-align: center;
+    color: #666666;
+    font-family: var(--FONT-FAMILY);
+    padding-top: 26px;
+  }
+  
+   .img {
+    max-width: 100%;
+    height: auto;
+    padding: 5px;
+  }
+  
+   .rectangle-steps {
+    background-color: #ffffff;
+    max-width: 100%;
+    min-width: 30%;
+  }
+   .rectangle-left {
+    max-height: 50%;
+    min-height: 40%;
+    max-width: 25%;
+    min-width: 15%;
+    align-self: center;
+  }
+   .closeButton {
+    margin-left: auto;
+    max-width: fit-content;
+    cursor: pointer;
+  }
+   .errorHeading {
+    padding-top: 15px;
+    padding-right: 15px;
+  }
+   .content__title {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-align: center;
+    text-transform: none;
+    max-width: 100%;
+    min-width: 90%;
+    color: #222222;
+    font-family: var(--FONT-FAMILY);
+    line-height: 20px;
+  }
+   .tutorial_content__title {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-align: center;
+    text-transform: none;
+    color: #222222;
+    font-family: var(--FONT-FAMILY);
+    line-height: 20px;
+    width: 100%;
+    margin-top: 17px;
+  }
+  
+   .content__subtitle {
+    color: #666666;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 20px;
+    max-width: 100%;
+    min-width: 90%;
+  }
+   .tutorial_content__subtitle {
+    color: #666666;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: center;
+    margin-bottom: 0;
+    padding: 16px;
+    max-width: 98%;
+    min-width: 30%;
+  }
+   .sub-rectangle-tutorial {
+    padding: 7px;
+    margin-left: 5px;
+    min-height: 39%;
+    max-width: 98%;
+    min-width: 30%;
+    vertical-align: middle;
+  }
+   .googlePlay_image {
+    margin-left: 0;
+    max-width: 100%;
+  }
+   .sub-text {
+    font-size: 12px;
+  }
+   .rectangle-right {
+    box-sizing: border-box;
+    height: 312px;
+    width: 25%;
+    padding-top: 41px;
+    text-align: center;
+  }
+   .line {
+    box-sizing: border-box;
+    height: 2px;
+    width: 50px;
+    border: 1px solid #979797;
+    margin-top: 18px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+   .step {
+    display: flex;
+    width: auto;
+    padding-top: 5px;
+  }
+   .popUp-visible {
+    background-color: #eeeeee;
+    z-index: 100;
+  }
+   .popUp-invisible {
+    z-index: 155;
+    background-color: transparent;
+  }
+   .popUp-overlay {
+    display: block;
+    height: -webkit-fill-available; 
+    width: 267%;
+    position: fixed;
+    top: 0;
+    opacity: 0.8;
+    left: -533px;
+  }
+   .addDevice__buttons {
+    background-color: #f6f6f6;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 15.5%;
+    max-width: 100%;
+    min-width: 60%;
+    padding: 25px;
+    align-items: center;
+  }
+   .subtitle {
+    padding: 5px;
+  }
+   .newCase__button.btn--darkblue {
+    background-color: #0033aa;
+    color: #ffffff;
+  }
+   .newCase__button.btn--gray {
+    background-color: #ededed;
+    color: #0033aa;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+  }
+   .newCase__button.btn--gray:hover,
+   .newCase__button.btn--gray:focus {
+    background: #0089ff;
+    color: #fff;
+  }
+   .newCase__button.btn_disabled {
+    background-color: #ededed;
+    color: #8b8888;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+    width: 100%;
+  }
+  .btnStyle{
+    height: 33px;
+    border: 0;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 50px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all .15s ease-in;
+    cursor: pointer;
+    color: #0033AA;
+    margin: auto;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+
+}
+.btnStyleInverse{
+  height: 33px;
+  border: 0;
+  border-radius: 2px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 50px;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all .15s ease-in;
+  cursor: pointer;
+  background-color: #0033AA;
+  color: #fff;
+  margin: auto;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+}
+
+.btnStyle:hover,
+.btnStyle:focus,
+.btnStyleInverse:hover,
+.btnStyleInverse:focus{
+  background: #0089ff;
+  color: #FFFFFF;
+}
+   .newCase__button.btn--darkblue:hover,
+   .newCase__button.btn--darkblue:focus {
+    background: #0069c4;
+    color: #fff;
+  }
+   .oval-1 {
+    padding-left: 6px;
+    height: 37.5px;
+    width: 37.5px;
+    background-color: #c4e4ff;
+    border-radius: 50%;
+  }
+   .tutorial2 {
+    margin-left: 3px;
+  }
+   .oval-2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    opacity: 1;
+  }
+   .oval-2_selected {
+    background-color: #0033aa;
+  }
+   .oval-2_unselected {
+    background-color: #d8d8d8;
+  }
+   .oval-2_unselected > .number {
+    color: #444444;
+  }
+   .loader {
+    width: 44px;
+    margin: auto;
+    display: flex;
+  }
+   .device_checkbox {
+    margin-right: auto;
+  }
+  
+   .timer_info {
+    text-align: center;
+  }
+   .number {
+    height: 19px;
+    width: 8px;
+    color: #ffffff;
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 19px;
+    text-align: center;
+    background: border-box;
+    padding-top: 4px;
+  }
+   .rectangle-error {
+    margin: 193px;
+    text-align: center;
+  }
+   .error {
+    height: 19px;
+    color: #444444;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 21px;
+    text-align: center;
+  }
+   .reload {
+    font-size: 14px;
+    color: #0033aa;
+  }
+   .step-name {
+    margin-left: 9px;
+  }
+   .ms-icn_check_circle_solid {
+    font-size: 30px;
+    margin-top: 4px;
+  }
+   .selected_font {
+    color: #0033aa;
+  }
+   .button {
+    flex-grow: 0;
+    padding: 0 10px 0 10px;
+  }
+   .reload_img {
+    margin: auto;
+    max-width: 250px;
+  }
+   .qrCode {
+    min-width: 200px;
+    display: flex;
+  }
+   .qrCode > img {
+    margin: auto;
+  }
+   .rectangle2 {
+    min-width: 200px;
+    height: 100%;
+    display: flex;
+  }
+
+
+  @media (min-width: 871px) and (max-width: 1280px) {
+     .reload {
+      margin-top: 20px;
+    }
+     .newCase-container.mt_72 {
+      margin-top: 0;
+    }
+     .newCase-container {
+      padding-right: 20px;
+      padding-left: 20px;
+      width: 752px;
+    }
+     .dashboard__left {
+      display: none;
+    }
+     .popUp-box {
+      left: 2%;
+      top: 15%;
+      width: 984px;
+    }
+
+     .rectangle-modal {
+      height: auto;
+      max-width: 92.3%;
+      min-width: 90%;
+      left: 4%;
+    }
+     .rectangle2 {
+      padding-bottom: 0px;
+    }
+     .grey-line {
+      width: 100%;
+    }
+     .addDevice__buttons {
+      width: 100%;
+    }
+     .rectangle-steps {
+      width: 100%;
+    }
+    .cOSBDeviceManagement.cOSBNewDeviceModal .largeIcon {
+      font-size: 1100%;
+      color: #0089ff;
+      padding-top: 74px;
+      font-size: 1100%;
+    }
+    .cOSBNewDeviceModal .sub-rectangle-tutorial {
+      padding: 7px;
+      width: 100%;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+     .check-icon {
+      padding-top: 41px;
+    }
+     .newCase__button.btn--darkblue,
+    .cOSBNewDeviceModal .newCase__button.btn--gray {
+      width: 100%;
+    }
+  }
+  @media (max-width: 870px) {
+     .newCase-container.mt_72 {
+      margin-top: 0;
+    }
+     .newCase-container {
+      padding-right: 20px;
+      padding-left: 20px;
+      width: 752px;
+    }
+     .dashboard__left {
+      display: none;
+    }
+     .popUp-box {
+      left: 2%;
+      top: 15%;
+      width: 984px;
+    }
+
+     .rectangle2 {
+      padding-bottom: 10px;
+      display: contents;
+    }
+    .rectangle-left {
+      display: none;
+    }
+    .rectangle-middle {
+      padding-top: 16px;
+      width: 100%;
+    }
+   .subtitle {
+      padding: 10px;
+    }
+     .grey-line {
+      width: 982px;
+    }
+
+    .appOrPayStore{
+      flex-direction: row;
+      margin: auto;
+      width: fit-content;
+      min-height: 55px;
+      max-height: 55px;
+    }
+     .rectangle-steps {
+      width: 984px;
+    }
+   .largeIcon {
+      font-size: 1100%;
+      color: #0089ff;
+      padding-top: 74px;
+      font-size: 1100%;
+    }
+    .sub-rectangle-tutorial {
+      padding: 7px;
+      width: 100%;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+     .check-icon {
+      padding-top: 41px;
+    }
+    .content__subtitle {
+      margin-bottom: 0px;
+    }
+    .rectangle-right {
+      box-sizing: border-box;
+      height: 50%;
+      width: 100%;
+      padding-top: 0;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+     .button {
+      padding: 5px;
+    }
+    .newCase__button.btn--gray {
+      background-color: #ededed;
+      color: #0033aa;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 30%);
+      width: 100%;
+    }
+     .newCase__button.btn--darkblue {
+      width: 100%;
+    }
+
+  }
+  @media (max-width: 649px) {
+    .slds-modal {
+      visibility: hidden;
+    }
+  }
+  
+  @media (min-width: 1281px) {
+     .newCase-container {
+      width: 75%;
+    }
+  }
+
+   .timer_contatiner {
+    padding-top: 10px;
+  }
+   .timer_text {
+    color: #858d9d;
+    font-family: var(--FONT-FAMILY);
+    font-size: 15px;
+    max-width: 220px;
+    margin: auto;
+    text-align: center;
+  }

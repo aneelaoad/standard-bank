@@ -1,0 +1,274 @@
+<!--
+  @description       : 
+  @author            : devi.ravuri@salesforce.com
+  @group             : 
+  Ver   Date         Author                   Modification
+  1.0   12-09-2022   devi.ravuri@salesforce.com   Initial Version
+-->
+<template> 
+	<template lwc:if={showPreApp}>
+	<c-aob_internal_custom-toast timeout={timeout}
+    sticky={sticky}></c-aob_internal_custom-toast>
+    <lightning-modal-body>
+	<lightning-card>
+		<div class="slds-var-m-around_medium">
+	<div class="slds-container_center ao-slds sb cAOB_SBTheme container">
+		<div class="aob_card_container_pocketbiz scrollCls slds-p-horizontal_xx-large slds-p-vertical_x-large ao-border-radius">
+			<h6 class="mymob_title slds-m-bottom_large title">{productShortName} {label.APPLICATION}</h6>
+			<p class="mymob_subtitle slds-m-bottom_xx-small">We'll use this information to verify your business</p>
+			<p class="mymob_content slds-m-bottom_xx-large"> THIS PRODUCT IS ONLY FOR SOUTH AFRICAN ID HOLDERS.</p>
+
+			<form id="preapplicationForm" data-frmcontainer="mymobiz application" method="POST">
+				<div class="slds-grid slds-gutters_large slds-wrap">
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">NAME (AS PER ID)
+						</label>
+						<lightning-input class="validate" placeholder="Enter your first name" name="Name" type="text"
+							variant="label-hidden" message-when-value-missing="Please complete this field"
+							data-name="Name" pattern="[a-zA-Z][a-zA-Z '-]+" maxlength="80"
+							required onchange={genericFieldChange}>
+						</lightning-input>
+					</div>
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">SURNAME (AS PER ID)
+						</label>
+						<lightning-input class="validate" placeholder="Enter your surname" name="Surname" type="text"
+							variant="label-hidden" message-when-value-missing="Please complete this field"
+							data-name="Surname" pattern="[a-zA-Z][a-zA-Z '-]+" maxlength="40"
+							required onchange={genericFieldChange}>
+						</lightning-input>
+					</div>
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">ID NUMBER</label>
+						<lightning-input class="validateID" placeholder="Enter your ID number" name="IdNum" type="text"
+							variant="label-hidden" message-when-value-missing="Please complete this field"
+							data-name="IdNum"
+							pattern="^(((\d{2}((0[13578]|1[02])(0[1-9]|[12]\d|3[01])|(0[13456789]|1[012])(0[1-9]|[12]\d|30)|02(0[1-9]|1\d|2[0-8])))|([02468][048]|[13579][26])0229))(( |-)(\d{4})( |-)(\d{3})|(\d{7}))$"
+							required onchange={genericFieldChange} onblur={validateSAID}>
+						</lightning-input>
+					</div>
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">CELL NUMBER
+						</label>
+						<lightning-input class="validate" placeholder="Enter your phone number" name="PhoneNumber"
+							type="text" variant="label-hidden" message-when-value-missing="Please complete this field"
+							data-name="PhoneNumber" pattern="^(\+27|0|27)[6-8][0-9]{8}$" required
+							onchange={genericFieldChange}>
+						</lightning-input>
+					</div>
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label
+							class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">EMAIL ADDRESS</label>
+						<lightning-input class="validate" placeholder="Force@gmail.com" name="EmailAddress" type="text"
+							variant="label-hidden" message-when-value-missing="Please complete this field"
+							data-name="EmailAddress"
+							pattern="^(?=.{6,120}$)[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}" required
+							onchange={genericFieldChange}>
+						</lightning-input>
+					</div>
+				</div>
+
+				<div class="aob_screen-section-title slds-align_absolute-center title slds-m-top_xx-large">Company Details</div>
+				<hr />
+
+				<div class="slds-grid slds-gutters_large slds-wrap">
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">ARE YOU THE ONLY OWNER OF THE COMPANY?
+						</label>
+						<div class="slds-grid aob_form_row aob_grid_sm">
+							<div class="slds-p-right_xx-large d-flex">
+								<input type="radio" data-name="soleOwner" data-value="true" name="soleOwner"
+									class="w-20 radio-align" onchange={genericRadioChange} >
+								<label class="aob_screen-section-paragraph radio-align slds-m-left_x-small" for="soleOwner">YES</label>
+							</div>
+							<div class="slds-p-right_xx-large d-flex">
+								<input type="radio" data-name="soleOwner" data-id="checkbox2" checked data-value="false" name="soleOwner"
+									onchange={genericRadioChange} class="w-20 radio-align">
+								<label class="aob_screen-section-paragraph radio-align slds-m-left_x-small" for="soleOwner">NO</label>
+							</div>
+						</div>
+						<p class="aob_error_input_label" if:true={showOwnerError}>
+							{label.AOB_ZA_PleaseCompletethisfield}</p>
+					</div>
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+					</div>
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label
+							class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">BUSINESS TYPE</label>
+						<c-aob_internal_comp_acpicklist name="businessType" placeholder="Business type"
+							onblur={genericComponentChangeBlur} onchange={genericComponentChange}
+							data-name="businessType" required data-value={selectedPicklistValue}>
+						</c-aob_internal_comp_acpicklist>
+					</div>
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+					</div>
+					<template lwc:if={showSS}>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label
+								class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">ARE YOU THE SOLE SHAREHOLDER?</label>
+							<div class="slds-grid aob_form_row aob_grid_sm">
+								<div class="slds-p-right_xx-large">
+									<input type="radio" data-name="soleShareholder" data-value="true"
+										name="soleShareholder" onchange={genericRadioChange} class="radio-align">
+									<label class="aob_screen-section-paragraph radio-align slds-m-left_x-small"
+										for="soleShareholder">YES</label>
+								</div>
+								<div class="slds-p-right_xx-large">
+									<input type="radio" data-name="soleShareholder" data-value="false"
+										name="soleShareholder" onchange={genericRadioChange} class="radio-align">
+									<label class="aob_screen-section-paragraph radio-align slds-m-left_x-small" for="soleShareholder">NO</label>
+								</div>
+							</div>
+							<p class="aob_error_input_label" lwc:if={showShareHoldError}>
+								PLEASE COMPLETE THIS FIELD
+							</p>
+						</div>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						</div>
+					</template>
+
+					<template lwc:if={showBusinessBlock}>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label
+								class="aob_screen-field-label slds-m-bottom_none aob_label_wrap bName">BUSINESS NAME</label>
+							<lightning-input class="validate" placeholder="Enter your business name" name="businessName"
+								type="text" variant="label-hidden"
+								message-when-value-missing="Please complete this field" data-name="businessName"
+								required onchange={genericFieldChange}>
+							</lightning-input>
+						</div>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">
+								GROSS ANNUAL TURNOVER</label>
+							<lightning-input class="validate" placeholder="R" name="businessTurnover" type="number"
+								formatter="currency" min="100" step="0.01" variant="label-hidden"
+								message-when-value-missing="Please complete this field" data-name="businessTurnover"
+								required onchange={genericFieldChange}>
+							</lightning-input>
+						</div>
+						
+					</template>
+					<template lwc:if={showRegistration}>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label
+								class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">REGISTRATION NUMBER</label>
+							<lightning-input class="validate" placeholder="Enter your business registration number"
+								name="businessRegistrationNumber" type="text" variant="label-hidden"
+								pattern="^(\d{12}|(\d{4}/\d{2}){2})$"
+								message-when-value-missing="Please complete this field" maxlength="14"
+								onkeyup={addSlashForNumber} data-name="businessRegistrationNumber" required
+								onchange={genericFieldChange}>
+							</lightning-input>
+						</div>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						</div>
+					</template>
+					<template lwc:if={showBusinessBlock}>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label
+								class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">FORM 50 CODE</label>
+							<c-aob_internal_comp_acpicklist  sapfield="Form50" name="Form50"
+								placeholder="Please select" onblur={genericComponentChangeBlur}
+								onchange={genericComponentChange} data-name="Form50" required
+								data-value={selectedPicklistValue}>
+							</c-aob_internal_comp_acpicklist>
+						</div>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label
+								class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">RESERVE BANK CODE</label>
+							<c-aob_internal_comp_acpicklist sapfield="resBank" name="resBank"
+								placeholder="Please select" onblur={genericComponentChangeBlur}
+								onchange={genericComponentChange} data-name="resBank" required
+								data-value={selectedPicklistValue}>
+							</c-aob_internal_comp_acpicklist>
+						</div>
+						<div
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label
+								class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">PROVINCE</label>
+							<c-aob_internal_comp_acpicklist sapfield="province" name="businessProvince"
+								placeholder="Please select" onblur={genericComponentChangeBlur}
+								onchange={genericComponentChange} data-name="businessProvince" required
+								data-value={selectedPicklistValue}>
+							</c-aob_internal_comp_acpicklist>
+						</div>
+						<div lwc:if={showCity}
+							class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+							<label
+								class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">CITY</label>
+							<c-aob_internal_comp_acpicklist name="businessCity" placeholder="Please select"
+								onblur={genericComponentChangeBlur} onchange={genericComponentChange}
+								data-name="businessCity" data-value={selectedPicklistValue} required>
+							</c-aob_internal_comp_acpicklist>
+						</div>
+					</template>
+				</div>
+
+				<c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+				<div class="slds-grid slds-gutters_large slds-wrap">
+					<div
+						class="aob_form_input slds-col slds-m-top_x-large slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+						<c-aob_internal_comp_data-privacy></c-aob_internal_comp_data-privacy>
+					</div>
+				</div>
+				<div class="slds-grid slds-gutters_large slds-wrap">
+					<div
+						class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+						<div class="slds-grid aob_form_row aob_grid_sm">
+							<div>
+								<lightning-input class="consent" type="checkbox" data-name="consent" data-id="checkbox" required="true"
+									onchange={genericCheckboxChange}></lightning-input>
+							</div>
+							<label class="aob_screen-section-paragraph " for="consent" style="display: inline">
+								
+								<span>I confirm that I advised the client that Standard Bank Group will collect and process their personal information and where they can access our 
+									<a style="text-decoration: underline" target="_blank" href="https://www.standardbank.co.za/southafrica/personal/about-us/legal/privacy-statement"> Privacy statement
+									</a>.
+								</span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="slds-theme--shade button-container">
+			<button class="slds-button slds-button_neutral slds-m-top_medium" onclick={handleModalClick}>Cancel</button>
+			<lightning-button class="slds-size_1-of-2 margin_horizontal_auto aob_mobile_1_of_1 slds-m-vertical_xx-small
+				aob_text_align_center slds-p-horizontal_small" data-id={adobePageTag.dataId}
+				data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+				data-text={adobePageTag.continueButtonText} variant="brand" label="Continue" title="Continue"
+				onclick={continueToNextPage}>
+			</lightning-button>
+		</div>
+	</div>
+	</div>
+</lightning-card>
+</lightning-modal-body>
+</template>
+<template lwc:if={showDirector}>
+<c-aob_internal_comp_directorspage application-id={applicationId}></c-aob_internal_comp_directorspage>
+</template>
+<template lwc:if={showProduct}>
+	<c-aob_internal_comp_search-product application-id={applicationId}></c-aob_internal_comp_search-product>
+	</template>
+	<template lwc:if={showSearch}>
+	<c-aob_internal_comp_client-search></c-aob_internal_comp_client-search>
+	</template>
+</template>

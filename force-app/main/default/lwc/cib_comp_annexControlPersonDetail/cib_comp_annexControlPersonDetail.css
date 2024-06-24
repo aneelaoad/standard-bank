@@ -1,0 +1,25 @@
+.sub-header {
+  padding: 20px 145px 25px 26px;
+  font-family: BentonSans;
+  font-size: 14px;
+  font-weight: 400px;
+}
+.aob_todo-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #ced3d9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aob_info-text p {
+  font-size: 15px;
+  font-weight: 400px;
+  width: 80%;
+  padding-left: 10px;
+}
+.aob_info-text {
+  display: flex;
+}

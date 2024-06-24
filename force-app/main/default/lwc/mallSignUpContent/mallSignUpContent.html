@@ -1,0 +1,116 @@
+<template>
+  <div class="sign-up-wrapper">
+    <div class="img-wrapper">
+      <img if:true={imgUrl} src={imgUrl} />
+      <div class="img-overlay"></div>
+    </div>
+    <a
+      class="back-nav"
+      onclick={goBack}
+      data-intent="navigational"
+      data-scope="shop catalogue"
+      data-id="link_content"
+      data-type="click"
+      data-text="back"
+      data-text-after="link"
+    >
+      {backButton}
+    </a>
+    <img class="logo" src={sbLogoImage} alt="BCB Platform" />
+    <div class="heading-logo-wrapper">
+      <h1 class="logo-heading">
+        <span class="heading-text-white">{signUpTitle}</span>
+        <span class="heading-text-blue-container">
+          <span class="heading-text-blue-bold">BCB</span>
+          <span class="heading-text-blue-normal">Platform</span>
+        </span>
+      </h1>
+    </div>
+
+    <div class="heading-logo-wrapper-mobile">
+      <img class="logo-mobile" src={sbLogoImage} alt="BCB Platform" />
+      <div class="heading-logo-wrapper mobile">
+        <h1 class="logo-heading">
+          <span class="heading-text-white">{signUpTitle}</span>
+          <span class="heading-text-blue-container">
+            <span class="heading-text-blue-bold">BCB</span>
+            <span class="heading-text-blue-normal">Platform</span>
+          </span>
+        </h1>
+      </div>
+    </div>
+
+    <div class="sign-up-card-container">
+      <div class="sign-up-card alt">
+        <h2>{joineMessage}</h2>
+        <p>{newUserText}</p>
+        <c-mall-cmn-button
+          interaction-intent="navigational"
+          interaction-scope="mall sign up"
+          interaction-type="click"
+          interaction-text="Continue"
+          data-text-before={existingUserWelcome}
+          action="navigateToUrl"
+          variant="tertiary"
+          disabled={disableNextButton}
+          label="REGISTER"
+          title="REGISTER"
+          w-class="wAuto"
+          destination-url={signUpUrl}
+        >
+        </c-mall-cmn-button>
+      </div>
+      <template if:true={pingCountry}>
+        <div class="divider">
+          <p>{dividerText}</p>
+        </div>
+        <div class="sign-up-card">
+          <h2>{existingUserWelcome}</h2>
+          <p>{existingUserWelcomeDetails}</p>
+          <c-mall-cmn-button
+            interaction-intent="transactional"
+            interaction-scope="mall sign in"
+            interaction-type="click"
+            action="navigateToUrl"
+            interaction-text="Sign in"
+            data-text-before={joineMessage}
+            variant="mall"
+            disabled={disableNextButton}
+            label="SIGN IN"
+            title="SIGN IN"
+            w-class="wAuto"
+            destination-url={signInUrl}
+          >
+          </c-mall-cmn-button>
+        </div>
+      </template>
+    </div>
+    <p class="already-registered-text">
+      {alreadyRegistered}<a
+        href={signInUrl}
+        data-intent="transactional"
+        data-scope="mall sign in"
+        data-id="link_content"
+        data-text-after="link"
+        data-type="click"
+        data-text={signInText}
+        >{signInText}</a
+      >
+    </p>
+    <p class="terms-text">
+      {agreementMessage}<a
+        href="/mall/s/legal?tab=4"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-intent="informational"
+        data-scope="mall sign up"
+        data-id="link_content"
+        data-text-after="link"
+        data-type="click"
+        data-text={termsOfService}
+        onclick={goToLegal}
+        >{termsOfService}</a
+      >
+    </p>
+  </div>
+</template>

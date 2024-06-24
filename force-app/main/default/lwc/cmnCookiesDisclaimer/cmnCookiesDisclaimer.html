@@ -1,0 +1,39 @@
+<template>
+
+  <div if:true={showDisclaimer} class="cookie-policy cookie-policy--open" data-component="cookie-policy">
+    <div class="row">
+      <div class="cookie-policy__content">
+        <div class="col">
+          <div class="cookie-policy__text-container" data-trackingregion="cookie policy">
+            <button onclick={handleCloseButtonClick} data-text="Cookie Disclaimer | Close"
+              class="cookie-policy__icon-container">
+              <i data-component="icon" onclick={handleCloseButtonClick} data-icon="icon-close"
+                class="icon cookie-policy__icon js-accept-cookie-policy">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" viewBox="0 0 22 22" version="1.1">
+                  <title>icon-close</title>
+                  <defs>
+                    <linearGradient xy="100%" id="gradient">
+                      <stop stop-color="#fff" offset="0%"></stop>
+                      <stop stop-color="#fff" offset="100%"></stop>
+                    </linearGradient>
+                  </defs>
+                  <g id="Standard-Bank---Icon-Setup" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                    transform="translate(-239.000000, -1047.000000)">
+                    <g id="icon-close" transform="translate(240.000000, 1047.000000)" fill="#000000" stroke="#000000"
+                      stroke-width="0.25">
+                      <path
+                        d="M19.89,20.361 C20.0192516,20.50942 20.0117716,20.7325081 19.8728687,20.8719371 C19.7339658,21.0113662 19.5109076,21.0196895 19.362,20.891 L10,11.528 L0.64,20.89 C0.493364607,21.0356781 0.256635393,21.0356781 0.11,20.89 C0.0395894888,20.8199889 -4.752856e-07,20.7247935 -4.752856e-07,20.6255 C-4.752856e-07,20.5262065 0.0395894888,20.4310111 0.11,20.361 L9.472,11.001 L0.11,1.638 C0.0153246163,1.54332462 -0.0216503308,1.40533224 0.0130032636,1.27600327 C0.0476568579,1.14667429 0.148674288,1.04565686 0.278003266,1.01100326 C0.407332243,0.976349669 0.545324619,1.01332462 0.64,1.108 L10,10.472 L19.362,1.111 C19.4564967,1.01650324 19.5942288,0.979598056 19.7233137,1.01418627 C19.8523987,1.04877448 19.9532255,1.14960131 19.9878137,1.27868627 C20.0224019,1.40777124 19.9854968,1.54550325 19.891,1.64 L10.529,11 L19.891,20.361 L19.89,20.361 Z"
+                        id="Shape"></path>
+                    </g>
+                  </g>
+                </svg></i>
+            </button>
+            {privacyPolicyText}&nbsp;<a class="header_cookie-disclaimer--message--link" href={privacyPolicyLink}
+              target="_blank" data-text="Cookie Disclaimer | Privacy Statement">{privacyPolicyLinkLabel}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>

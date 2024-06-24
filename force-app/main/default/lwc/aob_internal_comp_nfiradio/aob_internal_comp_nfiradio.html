@@ -1,0 +1,26 @@
+<template>
+
+
+	<div class="cipc_container absPos">
+		<div style="display: flex; margin-bottom: 10px">
+				<!-- <img alt="Exclamation Icon" src={ExcIcon}
+					class="aob_modal_close_button slds-m-right_xx-small slds-m-left_large excImg"> -->
+				<p class="titleStyle">{label.AOB_ZA_DoesYourCompany}</p>
+		</div>
+		<ul>
+			<li>- {label.AOB_ZA_EarnMoreThan}</li>
+			<li>- {label.AOB_ZA_HoldMoreThan}</li>
+		</ul>
+		<div class="alignRadioGrp slds-m-top_small">
+			<lightning-radio-group name="radioGroup" options={options} value={value} type="radio">
+			</lightning-radio-group>
+			<input type="radio" class="slds-m-right_small" name="nfiradio" data-name={name} data-value="true" onchange={genericRadioChange}>
+			{label.AOB_Yes} <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input type="radio" class="slds-m-right_small" name="nfiradio" data-name={name} data-value="false" onchange={genericRadioChange}>
+			{label.AOB_No}
+		</div>
+		
+	</div>
+
+
+</template>

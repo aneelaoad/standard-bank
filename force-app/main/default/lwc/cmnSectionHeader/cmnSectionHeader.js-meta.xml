@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+           <property name="mainHeading" label="Main Heading" type="String" default=""/>
+            <property name="text" label="Text" type="String" default=""/>  
+            <property name="breadcrumbText" label="Breadcrumb Text" type="String" default="Partner Portal"/>  
+            <property name="breadcrumbLink" label="Breadcrumb Link" type="String" default="/"/>  
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

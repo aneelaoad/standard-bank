@@ -1,0 +1,130 @@
+<!--
+  @description       : 
+  @author            : Wilhelm du Preez
+  @group             : 
+  @last modified on  : 12-23-2021
+  @last modified by  : Wilhelm du Preez    
+-->
+<template>
+
+	<template if:true={isDesktopDevice}>
+		<div class="aob_card_container container">
+			<br /><br /><br />
+			<h5 class="aob_screen-title left-title">{title}</h5>
+			<br />
+			<div class="slds-grid ">
+				<template for:each={progressIndicatorsStages} for:item="indicatorStage">
+					<!--First Step-->
+					<template if:true={indicatorStage.firstStage}>
+						<div class="slds-col" key={indicatorStage.stagenumber} style="width:3%">
+							<div class="slds-grid slds-wrap">
+								<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1"
+									style="margin-left: 72%; width:55%">
+									<div class="slds-progress-bar progressBar" aria-valuemin="0" aria-valuemax="100"
+										aria-valuenow="100" role="progressbar">
+										<span class="slds-progress-bar__value" style={indicatorStage.progressWidth}>
+										</span>
+									</div>
+								</div>
+								<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
+									<c-aob_comp_progress-ring min="0" max="100" value={indicatorStage.stagevaluenow}
+										stagename={indicatorStage.stagename} state={indicatorStage.statename}
+										stepnumber={indicatorStage.stagenumber}></c-aob_comp_progress-ring>
+								</div>
+								<div
+									class="slds-col slds-size_1-of-1 slds-large-size_1-of-1 slds-align_absolute-center">
+									<div class="textWrap step-text"> {indicatorStage.stagename}</div>
+								</div>
+							</div>
+						</div>
+					</template>
+					<!--First Step end here-->
+					<!--Middle Step-->
+					<template if:true={indicatorStage.middleStage}>
+						<div class="slds-col" key={indicatorStage.stagenumber} style="width:3%">
+							<div class="slds-grid slds-wrap">
+								<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1"
+									style="margin-left: 72%; width:55%">
+									<div class="slds-progress-bar progressBar" aria-valuemin="0" aria-valuemax="100"
+										aria-valuenow="100" role="progressbar">
+										<span class="slds-progress-bar__value" style={indicatorStage.progressWidth}>
+										</span>
+									</div>
+								</div>
+								<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
+
+									<c-aob_comp_progress-ring min="0" max="100" value={indicatorStage.stagevaluenow}
+										stagename={indicatorStage.stagename} state={indicatorStage.statename}
+										stepnumber={indicatorStage.stagenumber}></c-aob_comp_progress-ring>
+									<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1"
+										style="text-align:center;">
+										<div class="textWrap step-text"> {indicatorStage.stagename}</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</template>
+					<!--Middle Step end here-->
+					<!--last Step-->
+					<template if:true={indicatorStage.lastStage}>
+						<div class="slds-col" key={indicatorStage.stagenumber} style="width:3%">
+							<div class="slds-grid slds-wrap">
+								<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1"
+									style="padding-right: 50%;">
+									<div class="slds-progress-bar progressBar" aria-valuemin="0" aria-valuemax="100"
+										aria-valuenow="100" role="progressbar" style="display:table-row">
+										<span class="slds-progress-bar__value" style={indicatorStage.progressWidth}>
+										</span>
+									</div>
+								</div>
+
+								<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1">
+									<div style="right:-50%">
+										<c-aob_comp_progress-ring min="0" max="100" value={indicatorStage.stagevaluenow}
+											stagename={indicatorStage.stagename} state={indicatorStage.statename}
+											stepnumber={indicatorStage.stagenumber}></c-aob_comp_progress-ring>
+									</div>
+								</div>
+								<div class="slds-col slds-size_1-of-1 slds-large-size_1-of-1"
+									style=" text-align: center;">
+									<div class="textWrap step-text"> {indicatorStage.stagename}</div>
+								</div>
+							</div>
+						</div>
+					</template>
+				</template>
+				<!--Last Step end here-->
+			</div>
+		</div>
+	</template>
+	<!--Mobile Device-->
+	<template if:true={isMobileDevice}>
+		<!--used html table due to slds gride is not wokring in mobile -->
+		<div class="aob_card_container">
+			<br /><br /><br />
+			<h5 class="aob_screen-title  left-title">{title}</h5>
+			<br />
+			<table>
+				<tr>
+					<td>
+						<c-aob_comp_progress-ring min="0" max="100" value={mobilestagevaluenow}
+							stagename={mobilestagename} state={mobilestatename} stepnumber={currentstagenumber}>
+						</c-aob_comp_progress-ring>
+					</td>
+					<td>
+						<div class="mobileHeading mobileMargin">
+							{mobilestagename}
+						</div>
+						<div class="mobileMargin">
+							{mobilesubheading}
+						</div>
+					</td>
+				</tr>
+
+			</table>
+		</div>
+
+
+	</template>
+</template>

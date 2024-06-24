@@ -1,0 +1,104 @@
+<!--
+  @description       :  This is used for Gaming Industry Status screen
+  @author            :  Sreekala.Mallavalli@standardbank.co.za
+  @last modified on  : 09-21-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Gaming Industry Status</h2>
+    </article>
+    <div class="aob_card-container">
+      <lightning-checkbox-group
+        name="gamingindustrystatus"
+        label="Is this business or any of its competitors involved in the gaming industry?"
+        options={options}
+        onchange={onchange}
+        value={gamingIndustryStatus}
+      >
+      </lightning-checkbox-group>
+
+      <template lwc:if={applicationRecord.CIB_GII_HasBusinessInvolvement__c}>
+        <div class="slds-form-element mt_20 textarea-height">
+          <label class="slds-form-element__label" for="textarea-id-01">
+            <span class="slds-required" title="required">*</span>
+            Details of their involvement - Business</label
+          >
+          <div class="slds-form-element__control">
+            <lightning-textarea
+              class="text no-border"
+              id="textarea-id-01"
+              data-name="detailsoftheirinvolvementBusiness"
+              name="detailsoftheirinvolvementBusiness"
+              variant="label-hidden"
+              placeholder="Details of their involvement - Business"
+              pattern="[A-Za-z\s]+"
+              message-when-pattern-mismatch="Only Character are allowed"
+              aria-invalid="true"
+              data-fieldname="CIB_GII_BusinessInvolvementDetails__c"
+              value={applicationRecord.CIB_GII_BusinessInvolvementDetails__c}
+              required
+            >
+            </lightning-textarea>
+          </div>
+        </div>
+      </template>
+
+      <template lwc:if={applicationRecord.CIB_GII_HasSupplerInvolvement__c}>
+        <div class="slds-form-element mt_20 textarea-height">
+          <label class="slds-form-element__label" for="textarea-id-02">
+            <span class="slds-required" title="required">* </span>
+            Details of their involvement -Suppliers</label
+          >
+          <lightning-textarea
+            class="text"
+            id="textarea-id-02"
+            name="involvementSuppliersDetailsoftheirinvolvementSuppliers"
+            variant="label-hidden"
+            placeholder="Details of their involvement-Suppliers"
+            aria-invalid="true"
+            data-fieldname="CIB_GII_SupplierInvolvementDetails__c"
+            value={applicationRecord.CIB_GII_SupplierInvolvementDetails__c}
+            required
+          >
+          </lightning-textarea>
+        </div>
+      </template>
+
+      <template lwc:if={applicationRecord.CIB_GII_HasCustomerInvolvement__c}>
+        <div class="slds-form-element mt_20 textarea-height">
+          <label class="slds-form-element__label" for="textarea-id-03">
+            <span class="slds-required" title="required">* </span>
+            Details of their involvement - Customers</label
+          >
+          <div class="slds-form-element__control">
+            <lightning-textarea
+              class="text"
+              id="textarea-id-03"
+              name="detailsoftheirCustomers"
+              variant="label-hidden"
+              placeholder="Details of their involvement-Customers"
+              aria-invalid="true"
+              data-fieldname="CIB_GII_BusinessInvolvementDetails__c"
+              value={applicationRecord.CIB_GII_BusinessInvolvementDetails__c}
+              required
+            >
+            </lightning-textarea>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

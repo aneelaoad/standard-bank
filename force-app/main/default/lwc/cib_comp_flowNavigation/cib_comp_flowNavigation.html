@@ -1,0 +1,48 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 10-16-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="aob_card-container aob_btns-between" lwc:if={firstScreens}>
+    <button class="slds-button aob_btn-empty" onclick={onpreviousButtonClick}>
+      {cancelText}
+    </button>
+    <div>
+      <button
+        if:false={submitFirstScreenButton}
+        class="slds-button aob_btn-primary"
+        onclick={onsubmitButtonClick}
+      >
+        Next
+      </button>
+      <button
+        lwc:if={submitFirstScreenButton}
+        class="slds-button aob_btn-primary"
+        onclick={onsubmitButtonClick}
+      >
+        {submitText}
+      </button>
+    </div>
+  </div>
+
+  <div class="aob_card-container aob_btns-between" if:false={firstScreens}>
+    <button class="slds-button aob_btn-empty" onclick={onpreviousButtonClick}>
+      Back
+    </button>
+    <div>
+      <button
+        class="slds-button aob_btn-empty"
+        lwc:if={saveButtonEnable}
+        onclick={onSaveButtonClick}
+      >
+        Save
+      </button>
+      <button class="slds-button aob_btn-primary" onclick={onsubmitButtonClick}>
+        Submit
+      </button>
+    </div>
+  </div>
+</template>

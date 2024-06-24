@@ -1,0 +1,27 @@
+<template>
+   <div class="error-container">
+        <div class="error-message errorClass">
+            <h1> 404 - Page not found</h1>
+            <p>Hmm. the page you're looking for does not exist</p>
+            <p>Try searching for something else or browse  our home page for exciting offerings</p>
+            <span>Need more help? <a href={returnUrl} >FAQs</a> </span>
+            <!-- <br><a href={homeUrl}>Go to our home page</a> -->
+            <br>
+            <div class="home-button">
+                <c-mall-cmn-button 
+                variant="mall" 
+                label={goToHome}
+                title={goToHome} 
+                w-class="wAuto"
+            destination-url ={homeUrl}
+                >
+                </c-mall-cmn-button>
+            </div>
+
+                       </div>
+        <div class="error-image errorClass">
+            <img src={error404Image} alt="">
+        </div>
+   </div>
+
+</template>

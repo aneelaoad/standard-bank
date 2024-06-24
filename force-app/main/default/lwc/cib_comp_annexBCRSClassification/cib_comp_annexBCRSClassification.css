@@ -1,0 +1,12 @@
+.sub-header {
+  padding: 20px 143px 25px 20px;
+}
+.radio-container .radio {
+  padding: 7px 6px;
+}
+.checkbox_text {
+  flex-flow: nowrap;
+}
+.checkbox_top {
+  padding: 10px;
+}

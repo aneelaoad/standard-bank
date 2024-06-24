@@ -1,0 +1,30 @@
+<template>
+    <div class="slds-grid">
+        <div class="slds-col">
+            <span><img src={signinImage} /></span>
+        </div>
+        <div class="slds-col text-container">
+            <template if:true={isGuestUser}>
+                <h2>Sign in to the API Marketplace</h2>
+                <p>If you don't have a Standard Bank ID, please register</p><br />
+                <template if:true={showButtons}>
+                    <div>
+                        <button class="button button2" onclick={navigateToLogin}>{signInButtonLabel}</button><br />
+                        <button class="btn button1" onclick={navigateToRegistration}>{registerButtonLabel}</button>
+                    </div>
+                </template>
+                <template if:false={showButtons}>
+                    <div>
+                        <button class="button button2" onclick={navigateToLogin}>{signInButtonLabel} / {registerButtonLabel}</button><br />
+                    </div>
+                </template>
+                <br /><br />
+                <p>By Signing in you agree to the <a href={hyperlink}>T&C's</a> </p>
+            </template>
+            <template if:false={isGuestUser}>
+                <p>You are already logged into API Marketplace.</p><br />
+                <p>By Signing in you have already agreed to the <a href={hyperlink}>T&C's</a> </p>
+            </template>
+        </div>
+    </div>
+</template>

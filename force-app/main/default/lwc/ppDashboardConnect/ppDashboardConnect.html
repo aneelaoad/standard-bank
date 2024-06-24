@@ -1,0 +1,33 @@
+<!-- **
+* @description  : Partner Portal Dashboard Connect Component
+* User Story : SFP-4873
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date Aug 2021
+*/ -->
+<template>
+  <div class="container">
+    <div class="slds-grid slds-grid_vertical">
+      <div class="slds-col">
+        <p class="text-normal-sfProDisplay heading">{heading}</p>
+      </div>
+      <div class="slds-col">
+        <p class="heading-medium-sfProDisplay text-one">{textOne}</p>
+      </div>
+      <div class="slds-col">
+        <p class="heading-medium-sfProDisplay text-two">{textTwo}</p>
+      </div>
+
+      <div class="get-in-touch">
+        <a href={linkUrl}
+          class="text-normal-sfProDisplay connect-link"
+          data-intent="navigational"
+          data-scope="Dashboard"
+          data-id="link_content"
+          data-text="Partner connect | get in touch link click"
+          onclick={tracker}>{link}</a>
+        <img class="connect-img" src={img} />
+      </div>
+    </div>
+  </div>
+</template>

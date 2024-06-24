@@ -1,0 +1,189 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-quick-action-panel header="Edit Fund Information + Documents ">
+  <div style="display: none">{recordId}</div>
+  <template if:true={blnSpinner}>
+    <lightning-spinner variant="brand" size="medium"> </lightning-spinner>
+  </template>
+
+  <template if:true={blnStep1}>
+    
+    <div class="header">
+      Step 1: Edit fund information
+    </div>
+    <lightning-layout multiple-rows>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="12" padding="around-small">
+          <h2><b>Fund Information</b></h2>
+      </lightning-layout-item>
+
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Fund Registration Number"
+              value={objFundRecord.Registration_Number__c} readonly
+              name="Registration_Number__c"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Registered Fund Name" value={objFundRecord.Name}
+              field-level-help="The fund's full legal name" readonly={blnFormReadOnly}
+              required={blnRequiredField} name="Name"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-combobox name="FundType__c" label="Fund Type" options={fundTypeOptions}
+              value={objFundRecord.FundType__c}
+              field-level-help="CIS - collective investment scheme" readonly={blnFormReadOnly}
+              >
+          </lightning-combobox>
+      </lightning-layout-item>
+
+      <template if:true={blnFormReadOnly}>
+          <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+              large-device-size="6" padding="around-small">
+              <lightning-input type="text" label="Fund CIF Number" value={objFundRecord.CIF__c}
+                  readonly={blnFormReadOnly}></lightning-input>
+          </lightning-layout-item>
+      </template>
+
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="number" label="Fund Assets Under Management" formatter="currency" 
+              step="0.01"
+              value={objFundRecord.Fund_Assets_Under_Management__c} readonly={blnFormReadOnly}
+              name="Fund_Assets_Under_Management__c"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Short Name" value={strShortName}
+              field-level-help="Limit the fund short name to 30 characters" required
+              data-id="strShortName"  maxlength="30"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="12" padding="around-small">
+          <div class="border"></div>
+      </lightning-layout-item>
+  </lightning-layout>
+
+  <!--ISIC Code-->
+  <lightning-layout multiple-rows>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="12" padding="around-small">
+          <h2><b>ISIC Code</b></h2>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-combobox name="Client_Sector__c" label="Client Sector"
+              options={clientSectorOptions} value={objFundRecord.Client_Sector__c}
+              onchange={handleClientSectorChange} readonly={blnFormReadOnly}
+              required={blnRequiredField}></lightning-combobox>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-combobox name="Client_Sub_Sector__c" label="Client Sub-Sector"
+              options={clientSubSectorOptions} value={objFundRecord.Client_Sub_Sector__c}
+              onchange={handleClientSubSectorChange} readonly={blnFormReadOnly}
+              required={blnRequiredField}></lightning-combobox>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-combobox name="ISIC_C_ode__c" label="ISIC Code" options={isicCodeOptions}
+              value={objFundRecord.ISIC_C_ode__c} readonly={blnFormReadOnly}
+              required={blnRequiredField}></lightning-combobox>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="12" padding="around-small">
+          <div class="border"></div>
+      </lightning-layout-item>
+  </lightning-layout>
+
+  <!--Registered Address-->
+
+  <lightning-layout multiple-rows>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="12" padding="around-small">
+          <h2><b>Registered Address</b></h2>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Registered Street"
+              value={objFundRecord.BillingStreet} readonly={blnFormReadOnly}
+              required={blnRequiredField} name="BillingStreet"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Registered Suburb"
+              value={objFundRecord.Registered_Suburb__c} readonly={blnFormReadOnly}
+              required={blnRequiredField} name="Registered_Suburb__c"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Registered City" value={objFundRecord.BillingCity}
+              readonly={blnFormReadOnly} required={blnRequiredField}
+              name="BillingCity"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Registered State/Province"
+              value={objFundRecord.BillingState} readonly={blnFormReadOnly}
+              required={blnRequiredField} name="BillingState"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Registered Country"
+              value={objFundRecord.BillingCountry} readonly={blnFormReadOnly}
+              required={blnRequiredField} name="BillingCountry"></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+          large-device-size="6" padding="around-small">
+          <lightning-input type="text" label="Registered Zip/Postal Code"
+              value={objFundRecord.BillingPostalCode} readonly={blnFormReadOnly}
+              required={blnRequiredField} name="BillingPostalCode"></lightning-input>
+      </lightning-layout-item>
+  </lightning-layout>
+
+  </template>
+
+  <template if:true={blnStep2}>
+    <div class="header">
+      Step 2: Upload documents
+    </div>
+    <c-omf_upload-documents record-id={recordId} bln-kyc-upload-document=true></c-omf_upload-documents>
+  </template>
+
+  <div slot="footer">
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+            large-device-size="2" padding="around-small" class="slds-align_absolute-center">
+            <template if:false={blnStep1}>
+                <button class="slds-button slds-button_neutral" aria-label="Previous"
+                    onclick={handlePrevious}>Previous</button>
+            </template>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+            large-device-size="7" padding="around-small">
+            <lightning-progress-indicator class="progress-bar" current-step={strCurrentStep}
+                type="base" variant="base">
+                <lightning-progress-step label="Step 1: Edit fund information"
+                    value="1"></lightning-progress-step>
+                <lightning-progress-step label="Step 2: Upload documents"
+                    value="2"></lightning-progress-step>
+            </lightning-progress-indicator>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="around-small"
+            class="slds-align_absolute-right">
+            <lightning-button variant="neutral" label="Cancel" onclick={handleUploadClose}></lightning-button>
+            <lightning-button
+              variant="brand"
+              label="Next"
+              onclick={handleNext}
+              class="slds-m-left_x-small"
+            ></lightning-button>
+        </lightning-layout-item>
+    </lightning-layout>
+  </div>
+  
+</lightning-quick-action-panel>
+</template>

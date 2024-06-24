@@ -1,0 +1,66 @@
+<!-- **
+* @description  : Partner Portal Edit Profile Component
+* User Story : SFP-4874
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <div class="main-container">
+        <div class="slds-grid slds-grid_vertical slds-align_absolute-center container">
+
+
+            <div class="slds-col slds-align_absolute-center">
+                <div class="heading-normal-sfProDisplay text">Got new capabilities? You might want to
+                    update it here.</div>
+            </div>
+
+            <div class="slds-col slds-m-top_small">
+
+                <div class="slds-col slds-m-top_small">
+                    <lightning-input type="text" label="Company Website" class="Website" name="Website"
+                        placeholder="Link to your corporate website" value={partner.PP_Website__c}
+                        onchange={handleInputChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-m-top_small">
+                    <lightning-input type="text" label="LinkedIn Profile" class="LinkedIn" name="LinkedIn"
+                        placeholder="Link to your company LinkedIn profile" value={partner.PP_LinkedInProfile__c}
+                        onchange={handleInputChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-m-top_small slds-m-bottom_x-large combobox-container">
+                    <lightning-dual-listbox name="Capabilities" label="Business Capabilities" class="Capabilities"
+                        source-label="Available" selected-label="Selected" field-level-help="Select up to 3 Options"
+                        options={capabilitiesOptions} placeholder="Select up to 3 Options" value={selectedCapabilities}
+                        onchange={handleInputChange}>
+                    </lightning-dual-listbox>
+                </div>
+
+                <div class="slds-col slds-m-top_small slds-m-bottom_x-large" data-intent="transactional"
+                    data-scope="edit profile" data-id="link_content" data-text="edit profile | submit button clicked" onclick={tracker}>
+                    <button class="slds-button slds-button_neutral btn" onclick={handleUpdate}>UPDATE</button>
+                </div>
+
+                <div class="slds-col slds-m-top_small">
+                    <div class="lline"></div>
+                </div>
+
+                <div class="slds-col slds-align_absolute-center slds-m-top_small">
+                    <div class="heading-normal-sfProDisplay text">Incase you wish to update any of the details below,
+                        please contact
+                        your relationship manager.</div>
+                </div>
+                <div class="slds-col slds-m-top_small">
+                    <label class="slds-form-element__label slds-no-flex fieldName">LOCATION</label>
+                    <p class="text-normal-sfProDisplay fieldValue">{partner.PP_OperatingCountry__c}</p>
+                </div>
+                <div class="slds-col slds-m-top_small slds-m-bottom_x-large">
+                    <label class="slds-form-element__label slds-no-flex fieldName">INDUSTRY</label>
+                    <p class="text-normal-sfProDisplay fieldValue">{industry}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

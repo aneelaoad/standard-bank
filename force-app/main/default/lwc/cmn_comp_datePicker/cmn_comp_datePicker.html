@@ -1,0 +1,90 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="slds-combobox_container">
+    <div
+      onclick={preventEvent}
+      id="ms-picklist-dropdown"
+      class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-picklist ms-picklist-dropdown"
+      aria-expanded="false"
+      aria-haspopup="listbox"
+      role="combobox"
+    >
+      <div role="none">
+        <input
+          required
+          placeholder="MM, DD, YYYY"
+          class="slds-combobox__input ms-input inputcss slds-input"
+          type="text"
+          onclick={openDatepicker}
+          value={formattedSelectedDate}
+        />
+        <button
+          class="date_icon_right"
+          title="Select a date"
+          onclick={openDatepicker}
+        >
+          <img src={calanderIcon} alt="Calendar" />
+        </button>
+      </div>
+      <div id="ms-dropdown-items" class="te" role="listbox">
+        <ul
+          class="customList slds-listbox slds-listbox_vertical slds-dropdown_fluid"
+          role="presentation"
+        >
+          <div class="dates" if:true={calenderOpen}>
+            <div class="buttonContainer">
+              <span class="link" onclick={goToday}> Today </span>
+              <p>{dateField}, {month}</p>
+              <select
+                class="slds-select"
+                onchange={yearChange}
+                onclick={preventEvent}
+              >
+                <template for:each={yearData} for:item="date">
+                  <option key={date}>{date}</option>
+                </template>
+              </select>
+            </div>
+            <div class="buttonContainer">
+              <button class="prev" type="button" onclick={previousMonth}>
+                Prev
+              </button>
+              <span class="bold">{month}</span>
+              <button class="next" type="button" onclick={nextMonth}>
+                Next
+              </button>
+            </div>
+            <ul class="header">
+              <li>S</li>
+              <li>M</li>
+              <li>T</li>
+              <li>W</li>
+              <li>T</li>
+              <li>F</li>
+              <li>S</li>
+            </ul>
+            <ul class="datePickerHolder">
+              <template for:each={dates} for:item="date">
+                <li
+                  key={date.formatted}
+                  class={date.className}
+                  data-date={date.formatted}
+                  onclick={setSelected}
+                >
+                  {date.text}
+                </li>
+              </template>
+            </ul>
+          </div>
+        </ul>
+      </div>
+    </div>
+    <div class="backdrop" lwc:if={calenderOpen} onclick={onDropDownClick}></div>
+  </div>
+</template>

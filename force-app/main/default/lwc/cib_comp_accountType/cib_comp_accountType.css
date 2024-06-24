@@ -1,0 +1,62 @@
+.aob_info-text {
+  display: flex;
+  align-items: center;
+}
+.aob_page-titles {
+  font-size: 14px !important;
+}
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px !important;
+  line-height: 16px;
+  color: #5c6c80;
+  margin: 0 0 0 16px;
+}
+.aob_pill-box {
+  min-height: 93px;
+  min-width: 405px;
+  width: max-content;
+  background: #ffffff;
+  border: 1px solid #5c6c80;
+  border-radius: 8px;
+  padding: 15px 14px 5px;
+}
+.aob_pill-box .slds-input {
+  border: 0;
+  padding: 0;
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 16px;
+  color: #5c6c80;
+}
+.aob_pill-box .slds-listbox_selection-group {
+  height: auto !important;
+}
+.aob_pill {
+  min-width: 152px;
+  height: 32px;
+  padding: 4px 8px 6px;
+  background: #0062e1;
+  border-radius: 16px;
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 16px;
+  line-height: normal;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  column-gap: 5px;
+}
+.pill_icon {
+  width: 24px;
+  border-radius: 50%;
+}
+.pill_remove {
+  cursor: default;
+  width: 16px;
+  border-radius: 50%;
+}
+.slds-combobox__input :focus {
+  box-shadow: none;
+}

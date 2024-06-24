@@ -1,0 +1,20 @@
+<template>
+    <div class="breadcrumbs-wrapper">
+        <a class="root-crumb" onclick={navigateToInternalPage} data-intent="navigational"
+            data-scope="sbg breadcrumb bar" data-id="link_content" data-text="home icon click" data-text-after="link">
+            <img src={homeIcon} alt="Home">
+        </a>
+        <template if:true={navigationTrail}>
+            <template for:each={navigationPathItems} for:item="link">
+                <img class="crumb-right" key={link.id} src={rightIcon} alt="Right" />
+                <a key={link.id} class="crumb" href={link.url} onclick={navigateToUrl} data-intent="navigational"
+                    data-scope="sbg breadcrumb bar" data-id="link_content" data-text={link.name} data-type="click"
+                    data-text-after="link">
+                    {link.name}
+                </a>
+            </template>
+        </template>
+        <img class="crumb-right" src={rightIcon} alt="Right" />
+        <span class="crumb">{currentPageName}</span>
+    </div>
+</template>

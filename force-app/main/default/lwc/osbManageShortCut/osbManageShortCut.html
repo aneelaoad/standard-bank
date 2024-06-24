@@ -1,0 +1,116 @@
+<template>
+    <template lwc:if={isLoading}>
+        <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+    </template>
+    <template lwc:if={mainManageShortcutsPage}>
+        <div class="ManageShortcutMain">
+            <div class="HeaderHolder">
+                <div class="LeftChevronSection">
+                    <i class="msClass ms-icn_chevron_left leftChevronIcon" onclick={backtoDashboard} data-id="Back"
+                    data-text="Manage Shortcuts| Back to Dashboard" data-intent="navigational" data-scope="Manage Shortcuts"></i>
+                </div>
+                <div class="TitleHeaderSection">
+                    <div class="TitleSection">
+                        Manage Shortcuts
+                    </div>
+                    <div class="TotalShortcuts">
+                        <p><span style="font-weight: 500;">{savedShortcuts}</span> of <span style="font-weight: 500;">{maxShortcuts}</span> selected</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ApplicationsHolder">
+                <div class="ApplicationWrapperHolder">
+                    <div class="ApplicationWrapper">
+                        <template lwc:if={displayapps}>
+                            <template for:each={applicationsArr} for:item="application">
+                                <div key={application}>
+                                    <c-osb-short-cut-card title={application.Solution__r.Title}
+                                    solutionid={application.Solution__r.Id}
+                                    applicationowner={application.Solution__r.Application_Owner__c}
+                                    image={application.Solution__r.Large_Solution_Logo__c}
+                                    isshortcut={tileType}
+                                    onchosensolution={choseShortcutSolution}
+                                    >
+                                    </c-osb-short-cut-card>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template lwc:if={solutionShortcutPage}>
+        <div class="ManageShortcutMain">
+            <div class="HeaderHolder">
+                <div class="LeftChevronSection">
+                    <i class="msClass ms-icn_chevron_left leftChevronIcon" onclick={backtoManageShortcuts} data-id="Back"
+                    data-text="Manage Shortcuts| Back to Main Manage Shortcuts" data-intent="navigational" data-scope="Manage Shortcuts"></i>
+                </div>
+                <div class="TitleHeaderSection">
+                    <div class="SolutionTitleHeaderSection">
+                        <div class="TitleImage">
+                            <img src={solutionIconImage}></img>
+                        </div>
+                        <div class="TitleSection">
+                            {solutionTitle}
+                        </div>
+                    </div>
+                    <div class="TotalShortcuts">
+                        <p><span style="font-weight: 500;">{savedShortcuts}</span> of <span style="font-weight: 500;">{maxShortcuts}</span> selected</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ApplicationsHolder">
+                <div class="ApplicationWrapperHolder">
+                    <template lwc:if={maxReached}>
+                        <c-osb-banner-lwc
+                            toasttype = {bannerType}
+                            bannerheader = {bannerHeading}
+                            bannermessage = {bannerMessage}
+                        >
+                        </c-osb-banner-lwc>
+                    </template>
+                    <form data-frmcontainer="manage shortcuts" data-id="shortcuts" name="shortcuts">
+                        <div class="ApplicationWrapper ShortcutWrapper">
+                        
+                            <template lwc:if={displayapps}>
+                                <template for:each={shortcutArr} for:item="shortcut">
+                                    <div key={shortcut}>
+                                        <c-osb-short-cut-card title={solutionTitle}
+                                        solutionid={solutionId}
+                                        isshortcut={tileType}
+                                        shortcutname={shortcut.Name}
+                                        shortcutcategory={shortcut.Category}
+                                        shortcuturl={shortcut.redirectURL}
+                                        addbuttontype={shortcut.addButton}
+                                        onchosensolution={choseShortcutSolution}
+                                        disable-button={disableAdditionButton}
+                                        onaddshortcut={addNewShortcut}
+                                        onremoveshortcut={removeOldShortcut}
+                                        >
+                                        </c-osb-short-cut-card>
+                                    </div>
+                                </template>
+                            </template>
+                        </div>
+                    </form>
+                </div>
+                <template lwc:if={displayapps}>
+                    <div class="ButtonHolder">
+                        <div class="CancelButtonHolder">
+                            <button onclick={backtoManageShortcuts} title="Cancel" class="slds-button slds-button_neutral btnStyle" data-id="cancel" data-text="Manage Shortcuts | Cancel shortcut" data-intent="confirmational" data-scope="Manage Shortcuts">
+                                Cancel
+                            </button>
+                        </div>
+                        <div class="SaveButtonHolder">
+                            <button onclick={storeShortcuts} title="Save" class="slds-button slds-button_neutral btnStyle btnOpposite" data-id="store" data-text="Manage Shortcuts | Save shortcut" data-intent="confirmational" data-scope="Manage Shortcuts">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+</template>

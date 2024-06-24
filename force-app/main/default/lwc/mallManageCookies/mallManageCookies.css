@@ -1,0 +1,26 @@
+.container {
+  font-family: var(--lwc-fontFamily);
+  line-height: 24px;
+}
+
+.section {
+  margin: 2rem 0rem;
+}
+
+.title {
+  font-family: var(--lwc-fontFamily);
+  margin: 1rem 0rem;
+  font-weight: 700;
+  font-size: var(--font-size-heading-s, 1.125rem);
+}
+
+.info {
+  margin: 1rem 0rem;
+  font-weight: 400;
+  font-family: var(--lwc-fontFamily);
+  font-size: var(--font-size-body-m, 1rem);
+}
+
+.button-section {
+  margin: 2rem 0rem;
+}

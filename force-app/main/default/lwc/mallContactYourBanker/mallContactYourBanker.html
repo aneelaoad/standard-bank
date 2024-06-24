@@ -1,0 +1,209 @@
+<template>
+  <c-mall-toast-notifcation auto-close-time="10000"></c-mall-toast-notifcation>
+  <div class="wrapper">
+    <div class="contact_us_section">
+      <div class="contact_us_inner">
+        <div class="contact_us_detail">
+          <div class="contact_us_info">
+            <div class="contact_text">
+              <p>
+                <lightning-formatted-rich-text
+                  value={appreciationMessageLabel}
+                ></lightning-formatted-rich-text>
+              </p>
+            </div>
+
+            <div class="form">
+              <div class="contactus_form">
+                <div class="slds-grid slds-wrap slds-gutters">
+                  <template if:true={isFieldRequired}>
+                    <div class="slds-col slds-size_1-of-1">
+                      <div class="formInput">
+                        <label for="name" class="form-label"
+                          >{fullNameLabel}<abbr
+                            title="required"
+                            class="slds-required"
+                            >*</abbr
+                          ></label
+                        >
+
+                        <div class="formInput_field">
+                          <input
+                            type="text"
+                            class="form-control"
+                            value={name}
+                            id="name"
+                            maxlength="80"
+                            name="name"
+                            size="20"
+                            placeholder={fullNamePlaceholder}
+                            required={isFieldRequired}
+                            pattern="^[a-z A-Z]+$"
+                            onchange={handleNameChange}                            
+                            disabled={isFieldDisabled}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="slds-col slds-size_1-of-1 slds-large-size_5-of-12"
+                    >
+                      <div class="formInput">
+                        <label for="email" class="form-label"
+                          >{emailAddressLabel}<abbr
+                            title="required"
+                            class="slds-required"
+                            >*</abbr
+                          ></label
+                        >
+
+                        <div class="formInput_field">
+                          <input
+                            id="email"
+                            required={isFieldRequired}
+                            value={email}
+                            maxlength="80"
+                            name="email"
+                            size="20"
+                            type="email"
+                            class="form-control"
+                            placeholder={emailAddressPlaceholder}
+                            onchange={handleEmailChange}
+                            disabled={isFieldDisabled}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="slds-col slds-size_1-of-1 slds-large-size_7-of-12"
+                    >
+                      <label for="phone" class="form-label"
+                        >{mobileNumberLabel}</label
+                      >
+                      <div class="mobileNumber">
+                        <div class="country-code">
+                          <div class="formInput-mobile">
+                            <div class="formInput_field">
+                              <select class="form-select">
+                                <option selected>{codeLabel}</option>
+                                <template
+                                  for:each={countryCodesList}
+                                  for:item="code"
+                                >
+                                  <option key={code.label} value={code.value}>
+                                    {code.label}
+                                  </option>
+                                </template>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mobile-input-container">
+                          <div class="formInput-mobile">
+                            <div class="formInput_field">
+                              <input
+                                id="phone"
+                                maxlength="40"
+                                name="phone"
+                                size="20"
+                                type="text"
+                                class="form-control form-mobile"
+                                placeholder={mobileNumberPlaceholder}
+                                onchange={handleMobileNumberChange}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="formInput">
+                      <label class="form-label"
+                        >{messageSubjectLabel}<abbr
+                          title="required"
+                          class="slds-required"
+                          >*</abbr
+                        ></label
+                      >
+
+                      <div class="formInput_field">
+                        <input
+                          id="subject"
+                          required
+                          maxlength="80"
+                          name="subject"
+                          size="20"
+                          type="text"
+                          class="form-control"
+                          placeholder={messageSubjectPlaceholder}
+                          onchange={handleSubjectChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="formInput">
+                      <label class="form-label" for="description"
+                        >{yourMessageLabel}<abbr
+                          title="required"
+                          class="slds-required"
+                          >*</abbr
+                        ></label
+                      >
+
+                      <div class="formInput_field">
+                        <textarea
+                          class="form-control_textarea"
+                          required
+                          name="description"
+                          placeholder={yourMessagePlaceholder}
+                          onchange={handleDescriptionChange}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="form_submit">
+                      <c-mall-cmn-button
+                        interaction-intent={buttonInteractionIntent}
+                        interaction-scope={buttonInteractionScope}
+                        interaction-type={buttonInteractionType}
+                        interaction-text={buttonInteractionText}
+                        interaction-text-before={buttonInteractionTextBefore}
+                        variant="mall"
+                        label={sendButtonLabel}
+                        title={sendButtonLabel}
+                        onclick={handleSaveCase}
+                        action="null"
+                        w-class="auto"
+                      ></c-mall-cmn-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="contact_fr">
+              <label>{sendEmailMessageLabel}</label>
+              <template if:true={mailToCountryContactUsEmail}>
+                <p class="rm-name">Sarah Khumalo</p>
+                <p class="rm-email">name.surname@standardbank.co.za</p>
+                <p class="rm-contact">Call Center- 011 111 111</p>
+              </template>
+            </div>
+          </div>
+        </div>
+        <template if:true={showSpinner}>
+          <div class="backdrop">
+            <lightning-spinner alternative-text="Loading" size="medium" variant="brand" class="spinshow"></lightning-spinner>
+          </div>
+        </template> 
+      </div>
+    </div>
+  </div>
+</template>

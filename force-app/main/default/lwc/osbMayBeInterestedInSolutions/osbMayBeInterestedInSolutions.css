@@ -1,0 +1,199 @@
+.MainInterestedInSection {
+  height: auto;
+  width: 100%;
+  color: #0a2240;
+  font-family: var(--FONT-FAMILY);
+}
+
+.HeadingSection {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.ApplicationSection {
+  padding-top: 11px;
+  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.SingleApplicationSection {
+  padding-top: 11px;
+  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.AppCommmon {
+  z-index: 0;
+  position: relative;
+  background-color: #ffffff;
+  min-width: 100%;
+  box-shadow: 0px 6px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 4px 4px 4px;
+  height: 100%;
+}
+
+.SolutionTag {
+  position: absolute;
+  z-index: 10;
+  top: -10px;
+  left: 0px;
+  height: 18px;
+  width: 97px;
+  border-radius: 0px;
+}
+
+.SolutionTagThird {
+  height: 18px;
+  width: 97px;
+  position: absolute;
+  z-index: 10;
+  top: -10px;
+  left: 0px;
+}
+
+.TagHolder {
+  display: flex;
+}
+.rectangle {
+  height: 18px;
+  width: 97px;
+  background: linear-gradient(267.67deg, #0064fc 0%, #0033aa 83.16%);
+  border-radius: 4px 0px 0px 0px;
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 18px solid #0064fc;
+  border-right: 10px solid transparent;
+}
+
+.Thirdrectangle {
+  height: 18px;
+  width: 97px;
+  background: linear-gradient(259.6deg, #ffb81d 0%, #ff681d 71.91%);
+  border-radius: 4px 0px 0px 0px;
+}
+
+.Thirdtriangle {
+  width: 0;
+  height: 0;
+  border-top: 18px solid #ffb81d;
+  border-right: 10px solid transparent;
+}
+
+.ImageSection {
+  height: 100px;
+  background-color: #3c4b6c;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.SolutionImage {
+  width: 100%;
+  object-fit: cover;
+  height: inherit;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.TextSection {
+  padding: 1.4375rem 1rem;
+}
+
+.HeaderTextSection {
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: #1a314d;
+}
+
+.tmClass {
+  position: relative;
+  font-size: 40%;
+  vertical-align: baseline;
+  top: -1.2em;
+}
+
+.DescriptionTextSection {
+  padding-top: 0.5rem;
+  color: #1a314d;
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.ReadLinkSection {
+  padding-top: 1.1875rem;
+  color: #0062e1;
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.skeleton-loader {
+  box-sizing: border-box;
+  position: relative;
+  background: linear-gradient(-90deg, #cfd8dc 0%, #fcfcfc 50%, #cfd8dc 100%);
+  background-size: 400% 400%;
+  animation: pulse 2s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+@keyframes pulse {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -135% 0%;
+  }
+}
+
+.ImageLoader {
+  height: 100px;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.TextLoader {
+  padding: 1.4375rem 1rem;
+}
+
+.HeaderTextLoader {
+  height: 1rem;
+}
+
+.DescriptionTextLoader {
+  margin-top: 1.5rem;
+  height: 3rem;
+}
+
+.ReadLinkLoader {
+  margin-top: 0.625rem;
+  height: 2rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .ApplicationSection {
+    padding-top: 0.6875rem;
+    gap: 1.5rem;
+    display: grid;
+    column-width: 50%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .SingleMainInterestedInSection {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .SingleMainInterestedInSection {
+    width: 100%;
+  }
+
+  .ApplicationSection {
+    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

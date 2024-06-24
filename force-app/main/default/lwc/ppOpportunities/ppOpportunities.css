@@ -1,0 +1,71 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    padding: 14px;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+.single-partnership-container {
+    height: 276px;
+    padding: 16px;
+    margin: 10px;
+    border: solid 1px #edf0f5;
+    margin-bottom: 16px;
+}
+
+.industry {
+    color: #6a7286;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 16px 16px 0;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: #0033aa;
+}
+
+.title {
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;  
+    color: #1c263c;
+    display: block; 
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.summary {
+    height: 60px;
+    font-size: 14px;
+    color: #6a7286;
+    font-weight: normal;
+    letter-spacing: 0.03px;
+    line-height: 1.43;
+    padding-bottom: 25px;
+    display: block; 
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.publish-date {
+    font-weight: 500;
+    color: #6a7286;
+}
+
+.view-details {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0089ff;
+}

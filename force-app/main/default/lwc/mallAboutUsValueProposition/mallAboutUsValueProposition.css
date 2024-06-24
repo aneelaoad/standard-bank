@@ -1,0 +1,10 @@
+c-mall-sbg-value-proposition {
+    --contrast-colour-overwrite: var(--propogation-contrast-colour-overwrite);
+    --contrast-filter-overwrite: var(--propogation-contrast-filter-overwrite);
+    --contrast-title-colour-overwrite: var(--propogation-contrast-title-colour-overwrite);
+    --title-font-size-overwrite: var(--propogation-title-font-size-overwrite);
+    --title-line-height-overwrite: var(--propogation-title-line-height-overwrite);
+    --contrast-colour-overwrite: var(--propogation-contrast-colour-overwrite);
+    --font-size-overwrite: var(--propogation-font-size-overwrite);
+    --line-height-overwrite: var(--propogation-line-height-overwrite);
+}

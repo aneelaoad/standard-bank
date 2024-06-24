@@ -1,0 +1,45 @@
+.aob_datalist {
+    position: absolute;
+    display: none;
+    background-color: white;
+    font-family: sans-serif;
+    font-size: 0.8rem;
+    border: 2px solid rgb(211, 211, 211);
+    z-index: 1000;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 200px;
+    width: 400px;
+}
+
+li {
+    background-color: white;
+    padding: 4px;
+    margin-bottom: 1px;
+    white-space: normal;
+    cursor: pointer;
+}
+.inputcss{
+    position: relative;
+}
+::placeholder{
+    color: #0a2240;
+}
+
+
+.inputcss::after{
+    content: "▼";
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 92%;
+    right: 47px;
+    color: slategrey;
+
+}
+
+@media (max-width:700px){
+    .inputcss::after{
+        left: 85%;
+    }
+}

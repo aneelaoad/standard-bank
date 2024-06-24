@@ -1,0 +1,10 @@
+.support-disclaimer-text
+{
+    padding: 2.5rem 0;
+    text-align: center;
+}
+
+.support-disclaimer-text>p
+{
+    font-size: 0.8125rem;
+}

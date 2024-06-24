@@ -1,0 +1,359 @@
+<template>
+    <!--- Banner-->
+    <div class="container">
+        <div class="my-mobiz_account_card">
+            <div class="breadcrumb_arrows">
+                <nav role="navigation" aria-label="Breadcrumbs">
+                    <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                        <template for:each={product.breadcrumbs} for:item="crumbs">
+                            <li key={crumbs.label} class="slds-breadcrumb__item">
+                                <template if:true={crumbs.linkAvailable}>
+                                    <template if:true={crumbs.isHome}>
+                                        <a href={crumbs.linkUrl} target='_self'   data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntentbreadcrumb}
+                                        data-scope={adobePageTag.dataScopebreadcrumb}
+                                        data-text={crumbs.label} onclick={callingadobeevent}>{crumbs.label}</a>
+                                    </template>
+                                    <template if:false={crumbs.isHome}>
+                                        <a href={crumbs.linkUrl} target={label.StandardBankUrl}   data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntentbreadcrumb}
+                                        data-scope={adobePageTag.dataScopebreadcrumb}
+                                        data-text={crumbs.label} onclick={callingadobeevent}>{crumbs.label}</a>
+                                    </template>
+                                </template>
+                                <template if:false={crumbs.linkAvailable}>
+                                    <a class="changecolor" style="margin: -6px 0px;"   data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntentbreadcrumb}
+                                    data-scope={adobePageTag.dataScopebreadcrumb}
+                                    data-text={crumbs.label} onclick={callingadobeevent} >{crumbs.label}</a>
+                                </template>
+                            </li>
+                        </template>
+                    </ol>
+                </nav>
+            </div>
+            <div class="banner_title">
+                <h1>{product.name}</h1>
+            </div>
+            <div class="slds-grid slds-wrap product_fee_sec slds-grid_vertical-stretch">
+                <div class="slds-col slds-large-size_1-of-3">
+                    <template if:true={isWebDevice}>
+                        <!--Web-->
+                        <img width="100%" src={product.bannerImage} alt="" />
+                    </template>
+                    <template if:true={isTabDevice}>
+                        <!--tab-->
+                        <img width="100%" src={product.bannerImage2} alt="" />
+                    </template>
+                    <template if:true={isMobileDevice}>
+                        <img width="100%" src={product.bannerImage} alt="" />
+                    </template>
+                </div>
+                <div class="slds-col  slds-large-size_2-of-3">
+                    <div class="product_fee_content">
+                        <div>
+                            <p>{product.description}</p>
+                            <div class="fee">
+                                <div class="fee_num">
+                                    <span>{product.currency}</span>
+                                    <h3>{product.price}</h3>
+                                </div>
+                                <div class="fee_text">{product.feePeriod}</div>
+                            </div>
+                        </div>
+                        <div class="btn_pair">
+                            <template if:true={isButtonOneURL}>
+                                <a href={buttonOneURL} data-id="buttonOne"
+                                    class="btn__large btn_fill_large" data-intent={adobePageTag.dataIntentbutton}
+                                    data-scope={adobePageTag.dataScopebutton}
+                                    data-text={adobePageTag.buttontwotext}>{product.buttonOneText}</a>
+                            </template>
+                            <template if:false={isButtonOneURL}>
+                                <a href="" data-id="buttonOne" onclick={buttonClick}
+                                    class="btn__large btn_fill_large" data-intent={adobePageTag.dataIntentbutton}
+                                    data-scope={adobePageTag.dataScopebutton}
+                                    data-text={adobePageTag.buttontwotext}>{product.buttonOneText}</a>
+                            </template>
+                            <template if:true={isButtonTwoURL}>
+                                <a href={buttonTwoURL} data-id="buttonOne"
+                                    class="btn__large btn_fill_large_c" target={label.StandardBankUrl} data-intent={adobePageTag.dataIntentbutton}
+                                    data-scope={adobePageTag.dataScopebutton}
+                                    data-text={adobePageTag.buttontwotext}>{product.buttonTwoText}</a>
+                            </template>
+                            <template if:false={isButtonTwoURL}>
+                                <a href="" data-id="buttonOne" onclick={buttonClick}
+                                    class="btn__large btn_fill_large" data-intent={adobePageTag.dataIntentbutton}
+                                    data-scope={adobePageTag.dataScopebutton}
+                                    data-text={adobePageTag.buttontwotext}>{product.buttonTwoText}</a>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--- Banner END-->
+    <!-- some of benefits-->
+    <div class="benifits-container container">
+        <div class="page-width ">
+            <h2>{product.benefitsTitle}</h2>
+            <div class="benifit-grid">
+                <template for:each={product.benefit} for:item="benefit">
+                    <template if:false={benefit.primaryBackground}>
+                        <article key={benefit.benefitName} class="slds-card benifits-card">
+                            <img class="card-img-sm" src={benefit.benefitIcon} alt="card-img">
+                            <h3>{benefit.benefitName}</h3>
+                            <p>{benefit.benefitDescription}</p>
+                        </article>
+                    </template>
+                    <template if:true={benefit.primaryBackground}>
+                        <article key={benefit.benefitName} class="slds-card benifits-card primary-bg">
+                            <img class="card-img-sm" src={benefit.benefitIcon} alt="card-img">
+                            <h3>{benefit.benefitName}</h3>
+                            <p>{benefit.benefitDescription}</p>
+                        </article>
+                    </template>
+                </template>
+            </div>
+        </div>
+    </div>
+    <!-- some of benefits END -->
+    <!-- tabbed info start-->
+    <div if:false={isMobileDevice} class="slds-tabs_default tri-tabs container"
+        style="background-color:#fff;height:fit-content;padding: 40px 32px 31px 29px;border-radius: 2px; box-shadow: 0 12px 15px 0 rgba(47, 50, 51, 0.09);">
+        <ul class="slds-grid slds-tabs_default__nav tab-container main" role="tablist">
+            <template for:each={product.tab} for:item="tab">
+                <template if:true={tab.active}>
+                    <li key={tab.tabName} class="slds-tabs_default__item slds-is-active" role="presentation" style="padding-bottom:5px;"
+                        onclick={tabClick}>
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0"
+                            aria-selected="true" aria-controls={tab.controls} id={tab.tabId}
+                            style="color:black;font-size:11px;text-decoration: none;padding-right:80px;font-weight:bold;letter-spacing: 1.5px ;line-height:1.0; padding:24px 10px 34px 0;margin-top:-1px;" data-intent={adobePageTag.dataIntenttab}
+                            data-scope={adobePageTag.dataScopeproductinfo}
+                            data-text={tab.tabName} onclick={callingadobeevent}>{tab.tabName}</a>
+                    </li>
+                </template>
+                <template if:false={tab.active}>
+                    <li key={tab.tabName} class="slds-tabs_default__item" title="Item Two" role="presentation" 
+                        onclick={tabClick}>
+                        <a class="slds-align_absolute-center slds-tabs_default__link" href="javascript:void(0);"
+                            role="tab" tabindex="0" aria-selected="false" aria-controls={tab.controls} id={tab.tabId}
+                            style="color:black;font-size:11px;text-decoration: none;padding-right:80px;font-weight:bold;letter-spacing: 1.5px;line-height:1.27; padding:24px 10px 34px 0;" data-intent={adobePageTag.dataIntenttab}
+                            data-scope={adobePageTag.dataScopeproductinfo}
+                            data-text={tab.tabName} onclick={callingadobeevent}>{tab.tabName}</a>
+                    </li>
+                </template>
+            </template>
+        </ul>
+        <template for:each={product.tab} for:item="tab">
+            <div key={tab.tabName} id={tab.areaId} class={tab.areaClass} role="tabpanel" aria-labelledby={tab.tabId}>
+                <div class="What-you-get-text" style="line-height: 30px;" >
+                    <template for:each={tab.line} for:item="line">
+                        <template if:true={line.listType}>
+                            <img key={line.id} src={triangle}>&nbsp;&nbsp;&nbsp;
+                            <template for:each={line.text} for:item="linetext">
+                               <template if:true={linetext.linkText}>
+                                    <a key={line.id} href={linetext.linkUrl}  class="hov"
+                                        style="font-weight:700;color: #0089ff;" target={label.StandardBankUrl}>{linetext.displayText}</a>
+                                </template> 
+                                <template if:false={linetext.linkText}>
+                                    {linetext.displayText}
+                                </template>
+                            </template>
+                            <br key={line.id} />
+                        </template>
+                        <template if:true={line.infoType}>
+                            <p key={line.id}>
+                                <template for:each={line.text} for:item="linetext">
+                                    <template if:true={linetext.linkText}>
+                                        <a key={line.id} href={linetext.linkUrl}
+                                            style="font-weight:700;" target={label.StandardBankUrl}>{linetext.displayText}</a>
+                                    </template>
+                                    <template if:false={linetext.linkText}>
+                                        {linetext.displayText}
+                                    </template>
+                                </template>
+                            </p>
+                        </template>
+                        <template if:true={line.linkType}>
+                            <br key={line.id} />
+                            <template for:each={line.text} for:item="linetext">
+                                <p key={line.id} style="font-weight:600;margin-bottom :0px;"><a class="hov"
+                                        href={linetext.linkUrl} target={label.StandardBankUrl} >{linetext.displayText}</a></p>
+                            </template>
+                        </template>
+                        <template if:true={line.titleType}>
+                            <template for:each={line.text} for:item="linetext">
+                                 <p key={line.id} style="margin-top:1rem;"> {linetext.displayText}</p> 
+                            </template>
+                        </template>
+                    </template>
+                    <br />
+                </div>
+            </div>
+        </template>
+    </div>
+    <div if:true={isMobileDevice}>
+        <div class="container">
+            <div class="accordions">
+                <div class="accordion">
+                    <input type="checkbox" id="A" />
+                    <label for="A" class="acc_label">{label.PBP_ZA_ProductScreen_What_You_Get}</label>
+                    <div class="What-You">
+                        <br />
+                        
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_productscreen_Business_Account_that}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_productScreen_Purchase_Stock}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Save}&nbsp;<a href={ProductScreen_Save} style="font-weight:700;color: #0089ff;" target={label.StandardBankUrl}>{label.PBP_ZA_ProductScreen_MarketLink}</a></div>
+                        </li> 
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Accept}&nbsp;<a href={ProductScreen_Accept} style="font-weight:700;color: #0089ff;" target={label.StandardBankUrl}>{label.PBP_ZA_PocketBiz}</a></div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Receive_Notifications}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_View_Statements}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_DepositCashAtYourNearestCarsh}
+                            </div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Bank}&nbsp;<a href={ProductScreenURL} style="font-weight:700;color: #0089ff;" target={label.StandardBankUrl}>{label.PBP_ZA_ProductScreen_Banking_App}&nbsp;</a>{label.PBP_ZA_ProductScreen_Or}&nbsp;<a href={ProductScreen_Internet_Banking} style="font-weight:700;color: #0089ff;" target="_blank">{label.PBP_ZA_ProductScreen_Internet_Banking}&nbsp;</a>{label.PBP_ZA_ProductScreen_At_No_Additional}
+                            </div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Get_Dedicated_Buisness}</div>
+                        </li>
+                        <br />
+                        <p><a href={transactionalTc}
+                                style="font-weight:700;" target={label.StandardBankUrl}>{label.PBP_ZA_ProductScreen_Save_Transactional} </a></p>
+                        <p> <a href={businessGneralTc} style="font-weight:700;" target={label.StandardBankUrl}>{label.PBP_ZA_ProductScreen_See_General}
+                            </a></p>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <input type="checkbox" id="B" />
+                    <label for="B" class="acc_label">{label.PBP_ZA_productscreen_Card_Features}</label>
+                    <div class="What-You">
+                        <br />
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_PayforPurchases}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Through_A_Secure}
+                            </div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Tap_To_Pay}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_BuySafelyOnline}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Activate_Or_Disabled}</div>
+                        </li>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <input type="checkbox" id="C" />
+                    <label for="C" class="acc_label">{label.PBP_ZA_productscreen_What_It_Costs}</label>
+                    <div class="What-You">
+                        <p style="color: #858d9d;font-size:18px;"> {label.PBP_ZA_ProductScreen_What_You_Get_For_Free}
+                        </p>
+                        <br />
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Debit_Card}</div>
+                        </li><br/>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Inter_Account}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_View_Statements_Of_Up}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Emailed_Statements}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Schedule_Transfer}&nbsp;<a href={ProductScreen_Save} style="font-weight:700;color: #0089ff;" target={label.StandardBankUrl}>{label.PBP_ZA_ProductScreen_MarketLink}</a></div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Verify_Standard_Bank}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Reverse}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;" ><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_SIGNUPforPermission}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Save} <a href={growYourMoney}
+                                    style="font-weight:700;color: #0089ff;" target={label.StandardBankUrl}>{label.PBP_ZA_ProductScreen_MarketLink}</a></div>
+                        </li> 
+                        
+                        <p style="color: #858d9d;font-size:18px;margin-top:1rem">{label.PBP_ZA_ProductScreen_Pay_As_You}</p>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Monthly_Fee}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_AcceptCardPaymentspocket}&nbsp;<a href={ProductScreen_Accept} style="font-weight:700;color: #0089ff;" target="_blank">{label.PBP_ZA_PocketBiz}</a>&nbsp;{label.PBP_ZA_Covid}</div>
+                        </li>
+                     
+                          <p> <a href={ProductScreenURL} style="font-weight:700;line-height: 60px;" target={label.StandardBankUrl} >&nbsp;&nbsp;
+                                {label.PBP_ZA_ProductScreen_See2023_PricingGuide} </a></p> 
+                        
+                    </div>
+                </div>
+                <div class="accordion">
+                    <input type="checkbox" id="D" />
+                    <label for="D" class="acc_label">{label.PBP_ZA_productScreen_How_To_Get_It}</label>
+                    <div class="What-You">
+                        <p class="sub-titles">{label.PBP_ZA_ProductScreen_MyMoBiz}&nbsp;<a href={businessBankAccounts} 
+                                style="font-weight:700;text-decoration: none;" target="_self">{label.PBP_ZA_ProductScreen_OpenURL}&nbsp;</a>
+                            {label.PBP_ZA_ProductScreen_Your_Business}</p>
+                        <br />
+                        <p style="color: #858d9d;font-size:18px;">{label.PBP_ZA_ProductScreen_WhatYou_Need}</p>
+                        <br />
+                        <li style="display:-webkit-inline-box; font-size:15px;margin-top: 1px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Id_Document}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Proof_Of_Address}</div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Company_Registration}</div>
+                        </li>
+                        <p style="color: #858d9d;font-size:18px;margin-top: 41px;">{label.PBP_ZA_ProductScreen_To_Apply}</p>
+                        <br />
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Click_On} <a href={businessBankAccounts}
+                                    style="font-weight:700;" target="_self">{label.PBP_ZA_ApplyNow}&nbsp;</a>{label.PBP_ZA_ButtonAndLeave}
+                            </div>
+                        </li>
+                        <li style="display:-webkit-inline-box; font-size:15px;"><img src={triangle}>&nbsp;&nbsp;
+                            <div>{label.PBP_ZA_ProductScreen_Visit} <a href={branchLocator}
+                                    style="font-weight:700;" target={label.StandardBankUrl}>{label.PBP_ZA_ProductScreen_NearestBranch_UrL}</a></div>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- tabbed info end -->
+    <!--we also offer start-->
+    <div class="background ">
+        <c-pbp_comp_mymobiz-detail-wealso-offer></c-pbp_comp_mymobiz-detail-wealso-offer>
+    </div>
+    <!--we also offer end-->
+    <!-- switch component start-->
+    <c-pbp_comp_product_business_switch_component></c-pbp_comp_product_business_switch_component>
+    <!-- switch component end-->
+    <!--ucount rewards start-->
+    <div class="m-30">
+        <c-pbp_comp_product_business_ucount_rewards></c-pbp_comp_product_business_ucount_rewards>
+    </div>
+    <!--ucount rewards end-->
+</template>

@@ -1,0 +1,106 @@
+<template>
+  <div class="component value-proposition">
+    <h2 class="title title--module-title value-proposition__title">
+      {mainHeaderText}
+    </h2>
+    <div class="value-proposition__row">
+      <div class="row">
+        <div class="col col-6 col-md-3 d-flex flex-column">
+          <div class="value-proposition-item">
+            <div class="value-proposition-item__shield">
+              <template if:false={ShieldType}>
+                <div class="value-proposition-item__shield-skew">
+                  <div class="value-proposition-item__shield-icon">
+                    <img src={section1Image}>
+                  </div>
+                </div>
+              </template>
+              <template if:true={ShieldType}>
+                <div class="value-proposition-item__shield-icon">
+                  <img src={section1Image}>
+                </div>
+                <img src={shieldBackingImage}>
+              </template>
+            </div>
+            <h3 class="title title--module-sub-title">{section1subtxt1}</h3>
+            <div class="value-proposition-item__description">
+              {section1subtxt2}
+            </div>
+          </div>
+        </div>
+        <div class="col col-6 col-md-3 d-flex flex-column">
+          <div class="value-proposition-item value-proposition-item--blue">
+            <div class="value-proposition-item__shield">
+              <template if:false={ShieldType}>
+                <div class="value-proposition-item__shield-skew">
+                  <div class="value-proposition-item__shield-icon">
+                    <img src={section2Image}>
+                  </div>
+                </div>
+              </template>
+              <template if:true={ShieldType}>
+                <div class="value-proposition-item__shield-icon">
+                  <img src={section2Image}>
+                </div>
+                <img src={shieldBackingImage}>
+              </template>
+            </div>
+            <h3 class="title title--module-sub-title title--white">{section2subtxt1}</h3>
+            <div class="value-proposition-item__description value-proposition-item__text-white">
+              {section2subtxt2}
+            </div>
+          </div>
+        </div>
+        <div class="col col-6 col-md-3 d-flex flex-column">
+          <div class="value-proposition-item">
+            <div class="value-proposition-item__shield">
+              <template if:false={ShieldType}>
+                <div class="value-proposition-item__shield-skew">
+                  <div class="value-proposition-item__shield-icon">
+                    <img src={section3Image}>
+                  </div>
+                </div>
+              </template>
+              <template if:true={ShieldType}>
+                <div class="value-proposition-item__shield-icon">
+                  <img src={section3Image}>
+
+                </div>
+                <img src={shieldBackingImage}>
+              </template>
+            </div>
+            <h3 class="title title--module-sub-title">{section3subtxt1}</h3>
+            <div class="value-proposition-item__description">
+              {section3subtxt2}
+            </div>
+          </div>
+        </div>
+        <div class="col col-6 col-md-3 d-flex flex-column">
+          <div class="value-proposition-item value-proposition-item--blue">
+            <div class="value-proposition-item__shield">
+              <template if:false={ShieldType}>
+                <div class="value-proposition-item__shield-skew">
+                  <div class="value-proposition-item__shield-icon">
+                    <img src={section4Image}>
+                  </div>
+                </div>
+              </template>
+              <template if:true={ShieldType}>
+                <div class="value-proposition-item__shield-icon">
+                  <img src={section4Image}>
+                </div>
+                <img src={shieldBackingImage}>
+              </template>
+            </div>
+            <h3 class="title title--module-sub-title title--white">
+              {section4subtxt1}
+            </h3>
+            <div class="value-proposition-item__description value-proposition-item__text-white">
+              {section4subtxt2}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

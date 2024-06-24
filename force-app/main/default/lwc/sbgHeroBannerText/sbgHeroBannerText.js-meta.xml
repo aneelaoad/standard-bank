@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>false</isExposed>
+    <masterLabel>SBG Hero Banner Text</masterLabel>
+    <description>Define a heading, subtext and/or a button that sits in the banner. (Transparent/White/ThemeColour)</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="heading" label="Heading" default="Heading" type="String" />
+            <property name="subText" label="Sub text" default="sub text" type="String" />
+
+            <property name="buttonLabel" label="Button label" type="String" default="Label" />
+            <property name="buttonTitle" label="Button Title" type="String" default="Title" />
+            <property name="destinationUrl" label="Community page url or absolute url" type="String" />
+            <property name="action" label="Action" type="String" default="navigateToUrl" />
+            <property name="variant" label="[base, neutral, brand, brand-outline, destructive, destructive-text, inverse, success]" type="String" default="brand" />
+
+            
+            <property name="disabled" label="Disabled" type="Boolean" default="false" />
+            <property name="wClass" label="Predefined width [w236, w280, w300, w340, w340C]" type="String" default="w300" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

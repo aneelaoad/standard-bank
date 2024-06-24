@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="template" label="Template" type="String" datasource="Box,Wide Box,Accordion" default="Box"/>
+            <property name="articleType" label="Article Type" type="String" datasource="Success Stories,FAQ,All Articles" default="Success Stories"/>
+            <property name="showViewAll" label="Show View All Link" type="Boolean" default="false"/>
+            <property name="numberOfArticles" label="Number of Articles" type="Integer"/>
+            <property name="heading" label="Heading" type="String" default=""/>
+            <property name="subHeading" label="Sub Heading" type="String" default=""/>
+            <property name="text" label="Text" type="String" default=""/>
+            <property name="articleDetailBaseUrl" label="Article Detail Base URL" type="String" default="/partners/s/article/"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

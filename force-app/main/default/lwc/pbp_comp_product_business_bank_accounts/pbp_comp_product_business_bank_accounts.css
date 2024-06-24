@@ -1,0 +1,869 @@
+/* banner starts */
+*,
+html {
+    overflow: initial;
+}
+
+.bnr_wrapper {
+    height: 477px;
+}
+
+.bnr_left {
+    height: 100%;
+    padding: 81px 52px 30px 30px;
+    background-color: #fff;
+}
+
+.content_container {
+    max-width: 401px;
+    height: 100%;
+    margin-left: 98px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content_container h1 {
+    font-family: 'bentonsans-extra-light-webfont';
+    font-size: 52px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    color: #0a2240;
+    margin-bottom: 10px;
+}
+
+.content_container h6 {
+    font-family: 'bentonsans-medium-webfont';
+    font-size: 15px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+    margin: 20px 0;
+}
+
+.divider {
+    margin-left: -34px;
+    display: block;
+    width: 50%;
+    height: 3px;
+    margin-top: 6px;
+    margin-bottom: 14px;
+    background: #ffb94f;
+    background: linear-gradient(135deg, #ff5a00, #ffb94f);
+}
+
+.lspace {
+    letter-spacing: 1.08px;
+}
+
+.img_wrapper {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.img_wrapper img {
+    height: 100% !important;
+    width: 100%;
+}
+
+.bnr_img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+@media screen and (max-width:1680px) {
+    .content_container h1 {
+        font-size: 48px;
+    }
+}
+
+@media screen and (max-width:1440px) {
+    .bnr_left {
+        padding: 70px 30px 30px 34px;
+    }
+
+    .content_container h1 {
+        font-size: 46px;
+        line-height: 1.25;
+    }
+
+    .lspace {
+        margin-bottom: 42px;
+    }
+}
+
+@media screen and (max-width:1366px) {
+    .bnr_left {
+        padding: 60px 30px 20px 34px;
+    }
+
+    .content_container h1 {
+        font-size: 42px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .bnr_left {
+        padding: 50px 30px 20px 34px;
+    }
+
+    .content_container h1 {
+        font-size: 38px;
+    }
+
+    .content_container .btn-primary {
+        width: 80%;
+        font-size: 14px;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .bnr_left {
+        padding: 40px 20px 20px 34px;
+    }
+
+    .content_container h1 {
+        font-size: 32px;
+    }
+
+    .content_container .btn-primary {
+        width: 95%;
+        font-size: 14px;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .bnr_left {
+        padding: 30px 20px 20px 34px;
+    }
+    .slds-breadcrumb__item{
+        display: none;
+    }
+    .slds-breadcrumb .slds-breadcrumb__item:before{
+        content: '<';
+    }
+
+    .content_container {
+        margin-left: 50px;
+
+    }
+
+    .content_container h1 {
+        font-size: 30px;
+    }
+
+    .content_container h6 {
+        line-height: 1.45;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .bnr_wrapper {
+        height: auto;
+    }
+
+    .bnr_left {
+        padding: 27px 20px;
+    }
+
+    .content_container {
+        margin-left: 0;
+    }
+
+    .divider {
+        margin-left: -20px;
+    }
+
+    .content_container {
+        height: auto;
+    }
+
+    .content_container h1 {
+        font-size: 28px;
+        margin-bottom: 9px;
+    }
+
+    .content_container h6 {
+        font-size: 13px;
+        line-height: 1.69;
+        margin-bottom: 60px;
+    }
+
+    .bnr_img {
+        position: unset;
+        transform: none;
+        width: 100%;
+        height: 300px;
+    }
+}
+
+/* banner ends */
+/* cards start */
+.d-flex {
+    margin-top: 20px;
+}
+
+.badge_tag {
+    width: auto;
+    min-width: 123px;
+    position: absolute;
+    left: 0;
+    top: 0%;
+    transform: translate(0, -50%);
+    font-family: "bentonsans-medium-webfont";
+    font-size: 11px;
+    line-height: 22px;
+    color: #FFF;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0 25px 0 12px;
+    display: inline-block;
+    overflow: hidden;
+    z-index: 70;
+}
+
+.badge_tag::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to left, #ffb94f, #ffa538, #ff8f22, #ff770e, #ff5a00);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ff5a00, endColorstr=#ffb94f);
+    transform-origin: 100% 0;
+    transform: skew(-30deg);
+    z-index: -1;
+}
+
+.account-card-grid {
+    column-gap: 49px;
+    row-gap: 51px;
+
+}
+
+.custom-margin {
+    margin-bottom: 30px;
+}
+
+.bac-titles {
+    margin-bottom: 60px;
+}
+
+.bac-titles h2 {
+    font-size: 47px;
+    font-family: 'bentonsans-extra-light-webfont';
+    font-weight: 200;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3c4b6c;
+    margin: 10px auto 30px;
+}
+
+.bac-titles p {
+    font-size: 28px;
+    font-stretch: normal;
+    font-family: 'bentonsans-light-webfont';
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3c4b6c;
+    margin-bottom: 0;
+}
+
+.heading-type--2 h2 {
+    font-size: 20px;
+    font-family: 'bentonsans-medium-webfont';
+    font-weight: 500;
+    margin-left: -28px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.33px;
+    color: #353637;
+    margin-bottom: 30px;
+    max-width: 575px;
+    margin-right: 10px;
+}
+
+
+.breadcrumb {
+    font-size: 15px;
+    text-align: center;
+    color: #3889ff;
+}
+
+.btn_standard {
+    display: flex;
+    justify-content: space-between;
+}
+
+.single_btn {
+    justify-content: flex-end;
+}
+
+.slds-breadcrumb .slds-breadcrumb__item a {
+    line-height: 1.67;
+    text-align: center;
+    color: #3889ff !important;
+
+}
+
+.btn-secondary {
+    background-color: #fff !important;
+    color: #0089ff !important;
+}
+
+.slds-breadcrumb .slds-breadcrumb__item:last-child>a {
+    line-height: 1.67;
+    text-align: center;
+    color: #0a2240 !important;
+}
+
+.btn_standard button {
+    border-radius: 2px !important;
+    width: 260px;
+    height: 50px;
+    object-fit: contain;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: 1.08px;
+    text-align: center;
+    border: solid 1px #0089ff;
+
+}
+
+.btn_standard .slds-button_brand {
+    border-color: #0089ff !important;
+    background-color: #0089ff !important;
+    font-family: 'BentonSans-Bold';
+}
+
+.slds-button_outline-brand {
+    background-color: #fff;
+    color: #0089ff;
+    font-family: 'bentonsans-bold-webfont';
+}
+
+.slds-button_outline-brand:hover {
+    background-color: #0089ff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.account-card {
+    position: relative;
+    padding: 20px 35px 30px 35px;
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 0 12px 20px 0 rgba(47, 50, 51, 0.3);
+    background-color: #fff;
+    width: 623px;
+    height: 620px;
+}
+
+.account-card:hover img {
+    margin-top: -15px;
+    transition: all 0.5s ease-out;
+    box-shadow: 0 12px 25px 5px rgb(0 0 0 / 15%);
+
+}
+
+.account-card .card-img-sm {
+    position: absolute;
+    right: 20px;
+    top: -31px;
+    border-radius: 12px;
+}
+
+.account-card-body {
+    padding: 10px;
+    height: 75%;
+}
+
+.slds-gutters .slds-col {
+
+    padding-left: 2.75rem;
+}
+
+.fee-info .monthly_Fee {
+    padding-bottom: 25px;
+}
+
+.account-card-body header h2 {
+    position: relative;
+    font-size: 24px;
+    font-weight: 300;
+    font-family: 'bentonsans-light-webfont';
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #3c4b6c;
+    margin-bottom: 30px;
+}
+
+.account-card-body header h2::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    height: 2px;
+    width: 70px;
+    background: linear-gradient(to left, #ffb94f, #ffa538, #ff8f22, #ff770e, #ff5a00);
+}
+
+.account-card-body header span {
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'bentonsans-bold-webfont';
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+    margin-bottom: 20px;
+
+}
+
+.account-card ul li {
+    position: relative;
+    padding-left: 23px;
+    font-family: 'bentonsans-Regular-webfont';
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+}
+
+.account-card ul li:not(:last-child) {
+    margin-bottom: 13px;
+}
+
+.account-card ul li::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 8px solid #f86700;
+    top: 7px;
+    left: 0;
+    transform: rotate(-180deg)
+}
+
+.finalCardPadding {
+    padding-bottom: 50px;
+}
+
+.custom-checkbox {
+    margin: 23px 0 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.custom-checkbox .check-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.custom-checkbox .check-container span {
+    font-size: 15px;
+    font-family: 'bentonsans-Regular-webfont';
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 20px;
+    height: 20px;
+    border-radius: 1px;
+    border: solid 1px #ccc;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+    border-radius: 0;
+    border: solid 1px #ccc;
+}
+
+.custom-checkbox input[type="checkbox"]::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background: #0089ff;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+}
+
+.custom-checkbox input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+
+.fee-info {
+    margin-top: 25px;
+}
+
+.fee-info .Fee {
+    height: 38px;
+}
+
+.fee-info h3 {
+    font-size: 42px;
+    font-weight:lighter;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: normal;
+    color: #0a2240;
+    display: flex;
+    align-items: flex-start;
+}
+
+.fee-info h3 span {
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-family: 'bentonsans-Regular-webfont';
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.54px;
+    color: #353637;
+    margin: 6px 6px 0 0;
+}
+
+.fee-info p {
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'bentonsans-Regular-webfont';
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.64;
+    letter-spacing: 1px;
+    color: #858d9d;
+}
+
+.btn_standard a {
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.top_Notch {
+    padding-bottom: 40px !important;
+}
+
+
+@media screen and (max-width:1399px) {
+    .account-card {
+        width: 530px;
+        padding: 20px 0px 30px 15px;
+    }
+
+    .account-card-body header h2 {
+        font-size: 20px;
+    }
+
+    .account-card-body header span {
+
+        font-size: 13px;
+    }
+
+    .account-card ul li {
+        font-size: 15px;
+    }
+
+    .btn_standard button {
+       width:220px;
+        margin-right: 20px;
+        border-radius: 2px;
+    }
+
+    .custom-checkbox .check-container span {
+        padding-right: 30px;
+    }
+
+    .fee-info .monthly-height {
+        padding-bottom: 10px;
+    }
+
+    .bac-titles p {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width:1199px) {
+    .account-card {
+        width: 443px;
+
+    }
+    .btn_standard button {
+        width:195px;
+    }
+
+}
+
+@media (max-width:991px) {
+    .account-card {
+        width: 540px;
+        margin-left: 80px;
+    }
+
+    .btn_standard button {
+        width: 240px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .bac-titles {
+        max-width: 587px;
+        margin: 0 auto 35px;
+    }
+
+    .bac-titles h2 {
+        font-size: 30px;
+    }
+
+    .monthly-height {
+        height: 50px;
+    }
+
+    .bac-titles p {
+        font-size: 15px;
+        line-height: 1.25;
+        margin-bottom: 0;
+    }
+
+    .breadcrumb {
+        font-size: 13px;
+        text-align: center;
+        color: #3889ff;
+    }
+
+    .heading-type--2 h2 {
+        font-size: 20px;
+        line-height: 1.33;
+    }
+
+    .btn_standard button {
+        width: 230px;
+    }
+
+    .finalCardPadding {
+        padding-bottom: 85px;
+    }
+
+    .account-card {
+        padding: 20px 15px 20px 15px;
+        width: 530px;
+        margin-left: 3px;
+    }
+
+    .account-card-body header h2 {
+        font-size: 25px;
+        line-height: 1.29;
+    }
+
+    .account-card-body header span {
+        font-size: 13px;
+        line-height: 1.69;
+    }
+
+    .account-card ul li {
+        font-size: 14px;
+        line-height: 1.69;
+        margin-bottom: 8px;
+    }
+
+    .fee-info {
+        margin-top: 40px;
+    }
+
+    .custom-checkbox {
+        margin: 30px 0 15px;
+    }
+
+    .account-card .btn_standard {
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width:575px) {
+    .account-card .card-img-sm {
+        display: none;
+    }
+
+    .account-card {
+        width: 100%;
+
+        height: auto;
+    }
+
+    .account-card button {
+        width: 170px;
+    }
+
+    .custom-checkbox {
+        display: block;
+    }
+
+    .btn_standard {
+        display: block;
+    }
+
+    .btn_standard button {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .breadcrumb {
+        font-size: 13px;
+        text-align: center;
+        color: #3889ff;
+    }
+
+    .bac-titles p {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width:385px) {
+    .bac-titles p {
+        font-size: 11px;
+    }
+
+    .btn_standard button {
+        width: 243px;
+        margin-left: 35px;
+    }
+
+}
+
+/* cards end */
+
+.bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 999;
+    width: 100%;
+    background: #fff;
+    display: block;
+    -webkit-box-shadow: 0 -5px 15px 0 rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 -5px 15px 0 rgb(0 0 0 / 10%);
+    padding: 15px;
+    transition: bottom .2s ease-out;
+}
+
+.bottom-sheet .btn_standard {
+    justify-content: flex-end !important;
+    margin-left: auto;
+}
+
+.bottom-sheet p {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+}
+
+.custom-pill {
+    position: relative;
+    background: #fff;
+    margin: 15px;
+    padding: 5px 15px;
+    min-width: initial;
+    max-width: initial;
+    display: inline-flex;
+    word-wrap: normal;
+    white-space: nowrap;
+    animation: pop-in .2s ease-in;
+    -webkit-box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+}
+
+.custom-pill .close_icon {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    background-color: #0089ff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    color: #ffffff !important;
+    padding: 4px;
+}
+
+.custom-pill span {
+    font-family: 'bentonsans-medium-webfont';
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #858d9d;
+}
+
+.pill-row {
+    display: flex;
+   
+    align-items: center;
+    margin-top: 10px;
+}
+@media screen and (max-width:1366px){
+    .pill-row {
+    flex-wrap: wrap;
+    }
+}
+
+.btn_standard .btn-primary {
+    /* margin-right: 10px; */
+}
+
+@media screen and (max-width:375px) {
+    .bottom-sheet .btn_standard {
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+}

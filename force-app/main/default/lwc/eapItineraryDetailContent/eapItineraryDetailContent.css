@@ -1,0 +1,67 @@
+@import 'c/eapCssLibrary';
+
+.container {
+    background-color: var(--background-grey);
+    min-height: 90vh;
+}
+
+.relleno {
+    height: 5em;
+    background-color: var(--background-grey);
+}
+
+.v1_div_checkContainer {
+    padding: 2em;
+}
+
+.v1_div_flightDetails {
+    background-color: #fff;
+    padding: 2em;
+}
+
+.filter {
+    filter: contrast(0) brightness(0.2);
+}
+
+.v1_div_boardingContainer {
+    padding: 2em;
+    padding-bottom: 6em;
+}
+
+.light_titles {
+    margin-bottom: 1em;
+}
+
+.v1_p_details {
+    font-size: 1.2em;
+    color: var(--text-dark-grey);
+    letter-spacing: .025em;
+    font-weight: 500;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+/* Test Mapa */
+.v1_div_mapa {
+    width:100%;
+    height: 235px; /*190px sin Google Maps*/
+    overflow:hidden;
+    position:relative;
+}
+
+iframe {
+    border-width: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.slds-has-coordinates {
+    max-height: 262px;
+    overflow: hidden;
+}
+
+.gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
+    right: 60px !important;
+}

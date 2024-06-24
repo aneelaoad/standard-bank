@@ -1,0 +1,68 @@
+<template>
+  <div class="store-wrapper">
+    <div class="section-wrapper">
+      <c-sbg-breadcrumb-bar></c-sbg-breadcrumb-bar>
+    </div>
+    <template if:true={solution}>
+      <div class="store-container">
+        <div class="section-wrapper store-section">
+          <div class="grid-container" onclick={handleNavigateToShop}>
+            <div class="grid-item">
+              <div class="customer_shyft_description">
+                <h2 class="item-title">{solution.title}</h2>
+                <lightning-formatted-rich-text
+                  class="shop-description"
+                  value={solution.description}
+                ></lightning-formatted-rich-text>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-list-container">
+        <div class="section-wrapper">
+          <div class="service-heading">Offerings</div>
+          <c-mall-offering-list
+            mock-enabled={trueVal}
+            collection={servicesCollection}
+            is-offering-detail="true"
+          ></c-mall-offering-list>
+        </div>
+      </div>
+
+      <template if:true={selectedProduct}>
+        <div class="container section-wrapper">
+          <template if:true={selectedProduct}>
+            <div class="service-heading">Offering detail</div>
+            <div class="grid-container" onclick={handleNavigateToProduct}>
+              <div class="grid-item">
+                <div class="customer_shyft_service_description">
+                  <h2 class="offering-title">{selectedProduct.name}</h2>
+                  <lightning-formatted-rich-text
+                    class="shop-description"
+                    value={selectedProduct.description}
+                  ></lightning-formatted-rich-text>
+                  <div class="button-section">
+                    <c-mall-cmn-button
+                      interaction-intent={buttonInteractionIntent}
+                      interaction-scope={buttonInteractionScope}
+                      interaction-type={buttonInteractionType}
+                      interaction-text={buttonInteractionText}
+                      interaction-text-before={buttonInteractionTextBefore}
+                      variant="mall"
+                      label="Apply now"
+                      title="Apply now"
+                      onclick={handleNavigateToProduct}
+                      w-class="auto"
+                    ></c-mall-cmn-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </template>
+    </template>
+  </div>
+</template>

@@ -1,0 +1,69 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<!--
+    @Author         :   Naveen B
+    @Create Date    :   28-09-2022
+    @Purpose        :   Uploading Documents
+    @JIRA Tickets   :
+-->
+<template>
+    <div if:true={isLoading} class="slds-is-relative">
+        <lightning-spinner variant="brand" size="medium"> </lightning-spinner>
+    </div>
+    
+    <template if:false={isUploaded}>
+        <lightning-layout>
+            <lightning-layout-item size="6" class="slds-p-around_x-small">
+                <span if:true={required} class="error">*</span>
+                <span if:true={label}>
+                    {label}
+                </span>
+                <template if:true={helpText}>
+                    <lightning-helptext content={helpText} style="margin: 1%;"> </lightning-helptext>
+                </template>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="6" class="slds-p-around_x-small;float:right">
+                <lightning-file-upload label="" name={name} required={required} accept={accept} record-id={parentId}
+                    onuploadfinished={handleUploadFinished} max-file-size="2000000">
+                </lightning-file-upload>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+
+    <template if:true={isUploaded}>
+        <lightning-layout>
+            <lightning-layout-item size="12" class="slds-p-horizontal_small">
+                <span if:true={required} class="error">*</span>
+                <span if:true={label}>
+                    {label}
+                </span>
+                <template if:true={helpText}>
+                    <lightning-helptext content={helpText} style="margin: 1%;"> </lightning-helptext>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout>
+            <lightning-layout-item class="slds-p-horizontal_small slds-m-bottom_small" size="12">
+                <template for:each={fileNames} for:item="fileName">
+                    <div key={fileName} style="margin-top:10px;">
+                        <lightning-icon icon-name="doctype:pdf" size="medium" title={fileName}></lightning-icon>
+                        <span class="slds-m-left_small">
+                            {fileName}
+                        </span>
+                        <span class="slds-float_right">
+                            <lightning-button icon-name="utility:delete" label="Delete" class="slds-m-left_xx-small"
+                                title="Delete" variant="destructive" size="large" onclick={handleDelete}
+                                disabled={submitted}></lightning-button>
+                                <lightning-button icon-name="utility:preview" label="Preview" class="slds-m-left_xx-small"
+                                title="Preview" variant="outline-brand" size="large" onclick={handlePreview}></lightning-button>
+                            <lightning-icon icon-name="utility:success" class="success slds-m-left_xx-small"
+                                size="medium" style=" --sds-c-icon-color-foreground-default: green;"></lightning-icon>
+                        </span>
+                    </div>
+
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+</template>

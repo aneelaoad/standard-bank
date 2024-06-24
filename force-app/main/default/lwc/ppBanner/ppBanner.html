@@ -1,0 +1,33 @@
+<!-- **
+* @description  : Partner Portal Home Page Banner Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+    <div id="login" class="banner-container">
+        <div class="slds-grid slds-wrap banner">
+            <div
+                class="slds-col slds-p-horizontal_small slds-size_6-of-6 slds-medium-size_5-of-12 slds-large-size_3-of-12 slds-order_2 slds-small-order_1 banner__content-section">
+                <div
+                    class="banner__title mb_16 slds-col slds-size_4-of-6 slds-medium-size_3-of-5 slds-large-size_3-of-5">
+                    {title}</div>
+                <div class="banner__line mb_16 slds-col"></div>
+                <div class="banner__content mb_32 slds-col slds-size_5-of-5">
+                    {content}
+                </div>
+                <div class="slds-col banner__button">
+                    <a href={link} data-intent="transactional" data-scope="cta components" data-id="link_content"
+                     data-text="partner connect | register with us button click" onclick={tracker}>
+                        <p style="color: #ffffff">{linkLabel}</p>
+                    </a>
+                </div>
+            </div>
+            <div
+                class="slds-col slds-size_6-of-6 slds-medium-size_6-of-12 slds-large-size_8-of-12 slds-order_1 slds-small-order_2 banner__image-container">
+                <img src={bannerImageLink} class="banner__image" />
+            </div>
+        </div>
+    </div>
+</template>

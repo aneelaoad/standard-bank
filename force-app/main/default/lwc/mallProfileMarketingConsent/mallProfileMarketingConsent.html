@@ -1,0 +1,198 @@
+<template>
+  <div class="marketing-consents">
+    <div class="row">
+      <div class="col-lg-12">
+        <p class="prefernce-help-text">{marketingConsentHelpText}</p>
+      </div>
+    </div>
+    <ul>
+      <li>
+        <div class="formInput">
+          <label class="form-label"
+            ><p class="toggle-label">Marketing Consent</p>
+            <label class="toggle">
+              <input class="toggle-checkbox" type="checkbox" />
+              <div class="toggle-switch"></div>
+            </label>
+          </label>
+          <p class="consent-description">
+            Let us know whether you would like to receive marketing
+            communication from us. <br />
+            Note: Opting out of all marketing and communication means that you
+            will not always be kept up to date with our latest products and
+            services or special offers.
+          </p>
+        </div>
+        <ul class="marketing-consent-list marketing-consent-subitems">
+          <li>
+            <div class="formInput">
+              <label class="form-label"
+                ><p class="toggle-label">Telesales</p>
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" />
+                  <div class="toggle-switch"></div>
+                </label>
+              </label>
+              <p class="consent-description">
+                May we contact you telephonically to offer you products and
+                services that may benefit you? (Including automated voice
+                calls).
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="formInput">
+              <label class="form-label"
+                ><p class="toggle-label">Email marketing</p>
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" />
+                  <div class="toggle-switch"></div>
+                </label>
+              </label>
+              <p class="consent-description">
+                May we send you marketing emails to keep you up to date with out
+                latest products and services?
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="formInput">
+              <label class="form-label"
+                ><p class="toggle-label">SMS marketing</p>
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" />
+                  <div class="toggle-switch"></div>
+                </label>
+              </label>
+              <p class="consent-description">
+                May we send you marketing emails to keep you up to date with out
+                latest products and services?.
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="formInput">
+              <label class="form-label"
+                ><p class="toggle-label">In-App marketing messages</p>
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" />
+                  <div class="toggle-switch"></div>
+                </label>
+              </label>
+              <p class="consent-description">
+                May we send you marketing messages via our Banking App and/or
+                Internet Banking to keep you up to date with out latest products
+                and services?
+              </p>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <ul class="marketing-consent-list">
+          <li>
+            <div class="formInput">
+              <label class="form-label"
+                ><p class="toggle-label">Data sharing within the Group</p>
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" />
+                  <div class="toggle-switch"></div>
+                </label>
+              </label>
+              <p class="consent-description">
+                A member of the Group may wish to inform you of exclusive offers
+                and/or services that may benefit you. Are you happy for us to
+                share your personal information within our Group for this
+                purpose?
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="formInput">
+              <label class="form-label"
+                ><p class="toggle-label">Data sharing with third parties</p>
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" />
+                  <div class="toggle-switch"></div>
+                </label>
+              </label>
+              <p class="consent-description">
+                We may partner with third parties outside of the Group in order
+                to bring you exclusive offers and/or services that may benefit
+                you. Are you happy for us to share your personal information
+                with these third parties for this purpose?
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="formInput">
+              <label class="form-label"
+                ><p class="toggle-label">
+                  Data sharing across borders within the Group
+                </p>
+                <label class="toggle">
+                  <input class="toggle-checkbox" type="checkbox" />
+                  <div class="toggle-switch"></div>
+                </label>
+              </label>
+              <p class="consent-description">
+                A member of the Group outside of this country may wish to inform
+                you of exclusive offers and/or services that may benefit you. We
+                will ensure that your personal information is given the same
+                protection as is required locally. Are you happy for us to share
+                your personal information across borders with the Group for this
+                purpose?
+              </p>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <div class="formInput">
+          <label class="form-label"
+            ><p class="toggle-label">Marketing research</p>
+            <label class="toggle">
+              <input class="toggle-checkbox" type="checkbox" />
+              <div class="toggle-switch"></div>
+            </label>
+          </label>
+          <p class="consent-description">
+            We would really like to get your feedback on or products and
+            services. Let us know if you would like to be contacted for research
+            purposes.
+          </p>
+        </div>
+      </li>
+    </ul>
+
+    <div>
+      <div class="form_submit">
+        <c-mall-cmn-button
+          interaction-intent={buttonInteractionIntent}
+          interaction-scope={buttonInteractionScope}
+          interaction-type={buttonInteractionType}
+          interaction-text={buttonInteractionText}
+          interaction-text-before={buttonInteractionTextBefore}
+          variant="mall"
+          label={sendButtonLabel}
+          title={sendButtonLabel}
+          button-type="submit"
+          w-class="auto"
+        ></c-mall-cmn-button>
+        <template if:true={isSaving}>
+          <p class="saving-icon">
+            <img src={mallSavingIcon} class="saving-icon-image" />Saving changes
+          </p>
+        </template>
+        <template if:true={isSaved}>
+          <p class="saving-icon">
+            <img
+              src={mallSavedIcon}
+              class="saving-icon-image saved-image"
+            />Changes saved
+          </p>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>

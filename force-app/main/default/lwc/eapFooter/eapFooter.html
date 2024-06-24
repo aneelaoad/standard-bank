@@ -1,0 +1,61 @@
+<!--
+    @description       : Footer for the EventsApp Community
+    @author            : TCK
+    @group             : 
+    @last modified on  : 05-25-2022
+    @last modified by  : TCK
+    Modifications Log 
+    Ver   Date         Author   Modification
+    1.0   06-02-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_footNav positionFixed">
+        <div class="v1_div_action" onclick={openHiddenMenu}>
+            <div class="v1_div_icon">
+                <lightning-icon size="x-small" icon-name="utility:rows"></lightning-icon>
+                {labels.Menu}
+            </div>
+        </div>
+        <div class="v1_div_action right" onclick={showCurrentMeeting}>
+            <div class="v1_div_icon">
+                <lightning-icon size="x-small" icon-name="utility:date_input"></lightning-icon>
+                {labels.CurrentMeeting}
+            </div>
+        </div>
+        <div class="v1_div_action" onclick={showHome}>
+            <div class="v1_div_icon v1_div_home">
+                <img src={iconHome}>
+                {labels.Home}
+            </div>
+        </div>
+        <div class="v1_div_action left" onclick={showCurrentEvent}>
+            <div class="v1_div_icon">
+                <img src={iconCalClock}>
+                <!--
+                <lightning-icon size="x-small" icon-name="utility:key_dates"></lightning-icon>-->
+                {labels.CurrentEvent}
+            </div>
+        </div>
+        <div class="v1_div_action" onclick={showAllEvents}>
+            <div class="v1_div_icon">
+                <img src={iconCalendar}>
+                <!--<lightning-icon size="x-small" icon-name="utility:event"></lightning-icon>-->
+                {labels.AllEvents}
+            </div>
+        </div>
+        <!-- <div class="v1_div_action" onclick={showProfile}>
+            <div>
+                <lightning-icon size="x-small" icon-name="utility:user"></lightning-icon>
+                {labels.Profile}
+            </div>
+        </div> -->
+    </div>
+
+    <template if:true={hiddenMenuIsOpen}>
+        <c-eap-hidden-menu onclose={closeHiddenMenu}></c-eap-hidden-menu>
+    </template>
+
+    <template if:true={loading}>
+        <c-eap-spinner></c-eap-spinner>
+    </template>
+</template>

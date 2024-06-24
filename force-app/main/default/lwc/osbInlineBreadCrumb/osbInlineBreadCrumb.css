@@ -1,0 +1,80 @@
+ul.breadcrumb {
+  padding: 0rem 0rem 0rem 2rem;
+  list-style: none;
+  background-color: inherit;
+}
+
+ul.breadcrumb li {
+  display: inline;
+}
+
+.my-icon {
+  --sds-c-icon-color-foreground-default: #00a9df;
+  padding: 0.313rem;
+}
+
+ul.breadcrumb li a {
+  color: #767676;
+  text-decoration: none;
+}
+
+ul.breadcrumb li a:hover {
+  color: #0089ff;
+  text-decoration: underline;
+}
+
+.provider-name {
+  font-size: 0.75rem;
+}
+
+.breadLink {
+  font-family: var(--FONT-FAMILY);
+  padding: 3.25rem 0 0.313rem 1rem;
+  background-color: white;
+  font-size: 0.938rem;
+}
+
+.adjust {
+  color: #00a9df !important;
+  font-size: 13px !important;
+}
+
+.container {
+  margin-bottom: 1.875rem;
+}
+
+@media (max-width: 20rem) {
+  .provider-name {
+    visibility: hidden;
+  }
+
+  .my-icon {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 48rem) {
+  .breadcrumb {
+    display: inline;
+  }
+
+  ul.breadcrumb {
+    padding: 1rem 2rem 0rem 0.5rem;
+  }
+
+  .my-icon {
+    margin-top: 0.625rem;
+  }
+
+  .container {
+    margin-bottom: 2.563rem;
+    line-height: normal;
+  }
+}
+
+@media (max-width: 31.25rem) {
+  .container {
+    margin-bottom: 0;
+    line-height: initial;
+  }
+}

@@ -1,0 +1,237 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-12-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="aob_table-container slds-scrollable_y" style="max-height: 18rem">
+    <table
+      class="slds-table slds-table_cell-buffer slds-no-row-hover aob_table-type-one slds-table_fixed-layout slds-table_resizable-cols"
+    >
+      <thead>
+        <tr class="slds-line-height_reset">
+          <th class="" scope="col">
+            <div class="slds-truncate" title="Sections">Sections</div>
+          </th>
+          <th class="" scope="col">
+            <div class="slds-truncate" title="Status">Status</div>
+          </th>
+          <th class="" scope="col">
+            <div class="slds-truncate" title="Comment">Comment</div>
+          </th>
+          <th class="" scope="col" style="width: 8.75rem">
+            <div class="slds-truncate" title="Time received">Time received</div>
+          </th>
+          <th class="" scope="col" style="width: 10.625rem">
+            <div class="slds-truncate" title="Action"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <template lwc:if={isLoading}>
+          <tr class="slds-hint-parent">
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 8.75rem">
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 10.625rem; text-align: center">
+              <div class="slds-truncate" title="">
+                <c-cmn_comp_stencil
+                  circle
+                  style="width: 28px; height: 28px"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+          </tr>
+          <tr class="slds-hint-parent">
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 8.75rem">
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 10.625rem; text-align: center">
+              <div class="slds-truncate" title="">
+                <c-cmn_comp_stencil
+                  circle
+                  style="width: 28px; height: 28px"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+          </tr>
+          <tr class="slds-hint-parent">
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 8.75rem">
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 10.625rem; text-align: center">
+              <div class="slds-truncate" title="">
+                <c-cmn_comp_stencil
+                  circle
+                  style="width: 28px; height: 28px"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+          </tr>
+          <tr class="slds-hint-parent">
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 8.75rem">
+              <div class="slds-truncate">
+                <c-cmn_comp_stencil
+                  style="width: 100%; height: 100%"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+            <td style="width: 10.625rem; text-align: center">
+              <div class="slds-truncate" title="">
+                <c-cmn_comp_stencil
+                  circle
+                  style="width: 28px; height: 28px"
+                ></c-cmn_comp_stencil>
+              </div>
+            </td>
+          </tr>
+        </template>
+        <template lwc:elseif={isEmpty}>
+          <tr class="slds-hint-parent slds-text-align--center">
+            <td colspan="5">
+              <div
+                class="slds-truncate slds-text-align--center"
+                title="No data found"
+              >
+                You're all caught up!
+              </div>
+            </td>
+          </tr>
+        </template>
+        <template for:each={processedData} for:item="record">
+          <tr key={record.Id} class="slds-hint-parent">
+            <td>
+              <div class="slds-truncate" title={record.Title__c}>
+                {record.Title__c}
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate" title={record.Status__c}>
+                {record.Status__c}
+              </div>
+            </td>
+            <td>
+              <div class="slds-truncate" title={record.Comment__c}>
+                {record.Comment__c}
+              </div>
+            </td>
+            <td style="width: 8.75rem">
+              <div class="slds-truncate" title={record.timeReceived}>
+                {record.timeReceived}
+              </div>
+            </td>
+            <td style="width: 10.625rem; text-align: center">
+              <div class="slds-truncate" title="">
+                <button
+                  data-section-id={record.Id}
+                  class="btn-action"
+                  onclick={navigateToSection}
+                >
+                  <img src={mau_chevronrightIcon} alt="arrow" />
+                </button>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</template>

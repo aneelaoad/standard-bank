@@ -1,0 +1,45 @@
+<!-- **
+* @description  : Partner Portal Join Us Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+
+<template>
+    <div class="container">
+        <div class="slds-grid slds-wrap main-grid slds-align_absolute-center">
+            <div class="slds-col slds-size_12-of-12">
+                <div class="slds-grid slds-wrap">
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 left-section slds-order_2 slds-small-order_1">
+                        <div class="slds-grid slds-grid_vertical slds-wrap">
+                            <div class="slds-col slds-p-bottom_medium heading-normal left-heading">
+                                <p class="text">{title}</p>
+                                <p class="text">{title2}</p>
+                            </div>
+                            <div class="slds-col text-normal left-content">
+                                <p>{content}</p>
+                            </div>
+                            <div class="slds-col slds-p-top_xx-large">
+                                <div class="slds-col banner__button">
+                                    <a href={link} data-intent="transactional" data-scope="cta components" data-id="link_content"
+                                     data-text="partner connect | register with us button click" onclick={tracker}>
+                                        <p style="color: #ffffff">{linkLabel}</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 slds-order_1 slds-small-order_2">
+                        <div class="slds-col image-container">
+                            <img src={bannerImageLink} class="banner-image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

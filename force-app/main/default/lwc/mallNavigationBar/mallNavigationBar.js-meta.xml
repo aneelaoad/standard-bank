@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Mall Navigation Bar</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="enableCategory" label="Enable categories select" type="Boolean" default="false" />
+            <property name="standardBankLogo" label="Standard Bank Logo" type="String" default="sbg-header-logo.svg" />
+            <property name="primaryBarBackgroundColor" label="Apply theme background to Primary bar" type="Boolean" default="true" />
+            <property name="secondryBarBackgroundColor" label="Apply theme background to Secondry bar" type="Boolean" default="true" />
+            <property name="primaryTextColor" label="Apply theme text color to Primary Bar" type="Boolean" default="true"  />
+            <property name="secondryTextColor" label="Apply theme text color to Secondry Bar" type="Boolean" default="true"/>
+            <property name="signInBackgroundColor" label="Apply theme background to Sign In" type="Boolean" default="true" />
+            <property name="applyTheme" label="Apply theme to Header" type="Boolean" default="true" />
+        </targetConfig>
+    </targetConfigs>    
+</LightningComponentBundle>

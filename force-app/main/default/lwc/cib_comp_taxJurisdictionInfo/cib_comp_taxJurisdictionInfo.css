@@ -1,0 +1,72 @@
+.aob_todo-card {
+  position: relative;
+  padding: 24px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  border: 1px solid #ced3d9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.aob_todo-card::before {
+  content: "";
+  display: block;
+  height: 89%;
+  width: 4px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #c7cbcf;
+  border-radius: 0 8px 8px 0;
+}
+.slds-form-element__label {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  
+  line-height: 16px;
+  color: #5c6c80;
+  margin-bottom: 8px;
+}
+.slds-form-element__label[c-mau_Comp_TaxJurisdictionInfo_mau_Comp_TaxJurisdictionInfo] {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin-bottom: 8px;
+}
+.slds-form-element__label[c-mau_Comp_TaxJurisdictionInfo_mau_Comp_TaxJurisdictionInfo] {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin-bottom: 8px;
+}
+.slds-form-element__label[c-mau_Comp_TaxJurisdictionInfo_mau_Comp_TaxJurisdictionInfo] {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin-bottom: 8px;
+}
+.aob_info-text {
+  display: flex;
+  align-items: center;
+}
+
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
+  border: 1 1 1 1px;
+  color: #5c6c80;
+  display: flex;
+  margin: 0 0 0 16px;
+}

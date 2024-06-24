@@ -1,0 +1,196 @@
+<!--
+/***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 12-04-2024
+@ Name of the Class : Cib_comp_editCerificationPartificpants
+@ Description       : This class is used to manage the edit cerification partificpants screen of the application.
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 12-04-2024
+@ Modification Description : SFP-36750
+***************************************************************************************/
+-->
+<template>
+    <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+    <div class="container">
+      <c-cmn_comp_review-comment
+        section={sectionRecord}
+      ></c-cmn_comp_review-comment>
+      <article class="aob_page-titles">
+        <h2>Modify Certification Officials</h2>
+      </article>
+      <div class="aob_info-text mt_20 slds-p-bottom--large">
+        <img src={helpIcon} alt="check" />
+        <p>
+          Please confirm the details of the certification officials. You can add or remove additional certification officials as required. Related parties cannot deleted from the list.
+        </p>
+      </div>
+      <form>
+        <template for:each={participants} for:item="item" for:index="index">
+          <div key={item.CIB_Sequence__c} class="aob_card-container">
+            <template lwc:if={index}>
+              <div
+                class="slds-p-top_medium deleteicontopleft"
+                style="text-align: end;"
+                key={item.CIB_Sequence__c}
+              >
+                <img
+                  if:false={item.IsCertifyingOfficial__c}
+                  class="slds-p-top_large slds-p-left_large"
+                  src={delete_row_icon}
+                  alt="delete-row-icon"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  data-index={index}
+                  alternative-text="Delete Row"
+                  size="small"
+                  title="Delete Row"
+                  onclick={deleteParticipant}
+                />
+              </div>
+            </template>
+            <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+              <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+                <div class="slds-form-element mb_8">
+                  <label class="slds-form-element__label" for="form-element-05">
+                    Name
+                  </label>
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      data-participant-sequence={item.CIB_Sequence__c}
+                      value={item.Name}
+                      variant="label-hidden"
+                      type="text"
+                      id="form-element-01"
+                      placeholder="Enter the name"
+                      pattern="^[a-zA-Z-' ]*$"
+                      data-fieldname="Name"
+                      data-index={index}
+                      name="name"
+                      aria-describedby="form-error-01"
+                      aria-invalid="true"
+                      disabled={item.IsCertifyingOfficial__c}
+                    ></lightning-input>
+                  </div>
+                </div>
+              </div>
+              <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+                <div class="slds-form-element">
+                  <label class="slds-form-element__label" for="form-element-05">
+                    <abbr class="slds-required" title="required"> </abbr>Position/Capacity</label
+                  >
+                  <div class="slds-form-element__control">
+                    <lightning-input
+                      data-participant-sequence={item.CIB_Sequence__c}
+                      value={item.Title__c}
+                      variant="label-hidden"
+                      type="text"
+                      id="form-element-02"
+                      placeholder="Position or capacity"
+                      aria-describedby="form-error-06"
+                      data-fieldname="Title__c"
+                      name="Title__c"
+                      data-index={index}
+                      aria-invalid="true"
+                    >
+                    </lightning-input>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+                    <div class="slds-form-element">
+                      <label class="slds-form-element__label" for="form-element-05">
+                        <abbr class="slds-required" title="required"> </abbr>Permanent
+                        residential address</label
+                      >
+                      <div class="slds-form-element__control">
+                        <lightning-input
+                          data-participant-sequence={item.CIB_Sequence__c}
+                          value={item.CIB_PermanentResidentialAddress__c}
+                          variant="label-hidden"
+                          type="text"
+                          id="form-element-0276"
+                          placeholder="Permanent residential address"
+                          aria-describedby="form-error-06"
+                          data-fieldname="CIB_PermanentResidentialAddress__c"
+                          name="CIB_PermanentResidentialAddress__c"
+                          data-index={index}
+                          aria-invalid="true"
+                        >
+                        </lightning-input>
+                      </div>
+                    </div>
+                  </div>
+              <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+                <div class="slds-form-element">
+                  <label
+                    class="slds-form-element__label"
+                    for="combobox-id-23"
+                    id="combobox-label-id-14"
+                    >Email Address</label
+                  >
+                  <lightning-input
+                      data-participant-sequence={item.CIB_Sequence__c}
+                      value={item.Email__c}
+                      variant="label-hidden"
+                      type="Email"
+                      id="combobox-id-23"
+                      placeholder="Email Address"
+                      aria-describedby="form-error-06"
+                      data-fieldname="Email__c"
+                      name="Email__c"
+                      data-index={index}
+                      aria-invalid="true"
+                    ></lightning-input>
+                </div>
+              </div>
+            </div>
+            <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+                <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+                  <div class="slds-form-element">
+                    <label
+                      class="slds-form-element__label"
+                      for="combobox-id-2"
+                      id="combobox-label-id-256"
+                      >Telephone Number</label
+                    >
+                    <lightning-input
+                        data-participant-sequence={item.CIB_Sequence__c}
+                        value={item.CIB_MobileNumber__c}
+                        variant="label-hidden"
+                        type="phone"
+                        id="combobox-id-254"
+                        placeholder="Telephone Number"
+                        aria-describedby="form-error-06"
+                        data-fieldname="CIB_MobileNumber__c"
+                        name="CIB_MobileNumber__c"
+                        data-index={index}
+                        aria-invalid="true"
+                      ></lightning-input>
+                  </div>
+                </div>
+                </div>
+          </div>
+        </template>
+      </form>
+      <div class="slds-grid aob_col-gutter slds-wrap slds-m-bottom_large">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            title="Primary action with lighter look"
+            onclick={addParticipant}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+      <c-cib_comp_flow-navigation
+        onsave={saveRecord}
+        onsubmit={submitRecord}
+        onprevious={navigateToPreviousScreen}
+      >
+      </c-cib_comp_flow-navigation>
+    </div>
+</template>

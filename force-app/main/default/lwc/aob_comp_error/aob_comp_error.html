@@ -1,0 +1,45 @@
+<!--
+  @description       : 
+  @author            : mbourhi@salesforce.com
+  @group             : 
+  @last modified on  : 29 APRIL 2024
+  @last modified by  : Narendra 
+ @Modification Description : SFP-38348
+-->
+
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<template lwc:if={technical}>
+
+		<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+			class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header ao-background-colour_brand-blue aob_header_title">
+					<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{label.AOB_ZA_Technicaldifficulties}
+					</h1>
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse closeIcon">
+            <lightning-icon  icon-name="utility:close" alternative-text="close" variant="inverse" size={iconSize}
+               data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+              data-text={adobePageTag.closeButtonText} onclick={closeModal}></lightning-icon>
+          </button>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium aob_header_sub_title" id="modal-content-id-1"
+					style="padding-bottom: 25px;">
+					<b>{label.AOB_ZA_Somethingwentwrongonourside}
+          </b>
+					<p>{label.AOB_Pleasetryagainoryoucanbrowseourother}</p>
+					<div class="dflex"> <button class="slds-button slds-button_neutral btn-secondary"
+              aria-label="Cancel and close" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+              data-scope={adobePageTag.dataScope} data-text={adobePageTag.cancelButtonText}
+              onclick={backhome}>{label.AOB_ZA_backtobrowsin}
+            </button>
+						<button class="slds-button slds-button_brand btn-primary" data-id={adobePageTag.dataId}
+              data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+              data-text={adobePageTag.continueButtonText} onclick={retryAPI}>{label.AOB_ZA_RETR}</button>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+	</template>
+</template>

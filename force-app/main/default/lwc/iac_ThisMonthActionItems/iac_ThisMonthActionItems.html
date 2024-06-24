@@ -1,0 +1,56 @@
+<template>
+  <article class="slds-card">
+    <div class="slds-card__header slds-grid slds-page-header">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure slds-m-right_none">
+          <lightning-icon icon-name="standard:dashboard"></lightning-icon>
+        </div>
+        <div class="slds-media__body">
+          <h2 title={label.thisMonthActionItems} class="slds-card__header-title slds-p-left_small">
+            <b>{label.thisMonthActionItems}</b>
+          </h2>
+        </div>
+      </header>
+    </div>
+    <div class="slds-card__body">
+      <div class="slds-grid slds-wrap slds-p-left_medium">
+        <div class="slds-size_1-of-2">
+          <div class="slds-media slds-p-top_x-small slds-p-bottom_medium">
+            <div class="slds-media__figure">
+              <lightning-icon icon-name="utility:change_record_type"></lightning-icon>
+            </div>
+            <div class="slds-media__body slds-truncate">
+              <h2 class="metricValue">{actualPolicies}</h2>
+              <span title={label.policiesUpForRenewal}>{label.policiesUpForRenewal}</span>
+            </div>
+          </div>
+        </div>
+        <div class="slds-size_1-of-2">
+          <div class="slds-media slds-p-top_x-small slds-p-bottom_medium">
+            <div class="slds-media__figure">
+              <lightning-icon icon-name="utility:copy"></lightning-icon>
+            </div>
+            <div class="slds-media__body slds-truncate">
+              <h3 class="metricValue">{actualClaims}</h3>
+              <span title={label.openClaims}>{label.openClaims}</span>
+            </div>
+          </div>
+        </div>
+        <div class="slds-size_1-of-2">
+          <div class="slds-media slds-p-top_x-small slds-p-bottom_medium">
+            <div class="slds-media__figure">
+              <lightning-icon icon-name="utility:number_input"></lightning-icon>
+            </div>
+            <div class="slds-media__body slds-truncate">
+              <h3 class="metricValue">{actualOpp}</h3>
+              <span title={label.openOpportunities}>{label.openOpportunities}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <template if:true={showSpinner} class="slds-is-relative slds-align_absolute-center">
+        <lightning-spinner variant="brand" size="medium" alternative-text="Loading..."></lightning-spinner>
+      </template>
+    </div>
+  </article>
+</template>

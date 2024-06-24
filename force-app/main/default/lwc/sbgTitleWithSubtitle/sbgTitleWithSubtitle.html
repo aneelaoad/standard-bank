@@ -1,0 +1,15 @@
+<template>
+  <div class={getAlignment}>
+    <div class={getTitleCol}>
+      <template if:true={isPageTitle}>
+        <h1 class="title title--page" style={getTitleStyle}>{title}</h1>
+      </template>
+      <template if:false={isPageTitle}>
+        <h3 class="title title--module-title" style={getTitleStyle}>{title}</h3>
+      </template>
+      <template if:true={showSubtitle}>
+        <p class="title title--entrance" style={getSubtitleStyle}>{subtitle}</p>
+      </template>
+    </div>
+  </div>
+</template>

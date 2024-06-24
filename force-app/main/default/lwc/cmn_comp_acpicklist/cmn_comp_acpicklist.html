@@ -1,0 +1,69 @@
+<!--
+  @description       : 
+  @author            : mbourhi@salesforce.com
+  @group             : 
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   12-02-2020   mbourhi@salesforce.com   Initial Version
+  1.A   03-20-2021   aaboul@salesforce.com    Switched to custom
+-->
+<template>
+  <label class="aob_screen-field-label slds-m-bottom_none">{label}</label>
+  <lightning-input
+    class={inputClass}
+    name={name}
+    placeholder={placeholder}
+    value={value}
+    onfocus={handleFocus}
+    onblur={handleBlur}
+    onchange={handleChange}
+    variant="label-hidden"
+    required={required}
+    message-when-value-missing={missingValueMessage}
+    picklist-error="true"
+    style={currentIcon}
+    field-level-help={helpText}
+    disabled={disableField}
+  >
+  </lightning-input>
+  <div class="aob_datalist">
+    <ul>
+      <template lwc:if={currentValuesExist}>
+        <template for:each={currentValues} for:item="item">
+          <li
+            key={item.value}
+            data-value={item.label}
+            data-code={item.value}
+            onmousedown={handleMouseDown}
+            onclick={handleMouseDown}
+            data-id={item.Id}
+            class="slds-grid"
+          >
+            <div
+              class="slds-m-left--small"
+              lwc:if={item.iconStyle}
+              style={item.iconStyle}
+              data-value={item.label}
+              data-code={item.value}
+              onmousedown={handleMouseDown}
+              onclick={handleMouseDown}
+            ></div>
+            <span
+              class="slds-p-left--small"
+              data-value={item.label}
+              data-code={item.value}
+              onmousedown={handleMouseDown}
+              onclick={handleMouseDown}
+              >{item.label}</span
+            >
+          </li>
+        </template>
+      </template>
+      <template lwc:else>
+        <li>No records</li>
+      </template>
+    </ul>
+  </div>
+</template>

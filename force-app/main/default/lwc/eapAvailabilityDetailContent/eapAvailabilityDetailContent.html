@@ -1,0 +1,172 @@
+<!--
+  @description       : LWC to show availability form
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+-->
+<template>
+    <div>
+        <template if:true={event.Img}>
+            <img src={event.Img} class="v1_img_header"/>
+        </template>
+
+        <div class="v1_card_first">
+            <h2 class="light_titles">{event.Name}</h2>
+            <div class="v1_div_info">
+                <p>{event.Location}</p>
+                <p class="v1_p_date">{event.Date}</p>
+            </div>
+
+            <template if:true={firstStep}>
+                <p class="v1_div_instructions">{labels.SelectAvailability}:</p>
+                <template for:each={daysOfEvent} for:item="day">
+                    <div key={day.Date}>
+                        <label class="label">{day.Date}</label>
+                        <br>
+                        <template if:true={matchmakingExecuted}>
+                            <select name={day.Date} disabled>
+                                <template for:each={day.availibilityOptions} for:item="option">
+                                    <template if:true={option.isSelected}>
+                                        <option value={option.value} key={option.id} selected>{option.label}</option>
+                                    </template>
+                                    <template if:false={option.isSelected}>
+                                        <option value={option.value} key={option.id}>{option.label}</option>
+                                    </template>
+                                </template>
+                            </select>
+                        </template>
+
+                        <template if:false={matchmakingExecuted}>
+                            <select name={day.Date} onblur={handleInputChange} >
+                                <template for:each={day.availibilityOptions} for:item="option">
+                                    <template if:true={option.isSelected}>
+                                        <option value={option.value} key={option.id} selected>{option.label}</option>
+                                    </template>
+                                    <template if:false={option.isSelected}>
+                                        <option value={option.value} key={option.id}>{option.label}</option>
+                                    </template>
+                                </template>
+                            </select>
+                        </template>
+                    </div>
+                </template>
+
+                <template if:true={isInvestor}>
+                    <div class="v1_div_buttonContainer">
+                        <button class="custom-full-button" onclick={changeStep}>{labels.Next}</button>
+                    </div>
+                </template>
+                <template if:false={isInvestor}>
+                    <div class="v1_div_buttonContainer">
+                        <button class="custom-full-button" onclick={saveChanges}>{labels.Accept}</button>
+                    </div>
+                </template>
+            </template>
+
+            <template if:false={firstStep}>
+                <p class="v1_div_instructions">{labels.SelectCorporates}:</p>
+                <div>
+                    <template iterator:it={picklistCorporates}>
+                        <lightning-layout key={it.value.Id} vertical-align="center" class="v1_layout_corporates">
+                            <lightning-layout-item size="1">
+                                <span class="v1_span_number">{it.value.Id}.</span>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="8">
+
+                                <template if:true={matchmakingExecuted}>
+                                    <select name='Corporates' data-id={it.index} onblur={handleSelect} disabled>
+                                        <template for:each={it.value.corporatesList} for:item="corp">
+                                            <template if:true={corp.isSelected}>
+                                                <option value={corp.id} key={corp.id} selected>{corp.name}</option>
+                                            </template>
+                                            <template if:false={corp.isSelected}>
+                                                <option value={corp.id} key={corp.id}>{corp.name}</option>
+                                            </template>
+                                        </template>
+                                    </select>
+                                </template>
+
+                                <template if:false={matchmakingExecuted}>
+                                    <select name='Corporates' data-id={it.index} onblur={handleSelect}>
+                                        <template for:each={it.value.corporatesList} for:item="corp">
+                                            <template if:true={corp.isSelected}>
+                                                <option value={corp.id} key={corp.id} selected>{corp.name}</option>
+                                            </template>
+                                            <template if:false={corp.isSelected}>
+                                                <template if:true={corp.isInList}>
+                                                    <option value={corp.id} key={corp.id} disabled>{corp.name}</option>
+                                                </template>
+                                                <template if:false={corp.isInList}>
+                                                    <option value={corp.id} key={corp.id}>{corp.name}</option>
+                                                </template>
+                                            </template>
+                                        </template>
+                                    </select>
+                                </template>
+                            </lightning-layout-item>
+
+                            <template if:false={matchmakingExecuted}>
+                                <template if:true={it.last}>
+                                    <lightning-layout-item size="2" class="v1_layout_icon" if:false={hasReachedLimit}>
+                                        <img class="v1_img_icon" src={addIcon} onclick={addCorporate}/>
+                                    </lightning-layout-item>
+                                </template>
+    
+                                <template if:false={it.first}>
+                                    <lightning-layout-item size="2" class="v1_layout_icon" if:false={it.last}>
+                                        <img class="v1_img_icon" src={removeIcon} data-id={it.index} onclick={removeCorporate}/>
+                                    </lightning-layout-item>
+    
+                                    <template if:true={it.last}>
+                                        <lightning-layout-item size="2" class="v1_layout_icon" if:true={hasReachedLimit}>
+                                            <img class="v1_img_icon" src={removeIcon} data-id={it.index} onclick={removeCorporate}/>
+                                        </lightning-layout-item>
+    
+                                        <lightning-layout-item size="1" if:false={hasReachedLimit}>
+                                            <img class="v1_img_icon" src={removeIcon} data-id={it.index} onclick={removeCorporate}/>
+                                        </lightning-layout-item>
+                                    </template>
+                                </template>
+                            </template>
+
+                        </lightning-layout>
+                    </template>
+                </div>
+
+                <div class="v1_div_buttonContainer">
+                    <button class="custom-empty-button" onclick={changeStep}>{labels.GoBack}</button>
+                    <template if:false={matchmakingExecuted}>
+                        <button class="custom-full-button" onclick={saveChanges}>{labels.Accept}</button>
+                    </template>
+                </div>
+            </template>
+
+        </div>
+
+        <div class="relleno">
+            <template if:false={firstStep}><div class="v1_div_corporates">
+                <p class="light_titles">{labels.SelectedCorporates}</p>
+                
+                <template for:each={selectedCorporates} for:item="elem">
+                    <div key={elem.id} class="elem">
+                        <template if:true={elem.contactPhoto}>
+                            <img src={elem.contactPhoto} key={elem.id} class="v1_img_listview v1_div_data">
+                        </template>
+                        <template if:false={elem.contactPhoto}>
+                            <div class="v1_div_initials v1_div_data">{elem.initials}</div>
+                        </template>
+            
+                        <div class="v1_div_data data_values">
+                            <div class="v1_div_data">
+                                <p class="label v1_p_longData">{elem.name}</p>
+                                <p class="v1_p_title v1_p_longData">{elem.clientName}</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div></template>
+        </div>
+    </div>
+</template>

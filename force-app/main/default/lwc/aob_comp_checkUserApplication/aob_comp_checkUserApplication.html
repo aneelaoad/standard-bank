@@ -1,0 +1,17 @@
+<!--
+  @description       : this component used to check user application
+  @author            : Narendra
+  @group             : 
+  @last modified on  : Aug 1, 2023
+  @last modified by  : Narendra
+-->
+
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div class="spinner">
+		<template if:true={isLoading}>
+			<lightning-spinner alternative-text="Loading" variant="brand" size="large">
+			</lightning-spinner>
+		</template>
+	</div>
+</template>

@@ -1,0 +1,29 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_container {
+    padding: 2em;
+    background-color: var(--background-grey);
+    min-height: 85vh;
+}
+
+.custom-full-button, .custom-full-button:focus, .custom-contrast-button, .custom-contrast-button:focus{
+    margin-top: 2em;
+    width: 100%;
+}
+
+lightning-input{
+    --sds-c-input-spacing-horizontal-start: 1.5em;
+    --sds-c-input-spacing-horizontal-end: 1.5em;
+    --sds-c-input-radius-border: 3px;
+    --sds-c-input-color-border: black;
+    min-height: 2.5em;
+}
+
+lightning-textarea {
+    --sds-c-textarea-color-border: black;
+    --sds-c-textarea-sizing-min-height: 15em;
+}
+
+lightning-textarea.error{
+    --sds-c-textarea-color-border: red;
+}

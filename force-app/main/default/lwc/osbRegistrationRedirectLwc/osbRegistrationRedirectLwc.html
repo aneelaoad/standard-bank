@@ -1,0 +1,127 @@
+<template>
+    <div class="Site_Container">
+        <div class="signUp slds-size_6-of-6 slds-small-size_12-of-12 slds-medium-size_6-of-6 slds-large-size_3-of-6">
+            <div
+                class="form__container slds-size_6-of-6 slds-small-size_12-of-12 slds-medium-size_5-of-6 slds-large-size_8-of-12">
+                <div if:true={showPopUp}>
+                    <c-osb-market-gram-popup-lwc onclosepopupevent={handleCloseEvent}
+                        sub-title="By doing so you will clear the form to it's orginal state." title="Cancel Sign Up?"
+                        content="By doing so you will clear the form to its original state.">
+                    </c-osb-market-gram-popup-lwc>
+                </div>
+                <div class="form__header">
+                    <div class="IdSearch">
+                        <div class="Sign_icon">
+                            <i class="ms-icn_shield_lock"></i>
+                        </div>
+                    </div>
+                    <div class="signUp__title">Welcome to OneHub</div>
+                    <div class="format signUp__subtitle">
+                        Before we can give you access to OneHub, we would like to ask that you provide us with some
+                        information which will take less than two minutes to complete.
+                        Once done, we will then go through a process of onboarding you and your organisation.
+                    </div>
+                    <div class="format signUp__subtitle">
+                        <span>
+                            If you want to get in touch with us directly you can contact us via <a
+                                class="LinkColour">onehub@standardbank.co.za</a><br> and we will get back to you as soon
+                            as
+                            possible.
+                        </span>
+                    </div>
+                </div>
+                <div if:true={showToastFailure}>
+                    <c-osb-toast toasttype="failure" closepopup={showToastFailure}
+                        toastmessage="Please complete all required fields and check for errors." top="202px"
+                        left="760px">
+                    </c-osb-toast>
+                </div>
+                <div if:true={showToastSuccess}>
+                    <c-osb-toast toasttype="success" closepopup={showToastSuccess}
+                        toastmessage="Request has been sent successfully. You will receive a confirmation via email"
+                        top="202px" left="760px"></c-osb-toast>
+                </div>
+                <template if:true={showLoading}>
+                    <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+                </template>
+                <form class="newCase__form mt_32">
+                    <div class="rectangle">
+                        <div class="lets_get_started">
+                            Personal details
+                        </div>
+                    </div>
+                    <div class="slds-form-element ">
+                        <lightning-input name="firstName" class="firstName" type="text" data-id="FirstName" label="Name"
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-form-element surnameInputHolder">
+                        <lightning-input name="surname" class="surname" type="text" data-id="LastName" label="Surname"
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col size_1">
+                            <span>
+                                <lightning-combobox name="progress" label="Dialling code" value={value}
+                                    placeholder={value} data-id="dialingCode" options={options} onchange={handleChange}>
+                                </lightning-combobox>
+                            </span>
+                        </div>
+                        <div class="slds-col  slds-size_2-of-3 slds--of-3">
+                            <span>
+                                <lightning-input name="cellphone" class="cellphone  newCase__form--input CellSection"
+                                    type="text" data-id="Cellphone" label="Cellphone number"
+                                    onchange={handleInputChange}>
+                                </lightning-input>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="rectangle mt_32">
+                        <div class="lets_get_started">
+                            Work details
+                        </div>
+                    </div>
+                    <div class="slds-form-element ">
+                        <lightning-input name="email" class="email" type="text" data-id="Email" label="Work email"
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="signInLink">
+                        <template if:true={showSigninredirect}>
+                            <a href={signinredirect} target="_blank" data-scope="error" data-intent="informational"
+                                data-id="uitlink_link_errorMsg" data-text="errorMessage"
+                                style='color:#0089FF;padding-bottom:10px;'><u>Take me there</u></a>
+                        </template>
+                    </div>
+                    <div class="slds-form-element">
+                        <lightning-input name="jobtitle" class="jobTitle" type="text" data-id="jobtitle"
+                            label="Job title" onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="slds-form-element">
+                        <lightning-input name="company" class="companyName" type="text" data-id="company"
+                            label="Company name" onchange={handleInputChange}>
+                        </lightning-input>
+                    </div>
+                    <div class="recapture-container">
+                        <c-osb-Recapture data-id="recaptureChild"></c-osb-Recapture>
+                    </div>
+                </form>
+            </div>
+            <div class="signUp_greyAreaBtn PaddingGrey slds-size_1-of-1 slds-grid slds-gutters_x-small">
+                <div class="btn--darkblue">
+                    <button class="slds-button slds-button_neutral" data-id="cancel" data-intent="confirmational"
+                        data-text="OneHub Registration | Registration Redirect | cancel"
+                        data-scope="OneHub Registration" onclick={cancel}>CANCEL</button>
+                </div>
+                <div class="btn--neutral">
+                    <button class="slds-button slds-button_neutral" data-id="submit" data-intent="confirmational"
+                        data-text="registration redirect | registration redirect | submit"
+                        data-scope="registration redirect" onclick={signUp}>SIGN UP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,22 @@
+<!--
+  @description       : Lwc parent with the event detail childs content
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-08-2021   TCK      Initial Version
+-->
+<template>
+    <!-- Event Description -->
+    <c-eap-event-detail-description event-id={eventId} onloaded={descriptionLoaded}></c-eap-event-detail-description>
+    
+    <!--Meetings-->
+    <c-eap-event-detail-meetings event-id={eventId} onloaded={meetingsLoaded} onreload={needToLoad}></c-eap-event-detail-meetings>
+    
+    <!--Buttons-->
+    <c-eap-event-detail-buttons event-id={eventId} onloaded={buttonsLoaded} onreload={needToLoad}></c-eap-event-detail-buttons>
+
+    <div class="relleno"></div>
+</template>

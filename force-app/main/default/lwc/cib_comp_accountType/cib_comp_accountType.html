@@ -1,0 +1,127 @@
+<!--
+  @description       : This is used for Account Type screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <article class="aob_page-titles mt_20">
+      <h2>Account Type</h2>
+    </article>
+
+    <div class="aob_card-container">
+      <div class="checkbox-container">
+        <input
+          data-type="application"
+          class="checkbox-input"
+          data-fieldname="CIB_AT_IsCurrentAccount__c"
+          type="checkbox"
+          id="CIB_AT_IsCurrentAccount__c"
+          checked={applicationRecord.CIB_AT_IsCurrentAccount__c}
+          onchange={onchange}
+        />
+        <label class="checkbox" for="CIB_AT_IsCurrentAccount__c">
+          <span>
+            <img src={checkboxicon} alt="check" />
+          </span>
+          <span>Current Account</span>
+        </label>
+      </div>
+      <div class="aob_info-text mt_20">
+        <img src={helpIcon} alt="helpIcon" />
+        <p>
+          Non-interest bearing accounts to assist clients with their daily
+          transaction banking requirements including the setting up of an
+          overdraft facility when required.
+        </p>
+      </div>
+      <template lwc:if={applicationRecord.CIB_AT_IsCurrentAccount__c}>
+        <label
+          class="slds-form-element__label slds-p-top_medium"
+          for="form-element-05"
+          >Currency</label
+        >
+        <c-cmn_comp_multi-select-picklist
+          required
+          data-type="application"
+          s-object-name="Application__c"
+          s-object-field-name="CIB_AT_CurrentAccountCurrencies__c"
+          maxselected="100"
+          value={applicationRecord.CIB_AT_CurrentAccountCurrencies__c}
+          data-fieldname="CIB_AT_CurrentAccountCurrencies__c"
+          is-currency
+        >
+        </c-cmn_comp_multi-select-picklist>
+      </template>
+    </div>
+    <div class="aob_card-container">
+      <div class="checkbox-container">
+        <input
+          data-type="application"
+          class="checkbox-input"
+          data-fieldname="CIB_AT_IsCurrentAccountPlus__c"
+          checked={applicationRecord.CIB_AT_IsCurrentAccountPlus__c}
+          type="checkbox"
+          id="CIB_AT_IsCurrentAccountPlus__c"
+          onchange={onchange}
+        />
+        <label class="checkbox" for="CIB_AT_IsCurrentAccountPlus__c">
+          <span>
+            <img src={checkboxicon} alt="check" />
+          </span>
+          <span>Current Account Plus</span>
+        </label>
+      </div>
+      <div class="aob_info-text mt_20">
+        <img src={helpIcon} alt="helpIcon" />
+        <p>
+          Investment accounts which may be remunerated depending on market
+          conditions and the average credit balance on the accounts. Current
+          Account Plus includes transactional capabilities for additional
+          flexibility and convenience.
+        </p>
+      </div>
+      <template lwc:if={applicationRecord.CIB_AT_IsCurrentAccountPlus__c}>
+        <label
+          class="slds-form-element__label slds-p-top_medium"
+          for="form-element-05"
+          >Currency</label
+        >
+        <c-cmn_comp_multi-select-picklist
+          required
+          data-type="application"
+          s-object-name="Application__c"
+          s-object-field-name="CIB_AT_CurrentAccountPlusCurrencies__c"
+          maxselected="100"
+          value={applicationRecord.CIB_AT_CurrentAccountPlusCurrencies__c}
+          data-fieldname="CIB_AT_CurrentAccountPlusCurrencies__c"
+          is-currency
+        >
+        </c-cmn_comp_multi-select-picklist>
+      </template>
+      <div
+        class="slds-form-element__help"
+        id="form-error-03"
+        lwc:if={isValidate}
+      >
+        Please select atleast one option
+      </div>
+      <div
+        class="slds-form-element__help"
+        id="form-error-04"
+        lwc:if={showErrorCurrentPlus}
+      >
+        Please select atleast one option
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      submit-first-screen="true"
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+      onsave={saveRecord}
+      is-first-screen
+    ></c-cib_comp_flow-navigation>
+  </div>
+</template>

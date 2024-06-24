@@ -1,0 +1,49 @@
+.container {
+  font-family: var(--lwc-fontFamily);
+  font-size: var(--font-size-body-s, 0.875rem);
+  padding: 1rem;
+}
+
+.a_heading {
+  margin-top: 1.5rem;
+  margin-left: 2rem;
+}
+
+.slds-form-element__static {
+  font-family: var(--lwc-fontFamily);
+  font-size: var(--font-size-body-m, 1rem);
+}
+
+.slds-form-element {
+  margin: 0.3rem;
+  padding: 0.3rem;
+}
+
+.section-top {
+  border: 1px solid var(--sbg-blue);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.section-bottom {
+  border: 1px solid var(--sbg-blue);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.section-right {
+  border: 1px solid var(--sbg-blue);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.section-separation {
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.column-separator {
+  margin-right: 2rem;
+}

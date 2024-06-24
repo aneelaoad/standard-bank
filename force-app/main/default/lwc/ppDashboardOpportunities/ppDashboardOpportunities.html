@@ -1,0 +1,32 @@
+<!-- **
+* @description  : Partner Portal Dashboard Opportunities Component
+* User Story : SFP-4873
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date Aug 2021
+*/ -->
+<template>
+    <div class="container">
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <p class="text-normal-sfProDisplay heading" style="color : #6a7286;">{heading}</p>
+            </div>
+
+            <div class="successful-partnerships">
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay opp-count">{opptyCount}</p>
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay text">{text}</p>
+                </div>
+            </div>
+
+            <div class="slds-col">
+                <a href={linkUrl} class="text-normal-sfProDisplay link" data-intent="navigational"
+                    data-scope="Dashboard" data-id="link_content" data-text="Partner connect | view all opportunities link click" onclick={tracker}>{link}</a>
+            </div>
+
+        </div>
+
+    </div>
+</template>

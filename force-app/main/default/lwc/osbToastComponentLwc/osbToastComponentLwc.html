@@ -1,0 +1,23 @@
+<template>
+    <template if:true={closePopup_equals_boolean_true}>
+        <div class="toast_container" style={string_top__plus_v_top_plus_string}>
+            <div class={toastType_equals_success___toast_success___toast_warning}>
+                <div class={toastType_equals_string_success___toast__success_left___toast_warning_left}>
+                    <template if:true={toastType_equals_success}>
+                        <i class="ms-icn_check_normal toast__icon"></i>
+                    </template>
+                    <template if:false={toastType_equals_success}>
+                        <i class="ms-icn_warning_solid toast__icon"></i>
+                    </template>
+                </div>
+                <div class="toast__right">
+                    <span class="toast__text">{toastMessage}</span>
+                    <button onclick={closeToast} class="btn toast__close" data-id="uitlink_link"
+                        data-text="Toast | Close">
+                        <i class="ms-icn_close_circle_solid"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

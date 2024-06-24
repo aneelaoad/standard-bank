@@ -1,0 +1,23 @@
+<template>
+    	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div class="slds-float_right slds-m-right_x-large">
+    </div>
+    <c-aob_comp_modal lwc:if={isVisible} hasheader='true' onclosed={exitModal} header={label.AOB_Exit_Title}>
+       
+        <div slot="content" class="aob_text_align_center">
+            <span class="aob_exit_title">{label.AOB_ZA_IFYouExit}</span>
+             <c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
+        </div>
+        <div slot="footer" class="aob_modal_buttons_container button_reverse">
+            <!--Navigation Buttons-->
+            <lightning-button data-id="link_content" data-intent="navigational" data-scope="modal"
+                data-text={adobeDataTextCancel} class="aob_modal_button" variant="neutral"
+                label={label.AOB_Cancel} title={label.AOB_Cancel} onclick={exitApplication}>
+            </lightning-button>
+            <lightning-button data-id="link_content" data-intent="confirmational" data-scope="modal"
+                data-text={adobeDataTextExitApp} class="aob_modal_button" variant="brand"
+                label={label.AOB_ExitApplication} title={label.AOB_ExitApplication} onclick={closeModal}>
+            </lightning-button>
+        </div>
+    </c-aob_comp_modal>
+</template>

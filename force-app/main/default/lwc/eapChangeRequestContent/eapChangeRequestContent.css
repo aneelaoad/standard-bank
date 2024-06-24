@@ -1,0 +1,100 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_container {
+    background-color: #fff;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-shadow: inset 0px 5px 5px -6px #888888;
+    padding: 2em;
+}
+
+.relleno {
+    box-shadow: inset 0px 5px 5px -6px #888888;
+    background-color: var(--background-grey);
+    height: 10vh;
+}
+
+.bottom_button {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+/* Reason */
+.v1_div_information {
+  color: var(--main-light-blue);
+  font-weight: bold;
+  margin: 1.5em 0em;
+}
+
+.v1_div_relativeContacts {
+    position: relative;
+}
+
+.v1_div_prettyContacts {
+    width: 50%;
+    height: 6em;
+}
+
+.v1_div_prettyContacts2 {
+    position: absolute;
+    z-index: auto;
+    height: 6em;
+    top: 0em;
+    right: 5%;
+}
+
+.v1_div_restContacts {
+    border-radius: 50%;
+    width: 3.5em;
+    height: 3.5em;
+    background-color: #d4504c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.v1_div_prettyContacts img {
+    border-radius: 50%;
+    width: 3.5em;
+    height: 3.5em;
+    border: 0.2em solid #fff;
+    position: absolute;
+    margin: 0 auto;
+    z-index: auto;
+    object-fit:cover;
+}
+
+.img1 {
+    left: 0em;
+}
+.img2 {
+    left: 2.5em;
+}
+.img3 {
+    left: 5em;
+}
+.img4 {
+    left: 7.5em;
+}
+.img5 {
+    left: 10em;
+}
+.img6 {
+    left: 12.5em;
+}
+
+lightning-textarea {
+    --sds-c-textarea-color-border: black;
+    --sds-c-textarea-sizing-min-height: 10em;
+    margin-bottom: 1.5em;
+}
+
+lightning-textarea.error{
+    --sds-c-textarea-color-border: red;
+}

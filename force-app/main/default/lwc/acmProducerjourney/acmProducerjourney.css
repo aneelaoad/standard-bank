@@ -1,0 +1,67 @@
+h1 {
+    color: #3C4B6C;
+    font-family: 'BentonSans';
+    font-size:1.0rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+    margin-top: 1.5rem;
+    text-transform: capitalize;
+  }
+  .plinks{
+    color: var(--primary-secondary-color, #0062E1);
+    text-align: left;
+    font-family: 'BentonSans';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px; 
+    text-transform: uppercase;
+  }
+
+p{
+    color: #0A2240;
+    font-family: 'BentonSans';
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 400;
+    padding-left: 0.5rem;
+    padding-right: 1.5rem;
+    
+}
+
+table {
+ 
+    margin-left:1.7rem;
+  
+  }
+
+
+  .table-container {
+    overflow-x: auto; 
+ }
+ table {
+    width: auto;
+    border-collapse: collapse;
+    th {
+        background-color: #f2f2f2;
+    }
+  
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+ 
+    td, th {
+        padding: 8px;
+    }
+ }
+ 
+ @media (max-width: 600px) {
+
+    table {
+        font-size: 14px;
+    }
+    th, td {
+        padding: 6px;
+    }
+ }

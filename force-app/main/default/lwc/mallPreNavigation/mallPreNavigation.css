@@ -1,0 +1,35 @@
+.slds-modal__content {
+  text-align: center;
+  padding: 1rem 0px;
+}
+
+.popup-icon {
+  margin-bottom: 1.5rem;
+}
+
+.footer-button {
+  display: inline-flex;
+  text-align: left;
+  padding: 1rem;
+}
+
+.footer {
+  font-size: var(--font-size-body-s, 0.875rem);
+  border: none;
+  padding: 1rem;
+}
+
+.footer-link a {
+  color: var(--secondary-actions, #0051ff);
+  font-family: var(--lwc-fontFamily);
+}
+
+.store-name {
+  color: var(--primary-sgb-blue, #0034a7);
+}
+
+.modal-footer-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

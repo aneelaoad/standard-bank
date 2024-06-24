@@ -1,0 +1,73 @@
+<template>
+  <template lwc:if={isLoading}>
+    <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+</template>
+  <div class="body">
+    <div class="content">
+      <div class="head-banner">
+        <template for:each={displayProvider} for:item="prov">
+          <div class="ImageContainer" key={prov.Id}>
+            <lightning-formatted-rich-text value={prov.Large_Solution_Logo__c}></lightning-formatted-rich-text>
+
+          </div>
+          <div class="brand-banner " key={prov.Id}>
+            <div class="logo-header">
+              <div class="logo-container slds-grid ">
+                <div class="brand-logo slds-col ">
+                  <img src={SBlogo}></img>
+                </div>
+
+                <div class="brand-description-title slds-col">
+                  <p>{prov.Title}</p>
+                </div>
+              </div>
+            </div>
+            <div class="brand-description">
+              {prov.Introduction__c}
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <div class="row-solutions">
+        <template for:each={displayProviderSolutions} for:item="provSol">
+          <div class="solution-tiles" key={provSol.id}>
+            <c-osb-provider-spaces-product-card-lwc title={provSol.Title} introduction={provSol.Introduction__c}
+                providername={providername} providertitle={providertitle} link={provSol.Sign_Up_URL__c}
+                solutionsiteurl={provSol.Solution_URL__c}
+                solutionid={provSol.Id}></c-osb-provider-spaces-product-card-lwc>
+          </div>
+        </template>
+      </div>
+
+      <template lwc:if={showInsights}>
+        <div class="row-articles">
+          <div class="insightWrapper">
+            <div class="slds-grid slds-wrap slds-gutters ">
+              <template for:each={displayProviderInsight} for:item="provInsight">
+                <div class="slds-col insight-tile slds-size_1-of-1 slds-medium-size_3-of-6  slds-large-size_1-of-3 "
+                  key={provInsight.id}>
+                  <c-osb-provider-spaces-insights-lwc title={provInsight.Title}
+                    introduction={provInsight.Introduction__c} insightsimage={provInsight.Image__c}
+                    externalurl={provInsight.External_url__c} providername={providertitle}></c-osb-provider-spaces-insights-lwc>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <template lwc:if={showComingSoon}>
+        <div class="advert">
+          <div class="slds-grid slds-wrap">            
+              <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 ">             
+                <c-osb-provider-coming-soon-lwc providerid={providerid} ></c-osb-provider-coming-soon-lwc>
+              </div>
+            
+          </div>
+        </div>
+      </template>
+    </div>
+
+  </div>
+</template>

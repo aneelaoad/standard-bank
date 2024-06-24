@@ -1,0 +1,124 @@
+<!-- **
+* @description  : Partner Portal Support Page Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+
+    <div class="container" id="container">
+        <div class="slds-grid slds-wrap main-grid slds-align_absolute-center" id="main-grid">
+            <div class="slds-col slds-size_12-of-12">
+                <div class="slds-grid slds-wrap">
+
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 contact-info-container">
+                        <div class="slds-col contact-Information left-sec">
+                            <div class="slds-grid slds-grid_vertical">
+
+                                <div class="slds-col">
+
+                                    <div class="slds-grid slds-grid_align-spread">
+                                        <div class="slds-col slds-align-top slds-p-top_small">
+                                            <p class="heading-small contact-info-heading">{leftSecHeading}</p>
+                                        </div>
+
+                                        <div class="slds-col">
+                                            <div class="slds-grid">
+                                                <div class="slds-col">
+                                                    <img class="countryFlag" src={countryFlag} />
+                                                </div>
+                                                <div class="slds-col">
+                                                    <lightning-combobox name="Country" class="Country" label=""
+                                                        value={defaultCounty} options={countryOptions}
+                                                        onchange={handleInputChange}>
+                                                    </lightning-combobox>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="slds-col text-normal con-us-sub-heading">
+                                    <p>{leftSecText1}</p>
+                                    <p>{leftSecText2}</p>
+                                </div>
+
+                                <div class="slds-grid con-us-details-container">
+
+                                    <div class="slds-col">
+                                        <template if:true={phone}>
+                                            <img class="con-us-icon" src={phoneIcon}>
+                                        </template>
+                                    </div>
+
+                                    <div class="slds-col">
+                                        <a class="text-normal contact-us-phone">{phone}</a>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="slds-col" style="position: absolute;">
+                                    <div class="email-and-phone-container">
+                                        <div class="slds-grid con-us-details-container">
+                                            <div class="slds-col">
+                                                <img class="con-us-icon" src={emailIcon}>
+                                            </div>
+                                            <div class="slds-col">
+                                                <a href={mailto} class="text-normal contact-us-email">{email}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 contact-info-container">
+                        <div class="slds-col contact-Information">
+                            <div class="slds-grid slds-grid_vertical">
+
+                                <div class="slds-col">
+
+                                    <div class="slds-grid slds-grid_align-spread">
+                                        <div class="slds-col slds-align-top slds-p-top_small">
+                                            <p class="heading-small contact-info-heading">{rightSecHeading}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="slds-col">
+                                    <p class="text-normal contact-info-text">{rightSecText1}</p>
+                                </div>
+                                <!--<div class="slds-col space"></div>-->
+
+                                <div class="slds-col breadcrumbs">
+
+                                    <div class="slds-grid">
+                                        <div class="slds-col" style="position: absolute;">
+                                            <a href={link} class="text-normal send-email-link"
+                                                data-intent="navigational" data-scope="Contact Us" onclick={tracker}
+                                                data-id="link_content" data-text="Partner Connect | Send a Message">{linkText}<img
+                                                    class="arrowIcon" src={breadcrumbArrowIcon}><img></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

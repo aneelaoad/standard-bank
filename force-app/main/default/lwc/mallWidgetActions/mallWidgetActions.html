@@ -1,0 +1,11 @@
+<template>
+    <button class={widgetActionsCssClass} onclick={toggleActionList}></button>
+    <ul lwc:if={actionsList} class="widget-actions-list">
+        <template for:each={actionsList} for:item="item">
+            <li key={item.name}>
+                <button class="action-button" onclick={item.event}><span lwc:if={item.icon}
+                        class={item.icon}></span>{item.name}</button>
+            </li>
+        </template>
+    </ul>
+</template>

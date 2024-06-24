@@ -1,0 +1,150 @@
+.ao-background-colour_brand-blue {
+  background-color: #0033a1;
+  color: white;
+}
+
+.ao-background-colour_brand-blue h1 {
+  margin-bottom: 0px !important;
+  color: white;
+}
+
+.btn-secondary {
+  color: #0089ff !important;
+  font-size: 14px;
+  background-color: white !important;
+  font-family: 'bentonsans-bold-webfont';
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px;
+}
+
+
+.slds-icon {
+  fill: none !important;
+}
+
+.closeIcon {
+  position: absolute;
+  top: 15px;
+  right: 14px;
+  width: 30px !important;
+}
+
+.aob_header_title {
+  justify-content: center !important;
+}
+
+.slds-modal__content {
+  text-align: center;
+}
+
+.slds-modal__content b {
+  padding: 20px 0px;
+  font-family: bentonsans-extra-light-webfont;
+}
+
+.slds-modal__content p {
+  padding: 20px 0px;
+  color: #858d9d;
+}
+
+.dflex {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-primary {
+  letter-spacing: 1.5px;
+  font-family: 'bentonsans-bold-webfont';
+}
+.closeIcon {
+  position: absolute;
+  top: 9px;
+  right: 14px;
+  --sds-c-icon-color-foreground-default: white;
+  --sds-c-icon-color-foreground: white;
+}
+
+
+@media (max-width: 700px) {
+  .dflex {
+    display: inherit;
+    margin-top: -25px;
+  }
+
+  .btn-secondary {
+    margin-bottom: 10px;
+  }
+
+  .btn-primary {
+    width: 95%;
+    font-size: 14px;
+  }
+
+  .btn-secondary {
+    width: 95%;
+  }
+.slds-icon{
+    width: 10px;
+    height: 10px;
+  }
+  .slds-modal_container {
+    margin: 0 1rem !important;
+  }
+
+}
+
+@media (max-width: 350px) {
+  .btn-primary {
+    font-size: 12px;
+  }
+ .btn-secondary {
+   font-size: 12px;
+  }
+ 
+}
+@media screen and (max-width: 768px) {
+   .btn-primary {
+    font-size: 14px;
+  }
+}
+@media (max-width:862px) and (min-width:768px) {
+    .btn-secondary {
+      font-size: 11px;
+    }
+}
+@media (max-width:379px) and (min-width:358px) {
+    .btn-secondary {
+      font-size: 12px;
+    }
+}
+@media (max-width:357px) and (min-width:336px) {
+    .btn-secondary {
+      font-size: 10px;
+    }
+}
+@media (max-width:335px) and (min-width:324px) {
+    .btn-secondary {
+      font-size: 9px;
+    }
+}
+@media (max-width:323px) and (min-width:312px) {
+    .btn-secondary {
+      font-size: 8px;
+    }
+}
+@media (max-width:311px) and (min-width:302px) {
+    .btn-secondary {
+      font-size: 7px;
+    }
+}
+@media (max-width:301px) and (min-width:291px) {
+    .btn-secondary {
+      font-size: 6px;
+    }
+}
+
+@media screen and (max-width: 311px) {
+   .btn-secondary {
+      font-size: 5px;
+    }
+}

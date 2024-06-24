@@ -1,0 +1,29 @@
+.dummy {
+  color: blue;
+}
+.errorFile {
+  border-color: red !important;
+}
+.errorMessage {
+  margin-top: 15px;
+}
+.slds-button_neutral:focus {
+  box-shadow: none;
+  border: 0;
+}
+.slds-button:focus {
+  box-shadow: none;
+  border: 0;
+}
+.slds-file-selector__button {
+  text-transform: inherit !important;
+}
+.slds-form-element__label {
+  margin-bottom: 0px !important;
+}
+
+.slds-file-selector__body span.slds-file-selector__button {
+  width: 100%;
+  justify-content: flex-start;
+  padding-left: 8px;
+}

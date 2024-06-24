@@ -1,0 +1,23 @@
+<template>
+    <c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div class="aob_form">
+    <div slot="content" class="aob_text_align_center">
+        <div slot="content" class="aob_text_align_center">
+            <label class="aob_screen-title slds-align_absolute-center">{label.PBP_ZA_Wellcallyouback}</label>
+            <div class="slds-m-top_small slds-size_1-of-1">
+                <label class="aob_screen-text-normal aob_text_align_center">{label.AOB_WellCallBack}</label>
+            </div>
+            <div class="slds-m-top_small slds-size_1-of-1">
+            </div>
+            <div class="slds-m-top_small slds-m-bottom_xx-large slds-size_1-of-1" style="color:#858d9d">
+                <label class="aob_screen-text-lowlight aob_text_align_center">{label.AOB_WellCallBack3}</label>
+            </div>
+        </div>
+    </div>
+    <div slot="footer" class="aob_modal_buttons_container">
+        <lightning-button class="aob_modal_button" variant="brand" label={label.AOB_BackToBrowsing}
+            onclick={handleBackToBrowsing}>
+        </lightning-button>
+    </div>
+</div>
+</template>

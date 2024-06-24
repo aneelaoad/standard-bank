@@ -1,0 +1,50 @@
+<!--
+  @description       : 
+  @author            : mbourhi@salesforce.com
+  @group             : 
+  @last modified on  : 04-13-2021
+  @last modified by  : mbourhi@salesforce.com
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   01-11-2021   mbourhi@salesforce.com   Initial Version
+-->
+<template>
+    <c-aob_comp_modal hasheader='true' onclosed={closeModal} header={label.AOB_FinalOffer_Modal_Title}
+            data-id={adobeTag.dataId} data-intent={adobeTag.dataIntent}
+            data-scope={adobeTag.dataScope} data-text={adobeTag.dataTextClose}>
+        <div slot="content" class="aob_margin_horizontal_auto slds-size_9-of-12 aob_mobile_1_of_1">
+            <c-aob_comp_spinner if:false={link} ></c-aob_comp_spinner>
+            <div class="aob_display-flex aob_sm_flex_direction_row">
+                <lightning-input type="checkbox" onchange={handleChange}></lightning-input>
+                <label class="aob_font_size_15_13 slds-m-left_large">
+                    {label.AOB_FinalOffer_Modal_Text}&nbsp;
+                    <a href={link} target="_blank">
+                        {AOB_FinalOffer_Modal_Link}
+                    </a> 
+                </label>
+            </div>
+
+            <div class="aob_font_size_15 slds-m-top_small">{label.AOB_FinalOffer_Modal_Text2}</div>
+            <ul class="slds-list_dotted slds-p-left_x-small aob_font_size_15">
+                <li class="slds-m-top_large">{AOB_FinalOffer_Modal_Confirm1}</li>
+                <li if:true={AOB_FinalOffer_Modal_Confirm2} class="slds-m-top_large">{AOB_FinalOffer_Modal_Confirm2}
+                </li>
+            </ul>
+        </div>
+        <div slot="footer" class="aob_display-flex slds-size_9-of-12 aob_margin_horizontal_auto slds-m-vertical_medium">
+            <lightning-button
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small slds-p-horizontal_xx-small"
+                variant="neutral" label={label.AOB_Button_Close} title={label.AOB_Button_Close} onclick={closeModal}
+                data-id={adobeTag.dataId} data-intent={adobeTag.dataIntent}
+                data-scope={adobeTag.dataScope} data-text={adobeTag.dataTextClose}>
+            </lightning-button>
+            <lightning-button
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small slds-p-horizontal_xx-small"
+                variant="brand" label={label.AOB_Button_Sign} title={label.AOB_Button_Sign} onclick={handleSign}
+                disabled={disableButton}
+                data-id={adobeTag.dataId} data-intent={adobeTag.dataIntent}
+                data-scope={adobeTag.dataScope} data-text={adobeTag.dataTextSign}>
+            </lightning-button>
+        </div>
+    </c-aob_comp_modal>
+</template>

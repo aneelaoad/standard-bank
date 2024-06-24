@@ -1,0 +1,25 @@
+@import 'c/eapCssLibrary';
+
+*{
+    background-color: #fff;
+}
+
+.relleno {
+    height: 30vh;
+    background-color: var(--background-grey);
+    box-shadow: inset 0 5px 5px -6px #888;
+}
+
+.bottom_button {
+    display: flex;
+    justify-content: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+
+.v1_div_container {
+    width: 100%;
+    box-shadow: inset 0 5px 5px -6px #888;
+    padding: 1em 2em;
+}

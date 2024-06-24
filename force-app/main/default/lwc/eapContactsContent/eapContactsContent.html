@@ -1,0 +1,51 @@
+<!--
+  @description       : Lwc to show event contacts
+  @author            : TCK
+  @group             : 
+  @last modified on  : 08-03-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-23-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_container">
+        <template if:false={noData} for:each={elements} for:item="elem">
+            <div key={elem.Id} class="elem contact">
+                <template if:true={elem.Img}>
+                    <img src={elem.Img} key={elem.Id} class="v1_img_listview v1_div_data">
+                </template>
+                <template if:false={elem.Img}>
+                    <div class="v1_div_initials v1_div_data">{elem.Initials}</div>
+                </template>
+
+                <div class="v1_div_data data_values">
+                    <div class="v1_div_data">
+                        <p class="label v1_p_longData">{elem.SupTitle}</p>
+                        <p class="v1_p_title v1_p_longData">{elem.Title}</p>
+                        <p class="v1_p_subTitle v1_p_longData">{elem.SubTitle}</p>
+                    </div>
+
+                    <div class="v1_div_extraData">
+                        <template for:each={elem.ExtraData} for:item="data">
+                            <div key={data.Id} class="v1_p_longData">
+                                <a href={data.Rute}>
+                                    <template if:true={data.Icon}>
+                                        <img src={data.Icon}></img>
+                                    </template>
+                                    {data.Value}
+                                </a>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <div if:true={noData}>
+            <p class="v1_p_title v1_p_longData">Relationship Manager not associated.</p>
+        </div>
+        <div if:true={isError}>
+            <p class="v1_p_title v1_p_longData">Error loading contacts.</p>
+        </div>
+    </div>
+</template>

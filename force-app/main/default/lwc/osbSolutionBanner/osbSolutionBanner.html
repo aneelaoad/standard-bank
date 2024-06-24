@@ -1,0 +1,42 @@
+<template>
+    <section data-id="section"> 
+        <div class="container">
+            <div class="container__text" data-id="teaserosb">
+                <div class="container__header">
+                    <span>
+                        <img src={solutionLogo} data-id="image-container" />
+                    </span>
+                </div>
+                <div class="container__paragraph" data-id="paragraph">
+                    <lightning-formatted-rich-text value={mainContent}></lightning-formatted-rich-text>
+                </div>
+                <div class="container__buttons">
+                    <div if:true={createCaseForExternalLink}>
+                        <div if:true={link}>
+                            <button style={btnStyle} data-id="uitlink_link_btn1" onclick={requestAccess}
+                                data-intent="navigational" data-text={RequestButtonAdobe}
+                                data-scope="splash page">{linkLabel}</button>
+                        </div>
+                    </div>
+                    <div if:false={createCaseForExternalLink}>
+                            <a href={link} class="button-link" data-id="uitlink_link_btn1"
+                            data-intent="navigational" data-text={RequestButtonAdobe}
+                            data-scope="splash page"> <button style={btnStyle}>
+                                {linkLabel}</button></a>
+                    </div>
+                    <div if:true={showOneHubBtn}>
+                        <button style={btnStyleOneHub}> <a href="/s" class="button-link" data-id="uitlink_link_return"
+                                data-intent="navigational" data-text={RequestButtonAdobe}
+                                data-scope="splash page">RETURN TO ONEHUB</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="container__banner-image">
+                <img src={image} />
+            </div>
+        </div>
+    </section>
+</template>

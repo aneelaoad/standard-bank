@@ -1,0 +1,43 @@
+.title{
+    width: 550px;
+  height: 75px;
+  
+  font-family: "bentonsans-extra-light-webfont", "FuturaStd", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 28px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: #3c4b6c;
+}
+.slds_card{
+ 
+  padding: 30px 30px 30px 30px;
+  border-radius: 2px;
+  box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  text-transform: uppercase;
+}
+.slds-card__header{
+  padding: 0px!important;
+  margin: 0px!important;
+}
+
+@media (max-width: 1200px) {
+    .title{
+        font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .title {
+        font-size: 20px;
+    }
+  }
+.image{
+   
+    display: block;
+    float: left;
+      padding-right: 12px;
+}

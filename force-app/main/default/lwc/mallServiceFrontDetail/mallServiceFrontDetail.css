@@ -1,0 +1,35 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.grid-image {
+  grid-row-start: 4;
+  grid-row-end: 6;
+  grid-column-start: 2;
+}
+
+.image {
+  width: 10rem;
+}
+
+.history-section {
+  margin: 1rem 0px;
+}
+
+.categories-section {
+  display: flex;
+}
+
+.category {
+  margin: 0px 0.5rem 0px 0px;
+}
+
+.heading {
+  font-family: var(--lwc-fontFamily);
+  font-size: var(--font-size-body-m, 1rem);
+  font-weight: 700;
+  margin: 1rem 0.5rem;
+}

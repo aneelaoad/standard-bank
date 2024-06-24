@@ -1,0 +1,23 @@
+<template>
+    <div data-id="teaserosb" class="last-section teaser-container">
+        <div class="teaserL">
+            <div class="midTitle slds-m-top_xx-large slds-m-bottom_x-large slds-align_absolute-center">
+                <lightning-formatted-rich-text class="subDescription" value={title}></lightning-formatted-rich-text>
+            </div>
+            <div class="slds-grid slds-wrap list slds-align_absolute-center">
+                <div class="slds-col  slds-medium-size--4-of-8 slds-small-size--8-of-8  slds-large-size--2-of-12 slds-m-right_small">
+                    <div class="slds-grid slds-grid_vertical left-list" data-id="left-column">
+                    </div>
+                </div>
+                <div data-id="image-container" class="desktopImageL slds-col"><img src={image}/></div>
+                <div class="slds-col slds-medium-size--4-of-8 slds-small-size--8-of-8  slds-large-size--2-of-12 slds-m-left_small">
+                    <div class="slds-grid slds-grid_vertical right-list" data-id="right-column">
+                    </div>
+                </div>       
+            </div>
+            <div>
+                <lightning-formatted-rich-text value={subtitle}></lightning-formatted-rich-text>
+            </div>
+        </div>
+    </div>
+</template>

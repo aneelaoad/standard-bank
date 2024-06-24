@@ -1,0 +1,56 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    width: 285px;
+    margin: 0 1px 0 0;
+    padding: 52px 16px 31.5px;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.profile-picture {
+    width: 96px;
+    height: 96px;
+    border-radius: 50px;
+}
+
+.name {
+    width: 200px;
+    font-size: 18px;
+    color: #1c263c;
+    margin-top: 24px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.line {
+    height: 1px;
+    opacity: 0.3;
+    background-color: #bdc4d2;
+    margin-bottom: 15.5px;
+}
+
+.fieldName {
+    text-align: left;
+    color: #6a7286;
+    padding-bottom: 8px;
+}
+
+.fieldValue {
+    text-align: left;
+    color: #1c263c;
+    padding-bottom: 12px;
+    font-size: 13px;
+}
+
+.edit-profile{
+    color: #0089ff;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.backdrop{
+    position: absolute;
+    width: 400%;
+    transform: translate(-880px, 0px);
+}

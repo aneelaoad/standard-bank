@@ -1,0 +1,24 @@
+<template>
+  <div>
+    <div if:true={fullWidth} class="fullWidth" style={styleBG}>
+      <div class="theme-container">
+        <h1 style={style} if:true={isH1} class="heading-large">{title}</h1>
+        <h2 style={style} if:true={isH2} class="heading-normal">{title}</h2>
+        <h3 style={style} if:true={isH3} class="heading-small">{title}</h3>
+        <h4 style={style} if:true={isH4} class="text-large">{title}</h4>
+        <h5 style={style} if:true={isH5} class="text-normal">{title}</h5>
+        <h6 style={style} if:true={isH6} class="text-small">{title}</h6>
+        <div if:true={separator} class="separator"></div>
+      </div>
+    </div>
+    <div if:false={fullWidth} style={styleBG}>
+      <h1 style={style} if:true={isH1} class="heading-large">{title}</h1>
+      <h2 style={style} if:true={isH2} class="heading-normal">{title}</h2>
+      <h3 style={style} if:true={isH3} class="heading-small">{title}</h3>
+      <h4 style={style} if:true={isH4} class="text-large">{title}</h4>
+      <h5 style={style} if:true={isH5} class="text-normal">{title}</h5>
+      <h6 style={style} if:true={isH6} class="text-small">{title}</h6>
+      <div if:true={separator} class="separator"></div>
+    </div>
+  </div>
+</template>

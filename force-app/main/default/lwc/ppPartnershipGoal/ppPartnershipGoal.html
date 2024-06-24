@@ -1,0 +1,102 @@
+<!-- **
+* @description  : Partner Portal Regisrtaion Form Sub Component
+* User Story : SFP-5159
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <div class="main-container">
+        <template if:true={renderFlag}>
+            <div class="slds-col slds-m-top_small">
+                <div class="row">
+                    <div class="column">
+                        <p class="slds-text-title_bold sec-heading">Your Partnership Goal</p>
+                        <p class="text">Tell us your partnership goal so we can create the right opportunities for you</p>
+                    </div>
+                    <div class="column">
+                        <img src={icon} class="sec-icon" />
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-m-top_small slds-p-bottom_small">
+                <p class="field-label">Goal of this Partnership is</p>
+            </div>
+            <div class="container">
+                <template if:true={selectedPartnershipOptions}>
+                    <template for:each={selectedPartnershipOptions} for:item="option">
+                        <div class="slds-col col" key={option.value} data-id="option">
+                            <div class="slds-grid">
+                                <div class="slds-col" style="flex: none;">
+                            <lightning-input type="checkbox" name={option.value}
+                                value={option.value} checked={option.checked} data-id="checkbox"
+                                onchange={handleInputChange}></lightning-input>
+                                </div> 
+                                <div class="slds-col field-label"> {option.value}</div>
+                            </div>
+                        </div>
+                    </template>                    
+                </template>
+                <template if:true={showOtherField}>
+                    <input type="text" class="other-field" placeholder="Partnership Goal"
+                        name="PartnershipGoalOther" onchange={handleInputChange} value={partnershipGoalOther}></input>
+                </template>
+                <template if:true={otherFieldValidationError}>
+                    <div class="slds-col" style="margin-top: 2px; margin-bottom : 12px;">
+                        <p class="validationMsg" style="margin-left: 12px;">{otherFieldValidationError}</p>
+                    </div>
+                </template>
+            </div>
+            <template if:true={checkboxGroupValidationError}>
+                <div class="slds-col" style="margin-top: 2px">
+                    <p class="validationMsg">{checkboxGroupValidationError}</p>
+                </div>
+            </template>
+            <div class="slds-col slds-m-top_small">
+                <lightning-combobox
+                    name="Country"
+                    class="Country"
+                    label="My business primarily operates from"
+                    placeholder="Select Country"
+                    value={country}
+                    options={countryOptions}
+                    onchange={handleInputChange}
+                ></lightning-combobox>
+            </div>
+
+            <div class="slds-col slds-m-top_small">
+                <p class="annual-bussiness-field">Annual Business Turnover</p>
+                <div class="slds-grid">
+                    <div class="slds-col" style="flex: none; width: 86px; margin-top: 6px">
+                        <lightning-combobox
+                            name="Currency"
+                            class="Currency"
+                            label=""
+                            placeholder="Select Currency"
+                            value={currency}
+                            options={currencyOptions}
+                            onchange={handleInputChange}
+                        ></lightning-combobox>
+                    </div>
+                    <div class="slds-col turnover">
+                        <lightning-combobox
+                            name="Turnover"
+                            class="Turnover"
+                            label=""
+                            placeholder="Select Turnover"
+                            value={turnover}
+                            options={filteredTurnoverOptions}
+                            disabled={dependentDisabled}
+                            onchange={handleInputChange}
+                        ></lightning-combobox>
+                    </div>
+                </div>
+                <template if:true={turnoverValidationError}>
+                    <div class="slds-col" style="margin-top: 2px">
+                        <p class="validationMsg">{turnoverValidationError}</p>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

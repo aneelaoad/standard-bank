@@ -1,0 +1,11 @@
+.noApiProductsAssociatedWithThisApi{
+    text-align: center;
+    color: #0A7299;
+    font-size: 1.1875rem;
+}
+.customPadding {
+    margin-left: -20px;
+    margin-right: -20px;
+    clear: both;
+    display: block;
+}

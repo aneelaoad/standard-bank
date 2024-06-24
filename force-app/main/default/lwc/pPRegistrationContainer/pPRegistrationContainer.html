@@ -1,0 +1,107 @@
+<!-- **
+* @description  : Partner Portal Registration From Component
+* User Story : SFP-5159
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+  <div class="main-container">
+    <div class="spinner">
+      <template if:true={isProcessing}>
+          <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+           </lightning-spinner>
+      </template>
+    </div>
+    <div class="slds-align_absolute-center">
+      <div class="slds-grid slds-grid_vertical container" data-frmcontainer="PartnerConnect Registration From" id="PartnerConnect_Registration_From">
+        <div class="slds-col sec-padding">
+          <div class="slds-grid slds-grid_align-spread">
+            <div class="slds-col">
+              <p class="text-normal-sfProDisplay text">REGISTER FOR PARTNERCONNECT</p>
+            </div>
+            <template if:true={nextBtn}>
+              <div class="slds-col">
+                <p class="text-normal-sfProDisplay text">STEP {currentStep}/6</p>
+              </div>
+            </template>
+            <template if:false={nextBtn}>
+              <div class="slds-col">
+                <p class="text-normal-sfProDisplay text">COMPLETED</p>
+              </div>
+            </template>
+          </div>
+        </div>
+        <div class="slds-col slds-m-top_small">
+          <div class="lline"></div>
+        </div>
+
+        
+        <!--Need to change to the step 1-->
+        <c-pp-communication-details class="sec-padding"
+          page-index={currentStep} terms-and-condition-text={termsAndConditionText}>
+        </c-pp-communication-details>
+
+        <!--Step 2 -->
+        <c-pp-O-T-P-Verification class="sec-padding"  page-index={currentStep} guid={guid}>
+        </c-pp-O-T-P-Verification>
+        <div if:true={isResendOTP}>
+          
+          <!--disabled attribute identifies whether the user has clicked on Resend OTP or not-->
+          <div if:false={disabled}>
+          <div class="slds-col sec-padding">
+            <a href="#" onclick={ResendOTP}>Resend OTP</a>
+          </div>
+        </div>
+        
+
+      <div if:true={disabled}>
+          <div class="slds-col sec-padding">
+		      <p class="slds-text-heading_medium">
+            <!-- <span class="slds-m-bottom_x-small">{code}</span> -->
+            <lightning-progress-ring
+              value={ringCounter}
+            ></lightning-progress-ring>
+          </p>
+          <p>Wait for {refreshCounter} second(s)</p>
+		      </div>
+      </div>
+    </div>
+      <!--Step 3-->
+        <c-pp-Company-Information class="sec-padding" page-index={currentStep} guid={guid}>
+        </c-pp-Company-Information>
+        
+        <!--Step 4-->
+        <c-pp-partnership-goal class="sec-padding" page-index={currentStep}>
+        </c-pp-partnership-goal>
+
+        <!--Step 5-->
+        <c-pp-brief-description class="sec-padding" page-index={currentStep}>
+        </c-pp-brief-description>
+
+        <!--Step 6-->
+        <c-pp-registration-thank-you page-index={currentStep}></c-pp-registration-thank-you>
+        
+        <div class="slds-col slds-m-top_small">
+          <div class="slds-grid slds-grid_align-spread">
+            <div class="slds-col back-btn-container">
+              <template if:true={backBtnFlag}>
+                <button class="slds-button slds-button_neutral btn" onclick={handleBack}
+                        data-intent="navigational" data-scope="Registration Form"
+                        data-id="link_content" data-text={stepDetailBack}>BACK</button>
+              </template>
+            </div>
+            
+            <template if:true={nextBtn}>
+              <div class="slds-col btn-container">
+                <button class="slds-button slds-button_neutral btn next-btn" data-intent="navigational"
+                        data-scope="Registration Form"  data-text={stepDetailNext}
+                        onclick={handleNext} data-id="next-btn">NEXT</button>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,4 @@
+.attach-to-bottom {
+    position: sticky;
+    bottom: -1rem;
+}

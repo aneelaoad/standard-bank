@@ -1,0 +1,20 @@
+.dummy{
+	color : black;
+}
+.options-css{
+	font-size: 15px;
+	font-weight: 500;
+}
+.concessionerror{
+	font-size: 15px;
+    background-color: rgb(253, 234, 234);
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(195, 118, 118);
+}
+.emailsuccess{
+    
+}
+.client{
+    font-size:15px;
+}

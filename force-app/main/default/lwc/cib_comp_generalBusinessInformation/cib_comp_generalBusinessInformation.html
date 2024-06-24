@@ -1,0 +1,161 @@
+<!--
+  @description       : This is used for General Business Information screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="container">
+    <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>General Business Information</h2>
+    </article>
+    <div class="aob_card-container">
+      <label class="aob_title-sm" for="form-element-05">
+        <span class="slds-required" title="required">* </span>
+        Nature of business/industry</label
+      >
+      <template for:each={lineItems} for:item="item" for:index="index">
+        <div
+          key={item.indexId}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <div class="slds-form-element__label" id="combobox-label-id-130">
+                <span class="slds-required" title="required">* </span>Industry
+              </div>
+              <c-cmn_comp_acpicklist
+                data-line-item-sequence={item.CIB_Sequence__c}
+                value={item.CIB_Industry__c}
+                data-fieldname="CIB_Industry__c"
+                s-object-name="Application_Line_Item__c"
+                s-object-field-name="CIB_Industry__c"
+                required
+              ></c-cmn_comp_acpicklist>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <span class="slds-required" title="required">* </span>Percentage
+                of turnover attributed to that industry (%)</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  data-line-item-sequence={item.CIB_Sequence__c}
+                  data-fieldname="CIB_TurnoverPercentage__c"
+                  value={item.CIB_TurnoverPercentage__c}
+                  variant="label-hidden"
+                  required
+                  type="number"
+                  message-when-pattern-mismatch="Only digits are allowed"
+                  formatter="percent-fixed"
+                  step="0.01"
+                  pattern="^(0*100{1,1}\.?((?<=\.)0*)?%?$)|(^0*\d{0,2}\.?((?<=\.)\d*)?%?)$"
+                  placeholder="Please enter the value"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_medium deleteicontopleft" key={item.indexId}>
+              <img
+                class="slds-p-top_large slds-p-left_large"
+                src={delete_row_icon}
+                alt="delete-row-icon"
+                data-line-item-sequence={item.CIB_Sequence__c}
+                access-key={item.indexId}
+                id={index}
+                alternative-text="Delete Row"
+                size="small"
+                title="Delete Row"
+                onclick={deleteLineItem}
+              />
+            </div>
+          </template>
+        </div>
+      </template>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            title="Primary action with lighter look"
+            onclick={addLineItem}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required"> </abbr
+              ><strong
+                >Nature of product / services traded by client</strong
+              ></label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                data-type="application"
+                data-fieldname="CIB_GBI_NatureProductServices__c"
+                type="text"
+                id="form-element-03"
+                placeholder="Please enter the value"
+                aria-describedby="form-error-02"
+                aria-invalid="true"
+                pattern="^[a-zA-Z-' ]*$"
+                variant="label-hidden"
+                value={applicationRecord.CIB_GBI_NatureProductServices__c}
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required"> </abbr
+              ><span class="slds-required" title="required">* </span
+              ><strong>Purpose of account</strong></label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                data-type="application"
+                data-fieldname="CIB_GBI_AccountPurpose__c"
+                type="text"
+                id="form-element-04"
+                placeholder="Please enter the value"
+                aria-describedby="form-error-02"
+                aria-invalid="true"
+                pattern="^[a-zA-Z-' ]*$"
+                required
+                variant="label-hidden"
+                value={applicationRecord.CIB_GBI_AccountPurpose__c}
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

@@ -1,0 +1,27 @@
+<template>
+  <!-- tiles -->
+  <div class="row">
+    <div class="col col-12 d-md-flex justify-content-center">
+      <template for:each={tiles} for:item="tile">
+          <div key={tile.id} class="horizontal-buttons__fixed-item d-flex">
+            <a
+              class="horizontal-buttons-item js-apply-now-modal-open"
+              href={tile.url} data-intent="informational" data-scope="TileMenu" data-id="link_content" data-text={tile.title}
+            >
+              <div class="horizontal-buttons-item__inner">
+                <div class="horizontal-buttons-item__icon">
+                  <img src={tile.icon}>
+                </div>
+                <div class="horizontal-buttons-item__detail">
+                  <div class="title title--module-sub-title horizontal-buttons-item__title">
+  
+                  </div>
+                  <p class="horizontal-buttons-item__copy">{tile.title}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+      </template>
+    </div>
+  </div>
+</template>

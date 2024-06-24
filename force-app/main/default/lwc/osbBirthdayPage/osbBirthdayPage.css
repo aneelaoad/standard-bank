@@ -1,0 +1,417 @@
+:host {
+    --primary-blue: #0a2240;
+    --secondary-blue: #4365AD;
+    --tertiary-blue: #0090FA;
+    --transunion: #00A6CA; 
+    --search-works: #EB7024; 
+    --resustent-doc: #39B2E2; 
+    --rely-comply: #53B77C; 
+    --pb: #8A8C8E; 
+    --verify: #00AEEF; 
+    --iidentifii: #001648; 
+    --authentifi: #01886A; 
+    --paygate: #0F70B6; 
+    --wyzetalk: #001648; 
+    --transaction-capital: #001648; 
+    --frdm: #B7AAAB; 
+    --font-heading: 48px;
+    --font-heading_m: 32px;
+    --font-heading_s: 16px;
+    --font-body: 32px;
+    --font-body_m: 16px;
+    --font-body_s: 8px;
+    --font-button: 24px;
+    --font-button_m: 16px;
+    --font-button_s: 8px;
+}
+
+.birthday-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f5f7;
+}
+
+.birthday-page__progress {
+    margin-bottom: 2rem;
+}
+
+.birthday-page__achievements,
+.birthday-page__solutions,
+.birthday-page__linkedin-live-events,
+.birthday-page__featured-solutions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.birthday-page__heading-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 0 2rem;
+    border-bottom: 0.3rem solid #4365ad;
+    margin: 0 4rem;
+}
+
+.heading-container__text {
+    font-size: var(--font-heading_m);
+    color: var(--secondary-blue);
+    font-weight: 700;
+}
+
+.birthday-page__achievements__container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 3rem 0;
+    flex-direction: column;
+    align-items: center;
+}
+
+.achievement__container,
+.achievement__container_grid,
+.achievement__container_flex {
+    width: 240px;
+    height: 403px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.achievement__container_grid {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+}
+
+.achievement__container_flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.achievement__accent_green,
+.achievement__accent_blue,
+.achievement__accent_orange {
+    position: absolute;
+    top: -0.8rem;
+    left: 0;
+    width: 98px;
+    height: 20px;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0%, 92% 100%, 0% 100%);
+    border-top-left-radius: 4px;
+}
+
+.achievement__accent_green {
+    background: linear-gradient(266.61deg, #b5bd00 0%, #00af43 104.19%);
+}
+
+.achievement__accent_blue {
+    background: linear-gradient(267.67deg, #0064fc 0%, #0033aa 83.16%);
+}
+
+.achievement__accent_orange {
+    background: linear-gradient(259.6deg, #ffb81d 0%, #ff681d 71.91%);
+}
+
+.achievement__stat__container {
+    margin-left: 1rem;
+}
+
+.achievement__heading {
+    color: var(--primary-blue);
+    font-size: var(--font-body_m);
+}
+
+.achievement__result {
+    color: var(--primary-blue);
+    font-size: var(--font-body);
+}
+
+.achievement__result_s {
+    color: var(--primary-blue);
+    font-size: var(--font-body_m);
+}
+
+.solutions__container {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+    width: 80%;
+}
+
+.solution__title {
+    text-align: center;
+    font-size: var(--font-body);
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.solution__sub-heading {
+    text-align: center;
+}
+
+.solutions__column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.solution_col {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.solution_col_start {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.solution__sub-heading {
+    color: var(--primary-blue);
+    font-size: var(--font-body);
+    font-weight: 200;
+    margin-bottom: 1rem;
+}
+
+.solution__item__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem 0.5rem 0;
+}
+
+.solution__item__container img {
+    max-width: 50%;
+}
+
+.item__title {
+    color: var(--primary-blue);
+    font-size: 12px;
+    font-weight: 200;
+    margin-left: 0.2rem;
+}
+
+.item__img {
+    width: 25px;
+    height: auto;
+}
+
+.mr_min {
+    margin-right: 1rem;
+}
+
+.transunion {
+    color: var(--transunion);
+}
+
+.search-works {
+    color: var(--search-works);
+}
+
+.resistent-doc {
+    color: var(--resustent-doc);
+}
+
+.rely-comply {
+    color: var(--rely-comply);
+}
+
+.pb {
+    color: var(--pb);
+}
+
+.verify {
+    color: var(--verify);
+}
+
+.iidentifii {
+    color: var(--iidentifii);
+}
+
+.authentifi {
+    color: var(--authentifi);
+}
+
+.paygate {
+    color: var(--paygate);
+}
+
+.wyzetalk {
+    color: var(--wyzetalk);
+}
+
+.transaction-capital {
+    color: var(--transaction-capital);
+}
+
+.frdm {
+    color: var(--frdm);
+}
+
+.linkedin-live-events__container_grid {
+    display: grid;
+    margin: 3rem 0 2rem 0;
+}
+
+.linkedin-live-events__description {
+    font-size: var(--font-body_m);
+    text-align: center;
+    color: var(--secondary-blue);
+    margin: 0 1rem 3rem 1rem;
+}
+
+iframe {
+    width: inherit;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+
+.featured-solution-image__container {
+    position: relative;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.birthday-page__button_ab {
+    color: white;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    background-color: var(--tertiary-blue);
+    font-size: var(--font-button_m);
+    margin-top: 2rem;
+}
+
+.birthday-page__button_ab:hover,
+.birthday-page__button:hover {
+    background-color: #00AEEF;
+}
+
+.birthday-page__sign-up {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-up__text {
+    color: var(--secondary-blue);
+    text-align: center;
+    margin: 3rem 1rem;
+    font-size: var(--font-body_m);
+}
+
+.birthday-page__button {
+    padding: 1rem 2rem;
+    font-size: var(--font-button_m);
+    text-decoration: none;
+    color: white;
+    margin-bottom: 5rem;
+    border-radius: 5px;
+    background-color: var(--tertiary-blue);
+}
+
+@media only screen and (min-width: 1440px){
+    .birthday-page__achievements__container {
+        max-width: 645px;
+    }
+
+    .linkedin-live-events__container_grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2rem;
+    }
+}
+
+@media only screen and (min-width: 768px){
+    .birthday-page__heading-container {
+        border-bottom: 0.6rem solid #4365ad;
+    }
+
+    .heading-container__text {
+        font-size: var(--font-heading);
+    }
+
+    .birthday-page__achievements__container {
+        flex-direction: row;
+        margin: 5rem 0;
+    }
+
+    .achievement__container_flex {
+        margin-bottom: 0;
+    }
+
+    .achievement__container_grid {
+        margin-bottom: 0;
+    }
+
+    .solution_col {
+        justify-content: flex-start;
+        margin-bottom: 0;
+    }
+
+    .item__img {
+        width: 100%;
+    }
+
+    .featured-solution-image__container {
+        display: block;
+    }
+
+    .birthday-page__button_ab {
+        position: absolute;
+        top: 28%;
+        left: 5%;
+        padding: 0.5rem 2rem;
+        font-size: var(--font-button_m);
+        margin-top: 0;
+    }
+
+    .featured-solution-image__container img {
+        height: 300px;
+    }
+
+    .linkedin-live-events__description {
+        font-size: var(--font-body);
+    }
+
+    .sign-up__text {
+        font-size: var(--font-body);
+    }
+
+    .birthday-page__button {
+        padding: 1rem 3rem;
+        font-size: var(--font-button);
+    }
+
+    iframe {
+        width: 560px;
+        height: 315px;
+        margin-bottom: 1rem;
+    }
+
+}
+
+@media only screen and (min-width: 425px){
+    .item__title {
+        font-size: var(--font-body_m);
+    }
+
+    .item__img {
+        height: 100%;
+        width: auto;
+    }
+}

@@ -1,0 +1,183 @@
+<!--
+@description       :
+@author            : Franco.Pieterse@standardbank.co.za
+@group             :
+@last modified on  : 19 APRIL 2024
+@last modified by  : Narendra 
+@Modification Description : SFP-38348
+-->
+<template>
+    <c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div if:false={failing}>
+        <div
+            class="aob_card_container_pocketbiz container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius adj-left">
+            <img if:true={isShowingCloseButton} alt="Close button Icon" src={closeIcon}
+                class="aob_modal_close_button slds-m-right_xx-small slds-m-left_large"
+                onclick={handleOpenClosePageModal}>
+            <c-aob_comp_form-header put-title-left="true" title={label.AOB_Mymobiz_title}
+                sub-title={label.AOB_Mymobiz_info_request}>
+            </c-aob_comp_form-header>
+            <form autocomplete="off">
+                <div class="slds-grid aob_form_row slds-gutters slds-m-vertical_medium slds-wrap">
+                    <div
+                        class="slds-col slds-large-size_1-of-2 slds-medium_1-of-12 slds-small_1-of-12 slds-p-right_xx-large ">
+                        <label
+                            class="aob_screen-field-label slds-m-bottom_none devices">{label.AOB_Number_devices}</label>
+                        <lightning-combobox data-name="numberOfDevices" variant="label-hidden" value={numberOfDevices}
+                            placeholder={label.AOB_SelectionLabel} options={numberOptions} class="comb-box"
+                            onchange={genericInputOnChange} required>
+                        </lightning-combobox>
+                        <br>
+                        <span class="Select-the-card-type">{label.AOB_Select_card}</span>
+                        <div class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="Pocitbiz-checkbox" style="display: flex;">
+                                <lightning-input type="checkbox" data-name="visaCheck" data-id="checkbox"
+                                    onchange={handleInputChangeDefault} checked></lightning-input>
+                                {label.AOB_Visa}
+                            </div>
+                        </div>
+                        <div class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="Pocitbiz-checkbox" style="display: flex;">
+                                <lightning-input type="checkbox" data-name="masterCheck" data-id="checkbox"
+                                    onchange={handleInputChangeDefault} checked={disableCheck}></lightning-input>
+                                {label.AOB_Mastercard}
+                            </div>
+                        </div>
+                        <div class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="Pocitbiz-checkbox" style="display: flex;">
+                                <lightning-input type="checkbox" data-name="unionCheck" data-id="checkbox"
+                                    onchange={handleInputChangeDefault} checked={disableCheck}></lightning-input>
+                                {label.AOB_Union_Pay}
+                            </div>
+                        </div>
+
+                        <div class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="Pocitbiz-checkbox1" style="display: flex;">
+                                <lightning-input type="checkbox" data-name="dinersCheck" data-id="checkbox1" checked={formDetails.dinersCheck}
+                                    onchange={handleInputChange1}></lightning-input>
+                                {label.AOB_Diners}
+                            </div>
+                        </div>
+                        <div if:true={dinerscheckbox} class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="field-label-cards">
+                                <div class="three-checks">
+                                    <label class="aob_screen-field-label">{label.AOB_Diners_merchant_number}</label>
+                                    <lightning-input type="text" required={dinerscheckbox} variant="label-hidden"
+                                        data-id="texts" name="nameofTheIndividual" data-name="dinersNumber"
+                                        onchange={nameofTheIndividualChange} class="checkbox-wdth" value={formDetails.dinersNumber}>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="Pocitbiz-checkbox1" style="display: flex;">
+                                <lightning-input type="checkbox" data-error="This is custom error message" 
+                                    data-id="checkbox2" data-name="americanCheckbox" onchange={handleInputChange2} checked={formDetails.americanCheckbox}>
+                                </lightning-input>
+                                {label.AOB_American_Express}
+                            </div>
+                        </div>
+                        <div if:true={americancheckbox} class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="field-label-cards">
+                                <div class="three-checks">
+                                    <label class="slds-m-bottom_none">{label.AOB_Amex_number}</label>
+                                    <lightning-input type="text" required={americancheckbox} variant="label-hidden"
+                                        data-id="texts" name="nameofTheIndividual" data-name="americanNumber"
+                                        onchange={nameofTheIndividualChange} class="checkbox-wdth" value={formDetails.americanNumber}>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="Pocitbiz-checkbox1" style="display: flex;">
+                                <lightning-input type="checkbox" data-error="This is custom error message"
+                                    data-id="checkbox3" data-name="rcsCheckbox" onchange={handleInputChange3} checked={formDetails.rcsCheckbox}>
+                                </lightning-input>
+                                {label.AOB_RCS}
+                            </div>
+                        </div>
+                        <div if:true={rcscheckbox} class="slds-grid adjust-checkbox-text mb-10">
+                            <div class="field-label-cards">
+                                <div class="three-checks">
+                                    <label class="slds-m-bottom_none">{label.AOB_RCS_merchant_number}</label>
+                                    <lightning-input type="text" required={rcscheckbox} variant="label-hidden"
+                                        data-id="texts" name="nameofTheIndividual" data-name="rcsNumber"
+                                        onchange={nameofTheIndividualChange} class="checkbox-wdth" value={formDetails.rcsNumber}>
+                                    </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="aob_form_input slds-m-top_small">
+                            <label class="slds-m-bottom_none">{label.AOB_describe_goods}</label>
+                            <lightning-input type="text" variant="label-hidden" data-name="goodsdescribe"
+                                data-id="texts" onchange={goodsdescribeExampleChange} placeholder={label.AOB_Example}
+                                 required style="margin-bottom: 24px;" value={formDetails.goodsdescribe}>
+                            </lightning-input>
+                        </div>
+
+                        <label class="aob_screen-field-label slds-m-bottom_none">{label.AOB_Merchant_Category}</label>
+                        <c-aob_comp_acpicklist sapfield="MRCHT_CAT" name="merchantCategory" missing-value-message="Please select it"
+                            placeholder="Please select" onblur={genericComponentChangeBlur}
+                            onchange={genericInputOnChangeMerchant} class="merchant-category"
+                            data-value={selectedPicklistValue} required value={selectedPicklistValue}>
+                        </c-aob_comp_acpicklist>
+                        <br>
+                        <img class="aob_tooltip_icon" alt="Tooltip icon" src={infoIcon}>
+                        <span class="Delivery">{label.AOB_delivery}
+                        </span>
+                    </div>
+                    <div class="slds-col slds-large-size_1-of-2 slds-medium-size_2-of-2">
+                        <div class="Rectangle-3">
+                            <div class="Rectangle-4">
+                                <span class="Fee">
+                                    {label.AOB_Fee}
+                                </span>
+                                <br>
+                                <div class="text-num">
+                                    <span class="R ">{label.AOB_R}</span>
+                                    <span class="Devicetotal">{deviceTotal}</span>
+                                </div>
+                            </div>
+                            <br>
+                            <span class="Additional_fee">
+                                {label.AOB_Additional_fee}
+                            </span>
+                            <div class="HR"></div>
+                            <span class="Total_monthly_fee">{label.AOB_Total}</span>
+
+                            <div class="text-num">
+                                <span class="R1 ">
+                                    {label.AOB_R}
+                                </span>
+                                <span class="Devicetotal1">
+                                    {totalAmount}
+                                </span>
+                            </div>
+                            <br>
+                            <span class="Excludes">{label.AOB_ExcludeSelf}</span>
+                            <div
+                                class="aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1 aob_margin_horizontal_auto slds-m-vertical_small ">
+                                <lightning-button
+                                    class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small continue-click"
+                                    data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+                                    data-text={adobeDataTextContinue} variant="brand" label="continue" title="continue"
+                                    onclick={continueToNextPage}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Navigation Buttons-->
+                <div
+                    class="aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1 aob_margin_horizontal_auto slds-m-vertical_small aob_navigation_buttons">
+                    <lightning-button
+                        class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                        data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+                        data-text={adobeDataTextBack} variant="neutral" label="Back" title="Back"
+                        onclick={backToPreviousPage}>
+                    </lightning-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>

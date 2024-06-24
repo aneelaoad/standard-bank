@@ -1,0 +1,90 @@
+<template>
+  <div class="row">
+    <div class="col-lg-12">
+      <p class="prefernce-help-text">{businessHelpText}</p>
+    </div>
+  </div>
+  <ul>
+    <li>
+      <div class="formInput">
+        <label class="form-label">Business Name</label>
+        <div class="formInput_field">
+          <input
+            maxlength="80"
+            name="businessName"
+            size="20"
+            type="text"
+            placeholder="Business Name"
+            class="form-control enabledInput"
+            value={businessName}
+            onchange={handleInputChange}
+          />
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="formInput">
+        <label class="form-label">VAT registration number</label>
+        <div class="formInput_field">
+          <input
+            maxlength="80"
+            name="vatRegistrationNumber"
+            size="20"
+            type="text"
+            placeholder="VAT registration number"
+            class="form-control enabledInput"
+            value={vatRegistrationNumber}
+            onchange={handleInputChange}
+          />
+        </div>
+      </div>
+    </li>
+    <li>
+      <template if:true={showCIPC}>
+        <div class="formInput">
+          <label class="form-label">CIPC</label>
+          <div class="formInput_field">
+            <input
+              maxlength="80"
+              name="cipc"
+              size="20"
+              type="text"
+              class="form-control enabledInput"
+              value={cipc}
+              placeholder="CIPC"
+              onchange={handleInputChange}
+            />
+          </div>
+        </div>
+      </template>
+    </li>
+  </ul>
+
+  <div class="form_submit">
+    <c-mall-cmn-button
+      interaction-intent={buttonInteractionIntent}
+      interaction-scope={buttonInteractionScope}
+      interaction-type={buttonInteractionType}
+      interaction-text={buttonInteractionText}
+      interaction-text-before={buttonInteractionTextBefore}
+      variant="mall"
+      label={sendButtonLabel}
+      title={sendButtonLabel}
+      button-type="submit"
+      w-class="auto"
+      onclick={handleBusinessInfoChange}
+    >
+    </c-mall-cmn-button>
+    <template if:true={isSaving}>
+      <p class="saving-icon">
+        <img src={mallSavingIcon} class="saving-icon-image" />Saving changes
+      </p>
+    </template>
+    <template if:true={isSaved}>
+      <p class="saving-icon">
+        <img src={mallSavedIcon} class="saving-icon-image saved-image" />Changes
+        saved
+      </p>
+    </template>
+  </div>
+</template>

@@ -1,0 +1,23 @@
+<template>
+<ul class="plans slds-grid slds-wrap slds-grid_align-left slds-col slds-large-size_1-of-1 slds-medium-size_1-of-1 slds-small-size_1-of-1">
+  <template for:each={serializedPlans} for:item="item" >
+    <li key={item.id}  class="plan-container slds-col slds-large-size_1-of-3 slds-medium-size_1-of-3 slds-small-size_1-of-1">
+      <label onclick={onRadioClicked}>
+        <input type="radio" name="plan" value={item.id} data-attribute={item.id}/>
+        <div class="plan-card">
+          <div class="plan-heading">
+            <h5 class="plan-name">{item.name}</h5>
+            <span class="plan-price">{planPrice}</span>
+            <span class="plan-radio-button"></span>
+          </div>
+          <div class="plan-calls-container">
+            <template lwc:if={limits.calls}>
+              <span class="plan-calls">{limits.calls} calls per {limits.minutes}</span>
+            </template>
+          </div>
+        </div>
+      </label>
+      </li>
+   </template>
+  </ul>
+</template>

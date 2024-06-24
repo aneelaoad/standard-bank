@@ -1,0 +1,62 @@
+.dropDownInput{
+    display: flex;
+    height: 3rem;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 0.5rem;
+    border: 0.0625rem solid var(--neutrals-light-grey-text-subdued, #5C6C80);
+    background: var(--neutrals-white, #FFF);
+  }
+
+  .multi-select-combobox__dropdown {
+    max-height: 31.25rem;
+    overflow-y: auto;
+  }
+  
+  .multi-select-combobox__input {
+    background-color: #ffffff;
+    border: 0.0625rem solid grey !important;
+    border-radius: 0.25rem;
+    width: 100%;
+    transition: border 0.1s linear, background-color 0.1s linear;
+    display: inline-block;
+    padding: 0 1rem 0 0.75rem;
+    line-height: 1.875rem;
+    min-height: calc(1.875rem + (0.0625rem * 2));
+  }
+
+  .multi-select-combobox__input:invalid {
+    border: 0.0625rem solid red !important;
+  }
+
+  .multi-select-combobox__input:hover
+  .multi-select-combobox__input:focus
+  .multi-select-combobox__input:visited {
+    border: 0.0625rem solid blue !important;
+  }
+  
+  .multi-select-combobox__input:disabled {
+    background-color: #ecebea;
+    border: 0.0625rem solid #c9c7c5;
+  }
+  
+  .multi-select-combobox__icon {
+    margin-right: -0.1875rem;
+  }
+  
+  .multi-select-combobox__listbox {
+    width: 100%;
+  }
+
+  .dropIcon{
+    --sds-c-icon-color-foreground-default: blue;
+    --sds-c-icon-color-foreground: blue;
+  }
+
+  .signUp__inputs{
+    display: flex;
+    height: 3rem;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 0.5rem;
+  }

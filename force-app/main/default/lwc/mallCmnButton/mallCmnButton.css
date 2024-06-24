@@ -1,0 +1,215 @@
+:host {
+  --sds-c-button-color-background: var(--THEME-COLOUR-LIGHT);
+  --slds-c-button-color-border: var(--THEME-COLOUR-LIGHT);
+  --border-width: var(--border-width-overwrite, 1px);
+  --text-transform: var(--cmn-button-text-transform, uppercase);
+  --font-weight: var(--cmn-button-font-weight, 700);
+  --font-family: var(--cmn-button-font-family, var(--lwc-fontFamilyStrong));
+  max-width: 100%;
+}
+
+*:focus-visible {
+  outline: 2px solid #00ffb4;
+  outline-offset: 6px;
+}
+
+button {
+  font-size: var(--lwc-fontSize-14, 0.875rem);
+  font-weight: var(--font-weight);
+  font-stretch: normal;
+  font-style: normal;
+  height: 2.25rem;
+  text-align: center;
+  color: var(--white-color, #ffffff);
+  font-family: var(--font-family);
+  line-height: 1.43;
+  letter-spacing: 1.05px;
+  border-radius: var(--border-radius-button, 2px);
+  max-width: 100%;
+  box-shadow: rgba(0, 0, 0, 0) 0 0px 0px;
+  transition: box-shadow 0.3s ease-in-out;
+  text-transform: var(--text-transform);
+  white-space: nowrap;
+}
+
+button.slds-button_brand:not(:disabled) {
+  background-color: var(
+    --sds-c-button-color-background,
+    var(--tertiary-color, #fff)
+  );
+  border-color: var(
+    --sds-c-button-color-background,
+    var(--tertiary-color, #fff)
+  );
+  border-width: var(--border-width);
+}
+
+.responsive-icon-button lightning-formatted-rich-text {
+  display: none;
+}
+
+@media all and (min-width: 48rem) {
+  .responsive-icon-button lightning-formatted-rich-text {
+    display: block;
+  }
+}
+
+button.slds-button.slds-button_outline-brand {
+  height: 2.5rem;
+  padding: 0 0.625rem;
+}
+
+button.slds-button.slds-button_outline-brand:not(:disabled) {
+  --border-radius-button: 0.3125rem;
+  border-width: var(--border-width);
+  border-color: var(--neutral-medium-grey);
+}
+
+button.slds-button_neutral:not(:disabled) {
+  color: var(--sds-c-button-color-background, var(--tertiary-color, #fff));
+  background-color: var(--white-color, #fff);
+  border: 1px solid var(--white-color, var(--tertiary-color, #fff));
+  border-width: var(--border-width);
+}
+
+button:not(:disabled):hover {
+  box-shadow: rgba(0, 0, 0, 0.4) 0 3px 10px;
+}
+
+.slds-button_mall {
+  --sds-c-button-color-background: var(--white-color);
+  --slds-c-button-color-border: var(--white-color);
+  --border-width: var(--border-width-overwrite, 1px);
+}
+
+.slds-button_tertiary {
+  border: 1px solid #0062e1;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  color: var(--secondary-actions, #0051ff);
+  background-color: var(--white-color, #ffffff);
+  text-transform: uppercase;
+}
+
+.slds-button_tertiary:hover {
+  text-decoration: none;
+  color: #0062e1;
+  background-color: #014297;
+  transition: none;
+}
+
+button.slds-button.slds-button_mall.slds-button_mall {
+  border-radius: 0.5rem;
+  height: 2.25rem;
+  color: #0051ff;
+}
+
+@media all and (min-width: 64rem) {
+  button,
+  button.slds-button.slds-button_mall.slds-button_mall {
+    height: 3rem;
+  }
+}
+
+.slds-button_mall lightning-formatted-rich-text {
+  --lwc-lineHeightText: 1rem;
+  font-size: var(--font-size-body-s, 0.875rem);
+}
+
+.slds-button.slds-button_mall .slds-rich-text-editor__output {
+  padding: 4px 24px;
+}
+
+@media all and (min-width: 768px) {
+  .slds-button.slds-button_mall .slds-rich-text-editor__output {
+    padding: 0.5625rem 2rem;
+  }
+
+  .slds-button_mall lightning-formatted-rich-text {
+    font-size: var(--lwc-fontSize-14, 0.875rem);
+  }
+}
+
+.slds-button.slds-button_mall.slds-button_mall:not([disabled]):not(
+    :disabled
+  ):not(.slds-button_icon-inverse):not(.slds-button--icon-inverse):hover {
+  box-shadow: none;
+  --THEME-ACCENT-LIGHT: var(--primary-accent, #00008c);
+  color: var(--white-color);
+}
+
+.slds-button.slds-button_mall.slds-button_mall:not([disabled]):not(
+    :disabled
+  ):not(.slds-button_icon-inverse):not(.slds-button--icon-inverse):focus-within,
+.slds-button.slds-button_mall.slds-button_mall:not([disabled]):not(
+    :disabled
+  ):not(.slds-button_icon-inverse):not(.slds-button--icon-inverse):focus,
+.slds-button.slds-button_mall.slds-button_mall:not([disabled]):not(
+    :disabled
+  ):not(.slds-button_icon-inverse):not(
+    .slds-button--icon-inverse
+  ):focus-visible {
+  filter: drop-shadow(1px 0px 3px var(--secondary-actions, #0051ff));
+  outline: none;
+  color: var(--white-color, #fff);
+}
+
+.slds-button.slds-button_mall.slds-button_mall:disabled {
+  filter: drop-shadow(0 0 0 transparent);
+  --THEME-ACCENT-LIGHT: var(--neutral-medium-grey, #ced3d9);
+  color: var(--primary-text-medium-grey, #283640);
+}
+
+.icon-wrapper {
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: invert(13%) sepia(71%) saturate(4700%) hue-rotate(221deg)
+    brightness(89%) contrast(103%);
+}
+
+.slds-button:not([disabled], :disabled):hover .icon-wrapper,
+.slds-button:not([disabled], :disabled):focus-within .icon-wrapper,
+.slds-button:not([disabled], :disabled):focus .icon-wrapper,
+.slds-button:not([disabled], :disabled):focus-visible .icon-wrapper {
+  filter: invert(1);
+}
+
+.wAuto {
+  width: auto;
+}
+
+.wFull,
+.wFull .slds-rich-text-editor__output {
+  width: 100%;
+}
+
+.wFull.slds-button.slds-button_mall,
+.wFull.slds-button.slds-button_mall .slds-rich-text-editor__output {
+  width: 100%;
+}
+
+.w236 {
+  width: 16.857rem;
+}
+
+.w280 {
+  width: 20rem;
+}
+
+.w300 {
+  width: 21.4286rem;
+}
+
+.w340 {
+  width: 24.2857rem;
+}
+
+.w340C {
+  width: 24.2857rem;
+  left: 50%;
+  transform: translate(-50%);
+}

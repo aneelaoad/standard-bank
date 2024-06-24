@@ -1,0 +1,19 @@
+.osbapiContactUsButton {
+    border: 2px solid #FFFFFF;
+    border-radius: 5px;
+    width: 320px;
+    height: 50px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 29px;
+    color: white;
+    background-color: transparent;
+    margin-top: 2rem;
+    transition: all 200ms linear;
+}
+
+.osbapiContactUsButton:hover {
+    background-color: white;
+    color: #0D2E5E;
+}

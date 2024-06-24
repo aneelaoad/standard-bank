@@ -1,0 +1,51 @@
+.cmn-static-banner{
+    margin-top: 1.875rem;
+    border-radius: 0.5rem;
+    color: var(--font-light-color);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:center center;
+    min-height: 38rem;
+}
+
+.cmn-static-banner > div{
+    padding: 2.5rem 2rem;
+    box-sizing: border-box;
+}
+
+.spacer{
+    height: 3px;
+    width: 14.5rem;
+    clear: both;
+    margin-top: 1.25rem;
+    margin-bottom: 1.875rem;
+    margin-left: -1.3rem;
+}
+
+p{
+    font-size: var(--font-size-body-m, 1rem);
+    margin-bottom: 2.1875rem;
+}
+
+.button{
+    width: 15.625rem;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .cmn-static-banner{
+        min-height: 18rem;
+    }
+
+    .cmn-static-banner > div{
+        width: 25rem;
+        margin-right: auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .cmn-static-banner > div{
+        padding: 3.375rem 5.625rem;
+        width: 32rem;
+    }
+}

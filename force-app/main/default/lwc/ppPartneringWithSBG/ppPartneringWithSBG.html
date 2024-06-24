@@ -1,0 +1,145 @@
+<!-- **
+* @description  : Partner Portal Home Page Partner with SBG Component
+* User Story : SFP-5160
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+
+    <div class="container">
+        <div class="slds-grid slds-wrap main-grid slds-align_absolute-center">
+            <div class="slds-col slds-size_12-of-12">
+
+                <div class="slds-grid" style="margin-bottom: 30px;">
+                    <div class="slds-col slds-align-top slds-p-top_small heading-normal">
+                        <p>{mainHeading}</p>
+                    </div>
+
+                </div>
+
+                <div class="slds-tabs_default">
+                    <ul class="slds-tabs_default__nav" role="tablist">
+                        <li class={newTabOneNameClass} title="PARTNERING PROCESS" role="presentation"
+                            onclick={tabOneClick}>
+                            <a class="slds-tabs_default__link tab" role="tab" tabindex="0" aria-selected="true"
+                                aria-controls="tab-default-1" id="tab-default-1__item">PARTNERING PROCESS</a>
+                        </li>
+                        <li class={newTabTwoNameClass} title="FAQ" role="presentation" onclick={tabTwoClick}>
+                            <a class="slds-tabs_default__link tab" role="tab" tabindex="-1" aria-selected="false"
+                                aria-controls="tab-default-2" id="tab-default-2__item">FAQ</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab One -->
+
+                    <div id="tab-default-1" class={newTabOneContentClass} role="tabpanel"
+                        aria-labelledby="tab-default-1__item">
+
+                        <div class="slds-grid slds-wrap">
+
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-9 slds-large-size_1-of-3">
+
+                                <div class="slds-col box">
+                                    <div class="slds-grid slds-grid_vertical">
+
+                                        <div class="slds-grid box-heading-container">
+
+                                            <div class="slds-col story-image-container">
+                                                <img src={iconOne} class="story-image" />
+
+                                            </div>
+
+                                            <div class="slds-col box-heading heading-small">
+                                                <p>{headingOne}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="slds-col box-text text-normal">
+                                            <p>{textOne}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-9 slds-large-size_1-of-3">
+
+                                <div class="slds-col box">
+                                    <div class="slds-grid slds-grid_vertical">
+
+                                        <div class="slds-grid box-heading-container">
+
+                                            <div class="slds-col story-image-container">
+                                                <img src={iconTwo} class="story-image" />
+
+                                            </div>
+
+                                            <div class="slds-col box-heading heading-small">
+                                                <p>{headingTwo}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="slds-col box-text text-normal">
+                                            <p>{textTwo}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-9 slds-large-size_1-of-3">
+
+                                <div class="slds-col box">
+                                    <div class="slds-grid slds-grid_vertical">
+
+                                        <div class="slds-grid box-heading-container">
+
+                                            <div class="slds-col story-image-container">
+                                                <img src={iconThree} class="story-image" />
+
+                                            </div>
+
+                                            <div class="slds-col box-heading heading-small">
+                                                <p>{headingThree}</p>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="slds-col box-text text-normal">
+                                            <p>{textThree}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Tab Two -->
+                    <div id="tab-default-2" class={newTabTwoContentClass} role="tabpanel"
+                        aria-labelledby="tab-default-2__item">
+                        <div class="faq">
+                        <c-cmn-knowledge-article-listing article-type="FAQ" heading={faqHeading}
+                        sub-heading={faqSubHeading} template="Accordion"> </c-cmn-knowledge-article-listing>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="line slds-align_absolute-center"></div>
+    </div>
+
+</template>

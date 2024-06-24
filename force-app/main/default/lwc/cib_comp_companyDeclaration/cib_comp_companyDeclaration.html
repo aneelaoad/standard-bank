@@ -1,0 +1,353 @@
+<!--
+  @description       : This is used for Company Declaration screen
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+
+<template>
+  <div class="container">
+    <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Company Declaration</h2>
+    </article>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Declaration</div>
+      </div>
+      <ul>
+        <li class="mt_20">
+          I/we warrant that all particulars given to the Bank (whether in an
+          account opening form or otherwise) are, to the best of my/our
+          knowledge, accurate.
+        </li>
+        <li class="mt_20">
+          I/we warrant that all particulars given to the Bank (whether in an
+          account opening form or otherwise) are, to the best of my/our
+          knowledge, accurate. I/we undertake to notify the Bank in writing of
+          any change of address or other pertinent particulars recorded with the
+          Bank.
+        </li>
+        <li class="mt_20">
+          The NFFE is organised in a U.S. Territory and all of the owners of the
+          payee are bona fide residents of that U.S. Territory.
+        </li>
+        <li class="mt_20">
+          I/we undertake to promptly notify the Bank in writing of any change to
+          my/our FATCA/Tax Residency status and shall upon demand furnish the
+          Bank with relevant forms, documentation or other information required
+          to assess my/ our FATCA/Tax Residency status.
+        </li>
+        <li class="mt_20">
+          I/we authorise the Bank to make any independent enquiries on any
+          shareholders, directors or authorised signatories in accordance with
+          your normal procedures in connection with this application, including
+          but not limited to a bank reference from existing banks.
+        </li>
+        <li class="mt_20">
+          I/we undertake to inform the Bank in the event of a change in
+          beneficial ownership, directorship, shareholding and authorised
+          signatories.
+        </li>
+        <li class="mt_20">
+          I/we accept the above terms and conditions. Any information obtained
+          from the Bank in this application and in our dealings with the Bank
+          may be shared within the Standard Bank Group.
+        </li>
+        <li class="mt_20">
+          We understand that the information may be used for assessment and
+          analysis (including credit scoring, market and product analysis,
+          customer service etc) and to advise us of products and services.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">
+          <span class="slds-required" title="required">* </span>Declaration made
+          on behalf of
+        </div>
+      </div>
+      <template for:each={participants} for:item="item" for:index="index">
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <span class="slds-required" title="required">* </span>Full Name
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  required
+                  type="text"
+                  id="form-element-01"
+                  placeholder="Enter Full Name"
+                  name="fullName"
+                  data-fieldname="Name"
+                  aria-describedby="form-error-01"
+                  aria-invalid="true"
+                  value={item.Name}
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element aob_date-picker">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> </abbr>
+                <span class="slds-required" title="required">* </span
+                >Date</label
+              >
+
+              <c-cmn_comp_date-picker
+                data-participant-sequence={item.CIB_Sequence__c}
+                value={item.CIB_CDeclaration_Date__c}
+                data-fieldname="CIB_CDeclaration_Date__c"
+                data-index={index}
+                required
+              >
+              </c-cmn_comp_date-picker>
+              <div lwc:if={item.dateError} class="slds-form-element__help">
+                Please enter this field
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_medium" key={item.CIB_Sequence__c}>
+              <img
+                class="slds-p-top_large slds-p-left_large"
+                src={delete_row_icon}
+                alt="delete-row-icon"
+                icon-name="utility:delete"
+                access-key={item.CIB_Sequence__c}
+                data-participant-sequence={item.CIB_Sequence__c}
+                data-index={index}
+                id={index}
+                alternative-text="Delete Row"
+                size="small"
+                title="Delete Row"
+                onclick={deleteParticipant}
+              />
+            </div>
+          </template>
+        </div>
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> </abbr>
+                <span class="slds-required" title="required">* </span
+                >Designation</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  required
+                  message-when-pattern-mismatch="Only Character are allowed"
+                  type="text"
+                  id="form-element-02"
+                  placeholder="Please Enter Designation"
+                  name="CIB_CDeclaration_Designation__c"
+                  data-fieldname="CIB_CDeclaration_Designation__c"
+                  value={item.CIB_CDeclaration_Designation__c}
+                  pattern="^[a-zA-Z]+$"
+                  aria-describedby="form-error-01"
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+        <c-cib_comp_documents-container
+          key={item.CIB_Sequence__c}
+          data-participant-sequence={item.CIB_Sequence__c}
+          application-id={recordId}
+          section-id={sectionId}
+          participant-id={item.Id}
+        ></c-cib_comp_documents-container>
+      </template>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            title="Primary action with lighter look"
+            onclick={addParticipant}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+    <template lwc:if={showOfficeDetail}>
+      <article class="aob_page-titles">
+        <h2>For office use</h2>
+      </article>
+      <div class="aob_card-container">
+        <div class="checkbox-container">
+          <input
+            class="checkbox-input"
+            data-id="Yes"
+            id="Intragroupfinancing"
+            type="checkbox"
+            name="signedPerBoardResolutionDate"
+            data-fieldname="signedPerBoardResolutionDate"
+            label="Intra-group financing"
+            onclick={handleSuppliers}
+          />
+          <label class="checkbox" for="Intragroupfinancing">
+            <span class="slds-m-right_medium">
+              <img src={checkboxicon} alt="check" />
+            </span>
+            Duly signed as per board resolution date</label
+          >
+        </div>
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                Full Name
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  required
+                  message-when-pattern-mismatch="Only Character are allowed"
+                  type="text"
+                  id="form-element-03"
+                  placeholder="Enter Full Name"
+                  name="fullNameOffice"
+                  data-fieldname="fullNameOffice"
+                  aria-describedby="form-error-01"
+                  aria-invalid="true"
+                  onchange={genericFieldChange}
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element aob_date-picker">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> </abbr>Date</label
+              >
+              <div class="slds-form-element__control">
+                <c-cmn_comp_date-picker
+                  data-fieldname="date2"
+                  value={date2}
+                  onsetdate={genericDateChange2}
+                >
+                </c-cmn_comp_date-picker>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="aob_title-sm">
+            <span class="slds-required" title="required">* </span>Declaration
+            made on behalf of
+          </div>
+        </div>
+        <div class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="checkbox-container">
+              <input
+                class="checkbox-input radioInputFunds"
+                id="Intragroupfinancing1"
+                type="checkbox"
+                data-fieldname="Intra-group Financing"
+                name="Intra-group Financing"
+                label="Intra-group financing"
+                onchange={handleSuppliers}
+              />
+              <label class="checkbox" for="Intragroupfinancing1">
+                <span class="slds-m-right_medium">
+                  <img src={checkboxicon} alt="check" />
+                </span>
+                Intra-group financing</label
+              >
+            </div>
+            <div class="checkbox-container">
+              <input
+                class="checkbox-input radioInputFunds"
+                id="Businessincome"
+                type="checkbox"
+                data-fieldname="Business Income"
+                name="Business Income"
+                label="Business income"
+                onchange={handleSuppliers}
+              />
+              <label class="checkbox" for="Businessincome">
+                <span class="slds-m-right_medium">
+                  <img src={checkboxicon} alt="check" />
+                </span>
+                Business income</label
+              >
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="checkbox-container">
+              <input
+                class="checkbox-input radioInputFunds"
+                id="Externalinvestment"
+                type="checkbox"
+                data-fieldname="External Investment"
+                name="External Investment"
+                label="External investment"
+                onchange={handleSuppliers}
+              />
+              <label class="checkbox" for="Externalinvestment">
+                <span class="slds-m-right_medium">
+                  <img src={checkboxicon} alt="check" />
+                </span>
+                External investment</label
+              >
+            </div>
+            <div class="checkbox-container">
+              <input
+                class="checkbox-input radioInputFunds"
+                id="Saleofpropertyasset"
+                type="checkbox"
+                data-fieldname="Sale of Property"
+                name="Sale of Property"
+                label="Sale of property / asset"
+                onchange={handleSuppliers}
+              />
+              <label class="checkbox" for="Saleofpropertyasset">
+                <span class="slds-m-right_medium">
+                  <img src={checkboxicon} alt="check" />
+                </span>
+                Sale of property / asset</label
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="slds-form-element__help"
+          id="error_01"
+          lwc:if={expectedSourceOfFunds}
+        >
+          Please select one Source of funds
+        </div>
+      </div>
+    </template>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

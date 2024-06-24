@@ -1,0 +1,168 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<!--
+    @Author         :   Naveen B
+    @Create Date    :   21-09-2022
+    @Purpose        :   Uploading Documents from Managed Fund Page
+    @JIRA Tickets   :   SFP-17156
+-->
+<template>
+    <div style="display: none;">
+        {recordId}
+    </div>
+    <template if:true={blnSpinner}>
+        <lightning-spinner variant="brand" size="medium"> </lightning-spinner>
+    </template>
+    <template if:true={blnModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+            class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!--HEADER-->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add a Managed Fund
+                    </h2>
+                </header>
+                <!--BODY-->
+                <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+                    <div class="header">
+                        {strHeader}
+                    </div>
+                    <div class="subHeader">
+                        <b>{strSubHeader}</b>
+                    </div>
+                    <template if:true={list_kycDocument}>
+                        <template for:each={list_kycDocument} for:item="doc">
+                            <div key={doc}>
+                                <c-omf_file-uploader label={doc.strDocumentName} name={doc.strDocumentName} accept={accept}
+                                    parent-id={doc.strRecordId} file-id={doc.strFileId} file-name={doc.strFileName}
+                                    submitted={submitted} required={doc.blnRequired} single-managed-fund=false
+                                    help-text={doc.strHelpText}>
+                                </c-omf_file-uploader>
+                            </div>
+                        </template>
+                        <div class="border"></div>
+                    </template>
+                </div>
+                <!--FOOTER-->
+                <div class="slds-modal__footer">
+                    <lightning-layout multiple-rows="true">
+                        <lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+                            large-device-size="9" padding="around-small" class="slds-align_absolute-center">
+                        </lightning-layout-item>
+                        <lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+                            large-device-size="1" padding="around-small" class="slds-align_absolute-center">
+                            <button class="slds-button slds-button_neutral" aria-label="Cancel and close"
+                                onclick={handleCloseModal}>Cancel</button>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="4" small-device-size="4" medium-device-size="4"
+                            large-device-size="2" padding="around-small" class="slds-align_absolute-center">
+                            <button class="slds-button slds-button_brand" onclick={handleAttach}
+                                type="submit">Attach</button>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+    <template if:true={blnRequiredDocument}>
+        <p class="header_text"><b>You can only upload PDF files. The maximum size per file upload is 2MB.</b></p>
+        <br/>
+        <template if:true={list_kycDocument}>
+            <template for:each={list_kycDocument} for:item="doc">
+                <div key={doc}>
+                    <p class="header_text"><b>{doc.strDocumentHeader}
+                        <template if:true={doc.strHelpText}>
+                            <lightning-helptext content={doc.strHelpText} style="padding:10px"></lightning-helptext>
+                        </template>
+                    </b></p>
+                    <template if:false={doc.list_masterAgreementDetails}>
+                        <c-omf_file-uploader label={doc.strDocumentName} name={doc.strDocumentName} accept={accept}
+                            parent-id={doc.strRecordId} file-id={doc.strFileId} file-name={doc.strFileName}
+                            submitted={submitted} list-kyc-record-id={doc.list_kycStatusId} required={doc.blnRequired}
+                            onselection={handleUpload} single-managed-fund=false>
+                        </c-omf_file-uploader>
+                    </template>
+
+                    <!-- Display master agreement details-->
+                    <template if:true={doc.list_masterAgreementDetails}>
+                        <template for:each={doc.list_masterAgreementDetails} for:item="masterAgremeent">
+                            <c-omf_file-uploader label={masterAgremeent.strMasterAgreementName}
+                                name={masterAgremeent.strMasterAgreementName} 
+                                parent-id ={doc.strRecordId} accept={accept} submitted={submitted}
+                                key={doc.Id} list-kyc-record-id={masterAgremeent.list_kycStatusId} required={doc.blnRequired}
+                                file-id={masterAgremeent.strFileId} file-name={masterAgremeent.strFileName} 
+                                onselection={handleUpload} single-managed-fund=false>
+                            </c-omf_file-uploader>
+                        </template>
+                    </template>
+
+                    <br/>
+                    <div class="border"></div>
+                </div>
+            </template>
+            <div class="border"></div>
+        </template>
+    </template>
+
+    <template if:true={blnSingleManagedFundEdit}>
+            <p class="header_text"><b>You can only upload PDF files. The maximum size per file upload is 2MB.</b></p>
+            <br/>
+            <template if:true={list_kycDocument}>
+                <template for:each={list_kycDocument} for:item="doc">
+                    <div key={doc}>
+                        <p class="header_text"><b>{doc.strDocumentHeader}
+                            <template if:true={doc.strHelpText}>
+                                <lightning-helptext content={doc.strHelpText} style="padding:10px"></lightning-helptext>
+                            </template>
+                        </b></p>
+                        <template if:false={doc.list_masterAgreementDetails}>
+                            <c-omf_file-uploader label={doc.strDocumentName} name={doc.strDocumentName} accept={accept}
+                                parent-id={doc.strRecordId} file-id={doc.strFileId} file-name={doc.strFileName}
+                                submitted={submitted} list-kyc-record-id={doc.list_kycStatusId} required={blnTempRequiredDocument}
+                                single-managed-fund=true onselection={handleUpload} managed-fund-record-id={recordId} >
+                            </c-omf_file-uploader>
+                        </template>
+    
+                        <!-- Display master agreement details-->
+                        <template if:true={doc.list_masterAgreementDetails}>
+                            <template for:each={doc.list_masterAgreementDetails} for:item="masterAgremeent">
+                                <c-omf_file-uploader label={masterAgremeent.strMasterAgreementName}
+                                    name={masterAgremeent.strMasterAgreementName} 
+                                    parent-id ={doc.strRecordId} accept={accept} submitted={submitted} managed-fund-record-id={recordId}
+                                    key={doc.Id} list-kyc-record-id={masterAgremeent.list_kycStatusId} required={blnTempRequiredDocument}
+                                    file-id={masterAgremeent.strFileId} file-name={masterAgremeent.strFileName} 
+                                    single-managed-fund=true onselection={handleUpload}>
+                                </c-omf_file-uploader>
+                            </template>
+                        </template>
+                        <br/>
+                        <div class="border"></div>
+                    </div>
+                </template>
+                <div class="border"></div>
+            </template>
+            <template if:true={list_additionalDocument}>
+                <p class="header_text"><b>Additonal Documents</b></p>
+                <template for:each={list_additionalDocument} for:item="doc">
+                    <div key={doc}>
+                        <c-omf_file-uploader label={doc.strDocumentName} name={doc.strDocumentName} accept={accept}
+                                parent-id={doc.strRecordId} file-id={doc.strFileId} file-name={doc.strFileName} managed-fund-record-id={recordId}
+                                submitted={submitted} list-kyc-record-id={doc.list_kycStatusId} required={blnTempAdditonalDocumemt}
+                                single-managed-fund="true" onselection={handleUpload} help-text={doc.strHelpText}>
+                        </c-omf_file-uploader>
+                    </div>
+                </template>
+                <br/>
+                <div class="border"></div>
+            </template>
+            
+    </template>
+</template>

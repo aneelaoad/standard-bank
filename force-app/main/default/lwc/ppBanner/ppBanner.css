@@ -1,0 +1,145 @@
+@import 'c/ppCssLibrary';
+
+.banner-container {
+    background-color: #ffffff;
+    color: #fff;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+ .banner__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 5%;
+    margin-left: 11%;
+}
+
+ .banner__content-section {
+    align-self: center;
+}
+
+@media(max-width: 480px) {
+     .banner__content-section {
+        margin: 48px 21px 48px 50px;
+    }
+}
+
+@media(min-width: 480px) and (max-width: 1024px) {
+     .banner__content-section {
+        width: 41.6667%;
+    }
+
+     .banner__image-container {
+        width: calc(100% - 41.667%);
+    }
+}
+
+@media(min-width: 480px) {
+     .banner__content-section {
+        padding: 0 20px 0 12px;
+    }
+
+     .banner__image {
+        height: 100%;
+        width: auto;
+        background-size: auto;
+        object-position: 40% 0;
+    }
+}
+
+@media(min-width: 1024px) {
+     .banner__content-section {
+        padding-left: 36px;
+    }
+}
+
+@media(min-width: 1280px) {
+     .banner__content-section {
+        padding-left: 0;
+        
+    }
+     .banner {
+        justify-content: flex-end;
+    }
+}
+/*min-width calculated based on image size*/
+@media(min-width: 1861px) {
+     .banner__image-container {
+        width: auto;
+        
+    } .banner__content-section {
+       width: 38% !important;
+        
+    }
+    
+}
+
+@media(min-width: 1920px) {
+    .banner {
+        margin-left: 317px;
+    }
+}
+
+@media(min-width: 1680px) and (max-width: 1680px) {
+    .banner {
+        margin-left: 92px;
+    }
+}
+
+
+ .banner__title {
+    font-size: 52px;
+    font-weight: 200;
+    margin: 0 0 25px 0px;
+    line-height: 60px;
+    font-style: normal;
+    letter-spacing: normal;
+    color: #0033a1;
+  
+}
+
+ .banner__content {
+    max-width: 299px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+    margin: 20px 0px 26px;
+    padding-right: 50px;
+}
+
+ .banner__line {
+    background-image: linear-gradient(to left, #ffb94f, #ff5a00);
+    height: 2px;
+    width: 240px;
+    margin-left: -80px;
+}
+
+ .banner__button {
+    width: 240px;
+    height: 50px;
+    margin: 20px 0 0 0px;
+    padding: 18px 45px 15px;
+    border-radius: 2px;
+    background-color: #0089ff;
+    color: #ffffff;
+    border-color: #0089ff !important; 
+    font-weight: bold;   
+    line-height: 1.43;
+    letter-spacing: 1px;
+}
+
+.banner__button:hover{
+    background-color: #0069C4;
+}

@@ -1,0 +1,61 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    margin: 0 1px 0 0;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.heading{
+    text-transform: uppercase;
+}
+
+.successful-partnerships{
+    background-color: #F4F6FB;
+    border-radius: 4px;
+    padding : 12px;
+    margin-top : 16px;
+    margin-bottom : 24px;
+}
+
+.opp-count{
+    font-size: 36px;
+    color: #021237;
+    padding-top : 12px;
+    font-weight: normal;
+}
+
+.text{
+    padding-bottom: 4px;
+    font-size: 14px;
+    color: #6a7286;
+    font-weight: 600;
+}
+
+.line {
+    height: 1px;
+    opacity: 0.3;
+    background-color: #bdc4d2;
+}
+
+.oppty-name {
+    text-align: left;
+    padding-bottom: 8px;
+    font-size: 14px;
+    color: #1c263c;
+}
+
+.industry{
+    font-size: 12px;
+    font-weight: 500;
+    color: #6a7286;
+    text-align: left;
+    padding-bottom: 12px;
+}
+
+.link{
+    font-size:13px;
+    color: #0089ff;
+    padding-left: 12px;
+}

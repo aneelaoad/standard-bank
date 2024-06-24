@@ -1,0 +1,32 @@
+<template>
+    <div class="solution_card">
+        <div class="solution_cardHead">
+            <div class="solution_cardHead_icon">
+                <template if:true={mySolution.iconCTA}>
+                    <button onclick={redirectionAction}><span><img src={mySolution.iconUrl}></span></button>
+                </template>
+                <template if:false={mySolution.iconCTA}>
+                    <span><img src={mySolution.iconUrl}></span>
+                </template>                
+            </div>
+
+            <div class="solution_cardText">
+                <strong>{mySolution.title}</strong>
+                <!-- Todo: how to make part of text bold <p>You are on <b>tier 2</b></p> -->
+                <p>{mySolution.subTitle}</p>
+            </div>
+        </div>
+
+
+        <div class="solution_cardDescription">
+            <small>{mySolution.dataTitle}</small>
+            <strong>{mySolution.dataValue}</strong>
+        </div>
+
+        <div class="solution_cardBtn">
+            <template if:true={mySolution.buttomCTA}>
+                <button onclick={redirectionAction}><label>Transact</label></button>
+            </template>
+        </div>
+      </div>
+</template>

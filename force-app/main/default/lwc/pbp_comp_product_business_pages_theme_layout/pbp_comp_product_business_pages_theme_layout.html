@@ -1,0 +1,909 @@
+<!--
+  @description       : 
+  @author            : chandu.velmajala@standardbank.co.za
+  @group             : 
+  @last modified on  : 14-01-2023
+  @last modified by : chandu.velmajala@standardbank.co.za
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0 11-09-2022 chandu.velmajala@standardbank.co.za Initial Version
+-->
+<template>
+    <template if:true={isDesktopDevice}>
+        <header class="header_sec" data-f6-region>
+            <template if:true={ismodalpopcountrycode}>
+                <div class="pro_services_menu" style="height:160vh; padding: 22px;">
+                    <div class="container  ">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-large-size_1-of-2 Title">{label.PBP_ZA_chooseURcountry}</div>
+                            <div class="slds-col slds-large-size_1-of-2 closeIcon" onclick={closemodalcountrycode}>
+                                <lightning-icon icon-name="utility:close"></lightning-icon>
+                            </div>
+                        </div>
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_left"
+                                style="width: 86%;">
+                                <lightning-icon size="x-small"
+                                    class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                    icon-name="utility:search"></lightning-icon>
+                                <input type="text" placeholder="Start typing the country name here" class="slds-input"
+                                    style="background-color: #ffff;" value={searchValue}
+                                    onchange={searchAccountAction} />
+                            </div>
+                        </div>
+                        <h1 class="sub-title">{label.PBP_ZA_Africa}</h1>
+                        <div class="slds-grid slds-wrap">
+                            <template for:each={Africaflags} for:item="datalist">
+                                <div key={datalist}>
+                                    <div class=" slds-col slds-large-size_2-of-12 flags ">
+                                        <img class="flag" src={datalist.image}><a href={datalist.URL}
+                                            target={label.standardbankurl}><span
+                                                style="color:#0a2240; font: size 15px; font-family: bentonsans-regular-webfont;text-decoration: none;">{datalist.Name}</span></a>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <h1 class="sub-title">{label.PBP_ZA_Europe}</h1>
+                        <div class=" slds-grid slds-wrap ">
+                            <template for:each={Europeflags} for:item="datalist">
+                                <div key={datalist}>
+                                    <div class="slds-col slds-size_1-of-3 flags">
+                                        <img class="flag" src={datalist.image}><a href={datalist.URL}
+                                            target={label.standardbankurl}><span
+                                                style="color:#0a2240; font: size 15px; font-family: bentonsans-regular-webfont;text-decoration: none;">{datalist.Name}</span></a>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <h1 class="sub-title">{label.PBP_ZA_Asia}</h1>
+                        <div class=" slds-grid slds-wrap ">
+                            <template for:each={AsiaMiddleEastflags} for:item="datalist">
+                                <div key={datalist}>
+                                    <div class="slds-col slds-size_1-of-2 flags">
+                                        <img class="flag" src={datalist.image}><a href={datalist.URL}
+                                            target={label.standardbankurl}><span
+                                                style="color:#0a2240; font: size 15px; font-family: bentonsans-regular-webfont;text-decoration: none;">{datalist.Name}</span></a>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <h1 class="sub-title">{label.PBP_ZA_America}</h1>
+                        <div class=" slds-grid slds-wrap ">
+                            <template for:each={Americaflags} for:item="datalist">
+                                <div key={datalist}>
+                                    <div class="slds-col slds-size_1-of-2 flags">
+                                        <img class="flag" src={datalist.image}><a href={datalist.URL}
+                                            target={label.standardbankurl}><span
+                                                style="color:#0a2240; font: size 15px; font-family: bentonsans-regular-webfont;text-decoration: none;">{datalist.Name}</span></a>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <section class="top_header container">
+                <div class="top_header_lt">
+                    <ul>
+                        <li><a href={standardbankurlpersonalhome} target={label.standardbankurl}>{label.Personal}</a></li>
+                        <li style="height: 100%;"><a class="business"
+                                href={standardbankurlbusiness}>{label.PBP_ZA_Buisness}</a></li>
+                        <li><a href={label.corporateurl} target={label.standardbankurl}>{label.Corporates}
+                                {label.PBP_ZA_Institutions}<img class="gotopageicon" src={gotopageicon}
+                                    alt="gotopageicon"></a></li>
+                        <li><a href={standardbankurlwealth} target={label.standardbankurl}>{label.Wealth}</a></li>
+                        <li><a href={standardbankurlnewsandmedia} target={label.standardbankurl}>{label.NewsAndMedia}</a></li>
+                    </ul>
+                </div>
+                <div class="top_header_rt">
+                    <ul>
+                        <li><a href={standardbankurlaboutus} target={label.standardbankurl}>{label.Aboutus}</a></li>
+                        <li><a href={standardbankurlbranchlocator} target={label.standardbankurl}>{label.Locateus}</a></li>
+                        <li><a href={standardbankurlcontactus} target={label.standardbankurl}>{label.Contactus}Contact us</a></li>
+                        <li class="country_code_li">
+
+                            <div class="country_code" onclick={modelpopcountrycode}>
+                                <img src={imageSouthAfrica} alt="country flag">
+                                <span>{label.SouthAfrica}</span>
+                                <img src={downArrowIcon} style="width: 12px;">
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="header_two">
+                <div class="main_header container">
+                    <a href={standardbankurlpersonalhome} target={label.standardbankurl} class="logo_brand" onmouseenter={handleMouseStandardbank}>
+                        <img src={standardBankLogo}>
+                        <img src={standardBankText}>
+                    </a>
+                    <ul>
+                        <li class="pro_services" onmouseenter={handleMouseover}
+                            onmouseleave={handleMouseOutProductServices}>
+                            <a href={productandservices} target={label.standardbankurl}><span>{label.productsAndService}</span>
+                            </a>
+                        </li>
+                        <li><a href={standardbankurlbizconnect} target={label.standardbankurl}><span>{label.Bizconnect}</span></a></li>
+                        <li><a href={standardbankurltradepoint}
+                                onmouseenter={handleMouseUcountRewards} target={label.standardbankurl}><span>{label.PBP_ZA_TRADEPOINT}</span></a>
+                        </li>
+                        <li><a href={ucountsstandardurlbusiness} target={label.standardbankurl}><span>{label.UcountRewards}</span></a>
+                        </li>
+                    </ul>
+                    <div class="main_header_rt">
+                        <div class="search"><img src={searchIcon} alt="search" onclick={handleSection}>
+                        </div>
+                        <div class="signin_acnt" onmouseenter={handleMouseOversigninto}
+                            onmouseleave={handleMouseOutSigninto}>
+                            <span>{label.SignInto}<br />{label.YourAccounts}</span>
+                            <img src={profilePic} alt="account">
+                        </div>
+                    </div>
+                </div>
+                <template if:true={isMouseOver}>
+                    <div class="popup" onmouseenter={handleMouseover} onmouseleave={handleMouseOutProductServices}>
+                        <div class="slds-grid pro_services_menu">
+                            <div class="container">
+                                <div class="slds-vertical-tabs">
+                                    <ul class="slds-vertical-tabs__nav" role="tablist" aria-orientation="vertical">
+                                        <li class="slds-vertical-tabs__nav-item slds-is-active slds-tabs_default__item"
+                                            title="Tab 1" role="presentation" onclick={tabClick}>
+                                            <a class="slds-vertical-tabs__link" href="javascript:void(0);" role="tab"
+                                                tabindex="0" aria-selected="true" aria-controls="slds-vertical-tabs-0"
+                                                id="slds-vertical-tabs-0__nav">
+                                                <span class="slds-vertical-tabs__left-icon"></span>
+                                                <span class="slds-truncate" title="Tab 1">{label.BankwithUs}</span>
+                                                <span class="slds-vertical-tabs__right-icon"></span>
+                                            </a>
+                                            <div class="full_width"></div>
+                                        </li>
+                                        <li class="slds-vertical-tabs__nav-item slds-tabs_default__item" title="Tab 2"
+                                            role="presentation" onclick={tabClick}>
+                                            <a class="slds-vertical-tabs__link" href="javascript:void(0);" role="tab"
+                                                tabindex="-1" aria-selected="false" aria-controls="slds-vertical-tabs-1"
+                                                id="slds-vertical-tabs-1__nav">
+                                                <span class="slds-vertical-tabs__left-icon"></span>
+                                                <span class="slds-truncate"
+                                                    title="Tab 2">{label.BorrowForYourNeeds}</span>
+                                                <span class="slds-vertical-tabs__right-icon"></span>
+                                            </a>
+                                            <div class="full_width"></div>
+                                        </li>
+                                        <li class="slds-vertical-tabs__nav-item slds-tabs_default__item" title="Tab 3"
+                                            role="presentation" onclick={tabClick}>
+                                            <a class="slds-vertical-tabs__link" href="javascript:void(0);" role="tab"
+                                                tabindex="-1" aria-selected="false" aria-controls="slds-vertical-tabs-2"
+                                                id="slds-vertical-tabs-2__nav">
+                                                <span class="slds-vertical-tabs__left-icon"></span>
+                                                <span class="slds-truncate"
+                                                    title="Tab 3 has a really long label and can wrap or truncate">{label.GrowYourMoney}</span>
+                                                <span class="slds-vertical-tabs__right-icon"></span>
+                                            </a>
+                                            <div class="full_width"></div>
+                                        </li>
+                                        <li class="slds-vertical-tabs__nav-item slds-tabs_default__item" title="Tab 4"
+                                            role="presentation" onclick={tabClick}>
+                                            <a class="slds-vertical-tabs__link" href="javascript:void(0);" role="tab"
+                                                tabindex="-1" aria-selected="false" aria-controls="slds-vertical-tabs-3"
+                                                id="slds-vertical-tabs-3__nav">
+                                                <span class="slds-vertical-tabs__left-icon"></span>
+                                                <span class="slds-truncate"
+                                                    title="Tab 3 has a really long label and can wrap or truncate">{label.InsureWhatMatters}</span>
+                                                <span class="slds-vertical-tabs__right-icon"></span>
+                                            </a>
+                                            <div class="full_width"></div>
+                                        </li>
+                                        <li class="slds-vertical-tabs__nav-item slds-tabs_default__item"
+                                            title="Tab 3 has a really long label and can wrap or truncate"
+                                            role="presentation" onclick={tabClick}>
+                                            <a class="slds-vertical-tabs__link" href="javascript:void(0);" role="tab"
+                                                tabindex="-1" aria-selected="false" aria-controls="slds-vertical-tabs-4"
+                                                id="slds-vertical-tabs-4__nav">
+                                                <span class="slds-vertical-tabs__left-icon"></span>
+                                                <span class="slds-truncate"
+                                                    title="Tab 3 has a really long label and can wrap or truncate">{label.CustomerSolutions}</span>
+                                                <span class="slds-vertical-tabs__right-icon"></span>
+                                            </a>
+                                            <div class="full_width"></div>
+                                        </li>
+                                        <li class="slds-vertical-tabs__nav-item slds-tabs_default__item" title="Tab 1"
+                                            role="presentation" onclick={tabClick}>
+                                            <a class="slds-vertical-tabs__link" href="javascript:void(0);" role="tab"
+                                                tabindex="0" aria-selected="true" aria-controls="slds-vertical-tabs-5"
+                                                id="slds-vertical-tabs-5__nav">
+                                                <span class="slds-vertical-tabs__left-icon"></span>
+                                                <span class="slds-truncate" title="Tab 1">{label.PBP_WaysToBank}</span>
+                                                <span class="slds-vertical-tabs__right-icon"></span>
+                                            </a>
+                                            <div class="full_width"></div>
+                                        </li>
+                                        <li class="slds-vertical-tabs__nav-item slds-tabs_default__item"
+                                            title="Tab 3 has a really long label and can wrap or truncate"
+                                            role="presentation" onclick={tabClick}>
+                                            <a class="slds-vertical-tabs__link" href="javascript:void(0);" role="tab"
+                                                tabindex="-1" aria-selected="false" aria-controls="slds-vertical-tabs-6"
+                                                id="slds-vertical-tabs-6__nav">
+                                                <span class="slds-vertical-tabs__left-icon"></span>
+                                                <span class="slds-truncate"
+                                                    title="Tab 3 has a really long label and can wrap or truncate">{label.securitycentre}</span>
+                                                <span class="slds-vertical-tabs__right-icon"></span>
+                                            </a>
+                                            <div class="full_width"></div>
+                                        </li>
+                                    </ul>
+                                    <div class="slds-vertical-tabs__content slds-show slds-tabs_default__content"
+                                        id="slds-vertical-tabs-0" role="tabpanel"
+                                        aria-labelledby="slds-vertical-tabs-0__nav">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span>{label.BankAccounts}</span>
+                                                <span> <a onclick={navigatetoouraccounts}>{label.SeeAllAccounts}</a>
+                                                </span>
+                                                <span><a
+                                                        href={standardbankurcompareaccounts} target={label.standardbankurl}>{label.CompareAccounts}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span>{label.PBP_ZA_ATTORNEYACCOUNTS}</span>
+                                                <span> <a href={standardbankurltrustaccount} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_AttorneysTrustAccount}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlcurrentacccount} target={label.standardbankurl}>{label.PBP_ZA_Product_Bank_Card_Executors_Title}</a></span>
+                                                <span> <a href={standardbankurlthirdpartyfund} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Product_Bank_Card_ThirdParty_Title}</a></span>
+                                                <span> <a href={standardbankurlpractitionerstrustaccount} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_PropertyPractitionersTrustAccount}</a></span>
+                                                <span> <a href={standardbankurlcomparetrustaccount} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_CompareTrustAccount}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span> {label.PBP_ZA_BUSINESSANDCORPORATECREDITCARDS}</span>
+                                                <span><a href={standardbankurlcompanycardsourcards} target={label.standardbankurl}>{label.PBP_ZA_SeeAllCards}
+                                                    </a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlswitchbankaccount} target={label.standardbankurl}>{label.PBP_ZA_SWITCHYOURBANKACCOUNT}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlforeignexchange} style="text-transform: uppercase;" target={label.standardbankurl}>
+                                                        {label.ForeignExchange}</a>
+
+                                                </span>
+                                                <span> <a href={standardbankurlinternationalpayments} target={label.standardbankurl}>
+                                                        {label.InternationalPayments}</a></span>
+                                                <span> <a href={standardbankurltravelwalletcard} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_BusinessTravelWalletCard}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlshariahcompliantforwardexchangecontracts} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_ExchangeContracts}</a></span>
+                                                <span> <a href={standardbankurlemarkettrader} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_eMarketTrader}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlnotesforyourbusiness} target={label.standardbankurl}>{label.PBP_ZA_ForeignNotesForBusiness}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankulrSHARÍAHBANKING} target={label.standardbankurl}>{label.PBP_ZA_SHARI_AHBANKING}</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-vertical-tabs__content slds-hide slds-tabs_default__content"
+                                        id="slds-vertical-tabs-1" role="tabpanel"
+                                        aria-labelledby="slds-vertical-tabs-1__nav">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankulrcashflowsolution}
+                                                        style="text-transform: uppercase;" target={label.standardbankurl}>{label.PBP_ZA_ProductScreen_Business_Loans}</a>
+                                                </span>
+                                                <span> <a href={standardbankulrcashflowsolutionbusinessoverdraft} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_BusinessOverdraft}</a></span>
+                                                <span> <a
+                                                        href={standardbankulrcashflowsolutionrevolvingcreditplan} target={label.standardbankurl}>{label.PBP_ZA_BusinessRevolvingloan}</a></span>
+                                                <span> <a
+                                                        href={standardbankulrcashflowsolutionagriculturalproductionloans} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Agriculturalproductionloan}</a></span>
+                                                <span> <a href={standardbankulrcashflowsolutionfixedrepaymentsbusiness} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Fixedrepaymentsbusinessloan}</a></span>
+                                                <span> <a href={standardbankulrcashflowsolutionbusinesstermloan} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Businesstermloan}</a></span>
+                                                <span> <a
+                                                        href={standardbankulbizflexloan} target={label.standardbankurl}>{label.PBP_ZA_BizFlexLoan}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankulvehicleassetfinance}
+                                                        style="text-transform: uppercase;" target={label.standardbankurl}>{label.PBP_ZA_ProductScreen_Vehicle}</a>
+                                                </span>
+                                                <span> <a href={standardbankulvehicleassetfinancevehiclefinancing} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Commercialvehicles}</a></span>
+                                                <span> <a
+                                                        href={standardbankulvehicleassetfinanceassetfinancing} target={label.standardbankurl}>{label.PBP_ZA_CapitalEquipment}</a></span>
+                                                <span> <a href={standardbankulvehicleassetfinancebridgingfinance}>
+                                                        {label.PBP_ZA_Foreignorlocalgoods}</a></span>
+                                                <span> <a href={standardbankulvehicleassetfinanceaccessfinancing} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Accessfinancecalculator}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlcommercialpropertyfinancing} target={label.standardbankurl}>{label.PBP_ZA_COMMERCIALPROPERTYFINANCING}</a>
+                                                </span>
+                                                <span> <a
+                                                        href={standardbankurlinvestorpropertyfinancing} target={label.standardbankurl}>{label.PBP_ZA_Forinvestors}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlowneroccupiedpropertyfinancing} target={label.standardbankurl}>{label.PBP_ZA_Forowneroccupiers}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlshariahcompliantcommercialpropertyfinance} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_PropertyFinance}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlborrowforyourneedsspecialisedfinancing} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_PECIALISEDFINANCING}</a>
+
+                                                </span>
+                                                <span> <a
+                                                        href={standardbankurlborrowforyourneedsspecialisedfinancingdiscloseddebtorfinance} target={label.standardbankurl}>{label.PBP_ZA_Discloseddebtorfinance}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlborrowforyourneedsspecialisedfinancingnondiscloseddebtorfinance} target={label.standardbankurl}>{label.PBP_Nondiscloseddebtorfinance}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlborrowforyourneedsspecialisedfinancingbankersacceptance} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Bankersacceptance}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlborrowforyourneedsLoancalculator} target={label.standardbankurl}>{label.loancalculator}</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-vertical-tabs__content slds-hide slds-tabs_default__content"
+                                        id="slds-vertical-tabs-2" role="tabpanel"
+                                        aria-labelledby="slds-vertical-tabs-2__nav">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span>{label.PBP_ZA_BUSINESSSAVINGANDINVESTMENTACCOUNTS}</span>
+                                                <span> <a href={standardbankurlsavingandinvestmentaccountsouraccounts} target={label.standardbankurl}>
+                                                        {label.SeeAllAccounts}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlsavingandinvestmentaccountscompareaccounts} target={label.standardbankurl}>{label.CompareAccounts}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlsavingandinvestmentaccountsshariahbusinessbanking}
+                                                        target={label.standardbankurl}>
+                                                        {label.PBP_ZA_BusinessBanking}</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-vertical-tabs__content slds-hide slds-tabs_default__content"
+                                        id="slds-vertical-tabs-3" role="tabpanel"
+                                        aria-labelledby="slds-vertical-tabs-3__nav">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlsmallbusinessinsurance} target={label.standardbankurl}>{label.PBP_ZA_YOURBUSINESS}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlownerloanprotectionplan} target={label.standardbankurl}>{label.loans}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlcorporateriskmanagementandinsurance} target={label.standardbankurl}>{label.PBP_ZA_CORPORATERISK}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlyouragribusiness} target={label.standardbankurl}>{label.PBP_ZA_YOURAGRIBUSINESS}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlyourvehicles} target={label.standardbankurl}>{label.PBP_ZA_YOURVEHICLES}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlcommercialpropertyinsurance} target={label.standardbankurl}>{label.PBP_ZA_COMMERCIALPROPERTY}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlengineeringrisk} target={label.standardbankurl}>{label.PBP_ZA_ENGINEERINGRISK}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlbondsandguarantees} target={label.standardbankurl}>{label.PBP_ZA_NEWCONTRACTS}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlmarineinsuranceforcargobyairlandorsea} target={label.standardbankurl}>{label.PBP_ZA_CARGO}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlcashinsurance} target={label.standardbankurl}>{label.PBP_ZA_CASH}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurleventsliabilityinsurance} target={label.standardbankurl}>{label.PBP_ZA_EVENTS}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurldirectorsandofficersliabilityinsurance} target={label.standardbankurl}>{label.PBP_ZA_DIRECTORSANDOFFICERS}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlemployeeprotectionplan} target={label.standardbankurl}>{label.PBP_YourPeople}</a>
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlcommercialcyberinsurance} target={label.standardbankurl}>{label.PBP_ZA_COMMERCIALCYBERINSURANCE}</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-vertical-tabs__content slds-hide slds-tabs_default__content"
+                                        id="slds-vertical-tabs-4" role="tabpanel"
+                                        aria-labelledby="slds-vertical-tabs-4__nav">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlworkplacesolutions} target={label.standardbankurl}>{label.PBP_ZA_WORKPLACESOLUTIONS}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlemployervaluebanking} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Employervaluebanking}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlinstantmoneybulkpayments} target={label.standardbankurl}>{label.PBP_ZA_InstantMoneybulkpayments}</a></span>
+                                                <span> <a href={standardbankurlpaycard} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_PayCard}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlprepaidcardsolutions} target={label.standardbankurl}>{label.PBP_ZA_Prepaidcardsolutions}</a></span>
+                                                <span> <a href={standardbankurlfinancialplanning} target={label.standardbankurl}>
+                                                        {label.FinancialPlanning}</a></span>
+                                                <span> <a href={standardbankurlsalarypayments} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_SalaryPayments}</a></span>
+                                                <span> <a href={standardbankurlpayspacepayrollandhrsolutions} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_PayrollandHRSolutions}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlspecialised} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_SPECIALISED}</a>
+
+                                                </span>
+                                                <span> <a href={standardbankurlspecialisedmerchantsolutions} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Merchantsolutions}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlspecialisedcashsolutions} target={label.standardbankurl}>{label.PBP_ZA_Cashsolutions}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlspecialiseddebitordercollection} target={label.standardbankurl}>{label.PBP_ZA_Debitordercollections}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlspecialisedfranchising} target={label.standardbankurl}>{label.PBP_ZA_Franchising}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlspecialisedsimplyblu} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_eCommercesolutions}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlspecialisedshariahcompliantmerchantcapitalcashadvance} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_CashAdvance}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlfleetmanagement} target={label.standardbankurl}>{label.PBP_ZA_FLEETMANAGEMENT}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlfleetmanagementManageyourfleet} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Manageyourfleet}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlfleetmanagementFleetvalueaddedservices} target={label.standardbankurl}>{label.PBP_Fleetvalueaddedservices}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlfleetmanagementOnlineaccountforms} target={label.standardbankurl}>{label.PBP_ZA_Onlineaccountforms}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlindustry} target={label.standardbankurl}>{label.PBP_ZA_INDUSTRY}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlindustryagribusiness} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Agribusiness}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlindustryagriproperty} target={label.standardbankurl}>{label.PBP_ZA_Property}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlindustrymanufacturing} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Manufacturing}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlindustryretailandwholesale} target={label.standardbankurl}>{label.PBP_ZA_Retailandwholesale}</a></span>
+                                                <span> <a href={standardbankurlindustrynaturalresources} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Naturalresources}</a></span>
+                                                <span> <a href={standardbankurlindustrytransportandlogistics} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Transportandlogistics}</a></span>
+                                                <span> <a href={standardbankurlindustryconstruction} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Construction}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurltradepoint}
+                                                        style="text-transform: uppercase;" target={label.standardbankurl}>{label.PBP_ZA_TRADEPOINT}</a>
+
+                                                </span>
+                                                <span> <a href={standardbankurltradepointtradeclub} target={label.standardbankurl}>
+                                                        {label.PBP_TradeClub2}</a></span>
+                                                <span> <a
+                                                        href={standardbankurltradepointtradesuite} target={label.standardbankurl}>{label.PBP_ZA_TradeSuite}</a></span>
+                                                <span> <a href={standardbankurltradepointtradefinance} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_TradeFinance}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlinternationalpayments} target={label.standardbankurl}>{label.InternationalPayments}</a></span>
+                                                <span> <a href={standardbankurltradepointtradebarometer} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_TradeBarometer}</a></span>
+                                                <span> <a href={standardbankurltradepointafricachinatrade} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_AfricaChinaTrade}</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-vertical-tabs__content slds-hide slds-tabs_default__content"
+                                        id="slds-vertical-tabs-5" role="tabpanel"
+                                        aria-labelledby="slds-vertical-tabs-5__nav">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a
+                                                        href={standardbankurlselfservicebanking} style="text-transform: uppercase;" target={label.standardbankurl}>{label.SelfServiceBanking}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlselfservicebankingonlinebanking} target={label.standardbankurl}>
+                                                        {label.onlinebanking}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlselfservicebankingcellphonebanking} target={label.standardbankurl}>{label.cellphone}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlselfservicebankingmobileappbanking} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_MobileApp}</a></span>
+                                                <span> <a href={standardbankurlatmbanking} target={label.standardbankurl}>{label.PBP_ZA_ATMs}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlbusinessonline} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_BusinessOnline}</a></span>
+                                                <span> <a href={standardbankurltelephoneandspeechbanking} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Telephonebanking}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurldigitalbanking} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_DIGITALBANKING}</a>
+
+                                                </span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span>
+                                                    {label.PBP_ZA_INNOVATIVEPAYMENT}
+                                                </span>
+                                                <span> <a href={standardbankurlescrow} target={label.standardbankurl}>
+                                                        {label.escrowservices}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlmyupdates} target={label.standardbankurl}>{label.myupdates}</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-vertical-tabs__content slds-hide slds-tabs_default__content"
+                                        id="slds-vertical-tabs-6" role="tabpanel"
+                                        aria-labelledby="slds-vertical-tabs-6__nav">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span><a href={standardbankurlbanksafely} target={label.standardbankurl}>{label.BankSafely}</a>
+                                                </span>
+                                                <span> <a
+                                                        href={standardbankurlbanksafelyonline} target={label.standardbankurl}>{label.PBP_ZA_Online}</a>
+                                                </span>
+                                                <span> <a
+                                                        href={standardbankurlbanksafelyattheatm} target={label.standardbankurl}>{label.PBP_ZA_OntheATM}</a></span>
+                                                <span> <a href={standardbankurlbanksafelyonyourcellphone} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Onyourcellphone}</a></span>
+                                                <span> <a href={standardbankurlpersonalmyupdates} target={label.standardbankurl}>{label.MyUpdates}</a>
+                                                </span>
+                                                <span> <a href={standardbankurlbanksecurelywithadigitalid} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_DigiME}</a></span>
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span>
+                                                    {label.Protect_yourself}
+                                                </span>
+                                                <span> <a href={standardbankurlguardyourpin} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_GuardyourPIN}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlshopsafelyonline} target={label.standardbankurl}>{label.PBP_ZA_Online}</a>
+                                                </span>
+                                                <span> <a
+                                                        href={standardbankurlprotectyouridandpersonalinfo} target={label.standardbankurl}>{label.PBP_ZA_Personalinformation}</a></span>
+                                                <span> <a
+                                                        href={standardbankurldebicheck} target={label.standardbankurl}>{label.PBP_ZA_Debitorders}</a></span>
+                                                <span> <a href={standardbankurlaccountverificationservices} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_AccountVerficationServices}</a></span>
+
+
+                                            </div>
+                                            <div class="slds-col slds-size_4-of-12 verticaltab">
+                                                <span>{label.PBP_ZA_SCAMSANDFRAUD}
+                                                </span>
+                                                <span> <a href={standardbankurlscams} target={label.standardbankurl}>
+                                                        {label.PBP_ZA_Scams}</a></span>
+                                                <span> <a
+                                                        href={standardbankurlcardfraud} target={label.standardbankurl}>{label.PBP_ZA_Cardfraud}</a></span>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </section>
+            <template if:true={ismouseoversigninto}>
+                <div class="popup" onmouseenter={handleMouseOversigninto} onmouseleave={handleMouseOutSigninto}>
+                    <div class="pro_services_menu" style="background: #0089ff; padding: 60px;">
+                        <div class="slds-grid slds-wrap container" style="background: #0089ff;">
+                            <div style="    display: flex; width: 100%; ">
+                                <div class="slds-col slds-size_5-of-12 signintab">
+                                    <button class="btn-primary "
+                                        style="font-family:'bentonsans-medium-webfont'; font: size 14px;"
+                                        onclick={businessonline}><img class="imagesizing" src={cloudicon}></img>
+                                        {label.PBP_ZA_BusinessOnline}</button>
+                                </div>
+                                <div class="slds-col slds-size_1-of-12 ">
+
+                                </div>
+                                <div class="slds-col slds-size_5-of-12 signintab ">
+                                    <button class="btn-primary"
+                                        style="font-family:'bentonsans-medium-webfont'; font: size 14px;"
+                                        onclick={internetbanking}><img class="imagesizing" src={monitoricon}></img>
+                                        {label.PBP_ZA_ProductScreen_Internet_Banking}</button>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_SecuritiesStandardbankUrl} target={label.standardbankurl}>
+                                        {label.PBP_ZA_OnlineShareTrade}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags ">
+                                <span> <a href={label.PBP_ZA_GetforexServeltUrl} target={label.standardbankurl}>
+                                        {label.PBP_ZA_ForeignExchangeRates}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_SecuritiesStandardbankUrl} target={label.standardbankurl}>
+                                        {label.PBP_ZA_OnlineShareTrade}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_LandingUrl} target={label.standardbankurl}>
+                                        {label.PBP_ZA_INSURANCEONLINE}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_STOCKBROKINGURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_STOCKBROKING}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_MARKETDATAURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_MARKETDATA}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_WEBTRADERURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_WEBTRADER}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_LIFEINSURANCEONLINEURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_LIFEINSURANCEONLINE}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_MERCHANTONLINEURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_MERCHANTONLINE}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_TRADEONLINEURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_TRADEONLINE}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_INTERNATIONALBANKINGURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_INTERNATIONALBANKING}</a></span>
+                            </div>
+                            <div class="slds-col slds-size_3-of-12 signinurltags">
+                                <span> <a href={label.PBP_ZA_STANLIBONLINEURL} target={label.standardbankurl}>
+                                        {label.PBP_ZA_STANLIBONLINE}</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={isOpenSection}>
+                <div class="modelOpen" id="model">
+                    <div class="modelclose" style="background-color: white">
+                        <form class="container example all_straight">
+                            <img src={searchIconb} alt="search">
+
+                            <input type="search" placeholder="What are you looking for?" name="search"
+                                oninput={HandleCallSearchApi} class="search_txt" />
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="medium" onclick={closeModal} class="close_icn close_icon">
+                            </lightning-icon>
+
+                        </form>
+                        <c-aob_comp_spinner if:true={isLoading}></c-aob_comp_spinner>
+                    </div>
+                    <template if:true={showResults}>
+                        <div class="containers falsemodelwindow" style="background-color: white">
+                            <div class="row w-100" style="justify-content: center">
+                                <div class="cardstyle">
+                                    <lightning-formatted-rich-text class={custome_row_cls} value={showResults}>
+                                    </lightning-formatted-rich-text>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <div class="slds-backdrop slds-backdrop_open" style="z-index: -1" role="presentation"></div>
+                </div>
+
+            </template>
+        </header>
+    </template>
+    
+    <template if:true={isTabletDevice}>
+       <c-pbp_comp_product_business_pages_theme_tablet_layout></c-pbp_comp_product_business_pages_theme_tablet_layout>
+    </template>
+    <template if:true={isMobileDevice}>
+        <c-pbp_comp_product_business_pages_theme_mobi_layout></c-pbp_comp_product_business_pages_theme_mobi_layout>
+    </template>
+
+    <section data-f6-region>
+        <slot></slot>
+    </section>
+    <footer data-f6-region>
+        <section class="contact_us">
+            <div class="contactus_lt">
+                <div class="contact_nums">
+                    <h2>{label.FraudLine}</h2>
+                    <div><span>{label.SouthAfrica}</span><a href={label.SANumber1}>{label.SouthAfricaNumber1}</a>
+                    </div>
+                    <div><span>{label.International}</span><a
+                            href={label.SAInternationalNumber1}>{label.InternationalNumber}</a>
+                    </div>
+                </div>
+                <div class="contact_nums">
+                    <h2>{label.GetInTouch}</h2>
+                    <div><span>{label.SouthAfrica}</span><a href={label.SANumber2}>{label.SouthAfricaNumber2}</a>
+                    </div>
+                    <div><span>{label.International}</span><a
+                            href={label.SAInternationalNumber2}>{label.InternationalNumber2}</a></div>
+                </div>
+                <div class="contact_nums">
+                    <h2>{label.LostOrStolenCards}</h2>
+                    <div><span>{label.SouthAfrica}</span><a href={label.SANumber2}>{label.SouthAfricaNumber1}</a>
+                    </div>
+                    <div><span>{label.International}</span><a
+                            href={label.SAInternationalNumber2}>{label.InternationalNumber2}</a></div>
+                </div>
+                <ul class="ul_links">
+                    <li><a class="arrow_link" href={standardbankurlcontactus} target={label.standardbankurl}>
+                            <span>{label.ContactUs}</span>
+                            <span class="move"> ></span></a>
+                    </li>
+                    <li><a class="arrow_link" href={standardbankurlpersonalhome}
+                        target={label.standardbankurl}><span>{label.ComplimentsAndComplaints}</span>
+                            <span class="move"> ></span></a></li>
+                    <li><a class="arrow_link" href={standardbankurlpersonalhome}
+                        target={label.standardbankurl}><span>{label.GiveUsCall}</span><span class="move"> ></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="contactus_rt">
+                <div class="block_text">
+                    <h2>{label.GetToKnowUs}</h2>
+                    <ul class="ul_links">
+                        <li><a class="arrow_link" href={standardbankurlnewsandmedia}
+                            target={label.standardbankurl}><span>{label.NewsAndMedia}</span><img src={greaterThan_Icon}
+                                    alt="right-arrow"></a> </li>
+                        <li><a class="arrow_link" href={label.reportingstandardurl}
+                                target={label.standardbankurl}><span>{label.InvestorRelations}</span><img src={greaterThan_Icon}
+                                    alt="right-arrow"></a></li>
+                        <li><a class="arrow_link" href={label.standardbankcomurl}
+                                target={label.standardbankurl}><span>{label.StandardBankGroup} </span><img src={greaterThan_Icon}
+                                    alt="right-arrow"></a></li>
+                        <li><a class="arrow_link" href={label.sponsershipstandardurl}
+                                target={label.standardbankurl}><span>{label.WhoWeSponsor}</span><img src={greaterThan_Icon}
+                                    alt="right-arrow"></a></li>
+                        <li><a class="arrow_link" href={standardbankcomurlgroupatglance}
+                                target={label.standardbankurl}><span>{label.WhoWeAre}</span><img src={greaterThan_Icon}
+                                    alt="right-arrow"></a> </li>
+                        <li><a class="arrow_link" href={standardbankurlbranchlocator}
+                            target={label.standardbankurl}><span>{label.FindABranch} </span><img src={greaterThan_Icon}
+                                    alt="right-arrow"></a> </li>
+                    </ul>
+                </div>
+                <div class="block_text">
+                    <h2>{label.BuildACareerWithUs}</h2>
+                    <p>{label.JoinOurInternationalTeam} <br> {label.Start}</p>
+                    <a class="arrow_link" href={standardbankcomurlcareers}
+                        target={label.standardbankurl}><span>{label.ViewOpportunities}</span><img src={greaterThan_Icon}
+                            alt="right-arrow"></a>
+                </div>
+                <div class="block_text">
+                    <h2>{label.NeedHelpWithOneOfOurProductsOr} <br> {label.Services}</h2>
+                    <div class="dlfex">
+                        <a href={label.communitystandardbankurl} target={label.standardbankurl}>
+                            <button class="btn-primary" data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                data-text={adobePageTag.visitourcommunityButtonText}
+                                onclick={handleclick}>{label.VisitOurCommunity}</button></a>
+                    </div>
+                </div>
+                <div class="block_text">
+                    <h2>{label.GetDetailsOnStatus} <br> {label.ToolsAndPlatforms}</h2>
+                    <a class="arrow_link" href={label.statuspagestandardbankurl}
+                        target={label.standardbankurl}><span>{label.StatusPage}
+                        </span><img src={greaterThan_Icon} alt="right-arrow"></a>
+                </div>
+                <div class="block_text">
+                    <h2>{label.PhysicalAddress}</h2>
+                    <p>{label.SimmondsStreetselbyjonannesburg}</p>
+                </div>
+                <div class="block_text mrb_0">
+                    <h2>{label.WeWantYourFeedback}</h2>
+                    <p>{label.GotAComplimentOrComplaint}</p>
+                    <div class="dflex">
+                        <a href={standardbankurlcontactusdetail} target={label.standardbankurl}><button class="btn-primary"
+                                data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                                data-scope={adobePageTag.dataScope} data-text={adobePageTag.letusknowButtonText}
+                                onclick={handleclick}>{label.LetUsKnow}</button></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="ft_sec">
+            <div class="ft_top container">
+                <h2>{label.SbBankApp}</h2>
+                <div class="app_downloads">
+                    <a class="tooltip" href={label.googleplayurl} target={label.googleplayurl}><img class="img_fluid" src={googleplay}
+                            alt="Play Store">
+                        <div class="tooltiptext">Get it on Google Play</div>
+                    </a> <span></span> <a class="tooltip" href={label.appleurl} target={label.appleurl}><img class="img_fluid" src={applestore}
+                            alt="App Store">
+                        <div class="tooltiptext">Download on the App Store</div>
+                    </a> <span></span> <a class="tooltip" href={label.appgalleryhuawai} target={label.appgalleryhuawai}><img class="img_fluid"
+                            src={Huwai} alt="Huwai Store">
+                        <div class="tooltiptext">Explore it on App Gallery</div>
+                    </a>
+                </div>
+                <div class="devices_img_block">
+                    <img class="img_fluid devices_img" src={appsnapshot} alt="device images">
+                </div>
+            </div>
+            <div class="ft_bottom" style="background-color: #0a2240;">
+                <div class="ft_bottom_row container">
+                    <div class="ft_left">
+                        <ul>
+                            <li><a href={standardbankurlbanksafely} target={label.standardbankurl}>{label.SecurityCentre}</a></li>
+                            <li><a href={standardbankurlregulatory} target={label.standardbankurl}>{label.Regulatory}</a></li>
+                            <li><a href={standardbankurllegal} target={label.standardbankurl}>{label.Legal}</a></li>
+                            <li><a href={standardbankurlmanagecookies} target={label.standardbankurl}>{label.ManageCookies}</a></li>
+                            <li><a href={standardbankurltermsandconditions} target={label.standardbankurl}>{label.Terms} &amp;
+                                    {label.Conditions}</a></li>
+                            <li><a href={standardbankurlpricing} target={label.standardbankurl}>{label.Pricing}</a></li>
+                        </ul>
+                        <p>{label.StandardBankFootermsg}</p>
+                    </div>
+                    <div class="ft_social">
+                        <a class="tool" href={label.linkedinurl} target={label.linkedinurl}><img src={linkedin} alt="LinkedIn" />
+                            <span class="tiptext">linkedin</span></a> <a class="tool" href={label.youtubeurl}
+                            target={label.youtubeurl}><img src={youtube} alt="Youtube" />
+                            <div class="tiptext">youtube</div>
+                        </a> <a class="tool" href={label.facebookurl} target={label.facebookurl}><img src={facebook}
+                                alt="Facebook" />
+                            <div class="tiptext">facebook</div>
+                        </a> <a class="tool" href={label.twitterurl} target={label.twitterurl}><img src={twitter} alt="Twiter" />
+                            <span class="tiptext">twitter</span></a> <a class="tool whatsapp" href={label.whatsappurl}
+                            target={label.whatsappurl}><img src={whatsapp} alt="whatsapp" /> <span
+                                class="tiptext">whatsapp</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+</template>

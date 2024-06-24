@@ -1,0 +1,68 @@
+.mt_24 {
+  margin-top: 24px;
+}
+.aob_sec-title {
+  margin-bottom: 16px;
+}
+.icon img {
+  max-width: 60% !important;
+  padding-top: 23px;
+}
+.aob_sec-title h6 {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 24px;
+  color: #1a314d;
+  margin-bottom: 0;
+}
+.padding_left {
+  padding-left: 154px;
+}
+
+.padding_top {
+  padding-top: 7px;
+}
+.aob_btn-empty:hover {
+  border: 1px dashed #ced3d9 !important;
+}
+.slds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  min-width: 95px;
+  font-family: "bentonsans-bold-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #0062e1;
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
+.custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  min-width: 95px;
+  font-family: "bentonsans-bold-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  background: #0062e1;
+  border-radius: 8px;
+}
+
+.demo-only .img {
+  width: 26px;
+  height: 26px;
+  max-width: 100%;
+}

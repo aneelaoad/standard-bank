@@ -1,0 +1,94 @@
+<!-- **
+* @description  : Partner Portal Dashboard Edit Profile Component
+* User Story : SFP-4873
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date Aug 2021
+*/ -->
+<template>
+    <div class="container">
+        <template if:false={error}>
+            <div class="slds-grid slds-grid_vertical">
+                <div class="slds-col slds-align_absolute-center">
+                    <img src={pictureUrl} class="profile-picture">
+                </div>
+                <div class="slds-col slds-align_absolute-center">
+                    <p class="heading-medium-sfProDisplay name">{partner.Name}</p>
+                </div>
+                <div class="slds-col slds-align_absolute-center" style="margin-bottom: 31.5px;">
+                    <a ahref="javascript:void(0)" class="text-normal-sfProDisplay edit-profile"
+                        onclick={handleEditProfileClick} data-intent="navigational" data-scope="Dashboard"
+                        data-id="link_content" data-text="Partner connect | edit profile link click">Edit Profile</a>
+                </div>
+                <div class="slds-col">
+                    <div class="line"></div>
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldName">LOCATION</p>
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldValue">{partner.PP_OperatingCountry__c}</p>
+                </div>
+                <div class="slds-col">
+                    <div class="line"></div>
+                </div>
+
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldName">INDUSTRY</p>
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldValue">{industry}</p>
+                </div>
+                <div class="slds-col">
+                    <div class="line"></div>
+                </div>
+
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldName">CAPABILITIES</p>
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldValue">{capabilities}</p>
+                </div>
+                <div class="slds-col">
+                    <div class="line"></div>
+                </div>
+
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldName">WEBSITE</p>
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay fieldValue">{partner.PP_Website__c}</p>
+                </div>
+                <div class="slds-col">
+                    <div class="line"></div>
+                </div>
+            </div>
+
+            <template if:true={isModalOpen}>
+                <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                    aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container" style="top: -15%;">
+                        <header class="slds-modal__header">
+                            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                title="Close" onclick={closeModal}>
+                                <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                    size="small"></lightning-icon>
+                                <span class="slds-assistive-text">Close</span>
+                            </button>
+                            <h2 id="modal-heading-01"
+                                class="slds-text-heading_medium slds-hyphenate heading-medium-sfProDisplay">Edit Profile
+                            </h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <c-pp-Edit-Profile onclosemodal={closeModal}></c-pp-Edit-Profile>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open backdrop"></div>
+            </template>
+        </template>
+        <template if:true={error}>
+            <p>There was a technical issue.</p>
+        </template>
+    </div>
+</template>

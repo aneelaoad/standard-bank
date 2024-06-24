@@ -1,0 +1,20 @@
+<template>
+    <template if:false={hideApplications}>
+    <c-aob_internal_comp_form-header title="Open Applications"></c-aob_internal_comp_form-header>
+    <div class="new-application slds-m-bottom_x-large">
+        <lightning-button
+            class="slds-m-bottom_x-large" variant="brand" label="New Application" title="continue" onclick={handleCreateApplication}>
+        </lightning-button>
+    </div>
+        <lightning-datatable 
+        key-field="Id" 
+        data={applications} columns={columns} 
+        hide-checkbox-column
+        onrowaction={handleRowAction}>
+        </lightning-datatable>
+    </template>
+        <template if:true={showAccount}>
+        <c-aob_internal_comp_search-product  accounts={accountId}></c-aob_internal_comp_search-product>
+        </template>
+    <c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+</template>

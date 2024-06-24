@@ -1,0 +1,72 @@
+<!--
+  @description       : Lwc to show sorting options
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-17-2021   TCK   Initial Version
+-->
+<template>
+    <p class="light_titles">{labels.ViewBy}</p>
+    <div class="v1_div_containerFilters">
+        <template if:true={isSortedByName}>
+            <button name="Name" class="v1_div_filterSelected" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img name="Name" class="v1_img_filter" onclick={sortBy} src={iconName}> 
+                    <p>{labels.SortByName}</p>
+                </div>
+            </button>
+            <button name="Company" class="v1_div_filter" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img name="Company" onclick={sortBy} src={iconBuilding}></img>
+                    <p>{labels.SortByCompany}</p>
+                </div>
+            </button>
+        </template>
+        <template if:false={isSortedByName}>
+            <button name="Name" class="v1_div_filter" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img class="v1_img_filter" src={iconName}> 
+                    <p>{labels.SortByName}</p>
+                </div>
+            </button>
+            <button name="Company" class="v1_div_filterSelected" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img name="Company" onclick={sortBy} src={iconBuilding}></img>
+                    <p>{labels.SortByCompany}</p>
+                </div>
+            </button>
+        </template>
+        
+        <template if:true={isSortedAscending}>
+            <button name="Ascending" class="v1_div_filterSelected" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img name="Company" onclick={sortBy} src={iconAscending}></img>
+                    <p>{labels.SortAZ}</p>
+                </div>
+            </button>
+            <button name="Descending" class="v1_div_filter" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img name="Company" onclick={sortBy} src={iconDescending}></img>
+                    <p>{labels.SortZA}</p>
+                </div>
+            </button>
+        </template>
+        <template if:false={isSortedAscending}>
+            <button name="Ascending" class="v1_div_filter" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img name="Company" onclick={sortBy} src={iconAscending}></img>
+                    <p>{labels.SortAZ}</p>
+                </div>
+            </button>
+            <button name="Descending" class="v1_div_filterSelected" onclick={sortBy}>
+                <div class="v1_div_insideFilter">
+                    <img name="Company" onclick={sortBy} src={iconDescending}></img>
+                    <p>{labels.SortZA}</p>
+                </div>
+            </button>
+        </template>
+    </div>
+</template>

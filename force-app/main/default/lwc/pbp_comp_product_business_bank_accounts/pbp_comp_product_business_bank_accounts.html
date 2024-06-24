@@ -1,0 +1,413 @@
+<!--
+  @description       : 
+  @author            :  chandu.velmajala@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-09-2020
+  @last modified by : chandu.velmajala@standardbank.co.za
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0 11-09-2020 chandu.velmajala@standardbank.co.za Initial Version
+-->
+<template>
+    <div class="wrapper">
+        <div class="slds-grid slds-wrap bnr_wrapper">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 bnr_left slds-order_2 slds-medium-order_1">
+                <div class="content_container">
+                    <div>
+                        <h1>{label.BANNER_TITLE}</h1>
+                        <span class="divider"></span>
+                        <h6 class="Apply-online-and-sta">{label.BANNER_SUB_TITLE}<br />
+                            {label.BANNER_SUB_TITLE_IMMEDAITELY}</h6>
+                    </div>
+                    <button data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                        data-scope={adobePageTag.dataScope} data-text='more informaion button click'
+                        onclick={moreinformationclick} class="btn-primary lspace">{label.BUTTON}</button>
+                </div>
+            </div>
+            <div
+                class="slds-col slds-size_1-of-1 slds-medium-size_7-of-12 img_wrapper slds-order_1 slds-medium-order_2">
+                <img src={heroBanner}>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="">
+            <div class="t-center d-flex">
+                <div class="breadcrumb">
+                    <nav role="navigation" aria-label="Breadcrumbs">
+                        <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                            <li class="slds-breadcrumb__item">
+                                <a href={HomeUrl}  data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntentbreadcrumb}
+                                data-scope={adobePageTag.dataScopebreadcrumb}
+                                data-text={adobePageTag.BREADCRUMB_HOMEtext} onclick={callingadobeevent}>{label.BREADCRUMB_HOME}</a>
+                            </li>
+                            <li class="slds-breadcrumb__item">
+                                <a href={ourproductsandsevicesUrl} target={label.StandardBankUrl}  data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntentbreadcrumb}
+                                data-scope={adobePageTag.dataScopebreadcrumb}
+                                data-text={adobePageTag.ourproductsservicestext} onclick={callingadobeevent}>{label.ourproducts} {label.services}</a>
+                            </li>
+                            <li class="slds-breadcrumb__item" style="display:block">
+                                <a href={bankwithusUrl} target={label.StandardBankUrl}  data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntentbreadcrumb}
+                                data-scope={adobePageTag.dataScopebreadcrumb}
+                                data-text={adobePageTag.bankwithustext} onclick={callingadobeevent}>{label.bankwithus}</a>
+                            </li>
+                            <li class="slds-breadcrumb__item" aria-current="page">
+                                <a style="color: black;"  data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntentbreadcrumb}
+                                data-scope={adobePageTag.dataScopebreadcrumb}
+                                data-text={adobePageTag.businessbanktext} onclick={callingadobeevent}>{label.businessbank}</a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="slds-grid bac-titles">
+                <div class="slds-col">
+                    <h2>{label.businessbankaccounts}</h2>
+                    <p>{label.beingable}</p>
+                    <p>{label.openingaccount}</p>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap slds-gutters heading-type--2">
+                <div class="slds-col">
+                    <h2>{label.whatareyou}</h2>
+                </div>
+            </div>
+            <div class="slds-grid slds-wrap account-card-grid">
+                <div class="slds-col">
+                    <article class="slds-card account-card">
+                        <div class="badge_tag"> {label.Bundleoffering}</div>
+                        <img class="card-img-sm" src={blue_credit_card} alt="card-img">
+                        <div class="slds-card__body slds-card__body_inner account-card-body">
+                            <header>
+                                <h2 class="slds-card__header-title">{label.mymobizplus}</h2>
+                                <span>{label.simpleafford}</span>
+                            </header>
+                            <ul>
+                                <li>{label.freedebit}</li>
+                                <li>{label.freeelectronic}</li>
+                                <li>{label.ATMlist}</li>
+                                <li>{label.freeatmlist}</li>
+                                <li>{label.freeimmediate}</li>
+                            </ul>
+                            <div class="fee-info">
+                                <h3><span>{label.R}</span>{label.mymobizpluscurrencyrate}</h3>
+                                <p class="monthly_Fee">{label.monthlyfee}</p>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <div class="custom-checkbox">
+                                <label class="check-container">
+                                    <input type="checkbox" onclick={genericFieldChange} data-name="MyMoBiz Plus Account"
+                                        data-id="proda24506bb6b762810VgnVCM10000034586c0aRCRD">
+                                    <span>{label.addtocompare}</span>
+                                </label>
+                            </div>
+                            <div class="btn_standard">
+                                <button class="btn-primary" data-id="myMoBizPlus" onclick={applyOnline}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                    data-text={adobePageTag.applyButtonTextmymobizplus} type='button'>{label.applyonline}</button>
+                                <button class="slds-button slds-button_outline-brand" data-id="myMoBizPlus"
+                                    onclick={navigateToDetailsPage} data-intent={adobePageTag.dataIntent}
+                                    data-scope={adobePageTag.dataScope} data-text={adobePageTag.mymobizplustellmemoreButtonText}
+                                    type='button'>{label.tellmemore}</button>
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+                <div class="slds-col">
+                    <article class="slds-card account-card">
+                        <div class="badge_tag"> {label.payasyoutransact}</div>
+                        <img class="card-img-sm" src={blue_credit_card} alt="card-img">
+                        <div class="slds-card__body slds-card__body_inner account-card-body">
+                            <header>
+                                <h2 class="slds-card__header-title">{label.mymobizbusinessaccount}</h2>
+                                <span>{label.simple}</span>
+                            </header>
+                            <ul>
+                                <li>{label.freedebitcard}</li>
+                                <li>{label.freemarketlink}</li>
+                                <li>{label.acceptcard}</li>
+                                <li>{label.dedicated}</li>
+                                <li>{label.transact}</li>
+                            </ul>
+                            <div class="fee-info" style="margin-top: 45px">
+                                <h3><span>{label.R}</span>{label.mymobizcurrencyrate}</h3>
+                                <p class="monthly_Fee">{label.monthlyfee}</p>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="custom-checkbox">
+                                <label class="check-container">
+                                    <input type="checkbox" onclick={genericFieldChange}
+                                        data-name="MyMoBiz Business Account"
+                                        data-id="prod3b02cbdf8d083710VgnVCM1000008711960aRCRD">
+                                    <span>{label.addtocompare}</span>
+                                </label>
+                            </div>
+                            <div class="btn_standard">
+                                <button class="btn-primary" data-id="myMoBiz" onclick={applyOnline}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                    data-text={adobePageTag.applyButtonTextmymobizbusinessaccount} type='button'>{label.applyonline}</button>
+
+                                <button class="slds-button slds-button_outline-brand" data-id="myMoBiz"
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                    data-text={adobePageTag.mymobizbusinessaccounttellmemoreButtonText} onclick={navigateToDetailsPage}
+                                    type='button'>{label.tellmemore}</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-col">
+                    <article class="slds-card account-card ">
+                        <img class="card-img-sm" src={gold_credit_card} alt="card-img">
+                        <div class="slds-card__body slds-card__body_inner account-card-body">
+                            <header>
+                                <h2 class="slds-card__header-title">{label.businesscurrent}</h2>
+                            <span>{label.takeYour}</span>   
+                            </header>
+                            <ul>
+                                <li>{label.tailored}</li>
+                                <li>{label.custompayment}</li>
+                                <li>{label.crossborder}</li>
+                                <li>{label.dedicatedsupport}</li>
+                                <li>{label.transactfrombank}</li>
+                            </ul>
+                            <div class="fee-info">
+                                <h3><span>{label.R}</span>{label.currency}</h3>
+                                <p class="monthly-height">{label.monthlyfee}</p>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="custom-checkbox">
+                                <label class="check-container">
+                                    <input type="checkbox" onclick={genericFieldChange}
+                                        data-name="Business Current Account"
+                                        data-id="prod6afa7a0151598610VgnVCM2000008811960aRCRD">
+                                    <span>{label.addtocompare}</span>
+                                </label>
+                            </div>
+                            <div class="btn_standard single_btn">
+                                
+                                <a href={currentAccountTellMeMoreLink} target={label.StandardBankUrl}><button
+                                        class="slds-button slds-button_outline-brand" type='button'
+                                        data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                                        data-scope={adobePageTag.dataScope}
+                                        data-text={adobePageTag.businesscurrenttellmemoreButtonText}
+                                        onclick={currentAccountTellMeMoreLinkclick}>{label.tellmemore}</button></a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-col">
+                    <article class="slds-card account-card">
+                        <img class="card-img-sm" src={gold_credit_card} alt="card-img">
+                        <div class="slds-card__body slds-card__body_inner account-card-body">
+                            <header>
+                                <h2 class="slds-card__header-title">{label.Bizlaunchaccount}</h2>
+                                <span>{label.givesyou}</span>
+                            </header>
+                            <ul>
+                                <li>{label.guidance}</li>
+                                <li>{label.freeaccess}</li>
+                                <li>{label.specialrates}</li>
+                            </ul>
+                            <div class="fee-info" style="padding-top: 45px;margin-top: 59px;">
+                                <h3><span>{label.R}</span>{label.bizlaunchcurrency}</h3>
+                                <p class="monthly-height">{label.monthlyfee}</p>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="custom-checkbox ">
+                                <label class="check-container">
+                                    <input type="checkbox" onclick={genericFieldChange} data-name="Bizlaunch Account"
+                                        data-id="prodd37cda61304a8610VgnVCM2000008811960aRCRD">
+                                    <span>{label.addtocompare}</span>
+                                </label>
+                            </div>
+                            <div class="btn_standard single_btn">
+                                
+                                <a href={bizlaunchTellMeMoreLink} target={label.StandardBankUrl}><button class="slds-button slds-button_outline-brand"
+                                        data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                                        data-scope={adobePageTag.dataScope}
+                                        data-text={adobePageTag.BizlaunchaccounttellmemoreButtonText} type='button'
+                                        onclick={bizlaunchTellMeMoreLinkclick}>{label.tellmemore}</button></a>
+                            </div>
+                        </div>
+                        <template if:true={customFormModalBizLaunch}>
+                        </template>
+                    </article>
+                </div>
+                <div class="slds-col">
+                    <article class="slds-card account-card ">
+                        <img class="card-img-sm" src={gold_credit_card} alt="card-img">
+                        <div class="slds-card__body slds-card__body_inner account-card-body">
+                            <header>
+                                <h2 class="slds-card__header-title">{label.Attorney}</h2>
+                                <span>{label.ManageClient}</span>
+                            </header>
+                            <ul>
+                                <li>{label.fullycompliant}</li>
+                                <li>{label.earn}</li>
+                                <li>{label.Activate}</li>
+                            </ul>
+                            <div class="fee-info">
+                                <h3><span>{label.R}</span>{label.Attorneycurrency}</h3>
+                                <p class="Fee">{label.monthlyfee}</p>
+                            </div>
+
+                        </div>
+                        <div>
+                            <div class="custom-checkbox">
+                                <label class="check-container">
+                                    <input type="checkbox" onclick={genericFieldChange}
+                                        data-name="Attorney Trust account"
+                                        data-id="proda3c8ef9784e98610VgnVCM2000008811960aRCRD">
+                                    <span>{label.addtocompare}</span>
+                                </label>
+                            </div>
+                            <div class="btn_standard single_btn">
+                                <a href={AttorneyTrustTellMeMoreLink} target={label.StandardBankUrl}><button
+                                        class="slds-button slds-button_outline-brand" data-id={adobePageTag.dataId}
+                                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                        data-text={adobePageTag.AttorneytellmemoreButtonText}
+                                        onclick={bizlaunchTellMeMoreLinkclick}
+                                        type='button'>{label.tellmemore}</button></a>
+                            </div>
+                        </div>
+                    </article>
+                    <template if:true={customFormModalAttorneyTrust}>
+                    </template>
+                </div>
+                <div class="slds-col">
+                    <article class="slds-card account-card ">
+                        <img class="card-img-sm" src={gold_credit_card} alt="card-img">
+                        <div class="slds-card__body slds-card__body_inner account-card-body">
+                            <header>
+                                <h2 class="slds-card__header-title">{label.thirdparty}</h2>
+                                <span>{label.managefunds}</span>
+                            </header>
+                            <ul>
+                                <li>{label.dedicatedaccount}</li>
+                                <li>{label.termdeposit}</li>
+                                <li>{label.multiplerelease}</li>
+                                <li class="top_Notch">{label.topnotch}
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="custom-checkbox ">
+                                <label class="check-container">
+                                    <input type="checkbox" onclick={genericFieldChange}
+                                        data-name="Third - Party Fund Account"
+                                        data-id="prodc9116916268b8610VgnVCM2000008811960aRCRD">
+                                    <span>{label.addtocompare}</span>
+                                </label>
+                            </div>
+
+                            <div class="btn_standard single_btn">
+                                <a href={FundAccountTellMeMoreLink} target={label.StandardBankUrl}><button
+                                        class="slds-button slds-button_outline-brand" data-id={adobePageTag.dataId}
+                                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                        data-text={adobePageTag.thirdpartytellmemoreButtonText}
+                                        onclick={bizlaunchTellMeMoreLinkclick}
+                                        type='button'>{label.tellmemore}</button></a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="slds-col">
+                    <article class="slds-card account-card card-ht ">
+                        <img class="card-img-sm" src={gold_credit_card} alt="card-img">
+                        <div class="slds-card__body slds-card__body_inner account-card-body">
+                            <header>
+                                <h2 class="slds-card__header-title">
+                                    {label.executes}
+                                </h2>
+                       <span>{label.manageestates}</span>
+                            </header>
+                            <ul>
+                                <li>{label.legallycompliant}</li>
+                                <li>{label.dedicatedsupported}
+                                </li>
+                                <li class="finalCardPadding">{label.accuraterecord}</li>
+                            </ul>
+
+                        </div>
+                        <div>
+                            <div class="custom-checkbox ">
+                                <label class="check-container">
+                                    <input type="checkbox" onclick={genericFieldChange}
+                                        data-name="Executor’s Current Account"
+                                        data-id="prod989761c1677b8610VgnVCM2000008811960aRCRD">
+                                    <span>{label.addtocompare}</span>
+                                </label>
+                            </div>
+                            <div class="btn_standard single_btn">
+                                <a href={ExecutorAccountTellMeMoreLink} target={label.StandardBankUrl}><button
+                                        class="slds-button slds-button_outline-brand" data-id={adobePageTag.dataId}
+                                        data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                        data-text={adobePageTag.executestellmemoreButtonText}
+                                        onclick={bizlaunchTellMeMoreLinkclick}
+                                        type='button'>{label.tellmemore}</button></a>
+                            </div>
+                        </div>
+                    </article>
+                    <template if:true={customFormModalCurrentAcc}>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--start Bottom sheet compare products section -->
+    <template if:true={showCompareSection}>
+        <div class="bottom-sheet">
+            <div class="page-width container">
+                <p>{label.addupto}</p>
+                <div class="pill-row">
+                    <template iterator:it={productList}>
+                        <div key={it.value} class="custom-pill">
+                            <span>
+                                <button onclick={removeProduct} data-name={it.value} data-id={it.value}>
+                                    <svg class="close_icon" aria-hidden="true" fill="#fff">
+                                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                                    </svg>
+                                </button>
+                                <span>{it.value}</span>
+                            </span>
+                        </div>
+                    </template>
+                    <div class="btn_standard">
+                        <a href={compareAccountsURL} target={label.StandardBankUrl}>
+                            <button class=" btn-primary" data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                data-text={adobePageTag.compareButtonText} type='button' if:true={productListSize}
+                                onclick={compareProducts}>{label.compare}</button>
+                        </a>
+                        <button class="slds-button slds-button_outline-brand" data-id={adobePageTag.dataId}
+                            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                            data-text={adobePageTag.removeallButtonText} onclick={removeAll}>{label.removeall}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- End Bottom sheet compare products section-->
+    <!-- cards end -->
+    <!--Trends and Insights start-->
+    <c-pbp_comp_product_business_trends_insights></c-pbp_comp_product_business_trends_insights>
+    <!-- Trends and Insights end -->
+    <!--we also offer start-->
+    <c-pbp_comp_product_business_we_also_offer></c-pbp_comp_product_business_we_also_offer>
+    <!--we also offer end-->
+    <!-- switch component start-->
+    <div style="margin-bottom: 40px">
+        <c-pbp_comp_product_business_switch_component></c-pbp_comp_product_business_switch_component>
+    </div>
+    <!-- switch component end-->
+</template>

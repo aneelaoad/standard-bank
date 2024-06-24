@@ -1,0 +1,26 @@
+.card_with_shadow {
+    position: relative;
+    padding: 0;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(221, 219, 218);
+    border-radius: .25rem;
+    background-clip: padding-box;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+.margin_nbac{
+    margin: 4px;
+}
+
+.dock_right {
+    right: 0px;
+}
+
+.dock_bottom {
+    bottom: 0px;
+}
+
+.ccap-font_size {
+    font-size: 14px;
+}

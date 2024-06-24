@@ -1,0 +1,128 @@
+<!--
+  @description       : 
+  @author            : Mahlatse Tjale
+  @group             : 
+  @last modified on  : 10-17-2023
+  @last modified by  : Mahlatse Tjale
+  Modifications Log
+  Ver   Date         Author           Modification
+  1.0   10-08-2023   Mahlatse Tjale   Initial Version
+-->
+<template>
+	<template lwc:if={isModalOpen}>
+		<c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+		<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+			class="slds-modal slds-fade-in-open slds-modal_medium">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header">
+					<h1 id="modal-heading-01" class="card-title" tabindex="-1">
+						{custom_label.Aob_Carddelivery}</h1>
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse closeIcon">
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+							data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+							data-text={adobeDataTextBack} size="medium" onclick={closeModal} style="float: right;">
+						</lightning-icon>
+						<span class="slds-assistive-text">{custom_label.AOB_ZA_CancelandcloseCancel}</span>
+					</button>
+				</div>
+
+				
+
+				<div class="slds-modal__content slds-p-horizontal_xx-large slds-p-bottom_xx-large fields-container" id="modal-content-id-1">
+					<div lwc:if={areFieldsLoading}>
+						<div class="slds-m-top_medium">
+						  <div role="status" class="slds-spinner slds-spinner_medium">
+							<span class="slds-assistive-text">Loading</span>
+							<div class="slds-spinner__dot-a"></div>
+							<div class="slds-spinner__dot-b"></div>
+						  </div>
+						</div>
+					</div>
+					<p class="subtitle slds-m-around_medium">{screenSubtitle}</p>
+					<template for:each={sections} for:item="section" for:index="sectionIndex">
+						<div lwc:if={section.title} key={section.id}
+							class="aob_screen-section-title slds-align_absolute-center aob_border-bottom">
+							{section.title}</div>
+						<div key={section.id} class="slds-grid slds-gutters_large slds-wrap">
+							<template for:each={section.fields} for:item="field" for:index="index">
+								<div key={field} class={section.gridClass} if:false={field.isHidden}>
+									<template if:false={field.isHelpText}>
+										<template if:false={field.isOutput}>
+											<label if:false={field.isCheckbox}
+												class="aob_screen-field-label slds-m-bottom_none">
+												<lightning-formatted-rich-text value={field.label}>
+												</lightning-formatted-rich-text>
+
+											</label>
+										</template>
+									</template>
+									<lightning-input lwc:if={field.isInput} key={field.id}
+										placeholder={field.placeholder} name={field.name} type="text"
+										variant="label-hidden" message-when-value-missing={field.errorMesage}
+										data-name={field.name} data-error={field.errorMessage}
+										minlength={field.minLength} maxlength={field.maxLength}
+										value={field.defaultValue} message-when-pattern-mismatch={field.errorMesage}
+										pattern={field.pattern} required={field.isRequired}
+										onchange={genericFieldChange}>
+									</lightning-input>
+									<div lwc:if={field.isHelpText} class="row aob-helptext-wrap">
+
+										<div class="col">
+											<span class="aob-info-text">{field.label}</span>
+										</div>
+									</div>
+
+									<c-aob_internal_comp_acpicklist lwc:if={field.isCombobox} sapfield={field.mriTable}
+										name={field.name} values={field.options}
+										missing-value-message={field.errorMessage} placeholder="Please select"
+										onblur={genericComponentChangeBlur} onchange={genericComponentChange}
+										data-name={field.name} data-value={selectedPicklistValue} data-id={field.id}
+										sole-owner-value={isSoleOwnership} value={field.defaultValue}
+										business-registered={isBusinessReg}>
+									</c-aob_internal_comp_acpicklist>
+
+									<div lwc:if={field.isOutput} class="aob_screen-field-label slds-m-bottom_small">
+										{field.label}</div>
+
+									<div lwc:if={field.isRadio} class="slds-grid aob_form_row aob_grid_sm">
+										<template for:each={field.options} for:item="radioItem" for:index="radioIndex">
+											<div key={radioItem.id} class="slds-p-right_xx-large">
+												<input type="radio" data-name={field.name} data-value={radioItem.value}
+													data-id={field.id} data-show={field.childShowingValue}
+													name={field.id} onchange={genericRadioChange} class="slds-m-right_x-small">
+												<label class="aob_screen-section-paragraph radio-label" for={field.id}>
+													{radioItem.label}</label>
+											</div>
+										</template> <br />
+									</div>
+
+									<div lwc:if={field.isPrivateaddress}>
+										<c-aob_internal_comp_privateaddress sapfield={field.mriTable} required={field.isRequired}
+											name={field.name} missing-value-message={field.errorMessage}
+											data-name={field.name} placeholder="Please select" resaddress={field.value}
+											default-data={field.defaultValue}
+											companytradingdata={field.compTradingValue}
+											onaddressblur={genericComponentChangeBlur} data-id={field.id}>
+										</c-aob_internal_comp_privateaddress>
+									</div>
+									<p key={field} class="aob_error_input_label" lwc:if={field.showError}>
+										{field.errorMessage}
+									</p>
+								</div>
+							</template>
+						</div>
+					</template>
+
+				</div>
+				<div class="slds-theme--shade button-container">
+					<lightning-button data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+						data-text={adobeDataTextContinue}
+						class="slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+						title="continue" onclick={triggerNextPage} variant="brand" label="Continue">{custom_label.AOB_Button_Continue}
+					</lightning-button>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+	</template>
+</template>

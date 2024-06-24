@@ -1,0 +1,147 @@
+.smart-nudge-container {
+  display: block;
+  width: 100%;
+  margin-top: 1.81rem;
+}
+
+.heading-text{
+  padding-bottom: 2rem;
+  color: var(--neutrals-dark-grey-text, #02070D);
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%; /* 2.275rem */
+}
+
+
+.smart-nudge-container-inner {
+  width: 100%;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.close-card {
+  border: 0px;
+  width: 25px;
+  height: 25px;
+  padding: 0px !important;
+  background: none !important;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+.user-image-wrapper{
+  max-width: 23.75rem;
+  width: 100%;
+}
+.user-image-wrapper .poverAvatar {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  
+}
+
+.user-image-wrapper .poverAvatar img {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius:0.5rem 0 0 0.5rem;
+}
+
+.card-info-wrapper{
+  position: relative;
+  padding: 0.75rem 3.19rem 0.75rem 2.5rem;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.card-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content:center;
+  gap: 1rem;
+}
+
+.card-info .title-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--sbds-primary-color);
+}
+
+.card-info .title-text {
+  color: var(--neutrals-medium-grey-text-body, #1A314D);
+  font-size: 1.5rem;
+  font-style: normal;
+  max-width: 320px;
+  font-weight: 500;
+  line-height: 130%; /* 1.95rem */
+}
+.card-info .description-text{
+  color: var(--neutrals-medium-grey-text-body, #1A314D);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%; /* 1.3rem */
+}
+
+.find-out-more-button {
+  height: unset;
+  padding: 1.25rem 2.1rem;
+  align-self: end;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1rem; /* 114.286% */
+  text-transform: uppercase; 
+}
+
+.find-out-more-button label{
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 900px){
+  .close-card {
+    border: 0px;
+    width: 25px;
+    height: 25px;
+    padding: 0px !important;
+    background: none !important;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+  .heading-text{
+    padding-bottom: 2.5rem;
+    font-size: 1rem;
+  }
+  .card-info-wrapper {
+    flex-direction: column;
+    align-items: start;
+    padding: 1rem;
+  }
+  .find-out-more-button{
+    align-self: start;
+  }
+  .user-image-wrapper {
+    display: none;
+  }
+  .card-info .title-text {
+    font-size: 1rem;
+    margin-right: 1.6rem;
+    max-width: unset;
+  }
+  .card-info .description-text{
+    font-size: 0.875rem;
+  }
+}

@@ -1,0 +1,40 @@
+.aob_estimation_block_container{
+    box-shadow: 0 12px 29px 0 rgba(0, 0, 0, 0.2);
+    width: 482px;
+}
+.aob_bundle_block h4{
+    padding-top: 15px; 
+    text-align:left;
+    
+}
+.aob_add_bundle{
+    font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #fff;
+}
+.aob-bundle-header{
+    font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #3c4b6c;
+}
+.aob_bundle-actions-content{
+    text-align: left;
+}
+
+.button-container{
+    /* position: fixed;
+    bottom: 0px; */
+    width: 100%;
+    text-align: center;
+    padding: 20px 50px;
+  }

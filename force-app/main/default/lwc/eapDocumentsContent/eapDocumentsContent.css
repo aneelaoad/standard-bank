@@ -1,0 +1,33 @@
+@import 'c/eapCssLibrary';
+
+.v1_section{
+    margin-bottom: 2.5em;
+}
+
+.v1_div_settings{
+    padding: 2em 3em;
+}
+
+.v1_file_div{
+    padding-top: 1em;
+    padding-right: 2em;
+    padding-left: 2em;
+    background-color: var(--background-grey);
+    min-height: 90vh;
+}
+
+.v1_settings_options{
+    margin-bottom: 1.5em;
+}
+
+.v1_label_setting{
+    color: var(--text-dark-grey);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.v1_p_extra{
+    padding-top:5px;
+    font-size: 11px;
+}

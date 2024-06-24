@@ -1,0 +1,169 @@
+<!--
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 12-04-2024
+@ Name of the Class : cib_comp_annexBAdditionalInformation
+@ Description       : This class is used to manage the select existing participants screen of the application.
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 12-04-2024
+@ Modification Description : SFP-36750
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Annexure B: Additional information</h2>
+    </div>
+    <div class="aob_card-container sub-header">
+      <div class="checkbox-container">
+        <input
+          class="checkbox-input"
+          id="No1"
+          data-fieldname="CIB_AB_AI_HasStandingOrderInstructions__c"
+          data-type="application"
+          checked={applicationRecord.CIB_AB_AI_HasStandingOrderInstructions__c}
+          type="checkbox"
+          name="CIB_AB_AI_HasStandingOrderInstructions__c"
+          onchange={onchange}
+        />
+        <label class="checkbox" for="No1">
+          <span class="slds-m-right_medium">
+            <img src={checkboxicon} alt="check" />
+          </span>
+          Does the entity have standing order instructions to pay amounts from
+          the account to an account maintained in the US and/or in one of the
+          OECD countries?</label
+        >
+      </div>
+      <div class="checkbox-container">
+        <input
+          class="checkbox-input checkbox_top"
+          id="No2"
+          data-fieldname="CIB_AB_AI_RecievesIncome_US_OECD__c"
+          data-type="application"
+          checked={applicationRecord.CIB_AB_AI_RecievesIncome_US_OECD__c}
+          type="checkbox"
+          name="CIB_AB_AI_RecievesIncome_US_OECD__c"
+          onchange={onchange}
+        />
+        <label class="checkbox" for="No2">
+          <span class="slds-m-right_medium">
+            <img src={checkboxicon} alt="check" />
+          </span>
+          Does the entity receive any payment of interest, dividends, rents,
+          salaries, wages, premiums, annuities, compensations, remunerations,
+          emoluments, and other fixed or determinable annual or periodical
+          gains, profits, and income from sources within the United States
+          and/or within one of the OECD countries?</label
+        >
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span>Entity declaration
+        and undertakings
+      </div>
+
+      <label class="slds-form-element__label para" for="form-element-05">
+        <span class="slds-required"> </span>
+        I declare (as an authorised signatory of the Entity) the information
+        provided in this form, is to the best of my knowledge and belief
+        accurate, true, current and complete. I am aware that the declaration
+        provided for FATCA purposes is under penalties of perjury.
+      </label>
+
+      <label class="slds-form-element__label" for="form-element-05">
+        <span class="slds-required"> </span>I undertake to advise the Bank
+        promptly and provide an updated Entity Tax Certification form within 30
+        days where any change in circumstances occurs which causes any of the
+        information contained in this form to be inaccurate and
+        incomplete.</label
+      >
+      <label class="slds-form-element__label" for="form-element-05">
+        <span class="slds-required"> </span>I hereby consent to the Bank sharing
+        this information with relevant domestic tax authorities in the knowledge
+        that the tax authorities will pass this to the tax authorities in
+        jurisdiction in which I have declared a tax residence pursuant to an
+        Intragovernmental agreement to exchange financial account
+        information.</label
+      >
+
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <label class="slds-form-element__label mt_20" for="form-element-05">
+            <span class="slds-required" title="required">* </span>Name of
+            authorised signatory</label
+          >
+          <lightning-input
+            variant="label-hidden"
+            type="text"
+            id="form-element-04"
+            aria-describedby="form-error-02"
+            aria-invalid="true"
+            data-fieldname="CIB_AB_AI_AuthorizedSignatoryName__c"
+            data-type="application"
+            placeholder="Please enter the Name"
+            name="CIB_AB_AI_AuthorizedSignatoryName__c"            
+            value={applicationRecord.CIB_AB_AI_AuthorizedSignatoryName__c}
+            required
+          >
+          </lightning-input>
+        </div>
+        <div
+          class="slds-col slds-size_1-of-1 slds-m-top_medium slds-large-size_5-of-12"
+        >
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label" for="date-input-id-default">
+              <abbr class="slds-required" title="required">* </abbr>Date
+            </label>
+            <c-cmn_comp_date-picker
+              message-when-value-missing="Please enter this field"
+              data-fieldname="CIB_AB_AI_AuthorizedSignatoryDate__c"
+              data-type="application"
+              value={applicationRecord.CIB_AB_AI_AuthorizedSignatoryDate__c}
+              required
+              name="CIB_AB_AI_AuthorizedSignatoryDate__c"
+            >
+            </c-cmn_comp_date-picker>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label mt_20" for="form-element-05">
+              <span class="slds-required" title="required">* </span
+              >Position/Title</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                type="text"
+                id="form-element-02"
+                placeholder="Please enter the Position/Title"
+                aria-describedby="form-error-02"
+                name="CIB_AB_AI_AuthorizedSignatoryTitle__c"
+                data-fieldname="CIB_AB_AI_AuthorizedSignatoryTitle__c"
+                data-type="application"
+                pattern="[a-zA-Z]+"
+                value={applicationRecord.CIB_AB_AI_AuthorizedSignatoryTitle__c}
+                aria-invalid="true"
+                required
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

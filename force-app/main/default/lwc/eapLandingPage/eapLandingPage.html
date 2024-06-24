@@ -1,0 +1,22 @@
+<!--
+  @description       : LWC for the home Page
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-07-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-02-2021   TCK   Initial Version
+-->
+<template>
+  <template if:true={loading}>
+    <c-eap-spinner></c-eap-spinner>
+  </template>
+
+  <div class="content">
+    <c-eap-header-home></c-eap-header-home>
+    <c-eap-landing-content onloaded={hasLoaded} onreload={needToLoad}></c-eap-landing-content>
+    <div class="v1_space_footer"></div>
+    <c-eap-footer isfixed=true></c-eap-footer>
+  </div>
+</template>

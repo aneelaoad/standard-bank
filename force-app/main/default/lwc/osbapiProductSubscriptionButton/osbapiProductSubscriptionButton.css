@@ -1,0 +1,26 @@
+.osbapiProductSubscriptionButton {
+    border: 2px solid #FFFFFF;
+    border-radius: 5px;
+    width: 320px;
+    height: 50px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 29px;
+    color: #0090FA;
+    background-color: white;
+    margin-left: 3rem;
+    margin-top: 2rem;
+    transition: all 200ms linear;
+}
+
+.osbapiProductSubscriptionButton:hover {
+    background-color: transparent;
+    color: white;
+}
+
+@media screen and (max-width: 1490px){
+    .osbapiProductSubscriptionButton {
+        width: 200px
+    }
+}

@@ -1,0 +1,86 @@
+<template>
+    <div class="activityCard">
+        <div class="activityCardHead">
+            <strong>Cash flow</strong>
+            <button><img src={dArrowIcon}></button>
+        </div>
+
+        <div class="cashflow_section">
+            <div class="incomeExp">
+                <button class="active">Income</button>
+                <button>Expenses</button>
+            </div>
+
+            <div class="incomeExpText">
+                <strong>R8000,00</strong>
+                <p>as of 4th March 2024</p>
+            </div>
+        </div>
+        <!--<div class="chartbarImg">
+            <span><img src={mallActivityImages}></span>
+        </div>-->
+        <div class="chart-wrapper" id="chart-wrapper">
+           
+        <div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="1" style="height: 0.5rem;"></div>
+            </div>
+            <div class="chart-label">1</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="1" style="height: 0.5rem;"></div>
+            </div>
+            <div class="chart-label">2</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="0" style="height: 0rem;"></div>
+            </div>
+            <div class="chart-label">3</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="0" style="height: 0rem;"></div>
+            </div>
+            <div class="chart-label">4</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="7" style="height: 3.5rem;"></div>
+            </div>
+            <div class="chart-label">5</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="5" style="height: 2.5rem;"></div>
+            </div>
+            <div class="chart-label">6</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="2" style="height: 1rem;"></div>
+            </div>
+            <div class="chart-label">7</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="9" style="height: 4.5rem;"></div>
+            </div>
+            <div class="chart-label">8</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="2" style="height: 1rem;"></div>
+            </div>
+            <div class="chart-label">9</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="5" style="height: 2.5rem;"></div>
+            </div>
+            <div class="chart-label">10</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="8" style="height: 4rem;"></div>
+            </div>
+            <div class="chart-label">11</div>
+        </div><div class="chart-item">
+            <div class="chart-bar-wrapper">
+                <div class="chart-bar" data-cashflow-percent="2" style="height: 1rem;"></div>
+            </div>
+            <div class="chart-label">12</div>
+        </div></div>
+    </div>
+</template>

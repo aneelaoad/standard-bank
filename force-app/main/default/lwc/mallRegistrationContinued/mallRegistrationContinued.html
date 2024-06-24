@@ -1,0 +1,93 @@
+<template>
+    <div class="cstmModal" if:true={showModal}>
+        <div>
+            <div>
+                <div data-registrationstage={registrationStage} class="modalContent">
+                    <div class="closeContainer">
+                        <a class="closeButton" onclick={hideCstmModal}>&#10006;</a>
+                    </div>
+                    <div class="steps step-0">
+                        <div class="modalHeadline">
+                            <h3>What will your browsing context be? </h3>
+                        </div>
+                        <div class="modalIntro">
+                            <p>Feel free to select more than one</p>
+                        </div>
+                        <div class="formDevider">
+                            <div class="slds-form-element__control">
+                                <span class="modalCheckbox slds-checkbox">
+                                    <input  type="checkbox" name="Checkbox Group" id="checkbox-0-2" value="0">
+                                    <label  for="checkbox-0-2" class="slds-checkbox__label">
+                                        <span  class="slds-checkbox_faux"></span>
+                                        <span  class="slds-form-element__label">For yourself</span>
+                                    </label>
+                                </span>
+                                <span  class="modalCheckbox slds-checkbox">
+                                    <input  type="checkbox" name="Checkbox Group" id="checkbox-1-2" value="1">
+                                    <label  for="checkbox-1-2" class="slds-checkbox__label">
+                                        <span  class="slds-checkbox_faux"></span>
+                                        <span  class="slds-form-element__label">For your business</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="formDevider">
+                            <a class="button" href="javascript:void(0)" onclick={handleStageForward}>CONTINUE</a>
+                        </div>
+                        <div class="formDevider">
+                            <p><a href="javascript:void(0)" onclick={hideCstmModal}>NO THANKS, I’LL DO THIS LATER</a></p>
+                        </div>
+                    </div>
+                    <div class="steps step-1">
+                        <div class="modalHeadline">
+                            <h3>Personalise your content.</h3>
+                        </div>
+                        <div class="modalIntro">
+                            <p>Select the catagories your interested in knowing more about</p>
+                        </div>
+                        <div class="formDevider">
+                            <div class="slds-grid slds-wrap selection-container">
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Banking"></lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Investing"></lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Insurance"></lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Home"> </lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Travel"> </lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Health"> </lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Education"> </lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Marketplace"> </lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="API’s"> </lightning-input>
+                                </div>
+                                <div class="slds-size_6-of-12 slds-text-align_left">
+                                    <lightning-input class="modalCheckbox" type="checkbox" label="Vehicle"> </lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formDevider">
+                            <a class="button" href="javascript:void(0)" onclick={hideCstmModal}>SIGN UP</a>
+                        </div>
+                        <div class="formDevider">
+                            <p><a href="javascript:void(0)" onclick={handleStageBackward}>BACK</a></p>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

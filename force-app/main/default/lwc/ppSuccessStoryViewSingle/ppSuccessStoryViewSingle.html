@@ -1,0 +1,67 @@
+<!-- **
+* @description  : Partner Portal Success Story Detail Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+
+    <div class="container" id="container">
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <img src={bannerImg} class="background-image">
+            </div>
+
+            <div class="slds-col slds-align_absolute-center breadcrumbs">
+
+                <div class="slds-grid">
+                    <a href={breadcrumbOneUrl} data-intent="navigational" data-scope="Success Stories"
+                       data-id="link_content" data-text="Partner Portal" onclick={tracker}>
+                        <div class="slds-col">
+                            <p>Partner Portal <img class="arrowIcon" src={breadcrumbArrowIcon}><img></p>
+                        </div>
+                    </a>
+
+                    <a href={breadcrumbTwoUrl} data-intent="navigational" data-scope="Success Stories"
+                       data-id="link_content" data-text="Success Stories" onclick={tracker}> 
+                        <div class="slds-col">
+                            <p class="sub-breadcrumbs" >Success Stories <img
+                                    class="arrowIcon" src={breadcrumbArrowIcon}><img></p>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap main-grid slds-align_absolute-center" id="main-grid">
+            <div class="slds-col slds-size_12-of-12">
+                <div class="slds-grid slds-wrap">
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1 story-container">
+                        <div class="slds-col slds-align-top slds-p-top_small main-heading">
+                            <p class="story-date text-small">Success Stories | <lightning-formatted-date-time
+                                    value={lastPublishedDate}></lightning-formatted-date-time>
+                            </p>
+
+                        </div>
+
+                        <div class="slds-col story-detail">
+                            <p class="title heading-large">{title}</p>
+                            <p class="summary text-large">{summary}</p>
+                            <div class="details">
+                                <lightning-formatted-rich-text value={info}></lightning-formatted-rich-text>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</template>

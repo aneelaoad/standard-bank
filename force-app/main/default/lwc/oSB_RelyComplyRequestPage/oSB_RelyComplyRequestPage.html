@@ -1,0 +1,51 @@
+<template>
+    <div class="SignUpRequestSol slds-grid slds-gutters" id="SignUpRequestSol">
+        <div class="inputSection slds-col slds-large-size_4-of-12 slds-medium-size--4-of-8 slds-small-size--4-of-8">
+            <template if:true={RequestNotComplete}>
+                <div class="slds-text-heading_medium slds-m-bottom_medium title slds-align_absolute-center slds-grid_vertical ">
+                    <h1 style="font-weight: 200;">Request access to</h1>
+                    <h1>RelyComply</h1>
+                </div>
+                <template for:each={contacts.data} for:item="contact" for:index="index">
+                    <div key={contact.id}>
+                        <lightning-input type="text" label="Full name" value={contact.Name} data-id="Fullname" class="newRequest__form--input" readonly="true" ></lightning-input>
+                        <lightning-input type="text" label="Email address" value={contact.Email} data-id="emailAddress" class="newRequest__form--input" readonly="true"></lightning-input>
+                        <lightning-input type="text" label="Mobile number" value={contact.Phone} data-id="Company" class="newRequest__form--input" readonly="true"></lightning-input>
+                        <lightning-input type="text" label="Company" value={contact.OSB_Company_name__c} data-id="mobileNumber" class="newRequest__form--input" readonly="true"></lightning-input>
+                    </div>
+                </template> 
+                <a  onclick={requestAccess} class="slds-button slds-button_neutral btnStyle btn--gray signUp__button"
+                data-intent="confirmational" data-text={RequestButtonAdobe} data-scope="registration page" data-id="Request"
+                >Request Access</a>
+                <a class="tnc slds-align_absolute-center" href="/s/terms-and-conditions" target="_blank" data-id="TermsAndConditions"
+                data-text={TnCAdobeButton} data-intent="transactional" data-scope="registration page"
+                >By requesting access I agree to the T&C’s</a>
+            </template>
+            
+            <template if:false={RequestNotComplete}>
+                <div class="submittedSection">
+                    <p>
+                        Your request has been submitted
+                        <br/>A customer service consultant will be in contact with you soon
+                        <br/>Please contact onehub@standardbank.co.za for any queries
+                    </p>
+                    <a  href="/s" class="slds-button slds-button_neutral btnStyle btn--gray signUp__button"
+                    data-intent="navigational" data-text={ReturnButtonAdobe} data-scope="registration page"
+                    >Return to Onehub</a>
+                    <a  href="/s/rely-comply" class="slds-button slds-button_neutral btnStyle btn--gray signUp__button"
+                    data-intent="navigational" data-text={ReturntoSitePageAdobe} data-scope="registration page"
+                    >Visit Website</a>
+                    
+                </div>
+            </template>    
+        </div>
+        <div class="rightImage slds-col slds-size_4-of-12 slds-float_right slds-grid_vertical-stretch">
+            <div   class=" slds-grid slds-grid_vertical slds-align_absolute-center">
+                <img class="slds-col slds-size_x-small" src={relyComplyLogo}/>
+                    <img class="slds-col slds-size_medium" src={relyComplyName}/>
+                    </div>
+                    
+                    <img src={imageHeader} class="slds-align_absolute-center slds-m-top_large logoAuth2 slds-size_5-of-12"/>
+                </div>
+            </div> 
+</template>

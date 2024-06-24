@@ -1,0 +1,198 @@
+<template>
+    <div data-id="wholeHeader" class="headerAndNavbar fixed-height overall" id="headerFixedHeight">
+        <div data-id="mobile-menu" class="closed_mobile-menu">
+            <div data-id="with-menu" class="header-container with-shadow" id="headerContainer">
+                <div lwc:if={isUserNotLoggedIn}>
+                    <div lwc:if={showBannerMessage}>
+                        <c-osb-header-banner-message-lwc></c-osb-header-banner-message-lwc>
+                    </div>
+                </div>
+                <div data-id="header-check" class="header withMenu">
+                    <div data-id="logged-check" class="header__icon-cont">
+                        <div class="header__icon">
+                            <i class="header__user__icon ms-icn_lock_closed"></i>
+                        </div>
+                    </div>
+                    
+                    <div lwc:if={withMenu}>
+                        <div class="header__logo" data-id="sbBadgeLogoContainer">
+                            <a class="breadcrumbs__item" href="/s/" data-id="header_nav_link">
+                                <img src={OSB_logoBadge} data-id="sbBadgeLogo" data-scope="header"
+                                    data-text="header | logo" data-intent="navigational" />
+                            </a>
+                        </div>
+                        <div data-id="header-acc" id="header_acc_left"
+                            class="header__account_logged hide_on_bigres slds-m-left_large">
+                            <div class="header__contact-container slds-m-left_xx-large align-nav hide_on_bigres">
+                                <a class="header_dashboard slds-m-left_xx-large tab tab-menu-selected tab hoverCls"
+                                    id="dashboard" onclick={handleNav} data-id="Dashboard"
+                                    data-text="Header | Dashboard" data-intent="navigational">
+                                    My dashboard
+                                </a>
+                                <a class="header_application slds-m-left_xx-large tab hoverCls"
+                                    id="applicationMarketplace" onclick={handleNav} data-id="Application Marketplace"
+                                    data-text="Header |  Application marketplace" data-intent="navigational">
+                                    Application marketplace
+                                </a>
+                                <a class="header_application slds-m-left_xx-large tab hoverCls" id="OneDeveloper"
+                                    onclick={handleNav} data-id="OneDeveloper" data-text="Header |  OneDeveloper"
+                                    data-intent="navigational">
+                                    OneDeveloper
+                                </a>
+                                <a class="header_marketplace slds-m-left_xx-large tab hoverCls" id="insights"
+                                    onclick={handleNav} data-id="Insights" data-text="Header | insights"
+                                    data-intent="navigational">
+                                    Insights
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div lwc:else>
+                        <div class="header__logo logo_external slds-size_1-of-4 slds-medium-size_3-of-12"
+                            data-id="sbLogoContainer">
+                            <a class="logoContainer" href="/s/" data-id="sbLogo" data-scope="header"
+                                data-text="header | logo" data-intent="navigational"></a>
+                        </div>
+                    </div>
+                    <div lwc:if={withUserName}>
+                        <div data-id="mobile-sec" class="header__mobile-menu tab" style="margin-top: 33%">
+                            <button class="slds-dropdown-trigger slds-button header__mobile-menu-cont">
+                                <i class="ms-icn_menu" onclick={openMobileMenu}></i>
+                            </button>
+                            <div lwc:if={displayedUnreadNotifications}>
+                                <div class="header__unread-notifications__left">
+                                    <div data-id="notications-section"
+                                        class="header__unread-notification three__digits">
+                                        <div class="header__unread-notification-number">
+                                            {unreadNotificationsNumber}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div lwc:else>
+                        <div lwc:if={noOverlay}>
+                            <div class="header__overlay"></div>
+                            <div class="header__fixed-height"></div>
+                        </div>
+                        <div lwc:else>
+                            <div class="header__fixed-height"></div>
+                        </div>
+                    </div>
+                    <div data-id="header-acc" id="header_acc" class="header__account_logged hide_on_bigres">
+                        <div class="header__contact-container">
+                            <a class="header_contact hoverCls tab" onclick={navigateContactUs} data-id="contact-us"
+                                data-text="Header | Contact Us" data-intent="navigational">
+                                Contact us
+                            </a>
+                        </div>
+                        <div data-id="menu-notifications" style="display: inline-flex; margin-top: 1.25rem">
+                            <a onclick={navigateNotifications} class="header__notification tab" data-id="notifications"
+                                id="notifications" data-text="Header | Noification Bell" data-intent="navigational">
+                                <i class="msClass ms-icn_bell notification__bell"></i>
+                                <div lwc:if={displayedUnreadNotifications}>
+                                    <div class="header__unread-notifications">
+                                        <div class="header__unread-notification three__digits">
+                                            <div class="header__unread-notification-number">
+                                                {unreadNotificationsNumber}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <lightning-icon size="small" class="msClass notification__bell" icon-name="utility:lock"
+                                alternative-text="Lock" title="Lock" variant="inverse"></lightning-icon>
+                            <div class="header_dropdown">
+                                <lightning-button-menu class="no-hover slds-button-class header_contact_menu"
+                                    menu-alignment="right" label={userName} variant="container" aura:id="menu"
+                                    onselect={handleSelect} onopen={handleDropMenu} data-text="header | menu">
+                                    <div>
+                                        <lightning-menu-item class="header_menu_item header_menu_item--border"
+                                            value="Edit Profile" label="Profile and Settings"></lightning-menu-item>
+                                    </div>
+                                    <div data-id="header_nav_password" data-text="Header | Change Password">
+                                        <lightning-menu-item class="header_menu_item header_menu_item--border"
+                                            value="Change Password" label="Change Password"
+                                            data-intent="navigational"></lightning-menu-item>
+                                    </div>
+                                    <div lwc:if={showTeamProfile}>
+                                        <div data-id="header_nav_team" data-text="Header | Team Profile">
+                                            <lightning-menu-item class="header_menu_item header_menu_item--border"
+                                                value="Team Profile" label="Team Profile"
+                                                data-intent="navigational"></lightning-menu-item>
+                                        </div>
+                                    </div>
+                                    <div data-id="header_nav_code" data-text="Header | Code of Conduct">
+                                        <lightning-menu-item class="header_menu_item header_menu_item--border"
+                                            value="Code of Conduct" label="Code of Conduct"
+                                            data-intent="navigational"></lightning-menu-item>
+                                    </div>
+                                    <div data-id="header_nav_conditions" data-text="Header | Terms & Conditions">
+                                        <lightning-menu-item class="header_menu_item header_menu_item--border"
+                                            value="conditions" label="Terms &amp; Conditions"
+                                            data-intent="navigational"></lightning-menu-item>
+                                    </div>
+                                    <div data-id="header_nav_signout" data-text="Header | Sign Out">
+                                        <lightning-menu-item class="header_menu_item" value="Sign Out" label="Sign out"
+                                            data-intent="navigational">
+                                        </lightning-menu-item>
+                                    </div>
+                                </lightning-button-menu>
+                            </div>
+                        </div>
+                        <div lwc:if={isUserNotLoggedIn}>
+                            <div lwc:if={isGuestUser} class="login-container">
+                                <div class="header__button_contatiner">
+                                    <a href={loginUrl} class="header__button" data-id="headerButton"
+                                        data-text="Header | Sign into your dashboard">
+                                        <div class="header__button--left" id="buttonLeft">
+                                            <span id="signIntoYour1">Sign into your</span>
+                                            <span id="signIntoYour2">dashboard</span>
+                                        </div>
+                                        <div class="header__button--right">
+                                            <i class="header__button--icon ms-icn_profile_dashboard"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div data-id="full_terms" class="terms_link">
+                                    By signing in you agree to the<a class="partial_link" target="_blank"
+                                        href={tcLink}>&nbsp;T&#38;C's</a>
+                                </div>
+                                <a data-id="part_terms" class="partial_link hidden_link" target="_blank"
+                                    href={tcLink}>T&#38;C's</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-id="Mobile-menu-toggled" class="header-dropdown mobile__menu">
+        <div lwc:if={isUserLoggedIn}>
+            <c-osb-mobile-menu-lwc mobile-menu-toggled={menuOpened} onclsevt={handleCloseEvent}
+                unread-notifications-number={unreadNotificationsNumber} onopennav={handleMobielNav}>
+            </c-osb-mobile-menu-lwc>
+        </div>
+        <div lwc:else>
+            <div class="mobile__menu">
+                <div class="mobile__menu-header">
+                    <lightning-icon onclick={closeMenu} size="x-small"
+                        class="msClass notification__bell header__user__icon" icon-name="utility:close"
+                        alternative-text="Close" title="close" variant="inverse"></lightning-icon>
+                </div>
+                <a class="mobile__menu-sign" href={loginUrl}>
+                    <div>Sign into your dashboard</div>
+                    <i class="header__button--icon ms-icn_profile_dashboard"></i>
+                </a>
+                <div class="mobile__menu-contact">
+                    <a target="_blank" href={tcLink} data-id="termsAndConditions">Terms and Conditions</a>
+                </div>
+                <div class="mobile__menu-contact" onclick={navigateContactUs} data-id="uitlink_link_contactus"
+                    data-text="Header | Contact Us">
+                    Contact us
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

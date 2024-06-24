@@ -1,0 +1,606 @@
+<template>
+    <template if:true={isOpen}>
+        <section
+            role="dialog"
+            tabindex="-1"
+            aria-labelledby="modal-heading-01"
+            aria-modal="true"
+            aria-describedby="modal-content-id-1"
+            class="slds-modal slds-fade-in-open"
+        >
+            <div class="popUp-container" data-id="add-device-modal">
+                <template if:true={step1}>
+                    <div class="rectangle-modal step1">
+                        <div class="modal-heading" id="modalHeader">
+                            <h1 class="heading-text">
+                                <i class="ms-icn_lock_closed slds-medium"></i>
+                                UPGRADE SECURITY
+                            </h1>
+                        </div>
+
+                        <div class="grey-line"></div>
+                        <div class="rectangle-steps" id="modalTitle">
+                            <div class="steps-nav slds-grid_align-center">
+                                <div class="step slds-col">
+                                    <div class="oval-1">
+                                        <div class="oval-2 oval-2_selected">
+                                            <div class="number">1</div>
+                                        </div>
+                                    </div>
+                                    <div class="step-name selected_font">
+                                        Download App
+                                    </div>
+                                </div>
+                                <div class="step slds-col">
+                                    <div class="line"></div>
+                                    <div class="oval-2 oval-2_unselected">
+                                        <div class="number">2</div>
+                                    </div>
+                                    <div class="step-name">Link Device</div>
+                                </div>
+                                <div class="step slds-col">
+                                    <div class="line"></div>
+                                    <div class="oval-2 oval-2_unselected">
+                                        <div class="number">3</div>
+                                    </div>
+                                    <div class="step-name">Confirmation</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rectangle2 slds-grid" id="modalBody">
+                            <div
+                                class="rectangle-left phone-image slds-col slds-size--1-of-4"
+                            >
+                                <img
+                                    class="phone_image"
+                                    src={phoneWithSignInMethods}
+                                />
+                            </div>
+
+                            <div
+                                class="rectangle-middle slds-col slds-col slds-small-size--4-of-4 slds-medium-size--2-of-4 slds-large-size--2-of-4"
+                            >
+                                <h1 class="content__title">
+                                    Download the OneHub Authenticator app
+                                </h1>
+                                <div class="content__subtitle">
+                                    <p class="subtitle">
+                                        Download and link the OneHub
+                                        Authenticator app to your mobile device
+                                        to add an enhanced layer of security.
+                                    </p>
+                                    <p class="subtitle">
+                                        Once you have linked your profile you
+                                        will have the option to sign in using a
+                                        QR code.
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                class="rectangle-right slds-col slds-grid_vertical slds-col slds-small-size--4-of-4 slds-medium-size--2-of-4 slds-large-size--2-of-4"
+                            >
+                                <p class="sub-text">
+                                    Install via the App or Play Store
+                                </p>
+                                <!-- <br></br> -->
+                                <div class="appOrPayStore slds-grid">
+                                    <img
+                                        class="img slds-col appStore_image"
+                                        src={appStore}
+                                    />
+                                    <img
+                                        class="img slds-col googlePlay_image"
+                                        src={googlePlay}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="addDevice__buttons slds-grid slds-grid_align-end"
+                        >
+                            <div
+                                class="button slds-col slds-p-horizontal_medium"
+                            >
+                                <a
+                                    onclick={notNow}
+                                    class="slds-button slds-button_neutral btnStyle"
+                                    data-id="notNow"
+                                    data-intent="confirmational"
+                                    data-scope="new device"
+                                    data-text="new device | not now"
+                                >
+                                    NOT NOW
+                                </a>
+                            </div>
+                            <div
+                                class="button slds-col slds-p-horizontal_medium"
+                            >
+                                <a
+                                    onclick={goToLinkDevice}
+                                    class="slds-button slds-button_neutral btnStyleInverse"
+                                    data-id="haveAdevice"
+                                    data-intent="navigational"
+                                    data-scope="new device"
+                                    data-text="new device | already have a device"
+                                >
+                                    I HAVE INSTALLED THE APP
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <div class="popUp-container" data-id="add-device-modal">
+                    <template if:true={isAppInstalled}>
+                        <div class="rectangle-modal step2">
+                            <div class="modal-heading" id="modalHeader1">
+                                <h1 class="heading-text">
+                                    <i
+                                        class="ms-icn_lock_closed slds-medium"
+                                    ></i>
+                                    UPGRADE SECURITY
+                                </h1>
+                            </div>
+                            <div class="grey-line"></div>
+                            <div class="rectangle-steps" id="modalTitle1">
+                                <div class="steps-nav slds-grid_align-center">
+                                    <div class="step slds-col">
+                                        <div
+                                            class="ms-icn_check_circle_solid selected_font"
+                                        ></div>
+                                        <div class="step-name">
+                                            Download App
+                                        </div>
+                                    </div>
+                                    <div class="step slds-col">
+                                        <div class="line"></div>
+                                        <div class="oval-1">
+                                            <div class="oval-2 oval-2_selected">
+                                                <div class="number">2</div>
+                                            </div>
+                                        </div>
+                                        <div class="step-name selected_font">
+                                            Link Device
+                                        </div>
+                                    </div>
+                                    <div class="step slds-col">
+                                        <div class="line"></div>
+                                        <div class="oval-2 oval-2_unselected">
+                                            <div class="number">3</div>
+                                        </div>
+                                        <div class="step-name">
+                                            Confirmation
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rectangle2 slds-grid" id="modalBody1">
+                                <div
+                                    class="rectangle-left phone-image-left slds-col slds-size_1-of-4"
+                                >
+                                    <img
+                                        class="banner__image"
+                                        src={linkYourDevice}
+                                    />
+                                </div>
+                                <div
+                                    class="rectangle-middle slds-col slds-size_2-of-4"
+                                >
+                                    <h1 class="content__title">
+                                        Scan the QR code to link your device
+                                    </h1>
+                                    <div class="content__subtitle">
+                                        <p>
+                                            Open your OneHub authenticator app
+                                            and scan the QR code to link your
+                                            device.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <template if:false={qrCodeBase64}>
+                                        <div class="rectangle2">
+                                            <img class="loader" src={loader} />
+                                        </div>
+                                    </template>
+                                    <template if:true={qrCodeBase64}>
+                                        <template if:false={waitingForAuth}>
+                                            <template if:true={reloadQr}>
+                                                <div class="qrCode">
+                                                    <img
+                                                        src={qrReload}
+                                                        onclick={reloadQrCode}
+                                                        data-id="reloadQrCode"
+                                                        data-intent="confirmational"
+                                                        data-scope="new device"
+                                                        data-text="new device | reload QR code"
+                                                    />/>
+                                                </div>
+                                            </template>
+                                            <template if:false={reloadQr}>
+                                                <div class="qrCode">
+                                                    <img src={qrCodeBase64} />
+                                                </div>
+                                                <div class="timer_info">
+                                                    <span class="timer_text"
+                                                        >This code will expire
+                                                        in</span
+                                                    >
+                                                    <span></span>
+                                                    <!-- <br> -->
+                                                    <template
+                                                        if:true={timerDisplay}
+                                                    >
+                                                        <div
+                                                            style="
+                                                                padding-bottom: 25px;
+                                                            "
+                                                        >
+                                                            <c-osb-text-timer-lwc
+                                                                timerstepcirle={TimerStepCirle}
+                                                                ontimerevent={handleTimer}
+                                                            ></c-osb-text-timer-lwc>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </template>
+                                    </template>
+
+                                    <template if:true={waitingForAuth}>
+                                        <div class="timer" data-id="countdown">
+                                            <div class="timer_text">
+                                                Waiting for you to approve the
+                                                sign in on the authentication
+                                                app
+                                            </div>
+                                            <template
+                                                if:true={MobiletimerDisplay}
+                                            >
+                                                <div class="timer_contatiner">
+                                                    <c-osb-text-timer-lwc
+                                                        timerstepcirle={TimerStepCirle}
+                                                        ontimerevent={handleTimer}
+                                                    ></c-osb-text-timer-lwc>
+                                                </div>
+                                                <div
+                                                    class="timer_text"
+                                                    style="padding-bottom: 25px"
+                                                >
+                                                    <span
+                                                        style="
+                                                            text-transform: uppercase;
+                                                        "
+                                                        >{deviceInfo}</span
+                                                    >
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div
+                                class="addDevice__buttons slds-grid slds-grid_align-end"
+                            >
+                                <template if:true={waitingForAuth}>
+                                    <div
+                                        class="button slds-col slds-p-horizontal_medium"
+                                    >
+                                        <a
+                                            onclick={goToStep1}
+                                            class="slds-button slds-button_neutral btnStyle"
+                                            data-id="step1True"
+                                            data-intent="navigational"
+                                            data-scope="new device"
+                                            data-text="new device | back"
+                                        >
+                                            BACK
+                                        </a>
+                                    </div>
+                                </template>
+                                <template if:false={waitingForAuth}>
+                                    <div
+                                        class="button slds-col slds-p-horizontal_medium"
+                                    >
+                                        <a
+                                            onclick={goToStep1}
+                                            class="slds-button slds-button_neutral btnStyle"
+                                            data-id="step1False"
+                                            data-intent="navigational"
+                                            data-scope="new device"
+                                            data-text="new device | back"
+                                        >
+                                            BACK
+                                        </a>
+                                    </div>
+                                </template>
+                                <div
+                                    class="button slds-col slds-p-horizontal_medium"
+                                >
+                                    <a
+                                        onclick={handleCancel}
+                                        class="slds-button slds-button_neutral btnStyleInverse"
+                                        data-id="cancel"
+                                        data-intent="confirmational"
+                                        data-scope="new device"
+                                        data-text="new device | cancel"
+                                    >
+                                        CANCEL
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="popUp-container" data-id="add-device-modal">
+                    <template if:true={deviceAuthenticated}>
+                        <div class="rectangle-modal step3">
+                            <div class="modal-heading" id="modalHeader2">
+                                <h1 class="heading-text">
+                                    <i
+                                        class="ms-icn_lock_closed slds-medium"
+                                    ></i>
+                                    UPGRADE SECURITY
+                                </h1>
+                            </div>
+                            <div class="grey-line"></div>
+
+                            <div class="rectangle-steps">
+                                <div class="steps-nav slds-grid_align-center">
+                                    <div class="step slds-col">
+                                        <div
+                                            class="ms-icn_check_circle_solid selected_font"
+                                        ></div>
+                                        <div class="step-name">
+                                            Download App
+                                        </div>
+                                    </div>
+                                    <div class="step slds-col">
+                                        <div class="line"></div>
+                                        <div
+                                            class="ms-icn_check_circle_solid selected_font"
+                                        ></div>
+                                        <div class="step-name">Link Device</div>
+                                    </div>
+                                    <div class="step slds-col">
+                                        <div class="line"></div>
+                                        <div class="oval-1">
+                                            <div class="oval-2 oval-2_selected">
+                                                <div class="number">3</div>
+                                            </div>
+                                        </div>
+                                        <div class="step-name selected_font">
+                                            Confirmation
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rectangle2 slds-grid">
+                                <div
+                                    class="rectangle-left phone-image-left slds-col slds-size_1-of-4"
+                                >
+                                    <img
+                                        class="banner__image"
+                                        src={phoneConfirmed}
+                                    />
+                                </div>
+                                <div
+                                    class="rectangle-middle slds-col slds-size_2-of-4"
+                                >
+                                    <h1 class="content__title">
+                                        Device successfully linked
+                                    </h1>
+                                    <div class="content__subtitle">
+                                        <p>
+                                            The next time you sign in you will
+                                            be prompted to
+                                        </p>
+                                        <p>use the app</p>
+                                        <div class="linked-device">
+                                            <p>
+                                                Linked device:
+                                                <span
+                                                    style="
+                                                        text-transform: uppercase;
+                                                    "
+                                                    >{deviceInfo}</span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="rectangle-right check-icon slds-col slds-size_1-of-4"
+                                    style="border: 0"
+                                >
+                                    <i
+                                        class="largeIcon ms-icn_check_circle"
+                                    ></i>
+                                </div>
+                            </div>
+                            <div
+                                class="addDevice__buttons slds-grid slds-grid_align-end"
+                            >
+                                <div
+                                    class="button slds-col slds-p-horizontal_medium"
+                                >
+                                    <a
+                                        onclick={goToLinkDevice}
+                                        class="slds-button slds-button_neutral btnStyle"
+                                        data-id="addAnother"
+                                        data-intent="navigational"
+                                        data-scope="new device"
+                                        data-text="new device | add another"
+                                    >
+                                        LINK ANOTHER DEVICE
+                                    </a>
+                                </div>
+                                <div
+                                    class="button slds-col slds-p-horizontal_medium"
+                                >
+                                    <a
+                                        onclick={goToHome}
+                                        class="slds-button slds-button_neutral btnStyleInverse"
+                                        data-id="continueToOnehub"
+                                        data-intent="navigational"
+                                        data-scope="new device"
+                                        data-text="new device | continue to Onehub"
+                                    >
+                                        CONTINUE TO ONEHUB
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <template if:true={showtutorial}>
+                    <div class="tutorial-modal rectangle-modal">
+                        <div class="modal-heading">
+                            <h1 class="heading-text">
+                                <i class="ms-icn_lock_closed slds-medium"></i>
+                                UPGRADE SECURITY
+                            </h1>
+                        </div>
+                        <div class="grey-line"></div>
+                        <div class="sub-rectangle-tutorial slds-grid">
+                            <div class="tutorial1 slds-col">
+                                <img
+                                    class="tutorial_image1"
+                                    src={AddDeviceTutorial1}
+                                />
+                            </div>
+                            <div class="tutorial2 slds-col">
+                                <img
+                                    class="tutorial_image1"
+                                    src={AddDeviceTutorial2}
+                                />
+                            </div>
+                        </div>
+                        <div class="tutorial-content">
+                            <h1 class="tutorial_content__title">
+                                Are you sure you don’t want the added security?
+                            </h1>
+                            <div class="tutorial_content__subtitle">
+                                <p>
+                                    That’s ok, you will be able to sign in
+                                    without the app. You can always link a
+                                    device later from the device management
+                                    interface.
+                                </p>
+                                <p>
+                                    1. Click on ‘Profile and Settings’ at the
+                                    top of your screen
+                                </p>
+                                <p>2. Click on ‘Device Management’</p>
+                                <p>
+                                    3. Click on ‘Add device’ and follow the
+                                    prompts
+                                </p>
+                            </div>
+                        </div>
+                        <template if:true={isMobile}> </template>
+                        <div
+                            class="addDevice__buttons slds-grid slds-grid_align-end"
+                        >
+                            <div class="device_checkbox">
+                                <div
+                                    class="dontAsk"
+                                    style="
+                                        text-align: -webkit-center;
+                                        padding: 10px;
+                                    "
+                                >
+                                    <lightning-input
+                                        type="checkbox"
+                                        label="Don’t ask again"
+                                        data-id="dontshow"
+                                        class="checkbox-container"
+                                    ></lightning-input>
+                                </div>
+                            </div>
+                            <div
+                                class="button slds-col slds-p-horizontal_medium"
+                            >
+                                <a
+                                    onclick={goToStep1}
+                                    class="slds-button slds-button_neutral btnStyle"
+                                    data-id="installApp"
+                                    data-intent="navigational"
+                                    data-scope="new device"
+                                    data-text="new device | install app"
+                                >
+                                    INSTALL THE APP
+                                </a>
+                            </div>
+
+                            <div
+                                class="button slds-col slds-p-horizontal_medium"
+                            >
+                                <a
+                                    onclick={goToHome}
+                                    class="slds-button slds-button_neutral btnStyle"
+                                    data-id="continueToOnehub2"
+                                    data-intent="navigational"
+                                    data-scope="new device"
+                                    data-text="new device | continue to Onehub"
+                                >
+                                    CONTINUE TO ONEHUB
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isLoading}>
+                    <div class="rectangle-modal">
+                        <div class="modal-heading">
+                            <h1 class="heading-text">
+                                <i class="ms-icn_lock_closed slds-medium"></i>
+                                UPGRADE SECURITY
+                            </h1>
+                        </div>
+                        <div class="grey-line"></div>
+                        <div class="rectangle2">
+                            <img class="loader" src={loader} />
+                        </div>
+                    </div>
+                </template>
+                <template if:true={error}>
+                    <div class="rectangle-modal">
+                        <div class="errorHeading slds-grid">
+                            <img
+                                class="closeButton slds-col"
+                                src={closeIcon}
+                                onclick={closeErrorScreen}
+                                data-id="errorScreen"
+                                data-intent="confirmational"
+                                data-scope="new device"
+                                data-text="new device | error close"
+                            />
+                        </div>
+                        <div class="rectangle-error">
+                            <div class="error">
+                                We have experienced an unexpected error
+                            </div>
+                            <lightning-button
+                                class="reload"
+                                variant="base"
+                                label="Reload"
+                                onclick={reload}
+                                data-id="reload"
+                                data-intent="confirmational"
+                                data-scope="new device"
+                                data-text="new device | reload"
+                            ></lightning-button>
+                        </div>
+                    </div>
+                </template>
+                <div
+                    class="popUp-overlay popUp-visible"
+                    data-id="visibleOverlay"
+                    id="visibleOverlay"
+                ></div>
+                <div class="popUp-overlay popUp-invisible"></div>
+            </div>
+        </section>
+    </template>
+</template>

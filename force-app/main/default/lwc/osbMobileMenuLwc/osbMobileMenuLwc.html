@@ -1,0 +1,284 @@
+<template>
+    <div class="header-dropdown mobile__menu">
+        <div class="header__line-mobile header-container">
+            <button class="slds-dropdown-trigger slds-button header__mobile-menu-cont cross_buton">
+                <div id="headerCross">
+                    <img src={OSBCloseIcon} class="close" onclick={closeMobileMenu} data-id="uitlink_link_close"
+                        data-text="Mobile | Close Icon" data-intent="confirmational" data-scope="Mobile menu">
+                </div>
+            </button>
+        </div>
+        <div class="header_dropdown_elements">
+            <div if:true={Dashboard}>
+                <div class="header__account_dropdown">
+                    <div class="header_dropdown-full-menu">
+                        <div class="links__container">
+                            <div class="menu_chevron">
+                                <div class="uit_link" data-id="uitlink_link_Dashoard" data-text="Header mobile | Overview" data-intent="navigational" data-scope="Mobile menu"
+                                    onclick={openDashboard}>
+                                    <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                        value="editProfile" label="Overview"></lightning-menu-item>
+                                </div>
+                                <div if:true={overviewClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevronup" data-intent="navigational" data-text="Header mobile | Overview" data-scope="Mobile menu"
+                                        alternative-text="overview" title="overview" onclick={clickedOverview}>
+                                    </lightning-icon>
+                                </div>
+                                <div if:false={overviewClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevrondown" data-intent="navigational" data-text="Header mobile | Overview" data-scope="Mobile menu"
+                                        alternative-text="overview" title="overview" onclick={clickedOverview}>
+                                    </lightning-icon>
+                                </div>
+                            </div>
+                            <div if:true={overviewClicked}>
+                                <div class="inside_links_overview">
+                                    <div class="uit_link_inner" data-id="Dashboard" data-text="Header mobile | Dashboard" data-intent="navigational" data-scope="Mobile menu"
+                                        onclick={openDashboard}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style" data-intent="navigational" data-text="Header mobile | Dashboard" data-scope="Mobile menu"
+                                            data-id="Dashboard" value="editProfile" label="My Dashboard">
+                                        </lightning-menu-item>
+                                    </div>
+                                    <div class="uit_link_inner" data-id="Application Marketplace" data-intent="navigational" data-scope="Mobile menu"
+                                        data-text="Header mobile | Application marketplace" onclick={openApplicationMarket}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            data-id="Application Marketplace" value="editProfile"
+                                            label="Application marketplace"></lightning-menu-item>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown_link-with-notification uit_link" data-id="uitlink_link_notifications" data-intent="navigational" data-scope="Mobile menu"
+                                data-text="Header mobile | Notifications" onclick={clickedNotifications}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="notifications" label="Notifications"></lightning-menu-item>
+                                <div if:true={displayedUnreadNotifications}>
+                                    <div class="header__unread-notifications-container">
+                                        <div class="header__unread-notifications">
+                                            <div class="header__unread-notification three__digits">
+                                                <div class="header__unread-notification-number">
+                                                    {unreadNotificationsNumber}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu_chevron">
+                                <div class="uit_link" data-id="uitlink_link_profileMenu" data-intent="navigational" data-scope="Mobile menu"
+                                    data-text="Header mobile | Profile and Settings" onclick={clickedProfileandSettings}>
+                                    <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                        value="editProfileAndSettings" label="Profile and Settings">
+                                    </lightning-menu-item>
+                                </div>
+                                <div if:true={profileAndSettingsClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevronup" data-intent="navigational" data-scope="Mobile menu" data-text="Header mobile | Profile and Settings"
+                                        alternative-text="profile and settings" title="Profile and Settings"
+                                        onclick={clickedPandS}>
+                                    </lightning-icon>
+                                </div>
+                                <div if:false={profileAndSettingsClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevrondown" data-intent="navigational" data-scope="Mobile menu" data-text="Header mobile | Profile and Settings"
+                                        alternative-text="profile and settings" title="Profile and Settings"
+                                        onclick={clickedPandS}>
+                                    </lightning-icon>
+                                </div>
+                            </div>
+                            <div if:true={profileAndSettingsClicked}>
+                                <div class="inside_links_team">
+                                    <div class="uit_link_inner" data-id="uitlink_link_profile" data-intent="navigational" data-scope="Mobile menu"
+                                        data-text="Header mobile | Profile" onclick={clickedProfile}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="EditProfile" label="Profile"></lightning-menu-item>
+                                    </div>
+                                    <div class="uit_link_inner" data-id="uitlink_link_device" data-intent="navigational" data-scope="Mobile menu"
+                                        data-text="Header mobile | Device Management" onclick={clickedDeviceManagement}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="DeviceManagement" label="Device Management">
+                                        </lightning-menu-item>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu_chevron">
+                                <div class="uit_link" data-id="uitlink_link_team" data-text="Header mobile | Team Profile" data-intent="navigational" data-scope="Mobile menu"
+                                    onclick={clickedTeamProfileLink}>
+                                    <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                        value="teamProfile" label="Team Profile">
+                                    </lightning-menu-item>
+                                </div>
+                                <div if:true={teamProfileClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevronup" data-text="Header mobile | Team Profile" data-intent="navigational" data-scope="Mobile menu"
+                                        alternative-text="team profile" title="Team profile"
+                                        onclick={clickedTeamProfile}>
+                                    </lightning-icon>
+                                </div>
+                                <div if:false={teamProfileClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevrondown" data-text="Header mobile | Team Profile" data-intent="navigational" data-scope="Mobile menu"
+                                        alternative-text="team profile" title="Team profile"
+                                        onclick={clickedTeamProfile}>
+                                    </lightning-icon>
+                                </div>
+                            </div>
+                            <div if:true={teamProfileClicked}>
+                                <div class="inside_links_team">
+                                    <div class="uit_link_inner" data-id="uitlink_link_invite" data-intent="navigational" data-scope="Mobile menu"
+                                        data-text="Header mobile | Invite team members" onclick={clickedInviteTeamMembers}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="editProfile" label="Invite team members"></lightning-menu-item>
+                                    </div>
+                                    <div class="uit_link_inner" data-id="uitlink_link_approvals" data-intent="navigational" data-scope="Mobile menu"
+                                        data-text="Header mobile | Pending approvals" onclick={clickedPendingApprovals}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style" data-intent="navigational" data-scope="Mobile menu"
+                                            value="editProfile" label="Pending approvals"></lightning-menu-item>
+                                    </div>
+                                    <div class="uit_link_inner" data-id="uitlink_link_details" data-intent="navigational" data-scope="Mobile menu"
+                                        data-text="Header mobile | Team details" onclick={clickedTeamDetails}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="editProfile" label="Team details"></lightning-menu-item>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link_password" data-text="Header mobile | Change Password" data-intent="navigational" data-scope="Mobile menu"
+                                onclick={clickedChangePassword}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="changePasswordPing" label="Change Password"></lightning-menu-item>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link_code" data-text="Header mobile | Code of Conduct" data-intent="navigational" data-scope="Mobile menu"
+                                onclick={clickedCodeOfConduct}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="codeconduct" label="Code of Conduct"></lightning-menu-item>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link_terms" data-intent="navigational" data-scope="Mobile menu"
+                                data-text="Header mobile | Terms and Conditions " onclick={clickedConditions}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="conditions" label="Terms &amp; Conditions"></lightning-menu-item>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link_contactus" data-text="Header mobile | Contact us" data-intent="navigational" data-scope="Mobile menu"
+                                onclick={clickedContactUs}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="contactUs" label="Contact us"></lightning-menu-item>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link_signout" data-text="Header mobile | Sign Out" data-intent="navigational" data-scope="Mobile menu"
+                                onclick={clickedSignOut}>
+                                <lightning-menu-item class="header_menu_item link_style" value="signOut"
+                                    label="Sign out"></lightning-menu-item>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div if:false={Dashboard}>
+                <div class="header__account_dropdown">
+                    <div class="header_dropdown-full-menu">
+                        <div class="links__container">
+                            <div class="menu_chevron" onclick={clickedCommunity}>
+                                <div class="uit_link" data-id="uitlink_link-editprofile" data-intent="navigational" data-text="Header | Community" data-scope="Mobile menu">
+                                    <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                        value="editProfile" label="Community">
+                                    </lightning-menu-item>
+                                </div>
+                                <div if:true={communityClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevronup"
+                                        alternative-text="overview" title="overview">
+                                    </lightning-icon>
+                                </div>
+                                <div if:false={communityClicked}>
+                                    <lightning-icon class="chevron_menu" icon-name="utility:chevrondown"
+                                        alternative-text="overview" title="overview">
+                                    </lightning-icon>
+                                </div>
+                            </div>
+                            <div if:true={communityClicked}>
+                                <div class="inside_links_overview">
+                                    <div class="uit_link_inner" data-id="uitlink_link" data-intent="navigational" data-text="Header | Be Heard" data-scope="Mobile menu"
+                                        onclick={clickedBeHeard}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="editProfile" label="Be Heard">
+                                        </lightning-menu-item>
+                                    </div>
+                                    <div class="uit_link_inner" data-id="uitlink_link" data-intent="navigational" data-text="Header | Activity" data-scope="Mobile menu"
+                                        onclick={clickedActivity}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="editProfile" label="Activity">
+                                        </lightning-menu-item>
+                                    </div>
+                                    <div class="uit_link_inner" data-id="uitlink_link" data-intent="navigational" data-text="Header | Bookmarks" data-scope="Mobile menu"
+                                        onclick={clickedBookmarks}>
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="editProfile" label="Bookmarks">
+                                        </lightning-menu-item>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu_chevron" onclick={clickedCollaborate}>
+                                <div class="uit_link" data-id="uitlink_link" data-intent="navigational" data-text="Header | Let's Collaborate"> data-scope="Mobile menu"
+                                    <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                        value="teamProfile" label="Let's Collaborate">
+                                    </lightning-menu-item>
+                                    <div if:true={collaborateClicked}>
+                                        <lightning-icon class="chevron_menu" icon-name="utility:chevronup"
+                                            alternative-text="overview" title="overview">
+                                        </lightning-icon>
+                                    </div>
+                                    <div if:false={collaborateClicked}>
+                                        <lightning-icon class="chevron_menu" icon-name="utility:chevrondown"
+                                            alternative-text="overview" title="overview">
+                                        </lightning-icon>
+                                    </div>
+                                </div>
+                            </div>
+                            <div if:true={collaborateClicked}>
+                                <div class="inside_links_team">
+                                    <div class="uit_link_inner" data-id="uitlink_link" data-intent="navigational"
+                                        data-text="Header | Submit an Idea" onclick={clickedSubmitIdea} data-scope="Mobile menu">
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="editProfile" label="Submit an Idea"></lightning-menu-item>
+                                    </div>
+                                    <div class="uit_link_inner" data-id="uitlink_link"
+                                        data-text="Header | Submit a business problem" onclick={clickedSubmitProblem} data-intent="navigational" data-scope="Mobile menu">
+                                        <lightning-menu-item
+                                            class="header_menu_item header_menu_item--border link_style"
+                                            value="editProfile" label="Submit a business problem">
+                                        </lightning-menu-item>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link" data-text="Header | Code of Conduct" data-scope="Mobile menu" data-intent="navigational"
+                                onclick={clickedCodeOfConduct}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="codeconduct" label="Code of Conduct"></lightning-menu-item>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link" data-text="Header | Terms and Conditions" data-scope="Mobile menu" data-intent="navigational"
+                                onclick={clickedConditions}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="conditions" label="Terms &amp; Conditions">
+                                </lightning-menu-item>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link" data-text="Header | Contact us" data-scope="Mobile menu" data-intent="navigational"
+                                onclick={clickedContactUs}>
+                                <lightning-menu-item class="header_menu_item header_menu_item--border link_style"
+                                    value="contactUs" label="Contact us">
+                                </lightning-menu-item>
+                            </div>
+                            <div class="uit_link" data-id="uitlink_link" data-text="Header | Sign Out" data-scope="Mobile menu" data-intent="navigational"
+                                onclick={clickedSignOut}>
+                                <lightning-menu-item class="header_menu_item link_style" value="signOut"
+                                    label="Sign out">
+                                </lightning-menu-item>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

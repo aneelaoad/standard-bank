@@ -1,0 +1,66 @@
+@import 'c/ppCssLibrary';
+
+.container {  
+    box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.06);
+    padding: 17px;
+    background-color: #ffffff !important;
+    max-width: 1280px;  
+}
+
+.Faq-heading {
+    margin: 0 408px 32px 13px;
+    font-family: BentonSans;
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #3c4b6c;
+
+}
+
+.Faq-label {
+    margin: 3px 0px 12px 0;
+    font-family: BentonSans;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: #444444;
+}
+
+.text {
+    margin: 32px 13px 0;
+    color: #0a2240;
+}
+
+.sub-heading{
+    margin: 25px 0px 16px 13px !important;
+    font-weight: bold;
+    color: #243a54 !important;
+}
+
+
+@media(max-width: 414px) {
+    .Faq-heading {
+        margin: 8px 8px 8px 8px;
+    }
+    .container{
+        margin-right: 0px;
+        padding: 15px 0px 0px 0px !important;
+    }
+}
+
+@media(max-width: 1024px) {
+    .Faq-heading {
+        margin: 0 0px 32px 13px;
+    }
+
+    .container{
+        padding: 16px;
+    }
+
+}

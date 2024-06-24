@@ -1,0 +1,85 @@
+<template>
+  <div class={featureContainerClasses}>
+    <template for:each={displayedData} for:item="feature">
+      <c-osbapi-product-feature-tile key={feature.id} title={feature.heading} description={feature.body}
+        has-icon={feature.hasIcon} image-link={feature.icon}></c-osbapi-product-feature-tile>
+    </template>
+  </div>
+  <template lwc:if={displayPagination}>
+    <div data-ersatz-aura-id="navigation-container" class="navigation-container">
+      <template lwc:if={DisableLeft}>
+        <div data-id="LeftButtonDisabled"
+          class="LeftButtonDisabled Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+          <div data-id="full-left" onclick={onFirstPage} aria-disabled="true" data-type="left" data-disabled="true"
+            class="navigation-leftMostButton navigation-element__chevron navigation-element__chevron-disabled skipBtn"
+            data-text="Pagination | First Page">
+            <img class="ms-icn_chevron_left" src={FirstPageChevronDisabled}></img>
+          </div>
+          <div data-id="left" onclick={onPrevPage} aria-readonly="true" data-type="left" data-disabled="true"
+            class="navigation-leftButton navigation-element__chevron navigation-element__chevron-disabled leftChev skipBtn"
+            data-text="Pagination | Previous Page">
+            <img class="ms-icn_chevron_left btnTrans" src={PreviousPageChevronDisabled}></img>
+          </div>
+        </div>
+      </template>
+      <template lwc:else>
+        <div data-id="LeftButtonSec"
+          class="LeftButtonSec Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+          <div data-id="full-left" onclick={onFirstPage} aria-disabled="true" data-type="left" data-disabled="true"
+            class="navigation-leftMostButton navigation-element__chevron navigation-element__chevron-disabled skipBtn"
+            data-text="Pagination | First Page">
+            <img class="ms-icn_chevron_left workingLeftChevron " src={FirstPageChevronActive}></img>
+          </div>
+          <div data-id="left" onclick={onPrevPage} aria-readonly="true" data-type="left" data-disabled="true"
+            class="navigation-leftButton navigation-element__chevron navigation-element__chevron-disabled leftChev skipBtn"
+            data-text="Pagination | Previous Page">
+            <img class="ms-icn_chevron_left btnTrans workingLeftChevron" src={PreviousPageChevronActive}></img>
+          </div>
+        </div>
+      </template>
+
+      <div class="btnSec NavigationPages slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+        <template for:each={pages} for:item="pageItem">
+          <template lwc:if={pageItem.pgCurr}>
+            <div key={pageItem.pgNum} class="pageSelection pageSelectionCurrent" onclick={onPageButtonClick}
+              data-id={pageItem.pgNum}>
+              {pageItem.pgNum}
+            </div>
+          </template>
+          <template lwc:else>
+            <div key={pageItem.pgNum} class="pageSelection" onclick={onPageButtonClick} data-id={pageItem.pgNum}>
+              {pageItem.pgNum}
+            </div>
+          </template>
+        </template>
+      </div>
+
+      <template lwc:if={DisableRight}>
+        <div data-id="rightButtonSecDisabled"
+          class="rightButtonSecDisabled Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+          <div data-id="right" onclick={onNextPage} data-type="right" data-disabled="false"
+            class="navigation-rightButton navigation-element__chevron rightChev" data-text="Pagination | Next Page">
+            <img class="ms-icn_chevron_right disabledRightChevron" src={NextPageChevronDisabled}></img>
+          </div>
+          <div data-id="full-right" onclick={onLastPage} data-type="right" data-disabled="false"
+            class="navigation-rightMostButton navigation-element__chevron" data-text="Pagination | Last Page">
+            <img class="ms-icn_chevron_right disabledRightChevron" src={LastPageChevronDisabled}></img>
+          </div>
+        </div>
+      </template>
+      <template lwc:else>
+        <div data-id="rightButtonSec"
+          class="rightButtonSec Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+          <div data-id="right" onclick={onNextPage} data-type="right" data-disabled="false"
+            class="navigation-rightButton navigation-element__chevron rightChev" data-text="Pagination | Next Page">
+            <img class="ms-icn_chevron_right" src={NextPageChevronActive}></img>
+          </div>
+          <div data-id="full-right" onclick={onLastPage} data-type="right" data-disabled="false"
+            class="navigation-rightMostButton navigation-element__chevron" data-text="Pagination | Last Page">
+            <img class="ms-icn_chevron_right" src={LastPageChevronActive}></img>
+          </div>
+        </div>
+      </template>
+    </div>
+  </template>
+</template>

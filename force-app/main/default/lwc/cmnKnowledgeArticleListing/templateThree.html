@@ -1,0 +1,43 @@
+<template>
+    <div class="container">
+        <template iterator:article={articles}>
+            <div key={article.value.Id}>
+                <div class="slds-grid slds-wrap article-container">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_9-of-12 slds-order_2 slds-large-order_1 slds-medium-order_2 left-section">
+                        <div class="slds-grid slds-grid_vertical left-section">
+                            <div class="slds-col article-type">
+                                <p class="text-normal-sfProDisplay">{article.value.RecordType}</p>
+                            </div>
+
+                            <div class="slds-col" style="flex:none;">
+                                <p class="heading-large-sfProDisplay title">{article.value.Title}</p>
+                            </div>
+                            <div class="slds-col" style="flex:none;">
+                                <p class="text-normal-sfProDisplay summary">{article.value.Summary}</p>
+                            </div>
+
+                            <p class="text-normal-sfProDisplay publish-date">
+                                <lightning-formatted-date-time value={article.value.LastPublishedDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                            </p>
+                            <a ahref="javascript:void(0)" class="text-normal-sfProDisplay view-details">
+                                <p data-id={article.index} onclick={handleArticleClick} data-intent="informational" data-scope="carousel article list"
+                                data-text={article.value.dataText}>View Details</p>
+                            </a>
+                        </div>
+                            
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_3-of-12 slds-order_1  slds-large-order_2 slds-medium-order_1">
+                        <div >
+                            <img src={article.value.Image__c} class="articleImg">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </template>
+
+    </div>
+</template>

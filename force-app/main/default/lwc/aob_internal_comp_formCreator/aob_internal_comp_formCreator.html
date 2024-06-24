@@ -1,0 +1,142 @@
+<!--
+  @description       : 
+  @author            : Sibonelo Ngcobo
+  @group             : 
+  @last modified on  : 10-17-2023
+  @last modified by  : Sibonelo Ngcobo
+  Modifications Log
+  Ver   Date         Author            Modification
+  1.0   10-05-2023   Sibonelo Ngcobo   Initial Version
+-->
+<template>
+	<div class="container aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius">
+		<!--Form Header -->
+		<c-aob_internal_comp_form-header put-title-left="true" title={screenTitle} sub-title={screenSubtitle}
+			current-screen={screenName}>
+		</c-aob_internal_comp_form-header>
+		<c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+		<form data-frmcontainer="mymobiz application company details">
+			<template for:each={sections} for:item="section" for:index="sectionIndex">
+				<div lwc:if={section.title} key={section.id}
+					class="aob_screen-section-title slds-align_absolute-center aob_border-bottom section-title slds-m-top_xx-large">
+					{section.title}</div>
+				<div key={section.id} class="slds-grid slds-gutters_large slds-wrap slds-p-horizontal_xx-large">
+					<template for:each={section.fields} for:item="field" for:index="index">
+						<div key={field} class={section.gridClass} if:false={field.isHidden}>
+							<input lwc:if={field.isCheckbox} type="checkbox" name={field.name} id={field.id}
+								onchange={genericFieldChange} />
+							<label lwc:if={field.isCheckbox} class="slds-checkbox__label" for={field.id}>
+								<span class="slds-checkbox_faux"></span>
+								<span class="slds-form-element__label">{field.label}</span>
+							</label>
+							<template if:false={field.isHelpText}>
+								<template if:false={field.isOutput}>
+									<template if:false={field.isImageCheckbox}>
+										<template if:false={field.isConsentBox}>
+											<label if:false={field.isCheckbox}
+												class="aob_screen-field-label slds-m-bottom_small">
+												<p> </p>
+												<lightning-formatted-rich-text value={field.label}>
+												</lightning-formatted-rich-text>
+												<c-aob_internal_comp_tooltip lwc:if={field.helpTxt} message={field.helpTxt}>
+												</c-aob_internal_comp_tooltip>
+											</label>
+										</template>
+									</template>
+								</template>
+							</template>
+							<template lwc:if={field.isImageCheckbox}>
+								<c-aob_internal_comp_image-checkbox onsend={storeSelectedImagesData} image-name={field.name}
+									image-heading={field.label} imagedata={field.defaultValue}>
+								</c-aob_internal_comp_image-checkbox>
+							</template>
+							<lightning-input lwc:if={field.isInput} key={field.id} placeholder={field.placeholder}
+								name={field.name} type="text" variant="label-hidden"
+								message-when-value-missing={field.errorMesage} data-name={field.name}
+								data-error={field.errorMessage} minlength={field.minLength} maxlength={field.maxLength}
+								message-when-pattern-mismatch={field.errorMesage} pattern={field.pattern}
+								required={field.isRequired} onchange={genericFieldChange} value={field.defaultValue}
+								class="validate">
+							</lightning-input>
+							<lightning-input lwc:if={field.isCurrency} key={field.id} placeholder="R" name={field.name}
+								type="number" formatter="currency" min="100" step="1" variant="label-hidden"
+								message-when-value-missing={field.errorMesage} data-name={field.name}
+								data-error={field.errorMessage} required={field.isRequired}
+								onchange={genericFieldChange}
+								class="validate">
+							</lightning-input>
+							<div lwc:if={field.isOutput} class="aob_form-title"> {field.label}
+								<div class="aob-subsection-header slds-m-top_medium">{field.pattern}</div>
+							</div>
+							<c-aob_internal_comp_residential-address lwc:if={field.isResAddress} address={field.value}>
+							</c-aob_internal_comp_residential-address>
+							<div lwc:if={field.isHelpText} class="aob-helptext-wrap">
+									<span class="aob-info-text">{field.label}</span>
+									<img width="18" class="slds-m-left_x-small aob_tooltip_icon" alt="" src={infoIMG}>
+							</div>
+
+							<c-aob_internal_comp_acpicklist lwc:if={field.isCombobox} sapfield={field.mriTable}
+								name={field.name} values={field.options} missing-value-message={field.errorMessage}
+								placeholder="Please select" onblur={genericComponentChangeBlur}
+								onchange={genericComponentChange} data-name={field.name}
+								data-value={selectedPicklistValue} data-id={field.id} sole-owner-value={isSoleOwnership}
+								business-registered={isBusinessReg} value={field.defaultValue}>
+							</c-aob_internal_comp_acpicklist>
+
+							<c-aob_internal_comp_nfiradio lwc:if={field.isNFIRadio}  name={field.name} onchange={genericComponentChange} value={field.defaultValue}>
+							</c-aob_internal_comp_nfiradio>
+
+							<div lwc:if={field.isMultiselect}>
+								<c-aob_internal_comp_multiselectfilter sapfield={field.mriTable} required={field.isRequired}
+									name={field.name} maxselected={field.maxSelected}
+									missing-value-message={field.errorMessage} placeholder="Please select"
+									onchange={genericMSComponentChange} default-inputs={field.defaultValue}>
+								</c-aob_internal_comp_multiselectfilter>
+							</div>
+
+							<div lwc:if={field.isRadio} class="slds-grid aob_form_row aob_grid_sm">
+								<template for:each={field.options} for:item="radioItem" for:index="radioIndex">
+									<div key={radioItem.id} class="slds-p-right_xx-large">
+										<input class="slds-m-right_x-small" type="radio" data-name={field.name} data-value={radioItem.value}
+											data-id={field.id} data-show={field.childShowingValue} name={field.id}
+											onchange={genericRadioChange}>
+										<label class="aob_screen-section-paragraph" for={field.id}>
+											{radioItem.label}</label>
+									</div>
+								</template>
+							</div>
+
+							<div lwc:if={field.isPrivateaddress}>
+								<c-aob_comp_privateaddress sapfield={field.mriTable} required={field.isRequired}
+									name={field.name} missing-value-message={field.errorMessage}
+									placeholder="Please select" resaddress={field.value}
+									companytradingdata={field.compTradingValue}></c-aob_comp_privateaddress>
+							</div>
+							<lightning-formatted-rich-text lwc:if={field.image} value={field.image}>
+							</lightning-formatted-rich-text>
+							<c-aob_internal_comp_tax lwc:if={field.isTax} onchange={handleTaxValueChange}
+								tax-input-data={field.taxInputs}>
+							</c-aob_internal_comp_tax>
+						</div>
+					</template>
+				</div>
+			</template>
+			<div lwc:if={isLoaded}
+				class="slds-theme--shade button-container aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1 aob_margin_horizontal_auto slds-m-top_large aob_navigation_buttons button_reverse">
+				<lightning-button lwc:if={isPreApplication} data-id="link_content" data-intent="navigational"
+					data-scope={adobeDataScopeApp} data-text={adobeDataTextBack}
+					class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+					variant="neutral" label="Cancel" title="Cancel" onclick={backToHome}></lightning-button>
+				<lightning-button lwc:if={showBackB} data-id="link_content" data-intent="navigational"
+					data-scope={adobeDataScopeApp} data-text={adobeDataTextBack}
+					class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+					variant="neutral" label="Back" title="Back" onclick={backToPreviousPage}></lightning-button>
+				<lightning-button  data-id="link_content" data-intent="navigational"
+					data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue}
+					class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+					variant="brand" label="Continue" title="continue" onclick={continueToNextPage}></lightning-button>
+			</div>
+		</form>
+	</div>
+	<c-aob_internal_comp_outstanding-compliance buttonclick if:false={outstandingCompliance} onchangescreen={changeFromCompliance} onprogressvaluechange={handleProgressValueChange} application-id={applicationId}></c-aob_internal_comp_outstanding-compliance>
+</template>

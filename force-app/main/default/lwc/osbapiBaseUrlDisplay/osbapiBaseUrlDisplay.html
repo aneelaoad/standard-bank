@@ -1,0 +1,56 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="container">
+        <div class="container__heading">
+            <h1>Environments & Endpoints</h1>
+            <p>Use these base URL's for the following environments</p>
+        </div>
+        <div class="table__container">
+            <table>
+                <thead>
+                    <tr class="table__heading">
+                        <th>Environments</th>
+                        <th>URL</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table__sandbox">
+                        <td>SANDBOX</td>
+                        <td>{sandboxUrl}</td>
+                        <td>
+                            <button
+                                class="table__btn"
+                                onclick={copySandboxUrl}
+                                data-id="sandbox-copy-btn"
+                            >
+                                COPY LINK
+                                <div class="tooltip" data-id="sandbox-tooltip">
+                                    Copied!
+                                    <div class="tooltip__arrow"></div>
+                                </div>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="table__prod">
+                        <td>PROD</td>
+                        <td>{prodUrl}</td>
+                        <td>
+                            <button
+                                class="table__btn"
+                                onclick={copyProdUrl}
+                                data-id="prod-copy-btn"
+                            >
+                                COPY LINK
+                                <div class="tooltip" data-id="prod-tooltip">
+                                    Copied!
+                                    <div class="tooltip__arrow"></div>
+                                </div>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>

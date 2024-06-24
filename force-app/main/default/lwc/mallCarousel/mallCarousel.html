@@ -1,0 +1,122 @@
+<template>
+    <template if:true={carouselCollection}>
+        <div class="carousel-wrapper pagination-carousel" data-carousel-type={type}>
+            <div class="scroll-wrapper">
+                <template for:each={carouselCollection} for:item="item">
+                    <div key={item.id} class={item.itemClasses} data-id={item.id}>
+                        <template if:true={isBanner}>
+                            <c-sbg-mid-page-banner is-carousel="true" is-hero="true" container-query-output={containerQueryClass} heading={item.heading} description={item.description} sub-text={item.subText} action={item.action}
+                                destination-url={item.destinationUrl} variant={item.variant} button-label={item.buttonLabel} disabled={item.disabled}
+                                button-title={item.buttonTitle} w-class={item.wClass} show-button={item.showButton} image-path={item.imagePath}
+                                image-path-tablet={item.imagePathTablet} image-path-desktop={item.imagePathDesktop} custom-banner-styles={item.customBannerStyles}
+                                custom-background-colour={item.customBackgroundColour} apply-colour-contrast-inversion={item.applyColourContrastInversion} full-width="true"
+                                enable-title-gradient-underline="true" interaction-text-before={item.interactionTextBefore} interaction-scope={item.interactionScope}
+                                interaction-text={item.interactionText} interaction-type="click" interaction-intent="navigational">
+                            </c-sbg-mid-page-banner>
+                        </template>
+                        <template if:true={isShopSlider}>
+                            <div class="shop-wrapper" data-showarrow="true">
+                                <template if:true={showShopSliderArrows}>
+                                  <button id="previous" class="scroll-button_prev-ss previous" data-button-disabled={leftDisabled} onmousedown={shopSliderScroll} onmouseup={shopSliderScroll}
+                                    type="button">
+                                    prev
+                                  </button>
+                                </template>
+                                <div class="shop-slider-wrapper shop-scroll-container" data-id="menuShopSlider">
+                                  <template for:each={shopCollection} for:item="shop">
+                                    <template if:false={shop.link}>
+                                      <div class="slider-container" key={shop.id}>
+                                        <a class="shop-slider-item" onclick={authenticationCheck} data-intent="navigational" data-scope="mall product catalogue" data-type="click"
+                                          data-id="link_content" data-pass-search-details={passSearchData} data-text-before="shop slider" data-text={shop.name} data-text-after="image"
+                                          data-name="shopSliderImages" data-store-id={shop.id}>
+                                          <img loading="lazy" src={shop.imageUrl} alt={shop.name} data-id={shop.id} data-name="shopSliderImages" data-paginationname="shopSliderImages" />
+                                        </a>
+                                      </div>
+                                    </template>
+                                    <template if:true={shop.link}>
+                                      <div class="slider-container" key={shop.id}>
+                                        <a href={shop.link} class="shop-slider-item" onclick={authenticationCheck} data-intent="navigational" data-scope="mall product catalogue"
+                                          data-text-before="shop slider" data-id="link_content" data-pass-search-details={passSearchData} data-type="click" data-text={shop.name}
+                                          data-text-after="image" data-name="shopSliderImages" data-store-id={shop.id}>
+                                          <img loading="lazy" src={shop.imageUrl} alt={shop.name} data-id={shop.id} data-name="shopSliderImages" data-paginationname="shopSliderImages" />
+                                        </a>
+                                      </div>
+                                    </template>
+                                  </template>
+                                </div>
+                                <template if:true={showShopSliderArrows}>
+                                  <button id="nextButton" class="scroll-button_next-ss next" data-button-disabled={rightDisabled} onmousedown={shopSliderScroll} onmouseup={shopSliderScroll}
+                                    type="button">
+                                    next
+                                  </button>
+                                </template>
+                              </div>
+                        </template>
+                        <template if:true={isImageGallery}>
+                          <div class="story-banner-image slds-m-vertical_medium c-padding">
+                            <img src={item.image} alt="">
+                         </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+            <button if:true={enableButtons} class="scroll-button_prev" onclick={prevSlide}></button>
+            <div class="banner-pagerDot">
+            <template for:each={carouselCollection} for:item="pagerDot">
+                <span key={pagerDot.id} class={pagerDot.dotClass} data-id={pagerDot.index} onclick={setSlide}></span>
+            </template>
+          </div>
+            <template if:true={isShopSlider}>
+              <div class="shop-wrapper" data-showarrow="true">
+                <template if:true={showShopSliderArrows}>
+                  <button id="previous2" class="scroll-button_prev-ss previous" data-button-disabled={leftDisabled}
+                    onmousedown={shopSliderScroll} onmouseup={shopSliderScroll} type="button">
+                    prev
+                  </button>
+                </template>
+                <div class="shop-slider-wrapper shop-scroll-container" data-id="menuShopSlider">
+                  <template for:each={shopCollection} for:item="shop">
+                    <template if:false={shop.link}>
+                      <div class="slider-container" key={shop.id}>
+                        <a class="shop-slider-item" onclick={authenticationCheck} data-intent="navigational"
+                          data-scope="mall product catalogue" data-type="click" data-id="link_content"
+                          data-pass-search-details={passSearchData} data-text-before="shop slider" data-text={shop.name}
+                          data-text-after="image" data-name="shopSliderImages" data-store-id={shop.id}>
+                          <img loading="lazy" src={shop.imageUrl} alt={shop.name} data-id={shop.id}
+                            data-name="shopSliderImages" data-paginationname="shopSliderImages" />
+                        </a>
+                      </div>
+                    </template>
+                    <template if:true={shop.link}>
+                      <div class="slider-container" key={shop.id}>
+                        <a href={shop.link} class="shop-slider-item" onclick={authenticationCheck}
+                          data-intent="navigational" data-scope="mall product catalogue" data-text-before="shop slider"
+                          data-id="link_content" data-pass-search-details={passSearchData} data-type="click"
+                          data-text={shop.name} data-text-after="image" data-name="shopSliderImages"
+                          data-store-id={shop.id}>
+                          <img loading="lazy" src={shop.imageUrl} alt={shop.name} data-id={shop.id}
+                            data-name="shopSliderImages" data-paginationname="shopSliderImages" />
+                        </a>
+                      </div>
+                    </template>
+                  </template>
+                </div>
+                <template if:true={showShopSliderArrows}>
+                  <button id="nextButton2" class="scroll-button_next-ss next" data-button-disabled={rightDisabled}
+                    onmousedown={shopSliderScroll} onmouseup={shopSliderScroll} type="button">
+                    next
+                  </button>
+                </template>
+              </div>
+            </template>
+          </div>
+        </template>
+      <!-- </div>
+      <button if:true={enableButtons} class="scroll-button_prev" onclick={prevSlide}></button>
+      <template for:each={carouselCollection} for:item="pagerDot">
+        <span key={pagerDot.id} class={pagerDot.dotClass} data-id={pagerDot.index} onclick={setSlide}></span>
+      </template>
+      <button if:true={enableButtons} class="scroll-button_next" onclick={nextSlide}></button>
+    </div> -->
+  </template>
+</template>

@@ -1,0 +1,143 @@
+<!--
+  @description       : 
+  @author            : Mahlatse Tjale
+  @group             : 
+  @last modified on  : 03-13-2024
+  @last modified by  : Mahlatse Tjale
+  Modifications Log
+  Ver   Date         Author           Modification
+  1.0   03-12-2024   Mahlatse Tjale   Initial Version
+-->
+<template>
+    <div class="store-wrapper">
+        <div class="section-wrapper">
+            <c-sbg-breadcrumb-bar></c-sbg-breadcrumb-bar>
+        </div>
+        <template if:true={successStory}>
+            <div class="store-container">
+                <div class="section-wrapper store-section">
+                    <div class="grid-container" onclick={handleNavigateToShop}>
+                        <div class="story-banner-container slds-m-vertical_medium c-padding">
+                            <span class="story-banner-content-container">
+                                <div class="story-banner-content">
+                                    <!-- <c-sbg-title-with-subtitle title={successStory.name} show-subtitle=false subtitle="" apply-theme-colour-to-title={summeryTitleClolor}>
+                                    </c-sbg-title-with-subtitle> -->
+                                    <h1 class="header">
+                                        {successStory.name} 
+                                    </h1>
+                                    <div class="story-summary ">
+                                        <lightning-formatted-rich-text value={successStory.summary}>
+                                        </lightning-formatted-rich-text>
+                                    </div>
+                                </div>
+                            </span>
+                            <span class="story-banner-image">
+                                <img src={successStory.bannerImageUrl} alt="">
+                            </span>
+                        </div>
+                        <span class="date">{formattedPublishedDate}</span>
+                        <div class="grid-item">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-list-container">
+                <div class="section-wrapper">
+                    <template if:true={successStory.context}>
+                        <div class="service-heading">
+                            The Context
+                        </div>
+                        <div class="story-summary ">
+                            <lightning-formatted-rich-text value={successStory.context}></lightning-formatted-rich-text>
+                        </div>
+                    </template>
+                    <template if:true={slides}>
+                        <div class="service-heading image-heading">
+                            Image Gallery
+                        </div>
+                        <template if:true={slides}>
+                            <c-mall-carousel type="imagegallery" enable-auto-cycle=true
+                                collection={slides} data-intent="informational"
+                                data-id="link_content" data-type="click" data-text={successStory.name} data-text-after="sucess story images" 
+                                data-scope="Success story detail">
+                            </c-mall-carousel>
+                        </template>
+                    </template>
+                </div>
+            </div>
+            <template if:true={successStory.challenge}>
+                <div class="">
+                    <div class="store-container">
+                        <div class="section-wrapper store-section">
+                            <div class="grid-container">
+    
+                                <div class="grid-item">
+                                    <div class="service-heading">
+                                        The Challenge
+                                    </div>
+                                    <div class="story-summary ">
+                                        <lightning-formatted-rich-text value={successStory.challenge}>
+                                        </lightning-formatted-rich-text>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <div class="service-list-container">
+                <div class="section-wrapper">
+                    <template if:true={successStory.solution}>
+                        <div class="service-heading">
+                            The Solution
+                        </div>
+                        <div class="story-summary ">
+                            <lightning-formatted-rich-text value={successStory.solution}></lightning-formatted-rich-text>
+    
+                        </div>
+                    </template>
+                    <template if:true={embededVideoURl}>
+                        <div class="story-video">
+                            <iframe width="560" height="315" src={embededVideoURl} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    </template>
+                </div>
+
+              
+            </div>
+            <template if:true={successStory.outcome}>
+                <div class="">
+                    <div class="section-wrapper">
+                        <div class="service-heading">
+                            The Outcome
+                        </div>
+                        <div class="story-summary">
+                            <lightning-formatted-rich-text value={successStory.outcome}></lightning-formatted-rich-text>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={successStory.customerFeedback}>
+                <div class="service-list-container">
+                    <div class="story-feedback">
+                        <div class="feedback-image">
+                            <img src={successStory.customerImage} alt="customer image">
+                            
+                        </div>
+                        <span class="quotationMark">
+                            <img src={quotationMark} alt="" class="slds-m-right_small">
+                            <img src={quotationMark} alt="">
+                        </span>
+                        <div class="feedback-description">
+                            <h3>{successStory.customerFeedbackFullName}</h3>
+                            <p>{successStory.customerFeedback}</p>
+    
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

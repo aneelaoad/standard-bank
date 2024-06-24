@@ -1,0 +1,117 @@
+.cstmModal{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(41, 41, 41, 0.8);
+    z-index: 200;
+    color: var(--font-dark-color);
+    overflow: auto;
+}
+
+.cstmModal > div{
+    display: table;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.cstmModal > div > div{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.cstmModal .modalContent{
+    width: auto;
+    height: auto;
+    background: #fff;
+    display: inline-block;
+    padding: 3rem;
+    position: relative;
+    border-radius: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.textField{
+    width: 17rem;
+    height: 48px;
+    padding: 0.5rem;
+    background: #FFFFFF;
+    border: 0.706861px solid #D2CFCF;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.formDevider{
+    padding-bottom: 1rem;
+}
+
+.cstmModal .button{
+    color:#fff;
+    background-color: var(--button-background-blue);
+}
+
+.closeButton{
+    position: absolute; 
+    right:0; 
+    top:0; 
+    color:var(--font-black-color);
+    margin: 0.5rem 1rem;
+    font-size: var(--font-size-body-m, 1rem);
+}
+
+.closeButton:hover{
+    text-decoration: none;
+}
+
+.modalCheckbox{
+    display: inline-block;
+    margin: .5rem 1.115rem;
+}
+
+.modalCheckbox .slds-checkbox_faux{
+    margin-right: 1rem;
+}
+
+.modalIntro{
+    margin-bottom: 1.375rem;
+}
+
+.modalIntro p{
+    font-size: var(--font-size-body-m, 1rem);
+}
+
+a{
+    color: var(--font-black-color);
+    font-weight: bold;
+}
+
+.steps{
+    display: none;
+}
+
+.modalContent[data-registrationstage="0"] .steps.step-0{
+    display: block;
+}
+
+.modalContent[data-registrationstage="1"] .steps.step-1{
+    display: block;
+}
+
+.selection-container{
+    max-width: 18rem;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 1024px) { 
+    
+    /*.modalCheckbox{
+        margin: 1.115rem;
+    }  */
+}

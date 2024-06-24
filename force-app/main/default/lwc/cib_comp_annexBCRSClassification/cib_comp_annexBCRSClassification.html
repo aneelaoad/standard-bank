@@ -1,0 +1,49 @@
+<!--
+  @description       : This is used for Annexure B:CRS Classification screen 
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 09-26-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Annexure B: CRS Classification</h2>
+    </div>
+    <div class="aob_card-container sub-header">
+      <lightning-radio-group
+        class="full-width"
+        value={applicationRecord.CIB_AB_CRS_GIINNoProvidedType__c}
+        data-type="application"
+        name="CIB_AB_CRS_GIINNoProvidedType__c"
+        label="If the entity is a financial institution but unable to provide a GIIN, please tick one of the reasons below."
+        options={options}
+        type="radio"
+        data-fieldname="CIB_AB_CRS_GIINNoProvidedType__c"
+        required
+      ></lightning-radio-group>
+    </div>
+    <div class="aob_card-container sub-header">
+      <lightning-radio-group
+        class="full-width"
+        value={applicationRecord.CIB_AB_CRS_NonFinancialEntityType__c}
+        data-type="application"
+        name="CIB_AB_CRS_NonFinancialEntityType__c"
+        label="If the entity is a non-financial entity please specify the type below"
+        options={options1}
+        type="radio"
+        data-fieldname="CIB_AB_CRS_NonFinancialEntityType__c"
+        required
+      ></lightning-radio-group>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

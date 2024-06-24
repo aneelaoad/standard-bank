@@ -1,0 +1,238 @@
+<template>
+    <c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div class="aob_card_container_pocketbiz slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius">
+        <img if:true={isShowingCloseButton} alt="Close button Icon" src={closeIcon}
+            class="aob_modal_close_button slds-m-right_xx-small slds-m-left_large" onclick={handleOpenClosePageModal}>
+        <c-aob_comp_form-header put-title-left="true" title={label.AOB_ProductsSummary_Title}
+            sub-title={label.AOB_ProductsSummary_Subtitle}>
+        </c-aob_comp_form-header>
+        <c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
+        <form autocomplete="off">
+            <div class="slds-grid slds-gutters container">
+                <div
+                    class="slds-col slds-size_6-of-12 slds-large-size_6-of-12 slds-medium-size_6-of-12 slds-small-size_6-of-12 cardwidth ">
+                    <div class=" aob_estimation_block_container">
+                        <div class="aob_bundle_block">
+                        </div>
+                        <div class="aob_estimation_block_content slds-p-bottom_large">
+                            <img alt="List element arrow icon" src={imageLink}>
+                            <p class="aob-bundle-header slds-p-top_medium">{title}</p>
+                            <div class="aob-bottom-bundle">
+                                <template for:each={priceList} for:item="item">
+                                    <div key={item.price} data-currency={item.currency}
+                                        class="aob_bundle_text aob_r_prefix">{item.price}</div>
+                                    <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                        {item.subTitle}</div>
+                                </template>
+                                <template for:each={percentList} for:item="item">
+                                    <div key={item.price} data-currency={item.currency}
+                                        class="aob_bundle_text aob_r_prefix">{item.price} </div>
+                                    <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                        {item.subTitle}</div>
+                                </template>
+                                <br />
+                            </div>
+                            <div class="aob-bottom-link">
+                                <a onclick={mymobizterms} target="_blank" href={AOB_ZA_viewMymobizURL} class="fcshvr"
+                                    data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+                                    data-text={adobeDatalinkmymobiz}>
+                                    {label.AOB_ZA_View}</a>
+                            </div>
+
+                            <template if:true={customFormModal}>
+                                <c-aob_comp_termsconditions if:true={customFormModal}  product-name={productName}
+                                    onclosepopwindow={handleClosepopup} application-id={applicationId}
+                                    accepted-items={acceptedProducts} close-popup={customFormModal}>
+                                </c-aob_comp_termsconditions>
+                            </template>
+
+                        </div>
+                    </div>
+                </div>
+                 <template if:true={isPocketBiz}>
+                    <div
+                        class="slds-col  slds-size_6-of-12 slds-large-size_6-of-12 slds-medium-size_6-of-12 slds-small-size_6-of-12 cardwidth">
+                        <div class="aob_estimation_block_container">
+                            <div class="aob_bundle_block slds-text-align_right">
+                                <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                    size="small" data-id="link_content" data-intent="navigational"
+                                    data-scope={adobeDataScopeApp} data-text={adobeDataTextCancelpocketbiz}
+                                    onclick={closedModalPopuppocketbiz} style="margin: 14px 7px 0px 0px; cursor:
+                                        pointer">
+                                </lightning-icon>
+                            </div>
+                            <div class="aob_estimation_block_content slds-p-bottom_large">
+                                <img alt="List element arrow icon" src={imageLink2}>
+                                <p class="aob-bundle-header slds-p-top_medium">{title2}</p>
+                                <div class="aob-bottom-bundle">
+                                    <template for:each={priceList2} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix">{noOfPocketbizDevices}</div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <template for:each={priceListpck} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix"> {totalPricePck}</div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <template for:each={percentList2} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix">{item.price} </div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <br />
+                                </div>
+                                <div class="aob-bottom-link">
+                                    <a href={AOB_ZA_viewPocketBizURL} target="_blank" onclick={pocketbizterms}
+                                        data-id="link_content" data-intent="navigational" class="fcshvr"
+                                        data-scope={adobeDataScopeApp} data-text={adobeDatalinkpocketbiz}>
+                                        {label.AOB_ZA_ViewPocketBizTC}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>       
+            </div>
+
+            <div class="slds-grid slds-gutters container">
+               
+                <template if:true={isSnapScan}>
+                    <div
+                        class="slds-col  slds-size_6-of-12 slds-large-size_6-of-12 slds-medium-size_6-of-12 slds-small-size_6-of-12 cardwidth">
+                        <div class="aob_estimation_block_container">
+                            <div class="aob_bundle_block slds-text-align_right">
+                                <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                    size="small" data-id="link_content" data-intent="navigational"
+                                    data-scope={adobeDataScopeApp} data-text={adobeDataTextCancelsnapscan}
+                                    onclick={closedModalPopupsnapscan} style="margin: 14px 7px 0px 0px; cursor:
+                                        pointer">
+                                </lightning-icon>
+                            </div>
+                            <div class="aob_estimation_block_content slds-p-bottom_large">
+                                <img alt="List element arrow icon" src={imageLink3}>
+                                <p class="aob-bundle-header slds-p-top_medium">{title3}</p>
+                                <div class="aob-bottom-bundle">
+                                    <template for:each={priceList3} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix">{item.price}</div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <template for:each={percentList3} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix">{item.price} </div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <br />
+                                </div>
+                                <div class="aob-bottom-link">
+                                    <a href={AOB_ZA_viewSnapscanURL} target="_blank" onclick={snapscanterms}
+                                        class="fcshvr" data-id="link_content" data-intent="navigational"
+                                        data-scope={adobeDataScopeApp} data-text={adobeDatalinkssnapscan}>
+                                        {label.AOB_ZA_ViewSnapscanTC}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                 <template if:true={isBusinessMarketLink}>
+                    <div
+                        class="slds-col  slds-size_6-of-12 slds-large-size_6-of-12 slds-medium-size_6-of-12 slds-small-size_6-of-12 cardwidth">
+                        <div class=" aob_estimation_block_container">
+                            <div class="aob_bundle_block slds-text-align_right">
+                                <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                    size="small" data-id="link_content" data-intent="navigational"
+                                    data-scope={adobeDataScopeApp} data-text={adobeDataTextCancelbusiness}
+                                    onclick={closedModalPopupbusinessmarketlink} style="margin: 14px 7px 0px 0px;
+                                        cursor: pointer">
+                                </lightning-icon>
+                            </div>
+                            <div class="aob_estimation_block_content slds-p-bottom_large">
+                                <img alt="List element arrow icon" src={imageLink1}>
+                                <p class="aob-bundle-header slds-p-top_medium">{title1}</p>
+                                <div class="aob-bottom-bundle">
+                                    <template for:each={priceList1} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix">{item.price}</div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <template for:each={List2} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix">{item.price}
+                                            <sup class="supscript"><small>{label.AOB_R}</small><s
+                                                    class="Line">{label.AOB_ZA_Currency}</s></sup>
+                                        </div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <template for:each={percentList1} for:item="item">
+                                        <div key={item.price} data-currency={item.currency}
+                                            class="aob_bundle_text aob_r_prefix">{item.price} </div>
+                                        <div key={item.subTitle} class="aob-bundle-title top-left-padding clr">
+                                            {item.subTitle}</div>
+                                    </template>
+                                    <br />
+                                </div>
+                                <div class="aob-bottom-link">
+                                    <a href={AOB_ZA_viewMarketLinkURL} target="_blank" onclick={marketlinkterms}
+                                        data-id="link_content" data-intent="navigational" class="fcshvr"
+                                        data-scope={adobeDataScopeApp} data-text={adobeDatalinkmarket}>
+                                        {label.AOB_ZA_ViewMarketLinkTC}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <!--Navigation Buttons-->
+            <div
+                class="aob_display-flex aob_mobile_1_of_2 slds-size_1-of-2  slds-m-vertical_small aob_navigation_buttons">
+                <lightning-button
+                    class="slds-size_1-of-2 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-small-size_1-of-2 aob_mobile_1_of_2 slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small buttonwidth"
+                    data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+                    data-text={adobeDataTextBack} variant="neutral" label="Back" title="Back"
+                    onclick={backToPreviousPage}></lightning-button>
+
+                <lightning-button
+                    class="slds-size_1-of-2 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-small-size_1-of-2 aob_mobile_1_of_2  slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small buttonwidth"
+                    data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+                    data-text={adobeDataTextContinue} variant="brand" label="confirm" title="confirm"
+                    onclick={confirmProducts}>
+                </lightning-button>
+            </div>
+        </form>
+    </div>
+    <template if:true={isModalPopUpOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header modalpop_heading">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse fcshvr"
+                        title="Close" onclick={closeModal1}>
+                        <lightning-icon class="close_icon" icon-name="utility:close" alternative-text="close"
+                            variant="inverse" size="small"></lightning-icon>
+                    </button>
+                    <h2 id="modal-heading-01"
+                        class="slds-text-heading_medium slds-hyphenate slds-text-align_center heading_medium">
+                        {label.AOB_ZA_Removeproduct}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium body_center" id="modal-content-id-1">
+                    <p><b>{productToclose}</b></p>
+                </div>
+                <div class="slds-modal__footer buttonsAlignment" style="border:none;">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal}
+                        title="Cancel">{label.AOB_ZA_YesRemoveit}</button>
+                    <button class="slds-button slds-button_brand nokeep" onclick={keepPopup}
+                        title="OK">{label.AOB_ZA_NOKEEP}</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <c-aob_comp_error technical={technicalerror} product-name={productName} content={errorMessage} onretry={retryInitiateAPI} oncancel={closePopup}></c-aob_comp_error>
+</template>

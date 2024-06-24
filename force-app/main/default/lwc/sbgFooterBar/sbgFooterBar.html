@@ -1,0 +1,72 @@
+<template>
+  <div class="footer-card clearfix">
+    <div class="footer__container">
+      <div class="footer-card__block">
+        <div class="footer-card__content" data-trackingregion="footer nav">
+          <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-sizing_1-of-1 footer-card__left">
+              <template if:true={showFooterItems}>
+                <div class="slds-grid slds-wrap slds-gutters">
+                  <div
+                    class="slds-col slds-sizing_1-of-1 footer-container-padding"
+                  >
+                    <ul class="footer-card__links-block">
+                      <li class="footer-card__link-list fraud-link">
+                        <c-sbg-fraud></c-sbg-fraud>
+                      </li>
+                      <!--Loop through all the footer menu items-->
+                      <template for:each={footerItems} for:item="footerItem">
+                        <li
+                          key={footerItem.name}
+                          class="footer-card__link-list"
+                        >
+                          <!-- <span class="footer-tab-name"
+                            >{footerItem.translatedLabel}</span
+                          > -->
+                          <div class="footer-item-list">
+                            <template
+                              for:each={footerItem.footerChildItems}
+                              for:item="childItem"
+                            >
+                              <a
+                                data-intent="navigational"
+                                data-scope="Footer"
+                                data-id="link_content"
+                                data-type="click"
+                                data-text={childItem.name}
+                                data-text-after="link"
+                                data-link={childItem.url}
+                                key={childItem.name}
+                                class="footer-card__link"
+                                href={childItem.url}
+                                onclick={handleFooterItemClick}
+                              >
+                                {childItem.translatedLabel}
+                              </a>
+                            </template>
+                          </div>
+                        </li>
+                      </template>
+                    </ul>
+                    <div class="footer-text">
+                      Standard Bank is a licensed financial services provider in
+                      terms of the Financial Advisory and Intermediary Services
+                      Act and a registered credit provider in terms of the
+                      National Credit Act, registration number NCRCP15.
+                    </div>
+                  </div>
+                </div>
+              </template>
+
+              <!-- <div class="slds-grid">
+                <div class="copyright-text slds-col slds-sizing_1-of-1">
+                  &copy;{copyRight} BCB Platform
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

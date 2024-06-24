@@ -1,0 +1,131 @@
+<!--
+  @description       : SFP-27748 
+  @author            : Narendra
+  @group             : 
+  @last modified on  : 26 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+		<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+		<div class="container aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ">
+			<c-aob_comp_spinner if:true={isLoading}></c-aob_comp_spinner>
+			<div if:false={showCallMeBackConfirmedPopup}>
+				<div if if:false={showRetriesExceededScreen}>
+					<div if:false={showPassedWfrScreen}>
+						<div if:false={showFailedWfrScreen}>
+							<div if:false={showCancelledWfrScreen}>
+								<div if:false={showSessionTimeOutWfrScreen}>
+
+									<div>
+										<div class="aob_screen-title"> {label.AOB_WFR_AppTitle1}
+										</div>
+										<div class="aob_screen-sub-title slds-align_absolute-center">
+											{label.AOB_WFR_AppText1}
+										</div>
+
+										<div class="verification">
+											<div class="aob_r_images">
+												<div class="align">
+													<img src={Camera} alt="Camera Verification">
+													<div class="text2">
+														<lightning-formatted-rich-text
+															value={label.AOB_WFR_AppText2}>
+														</lightning-formatted-rich-text>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div class="text1">{label.AOB_WFR_AppText3}</div>
+										<div class="aob_screen-sub-section-title slds-align_absolute-center">
+											<span class="gradient-underline">{label.AOB_WFR_AppText4}</span>
+										</div>
+
+										<div>
+											<div class="aob_r_numbers slds-grid slds-wrap">
+												<div class="center slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+													<div class="number">1</div>
+													<div class="text">
+														<lightning-formatted-rich-text value={label.AOB_WFR_AppText5}>
+														</lightning-formatted-rich-text>
+													</div>
+												</div>
+
+												<div class="centers slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+													<div class="number">2</div>
+													<div class="text">
+														<lightning-formatted-rich-text value={label.AOB_WFR_AppText6}>
+														</lightning-formatted-rich-text>
+													</div>
+												</div>
+
+
+												<div
+													class="centering slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+													<div class="number">3</div>
+													<div class="text">
+														<lightning-formatted-rich-text value={label.AOB_WFR_AppText7}>
+														</lightning-formatted-rich-text>
+													</div>
+												</div>
+											</div>
+											<div class="line gradient-line"></div>
+
+										</div>
+
+									</div>
+									<div class="aob_background_white_smoke slds-align_absolute-center">
+										<div class="first-line">{label.AOB_WFR_AppText11}</div>
+									</div>
+
+									<div class="continue">
+										<button class=" btn-primary" data-id={adobePageTag.dataId} data-intent='navigational'
+				     data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue} onclick={redirectToIdentifii}
+				      title="backtoBrowsing">{label.AOB_Continue}</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div if:true={showFailedWfrScreen}>
+						<div if:false={retryIDV}>
+							<c-aob_comp_wfr-failed-no-retry application-id={applicationId}>
+							</c-aob_comp_wfr-failed-no-retry>
+						</div>
+						<div if:true={retryIDV}>
+							<c-aob_comp_wfr-failed-retry application-id={applicationId} onretry={handleRetry}
+								onconfirm={showCallmeBackPopup}>
+							</c-aob_comp_wfr-failed-retry>
+						</div>
+					</div>
+					<c-aob_comp_wfr-expired if:true={showSessionTimeOutWfrScreen} application-id={applicationId}
+						onretry={handleRetry} onconfirm={showCallmeBackPopup}>
+					</c-aob_comp_wfr-expired>
+				</div>
+				<c-aob_comp_wfr-retries-exceeded if:true={showRetriesExceededScreen}></c-aob_comp_wfr-retries-exceeded>
+				<c-aob_comp_wfr-cancelled if:true={showCancelledWfrScreen} application-id={applicationId}
+					onclosed={handleClosePopup} onretry={handleRetry} onconfirm={showCallmeBackPopup}>
+				</c-aob_comp_wfr-cancelled>
+			</div>
+			<!-- Call Me Back Confirmation screen -->
+			<c-aob_comp_wfr-call-me-confirmed if:true={showCallMeBackConfirmedPopup}></c-aob_comp_wfr-call-me-confirmed>
+		</div>
+	<!-- Verification Unavailable popup -->
+	<div if:true={showVerificationUnavailablePopup}>
+		<c-aob_comp_unverification-modal application-id={applicationId} onclosed={handleClosePopup}
+			onconfirm={showCallmeBackPopup} onretry={handleRetry}>
+		</c-aob_comp_unverification-modal>
+	</div>
+	<!--SFP-10368 & SFP-10363-->
+	<div if:true={failing}>
+		<c-aob_comp_error content={errorContent} onretry={handleRetry}></c-aob_comp_error>
+	</div>
+	<!-- Camera Missing Popup -->
+	<div if:false={cameraEnabled}>
+		<c-aob_comp_camera-missing onclosed={handleCloseCMPopup} oncallidv={redirectToIdentifii}>
+		</c-aob_comp_camera-missing>
+	</div>
+	
+</template>

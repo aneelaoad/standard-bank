@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="breadcrumbOneUrl" type="String" label="Breadcrumb 1 URL" default="/partners/s/"/>
+            <property name="breadcrumbTwoUrl" type="String" label="Breadcrumb 2 URL" default="/partners/s/contact-us"/>
+            <property name="redirectUrl" type="String" label="Redirect URL" default="/partners/s/"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

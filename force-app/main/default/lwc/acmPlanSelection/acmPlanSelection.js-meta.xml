@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>53.0</apiVersion>
+  <isExposed>true</isExposed>
+	<masterLabel>List of plans to choose from</masterLabel>
+	<description>Displays the list of subscriptions plans to choose from.</description>
+	<targets>
+		<target>lightning__FlowScreen</target>
+	</targets>
+	<targetConfigs>
+		<targetConfig targets="lightning__FlowScreen">
+			<!-- input params -->
+			<property name="serializedPlans" label="01) Serialized list of plans" type="String" role="inputOnly"/>
+			<!-- output params -->
+			<property name="action" label="01) Action chosen" type="String" role="outputOnly"/>
+			<property name="planId" label="02) Id of selected plan" type="String" role="outputOnly"/>
+    </targetConfig>
+  </targetConfigs>
+</LightningComponentBundle>

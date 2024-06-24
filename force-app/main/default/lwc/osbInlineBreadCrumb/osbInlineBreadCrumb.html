@@ -1,0 +1,17 @@
+<template>
+    <div data-id="container" class="breadLink">
+        <ul class="breadcrumb slds-medium-size_6-of-12 slds-small-size_12-of-12 slds-large-size_8-of-8">
+            <li><a data-id="first-item" href={navLink} onclick={handleTabChange} data-intent="navigational"
+                    data-text={dataText} data-scope="breadcrumb">{baseLabel}</a></li>
+            <lightning-icon class="my-icon" icon-name="utility:chevronright" alternative-text="Utility chevronright"
+                title="chevronright" size="xx-small"></lightning-icon>
+            <template lwc:if={providerLink}>         
+                <li class="provider-name" data-id="second-item | provider space" data-text={providerLink}>{providerLink}</li>               
+            </template>
+
+            <template lwc:else>
+                <li><a data-id="second-item" href={link}>{linkLabel}</a></li>
+            </template>
+        </ul>
+    </div>
+</template>

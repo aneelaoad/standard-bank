@@ -1,0 +1,57 @@
+<!-- **
+* @description  : Partner Portal Regisrtaion Form Sub Component
+* User Story : SFP-5159
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <div class="container">
+        <template if:true={renderFlag}>
+            <div class="slds-col slds-m-top_small">
+                <div class="row">
+                    <div class="column">
+                        <p class="slds-text-title_bold sec-heading">Your Business <br> Idea</p>
+                        <p class="text">Give a brief description of your business idea, to help us match the
+                            requirements.
+                        </p>
+                    </div>
+                    <div class="column">
+                        <img src={icon} class="sec-icon">
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <label for="Description" class="field-label">Describe your Partnership Idea</label>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <textarea id="Description" name="Description" rows="10" cols="40" class="textarea" maxlength="750"
+                    onchange={descriptionHandleChange} onkeyup={textareaKeyUp}>{description}</textarea>
+                <p style="color: #99a4b9;">{charCount}/{textareaMaxLength}</p>
+            </div>
+            <template if:true={validationError}>
+                <div class="slds-col" style="margin-top: 2px;">
+                    <p class="validationMsg">{validationError}</p>
+                </div>
+            </template>
+            <div class="slds-col slds-m-top_small">
+                <p class="field-label">Any documents that describe your Business or Idea</p>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <label for="file-upload" class="custom-file-upload">
+                    <p>Attach Document</p>
+                </label>
+                <input id="file-upload" type="file" onchange={openfileUpload} accept=".doc, .docx, .pdf, .pptx, .ppt"
+                       data-intent="informational" data-scope="Registration Form" data-text="your business idea | attach document button click" />
+
+               <div class="slds-col slds-m-top_xxx-small" style="max-width: 250px;">
+                    <template if:true={filename}>
+                            <lightning-pill label={filename} name={filename}
+                                class="slds-m-around_xx-small" onremove={removeFile}>
+                            </lightning-pill>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

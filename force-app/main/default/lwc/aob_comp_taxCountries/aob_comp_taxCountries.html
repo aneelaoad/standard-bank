@@ -1,0 +1,50 @@
+<template>
+    <div class="slds-grid aob_form_row slds-gutters_large slds-wrap">
+        <!--Tax countries & numbers-->
+        <template for:each={taxInputs} for:item="item" for:index="index">
+            <div key={item.country}
+                class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2">
+                <label
+                    class="aob_screen-field-label slds-m-bottom_none">COUNTRY OF TAX RESIDENCY</label>
+                    <lightning-combobox name="country" data-type="country" data-index={index}
+                                        variant="label-hidden" value={item.country}
+                                        placeholder="Please select" options={countries}
+                                        onchange={genericTaxOnChange} required></lightning-combobox>
+            </div>
+            <div key={item.amount}
+                class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2">
+                <img if:false={item.isFirst} width="30" data-index={index} alt="delete"
+                                        src={closeMG} class="slds-float_right" onclick={deleteTaxInput}>
+                <label
+                    class="aob_screen-field-label slds-m-bottom_none">FOREIGN TAX NUMBER</label>
+                <lightning-input disabled={item.hasTaxNumber} value={item.taxNumber} data-type="taxNumber" data-index={index}
+                    placeholder="e.g. 0123456789" type="text" name="taxNumber"
+                    variant="label-hidden" onchange={genericTaxOnChange} required></lightning-input>
+            </div>
+            <div key={item.country}  if:true={item.hasTaxNumber}
+                class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-m-bottom_small">
+                <img width="30" data-index={index} alt="delete"
+                                        src={closeMG} class="slds-float_right" onclick={deleteTaxInput}>
+                <label 
+                    class="aob_screen-field-label slds-m-bottom_none">REASON FOR NOT HAVING A FOREIGN TAX NUMBER                </label>
+                    <lightning-combobox name="taxReason" data-type="taxReason" data-index={index}
+                                        variant="label-hidden" value={item.taxReason}
+                                        placeholder="Please select" options={countries}
+                                        onchange={genericTaxOnChange} required></lightning-combobox>
+            </div>
+            <div key={item.country} class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-m-bottom_small" if:true={item.hasTaxNumber}></div>
+                    <div key={item.country} if:true={item.isLast} class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-m-bottom_small">
+                        <label if:false={reachedMax} class="aob_blue_clickable_text" onclick={addTaxCountry}>
+                        <img if:false={reachedMax} width="35" alt="Lock icon" src={addIMG}>&nbsp; ADD ADDITIONAL COUNTRY</label>
+                    </div>
+            <div key={item.country} class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-m-bottom_small" if:false={item.isLast}></div>
+
+            <div key={item.country} class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 ">
+                <label if:false={item.hasTaxNumber} data-index={index} data-type="hasTaxNumber" class="aob_blue_clickable_text aob_float_right" onclick={noTaxNumber}>
+                I DON'T HAVE A TAX NUMBER</label>
+            </div>
+            
+        </template>
+        
+    </div>
+</template>

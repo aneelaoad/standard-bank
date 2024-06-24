@@ -1,0 +1,56 @@
+<!--
+  @description       : 
+  @author            : Litha.nosekeleza@standardabnk.co.za
+  @group             : 
+  @last modified on  : 11-07-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div class="table-container">
+    <table style="width:auto; table-layout: fixed">
+        <tr>
+          <td><h1>1. LOGIN</h1>
+            <p>Let's make sure you're logged into Anypoint by clicking the link below.</p><br>
+            <a href="https://eu1.anypoint.mulesoft.com/accounts/login/standard-bank"><p class="plinks">LOGIN TO ANYPOINT</p></a></td>
+            
+          <td><h1>5. TEST</h1>
+           <p> Once you're happy with your API design, test your API using the Mocking Service on the right of the designer tool. </p></td>
+       
+        </tr>
+
+        <tr>
+          <td><h1>2. REVIEW</h1>
+            <p>Review your API in Anypoint Exchange. You can make documentation changes, including adding any diagrams that will enhance understanding of your API.</p><br>
+                <a href="https://eu1.anypoint.mulesoft.com/exchange/"><p class="plinks">ANYPOINT EXCHANGE</p></a></td>
+          <td><h1>6. PUBLISH</h1>
+            <p>You're now ready to publish your new API version to the API Catalog. Set your API version to 1.0.0 in the API (usually line 6). Then hit Publish on the top right. Set the Lifecycle State to Stable.</p></td>
+         
+        </tr>
+
+        <tr>
+            <td><h1>3. DESIGN</h1>
+                <p>Design your API in API Designer based on the template we have provided.</p><br>
+                <a href="https://eu1.anypoint.mulesoft.com/designcenter/designer/#/project/"> <p class="plinks">API DESIGNER</p></a></td>
+            <td><h1>7. PUBLISH TO API CENTRAL</h1>
+                <p>Now you have a stable API, why not show it off by publishing it to API Central (hint: you can do this using the button below). Our platform doesn't just contain live APIs, it's a great place to see what's coming down the track.</p></td>
+          
+        </tr>
+
+        <tr>
+            <td><h1>4. GOVERNANCE CHECKS</h1>
+                <p>Make sure you pass all API Governance rules by reviewing the Conformance tab at the bottom of the designer tool.</p></td>
+            <td><h1>8. IMPLEMENT</h1>
+                <p>Now you have a fully designed API, you can go ahead and implement it on your chosen API Gateway. You can download the API Specification file from Exchange, or from API Central.</p></td>
+           
+        </tr>
+        <tr>
+            <td></td>
+            <td><h1>9. GO LIVE</h1>
+                <p>Once your API is ready to go live, return back to API Central so we can capture the information we need to set up subscription (this is how consumers access your API). At that time we'll also set the status of the API to Live so people know it's ready to be consumed.</p></td>
+        </tr>
+          
+      </table>
+  
+      <c-cmn-button variant="brand" w-class="w200" label="DOWNLOAD AS PDF" onclick={generatePdf}></c-cmn-button>
+    </div>
+</template>

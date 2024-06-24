@@ -1,0 +1,235 @@
+@import 'c/pbp_comp_product_business_pages_common_theme_css';
+
+@media only screen and (min-width:481px) {
+    .pad_15{
+        padding: 10px 15px 10px 19px;
+    }
+    .marop_8{
+        margin-top: 8px;
+    }
+    .padd_allround{
+        padding: 15px 30px 15px 19px;
+    }
+    .header_hamburger{
+        width: 30px;
+        height:30px;
+        position: relative;
+        transform: rotate(0deg);
+        transition: .5s ease-in-out;
+        cursor: pointer;
+    }
+    .rectangle1{
+        margin: 0px;
+        padding: 0px 0px;
+        overflow-y: scroll;
+    }
+    .rotate_icon{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        /* padding-left: 0px; */
+        cursor: pointer;
+        border-bottom: 1px solid rgba(133,141,157,.25);
+    }
+    .unicons{
+        /* padding: 10px 27px 10px 0px; */
+        color: #0a2240!important;
+        border-bottom: 1px solid rgba(133,141,157,.25);
+    }
+    .unicons img{
+        width: 6%;
+    }
+    .unicons a{
+        color: #0a2240!important;
+    }
+    .main_header{
+        overflow: inherit;
+        height: 60px;
+        padding: 0px;
+        margin: 0px 0px;
+    }
+    .main_header ul{
+        width: 100%;
+    }
+    .mainheader_lt{
+        background-color: #0a2240;   
+        width: 60%;
+    }
+    .mainheader_lt a{
+        margin-left: 15px;
+    }
+    .mainheader_rt{
+        background-color: #0089ff;
+        width: 40%;
+        padding: 0px 0px;
+        text-align: center;
+        display: flex;
+    }
+    .main_header ul li{
+        margin: 0px 0px;
+        /* width: 60%; */
+    } 
+     .country_code{
+        background-color: #0a2240;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    } 
+    .signinprofilepic{
+        gap: 7px;
+        display: flex;
+    }
+    .signinprofilepic span{
+        margin: 4px 0 0 0;
+    }
+    .country_code span{
+        color:white;
+    } 
+    .country_code img{
+        border-radius: 50%;
+        object-fit: fill;
+        width: 35px;
+    }
+    .main_header_rt{
+        height: auto;
+        margin: 0px;
+        width: 37%;
+    }
+    .main_header .logo_brand{
+        display: inline-flex;
+        gap: 7px;
+        align-items: center;
+    }
+    .logo_brand{
+        margin: 0px 15px;
+        width: 45%;
+    }
+    .bar{
+        height: 2px;
+
+    }
+    .item{
+        /* padding: 5px!important;
+        margin: 15px!important; */
+        line-height: 40px!important;
+    }
+   
+     .signin_acnt{
+       padding: 0px 32px;
+       margin-right: 0px;
+       margin-left: 19px;
+    } 
+    .header span{
+        display: block;
+    }
+    .close{
+        margin-top: 13px;
+        margin-left: -17px;
+    }
+    .hamburgeroriginal{
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+    .close span:nth-child(1){
+        transform: rotate(135deg);
+        margin: -7px;
+    }
+    .hamburger-menu.close span:nth-child(2){
+       opacity: 0;
+    } 
+    .close span:nth-child(3){
+        transform: rotate(-135deg);
+        margin: -8px;
+    }
+    .hamburgeroriginal span:nth-child(1){
+        transform: rotate(0deg);
+        margin: 0;
+    }
+    .hamburgeroriginal.close span:nth-child(2){
+        opacity: 1;
+    }
+    .hamburgeroriginal span:nth-child(3){
+        transform: rotate(0deg);
+        margin: 0;
+    }
+    .hamburger-menu{
+        padding-left: 15px;
+        /* margin-top: 13px;
+        margin-left: -17px; */
+    }
+    .adj_inner{
+        padding: 5px 15px;
+    }
+    .rotate_icon1{
+        display: flex;
+        align-items: center;
+        padding-left: 0px;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(133,141,157,.25);
+        font-weight: bold;
+    }
+    .adj_padding{
+        padding: 10px 10px 10px 40px;
+        font-family: bentonsans-regular-webfont;
+        font-size:16px;
+    }       
+    .adj_paddingunicons{
+        text-decoration:none;
+        padding: 15px 10px 15px 82px;
+        font-family:bentonsans-regular-webfont;
+        font-size:14px;
+    }
+    .icn_padadj .arrowiconinnerbccb{
+        padding-top: 7px;
+        padding-left: 4px;
+    }
+    .icn_padadj .iconalign{
+        padding-top: 7px;
+        padding-left: 4px;
+    }
+    .icn_padadj .adjust_icon_text{
+        padding-top: 7px;
+        padding-left: 4px;
+    }
+    .prdservicesicnpadding{
+        padding-top: 5px;
+        padding-left: 0px;
+    }
+    .arrowiconrotate{
+        transform: rotate(180deg);
+        background-color :#f2f3f4;
+        margin-right: 15px;
+        margin-top: -17px;
+    }
+    .rotaticn2{
+        background-color: #f2f3f4;
+    }
+    .arrowiconoriginal{
+        transform: rotate(0deg);
+        background-color :#fff;
+    }
+    .rotaticnoriginal{
+        background-color: #fff;
+    }
+    .business_zero_margin{
+        margin: 0px;
+    }
+    .rotaticn2innerclrchange{
+        background-color: #f2f3f4;
+        transform: rotate(0deg);
+        text-align: center;
+    }
+    .arrowiconrotateinner{
+        transform: rotate(-90deg);
+    }
+    .rotaticn2innerclrchangeoriginal{
+        background-color: #fff;
+    }
+    .arrowiconrotateinneroriginal{
+        transform: rotate(0deg);
+        background-color :#fff;
+    }
+    .icn_padadj{
+        padding: 12px;
+    }
+}

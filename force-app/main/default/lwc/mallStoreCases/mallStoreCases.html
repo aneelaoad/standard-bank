@@ -1,0 +1,56 @@
+<template>
+    <div class="container slds-p-top_medium">
+        <lightning-card  variant="Narrow" title={title} icon-name="standard:case">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="CaseNumber">Case</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Email">Contact name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Subject">Subject</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Is Registered">Status</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={displayedCases} for:item="caseRecord" for:index="index">
+                        <tr class="slds-hint-parent" key={caseRecord.Id}>
+                            <th data-label="CaseNumber" scope="row">
+                            <div class="slds-truncate" title="CaseNumber">
+                                <a href="#" data-id={caseRecord.Id} onclick={onSelectingCase} >{caseRecord.CaseNumber}</a>
+                            </div>
+                            </th>
+                            <td data-label="Contact name">
+                            <div class="slds-truncate" title="Contact name">
+                                <a href="#" data-id={caseRecord.Contact.Id} onclick={onSelectingCase}>{caseRecord.ContactName}</a>
+                            </div>
+                            </td>
+                            <td data-label="Subject">
+                                <a href="#" data-id={caseRecord.Id} onclick={onSelectingCase}>{caseRecord.Subject}</a>
+                            </td>
+                            <td data-label="Status">
+                            <div class="slds-truncate" title="Status"><lightning-formatted-text value={caseRecord.Status}></lightning-formatted-text></div>
+                            </td>
+                            <td>
+                                <lightning-icon icon-name="utility:edit" size="small" onclick={handleEditClick} data-id={caseRecord.Id} data-index={index}></lightning-icon>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>  
+            <template if:true={cases}>
+                <c-mall-generic-table-pagination
+                current-page={currentPage}
+                total-pages={totalPages}
+                onpaginationchange={handlePaginationChange}>
+            </c-mall-generic-table-pagination> 
+            </template> 
+        </lightning-card>
+    </div>
+ </template>

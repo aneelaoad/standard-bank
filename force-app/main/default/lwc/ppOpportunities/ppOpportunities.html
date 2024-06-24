@@ -1,0 +1,60 @@
+<!-- **
+* @description  : Partner Portal Partnership Opportunities Component
+* User Story : SFP-4879
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+
+    <div class="slds-grid slds-wrap container">
+        <template iterator:opportunity={opportunities}>
+            <div key={opportunity.value.Id}
+                class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                <div class="slds-grid slds-grid_vertical single-partnership-container">
+                    <div class="slds-col" style="flex: none;">
+                        <div class="slds-grid">
+                            <div class="slds-col" style="flex: none;">
+                                <div class="icon">
+                                    <img src={icon}>
+                                </div>
+                            </div>
+                            <div class="slds-col">
+                                <p class="text-normal-sfProDisplay industry">{opportunity.value.PP_Industry__c}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-col">
+                        <p class="heading-large-sfProDisplay title">{opportunity.value.Name}</p>
+                    </div>
+                    <div class="slds-col">
+                        <p class="text-normal-sfProDisplay summary">{opportunity.value.PP_Summary__c}</p>
+                    </div>
+
+                    <div class="slds-col" style="margin-top: 24px; flex: none;">
+                        <div class="slds-grid slds-grid_align-spread">
+                            <div class="slds-col">
+                                <p class="text-normal-sfProDisplay publish-date">
+                                    <lightning-formatted-date-time value={opportunity.value.PP_PublishStartDate__c}
+                                        year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+                                </p>
+                            </div>
+                            <div class="slds-col">
+                                <a ahref="javascript:void(0)" class="text-normal-sfProDisplay view-details">
+                                    <p data-id={opportunity.index} onclick={handleOpportunityClick}
+                                       data-intent="navigational" data-scope="Opportunities"
+                                       data-text="opportunities | view opportunity">View Details</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+
+
+
+</template>

@@ -1,0 +1,10 @@
+.Notefollowing {
+  display: flex;
+}
+.todo_title {
+  color: #02070d;
+  font-family: "bentonsans-regular-webfont";
+  font-size: 14px;
+  line-height: 16px;
+  padding-right: 90px;
+}

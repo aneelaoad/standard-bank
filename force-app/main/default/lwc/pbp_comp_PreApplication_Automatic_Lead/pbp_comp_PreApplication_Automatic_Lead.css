@@ -1,0 +1,22 @@
+.aob_display-flex{
+    align-items: center!important;
+    justify-content: center!important;
+
+}
+.ao-slds{
+    min-height: 100%!important;
+}
+.widthcss{
+    width: 80%!important;
+}
+@media (max-width:569px){
+    
+.header{
+    font-size: 24px;
+}
+}
+@media (max-width:304px){
+.widthcss{
+        font-size: 9px!important;
+    }
+}

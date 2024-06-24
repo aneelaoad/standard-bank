@@ -1,0 +1,106 @@
+.slds-progress-ring{
+    background-color: transparent;
+    height: 32px;
+    min-width: 32px;
+}
+
+.slds-progress-ring__progress {
+    width: 32px;
+    height: 32px;
+}
+
+.slds-progress-ring_complete .slds-progress-ring__content {
+    background: #0062E1;
+}
+
+.slds-progress-ring__content > .step-icn{
+    display: none;
+}
+
+.slds-progress-ring_current .slds-progress-ring__content{
+    background: #0062E1;
+}
+
+.slds-progress-ring_current .slds-progress-ring__content > .step-text{
+    display: none;
+}
+
+.slds-progress-ring_current .slds-progress-ring__content > .step-icn{
+    content: " ";
+    width: 14px;
+    height: 14px;
+    display: block;
+    background-image: url('/sfsites/c/resource/ACM_Assets/sbg-pencil.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    margin: 9px;
+}
+
+
+.step-text {
+    font-family: var(--FONT-FAMILY);
+    font-size: 15px;
+    line-height: 1.33;
+    text-align: center;
+    color: var(--stature-blue);
+}
+
+
+.slds-progress-ring__content{
+    letter-spacing: normal;
+    color: #ffffff;
+    background-color: #CED3D9;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.slds-progress-ring__content > span {
+    color: #ffffff;
+}
+
+.slds-progress-ring__path {
+    background: #0062E1;
+    fill: #1d89fb;
+}
+
+.step-item-wrapper{
+    justify-content: flex-start;
+}
+
+.stage-name {
+    display: flex;
+    padding: 0px 9px;
+    align-items: center;
+    gap: 10px;
+    color: #02070D;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: var(--FONT-FAMILY);
+    color: var(--font-dark-color);
+    position: relative;
+}
+
+@media (min-width: 64em) {
+    .padding {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
+}
+
+@media (max-width: 48em) {
+    .stage-name{
+        position: static;
+        padding-top: 6px;
+    }
+
+    .step-item-wrapper{
+        align-items: flex-start;
+    }
+}

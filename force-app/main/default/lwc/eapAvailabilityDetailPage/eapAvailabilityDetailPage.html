@@ -1,0 +1,18 @@
+<!--
+  @description       : Lwc for meeting availability form
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+-->
+<template>
+    <template if:true={loading}>
+        <c-eap-spinner></c-eap-spinner>
+    </template>
+    
+    <div class="content">
+        <c-eap-header-detail title={title}></c-eap-header-detail>
+        <c-eap-availability-detail-content onloaded={hasLoaded} onreload={needToLoad}></c-eap-availability-detail-content>
+        <c-eap-footer isfixed="true"></c-eap-footer>
+    </div>
+</template>

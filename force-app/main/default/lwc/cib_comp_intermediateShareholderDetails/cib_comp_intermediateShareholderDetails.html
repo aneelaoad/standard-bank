@@ -1,0 +1,180 @@
+<!--
+  @description       : This is used for Intermediate Shareholders screen 
+  @author            : Sreekala.Mallavalli@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Intermediate shareholder Details</h2>
+      <div class="info-text mt_20">
+        <img src={helpIcon} alt="check" />
+        <p>
+          If your company as Immediate shareholder.please add the details below
+        </p>
+      </div>
+    </article>
+    <template for:each={participants} for:item="item" for:index="index">
+      <div key={item.CIB_Sequence__c} class="aob_card-container">
+        <template lwc:if={index}>
+          <div
+            class="slds-p-top_medium deleteicontopleft"
+            key={item.CIB_Sequence__c}
+          >
+            <img
+              class="slds-p-top_large slds-p-left_large"
+              src={delete_row_icon}
+              alt="delete-row-icon"
+              id={index}
+              data-id={index}
+              data-index={index}
+              alternative-text="Delete Row"
+              size="small"
+              title="Delete Row"
+              onclick={deleteParticipant}
+            />
+          </div>
+        </template>
+        <div class="slds-grid aob_col-gutter slds-wrap mt_10">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> </abbr>Name</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  value={item.Name}
+                  type="text"
+                  id="form-element-01"
+                  aria-invalid="true"
+                  variant="label-hidden"
+                  data-fieldname="Name"
+                  data-index={index}
+                  pattern="^[a-zA-Z\-'\s]+$"
+                  placeholder="Enter the Name"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div
+              class="slds-form-element slds-dropdown-trigger_click aob_date-picker"
+            >
+              <label
+                class="slds-form-element__label"
+                for="date-input-id-default2"
+                >Residential Address</label
+              >
+              <div>
+                <lightning-input
+                  value={item.CIB_PermanentResidentialAddress__c}
+                  type="text"
+                  id="form-element-02"
+                  aria-invalid="true"
+                  variant="label-hidden"
+                  data-fieldname="CIB_PermanentResidentialAddress__c"
+                  data-index={index}
+                  placeholder="Enter the Residential Address"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"></abbr>Physical
+                trading address</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  value={item.CIB_PhysicalTradingAddress__c}
+                  type="text"
+                  id="form-element-05"
+                  aria-invalid="true"
+                  variant="label-hidden"
+                  data-fieldname="CIB_PhysicalTradingAddress__c"
+                  data-index={index}
+                  placeholder="Enter the Physical trading Address"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div
+              class="slds-form-element slds-dropdown-trigger_click aob_date-picker"
+            >
+              <label
+                class="slds-form-element__label"
+                for="date-input-id-default2"
+                >Percentage ownership</label
+              >
+              <div
+                class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+              >
+                <lightning-input
+                  value={item.CIB_EffectivePercentageOwnership__c}
+                  id="date-input-id-default7"
+                  type="number"
+                  message-when-pattern-mismatch="Only  Digits are allowed"
+                  formatter="percent-fixed"
+                  step="0.01"
+                  pattern="^(0*100{1,1}\.?((?<=\.)0*)?%?$)|(^0*\d{0,2}\.?((?<=\.)\d*)?%?)$"
+                  data-fieldname="CIB_EffectivePercentageOwnership__c"
+                  data-index={index}
+                  variant="label-hidden"
+                  placeholder="percentage ownership"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="aob_title-sm">
+          <span class="slds-required" title="required"></span>Document required
+          from Intermediate shareholders
+        </div>
+        <c-cib_comp_documents-container
+          application-id={recordId}
+          section-id={sectionId}
+          participant-id={item.Id}
+          data-participant-sequence={item.CIB_Sequence__c}
+          is-participant
+        ></c-cib_comp_documents-container>
+      </div>
+    </template>
+    <div class="slds-grid aob_col-gutter slds-wrap mb_20">
+      <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+        <lightning-button
+          variant="brand-outline"
+          icon-name="utility:new"
+          label="ADD ADDITIONAL"
+          title="Primary action with lighter look"
+          onclick={addParticipant}
+          class="slds-m-left_x-small space-padding"
+        >
+        </lightning-button>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

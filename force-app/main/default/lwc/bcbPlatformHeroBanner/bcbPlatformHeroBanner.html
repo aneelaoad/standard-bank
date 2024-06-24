@@ -1,0 +1,66 @@
+<template>
+    <div class={applyBannerCssClass} data-component="hero-banner">
+      <div class="hero-banner-item-col" data-component="hero-banner-item-col">
+        <div class="hero-banner-item-row row no-gutters">
+          <div
+            class="hero-banner-item-cell hero-banner-item-col__content-background col-md-6 col-sm-12 order-xs-2 order-sm-2 order-md-1"
+          >
+            <div class="hero-banner-item-col__content-wrapper">
+              <c-sbg-hero-banner-text
+                heading={heading}
+                sub-text={subText}
+                action={action}
+                destination-url={destinationUrl}
+                variant={variant}
+                button-label={buttonLabel}
+                disabled={disabled}
+                button-title={buttonTitle}
+                w-class={wClass}
+                show-button={showButton}
+                onbuttonclick={handleSignup}
+              >
+              </c-sbg-hero-banner-text>
+            </div>
+          </div>
+          <div
+            class="hero-banner-item-cell col-md-6 col-sm-12 order-xs-1 order-sm-1 order-md-2"
+          >
+            <div class="hero-banner-item-col__image-holder">
+              <template if:true={isImage}>
+                <picture>
+                  <source srcset={imagePathDesktop} media="(min-width: 1200px)" />
+                  <source srcset={imagePathTablet} media="(min-width: 768px)" />
+                  <img class="mobile-image" src={imagePath} alt={imageAltText} />
+                </picture>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <template if:true={showSignupInstructions}>
+      <c-mall-signup-instructions-screen
+        onclosemodal={handleCloseSignupInstructions}
+      ></c-mall-signup-instructions-screen>
+    </template>
+  
+    <div class="static-side-banner">
+      Get exclusive early access to promotions
+      <div class="static-side-banner--btn">
+        <c-mall-cmn-button
+          interaction-intent={buttonInteractionIntent}
+          interaction-scope={buttonInteractionScope}
+          interaction-type={buttonInteractionType}
+          interaction-text={buttonInteractionText}
+          interaction-text-before={buttonInteractionTextBefore}
+          action={action}
+          destination-url={destinationUrl}
+          variant="mall"
+          label="REGISTER"
+          title="REGISTER"
+          w-class="auto"
+        ></c-mall-cmn-button>
+      </div>
+    </div>
+  </template>

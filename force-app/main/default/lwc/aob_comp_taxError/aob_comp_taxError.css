@@ -1,0 +1,49 @@
+.ao-background-colour_brand-blue {
+    background-color: #0033a1;
+    color: white;
+}
+
+.ao-background-colour_brand-blue h1 {
+    margin-bottom: 0px !important;
+    color: white;
+}
+
+.btn-secondary1 {
+    color: #0089ff !important;
+    font-size: 14px;
+    background-color: white !important;
+    font-family: 'bentonsans-bold-webfont';
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px;
+}
+
+.custom_icon {
+    position: relative;
+    top: 42px;
+    left: -17px;
+    z-index: 2;
+}
+
+.slds-modal__content {
+    text-align: center;
+}
+
+.slds-modal__content b {
+    padding: 20px 0px;
+    font-family: bentonsans-extra-light-webfont;
+}
+
+.slds-modal__content p {
+    padding: 20px 0px;
+    color: #858d9d;
+}
+
+.dflex {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-primary {
+    letter-spacing: 1.5px;
+    font-family: 'bentonsans-bold-webfont';
+}

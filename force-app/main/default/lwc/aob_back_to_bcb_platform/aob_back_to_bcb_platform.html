@@ -1,0 +1,13 @@
+<template>
+  <template if:true={showBanner}>
+    <div class="banner-layout banner-container">
+      <div class="back-button" onclick={handleGotomall}>
+        <span class="chevron-section gg-chevron-left"></span>
+        <span class="link">
+          <a href="#" onclick={handleGotomall}>{backToBCBPlatformMessage}</a>
+        </span>
+      </div>
+      <div class="trusted-partner-message">{trustedPartnerMessage}</div>
+    </div> 
+  </template>     
+</template>

@@ -1,0 +1,110 @@
+.api-catalogue-container {
+    display: grid;
+    grid-template-columns: 40rem 40rem;
+    column-gap: 142px;
+    justify-content: center;
+    justify-items: center;
+    margin: 0 auto;
+}
+
+.last-page-has-empty {
+    grid-template-rows: 12rem 12rem 12rem;
+}
+
+.navigation-container {
+    width: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto 2rem auto;
+    align-items: center;
+  }
+  
+  .Navigationbutton {
+    width: 45px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .NavigationPages {
+    width: 150px;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 18px;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .pageSelection {
+    height: 30px;
+    width: 30px;
+    color: #0a2240;
+    font-family: var(--FONT-FAMILY);
+    font-weight: 200;
+    font-size: 18.67px;
+    letter-spacing: 0;
+    line-height: 25px;
+    padding: 2px;
+    cursor: pointer;
+  }
+  
+  .pageSelectionCurrent {
+    height: 30px;
+    width: 30px;
+    color: #eee;
+    font-family: var(--FONT-FAMILY);
+    font-size: 18.67px;
+    letter-spacing: 0;
+    line-height: 25px;
+    border-radius: 50%;
+    background: #0033aa;
+    padding: 2px;
+    cursor: pointer;
+  }
+  
+  .workingLeftChevron {
+    filter: invert(52%) sepia(63%) saturate(7072%) hue-rotate(193deg)
+      brightness(105%) contrast(105%);
+  }
+  
+  .disabledRightChevron {
+    filter: invert(100%) sepia(97%) saturate(13%) hue-rotate(249deg)
+      brightness(104%) contrast(104%);
+  }
+  
+  .ms-icn_chevron_left {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .ms-icn_chevron_right {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .LeftButtonSec {
+    cursor: pointer;
+  }
+  
+  .rightButtonSec {
+    cursor: pointer;
+  }
+  
+  .LeftButtonDisabled {
+    pointer-events: none;
+    cursor: default;
+  }
+  
+  .rightButtonSecDisabled {
+    pointer-events: none;
+    cursor: default;
+  }

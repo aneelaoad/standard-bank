@@ -1,0 +1,19 @@
+@import 'c/eapCssLibrary';
+
+/* ListView */
+.v1_file_div{
+    padding-top: 1em;
+    padding-right: 2em;
+    padding-left: 2em;
+    background-color: var(--background-grey);
+    min-height: 80vh;
+}
+
+.v1_p_extra{
+    padding-top:5px;
+    font-size: 11px;
+}
+
+img.v1_img_filter {
+    filter: var(--filter-light-blue);
+}

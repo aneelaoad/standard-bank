@@ -1,0 +1,44 @@
+<!--
+  @description       : Lwc to show travel info for the user in the event
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-15-2021   TCK   Initial Version
+-->
+<template>
+    <template if:true={haveInformation}>
+        <div class='v1_all'>
+            <template iterator:it={travelInfo}>
+                <div key={it.value.Id}>
+                    <div if:false={it.last}>
+                        <div class="v1_div_user_info" >
+                            <lightning-card>
+                                <div class="v1_div_user_contact">
+                                    <h2 class="v1_h2_headingAbout light_titles">{it.value.Title}</h2>
+                                    <p class="v1_contact_txt">{it.value.Content}</p>
+                                </div>
+                            </lightning-card>
+                        </div>
+                    </div>
+                    <div if:true={it.last}>
+                        <div>
+                            <lightning-card>
+                                <div class="v1_div_user_contact">
+                                    <h2 class="v1_h2_headingAbout light_titles">{it.value.Title}</h2>
+                                    <p class="v1_contact_txt">{it.value.Content}</p>
+                                </div>
+                            </lightning-card>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </template>
+
+    <template if:false={haveInformation}>
+        <c-eap-shield-message message={labels.NoTravelParking}></c-eap-shield-message>
+    </template>
+</template>

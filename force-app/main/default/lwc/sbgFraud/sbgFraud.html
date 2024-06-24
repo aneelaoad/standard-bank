@@ -1,0 +1,18 @@
+<template>
+  <div class="fraud-wrapper">
+    <div class="footer-tab-name">{fraudTitle}</div>
+    <div class="fraud-report-contact">
+      {fraudText}<br />
+      <span class="fraud-contact-number desktop">{fraudContact}</span>
+      <a class="fraud-contact-number mobile" href={fraudContactLink}
+        >{fraudContact}</a
+      >
+    </div>
+    <div class="fraud-email">
+      <span class="fraud-email-title">{fraudEmailTitle}</span>
+      <span class="fraud-email-link"
+        ><a href={fraudEmailLink}>{fraudEmail}</a></span
+      >
+    </div>
+  </div>
+</template>

@@ -1,0 +1,53 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_heading{
+    /*height: 4em;*/
+    padding-top: 25px;
+    justify-content: center;
+    display: flex;
+    /*align-items: center;*/
+}
+
+.v1_span_title {
+    /*position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;*/
+    position: fixed;
+    top: 35px;
+    transform: translate(-50%,-50%);
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.v1_div_end {
+    position: fixed;
+    right: 0;
+    /*margin-left: auto;*/
+    margin-right: 1em;
+    top: 1.25em;
+}
+
+.v1_div_icon{
+    cursor: pointer;
+}
+
+.v1_div_icon img {
+    /*max-width: 1.5em;*/
+}
+
+.v1_div_start {
+    position: fixed;
+    left: 0;
+    padding-left: 1em;
+    top: 1.25em;
+    /*margin-right: 3em;*/
+}
+
+.v1_div_start img {
+    max-width: 35px;
+}
+
+lightning-icon {
+    --sds-c-icon-color-foreground-default: #fff;
+}

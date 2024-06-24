@@ -1,0 +1,87 @@
+<template>
+    <template lwc:if={isshortcut}>
+        <div class="ShortcutCardHolder">
+            <div class="ShortcutCardWrapper">
+                <div class="CardTitleHolder">
+                    <div class="ShortcutCardTitle">
+                        <template lwc:if={categoryAvailable}>
+                            <div class="TitleNonMobileView">{shortcutcategory} | <span style="font-weight: 500;">{shortcutname}</span></div>
+                            <div class="TitleMobileView">
+                                <div>
+                                    {shortcutcategory}
+                                </div>
+                                <div style="font-weight: 500;">
+                                    {shortcutname}
+                                </div>
+                            </div>
+                        </template>
+                        <template lwc:else>
+                            <div style="font-weight: 500;">{shortcutname}</div>
+                        </template>
+                        
+                    </div>
+                </div>
+                <div class="CardButtonHolder">
+                    <template lwc:if={addbuttontype}>
+                        <template lwc:if={buttonDisable}>
+                            <button onclick={addShortcut} title="Add" class="btnStyle DisabledButtonStyle" disabled>
+                                <i class="msClass ms-icn_add_circle addDisabledButtonIcon"></i>
+                                <div>
+                                    <p class="TextButton removeText">Add to dashboard</p>
+                                </div>
+                            </button>
+                        </template>
+                        <template lwc:else>
+                            <button onclick={addShortcut} title="Add" class="btnStyle AddButtonStyle" >
+                                <i class="msClass ms-icn_add_circle addButtonIcon"></i>
+                                <div>
+                                    <p class="TextButton removeText">Add to dashboard</p>
+                                </div>
+                            </button>
+                        </template>
+                    </template>
+                    <template lwc:else>
+                        <button onclick={removeShortcut} title="Add" class="btnStyle RemoveButtonStyle" >
+                            <i class="msClass ms-icn_bin addButtonIcon"></i>
+                            <div>
+                                <p class="TextButton removeText">Remove Shortcut</p>
+                            </div>
+                        </button>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template lwc:else>
+        <div class="ApplicationCardHolder">
+            <div class="CardWrapper">
+                <div class="CardTitleHolder">
+                    <div class="CardImage">
+                        <template lwc:if={thirdParty}>
+                            <img src={iconImage} class="logoHeight">
+                        </template>
+                        <template lwc:else>
+                            <img src={SBlogo}></img>
+                        </template>
+                    </div>
+                    <div class="CardTitle">
+                        <template lwc:if={solTM}>
+                            <div>{title}<sup class="tmClass">TM</sup></div>
+                        </template>
+                        <template lwc:else>
+                            <div>{title}</div>
+                        </template>
+                    </div>
+                </div>
+                <div class="CardButtonHolder">
+                    <button onclick={selectedSolution} title="Add" class="btnStyle AddButtonStyle" data-id={shortcutCardId} data-text={shortcutCardValue} data-intent="navigational" data-scope="Manage Shortcuts">
+                        <i class="msClass ms-icn_add_circle addButtonIcon"></i>
+                        <div>
+                            <p class="TextButton removeText">Add Shortcut</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

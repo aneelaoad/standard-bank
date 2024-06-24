@@ -1,0 +1,123 @@
+<!--
+  @description       : Lwc with the form to add a new accommodation
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-24-2021   TCK   Initial Version
+-->
+<template>
+    <!--Path Bar-->
+    <div class="v1_div_path">
+        <div class="v1_div_titleStep">{thisStep.Title}</div>
+        <template for:each={stepList} for:item="step">
+            <template if:true={step.TemplateActive}>
+                <div key={step.Id} class="customSquare passed"></div>
+            </template>
+            <template if:false={step.TemplateActive}>
+                <div key={step.Id} class="customSquare"></div>
+            </template>
+        </template>
+    </div>
+
+    <!--First step-->
+    <template if:true={show1}>
+        <div class="v1_div_container">
+            <div>
+                <label class="label">{labels.HotelName}</label>
+                <br>
+                <template if:true={hasError.HotelName}>
+                    <lightning-input class="error" type="text" name="hotelName" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                </template>
+                <template if:false={hasError.HotelName}>
+                    <lightning-input type="text" name="hotelName" variant="label-hidden" onblur={handleInputChange} value={accommodation.HotelName}></lightning-input>
+                </template>
+            </div>
+            <div class="v1_div_double">
+                <label class="label">{labels.StartDate}</label>
+                <label class="label">{labels.CheckIn}</label>
+                <template if:true={hasError.StartDate}>
+                    <input class="error" type="date" name="startDate" onblur={handleInputChange} value={accommodation.StartDate}></input>
+                </template>
+                <template if:false={hasError.StartDate}>
+                    <input type="date" name="startDate" onblur={handleInputChange} value={accommodation.StartDate}></input>
+                </template>
+                <template if:true={hasError.CheckIn}>
+                    <input class="error" type="time" name="checkIn" onblur={handleInputChange}></input>
+                </template>
+                <template if:false={hasError.CheckIn}>
+                    <input type="time" name="checkIn" onblur={handleInputChange} value={accommodation.CheckIn}></input>
+                </template>
+            </div>
+            <div class="v1_div_double">
+                <label class="label">{labels.EndDate}</label>
+                <label class="label">{labels.CheckOut}</label>
+                <template if:true={hasError.EndDate}>
+                    <input class="error" type="date" name="endDate" onblur={handleInputChange} value={accommodation.EndDate}></input>
+                </template>
+                <template if:false={hasError.EndDate}>
+                    <input type="date" name="endDate" onblur={handleInputChange} value={accommodation.EndDate}></input>
+                </template>
+                <template if:true={hasError.CheckOut}>
+                    <input class="error" type="time" name="checkOut" onblur={handleInputChange}></input>
+                </template>
+                <template if:false={hasError.CheckOut}>
+                    <input type="time" name="checkOut" onblur={handleInputChange} value={accommodation.CheckOut}></input>
+                </template>
+            </div>
+        </div>
+    </template>
+    
+    <!--Second step-->
+    <template if:true={show2}>
+        <div class="v1_div_container">
+            <div>
+                <label class="label">{AddLocation}</label>
+                <br>
+                <template if:true={hasError.Location}>
+                    <lightning-input class="error" type="text" name="location" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                </template>
+                <template if:false={hasError.Location}>
+                    <lightning-input type="text" name="location" variant="label-hidden" onblur={handleInputChange} value={accommodation.Location}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <label class="label">{labels.AddFullAddress}</label>
+                <br>
+                <template if:true={hasError.FullAddress}>
+                    <lightning-input class="error" type="text" name="fullAddress" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                </template>
+                <template if:false={hasError.FullAddress}>
+                    <lightning-input type="text" name="fullAddress" variant="label-hidden" onblur={handleInputChange} value={accommodation.FullAddress}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <label class="label">{labels.TypeTelephone}</label>
+                <br>
+                <template if:true={hasError.Telephone}>
+                    <lightning-input class="error" type="text" name="telephone" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                </template>
+                <template if:false={hasError.Telephone}>
+                    <lightning-input type="text" name="telephone" variant="label-hidden" onblur={handleInputChange} value={accommodation.Telephone}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <label class="label">{labels.TypeEmail}</label>
+                <br>
+                <template if:true={hasError.Email}>
+                    <lightning-input class="error" type="text" name="email" variant="label-hidden" onblur={handleInputChange} value={accommodation.Email}></lightning-input>
+                </template>
+                <template if:false={hasError.Email}>
+                    <lightning-input type="text" name="email" variant="label-hidden" onblur={handleInputChange} value={accommodation.Email}></lightning-input>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <div class="bottom_button">
+        <button class="custom-full-button" onclick={nextStep}>{labels.Next}</button>
+    </div>
+    <div class="relleno"></div>
+</template>

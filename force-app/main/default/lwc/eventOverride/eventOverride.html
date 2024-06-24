@@ -1,0 +1,18 @@
+<template>
+  
+    <h1 class="slds-text-heading--medium slds-m-bottom_small" style="text-transform:capitalize;">{action} Event</h1>
+
+    <div if:false={urlFinal}>
+        <p>Redirecting... </p>
+    </div>
+    <div if:true={urlFinal}>
+        <p>If you are not redirected automatically, please click <a onclick={doRedirect}><strong>HERE</strong></a></p>
+    </div>
+    
+    <div if:true={error}>
+        <p>&nbsp;</p>
+        <p style="color:red;">{errorMessage}</p>
+        <p>&nbsp;</p>
+    </div>
+
+</template>

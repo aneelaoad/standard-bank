@@ -1,0 +1,41 @@
+<!-- **
+* @description  : Partner Portal Footer Banner Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+
+<template>
+
+    <div class="container">
+        <div class="slds-grid slds-wrap main-grid">
+            <div class="slds-col slds-size_12-of-12">
+
+                <div class="background-image"></div>
+                <div class="slds-grid slds-grid_vertical">
+
+                    <div class="slds-col">
+                        <div class="content">
+                            <div class="text-content">
+
+                                <p>{textOne}</p>
+                                <p>{textTwo}</p>
+
+                            </div>
+
+                            <button class="slds-button slds-button_neutral banner-button sbg-button">
+                                <a href={link}>
+                                    <p class="text-normal">{linkLabel}</p>
+                                </a>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</template>

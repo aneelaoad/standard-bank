@@ -1,0 +1,17 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<!--
+    @Author         :   Naveen B
+    @Create Date    :   07-02-2023
+    @Purpose        :   Onboarding Bulk Manged Fund Records
+    @JIRA Tickets   :   
+-->
+<template>
+    <lightning-quick-action-panel header="Bulk Managed Fund Onboarding">
+        <div class="slds-section slds-is-open">           
+            <div if:true={isLoading} class="slds-is-relative">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </div>           
+        </div>
+    </lightning-quick-action-panel>
+</template>

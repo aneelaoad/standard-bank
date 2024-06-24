@@ -1,0 +1,85 @@
+<template>
+	<div class="store-wrapper">
+		<div class="section-wrapper">
+            <c-sbg-breadcrumb-bar></c-sbg-breadcrumb-bar>
+		</div>
+		<template if:true={shop}>
+			<div class="store-container">
+				<div class="section-wrapper store-section">
+					<div class="grid-container" onclick={handleNavigateToShop}>
+						<div class="grid-item">
+							<div class="customer_shyft">
+								<a href={shopLink} data-intent="navigational" data-scope="mall shop detail"
+									data-id="link_content" data-text={shop.name} data-text-after="image"
+									data-type="click" target="blank" class="mt-2" data-store-id={shop.id}>
+								<span><img class="image" src={shop.imageUrl} alt="#" /></span>
+								</a>
+							</div>
+						</div>
+						<div class="grid-item">
+							<div class="customer_shyft_description">
+								<h3 class="item-title">{shop.name}</h3>
+								<lightning-formatted-rich-text class="shop-description" value={shop.description}></lightning-formatted-rich-text>
+								<div class="button-section" >
+									<c-mall-cmn-button interaction-intent={buttonInteractionIntent} interaction-scope={buttonInteractionScope} interaction-type={buttonInteractionType}
+										interaction-text={buttonInteractionText} interaction-text-before={buttonInteractionTextBefore} destination-url={shoplink}
+										variant="mall" label={buttonLabel} title={buttonTitle} w-class="auto" onclick={handleNavigateToShop} ></c-mall-cmn-button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+
+            <div class="service-list-container">
+                <div class="section-wrapper">
+                    <div class="service-heading">
+                        <c-sbg-title-with-subtitle title="Services" show-subtitle=false
+                        subtitle=""></c-sbg-title-with-subtitle>
+                    </div>
+                    <div class="service-list">
+                        <template for:each={products} for:item="service">
+                            <div class="service-item" key={service.name} onclick={productSelection} data-serviceid={service.id}>
+                                <c-mall-offering-item item={service} >
+                                </c-mall-offering-item>   
+                            </div>        
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <template if:true={selectedProduct}>
+                <div class="container section-wrapper">
+                    <template if:true={selectedProduct}>
+                        <div class="service-heading">
+                            <c-sbg-title-with-subtitle title="Service overview" show-subtitle=false
+                            subtitle=""></c-sbg-title-with-subtitle>
+                        </div>
+                        <div class="grid-container" onclick={handleNavigateToProduct}>
+                            <div class="grid-item">
+                                <div class="customer_shyft">
+                                    <a  data-intent="navigational" data-scope="mall shop detail"
+                                        data-id="link_content" data-text={shop.name} data-text-after="image"
+                                        data-type="click" target="blank" class="mt-2" data-store-id={shop.id}>
+                                    <span><img class="image" src={selectedProduct.imageUrl} alt="#" /></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="grid-item">
+                                <div class="customer_shyft_service_description">
+                                    <h3 class="item-title">{selectedProduct.name}</h3>
+                                    <lightning-formatted-rich-text class="shop-description" value={selectedProduct.description}></lightning-formatted-rich-text>
+                                    <div class="button-section" >
+                                        <c-mall-cmn-button interaction-intent={buttonInteractionIntent} interaction-scope={buttonInteractionScope} interaction-type={buttonInteractionType}
+                                            interaction-text={buttonInteractionText} interaction-text-before={buttonInteractionTextBefore}
+                                            variant="mall" label="Go To Service" title="Go To Service" onclick={handleNavigateToProduct} w-class="auto" ></c-mall-cmn-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+		</template>
+	</div>
+</template>

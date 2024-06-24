@@ -1,0 +1,85 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    background-color: #fff;
+}
+
+ .main-grid {  
+    background-color: #fff;
+    max-width: 1280px;
+}
+
+ .left-heading {
+    width: auto;
+    height: auto;
+    color: #0a2240;
+}
+
+ .left-content {
+    width: 453px;
+    height: 25px;
+    color: #0a2240; 
+}
+
+.text{
+    max-width : 372px;
+}
+
+.banner-image{
+    width: 700px;
+    height: 350px;  
+}
+.image-container{
+    margin : 66px 0px 66px 0px;
+}
+
+.banner__button {
+    width: 240px;
+    height: 50px;
+    margin: 20px 0 0 0px;
+    padding: 18px 45px 15px;
+    border-radius: 2px;
+    background-color: #0089ff;
+    color: #ffffff;
+    border-color: #0089ff !important; 
+    font-weight: bold;   
+    line-height: 1.43;
+    letter-spacing: 1px;
+}
+
+.banner__button:hover{
+    background-color: #0069C4;
+}
+
+ .left-section {
+   margin: 146px 0 0 0;   
+}
+
+@media(min-width: 1280px) {
+     .main-grid {
+        padding: 0px 60px 0px 40px;
+    } 
+}
+
+@media(max-width: 1024px) {
+     .main-grid {
+        padding: 0px 38px 0px 38px;
+    }
+    
+     .left-section {
+        
+        margin: 50px 0 0 0;    
+    }
+}
+
+@media(max-width: 414px) {
+     .main-grid {
+        padding: 0 19px 50px 19px
+    }
+     .left-content {   
+        padding: 0px 200px 0px 0px;
+    }
+     .left-section {     
+        margin: 20px 0 0 0;    
+    }
+}

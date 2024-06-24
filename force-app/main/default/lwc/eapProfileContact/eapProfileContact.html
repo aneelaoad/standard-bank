@@ -1,0 +1,50 @@
+<!--
+  @description       : Show Profile Contact Info
+  @author            : TCK
+  @group             : 
+  @last modified on  : 09-01-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-07-2021   TCK   Initial Version
+-->
+<template>
+    <div class="relleno">
+        <div class="v1_section">
+            <p class="light_titles">{labels.FindOurInfo}</p>
+            <div class="v1_settings_info">
+                <template if:true={elements}>
+                    <template for:each={elements} for:item="elem">
+                        <div key={elem.Id} class="v1_div_listView">
+                            <template if:true={elem.IconStart}>
+                                <div class="v1_div_prettyList">
+                                    <img if:true={elem.isEmail} class="filter" src={elem.IconStart}/> 
+                                    <img if:false={elem.isEmail} src={elem.IconStart}/> 
+                                </div>
+                            </template>
+            
+                            <div class="v1_div_prettyList v1_div_title">
+                                <p class="v1_p_title">{elem.Title}</p>
+                                <template if:true={elem.Subtitle}>
+                                    <p class="v1_p_subtitle">{elem.Subtitle}</p>
+                                </template>
+                            </div>
+            
+                            <div class="v1_div_prettyList v1_div_endInfo">
+                                <template if:true={elem.IconEnd}>
+                                    <a href={elem.Link}>
+                                        <lightning-icon size="x-small" icon-name={elem.IconEnd} alternative-text="Icon" title="Icon" class="v1_icon_end"></lightning-icon>
+                                    </a>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:false={elements}>
+                    <p>Sorry there are no contacts available</p>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,40 @@
+<!--
+  @description       : 
+  @author            : Mahlatse Tjale
+  @group             : 
+  Ver   Date         Author                   Modification
+  1.0   13-06-2023   Mahlatse Tjale           Initial Version
+-->
+<template>
+	<label style="color: #858d9d;font-size: 19px;" class="slds-m-bottom_medium">Data Privacy</label>
+	<div>
+		<div>{label.AOB_ZA_STAFF_WeUnderstandThat}
+			<span class="dots" if:false={showMore}>...</span>
+			<button if:false={showMore} type="button" class="moreLess" onclick={showMoreText} data-id={adobePageTag.dataId} data-intent={adobePageTag.seemoreintent}
+				data-scope={adobePageTag.dataScope} data-text={adobePageTag.seemorelinkclick}>{label.AOB_ZA_SeeMore}
+			</button>
+		</div>
+		<br>
+			<div if:true={showMore} class="slds-m-bottom_medium">
+				<div class="">{label.AOB_ZA_STAFF_ItIsYourResponsibility} 
+					<a class="textclass" href={standardbankPrivacyLink} target="_blank"> {label.AOB_ZA_SBURL}
+					</a>
+					<span> {label.AOB_ZA_STAFF_EmailToYou}</span>
+				</div>
+				<div class="slds-m-top_medium">
+					{label.AOB_ZA_STAFF_WeWillMaintain}
+				</div>
+				<div class="slds-m-top_medium">
+					{label.AOB_ZA_STAFF_OurPrivacyStatement}
+				</div>
+				<div class="slds-m-top_medium slds-m-bottom_x-large">
+					{label.AOB_ZA_STAFF_ICanConfirm}
+					<button type="button" class="moreLess" onclick={showLessText} data-id={adobePageTag.dataId} data-intent={adobePageTag.seemoreintent}
+					data-scope={adobePageTag.dataScope} data-text={adobePageTag.seemorelinkclick}>See Less
+				</button>
+				</div>
+			</div>
+
+	</div>
+	<hr>
+</template>

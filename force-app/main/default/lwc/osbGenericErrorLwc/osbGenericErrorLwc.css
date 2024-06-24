@@ -1,0 +1,180 @@
+.Site_Container {
+    padding: 48px 0 88px;
+    background-image: url('/sfsites/c/resource/OSB_BackgroundImage');
+    background-position: bottom;
+    background-size: cover;
+    margin-bottom: 50px;
+}
+
+.breadcrumbDiv {
+    margin: 0 -20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.containerDiv {
+    background-color: #FFFFFF;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1280px
+}
+
+.centerBtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.contentDifPad {
+    background-color: #FFFFFF;
+    align-content: center;
+    text-align: center;
+    padding: 40px 110px 48px 110px;
+}
+
+.content {
+    background-color: #FFFFFF;
+    align-content: center;
+    text-align: center;
+    padding: 40px 24px 48px;
+    margin-top: 178px;
+    margin-left: 50px;
+}
+
+.contentIcon {
+    margin-bottom: 26px;
+}
+
+.ContentTitleSignUp {
+    color: #0A2240;
+    font-family: var(--FONT-FAMILY);
+    font-size: 52px;
+    font-weight: 200;
+    letter-spacing: 0;
+    line-height: 60px;
+    text-align: center;
+}
+
+.ContentTitle {
+    color: #222222;
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 24px;
+    margin-bottom: 12px;
+    margin-top: 18px;
+}
+
+.contentTextSignUp {
+    color: #666666;
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 24px;
+    margin-left: 49px;
+}
+
+.contentText {
+    color: #0A2240;
+    font-family: var(--FONT-FAMILY);
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 25px;
+    text-align: center;
+    font-weight: 300;
+}
+
+.buttons {
+    background-color: #F6F6F6;
+    padding: 22px 20px;
+    padding-bottom: 40px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 4px 4px 0 rgb(0 0 0 / 25%);
+}
+
+.buttons center {
+    margin: auto;
+}
+
+
+.buttons button,
+.buttons a {
+    height: 36px;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 19px;
+    border: 0;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all .15s ease-in;
+    cursor: pointer;
+    min-width: 385px;
+}
+
+.buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cancelButton {
+    background-color: #EDEDED;
+    color: token(SBPrimaryBlue);
+}
+
+.primaryButton {
+    background-color: #0033AA;
+    color: #ffffff;
+    margin-left: 16px !important;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 45.5%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.primaryButtonAlignRight {
+    background-color: token(SBPrimaryBlue);
+    color: #ffffff;
+}
+
+@media(max-width: 668px) {
+
+    .content {
+        padding-bottom: 32px;
+    }
+
+    .buttons__container {
+        flex-direction: column-reverse;
+    }
+
+    .primaryButton {
+        margin: 0 0 16px;
+    }
+}
+
+@media(max-width: 1024px) {
+    .buttons__container {
+        justify-content: flex-end;
+    }
+}
+
+@media(min-width: 1280px) and (max-width: 1440px) {
+    .containerDiv {
+        width: 75%;
+    }
+}
+
+@media(min-width: 1441px) {
+    .containerDiv {
+        width: 50%;
+    }
+}

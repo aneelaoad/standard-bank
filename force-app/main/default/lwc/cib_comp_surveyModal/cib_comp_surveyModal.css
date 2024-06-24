@@ -1,0 +1,71 @@
+lightning-card {
+  --slds-c-card-radius-border: 0rem;
+}
+.slds-modal__header .slds-modal__close {
+  position: absolute;
+  top: unset;
+  border: none;
+}
+.complete-button {
+  font-weight: 700;
+  float: right;
+  margin-bottom: 30px;
+  padding-right: 50px;
+}
+.cancel-button {
+  font-weight: 700;
+  padding-left: 50px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.buttons-spacing {
+  margin: 25px;
+}
+.header-background {
+  background: var(
+    --gradient-primary-01-diagonal,
+    linear-gradient(151deg, #0064fc 0%, #03a 100%)
+  );
+}
+.header-text {
+  color: white;
+  float: left;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+}
+.back-btn {
+  float: left;
+  font-weight: 700;
+}
+.cancel-btn {
+  font-weight: 700;
+}
+.slds-modal__footer {
+  width: auto;
+  min-height: 0px;
+  padding: 0px;
+  background-color: #ffffff;
+}
+iframe {
+  min-width: 100%;
+  min-height: 700px;
+  overflow-clip-margin: content-box !important;
+  border-width: 0px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
+}
+iframe .surveyRuntimeSurvey .surveyScreenContent {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.survey_closed {
+  width: 24px;
+  height: 24px;
+}
+.slds-modal__header {
+  height: 52px;
+  padding: 14px 24px;
+}

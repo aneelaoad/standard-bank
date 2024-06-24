@@ -1,0 +1,20 @@
+<template>
+    <div if:true={closepopup} data-id="main" class="main-div">
+    	<div data-id="toastContainerId" class="toast_container">
+            <div data-id="toast-type">
+                <div data-id="toast-location">
+                    <div if:true={toastSuccess}>
+                        <i class="ms-icn_check_normal toast__icon"></i>
+                    </div>
+                    <div if:false={toastSuccess}>
+                        <i class="ms-icn_warning_solid toast__icon"></i>
+                    </div>
+                </div>
+                <div class="toast__right">
+                    <span class="toast__text">{toastmessage}</span>
+                    <button onclick={closeToast} class="btn toast__close" data-id="uitlink_link" data-text="Toast | Close"><i class="ms-icn_close_circle_solid"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

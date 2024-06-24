@@ -1,0 +1,29 @@
+<template>
+  <div class="trusted-partners-section">
+    <template if:true={showItems}>
+      <div class="shop-top-container">
+        <div class="shop-container-header">
+          <template if:true={storyId}>
+            <div class="success-heading-container">
+              <h3 class="success-heading">Other Success Stories</h3>
+            </div>
+          </template>
+          <template if:false={storyId}>
+            <div class="success-heading-container">
+              <h3 class="success-heading">Success Stories</h3>
+              <p class="subtitle">
+                Here is how our client benefited from BCB Platform
+              </p>
+            </div>
+          </template>
+        </div>
+        <c-mall-offering-list
+          mock-enabled={trueVal}
+          collection={storiesCollectionObject}
+          is-offering-detail="true"
+          is-success-story="true"
+        ></c-mall-offering-list>
+      </div>
+    </template>
+  </div>
+</template>

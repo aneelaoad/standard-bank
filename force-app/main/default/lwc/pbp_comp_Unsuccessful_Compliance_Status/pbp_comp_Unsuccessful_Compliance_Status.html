@@ -1,0 +1,25 @@
+<!--
+  @description       : 
+  @author            : sharanyya.chanda@salesforce.com
+  @group             : 
+  @last modified on  : 29 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+    <c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div class="slds-container_center ao-slds">
+        <div  class="aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius " style="width:100%">
+            <h2 class="slds-align_absolute-center">{label.PBP_ZA_Application}</h2><br/>
+            <p class="slds-align_absolute-center">{label.PBP_ZA_Unfortunately} 
+                {label.PBP_ZA_MoreInformation}</p><br/>
+                <div class="aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1  slds-m-vertical_small  button_reverse">
+                    <lightning-button data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                    data-scope={adobePageTag.dataScope} data-text={adobePageTag.cancelButtonText}
+                        class="slds-size_1-of-2 aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                        variant="brand" label={label.AOB_BackToBrowsing} title="backtoBrowsing" onclick={backToHome}></lightning-button> 
+                </div>
+                
+        </div>
+    </div>
+</template>

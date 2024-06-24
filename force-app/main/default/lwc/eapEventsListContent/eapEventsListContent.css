@@ -1,0 +1,85 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_container {
+    padding: 1em 1.5em 5em;
+    background-color: var(--background-grey);
+    min-height: 90vh;
+}
+
+/*List of Events + Search Bar CSS*/
+.v1_p_search {
+    font-size: .7rem;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.v1_div_searchContainer {
+    padding: .5em 0em;
+    cursor: pointer;
+    margin-bottom: 1em;
+}
+
+.shadowSearch {
+    box-shadow: 0px 5px 10px #8080802b;
+    width: 100%;
+    position: relative;
+    border-radius: 1.5px;
+}
+
+.v1_input_search, .v1_button_search, .shadowSearch{
+    display:inline-block;
+}
+
+.v1_input_search {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    width: 90%;
+    min-height: 2.3em;
+    border: 0px;
+    font-size: 1.2em;
+    margin-bottom: 0em;
+}
+
+.v1_input_search::placeholder {
+    font-weight: 300;
+}
+
+.v1_input_search:focus {
+    font-weight: 300;
+    outline: none;
+}
+
+.v1_button_search {
+    background-color: var(--main-light-blue);
+    width: 15%;
+    min-width: 3em;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 1.5px 1.5px 0;
+}
+
+.v1_button_search:before {
+    content: "";
+    float: left;
+    padding-top: calc(100% - 24px);
+}
+
+.v1_button_search lightning-icon {
+    --sds-c-icon-color-foreground-default: #fff;
+}
+
+.v1_img_icon {
+    height: 2em;
+    padding: 0 2px;
+    cursor: pointer;
+}
+
+.v1_layout_icon {
+    display: flex;
+    justify-content: center;
+}

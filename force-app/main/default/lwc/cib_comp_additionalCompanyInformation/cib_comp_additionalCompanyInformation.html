@@ -1,0 +1,148 @@
+<!--
+  @description       : This is used for Account company Information screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 11-01-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Additional Company Information</h2>
+    </article>
+    <div class="aob_card-container">
+      <label class="aob_title-sm" for="form-element-05">
+        <span class="slds-required" title="required">* </span>
+        Country information</label
+      >
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <div class="slds-form-element__label" id="combobox-label-id-130">
+              <span class="slds-required" title="required">* </span>Country of
+              incorporation
+            </div>
+            <c-cmn_comp_acpicklist
+              s-object-name="Application__c"
+              missing-value-message="please enter the field"
+              placeholder="Please select"
+              s-object-field-name="CIB_ACI_IncorporationCountry__c"
+              data-fieldname="CIB_ACI_IncorporationCountry__c"
+              is-country-picklist
+              value={applicationRecord.CIB_ACI_IncorporationCountry__c}
+            ></c-cmn_comp_acpicklist>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <div class="slds-form-element__label" id="combobox-label-id-131">
+              <span class="slds-required" title="required">* </span>Country of
+              registration
+            </div>
+            <c-cmn_comp_acpicklist
+              s-object-name="Application__c"
+              missing-value-message="please enter the field"
+              placeholder="Please select"
+              required              
+              s-object-field-name="CIB_ACI_RegistrationCountry__c"
+              data-fieldname="CIB_ACI_RegistrationCountry__c"
+              value={applicationRecord.CIB_ACI_RegistrationCountry__c}
+              is-country-picklist
+            >
+            </c-cmn_comp_acpicklist>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <lightning-radio-group
+          name="CIB_ACI_IsTradingWithRegisteredName__c"
+          label="Trading as/doing business"
+          options={tradingOptions}
+          type="radio"
+          data-fieldname="CIB_ACI_IsTradingWithRegisteredName__c"
+          onchange={onchange}
+          required
+        ></lightning-radio-group>
+
+        <template lwc:if={showTradingNameInput}>
+          <div class="slds-grid mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element mb_8">
+                <label class="slds-form-element__label" for="form-element-01">
+                  <span class="slds-required" title="required">* </span
+                  >Name</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    message-when-pattern-mismatch="Only Character are allowed"
+                    variant="label-hidden"
+                    pattern="^[a-zA-Z-' ]*$"
+                    type="text"
+                    id="form-element-01"
+                    placeholder="Trading Name"
+                    data-fieldname="CIB_ACI_TradingName__c"
+                    value={applicationRecord.CIB_ACI_TradingName__c}
+                    aria-describedby="form-error-01"
+                    aria-invalid="true"
+                    onchange={genericFieldChange}
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <lightning-radio-group
+          name="CIB_ACI_HasStockExchangeListing__c"
+          label="Listing on stock exchange"
+          options={stockExchangeOptions}
+          onchange={onchange}
+          type="radio"
+          data-fieldname="CIB_ACI_HasStockExchangeListing__c"
+          required
+        ></lightning-radio-group>
+
+        <template lwc:if={showStockExchangeInput}>
+          <div class="slds-grid mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element mb_8">
+                <label class="slds-form-element__label" for="form-element-02">
+                  <span class="slds-required" title="required">* </span>Name of
+                  stock exchange</label
+                >
+                <div class="slds-form-element__control">
+                  <c-cmn_comp_acpicklist
+                    data-fieldname="CIB_ACI_StockExchangeName__c"
+                    s-object-name="Application__c"
+                    picklist-error={picklistMandatory}
+                    missing-value-message="please enter the field"
+                    placeholder="Please select"
+                    required
+                    s-object-field-name="CIB_ACI_StockExchangeName__c"
+                    value={applicationRecord.CIB_ACI_StockExchangeName__c}
+                  ></c-cmn_comp_acpicklist>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

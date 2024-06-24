@@ -1,0 +1,201 @@
+<!--
+  @description       : This is used for Annexure A Basic Info screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 11-02-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+
+    <div class="aob_form_title">
+      <h2>Annexure A: Basic information</h2>
+    </div>
+    <br />
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span>Key information
+      </div>
+
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-01">
+              <span class="slds-required" title="required">* </span>Name of
+              applicant / company</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                data-type="application"
+                variant="label-hidden"
+                placeholder="Please enter text"
+                type="text"
+                id="form-element-01"
+                data-fieldname="CIB_AA_BI_ApplicantCompanyName__c"
+                value={applicationRecord.CIB_AA_BI_ApplicantCompanyName__c}
+                name="CIB_AA_BI_ApplicantCompanyName__c"
+                required
+                aria-describedby="form-error-01"
+                message-when-pattern-mismatch="Only Character are allowed"
+                pattern="^[a-zA-Z-' ]*$"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-02">
+              <span class="slds-required" title="required">* </span>Registration
+              number</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                data-type="application"
+                variant="label-hidden"
+                type="text"
+                placeholder="Please enter number"
+                message-when-pattern-mismatch="Only numbers are allowed"
+                pattern="[0-9]+"
+                id="form-element-02"
+                data-fieldname="CIB_AA_BI_RegistrationNumber__c"
+                value={applicationRecord.CIB_AA_BI_RegistrationNumber__c}
+                name="CIB_AA_BI_RegistrationNumber__c"
+                required
+                aria-describedby="form-error-02"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-03">
+              <span class="slds-required" title="required">* </span>Applicant
+              address</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                data-type="application"
+                variant="label-hidden"
+                placeholder="Please enter text"
+                message-when-pattern-mismatch="Only Character are allowed"
+                type="text"
+                id="form-element-03"
+                data-fieldname="CIB_AA_BI_ApplicantAddress__c"
+                value={applicationRecord.CIB_AA_BI_ApplicantAddress__c}
+                name="CIB_AA_BI_ApplicantAddress__c"
+                required
+                aria-describedby="form-error-03"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-04">
+              <span class="slds-required" title="required">* </span>Natural
+              person/s identified as follows:</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                data-type="application"
+                variant="label-hidden"
+                type="text"
+                placeholder="Please enter text"
+                id="form-element-04"
+                data-fieldname="CIB_AA_BI_NaturalPersonIdentification__c"
+                value={applicationRecord.CIB_AA_BI_NaturalPersonIdentification__c}
+                name="CIB_AA_BI_NaturalPersonIdentification__c"
+                required
+                aria-describedby="form-error-04"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <p>Listed entity or major owned subsidiary</p>
+      </div>
+
+      <p>
+        <img src={helpIcon} alt="check" /> Please select only one (1) of the
+        following and complete the below sections as appropriate
+      </p>
+
+      <div class="radio-container">
+        <lightning-radio-group
+          variant="label-hidden"
+          class="full-width"
+          options={options}
+          type="radio"
+          value={ListedEntityOrMajorOwnedSubsidiary}
+          onchange={onchange}
+          required
+        ></lightning-radio-group>
+      </div>
+      <template lwc:if={applicationRecord.CIB_AA_BI_IsMajorOwnedSubsidiary__c}>
+        <lightning-input
+          data-type="application"
+          class="slds-m-top_medium slds-size_6-of-12"
+          pattern="^[a-zA-Z-' ]*$"
+          message-when-pattern-mismatch="Only Character are allowed"
+          label="Provide percentage ownership structure or indicate the source where ownership data is available"
+          type="text"
+          data-fieldname="CIB_AA_BI_OwnershipsStructure__c"
+          value={applicationRecord.CIB_AA_BI_OwnershipsStructure__c}
+          name="CIB_AA_BI_OwnershipsStructure__c"
+          required
+          placeholder="Please enter text"
+        ></lightning-input>
+      </template>
+    </div>
+    <article class="slds-card aob_todo-card">
+      <div class="aob_todo-card-content">
+        <div class="Notefollowing">
+          <img class="infoIcon mr_10" src={infoIcon} alt="check" />
+
+          <p class="todo_title">Note the following:</p>
+        </div>
+        <div class="todo_content">
+          <p class="todo_title mt_20">
+            Standard Bank Entites means Standard Bank (Mauritius) Limited,
+            Stanbic Africa Holding Limited and/or Standard Bank Group Limited.
+          </p>
+          <p class="todo_title mt_20">
+            Senior Officer means (i) for Standard Bank (Mauritius) Limited : the
+            Chief Executive Officer, members of Executive Management,<br />
+            Compliance Officer, Head: Internal Audit, Money Laundering Reporting
+            Officer, Deputy Money Laundering Officer and (ii) Stanbic<br />
+            Africa Holding Limited and/or Standard Bank Group Limited: members
+            of Executive Management.
+          </p>
+          <p class="todo_title mt_20">
+            Close Relative means the spouse, the child, the parent, grand-parent
+            or grand-child.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

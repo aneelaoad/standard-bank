@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>59.0</apiVersion>
+  <isExposed>true</isExposed>
+  <masterLabel>BCB Platform Hero Banner</masterLabel>
+  <description>You can load Hero banner, that can be comprised as fullscreen/segmented</description>
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="heading" label="Heading" type="String" />
+      <property name="subText" label="Sub text" type="String" />
+
+      <property name="buttonLabel" label="Button label" type="String" default="Label" />
+      <property name="buttonTitle" label="Button Title" type="String" default="Title" />
+      <property name="destinationUrl" label="Community page url or absolute url" type="String" />
+      <property name="action" label="Action" type="String" default="navigateToUrl" />
+      <property name="variant" label="[base, neutral, brand, brand-outline, destructive, destructive-text, inverse, success]" type="String" default="brand" />
+      <property name="disabled" label="Disabled" type="Boolean" default="false" />
+      <property name="wClass" label="Predefined width [w236, w280, w300, w340, w340C]" type="String" default="w300" />
+
+      <property name="imagePath" label="Image path Mobile / Default" type="String" />
+      <property name="imagePathTablet" label="Image path Tablet" type="String" />
+      <property name="imagePathDesktop" label="Image path Desktop" type="String" />
+      
+      <property name="isImage" label="Show Image" type="Boolean" default="true"/>
+      <property name="fullWidth" label="Full Width" type="Boolean" default="false"/>
+      <property name="customBannerStyles" label="Apply custom banner styles" type="Boolean" default="false"/>
+      <property name="showButton" label="Show Button" type="Boolean" default="true" />
+      <property name="heroBannerClassConfig" label="Define which type of banner you want to apply (full/white/blue) *leave blank for default" type="String" />
+    </targetConfig>
+  </targetConfigs>
+</LightningComponentBundle>

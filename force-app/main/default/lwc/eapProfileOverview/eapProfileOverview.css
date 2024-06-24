@@ -1,0 +1,165 @@
+@import 'c/eapCssLibrary';
+
+.v1_all{
+    background-color:  var(--background-grey);
+    height: 100vh;
+}
+
+.relleno{
+    background-color:  var(--background-grey);
+    height: 0.1em;;
+}
+
+.v1_card_first{
+    margin-bottom: 1em;
+}
+
+.v1_div_info{
+    padding-top: 4em;
+    background-color: var(--background-grey);
+}
+
+.v1_div_img {
+    height: 6em;
+    width: 6em;
+    position: absolute;
+    left: 50%;
+    margin-left: -3em;
+    margin-top: -5em;
+}
+
+.v1_div_decorator{
+    height: 6em;
+    width: 6em;
+    position: absolute;
+    left: 75%;
+    margin-left: -3em;
+    margin-top: -5em;
+}
+
+.v1_div_decorator img{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+}
+
+.v1_div_img img{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 85px;
+    width: 85px;
+    object-fit: cover;
+    border: 1px solid #A48C5C;
+    border-radius: 0px;
+}
+
+.v1_div_user_info{
+    text-align: center;
+    padding: 2em 3em;
+    position: relative;
+}
+
+.v1_div_user_info .iconsOnProfile, .v1_div_user_info>img {
+    position: absolute;
+    top: 2em;
+    right: 3em;
+}
+
+.v1_div_user_contact{
+    text-align: left;
+    padding: 0em 3em;
+}
+
+.v1_div_timezone {
+    margin-top: 1em;
+}
+
+.v1_div_businessInterest {
+    background-color:  var(--background-grey);
+    padding: 2em 3em;
+}
+
+.v1_div_interest{
+    background-color:  var(--background-grey);
+    padding: 2em 3em 7em;
+}
+
+.v1_div_user_titles{
+    margin-top: 1em;
+    color: #0a2240;
+}
+
+.v1_div_user_detail{
+    margin-top: 1em;
+    color: var(--main-light-blue);
+}
+
+.v1_div_imgDetail {
+    display: inline-block;
+    width: 10%;
+}
+
+.filter {
+    filter: var(--filter-light-blue);
+}
+
+.v1_div_user_about{
+    margin-top: 1.6em;
+}
+
+.v1_title_about{
+    color: var(--text-dark-grey);
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.v1_h2_headingAbout{
+    padding-bottom: 15px;
+}
+
+.v1_contact_txt{
+    display: inline;
+    padding-left: 10px;
+}
+
+.v1_div_inputContainer {
+    width: 90%;
+    padding-left: .5em;
+    display: inline-block;
+}
+
+.v1_div_button{
+    height: 33px;
+    background: linear-gradient(-45deg, #15437A, var(--main-dark-blue));
+    margin-bottom: 10px;
+    color: white;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.unselected {
+    background: linear-gradient(0deg,#fff, #fff);
+    color: var(--main-light-blue);
+    border: 1px solid var(--border-light-grey);
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+lightning-textarea {
+    --sds-c-textarea-color-border: black;
+    --sds-c-textarea-sizing-min-height: 10em;
+}

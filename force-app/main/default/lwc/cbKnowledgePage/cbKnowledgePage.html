@@ -1,0 +1,33 @@
+<template>
+    <lightning-card>
+        <lightning-layout multiple-rows="true" vertical-align="end">
+            <lightning-layout-item size="12">
+                <lightning-input style="padding-left: 25rem; padding-right: 25rem;" class="slds-m-around_medium"
+                    type="search" onchange={handleKeyChange} placeholder="Search for Knowledge Articles"
+                    value={articleName}></lightning-input>
+            </lightning-layout-item>
+            <br />
+            <lightning-button variant="brand" label="FAQs" title="FAQ's" onclick={filterFAQs}
+                class="slds-m-left_x-small" style="padding-left: 34rem;">
+            </lightning-button>
+            <lightning-button variant="brand" label="How To Guides" title="How To Guides" onclick={filterHowTos}
+                class="slds-m-left_x-small" style="padding-left: 2rem;">
+            </lightning-button>
+            <lightning-button variant="brand" label="Product Information" title="Product Information"
+                onclick={filterProdInfo} class="slds-m-left_x-small" style="padding-left: 2rem;">
+            </lightning-button>
+            <br />
+            <lightning-layout-item size="12">
+                <div class="slds-m-around_medium" style="padding-bottom: 20rem;">
+                    <template if:true={articleList}>
+                        <c-cb-Custom-Data-Type key-field="Id" data={articleList} columns={lstColumns} wrap-text-max-lines="4"
+                            show-row-number-column hide-checkbox-column enable-infinite-loading suppress-bottom-bar
+                            row-number-offset={rowOffset} default-sort-direction={defaultSortDirection}
+                            sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort}>
+                        </c-cb-Custom-Data-Type>
+                    </template>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

@@ -1,0 +1,68 @@
+.api-item-container {
+    display: flex;
+    margin: 0 0 3rem 3rem;
+}
+
+.api-content-container {
+    background-color: white;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.api-item-icon-container {
+    height: 4rem;
+    width: 4rem;
+    background-color: #002F93;
+    border-radius: 50%;
+    margin: 0.5rem 2rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.api-content-title {
+    color: #002F93;
+    font-weight: 400;
+    font-size: x-large;
+}
+
+.api-content-description {
+    color: #002F93;
+    height: 4.7rem;
+    margin-top: 1rem;
+    font-size: medium;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.api-content-test-api-btn,
+.api-content-learn-more-btn {
+    background-color: #0088FE;
+    padding: 1rem 3rem;
+    color: white;
+    font-size: small;
+    letter-spacing: 1px;
+    border-radius: 2px; 
+    margin-top: 1rem;
+    display: block;
+    text-decoration: none;
+    transition: all 0.1s linear;
+}
+
+.api-content-test-api-btn {
+   margin-bottom: 1em; 
+}
+
+.api-content-test-api-btn:hover,
+.api-content-learn-more-btn:hover {
+    background-color: #44a8ff;
+    text-decoration: none;
+}
+
+.default-api-icon {
+    --sds-c-icon-color-foreground-default: white;
+}

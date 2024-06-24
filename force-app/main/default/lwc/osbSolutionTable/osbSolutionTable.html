@@ -1,0 +1,317 @@
+<template>
+    <div data-id="main-div" class="teaser-container">
+        <div class="teaser">
+            <table style="width:75%">
+                <tr class="table-container">
+                    <template if:true={column_1}>
+                        <td>
+                            <div class="mainDescription slds-m-top_large slds-m-bottom_large">
+                                <lightning-formatted-rich-text value={ColumnOneTitle}>
+                                </lightning-formatted-rich-text>
+                            </div>
+                        </td>
+                    </template>
+                    <template if:true={column_2}>
+                        <td>
+                            <div class="mainDescription slds-m-top_large slds-m-bottom_large">
+                                <lightning-formatted-rich-text value={ColumnTwoTitle}>
+                                </lightning-formatted-rich-text>
+                            </div>
+                        </td>
+                    </template>
+                    <template if:true={column_3}>
+                        <td>
+                            <div class="mainDescription slds-m-top_large slds-m-bottom_large">
+                                <lightning-formatted-rich-text value={ColumnThreeTitle}>
+                                </lightning-formatted-rich-text>
+                            </div>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_1}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_1_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_1_Column_2}>
+                                <img class="table1" src={emtTick} /></template>
+                            <template if:true={contentRow_1_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_1_Column_3}>
+                                <img class="table1" src={emtTick} /> </template>
+                            <template if:true={contentRow_1_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_2}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_2_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_2_Column_2}>
+                                <img class="table1" src={emtTick} /></template>
+                            <template if:true={contentRow_2_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_2_Column_3}>
+                                <img class="table1" src={emtTick} /> </template>
+                            <template if:true={contentRow_2_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_3}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_3_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_3_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_3_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_3_Column_3}>
+                                <img class="table1" src={emtTick} /> </template>
+                            <template if:true={contentRow_3_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_4}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_4_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_4_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_4_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_4_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_4_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_5}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_5_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_5_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_5_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_5_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_5_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_6}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_6_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_6_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_6_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_6_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_6_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_7}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_7_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_7_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_7_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_7_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_7_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_8}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_8_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_8_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_8_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_8_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_8_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_9}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_9_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_9_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_9_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_9_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_9_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_10}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_10_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_10_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_10_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_10_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_10_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_11}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_11_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_11_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_11_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_11_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_11_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+                <tr>
+                    <template if:true={contentRow_12}>
+                        <td>
+                            <lightning-formatted-rich-text value={ContentRow_12_Title}>
+                            </lightning-formatted-rich-text>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_12_Column_2}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_4_Column_2_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                        <td class="tick">
+                            <template if:true={contentRow_12_Column_3}>
+                                <img class="table1" src={emtTick} />
+                            </template>
+                            <template if:true={contentRow_12_Column_3_view_only}>
+                                <p>view only</p>
+                            </template>
+                        </td>
+                    </template>
+                </tr>
+            </table>
+        </div>
+    </div>
+</template>

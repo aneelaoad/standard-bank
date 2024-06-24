@@ -1,0 +1,279 @@
+<!--
+  @description       : This is used for Related Party Disclosure screen 
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 10-30-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+
+    <div class="aob_form_title">
+      <h2>Related Party Disclosures</h2>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <label class="slds-form-element__label" for="form-element-05">
+          <span class="slds-required" title="required">* </span> Are any of your
+          shareholders / beneficial owners, owning directly and/or indirectly
+          over 10% sharing/voting rights
+        </label>
+
+        <div class="checkbox-container">
+          <input
+            data-type="application"
+            class="checkbox-input"
+            id="No1"
+            data-fieldname="CIB_RPD_IsStandardBankEntitiesDirector__c"
+            checked={applicationRecord.CIB_RPD_IsStandardBankEntitiesDirector__c}
+            type="checkbox"
+            name="CIB_RPD_IsStandardBankEntitiesDirector__c"
+            onchange={onchange}
+          />
+          <label class="checkbox" for="No1">
+            <span class="slds-m-right_medium">
+              <img src={checkboxicon} alt="check" /> </span
+            >Director of any Standard Bank entities</label
+          >
+        </div>
+        <template lwc:if={applicationRecord.CIB_RPD_IsStandardBankEntitiesDirector__c}>
+          <div class="slds-grid mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element mb_8">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    data-type="application"
+                    type="text"
+                    id="form-element-06"
+                    required
+                    aria-describedby="form-error-01"
+                    label="Name of related party to be disclosed"
+                    data-fieldname="CIB_RPD_StandardBankEntitiesDirectorName__c"
+                    name="CIB_RPD_StandardBankEntitiesDirectorName__c"
+                    onchange={onchange}
+                    pattern="[A-Za-z\s]+"
+                    placeholder="please enter the name"
+                    message-when-pattern-mismatch="Only Character are allowed"
+                    value={applicationRecord.CIB_RPD_StandardBankEntitiesDirectorName__c}
+                    data-index={index}
+                    aria-invalid="true"
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <div class="checkbox-container">
+          <input
+            data-type="application"
+            class="checkbox-input"
+            id="No2"
+            data-fieldname="CIB_RPD_IsStandardBankEntitiesSenior__c"
+            checked={applicationRecord.CIB_RPD_IsStandardBankEntitiesSenior__c}
+            type="checkbox"
+            name="CIB_RPD_IsStandardBankEntitiesSenior__c"
+            onchange={onchange}
+          />
+          <label class="checkbox" for="No2">
+            <span class="slds-m-right_medium">
+              <img src={checkboxicon} alt="check" /> </span
+            >Senior officer of any Standard Bank entities</label
+          >
+        </div>
+
+        <template
+          lwc:if={applicationRecord.CIB_RPD_IsStandardBankEntitiesSenior__c}
+        >
+          <div class="slds-grid mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element mb_8">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    data-type="application"
+                    type="text"
+                    id="form-element-08"
+                    required
+                    label="Name of related party to be disclosed"
+                    aria-describedby="form-error-01"
+                    data-fieldname="CIB_RPD_StandardBankEntitiesSeniorOffice__c"
+                    name="CIB_RPD_StandardBankEntitiesSeniorOffice__c"
+                    pattern="[A-Za-z\s]+"
+                    placeholder="please enter the name"
+                    message-when-pattern-mismatch="Only Character are allowed"
+                    value={applicationRecord.CIB_RPD_StandardBankEntitiesSeniorOffice__c}
+                    aria-invalid="true"
+                    data-index={index}
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <div class="checkbox-container">
+          <input
+            data-type="application"
+            class="checkbox-input"
+            id="No3"
+            type="checkbox"
+            checked={applicationRecord.CIB_RPD_HasStandardBankEntitiesRelative__c}
+            name="CIB_RPD_HasStandardBankEntitiesRelative__c"
+            onchange={onchange}
+            data-fieldname="CIB_RPD_HasStandardBankEntitiesRelative__c"
+          />
+          <label class="checkbox" for="No3">
+            <span class="slds-m-right_medium">
+              <img src={checkboxicon} alt="check" />
+            </span>
+            Close relative of any director of senior officer of the Standard
+            Bank entities</label
+          >
+        </div>
+
+        <template
+          lwc:if={applicationRecord.CIB_RPD_HasStandardBankEntitiesRelative__c}
+        >
+          <div class="slds-grid mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element mb_8">
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    data-type="application"
+                    type="text"
+                    id="form-element-09"
+                    required
+                    label="Name of related party to be disclosed"
+                    aria-describedby="form-error-01"
+                    data-fieldname="CIB_RPD_StandardBankEntitiesCloseRelativ__c"
+                    name="CIB_RPD_StandardBankEntitiesCloseRelativ__c"
+                    pattern="[A-Za-z\s]+"
+                    placeholder="please enter the name"
+                    message-when-pattern-mismatch="Only Character are allowed"
+                    data-index={index}
+                    value={applicationRecord.CIB_RPD_StandardBankEntitiesCloseRelativ__c}
+                    aria-invalid="true"
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <article class="slds-card aob_todo-card">
+      <div class="aob_todo-card-content">
+        <div class="Notefollowing">
+          <img
+            class="helpIcon slds-m-right_medium"
+            src={helpIcon}
+            alt="check"
+            width="20"
+            height="20"
+          />
+
+          <p class="todo_title">Note the following:</p>
+        </div>
+        <div class="todo_content slds-p-left_large">
+          <p class="todo_title mt_40">
+            Standard Bank Entites means Standard Bank (Mauritius) Limited,
+            Stanbic Africa Holding Limited and/or Standard Bank Group Limited.
+          </p>
+          <p class="todo_title mt_40">
+            Senior Officer means (i) for Standard Bank (Mauritius) Limited : the
+            Chief Executive Officer, members of Executive Management, Compliance
+            Officer, Head: Internal Audit, Money Laundering Reporting Officer,
+            Deputy Money Laundering Officer and (ii) Stanbic Africa Holding
+            Limited and/or Standard Bank Group Limited: members of Executive
+            Management.
+          </p>
+          <p class="todo_title mt_20">
+            Close Relative means the spouse, the child, the parent, grand-parent
+            or grand-child.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required"></span>Declaration
+      </div>
+      <div class="todo_content">
+        <p class="todo_title mb_20">
+          I/We undertake to advise the Bank in writing promptly and provide an
+          updated Related Party Disclosure form within reasonable delay where
+          any changes in circumstances occur which causes any of the information
+          contained in this form to be inaccurate or incomplete.
+        </p>
+        <p class="todo_title mb_20">
+          I/We declare that all the statements made in this declaration are, to
+          the best of my/our knowledge, accurate, current and complete.
+        </p>
+        <p class="todo_title">
+          I/We understand that it is a criminal offence to deliberately or
+          intentionally, provide false information on this form.
+        </p>
+      </div>
+
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning-input
+                data-type="application"
+                type="text"
+                id="form-element-01"
+                required
+                label="Full Name"
+                aria-describedby="form-error-06"
+                aria-invalid="true"
+                data-fieldname="CIB_RPD_DeclarationFullName__c"
+                name="CIB_RPD_DeclarationFullName__c"
+                placeholder="please enter the full name"
+                pattern="[A-Za-z\s]+"
+                message-when-pattern-mismatch="Only Character are allowed"
+                value={applicationRecord.CIB_RPD_DeclarationFullName__c}
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label" for="date-input-id-default">
+              <abbr class="slds-required" title="required">* </abbr>Date
+            </label>
+            <c-cmn_comp_date-picker
+              data-type="application"
+              data-fieldname="CIB_RPD_DeclarationDate__c"
+              value={applicationRecord.CIB_RPD_DeclarationDate__c}
+              required
+            ></c-cmn_comp_date-picker>
+          </div>
+        </div>
+      </div>
+
+      <div class="aob_form_title">
+        <p>
+          Company seal to be affixed (where applicable). To be signed by company
+          secretary (directors/trustees/partners/authorised signatories)
+        </p>
+      </div>
+    </div>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

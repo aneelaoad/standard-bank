@@ -1,0 +1,28 @@
+<!--
+  @description       : Partnal Portal OTP Form
+  @author            : Areeba Khan
+  @group             : 
+  @last modified on  : 03-10-2023
+  @last modified by  : Areeba Khan (areeba.khan@standardbank.co.za)
+-->
+
+<template>
+    <div class="container">
+        <template if:true={renderFlag}>
+            <div class="slds-col slds-m-top_small">
+                <div class="row">
+                    <div class="column">
+                        <p class="slds-text-title_bold sec-heading">Enter OTP</p>
+                        <p class="text">Please Enter the OTP we sent to your email address.</p>
+                    </div>
+                    <div class="column">
+                        <img src={icon} class="sec-icon" />
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <lightning-input type="text" label="Enter OTP" placeholder="Enter code here" value={otpcode} name="OTP" class="Company" onchange={handleInputChange}> </lightning-input>
+            </div>
+        </template>
+    </div>
+</template>

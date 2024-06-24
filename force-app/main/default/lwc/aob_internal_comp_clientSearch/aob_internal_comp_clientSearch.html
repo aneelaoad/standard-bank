@@ -1,0 +1,41 @@
+<template>
+    <template if:true={showSearch}>
+    <lightning-card class="slds-text-align_left" title="Client Search">
+        <lightning-layout-item size="6" padding="around-small">
+                    <input class="slds-m-right_small" type="radio" id="regNumber" name="searchOption" value="regNumber" checked/>
+                    <label class="slds-radio__label" for="regNumber">
+                        <span class="slds-radio_faux" ></span>
+                        <span class="slds-form-element__label">Company Registration Number</span>
+                    </label>
+                    
+            </lightning-layout-item>
+        <lightning-layout multiple-rows="true" vertical-align="start" >
+            
+            <lightning-layout-item size="4" padding="around-small">
+                 <!--Input text to Search Account-->
+                <lightning-input type="text" placeholder="Enter Account"
+                    value={searchKey} 
+                    onchange={handelSearchKey}
+                    required
+                    variant="label-hidden"> 
+                </lightning-input>
+            </lightning-layout-item >
+
+            <lightning-layout-item size="2" padding="around-small" class="alignment">
+                <!--Search Button-->
+                <lightning-button label="Search" variant="brand" onclick={SearchAccountHandler}>
+                    
+                </lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+        
+    </lightning-card>
+    </template>
+    <template if:true={showAccount}>
+        <c-aob_internal_comp_search-product accounts={accounts}></c-aob_internal_comp_search-product>
+    </template>
+    <template if:true={showOpenApplications}>
+        <c-aob_internal_comp_applications registration={searchKey} accounts={accounts}></c-aob_internal_comp_applications>
+    </template>
+    <c-aob_internal_comp_spinner if:true={showLoader}></c-aob_internal_comp_spinner>
+</template>

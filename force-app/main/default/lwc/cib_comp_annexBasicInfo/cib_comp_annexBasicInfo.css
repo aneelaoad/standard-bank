@@ -1,0 +1,70 @@
+.aob_title-sm {
+  font-weight: 700;
+  font-style: bold;
+}
+.aob_card-container img {
+  padding-right: 10px;
+  display: inline-block;
+}
+.aob_card-container .info {
+  display: inline-block;
+}
+.aob_todo-card {
+  position: relative;
+  padding: 24px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  border: 1px solid #ced3d9;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aob_todo-card::before {
+  content: "";
+  display: block;
+  height: 99%;
+  width: 4px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #c7cbcf;
+  border-radius: 0 8px 8px 0;
+}
+
+.aob_info-text {
+  display: flex;
+  align-items: center;
+}
+
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  display: flex;
+  margin: 0 0 0 16px;
+}
+
+.Notefollowing {
+  display: flex;
+}
+.todo_content {
+  padding-left: 42px;
+}
+.todo_title {
+  color: #02070d;
+  font-family: "bentonsans-regular-webfont";
+  font-size: 14px;
+  line-height: 16px;
+  padding-right: 90px;
+}
+.infoIcon {
+  margin-right: 10px;
+}

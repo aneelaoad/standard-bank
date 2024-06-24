@@ -1,0 +1,561 @@
+.device-container {
+    height: 1000px;
+    width: 80%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    margin: auto;
+}
+.add-device {
+    height: 36px;
+    width: 114px;
+    color: #0089ff;
+    font-family: var(--FONT-FAMILY);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+    border: none;
+    background-color: inherit;
+}
+.remove-all-devices {
+    height: 36px;
+    width: 200px;
+    color: #0089ff;
+    font-family: var(--FONT-FAMILY);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+    border: none;
+    background-color: inherit;
+}
+
+.device-rectangle {
+    width: 90%;
+    height: 95%;
+    margin: auto;
+}
+.bcrumb {
+    width: 1024px;
+}
+
+.ms-icn_shield_lock {
+    width: 80px;
+    height: 80px;
+}
+.rectangle-copy {
+    height: 50px;
+    width: 100%;
+    background-color: #001648;
+    margin: auto;
+    padding-bottom: 24px;
+}
+
+.title {
+    height: 25px;
+    width: 535.16px;
+    color: #ffffff;
+    font-family: var(--FONT-FAMILY);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 25px;
+    padding: 13px 0 12px 0px;
+}
+.device-management {
+    height: 27px;
+    width: 600px;
+    color: #222222;
+    font-family: var(--FONT-FAMILY);
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: 1.17px;
+    line-height: 29px;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 38px;
+}
+
+.acc-copy-51 {
+    height: 24px;
+    width: 600px;
+    color: #666666;
+    font-family: var(--FONT-FAMILY);
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+    margin: auto;
+    padding-bottom: 37px;
+}
+
+.acc-copy-52 {
+    height: 24px;
+    width: 102px;
+    color: #0089ff;
+    font-family: var(--FONT-FAMILY);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+}
+.acc-copy-53 {
+    height: 24px;
+    width: 250px;
+    color: #666666;
+    font-family: var(--FONT-FAMILY);
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+    padding-bottom: 40px;
+}
+.Sign__icon {
+    background: #0033aa;
+    border-radius: 50%;
+    align-self: center;
+    margin-bottom: 32px;
+    margin-top: 40px;
+}
+.no-data-received {
+    padding-top: 30px;
+    height: 24px;
+    color: #666666;
+    font-family: var(--FONT-FAMILY);
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+    margin: auto;
+}
+.add-remove-devices {
+    padding: 30px 0px 10px;
+    display: flex;
+    width: 95%;
+}
+.body.modal-open {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+.slds-button {
+    vertical-align: middle;
+    color: #0089ff;
+}
+.device-table {
+    padding-bottom: 40px;
+
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.pagination {
+    height: 50px;
+    width: 100%;
+}
+.containe-div {
+    display: inline-block;
+}
+.title {
+    height: 25px;
+    width: 535.16px;
+    color: #ffffff;
+    font-family: var(--FONT-FAMILY);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 25px;
+}
+.column1 {
+    width: 200px;
+}
+.table-data.column1 {
+    vertical-align: middle;
+}
+.column2 {
+    width: 80px;
+    vertical-align: middle;
+}
+.column3 {
+    width: 120px;
+    vertical-align: middle;
+}
+.column4 {
+    width: 100px;
+    vertical-align: middle;
+}
+.column5 {
+    width: 100px;
+    vertical-align: middle;
+}
+.column6 {
+    width: 50px;
+    vertical-align: middle;
+}
+.ms-icn_check_circle {
+    font-size: 25px;
+    color: #002db1;
+    padding-left: 17%;
+}
+.cOSBNewDeviceModal .largeIcon {
+    font-size: 187px;
+    color: #0089ff;
+    margin-left: -30px;
+}
+.ms-icn_bin {
+    font-size: 25px;
+    color: #002db1;
+}
+.ms-icn_phone_iphone {
+    vertical-align: middle;
+    color: #002db1;
+    padding: 10px;
+}
+.cOsbDeviceManagementLwc .ms-icn_phone_android {
+    font-size: 400px;
+    vertical-align: middle;
+    color: #002db1;
+    padding: 10px;
+}
+.icn svg {
+    fill: #0033aa;
+    height: 14px;
+    width: 14px;
+    margin-left: 5px;
+    margin-top: 4px;
+}
+.QueryType {
+    padding-top: 32px;
+}
+.contact-us {
+    color: #0a2240;
+    font-family: var(--FONT-FAMILY);
+    font-size: 57px;
+    font-weight: 200;
+    line-height: 57px;
+    text-align: center;
+    padding-bottom: 56px;
+}
+.containerDetails {
+    position: relative;
+    margin: 0 auto;
+}
+.cOSBPagination.navigation-container {
+    width: 92%;
+    height: 30px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.slds-select {
+    height: 48px;
+    border-radius: 2px;
+}
+.newCase {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.device-list {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    margin: auto 70px;
+}
+.newCase__buttons {
+    background-color: #f6f6f6;
+}
+.newCase__buttons-container {
+    height: 80px;
+    margin: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.newCase__buttons-container > div:nth-child(1) {
+    padding-right: 6px;
+}
+.newCase__buttons-container > div:nth-child(2) {
+    padding-left: 6px;
+}
+.device__title {
+    color: #666666;
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 0.83px;
+    line-height: 24px;
+    text-align: center;
+    text-transform: none;
+}
+.device__subtitle {
+    color: #666666;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+.newCase__form--input--Add {
+    margin-bottom: 24px;
+}
+.newCase__form--input input,
+.newCase__form--input textArea {
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    background-color: #ffffff;
+}
+.newCase__form--input input[type='email'] {
+    border: 1px solid #f4f4f4;
+    background-color: #ffffff;
+}
+.newCase__form--input input {
+    height: 48px;
+}
+.newCase__form--input textArea {
+    height: 120px;
+}
+.newCase__form--textarea {
+    height: 144px;
+}
+.newCase__form--input label {
+    color: #4a4a4a;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+    text-transform: uppercase;
+    padding-top: 32px;
+}
+.newCase__form--input input::placeholder,
+.newCase__form--input textArea::placeholder {
+    color: rgb(118, 118, 118);
+    font-weight: 200;
+}
+.newCase__button {
+    width: 100%;
+    float: right;
+    background-color: #33aaff;
+}
+.newCase__link {
+    color: #0089ff;
+    text-decoration: underline;
+    font-weight: 400;
+}
+.newCase__icon {
+    padding: 16px;
+    border-radius: 50%;
+    align-self: center;
+    margin-bottom: 24px;
+    width: 80px;
+    height: 80px;
+}
+.newCase__icon label {
+    bottom: 0;
+    position: absolute;
+    right: 0px;
+    float: right;
+    background-color: #ffffff;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+.newCase__icon i {
+    font-size: 48px;
+    color: #fff;
+}
+.device-list.device__title {
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 0.83px;
+    line-height: 24px;
+}
+.newCase__header {
+    height: 40px;
+    background-color: #f6f6f6;
+    color: #222222;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.58px;
+    line-height: 14px;
+    padding: 14px 24px;
+    margin: 32px 0 24px 0;
+}
+abbr.slds-required {
+    display: none;
+}
+.newCase__form--disclaimer {
+    height: 22px;
+    color: #0a2240;
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px;
+    line-height: 22px;
+    padding-bottom: inherit;
+}
+.newCase__form--documentTypeGroup .slds-form-element__label {
+    height: 1.13%;
+
+    color: #4a4a4a;
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px !important;
+    font-weight: 300;
+    line-height: 18px;
+}
+
+.newCase__form--documentTypeGroup .slds-form-element__control .slds-radio {
+    display: inline-block !important;
+}
+.newCase__form--documentTypeGroup .slds-form-element__legend {
+    color: #4a4a4a;
+    font-size: 16px !important;
+    font-weight: 300;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+.newCase__form--documentTypeGroup .slds-form-element__control {
+    padding-top: 10px;
+}
+.slds-radio__label {
+    margin-right: 39px;
+}
+.newCase__form--label--span {
+    color: #4a4a4a;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+    text-transform: uppercase;
+    position: relative;
+    top: 30px;
+}
+.workDetailsRectange {
+    height: 40px;
+    background-color: #f6f6f6;
+    padding-bottom: 32px;
+    margin-left: -24px;
+    margin-top: 8px;
+}
+
+.linked-devices {
+    margin-left: 2%;
+}
+
+.newCase__success__left {
+    padding: 13px 16px;
+    background: #0e8a00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.newCase__success__icon {
+    font-size: 24px;
+    color: #fff;
+}
+
+.newCase__success__right {
+    padding: 0 18px 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 51px;
+}
+.newCase__success__text {
+    color: #222222;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.54px;
+    line-height: 14px;
+    margin-right: 18px;
+}
+.newCase__success__close {
+    background: transparent;
+}
+.newCase__success__close i {
+    color: #767670;
+}
+.Sign__icon {
+    padding-top: 18px;
+    padding-right: 16px;
+    padding-bottom: 14px;
+    padding-left: 16px;
+    background: #0033aa;
+    border-radius: 50%;
+    align-self: center;
+    margin-bottom: 24px;
+}
+.Sign__icon i {
+    font-size: 48px;
+    color: #fff;
+    font-variant: normal;
+}
+.grey-line-break {
+    box-sizing: border-box;
+    height: 2px;
+    width: 204%;
+    margin-bottom: 10px;
+    border: 1px solid #ededed;
+}
+.table-heading {
+    height: 11px;
+    color: #002db1;
+    font-family: var(--FONT-FAMILY);
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 12px;
+}
+.ms-icn_add_circle {
+    font-size: xx-large;
+    border: none;
+    background-color: inherit;
+}
+.add-icon i {
+    width: 125px;
+    font-size: 30px;
+}
+
+.device {
+    width: 100%;
+    font-size: 15px;
+    font-family: var(--FONT-FAMILY);
+    margin-top: 200px;
+}
+.noHighlight:focus {
+    box-shadow: none;
+}
+
+.plus {
+    font-size: 24px;
+    justify-content: center;
+    font-weight: 500;
+}
+.header__button {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 20px;
+    background: #0089ff;
+    padding: 24px 45px;
+    margin: -8px 0;
+    color: #fff;
+    border: 0;
+}
+.header__button--icon {
+    display: block;
+    font-size: 24px;
+}
+@media all and (max-width: 768px) {
+    .title {
+        font-size: 16px;
+    }
+    .device-container {
+        width: 100%;
+    }
+}

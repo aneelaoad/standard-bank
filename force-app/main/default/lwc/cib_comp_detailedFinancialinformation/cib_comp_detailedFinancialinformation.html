@@ -1,0 +1,226 @@
+<!--
+  @description       : This is used for Detailed Financial Information screen 
+  @author            : Sreekala.Mallavalli@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Detailed Financial Information</h2>
+    </article>
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <label class="aob_title-sm" for="form-element-05">
+          <span class="slds-required" title="required">* </span>
+          Monthly value of expected transfers and the monthly volume of expected
+          transfers (inflows and outflows)</label
+        >
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <span class="slds-required" title="required">* </span>Credit:
+                monthly value of expected transfers (USD)</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  placeholder="$"
+                  value={applicationRecord.CIB_DFI_CreditMonthlyExpectedTransfers__c}
+                  data-fieldname="CIB_DFI_CreditMonthlyExpectedTransfers__c"
+                  data-type="application"
+                  name="creditMonthlyTransfersUSD"
+                  pattern="^(?:\$)?\d+(?:,\d+)?(?:[kmbtKMBT])?(?:\.\d+)?$"
+                  required
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <span class="slds-required" title="required">* </span>Credit:
+                monthly volume of expected transfers</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  value={applicationRecord.CIB_DFI_CreditMonthlyExpectedTransfersVo__c}
+                  data-fieldname="CIB_DFI_CreditMonthlyExpectedTransfersVo__c"
+                  data-type="application"
+                  required
+                  pattern="^(?:\$)?\d+(?:,\d+)?(?:[kmbtKMBT])?(?:\.\d+)?$"
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <span class="slds-required" title="required"> *</span>Debit:
+                monthly value of expected transfers (USD)
+              </label>
+              <lightning-input
+                variant="label-hidden"
+                placeholder="$"
+                required
+                value={applicationRecord.CIB_DFI_DebitMonthlyExpectedTransfersVal__c}
+                data-fieldname="CIB_DFI_DebitMonthlyExpectedTransfersVal__c"
+                data-type="application"
+                pattern="^(?:\$)?\d+(?:,\d+)?(?:[kmbtKMBT])?(?:\.\d+)?$"
+              >
+              </lightning-input>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <span class="slds-required" title="required"> *</span>Debit:
+                monthly volume of expected transfers
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  required
+                  value={applicationRecord.CIB_DFI_DebitMonthlyExpectedTransfersVol__c}
+                  pattern="^(?:\$)?\d+(?:,\d+)?(?:[kmbtKMBT])?(?:\.\d+)?$"
+                  data-fieldname="CIB_DFI_DebitMonthlyExpectedTransfersVol__c"
+                  data-type="application"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required"> *</span>Expected
+              annual total deposit in the accounts
+            </div>
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                placeholder="$"
+                required
+                value={applicationRecord.CIB_DFI_TotalExpectedAnnual__c}
+                data-fieldname="CIB_DFI_TotalExpectedAnnual__c"
+                data-type="application"
+                pattern="^(?:\$)?\d+(?:,\d+)?(?:[kmbtKMBT])?(?:\.\d+)?$"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required">* </span>Type of
+              expected debits
+            </div>
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                type="text"
+                value={applicationRecord.CIB_DFI_ExpectedDebitsType__c}
+                required
+                data-fieldname="CIB_DFI_ExpectedDebitsType__c"
+                data-type="application"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <lightning-radio-group
+        class="half-width"
+        name="CIB_DFI_ExpectedIncomeType__c"
+        data-fieldname="CIB_DFI_ExpectedIncomeType__c"
+        data-type="application"
+        label="Type of expected income"
+        options={options}
+        value={applicationRecord.CIB_DFI_ExpectedIncomeType__c}
+      >
+      </lightning-radio-group>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12">
+        <div class="slds-form-element mb_8">
+          <div class="slds-form-element mb_8">
+            <div class="aob_title-sm" id="combobox-label-id-130">
+              <span class="slds-required" title="required">* </span>List of
+              countries to which payments are/will be made
+            </div>
+
+            <c-cmn_comp_multi-select-picklist
+              is-country-picklist
+              s-object-field-name="CIB_DFI_PaymentDestinationCountry__c"
+              s-object-name="Application__c"
+              maxselected="100"
+              data-fieldname="CIB_DFI_PaymentDestinationCountry__c"
+              value={applicationRecord.CIB_DFI_PaymentDestinationCountry__c}
+              data-type="application"
+            >
+            </c-cmn_comp_multi-select-picklist>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="slds-col slds-size_1-of-1 slds-large-size_10-of-12">
+        <div class="slds-form-element mb_8">
+          <div class="slds-form-element mb_8">
+            <div class="aob_title-sm" id="combobox-label-id-131">
+              <span class="slds-required" title="required">* </span>List of
+              countries from which regular income is/will be generated
+            </div>
+            <c-cmn_comp_multi-select-picklist
+              is-country-picklist
+              s-object-field-name="CIB_DFI_PaymentOriginCountry__c"
+              s-object-name="Application__c"
+              value={applicationRecord.CIB_DFI_PaymentOriginCountry__c}
+              maxselected="100"
+              data-fieldname="CIB_DFI_PaymentOriginCountry__c"
+              data-type="application"
+            >
+            </c-cmn_comp_multi-select-picklist>
+          </div>
+        </div>
+      </div>
+    </div>
+    <c-cib_comp_documents-container
+      application-id={recordId}
+      section-id={sectionId}
+    ></c-cib_comp_documents-container>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

@@ -1,0 +1,11 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_container {
+    padding: 1em;
+    background-color: var(--background-grey);
+    min-height: 85vh;
+}
+
+.v1_div_listView lightning-icon {
+    --sds-c-icon-color-foreground-default: var(--main-light-blue);
+}

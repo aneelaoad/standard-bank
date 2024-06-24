@@ -1,0 +1,48 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-17-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <li
+    role="presentation"
+    key={item.value}
+    onclick={onItemSelected}
+    class={itemClass}
+    id="ms-list-item"
+    data-value={item.value}
+    data-name={item.label}
+    style={liItemStyle}
+  >
+    <div
+      id="listbox-option-unique-id-01"
+      class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small slds-media_center"
+      role="option"
+    >
+      <span class="slds-media__figure slds-p-horizontal_small">
+        <div
+          lwc:if={item.icon}
+          style={iconStyle}
+          data-value={item.value}
+          checked={item.Selected}
+          onclick={onItemSelected}
+        ></div>
+        <input
+          lwc:else
+          class="checkbox-input"
+          data-value={item.value}
+          checked={item.Selected}
+          onclick={onItemSelected}
+          type="checkbox"
+          size="x-small"
+          alternative-text="Selected"
+        />
+      </span>
+      <span class="slds-media__body">
+        <span class="slds-truncate" title={item.value}>{item.label}</span>
+      </span>
+    </div>
+  </li>
+</template>

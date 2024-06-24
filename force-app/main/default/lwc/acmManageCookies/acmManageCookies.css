@@ -1,0 +1,48 @@
+.header {
+    color: #3c4b6c;
+    font-size: 2rem;
+    padding: 2rem;
+    font-weight: 500;
+}
+.subHeader{
+    color: #3d4c6c;
+    font-size: 1.3rem;
+    font-weight: 500;;
+}
+.textTitle {
+    color: #152c49;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding-left: 10px;
+}
+.textBody {
+    color: #0e2543;
+    font-size: 1rem;
+    padding-left: 10px;
+}
+.cardBodyPadding {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.textParm {
+    color: #0e2543;
+    font-size: 1rem;    
+    padding-top: 1rem;
+}
+.manageCookiesbtn {
+    width: max-content;
+}
+@media only screen and (max-width: 600px) {
+    .cardBodyPadding {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .subHeader {
+        font-size: 1rem;
+    }
+    .header {
+        padding: 1rem 0rem;
+        font-size: 1rem;
+        font-weight: 900;
+    }
+}

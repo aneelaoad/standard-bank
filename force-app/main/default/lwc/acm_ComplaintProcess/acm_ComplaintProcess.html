@@ -1,0 +1,205 @@
+<!--
+  @author            : Pradeep Jangid
+  @Createddate       : 03/03/22
+  @description       : 
+-->
+<template>
+    <!-- section 1 -->
+    <lightning-card style="box-shadow: none;" >
+        <div class="app slds-p-around_x-large">
+            <div style="font-weight: bold;">Standard Bank API Marketplace complaints process</div>
+            <br/>
+            <div style="font-weight: bold;">It is your right to have all feedback and grievances heard. Standard Bank is committed to dealing complaints through the correct complaints process</div>
+            <br/>
+            <div style="font-weight: bold;">Step 1</div>
+            <br/>
+            <div>You can raise a complaint using the support function on the API Marketplace platform. You will receive a reference number and an expected timeline for resolution.</div>
+            <div>We will give you regular feedback until your complaint is resolved.</div>
+            <br/>
+            <div style="font-weight: bold;">Step 2</div>
+            <br/>
+            <div>If you are still dissatisfied with the outcome of your complaint, you can approach an ombudsman (mentioned below) or relevant regulator. This service is free.</div>
+            <br/>
+            <div>The ombudsman and regulators usually require complaints to be lodged within four to six months after you’ve received a response from us. You must contact the relevant ombudsman or regulator as soon as possible to find out what their requirements and timeframes are to lodge your complaint.</div>
+            <br/>
+            <div style="font-weight: bold;">For your convenience, the details of the ombudsmen and regulators are given below.</div>
+        </div>
+    </lightning-card>
+    <br/>
+    
+
+
+    <!-- section 2 -->
+    <div class="accordionrow">
+        <button class="accordion" data-id="0" onclick={handleAccordion}>FAIS Ombud (advice/intermediary services or product related complaints):</button>
+        <div class="panel">
+            <div class="panelinner">
+                <p>Kasteel Park Office Park,<br>
+                    Orange Building, 2nd Floor,<br>
+                    c/o Nossob &amp; Jochemus Street,<br>
+                    Erasmus Kloof,<br>
+                    Pretoria,<br>
+                    0048<br>
+                    <br>
+                    P.O Box 74571<br>
+                    ynnwood Ridge<br>
+                    0040<br>
+                    Tel: +27 12 762 5000 /+27 12 470 9080<br>
+                    Fax: +27 86 764 1422 /+27 12 348 3447 /+27 12 470 9097<br>
+                    Email: <a href="mailto:&ZeroWidthSpace;info@faisombud.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="info@faisombud.co.za">info@faisombud.co.za</a><br>
+                    Enquiries on status of complaints: <a href="mailto:&ZeroWidthSpace;enquiries@faisombud.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="enquiries@faisombud.co.za">&ZeroWidthSpace;enquiries@faisombud.co.za</a><br>
+                    Website: <a href="https://www.faisombud.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="www.faisombud.co.za">www.faisombud.co.za</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordionrow">
+        <button class="accordion" data-id="1" onclick={handleAccordion}>Ombudsman for Short-Term Insurance (product related complaints):</button>
+        <div class="panel">
+            <div class="panelinner">
+                1 Sturdee Avenue,&nbsp;<br>
+                1st Floor, Block A,<br>
+                Rosebank,<br>
+                Johannesburg, 2196<br>
+                <br>
+                PO Box 32334&nbsp;<br>
+                Braamfontein&nbsp;<br>
+                2017&nbsp;<br>
+                <br>
+                Tel: +27 11 726-8900&nbsp;<br>
+                Fax: +27 11 726-5501&nbsp;<br>
+                Sharecall: 0860 726 890&nbsp;<br>
+                Email: <a href="mailto:&ZeroWidthSpace;info@osti.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="info@osti.co.za"> info@osti.co.za</a><br>
+                Website: <a href="https://www.osti.co.za"  data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="www.osti.co.za">www.osti.co.za</a>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="accordionrow">
+        <button class="accordion" data-id="2" onclick={handleAccordion}>Ombudsman for Long-Term Insurance (product related complaints):</button>
+        <div class="panel">
+            <div class="panelinner">
+                <p>3rd Floor, Sunclare Building&nbsp;<br>
+                    21 Dreyer Street&nbsp;<br>
+                    Claremont&nbsp;<br>
+                    Cape Town,7700&nbsp;<br>
+                    <br>
+                    Private Bag X45&nbsp;<br>
+                    Claremont&nbsp;<br>
+                    Cape Town&nbsp;<br>
+                    7735&nbsp;<br>
+                    <br>
+                    Tel: +27 21 657 5000/0860 103 236&nbsp;<br>
+                    Fax: +27 21 674 0951&nbsp;<br>
+                    Share call: 0860 103 236<br>
+                    Email: <a href="mailto:&ZeroWidthSpace;info@ombud.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="info@ombud.co.za"> info@ombud.co.za</a><br>
+                    Website: <a href="https://www.ombud.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="www.ombud.co.za">www.ombud.co.za</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordionrow">
+        <button class="accordion" data-id="3" onclick={handleAccordion}>Ombudsman for Banking Services (all banking and banking credit related complaints):</button>
+        <div class="panel">
+            <div class="panelinner">
+                Ground Floor<br>
+                34 &amp; 36 Fricker Road&nbsp;<br>
+                Illovo&nbsp;<br>
+                Johannesburg, 2041<br>
+                <br>
+                PO Box 87056&nbsp;<br>
+                Houghton&nbsp;<br>
+                2041&nbsp;<br>
+                <br>
+                Tel: +27 11 712 1800&nbsp;<br>
+                Sharecall: 0860 800 900&nbsp;<br>
+                Email:&nbsp;<a href="mailto:&ZeroWidthSpace; info@obssa.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="info@obssa.co.za">info@obssa.co.za</a><br>
+                website: <a href="https://www.obssa.co.za"  data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="www.obssa.co.za">www.obssa.co.za</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordionrow">
+        <button class="accordion" data-id="4" onclick={handleAccordion}>Credit Ombudsman (credit information complaints i.e. credit bureau information and listings):</button>
+        <div class="panel">
+            <div class="panelinner">
+                <p>Fernridge Office Park&nbsp;<br>
+                    5 Hunter Street&nbsp;<br>
+                    Ferndale&nbsp;<br>
+                    Randburg<br>
+                    <br>
+                    PO Box 805&nbsp;<br>
+                    Pinegowrie&nbsp;<br>
+                    2123<br>
+                    <br>
+                    Call centre: 0861 662 837<br>
+                    SMS: “help” to 44786<br>
+                    Fax: 086 674 7414<br>
+                    Email: <a href="mailto:&ZeroWidthSpace;ombud@creditombud.org.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="ombud@creditombud.org.za">ombud@creditombud.org.za</a>.<br>
+                    Website: <a href="https://www.creditombud.org.za"  data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="ww.creditombud.org.za">ww.creditombud.org.za</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordionrow">
+        <button class="accordion" data-id="5" onclick={handleAccordion}>The National Consumer Commission (body in place under the Consumer Protection Act for other consumer-type complaints):</button>
+        <div class="panel">
+            <div class="panelinner">
+                The National Consumer Commission&nbsp;<br>
+                Berkely Office Park&nbsp;<br>
+                8 Bauhinia Road&nbsp;<br>
+                Technopark&nbsp;<br>
+                Centurion&nbsp;<br>
+                <br>
+                Tel: +27 12 428 7000&nbsp;<br>
+                Website: <a href="https://www.thencc.gov.za"  data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="www.thencc.gov.za">www.thencc.gov.za</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordionrow">
+        <button class="accordion" data-id="6" onclick={handleAccordion}>Financial Sector Conduct Authority (Regulator for financial services):</button>
+        <div class="panel">
+            <div class="panelinner">
+                <p>Riverwalk Office Park, Block B&nbsp;<br>
+                    41 Matroosberg Road&nbsp;<br>
+                    Corner Garsfontein and Matroosberg Road&nbsp;<br>
+                    Ashlea Gardens, Extension 6&nbsp;<br>
+                    Menlo Park&nbsp;<br>
+                    Pretoria&nbsp;<br>
+                    South Africa&nbsp;<br>
+                    0081&nbsp;</p>
+                    <br/>
+                    <p>PO Box 35655&nbsp;<br>
+                    Menlo Park&nbsp;<br>
+                    0102&nbsp;</p>
+                    <br/>
+                    <p>Contact centre: 0800 20 3722<br>
+                    Switchboard: +27 12 428 8000&nbsp;<br>
+                    Fax: +27 12 346 6941&nbsp;<br>
+                    Email: info@fsca.co.za<br>
+                    FSB Fraud and Ethics Hotline: 0800 20 3722&nbsp;<br>
+                    Email top offs: <a href="mailto:&ZeroWidthSpace; fsca@whistleblowing.co.za&nbsp;" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="fsca@whistleblowing.co.za"> fsca@whistleblowing.co.za&nbsp;</a><br>
+                    Website: <a href="https://www.fsca.co.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="www.fsca.co.za">www.fsca.co.za</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordionrow">
+        <button class="accordion" data-id="7" onclick={handleAccordion}>The National Credit Regulator (Regulator for credit related matters):</button>
+        <div class="panel">
+            <div class="panelinner">
+                <p>127 - 15th Road&nbsp;<br>
+                    Randjespark&nbsp;<br>
+                    Midrand&nbsp;</p>
+                    <br/>
+                    <p>Tel: +27 11 554 2700&nbsp;<br>
+                    Call Centre: 0860 627 627&nbsp;<br>
+                    Email: complaints@ncr.org.za (complaints and queries)<br>
+                    Email: <a href="mailto:&ZeroWidthSpace;dccomplaints@ncr.org.za" data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="dccomplaints@ncr.org.za"> dccomplaints@ncr.org.za </a>(Debt counselling complaints)<br>
+                    Website: <a href="https://www.ncr.org.za"  data-intent="informational" data-scope="Complaint Process" data-id="link_content" data-text="www.ncr.org.za">www.ncr.org.za</a></p>
+            </div>
+        </div>
+    </div>
+</template>

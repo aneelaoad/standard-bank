@@ -1,0 +1,75 @@
+<template>
+    <lightning-card >
+        <div class="page-container">
+            <div class="page-title">
+                MY PROFILE
+            </div>
+
+            
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_large">
+                    <label class="slds-form-element__label field-label" for="FirstName">FIRST NAME</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="FirstName"  name="FirstName" placeholder="Enter your name" value={userDetail.FirstName} class="slds-input field-text" onchange={handleChange}/>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_large">
+                    <label class="slds-form-element__label field-label" for="LastName">SURNAME</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="LastName"  name="LastName" placeholder="Enter your surname" value={userDetail.LastName} class="slds-input field-text" onchange={handleChange}/>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_large">
+                    <label class="slds-form-element__label field-label" for="CommunityNickname">PREFERRED NAME</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="CommunityNickname"  name="CommunityNickname" placeholder="Enter your preferred name" value={userDetail.CommunityNickname} class="slds-input field-text" onchange={handleChange}/>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_large">
+                    <label class="slds-form-element__label field-label" for="Email">WORK EMAIL ADDRESS</label>
+                    <div class="slds-form-element__control">
+                        <input type="email" id="Email"  name="Email" placeholder="Enter your work email address" value={userDetail.Email} class="slds-input field-text" onchange={handleChange}/>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_large">
+                    <label class="slds-form-element__label field-label" for="MobilePhone">MOBILE NUMBER</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="MobilePhone"  name="MobilePhone" placeholder="Enter your mobile number" value={userDetail.MobilePhone} class="slds-input field-text" onchange={handleChange}/>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_large">
+                    <label class="slds-form-element__label field-label" for="CompanyName">COMPANY NAME</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="CompanyName"  name="CompanyName" placeholder="Enter your company name" value={userDetail.CompanyName} class="slds-input field-text" onchange={handleChange}/>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_10-of-12 slds-m-top_large">
+                    <label class="slds-form-element__label field-label" for="Title">JOB TITLE</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="Title"  name="Title" placeholder="Enter your job title" value={userDetail.Title}  class="slds-input field-text" onchange={handleChange}/>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-small-size_12-of-12 slds-m-top_large button-flex">
+                    <span class="button-margin">
+                        <button class="button-layout cancel" onclick={handleCancel}>CANCEL</button>
+                    </span>
+                    <span class="button-margin">
+                        <button class="button-layout submit" onclick={handleSubmit}>SUBMIT</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="loadingCon global siteforceLoadingBalls hideEl">
+            <span class="loadingBall first"></span>
+            <span class="loadingBall second"></span>
+            <span class="loadingBall third"></span>
+        </div>
+    </lightning-card>
+</template>

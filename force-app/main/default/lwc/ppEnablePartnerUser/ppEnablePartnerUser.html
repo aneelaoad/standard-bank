@@ -1,0 +1,36 @@
+<!-- **
+* @description  : Enable PartnerConnect User
+* User Story : 
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date Sept 2021
+*/ -->
+<template>
+    <lightning-quick-action-panel header="Enable PartnerConnect User">
+        <div style="height : 150px;">
+            <lightning-card>
+              <template if:true={isProcessing}>
+                    <div class="spinner">
+                        <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                        </lightning-spinner>
+                    </div>
+                </template>
+                <template if:false={alreadyUserExists}>
+                <p class="slds-align_absolute-center">Are you sure your want to enable {partnerContact.FirstName} {partnerContact.LastName}
+                    as community user?
+                </p>
+                <p class="slds-align_absolute-center" style="color: black; font-weight: bold;">N.B. This will send a welcome email to the contact.
+                </p>
+                <button class="slds-button slds-button_neutral slds-m-top_medium slds-align_absolute-center"
+                    onclick={enablePartnerUser}>Enable</button>
+                </template>
+                <template if:true={alreadyUserExists}>
+                    <p class="slds-align_absolute-center" style="color: black; font-weight: bold;">Already enabled as a
+                        PartnerConnect user</p>
+                    <a href={userRecordUrl} class="slds-m-top_medium slds-align_absolute-center">View User Details</a>
+                </template>
+            </lightning-card>
+        </div>
+    </lightning-quick-action-panel>
+
+</template>

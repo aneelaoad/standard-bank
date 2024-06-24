@@ -1,0 +1,102 @@
+<template>
+    <div class=" container aob_card_container_pocketbiz " style="padding-top: 40px;">
+      
+        <c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+        <c-aob_internal_comp_form-header put-title-left="true" title="Application Complete"
+            sub-title="See your product(s) below">
+        </c-aob_internal_comp_form-header>
+        <div class="aob_screen-sub-title title_para">
+            <span>
+               {label.AOB_ZA_weareRecivedAllOFYourINFO} {emailAddressValue}
+            </span> 
+        </div>
+
+        <form autocomplete="off">
+            <div class="">
+                <div class="slds-large-size_1-of-1 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-m-bottom_medium slds-m-top_x-large">
+                    <div class="slds-theme--shade slds-p-top_small slds-p-left_xx-large">
+                        <div class="">
+                            <p class="card-title">{label.AOB_ZA_mainProductTitle}</p>
+                        </div>
+                        <div class="">
+                            <div class="">
+                                <template for:each={mymobizBusinessAcc} for:item="item">
+                                    <div key={item.subTitle} class="item-subtitle">
+                                        - {item.subTitle}: {item.price}</div>
+                                </template>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <template if:true={isBusinessMarketLink}>
+                    <div class="slds-large-size_1-of-1 slds-medium-size_12-of-12 slds-small-size_12-of-12 ">
+                        <div class=" slds-theme--shade slds-p-top_small slds-p-left_xx-large">
+                            <div class="">
+                                <p class="card-title">{label.AOB_ZA_business_MarketLink}</p>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <template for:each={businessMarketLink} for:item="item">
+                                        <div key={item.subTitle} class="item-subtitle">
+                                            - {item.subTitle}: {item.price}</div>
+                                    </template>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <br />
+            <div class="">
+                <template if:true={isPocketBiz}>
+                    <div class="slds-large-size_1-of-1 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-m-bottom_medium">
+                        <div class="slds-theme--shade slds-p-top_small slds-p-left_xx-large">
+                            <div class="">
+                                <p class="card-title">{label.PBP_ZA_pocketBiz}</p>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <template for:each={pocketbiz} for:item="item">
+                                        <div key={item.subTitle} class="item-subtitle">
+                                            - {item.subTitle}: {totalPricePck}</div>
+                                    </template>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isSnapScan}>
+                    <div class="slds-large-size_1-of-1 slds-medium-size_12-of-12 slds-small-size_12-of-12 slds-m-bottom_medium">
+                        <div class="slds-theme--shade slds-p-top_small slds-p-left_xx-large">
+                            <div class="">
+                                <p class="card-title">{label.PBP_ZA_snapScan}</p>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <template for:each={snapscan} for:item="item">
+                                        <div key={item.subTitle} class="item-subtitle">
+                                            - {item.subTitle}: {item.price}</div>
+                                    </template>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <!--Navigation Buttons-->
+            <div
+                class="slds-theme--shade button-container">
+                <lightning-button
+                    class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small" style="margin-bottom: 22px;" data-id="link_content" data-intent="navigational"
+                    data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue}
+                    variant="brand" label="Back To Browsing" title="Back" onclick={backToPreviousPage}>
+                </lightning-button>
+      
+            </div>
+        </form>
+    </div>
+</template>

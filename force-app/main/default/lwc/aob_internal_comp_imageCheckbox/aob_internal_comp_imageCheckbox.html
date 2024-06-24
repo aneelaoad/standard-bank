@@ -1,0 +1,16 @@
+<template>
+    <div class="">
+        <div class="">
+            <div class="">
+                <h4>
+                    <input class="slds-m-right_small" disabled={disablecheck} type="checkbox" name={imageName} data-cardname="selctedcards" id="ImageCheckbox" onclick={selectedCheckHandler} checked={imagedata} />
+                    <label>{imageHeading}</label>
+                </h4>
+                <!-- Display error message if showError is true -->
+                <template if:true={showError}>
+                    <p class="error-message">Error: Please select either 'receiveInStore' or 'receiveOnline'</p>
+                </template>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,11 @@
+.pagination-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: var(--pagination-offset-left, 50%);
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.pagination-item{
+    margin-right: 10px;
+}

@@ -1,0 +1,100 @@
+.header_mainSec {
+  width: 100%;
+}
+
+.header_InnerSec {
+  background-color: #f6f6f6;
+  padding: 24px 20px;
+}
+
+@media (min-width: 1366px) {
+  .header_InnerSec {
+    padding-left: 7%;
+  }
+}
+
+@media (min-width: 1920px) {
+  .header_InnerSec {
+    padding-left: 20%;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile__cookie-disclaimer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.header_cookie-disclaimer {
+  height: 15%;
+  border-radius: 8px;
+}
+
+.header_cookie-disclaimer--message {
+  color: #212529;
+  font-family: var(--FONT-FAMILY);
+  font-size: 15px;
+  max-height: 3%;
+  max-width: 1094px;
+}
+
+.header_cookie-disclaimer--close {
+  background-color: transparent;
+  border: none;
+}
+
+.header_cookie-disclaimer--close:focus {
+  outline: none;
+}
+
+.header_cookie-disclaimer--close--icon.ms-icn_close {
+  color: #212529;
+  font-size: 40px;
+}
+
+.header_cookie-disclaimer--message--link {
+  color: #1894fe;
+}
+
+.header-cookie--open {
+  display: flex;
+  animation-name: slide-down;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+  transform-origin: 50% 0%;
+  max-height: none;
+  box-shadow: 0 -12px 30px 0 rgba(0, 0, 0, 0.25);
+}
+
+.header-cookie--closed {
+  animation-name: slide-up;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  transform-origin: 50% 0%;
+  max-height: 0px;
+  display: none;
+}
+
+.header-cookie--hidden {
+  display: none;
+}
+
+@keyframes slide-down {
+  0% {
+    max-height: 0px;
+  }
+  100% {
+    max-height: 100vh;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    max-height: 100vh;
+  }
+  100% {
+    max-height: 0px;
+  }
+}

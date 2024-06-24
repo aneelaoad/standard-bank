@@ -1,0 +1,16 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 10-16-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div>
+    <lightning-flow
+      lwc:if={isFlowDataLoaded}
+      flow-api-name={flowApiName}
+      flow-input-variables={flowInputVariables}
+    ></lightning-flow>
+  </div>
+</template>

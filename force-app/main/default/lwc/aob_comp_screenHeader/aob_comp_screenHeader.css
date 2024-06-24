@@ -1,0 +1,45 @@
+.dummy{
+	color : blue;
+}
+.wid-adj{
+	max-width: 100%;
+}
+.screen_title{
+	text-align: center;
+	 /* font-size: 45px; */
+	 font-size: 40px;
+	 padding-bottom: 10px;
+    color: #858d9d;
+	font-family: 'bentonsans-light-webfont';
+}
+.screen_subtitle{
+	text-align: center;
+	/* font-size: 28px; */
+	font-size: 20px;
+	padding: 0px 0px 50px 0px;
+	/* padding: 0px 0px 50px 30px; */
+	color: #858d9d;
+	font-family: 'bentonsans-regular-webfont';
+}
+
+@media(max-width: 768px){
+	.screen_title{
+		text-align: center;
+		font-size: 25px;
+		color: #858d9d;
+	}
+	.screen_subtitle{
+		font-size: 11px;
+		padding-bottom: 30px;
+	}
+	.aob_estimation_block_container{
+		display: flex;
+		flex-direction: column;
+	 }  
+	
+}
+@media screen and (max-width: 425px){
+	.screen_subtitle{
+
+	}
+}

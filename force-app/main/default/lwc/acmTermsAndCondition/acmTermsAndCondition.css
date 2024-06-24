@@ -1,0 +1,266 @@
+.header {
+    color: #3c4b6c;
+    font-size: 2rem;
+    padding: 2rem;
+    font-weight: 500;
+}
+.subHeader{
+    color: #3d4c6c;
+    font-size: 1.3rem;
+    font-weight: 500;;
+}
+.textTitle {
+    color: #152c49;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.textBody {
+    color: #0e2543;
+    font-size: 1rem;
+}
+
+.orderlist {
+    list-style: upper-alpha;
+    padding-left: 1.2rem;
+}
+.title {
+    color: #152c49;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.blueBar {
+    background-color: #0133a1;
+    width: 100%;
+    min-height: 3.5rem;
+}
+.blueBar-text {
+    color: #FFF;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.blueBar-subtext {
+    color: #c3cfe9;
+    font-size: .75rem;
+}
+.tableHeader {
+    font-size: 1.2rem;
+}
+.precedenceTableBody {
+    font-size: 1rem;;
+}
+.rolerow {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #414f6f;  
+}
+.row {
+    font-size: 1.3rem;
+}
+table.responsive-table tr {
+    border-bottom: none;
+}
+
+.apiIndicator {
+    background-color: #868686;
+    display: block;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin: auto;
+}
+table.responsive-table > tbody > tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+table.responsive-table > tbody > tr:first-child, table.responsive-table > tbody > tr:last-child {
+    background-color: #e2e2e2;
+}
+table.responsive-table.precedence > tbody > tr:first-child {
+    background-color: #f9f9f9;
+}
+table.responsive-table > tbody > tr > td {
+    border-radius: 0;
+}
+
+.linkborder {
+    border-right: 2px solid #617bd9;
+    color: #4060d2;
+}
+
+.displayFlex {
+    display: flex; 
+    font-size: 1rem;
+    padding-top: 1rem;
+}
+
+.center-align {
+    text-align: center;
+}
+
+
+.accordionrow {
+    box-shadow: 0 5px 15px 0 rgb(47 50 51 / 15%);
+}
+.accordion {
+    background-color: #FFFFFF;
+    color: #444;
+    cursor: pointer;
+    padding: 0.75rem 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    font-weight: 500;
+  }
+  
+  .accordion:after {
+    content: '\005E';
+    color: #0089ff;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+    transform: rotate(180deg);
+    transition: transform .3s ease-out;
+  }
+  
+  .active:after {
+    content: "\005E";
+    color: #0089ff;
+    transform: rotate(0deg);
+    transition: transform .3s ease-out;
+  }
+  
+  .panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f3f3f4;
+  }
+  .panelinner {
+    padding: 20px; 
+    background-color: #f3f3f4;
+  }
+
+.accordion-body-title {
+    font-size: 1rem;
+    font-weight: 500;
+}
+.accordionrow .serialno {
+    width: 80px;
+    padding-right: 80px;
+}
+.cardBodyPadding {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.headerRowTitle {
+    font-size: 1rem; 
+    white-space: nowrap;
+}
+
+.tableHeaderText {
+    font-size: 1rem; 
+    white-space: nowrap;
+}
+tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+  
+td, th {
+    padding: 15px 5px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+@media only screen and (max-width: 600px) {
+    .cardBodyPadding {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .subHeader {
+        font-size: 1rem;
+    }
+    .header {
+        padding: 1rem 0rem;
+        font-size: 1rem;
+        font-weight: 900;
+    }
+    .blueBar-text {
+        font-size: 1rem;
+    }
+    .tableHeaderText {
+        font-size: 1rem;
+        white-space: normal;
+    }
+    .headerRowTitle {
+        font-size: 1rem; 
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    table.responsive-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      display: block;
+      position: relative;
+    }
+    table.responsive-table td:empty:before {
+      content: '\00a0';
+    }
+    table.responsive-table th,
+    table.responsive-table td {
+      margin: 0;
+      vertical-align: top;
+    }
+    table.responsive-table th {
+      text-align: left;
+    }
+    table.responsive-table thead {
+      display: block;
+      float: left;
+    }
+    table.responsive-table thead tr {
+      display: block;
+      padding: 0 10px 0 0;
+    }
+    table.responsive-table thead tr th::before {
+      content: "\00a0";
+    }
+    table.responsive-table tbody {
+      display: block;
+      width: auto;
+      position: relative;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    table.responsive-table tbody tr {
+      display: inline-block;
+      vertical-align: top;
+    }
+    table.responsive-table th {
+      display: block;
+      text-align: right;
+    }
+    table.responsive-table td {
+      display: block;
+      min-height: 1.25em;
+      text-align: left;
+    }
+    table.responsive-table tr {
+      border-bottom: none;
+      padding: 0 10px;
+    }
+    table.responsive-table thead {
+      border: 0;
+      border-right: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    .headerRowTitle {
+        font-size: 1rem; 
+        white-space: normal;
+    }
+  }

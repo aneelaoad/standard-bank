@@ -1,0 +1,57 @@
+<!--
+  @description       : Lwc to show meeting information info
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-05-2021   TCK   Initial Version
+-->
+<template>
+    <!--Nav Bar-->
+    <div class="v1_div_tabs v1_div_heading">
+        <nav role="navigation">
+            <template for:each={tabs} for:item="tab">
+                <template if:true={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab active">
+                        <a title={tab.Name} onclick={handleChangeTemplate} id={tab.Id}>
+                            <span class="slds-assistive-text">{labels.CurrentPage}</span>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+
+                <template if:false={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab">
+                        <a href="#" title={tab.Name} onclick={handleChangeTemplate} id={tab.Id}>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+            </template>
+        </nav>
+    </div>
+
+    <div ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
+        <!-- Overview -->
+        <template if:true={isOverview}>
+            <c-eap-meeting-information-overview meeting-id={meetingId} oneventnamechange={handleEventNameChange} onloaded={componentsLoaded} onreload={needToLoad}></c-eap-meeting-information-overview>
+        </template>
+
+        <!-- Agenda -->
+        <template if:true={isAgenda}>
+            <c-eap-meeting-information-agenda meeting-id={meetingId} onloaded={componentsLoaded}></c-eap-meeting-information-agenda>
+        </template>
+
+        <!-- Documents -->
+        <template if:true={isDocuments}>
+            <c-eap-meeting-information-documents meeting-id={meetingId} onloaded={componentsLoaded}></c-eap-meeting-information-documents>
+        </template>
+
+        <!-- Notes -->
+        <template if:true={isNotes}>
+            <c-eap-meeting-information-notes meeting-id={meetingId} onloaded={componentsLoaded} onreload={needToLoad}></c-eap-meeting-information-notes>
+        </template>
+    </div>
+</template>

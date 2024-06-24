@@ -1,0 +1,18 @@
+<template>
+    <div class="acm-blueprint-card">
+        <div if:true={isRecommended} class="recommended-badge">
+            <p>Recommended</p>
+        </div>
+        <div class="acm-heading">{heading}</div>
+        <div class="acm-divider">
+        </div>
+        <div class="acm-description">{description}</div>
+
+        <div class="button-container">
+            <c-cmn-button custom-css-classes="btn-container" interaction-intent="informational"
+                interaction-type="button" action={navigateToNextPage} variant="brand"
+                label={buttonLabel} title={buttonLabel} onclick={navigateToNextPage} w-class="w230">
+                </c-cmn-button>
+        </div>
+ </div>
+</template>

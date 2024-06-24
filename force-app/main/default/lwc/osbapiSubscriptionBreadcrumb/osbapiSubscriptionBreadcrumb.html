@@ -1,0 +1,27 @@
+<template>
+    <div class="subscription-breadcrumb-container">
+        <ul>
+            <li><a data-id="Dashboard" onclick={navigateHome}>Home</a></li>
+            <lightning-icon
+                class="my-icon"
+                icon-name="utility:chevronright"
+                alternative-text="Utility chevronright"
+                title="chevronright"
+                size="xx-small"
+            ></lightning-icon>
+            <li>
+                <a data-id="OneDeveloper" onclick={navigateHome}
+                    >OneDeveloper</a
+                >
+            </li>
+            <lightning-icon
+                class="my-icon"
+                icon-name="utility:chevronright"
+                alternative-text="Utility chevronright"
+                title="chevronright"
+                size="xx-small"
+            ></lightning-icon>
+            <li><a>{name}</a></li>
+        </ul>
+    </div>
+</template>

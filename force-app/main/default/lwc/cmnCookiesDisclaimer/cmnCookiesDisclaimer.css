@@ -1,0 +1,147 @@
+:host * { font-family: var(--FONT-FAMILY); font-size: 16px; }
+
+.cookie-policy {
+  position: fixed;
+  bottom: 0;
+  top: auto;
+  width: 100%;
+  background: var(--WHITE-COLOR);
+  overflow: hidden;
+  z-index: 500;
+}
+
+.cookie-policy--open {
+  animation-name: slide-down;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+  transform-origin: 50% 0%;
+  max-height: none;
+  box-shadow: 0 -12px 30px 0 rgb(0 0 0 / 25%);
+}
+
+@media screen and (min-width: 768px) {
+  .cookie-policy {
+    position: relative;
+    background: var(--GRAY-LIGHT-COLOR);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .cookie-policy--open {
+    box-shadow: none;
+  }
+}
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.cookie-policy__content {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px 15px;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px) {
+  .cookie-policy__content {
+    padding: 15px 30px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 1230px) {
+  .cookie-policy__content {
+    padding: 15px 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.col {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  max-width: 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+}
+
+.cookie-policy .col {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.cookie-policy__text-container {
+  position: relative;
+  padding-right: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .cookie-policy__text-container {
+    padding-right: 100px;
+  }
+}
+
+.cookie-policy__icon-container {
+  border: none;
+  background-color: transparent;;
+  position: relative;
+  width: calc(100% + 5px);
+  height: 34px;
+  right: auto;
+  text-align: right;
+}
+
+@media screen and (min-width: 768px) {
+  .cookie-policy__icon-container {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    right: 0;
+  }
+}
+
+.cookie-policy__icon {
+  cursor: pointer;
+  height: 34px;
+  width: 34px;
+  display: inline-block;
+  padding: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .cookie-policy__icon {
+    height: 48px;
+    width: 48px;
+  }
+}
+
+svg[Attributes Style] {
+  width: 22px;
+  height: 22px;
+}
+
+.icon svg {
+  max-width: 100%;
+}

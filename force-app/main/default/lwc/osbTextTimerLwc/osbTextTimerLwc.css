@@ -1,0 +1,160 @@
+.timerClock {
+    color: #76BFFF;
+    font-family: var(--FONT-FAMILY);
+    font-size: 15px;
+    max-width: 220px;
+    margin: auto;
+}
+.legend{
+    font-size: 1.25rem;
+    color: rgb(22, 50, 92);
+}
+.clearFloats:before, .clearFloats:after 
+{
+    content: " "; 
+    display: table !important;
+}
+.clearFloats:after {clear: both;}
+.clearFloats {*zoom: 1; }
+.container .slice, .container.p50plus .slice
+{
+    clip: rect(auto, auto, auto, auto);
+}
+.pie, .container .bar, .fill, .container.p50plus .fill{
+    position: absolute;
+    border: 0.08em solid #279BFF;
+    width: 0.84em;
+    height: 0.84em;
+    clip: rect(0em, 0.5em, 1em, 0em);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+.bar {
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+}
+.pie-fill, .container.p50plus .bar:after, .container.p50plus .fill{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.container {
+    position: relative;
+    font-size: 140px;
+    width: 1em;
+    height: 1em;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    float: left;
+    margin: 0 0.1em 0.1em 0;
+    background-color: #D8D8D8;
+}
+.container *, .container *:before, .container *:after {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.container.center {
+    float: none;
+    margin: 0 auto;
+}
+.container.big {
+    font-size: 240px;
+}
+.container.small {
+    font-size: 80px;
+}
+.container.medium {
+    font-size: 160px;
+}
+.container > span {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 5em;
+    line-height: 5em;
+    font-size: 0.2em;
+    color: #279BFF;
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-transition-property: all;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-out;
+    -moz-transition-timing-function: ease-out;
+    -o-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.container:after {
+    position: absolute;
+    top: 0.08em;
+    left: 0.08em;
+    display: block;
+    content: " ";
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+    background-color: white;
+    width: 0.84em;
+    height: 0.84em;
+    -webkit-transition-property: all;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-in;
+    -moz-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+}
+.container .slice {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    clip: rect(0em, 1em, 1em, 0.5em);
+}
+.container.blue .bar, .container.blue .fill {
+    border-color: #279BFF !important;
+}
+.container.blue:hover > span {
+    color: #279BFF;
+}
+.container.green .bar, .container.green .fill {
+    border-color: #279BFF !important;
+}
+.container.green:hover > span {
+    color: #279BFF;
+}
+.container.orange .bar, .container.orange .fill {
+    border-color: #279BFF !important;
+}
+.container.orange:hover > span {
+    color: #279BFF;
+}

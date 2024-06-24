@@ -1,0 +1,239 @@
+.slds-modal__header{
+    /* background-color: #0033a1 !important; */
+    padding: 14px!important;
+    justify-content: center;
+}
+
+
+.card-title{
+  position: relative;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.29;
+  color: #3c4b6c;
+}
+
+.confrim{
+  list-style: disc;
+  margin: 2px 4px 10px 30px;
+  color: #0a2240;
+  font-size: 15px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+}
+.dots{
+  list-style: decimal;
+  margin: 5px 5px 5px 70px;
+  line-height: 1.67;
+  
+}
+.links{
+  margin-left: 35px;
+}
+
+.button{
+  padding: 0px 0px 20px 589px !important;
+  display: flex !important;
+    
+}
+.header{
+    color: white;
+}
+.position_cls{
+  position: relative;
+}
+
+.By-clicking-sign-I {
+    /* font-family: BentonSans; */
+    font-weight: 300;
+    line-height: 1.29;
+    color: #3c4b6c;
+    font-size: 22px;
+    margin: 18px 0px 32px 3px;
+  }
+
+  .dot{
+    width: 52px;
+    height: 25px;
+    margin: 0 478px 125px 0;
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+  }
+
+  .Confirm-that-I-have {
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+  }
+  .slds-modal__content{
+    padding: 1.5rem 4.5rem !important;
+  }
+
+  .Confirm-that-I-have .text-style-1 {
+    color: #0089ff;
+  }
+
+  .space{
+    margin-left:30px;
+  }
+
+  .-copy-2 {
+    width: 52px;
+    height: 25px;
+    margin: 0 0 24px;
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+  }
+
+  .l-am-duly-authorised {
+    width: 475px;
+    height: 400px;
+    margin: 19px 0 0 10px;
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+  }
+
+
+  .btn_standard{
+    display: flex;
+    width: 280px;
+    height: 50px;
+     margin: 59px 5px 0px 0px ;
+    object-fit: contain;
+   }
+
+.btn_standard .slds-button_brand{
+    border-color: #0089ff !important;
+    background-color: #0089ff !important;
+}
+
+.btn_standard button{
+    border-radius: 0px!important;
+    object-fit: contain;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: 1.08px;
+    text-align: center;
+}
+
+.button-container{
+  /* position: fixed;
+  bottom: 0px; */
+  width: 100%;
+  text-align: center;
+  padding: 20px 50px;
+}
+
+@media screen and (max-width:768px) {
+  .slds-modal__header{
+    background-color: #0033a1;
+  }
+
+  .header{
+    color: white;
+  }
+
+  .content{
+    background-color: white;
+  } 
+
+}
+@media screen and (max-width:576px) {
+
+  .slds-modal__header{
+    background-color: #0033a1;
+  }
+
+  .header{
+    color: white;
+  }
+
+  .button{
+    width: 25px;
+    height: 26px;
+    margin: 20px -10px 8px 120px;
+    object-fit: contain;
+    border: solid 0.3px var(--color-white);
+    background-color: var(--color-white);
+  }
+
+  .content{
+    background-color: white;
+  }
+
+  .By-clicking-sign-I {
+    font-family: BentonSans;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    color: #858d9d;
+  }
+  .space-dot{
+    margin-left:30px;
+  }
+
+  .dot {
+    width: 52px;
+    height: 25px;
+    margin: 0 0 24px;
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+  }
+
+  .Confirm-that-I-have {
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+  }
+
+
+  .Confirm-that-I-have .text-style-1 {
+    color: #0089ff;
+  }
+
+  .btn_standard{
+    display: flex;
+  }
+
+}

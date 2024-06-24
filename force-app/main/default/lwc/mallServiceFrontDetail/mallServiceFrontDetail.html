@@ -1,0 +1,98 @@
+<template>
+    <div class="grid-container">
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Service name</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{service.name}</span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Store name</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{service.storeName}</span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Status</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{service.productStatus}</span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Categories</span>
+            <div class="categories-section slds-form-element__control">
+                <template if:true={categoryOptions}>
+                    <template for:each={categoryOptions} for:item="category">
+                        <div key={category.id} class="category">
+                            <lightning-button label={category.label} title={category.label} variant="brand-outline" icon-name="utility:success">
+                            </lightning-button>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Service url</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{service.productUrl}</span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Country</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">South Africa</span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Short description</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{service.shortDesc}</span>
+            </div>
+        </div>
+        <div class="slds-form-element grid-image">
+            <span class="slds-form-element__label">Service image</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">
+                    <div class="image">
+                        <img src={service.imageUrl} alt={service.name} />
+                    </div>
+                </span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Long description</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">
+                    <lightning-formatted-rich-text
+                        value={service.longDesc}
+                    ></lightning-formatted-rich-text>
+                </span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Last Modified By</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{service.lastModifiedBy}</span>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <span class="slds-form-element__label">Owner</span>
+            <div class="slds-form-element__control">
+                <span class="slds-form-element__static">{service.ownerName}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="history-section">
+        <lightning-card  variant="Narrow" title="Service approval history" icon-name="standard:call_history">
+            <div class="data-table">
+                <lightning-datatable 
+                    key-field="Id" 
+                    data={approvalHistoryRecords} 
+                    columns={columns}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </div>
+        </lightning-card>
+    </div>
+  </template>

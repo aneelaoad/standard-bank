@@ -1,0 +1,136 @@
+.mt_24 {
+  margin-top: 24px;
+}
+
+.aob_sec-title {
+  margin-bottom: 16px;
+}
+
+.aob_sec-title h6 {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1a314d;
+  margin-bottom: 0;
+}
+
+.slds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  min-width: 95px;
+  font-family: "bentonsans-bold-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: normal;
+  text-align: center;
+  text-transform: uppercase;
+  color: #0062e1;
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
+.aob_btn-primary {
+  color: #ffffff;
+  background: #0062e1;
+}
+
+.aob_btn-primary:hover {
+  background-color: #0033aa !important;
+}
+
+.aob_btn-empty:hover {
+  border: 1px dashed #ced3d9 !important;
+}
+
+.aob_todo-card {
+  position: relative;
+  padding: 24px;
+  margin-bottom: 8px;
+  background: #ffffff;
+  border: 1px solid #ced3d9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aob_todo-card::before {
+  content: "";
+  display: block;
+  height: 64%;
+  width: 4px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #0062e1;
+  border-radius: 0 8px 8px 0;
+}
+
+.aob_todo-card-content {
+  display: inline-flex;
+  align-items: center;
+}
+
+.aob_todo-card-content .todo_content {
+  margin-left: 18px;
+}
+
+.todo_content .todo_title {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-size: 16px;
+  line-height: 20px;
+  color: #1a314d;
+}
+
+.aob_todo-card-content img, .image-stencil {
+  width: 26px;
+  height: 26px;
+  max-width: 100%;
+}
+
+.todo_content .todo_caption {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  color: #0062e1;
+}
+
+.aob_todo-card .aob_btn-primary-outline {
+  min-width: 121px;
+}
+
+.aob_todo-card-success::before {
+  background-color: #008533 !important;
+}
+
+.aob_todo-card-gray::before {
+  background-color: rgb(116, 116, 116) !important;
+}
+
+.aob_todo-card-success .todo_content .todo_caption {
+  color: #008533 !important;
+}
+
+.aob_todo-card-gray .todo_content .todo_caption {
+  color: rgb(116, 116, 116) !important;
+}
+
+.aob_todo-card-gray button.slds-button {
+  border-color: rgb(116, 116, 116) !important;
+  background-color: transparent !important;
+  color: rgb(116, 116, 116) !important;
+}
+
+.aob_todo-card-gray img {
+  filter: invert(0.5);
+}
+
+h6 {
+  text-transform: capitalize;
+}

@@ -1,0 +1,47 @@
+<!--
+  @Name of the Class  :Unknown
+  @Description        :Unknown
+  @Author             :Unknown
+  @Created Date       :Unknown
+  ***************************************************************************************
+  @Last Modified By         : Emmanuel Mulea
+  @Last Modified On         : 09 May 2024
+  @Modification description : SFP-38411 Hero Banner for marketplace site 
+  ***************************************************************************************  
+-->
+
+<template>
+	<div class={getWidth} data-component="hero-banner">
+		<div class="hero-banner-item-col" data-component="hero-banner-item-col">
+			<div class="hero-banner-item-row row no-gutters">
+				<div class="hero-banner-item-cell hero-banner-item-col__content-background col-md-5 col-sm-12 order-xs-2 order-sm-2 order-md-1">
+					<div class="hero-banner-item-col__content-wrapper">
+						<c-sbg-hero-banner-text 
+							heading={heading} 
+							sub-text={subText}
+							action={navigateToUrl} 
+							destination-url={destinationUrl}
+							variant="brand" 
+							button-label={buttonLabel} 
+							disabled={disabled}
+							button-title={buttonTitle} 
+							w-class="w300"
+							show-button={showButton}>
+						</c-sbg-hero-banner-text>
+					</div>
+				</div>
+				<div class="hero-banner-item-cell col-md-7 col-sm-12 order-xs-1 order-sm-1 order-md-2">
+					<div class="hero-banner-item-col__image-holder">
+						<template if:true={isImage}>
+							<picture>
+								<source srcset={imagePathDesktop} media="(min-width: 1200px)" />
+								<source srcset={imagePathTablet} media="(min-width: 768px)" />
+								<img src={imagePath} alt={imageAltText} />
+							</picture>
+						</template>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

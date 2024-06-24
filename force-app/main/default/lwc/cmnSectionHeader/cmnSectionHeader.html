@@ -1,0 +1,44 @@
+<!-- **
+* @description  : Generic Section Header
+* User Story : SFP-4963
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+    <div class="container">
+        <div class="slds-grid slds-wrap main-grid">
+            <div class="slds-col slds-size_12-of-12">
+                <div class="slds-grid slds-grid_vertical">
+
+                    <template if:true={breadcrumbText}>
+                        <div class="slds-col slds-align_absolute-center breadcrumbs">
+
+                            <div class="slds-grid">
+                                <a href={breadcrumbLink} data-intent="navigational" data-scope="PartnerConnect"
+                                    data-id="link_content" data-text="Partner Connect | Home" onclick={tracker}>
+                                    <div class="slds-col">
+                                        <p>{breadcrumbText} <img class="arrowIcon" src={breadcrumbArrowIcon}><img></p>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </template>
+
+                    <div class="slds-col slds-align_absolute-center heading-container">
+                        <p class="heading-large">{mainHeading}</p>
+                    </div>
+
+                    <template if:true={text}>
+                        <div class="slds-col slds-align_absolute-center text-container">
+                            <p class="text-large">{text}</p>
+                        </div>
+                    </template>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</template>

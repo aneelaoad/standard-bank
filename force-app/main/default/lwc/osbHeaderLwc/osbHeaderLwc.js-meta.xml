@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="withMenu"
+                type="Boolean"
+                default="false"
+                label="With Menu"
+            />
+            <property
+                name="withUserName"
+                type="Boolean"
+                default="true"
+                label="With Username"
+            />
+            <property
+                name="noOverlay"
+                type="Boolean"
+                default="true"
+                label="No Overlay"
+            />
+            <property
+                name="showBannerMessage"
+                type="Boolean"
+                default="false"
+                label="Show banner Message"
+            />
+            <property
+                name="withMenuStyle"
+                type="Boolean"
+                default="false"
+                label="With Menu Style"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

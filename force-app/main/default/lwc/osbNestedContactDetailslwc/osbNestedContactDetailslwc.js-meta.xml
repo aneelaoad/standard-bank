@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemCount" type="Integer" default="1" description="How many items to show 1 - 8"/>
+            <property name="header" type="String" default="" label="header" description="Heading field"/>
+            <property name="headerButton" type="String" default="" label="headerButton"/>
+            <property name="subTextOne" type="String" default="" label="Subtitle Text One"/>
+            <property name="contactOne" type="String" default="" label="Contact One" />
+            <property name="contactOneNumber" type="String" default="" label="Contact One Number"/>
+            <property name="contactOneEmail" type="String" default="" label="Contact One Email"/>
+            <property name="TitleOne" type="String" default="" label="Title One"/>            
+            <property name="Logo1" type="String" label="Logo 1" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextTwo" type="String" default="" label="Subtitle Text Two"/>
+            <property name="contactTwoNumber" type="String" default="" label="Contact Two Number"/>
+            <property name="contactTwoEmail" type="String" default="" label="Contact Two Email"/>
+            <property name="TitleTwo" type="String" default="" label="Title Two"/>            
+            <property name="Logo2" type="String" label="Logo 2" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextThree" type="String" default="" label="Subtitle Text Three"/>
+            <property name="contactThreeNumber" type="String" default="" label="Contact Three Number"/>
+            <property name="contactThreeEmail" type="String" default="" label="Contact Three Email"/>
+            <property name="TitleThree" type="String" default="" label="Title Three"/>            
+            <property name="Logo3" type="String" label="Logo 3" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextFour" type="String" default="" label="Subtitle Text Four"/>
+            <property name="contactFourNumber" type="String" default="" label="Contact Four Number"/>
+            <property name="contactFourEmail" type="String" default="" label="Contact Four Email"/>
+            <property name="TitleFour" type="String" default="" label="Title Four"/>            
+            <property name="Logo4" type="String" label="Logo 4" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextFive" type="String" default="" label="Subtitle Text Five"/>
+            <property name="contactFiveNumber" type="String" default="" label="Contact Five Number"/>
+            <property name="contactFiveEmail" type="String" default="" label="Contact Five Email"/>
+            <property name="TitleFive" type="String" default="" label="Title Five"/>            
+            <property name="Logo5" type="String" label="Logo Five" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextSix" type="String" default="" label="Subtitle Text Six"/>
+            <property name="contactSixNumber" type="String" default="" label="Contact Six Number"/>
+            <property name="contactSixEmail" type="String" default="" label="Contact Six Email"/>
+            <property name="TitleSix" type="String" default="" label="Title Six"/>            
+            <property name="Logo6" type="String" label="Logo 6" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextSeven" type="String" default="" label="Subtitle Text Seven"/>
+            <property name="contactSevenNumber" type="String" default="" label="Contact Seven Number"/>
+            <property name="contactSevenEmail" type="String" default="" label="Contact Seven Email"/>
+            <property name="TitleSeven" type="String" default="" label="Title Seven"/>            
+            <property name="Logo7" type="String" label="Logo 7" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextEight" type="String" default="" label="Subtitle Text Eight"/>
+            <property name="contactEightNumber" type="String" default="" label="Contact Eight Number"/>
+            <property name="contactEightEmail" type="String" default="" label="Contact Eight Email"/>
+            <property name="TitleEight" type="String" default="" label="Title Eight"/>            
+            <property name="Logo8" type="String" label="Logo 8" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="headerButtonTwo" type="String" default="" label="headerButton"/>
+            <property name="subTextOneofTwo" type="String" default="" label="Subtitle Text One"/>
+            <property name="contactOneofTwo" type="String" default="" label="Contact One" />
+            <property name="contactOneNumberofTwo" type="String" default="" label="Contact One Number"/>
+            <property name="contactOneEmailofTwo" type="String" default="" label="Contact One Email"/>
+            <property name="TitleOneofTwo" type="String" default="" label="Title One of two"/>            
+            <property name="Logo1of2" type="String" label="Logo 1 of 2" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextTwoofTwo" type="String" default="" label="Subtitle Text Two"/>
+            <property name="contactTwoNumberofTwo" type="String" default="" label="Contact Two Number"/>
+            <property name="contactTwoEmailofTwo" type="String" default="" label="Contact Two Email"/>
+            <property name="TitleTwoofTwo" type="String" default="" label="Title Two of two"/>            
+            <property name="Logo2of2" type="String" label="Logo 2 of 2" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextThreeofTwo" type="String" default="" label="Subtitle Text Three"/>
+            <property name="contactThreeNumberofTwo" type="String" default="" label="Contact Three Number"/>
+            <property name="contactThreeEmailofTwo" type="String" default="" label="Contact Three Email"/>
+            <property name="TitleThreeofTwo" type="String" default="" label="Title Three of two"/>            
+            <property name="Logo3of2" type="String" label="Logo 3 of 2" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextFourofTwo" type="String" default="" label="Subtitle Text Four"/>
+            <property name="contactFourNumberofTwo" type="String" default="" label="Contact Four Number"/>
+            <property name="contactFourEmailofTwo" type="String" default="" label="Contact Four Email"/>
+            <property name="TitleFourofTwo" type="String" default="" label="Four Five of two"/>            
+            <property name="Logo4of2" type="String" label="Logo 4 of 2" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextFiveofTwo" type="String" default="" label="Subtitle Text Five"/>
+            <property name="contactFiveNumberofTwo" type="String" default="" label="Contact Five Number"/>
+            <property name="contactFiveEmailofTwo" type="String" default="" label="Contact Five Email"/>
+            <property name="TitleFiveofTwo" type="String" default="" label="Title Five of two"/>            
+            <property name="Logo5of2" type="String" label="Logo 5 of 2" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextSixofTwo" type="String" default="" label="Subtitle Text Six"/>
+            <property name="contactSixNumberofTwo" type="String" default="" label="Contact Six Number"/>
+            <property name="contactSixEmailofTwo" type="String" default="" label="Contact Six Email"/>
+            <property name="TitleSixofTwo" type="String" default="" label="Title Six of two"/>            
+            <property name="Logo6of2" type="String" label="Logo 6 of 2" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextSevenofTwo" type="String" default="" label="Subtitle Text Seven"/>
+            <property name="contactSevenNumberofTwo" type="String" default="" label="Contact Seven Number"/>
+            <property name="contactSevenEmailofTwo" type="String" default="" label="Contact Seven Email"/>
+            <property name="subTextEightofTwo" type="String" default="" label="Subtitle Text Eight"/>
+            <property name="contactEightNumberofTwo" type="String" default="" label="Contact Eight Number"/>
+            <property name="contactEightEmailofTwo" type="String" default="" label="Contact Eight Email"/>
+            <property name="headerButtonThree" type="String" default="" label="headerButton"/>
+            <property name="subTextOneofThree" type="String" default="" label="Subtitle Text One"/>
+            <property name="contactOneofThree" type="String" default="" label="Contact One" />
+            <property name="contactOneNumberofThree" type="String" default="" label="Contact One Number"/>
+            <property name="contactOneEmailofThree" type="String" default="" label="Contact One Email"/>
+            <property name="TitleOneofThree" type="String" default="" label="Title One of Three"/>            
+            <property name="Logo1of3" type="String" label="Logo 1 of 3" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextTwoofThree" type="String" default="" label="Subtitle Text Two"/>
+            <property name="contactTwoNumberofThree" type="String" default="" label="Contact Two Number"/>
+            <property name="contactTwoEmailofThree" type="String" default="" label="Contact Two Email"/>
+            <property name="TitleTwoofThree" type="String" default="" label="Title Two of Three"/>            
+            <property name="Logo2of3" type="String" label="Logo 2 of 3" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextThreeofThree" type="String" default="" label="Subtitle Text Three"/>
+            <property name="contactThreeNumberofThree" type="String" default="" label="Contact Three Number"/>
+            <property name="contactThreeEmailofThree" type="String" default="" label="Contact Three Email"/>
+            <property name="TitleThreeofThree" type="String" default="" label="Title Three of Three"/>            
+            <property name="Logo3of3" type="String" label="Logo 3 of 3" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextFourofThree" type="String" default="" label="Subtitle Text Four"/>
+            <property name="contactFourNumberofThree" type="String" default="" label="Contact Four Number"/>
+            <property name="contactFourEmailofThree" type="String" default="" label="Contact Four Email"/>
+            <property name="TitleFourofThree" type="String" default="" label="Title Four of Three"/>            
+            <property name="Logo4of3" type="String" label="Logo 4 of 3" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextFiveofThree" type="String" default="" label="Subtitle Text Five"/>
+            <property name="contactFiveNumberofThree" type="String" default="" label="Contact Five Number"/>
+            <property name="contactFiveEmailofThree" type="String" default="" label="Contact Five Email"/>
+            <property name="TitleFiveofThree" type="String" default="" label="Title Five of Three"/>            
+            <property name="Logo5of3" type="String" label="Logo 5 of 3" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextSixofThree" type="String" default="" label="Subtitle Text Six"/>
+            <property name="contactSixNumberofThree" type="String" default="" label="Contact Six Number"/>
+            <property name="contactSixEmailofThree" type="String" default="" label="Contact Six Email"/>
+            <property name="TitleSixofThree" type="String" default="" label="Six One of Three"/>            
+            <property name="Logo6of3" type="String" label="Logo 6 of 3" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="subTextSevenofThree" type="String" default="" label="Subtitle Text Seven"/>
+            <property name="contactSevenNumberofThree" type="String" default="" label="Contact Seven Number"/>
+            <property name="contactSevenEmailofThree" type="String" default="" label="Contact Seven Email"/>
+            <property name="subTextEightofThree" type="String" default="" label="Subtitle Text Eight"/>
+            <property name="contactEightNumberofThree" type="String" default="" label="Contact Eight Number"/>
+            <property name="contactEightEmailofThree" type="String" default="" label="Contact Eight Email"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

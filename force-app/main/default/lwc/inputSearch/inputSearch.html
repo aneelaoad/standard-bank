@@ -1,0 +1,47 @@
+<template>
+    <div class="slds-form-element">
+        <label class="slds-form-element__label" if:true={fieldLabel}>{fieldLabel}</label>
+        <div class="slds-form-element__control" if:true={record.data}>
+            <div class="slds-combobox_container slds-has-inline-listbox">
+                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click">
+                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right">
+                        <lightning-icon icon-name="utility:close" size="x-small"
+                                        alternative-text="icon"
+                                        class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-align-bottom"
+                        ></lightning-icon>
+                        <lightning-icon icon-name={record.data.iconName} size="x-small"
+                                        alternative-text="icon"
+                                        class="slds-icon slds-input__icon slds-input__icon_left slds-icon-text-default slds-align-bottom"></lightning-icon>
+                        <input placeholder="Search Salesforce" class="slds-input slds-combobox__input"
+                               value={record.data.queriedField} readonly onclick={handleRemove}></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-id="inputFieldDiv" class={inputDiv}>
+            <lightning-input type="search" placeholder="Search Salesforce"
+                             onfocus={handleFocus} class="slds-avatar-grouped__icon"
+                             onblur={handleBlur} onchange={handleChange} data-id="inputField" variant="label-hidden"></lightning-input>
+        </div>
+
+        <div role="listbox" data-id="dropdownContainer" class="slds-hide">
+            <div if:true={suggestions.data} class="slds-dropdown slds-dropdown_fluid">
+                <ul for:each={suggestions.data} for:item="item" for:index="index"
+                    class="slds-listbox slds-listbox_vertical" key={item.recordId}>
+                    <li role="presentation" class="slds-listbox__item" data-recordid={item.recordId}
+                        data-field={item.queriedField} onmousedown={handleChangeValue}>
+                        <div class="slds-media slds-media_center slds-listbox__option slds-listbox__option_entity
+                        slds-listbox__option_has-meta slds-media__body slds-listbox__option-text slds-listbox__option-text_entity slds-truncate"
+                             role="option">
+                            <lightning-icon icon-name={item.iconName} size="small"
+                                            alternative-text="icon"></lightning-icon>
+                            <span style='padding-left:1rem'>
+                                {item.queriedField}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>

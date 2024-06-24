@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Mall Search Results</masterLabel>
+    <description>We show all the search results for the search phrase captured</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property type="Boolean" name="isPageTitle" label="Set as page title" default="false" />
+            <property type="String" name="title" label="Title" default="Title" />
+            <property type="Boolean" name="showSubtitle" label="Show Subtitle" default="true" />
+            <property type="String" name="subtitle" label="Subtitle" default="Subtitle" />
+            <property type="Boolean" name="alignCenter" label="Center align heading" default="false" />
+            <property type="Boolean" name="showUnderline" label="Add underline to heading" default="false" />
+            <property type="Boolean" name="applyThemeColourToTitle" label="Apply theme colour to title" default="false" />
+            <property type="Boolean" name="applyThemeColourToSubTitle" label="Apply theme colour to subtitle" default="false" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

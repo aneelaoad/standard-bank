@@ -1,0 +1,73 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    width: 285px;
+    padding: 16px;
+    height: 515px;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.sidebar-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 8px 0 0;
+    object-fit: contain;
+}
+
+.line {
+    height: 1px;
+    opacity: 0.3;
+    background-color: #bdc4d2;
+}
+
+
+.sidebar-bg {
+    width: 248px;
+    height: 248px;
+    margin: 31.5px 0 58px;
+    object-fit: contain;
+    position: absolute;
+}
+
+
+.text {
+    text-align: left;
+    color: #0033aa;
+    position: relative;
+    top: 165px;
+    left: 22px;
+}
+
+.text-bottom {
+    width: 248px;
+    height: 54px;
+    margin: 238px 0 0;
+    color: #6a7286;
+    position: relative;
+    line-height: 1.38;
+}
+
+.heading-1 {
+    margin: 0 0 16px;
+    text-align: left;
+    color: #6a7286;
+    text-transform: uppercase;
+}
+
+.heading-2 {
+    margin: 4px 0 4px 8px;
+    text-align: left;
+    color: #1c263c;
+}
+
+@media(max-width: 1280px) {
+    .sidebar-bg {
+        width: 223px;
+    }
+
+    .text-bottom {
+        width: 214px;
+        margin: 220px 0px 0px;
+    }
+}

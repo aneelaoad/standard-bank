@@ -1,0 +1,19 @@
+<template>
+    <template if:true={renderPagination}>
+        <div class="pagination">
+            <ul class="slds-pagination">
+                <li class="slds-pagination__item slds-pagination__item_previous">
+                    <a href="#" onclick={handlePrevious} disabled={disablePrevious}><img class="crumb-left icon-button-theme-colour" src={leftIcon} alt="Left" /></a>
+                </li>
+                <template for:each={pages} for:item="page">
+                    <li key={page.label} class="slds-pagination__item">
+                        <a href="#" class={page.class} onclick={handlePageClick}>{page.label}</a>
+                    </li>
+                </template>
+                <li class="slds-pagination__item slds-pagination__item_next">
+                    <a href="#" onclick={handleNext} disabled={disableNext}><img class="crumb-right icon-button-theme-colour" src={rightIcon} alt="Right" /></a>
+                </li>
+            </ul>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,682 @@
+<template>
+    <lightning-card title="SmartNudges">
+        <div class="slds-m-around_medium">
+
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="3" padding="around-small">
+                </lightning-layout-item>
+                <lightning-layout-item size="9" padding="around-small">
+                    <lightning-button-stateful class="slds-m-left_x-small slds-float_right" label-when-off="Saved nudges" variant={snoozedInsightsVarient} label-when-on="Saved nudges" selected={snoozedInsightsSelected} onclick={handleSnoozedInsightsClick}>
+                    </lightning-button-stateful>
+                    <lightning-button-stateful class="slds-m-left_x-small slds-float_right" label-when-off="Expiring Soon" variant={expiringSoonVarient} label-when-on="Expiring Soon" selected={expiringSoonSelected} onclick={handleExpiringSoonClick}>
+                    </lightning-button-stateful>
+                    <lightning-button-stateful class="slds-m-left_x-small slds-float_right" label-when-off="All nudges" variant={allInsightsVarient} label-when-on="All nudges" selected={allInsightsSelected} onclick={handleAllInsightsClick}>
+                    </lightning-button-stateful>
+                    <lightning-button-stateful class="slds-m-left_x-small slds-float_right" label-when-off="My nudges" variant={myInsightsVarient} label-when-on="My nudges" selected={myInsightsSelected} onclick={handleMyInsightsClick}>
+                    </lightning-button-stateful>
+                    <div class=""></div>
+                </lightning-layout-item>
+                <lightning-layout-item size="3" class="slds-p-left_small slds-p-top_medium slds-size_3-of-12" style="width: 27%;">
+                    <lightning-input type="search" onchange={handleKeyChange} value={searchKey} placeholder="Search nudges"></lightning-input>                    
+                </lightning-layout-item>
+                <lightning-layout-item size="2" padding="around-small" class="slds-m-left_medium">
+                    <lightning-combobox
+                    name="category"
+                    label="Select Category"
+                    value={selectedCategory}
+                    placeholder="Select Category"
+                    options={categoryList}
+                    onchange={handleFilterChange} >
+                    </lightning-combobox> 
+                </lightning-layout-item>
+
+                <lightning-layout-item size="2" padding="around-small">
+                    <lightning-combobox
+                    name="subcategory"
+                    label="Select Sub Category"
+                    value={selectedSubCategory}
+                    placeholder="Select Sub Category"
+                    options={subCategoryList}
+                    onchange={handleFilterChange} >
+                    </lightning-combobox> 
+                </lightning-layout-item>
+
+                <lightning-layout-item size="2" padding="around-small">
+                    <lightning-combobox
+                    name="client"
+                    label="Select Client Name"
+                    value={selectedClient}
+                    placeholder="Select Client Name"
+                    options={clientNameList}
+                    onchange={handleFilterChange} >
+                    </lightning-combobox> 
+                </lightning-layout-item>
+
+                <lightning-layout-item size="2" class="slds-p-left_small slds-p-top_xx-large">
+                    <a onclick={clearAllFilters}>Clear Filters</a>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            
+              <br/>
+            <lightning-datatable key-field="Id" data={tableContent} columns={columns} sorted-by={sortedBy} onrowaction={handleRowAction} hide-checkbox-column="true"
+                sorted-direction={sortedDirection} onsort={sortColumns}>
+            </lightning-datatable>
+
+
+            </br>
+
+            <div class="slds-align_absolute-center">
+                    <lightning-button class="slds-p-around_large" label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                    </lightning-button>
+                    <span class="slds-p-around_large">
+                        Page {page} of {totalPage}
+                    </span>
+                    <lightning-button class="slds-p-around_large" label="Next" icon-name="utility:chevronright" icon-position="right"
+                        onclick={nextHandler}></lightning-button> 
+            </div>            
+        </div>
+    </lightning-card>
+
+
+    <template lwc:if={modalContainer}>
+        <section  class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalAction}>
+                       <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+                    </button>
+                    
+                    <h2>
+                        <span class="slds-text-heading_medium slds-hyphenate">SmartNudge Detail View</span>
+                        <span class="slds-p-right-small">
+                            <lightning-button-icon class="slds-float_right" style="padding-right: 10px;"
+                                icon-name="utility:dislike"   
+                                variant="brand"                            
+                                onclick={openReject}
+                                alternative-text="Reject"
+                                size="large"
+                                disabled={isDisableAcceptRejectButtos}>
+                            </lightning-button-icon>
+                        </span>    
+                        <span class="slds-p-right-small">
+                            <lightning-button-icon class="slds-float_right" style="padding-right: 10px;"
+                                icon-name="utility:like"   
+                                variant="brand"                            
+                                onclick={openAccept}
+                                alternative-text="Accept"
+                                size="large"
+                                disabled={isDisableAcceptRejectButtos}>
+                            </lightning-button-icon>
+                        </span>
+                        <span class="slds-p-right-small">
+                        <template lwc:if={isInsightSnoozed}>
+                            <lightning-button-icon
+                            class="slds-float_right" style="padding-right: 10px;"
+                                    icon-name="utility:delete"   
+                                    variant="brand"                            
+                                    onclick={openSnoozeInsight}
+                                    alternative-text={snoozedButtonLabel}
+                                    title={snoozedButtonLabel}
+                                    size="large"
+                                    disabled={isDisableSaveUnsaveAddOppButtos}>
+                                </lightning-button-icon>
+                        </template>
+                        <template lwc:else>
+                            <lightning-button-icon
+                            class="slds-float_right" style="padding-right: 10px;"
+                                    icon-name="utility:bookmark"   
+                                    variant="brand"                            
+                                    onclick={openSnoozeInsight}
+                                    alternative-text={snoozedButtonLabel}
+                                    title={snoozedButtonLabel}
+                                    size="large"
+                                    disabled={isDisableSaveUnsaveAddOppButtos}>
+                                </lightning-button-icon>
+                        </template>
+                             </span>           
+                    </h2>                                                    
+                 </header>
+                 <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Event Date</div>
+                                <div>{selectedRow.Event_Date__c}</div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Lead Date</div>
+                                <div>{selectedRow.Lead_Date__c}</div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Nudge ID</div>
+                                <div><a onclick={navigateInsigtDetailPage} data-id="Active">{selectedRow.Name} </a></div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <div class="slds-form-element__label">Nudge Expiry Date</div>
+                                <div>{selectedRow.Expiry_Date__c}</div>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Client Name</div>
+                                <div><a onclick={navigateClientDetailPage} data-id="Active">{selectedRow.Client__r.Name}</a></div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Sector</div>
+                                <div>{selectedRow.Client__r.Client_Sector__c}</div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Category</div>
+                                <div>{selectedRow.Category__c}</div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Sub Category</div>
+                                <div>{selectedRow.Sub_Category__c}</div>
+                            </span>
+                        </div>
+                    </div>                        
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Client Description</div>
+                               <div>
+                                    <p class="slds-line-clamp_medium">
+                                        {selectedRow.Client__r.Description}
+                                    </p>
+                                </div>
+                            </span>
+                        </div>                            
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                            <span>
+                                <div>
+                                    <lightning-textarea name="insightDetails" disabled value={selectedRow.Insight__c} label="Nudge Details" ></lightning-textarea>
+                                </div>
+                            </span>
+                        </div>                            
+                    </div>   
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                            <span>
+                                <lightning-textarea name="recNextStep" disabled value={selectedRow.Next_Steps__c}  label="Recommended Next Step" ></lightning-textarea>                                    
+                            </span>
+                        </div>                            
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                            <span>
+                                <lightning-textarea name="comments" value={selectedRow.Comment__c} label="My notes" onchange={handleRecChanges} disabled={isDisableSaveUnsaveAddOppButtos}></lightning-textarea>
+                            </span>
+                        </div>                            
+                    </div>  
+                    
+                 </div>
+                 <footer class="slds-modal__footer">
+                    <lightning-button-icon
+                                icon-name="utility:add"   
+                                variant="brand"                            
+                                onclick={openCreateOpp}
+                                alternative-text="Create Opportunity"
+                                title="Create Opportunity"
+                                size="large"
+                                disabled={isDisableSaveUnsaveAddOppButtos}>
+                            </lightning-button-icon>
+                    <template lwc:if={isInsightSnoozed}>
+                        <lightning-button-icon
+                                class="slds-p-around_xx-small"
+                                icon-name="utility:delete"   
+                                variant="brand"                            
+                                onclick={openSnoozeInsight}
+                                alternative-text={snoozedButtonLabel}
+                                title={snoozedButtonLabel}
+                                size="large"
+                                disabled={isDisableSaveUnsaveAddOppButtos}>
+                            </lightning-button-icon>
+                    </template>
+                    <template lwc:else>
+                        <lightning-button-icon
+                                class="slds-p-around_xx-small"
+                                icon-name="utility:bookmark"   
+                                variant="brand"                            
+                                onclick={openSnoozeInsight}
+                                alternative-text={snoozedButtonLabel}
+                                title={snoozedButtonLabel}
+                                size="large"
+                                disabled={isDisableSaveUnsaveAddOppButtos}>
+                            </lightning-button-icon>
+                    </template>
+                    <lightning-button-icon class="slds-p-around_xx-small"
+                            icon-name="utility:like"   
+                            variant="brand"                            
+                            onclick={openAccept}
+                            alternative-text="Accept"
+                            title="Accept"
+                            size="large"
+                            disabled={isDisableAcceptRejectButtos}>
+                        </lightning-button-icon>
+                        <lightning-button-icon class="slds-p-around_xx-small"
+                            icon-name="utility:dislike"   
+                            variant="brand"                            
+                            onclick={openReject}
+                            alternative-text="Reject" 
+                            title="Reject"
+                            size="large" 
+                            disabled={isDisableAcceptRejectButtos}>
+                        </lightning-button-icon>
+                    <lightning-button class="slds-p-around_xx-small" variant="brand" label="Update" title="Update"  onclick={saveRecAction} disabled={isDisableUpdateButton}></lightning-button>
+               </footer> 
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--Use template if:true to display/hide popup based on changeOwnerModalFlag value--> 
+    <template lwc:if={changeOwnerModalFlag}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeChangeOwner}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Change Product Specialist</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                    <div>  
+                        <c-aki-comp-lwc-lookup lookup-label="Product Specialist" object-api-name="user" icon-name="standard:user"  
+                          onrecordselection={onProductSpecSelection}></c-aki-comp-lwc-lookup>  
+                        <br/>
+                        <lightning-input type="checkbox" label="Send notification email" name="sendNotificationEmail" onchange={handleSendEmailOwnerChange}></lightning-input><br/><br/><br/><br/><br/><br/><br/><br/>
+                      </div>
+                    
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeChangeOwner} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitChangeOwner} disabled={changeOwnerBottonFlag} title="Change Owner">Change Owner</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+    
+    <!-- CreateOpportunity start  here -->
+    <template lwc:if={createOppFlag}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeCreateOpp}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Create Opportunity</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <div class="slds-box_x-small slds-theme_shade">
+                        <h4 class="slds-text-heading_small" >Opportunity Information</h4><!--Tshihfiwa-->
+                    </div>
+                    
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div>
+                                    <lightning-input required="true" label="Name" class="coName coFields" onchange={handleCOName}></lightning-input>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label"><abbr class="slds-required" title="required">* </abbr>Client Name </div>
+                                <div class="slds-box slds-box_xx-small" style={selectedRow.createOppStyle}>
+                                    <template lwc:if={selectedRow.ClientName}>
+                                        <lightning-icon icon-name="standard:account" size="small"></lightning-icon> &nbsp;&nbsp;
+                                        {selectedRow.ClientName}
+                                    </template>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>MNPI </span>
+                            <span  class="slds-m-left_xx-small">  
+                                <lightning-helptext content="Restrict visibility of the Opportunity"></lightning-helptext>
+                            </span>
+                            <span>   
+                            <lightning-input variant="label-hidden" type="checkbox" label="Basic option" name="mnpi" onchange={handleMNPIChange}></lightning-input>
+                            </span>  
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">
+                                    <abbr class="slds-required" title="required">* </abbr>Lead Source
+                                    <span   class="slds-m-left_xx-small">  
+                                        <lightning-helptext content="This primary source where this opportunity originated form as a lead"></lightning-helptext>
+                                    </span></div>
+                                <div class="slds-box slds-box_xx-small" style="padding-bottom: 7px;padding-top: 7px;padding-left: 6px;">                                   
+                                   Smart Nudge
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                   
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                                <div>
+                                    <abbr class="slds-required" title="required">* </abbr>Description
+                                    <span   class="slds-m-left_xx-small">  
+                                        <lightning-helptext content="A full detail of the nature of the Opportunity"></lightning-helptext>
+                                    </span>
+                                    <span>   
+                                        <lightning-textarea variant="label-hidden" onchange={handleCODesc} class="coDescription coFields"></lightning-textarea>
+                                    </span>                                
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-box_x-small slds-theme_shade">
+                        <h4 class="slds-text-heading_small" >Stage Information</h4>
+                    </div>
+                                   
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label"><abbr class="slds-required" title="required">* </abbr>Stage</div>
+                                <div class="slds-box slds-box_xx-small" style="padding-bottom: 7px;padding-top: 7px;padding-left: 6px;">                                   
+                                   1 - Lead
+                                </div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                                <div>
+                                    <abbr class="slds-required" title="required">* </abbr>Start Date
+                                    <span   class="slds-m-left_xx-small">  
+                                        <lightning-helptext content="The day the Opportunity discussions started, only editable in the Lead stage."></lightning-helptext>
+                                    </span>
+                                    <span>   
+                                        <lightning-input variant="label-hidden" type="date" name="input1" class="coStartDate coFields" onchange={handleCOStartDate} label="Start Date" ></lightning-input>
+                                    </span>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label"><abbr class="slds-required" title="required">* </abbr>Probability (%)
+                                    <span   class="slds-m-left_xx-small">  
+                                        <lightning-helptext content="The probability of winning the Opportunity as a percentage."></lightning-helptext>
+                                    </span>
+                                    
+                                </div>
+                                <span>
+                                    <lightning-input type="number" name="input6" value={createOppProbability} variant="label-hidden" label="Probability" formatter="percent-fixed" onchange={handleProbabilityChange}></lightning-input>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <div>
+                                <abbr class="slds-required" title="required">* </abbr>Estimated Close Date
+                                <span   class="slds-m-left_xx-small">  
+                                    <lightning-helptext content="The day the Opportunity should close. Cannot be a date in the past."></lightning-helptext>
+                                </span>
+                                <span>   
+                                    <lightning-input variant="label-hidden" type="date" class="coCloseDate coFields" name="input3" onchange={handleCOCloseDate} label="Estimated Close Date" ></lightning-input>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+
+
+
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeCreateOpp} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitCreateOpp} disabled={createOppButtonFlag} title="Create Opportunity">Create Opportunity</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- CreateOpportunity  copying here -->
+
+
+     <!-- snoozeModalFlag snooze functionality starts from here--> 
+     <template lwc:if={snoozeModalFlag}>
+        <!-- Modal/Popup Box LWC starts here -->
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box LWC header here -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeSnoozeInsight}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Snooze Insight</h2>
+                </header>
+                <!-- Modal/Popup Box LWC body starts here -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    
+                    <div>  
+                        <b>Note: </b> 
+                        You are about to a snooze this insight. Please bare in mind that this does not remove your insight from your list view and that will stillbe require to be actioned.                        
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Expiry Date</div>
+                                <div>{selectedRow.Expiry_Date__c}</div>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                
+                            </span>
+                        </div>
+                    </div>  
+
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                            <span>
+                                <div>
+                                    <lightning-textarea name="insightDetails" disabled value="Test Insight Details" label="Insight Details" ></lightning-textarea>
+                                </div>
+                            </span>
+                        </div>                            
+                    </div>   
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                            <span>
+                                <lightning-textarea name="recNextStep" disabled value={selectedRow.Next_Steps__c} label="Recommended Next Step" ></lightning-textarea>                                    
+                            </span>
+                        </div>                            
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_12-of-12">
+                            <span>
+                                <lightning-textarea name="comments" value={selectedRow.Comment__c} label="Comments" onchange={handleRecChanges}></lightning-textarea>
+                            </span>
+                        </div>                            
+                    </div>  
+
+                    
+                </div>
+                <!-- Modal/Popup Box LWC footer starts here -->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeSnoozeInsight} title="Cancel">Cancel</button>
+                    <lightning-button class="slds-p-around_xx-small" variant="brand" label={snoozedButtonLabel} title={snoozedButtonLabel} onclick={handleSnoozedToggleClick}>
+                    </lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+
+    <!-- Send Feedback start here -->
+    <template lwc:if={sendFeedbackFlag}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeSendFeedback}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-05" class="slds-text-heading_medium slds-hyphenate">Provide Feedback</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-5">
+                      
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <div class="slds-form-element__label">Insight ID</div>
+                                <div><a onclick={navigateInsigtDetailPage} data-id="Active">{selectedRow.Name} </a></div>
+                            </span>
+                        </div>                        
+                    </div>
+                    <div class="slds-grid slds-gutters slds-p-top_x-small slds-p-bottom_x-small">
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <template lwc:if={insStatusPicklist.data}>
+                                    <lightning-combobox name="insightStatus" required label="Insight Status" value={insightStatusVal} options={insStatusPicklist.data.values} onchange={insStatusPicklistHandleChange}>                    
+                                    </lightning-combobox>                    
+                                </template>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_6-of-12">
+                            <span>
+                                <template lwc:if={insQualityPicklist.data}>
+                                    <lightning-combobox name="insightQuality" required label="Insight Quality" value={insightQualityVal} options={insQualityPicklist.data.values} onchange={insQualityPicklistHandleChange}>                    
+                                    </lightning-combobox>                    
+                                </template>
+                            </span>
+                        </div>
+                        <br/><br/><br/><br/><br/><br/><br/><br/>
+                    </div>   
+                    
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeSendFeedback} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitSendFeedback} disabled={submitSendFeedbackFlag} title="Save">Save</button>  
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- Send Feedback ends here -->
+
+     <!-- Accept start here -->
+    <template lwc:if={acceptFlag}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeAccept}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-06" class="slds-text-heading_medium slds-hyphenate">Create Opportunity</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-6">                   
+                   <p>Would you like to create an opportunity?</p>  
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={sendAcceptFeedback} title="Maybe later">Maybe later</button>
+                    <button class="slds-button slds-button_brand" onclick={createNewOpportunity} title="Yes">Yes</button>  
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- Accept ends here -->
+
+     <!-- Reject start here -->
+     <template lwc:if={rejectFlag}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeReject}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-07" class="slds-text-heading_medium slds-hyphenate">Reason for Rejecting</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-7">
+                                         
+                    <lightning-layout multiple-rows class="slds-p-left_large">
+                
+                        <template for:each={feedbackOptions} for:item="option">
+                            <lightning-layout-item key={option.label} size="6" padding="around-x_small">
+                                    <lightning-input  type="checkbox" label={option.label} name={option.label} checked={option.isSelected}  onchange={handleRejectOptions}></lightning-input>
+                            </lightning-layout-item>
+                        </template>
+                        <lightning-layout-item size="12" padding="around-x_small"></lightning-layout-item>
+                        <lightning-layout-item  size="12" class="slds-p-top_large slds-p-right_xx-large">
+                            <lightning-textarea required={isRequiredComments} name="rejectcomments" max-length="250" value={reasonForRejectComments} label="Additional Comments" onchange={handleRejectComments}></lightning-textarea>
+                            <div class="slds-text-align_right">
+                                <span class={countClass}> <b>{commentCharsCount}/250  characters</b> </span>
+                            </div>
+                        </lightning-layout-item>
+                       
+                    </lightning-layout>
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeReject} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitReject} disabled={submitRejectFlag} title="Reject">Reject</button>  
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- Reject ends here -->
+</template>

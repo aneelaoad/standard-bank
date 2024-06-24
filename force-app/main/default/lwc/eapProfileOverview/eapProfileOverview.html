@@ -1,0 +1,217 @@
+<!--
+  @description       : Show Profile Overview info
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-08-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-07-2021   TCK   Initial Version
+-->
+<template>
+    <div class="relleno"></div>
+    <div class='v1_all'>
+        <div class="v1_div_info">
+            <div class="v1_card_first">
+                <lightning-card >     
+                    <div class="v1_div_img">
+                        <img src={user.Img}/> 
+                    </div>
+
+                    <div class="v1_div_decorator">
+                        <img src={decoratorIcon}/> 
+                    </div>
+            
+                    <div class="v1_div_user_info">
+                        <p class="light_titles">{user.Name}</p>
+        
+                        <div class="v1_div_user_titles">
+                            <template if:false={editMode}>
+                                <p>{user.Title}</p>
+                            </template>
+                            <template if:true={editMode}>
+                                <lightning-input type="text" name="Title" variant="label-hidden" onblur={handleInputChange} placeholder={labels.Title} value={user.Title}></lightning-input>
+                            </template>
+
+                            <p>{user.Subtitle}</p>
+                        </div>
+        
+                        <template if:false={editMode}>
+                            <template if:true={user.About}>
+                                <div class="v1_div_user_about">
+                                    <p class="v1_title_about">{labels.AboutMe}</p>
+                                    <p>{user.About}</p>
+                                </div>
+                            </template>
+
+                            <img src={editIcon} onclick={fillInformation}>
+                        </template>
+                        <template if:true={editMode}>
+                            <div class="v1_div_user_about">
+                                <p class="v1_title_about">{labels.AboutMe}</p>
+                                <lightning-textarea type="text" name="About" variant="label-hidden" onblur={handleInputChange} placeholder={labels.AboutMe} value={user.About}></lightning-textarea>
+                            </div>
+                            
+                            <div class="iconsOnProfile">
+                                <img class="filter" src={checkIcon} onclick={saveChanges}>
+                                <img class="filter" src={closeIcon} onclick={cancelChanges}>
+                            </div>
+                        </template>
+                        
+                    </div>
+                </lightning-card>
+            </div>
+
+            <lightning-card>
+                <div class="v1_div_user_contact">
+                    <p class="v1_h2_headingAbout light_titles">{labels.ContactInfo}</p>
+    
+                    <template if:false={editMode}>
+                        <template if:true={user.Email}>
+                            <div class="v1_div_user_detail">
+                                <div class="v1_div_imgDetail">
+                                    <img class="filter" src={emailIcon}/> 
+                                </div>
+                                <p class="v1_contact_txt">{user.Email}</p>
+                            </div>
+                        </template>
+
+                        <template if:true={user.Mobile}>
+                            <div class="v1_div_user_detail">
+                                <div class="v1_div_imgDetail">
+                                    <img src={mobileIcon}/> 
+                                </div>
+                                <p class="v1_contact_txt">{user.Mobile}</p>
+                            </div>
+                        </template>
+
+                        <template if:true={user.Phone}>
+                            <div class="v1_div_user_detail">
+                                <div class="v1_div_imgDetail">
+                                    <img src={phoneIcon}/> 
+                                </div>
+                                <p class="v1_contact_txt">{user.Phone}</p>
+                            </div>
+                        </template>
+                    </template>
+                    <template if:true={editMode}>
+                        <div class="v1_div_user_detail">
+                            <div class="v1_div_imgDetail">
+                                <img class="filter" src={emailIcon}/> 
+                            </div>
+                            <div class="v1_div_inputContainer">
+                                <lightning-input type="email" name="Email" variant="label-hidden" onblur={handleInputChange} placeholder={labels.Email} value={user.Email}></lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="v1_div_user_detail">
+                            <div class="v1_div_imgDetail">
+                                <img src={mobileIcon}/> 
+                            </div>
+                            <div class="v1_div_inputContainer">
+                                <lightning-input type="tel" name="Mobile" variant="label-hidden" onblur={handleInputChange} placeholder={labels.Mobile} value={user.Mobile}></lightning-input>
+                            </div>
+                        </div>
+
+                        <div class="v1_div_user_detail">
+                            <div class="v1_div_imgDetail">
+                                <img src={phoneIcon}/> 
+                            </div>
+                            <div class="v1_div_inputContainer">
+                                <lightning-input type="tel" name="Phone" variant="label-hidden" onblur={handleInputChange} placeholder={labels.Phone} value={user.Phone}></lightning-input>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </lightning-card>
+
+            <div class="v1_div_timezone">
+                <lightning-card>
+                    <div class="v1_div_user_contact">
+                        <p class="v1_h2_headingAbout light_titles">{labels.TimeZone}</p>
+                        <template if:false={editMode}>
+                            <p>{user.TimeZone}</p>
+                        </template>
+                        <template if:true={editMode}>
+                            <select name='TimeZone' onchange={handleInputChange}>
+                                <template for:each={timeZonesList} for:item="tz">
+                                    <template if:true={tz.Selected}>
+                                        <option value={tz.Value} key={tz.Id} selected>{tz.Label}</option>
+                                    </template>
+                                    <template if:false={tz.Selected}>
+                                        <option value={tz.Value} key={tz.Id}>{tz.Label}</option>
+                                    </template>
+                                </template>
+                            </select>
+                        </template>
+                    </div>
+                </lightning-card>
+            </div>
+        </div>
+
+        <template if:false={editMode}>
+            <template if:true={haveInterest}>
+                <div class="v1_div_interest">
+                    <p class="v1_h2_headingAbout light_titles">{labels.MyInterests}</p>
+                    <div class="slds-grid slds-gutters slds-wrap">
+        
+                        <template for:each={interestData} for:item="interest">
+                            <div class="slds-col slds-size_1-of-2" key={interest.Id}>
+                                <div class="v1_div_button">
+                                    <div>{interest.Name}</div>
+                                </div>
+                            </div>
+                        </template>
+        
+                    </div>
+                </div>
+            </template>
+        </template>
+        <template if:true={editMode}>
+            <div class="v1_div_businessInterest">
+                <p class="v1_h2_headingAbout light_titles">{labels.BusinessInterests}</p>
+                <div class="slds-grid slds-gutters slds-wrap">
+
+                    <template for:each={businessInterestsList} for:item="interest">
+                        <div class="slds-col slds-size_1-of-2" key={interest.Id}>
+                            <template if:true={interest.Selected}>
+                                <div class="v1_div_button" onclick={handleBIClick} data-name={interest.Value}>
+                                    <div onclick={handleBIClick} data-name={interest.Value}>{interest.Value}</div>
+                                </div>
+                            </template>
+                            <template if:false={interest.Selected}>
+                                <div class="v1_div_button unselected" onclick={handleBIClick} data-name={interest.Value}>
+                                    <div onclick={handleBIClick} data-name={interest.Value}>{interest.Value}</div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+
+            <div class="v1_div_interest">
+                <p class="v1_h2_headingAbout light_titles">{labels.PersonalInterests}</p>
+                <div class="slds-grid slds-gutters slds-wrap">
+
+                    <template for:each={interestsList} for:item="interest">
+                        <div class="slds-col slds-size_1-of-2" key={interest.Id}>
+                            <template if:true={interest.Selected}>
+                                <div class="v1_div_button" onclick={handleInterestClick} data-name={interest.Value}>
+                                    <div onclick={handleInterestClick} data-name={interest.Value}>{interest.Value}</div>
+                                </div>
+                            </template>
+                            <template if:false={interest.Selected}>
+                                <div class="v1_div_button unselected" onclick={handleInterestClick} data-name={interest.Value}>
+                                    <div onclick={handleInterestClick} data-name={interest.Value}>{interest.Value}</div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+        </template>
+        
+    </div>
+</template>

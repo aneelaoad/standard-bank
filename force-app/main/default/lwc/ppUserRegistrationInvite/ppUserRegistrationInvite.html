@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : Peter Guest
+  @group             : CloudSmiths
+  @last modified on  : 08-17-2023
+  @last modified by  : Areeba Khan (areeba.khan@standardbank.co.za)
+-->
+<template>
+    <lwc if:false={error}>
+        <p>An invitation to register for Partner Connect has been emailed to the customer.</p>
+    </lwc>
+
+    <!-- Failed to send an invite -->
+    <lwc if:true={error}>
+        <div class="slds-text-color_error">{error.body.message}</div>
+    </lwc>
+</template>

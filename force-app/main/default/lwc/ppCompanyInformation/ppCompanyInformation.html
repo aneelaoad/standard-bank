@@ -1,0 +1,57 @@
+<!-- **
+* @description  : Partner Portal Regisrtaion Form Sub Component
+* User Story : SFP-5159
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <div class="container">
+        <template if:true={renderFlag}>
+            <div class="slds-col slds-m-top_small">
+                <div class="row">
+                    <div class="column">
+                        <p class="slds-text-title_bold sec-heading">Your Company Details</p>
+                        <p class="text">Tell us about your company</p>
+                    </div>
+                    <div class="column">
+                        <img src={icon} class="sec-icon">
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <lightning-input type="text" label="Company Name" placeholder="Enter Company Name"
+                    value={businessOrCompanyName} name="Company" class="Company" onchange={handleInputChange}>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <lightning-input type="text" label="Company Registration No."
+                    placeholder="Enter Company Registration No." value={registrationNo} name="RegistrationNo"
+                    class="RegistrationNo" onchange={handleInputChange}></lightning-input>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <lightning-combobox name="Industry" label="Industry" value={industry} class="Industry"
+                    placeholder="Select Industry" options={insudtryOptions} onchange={handleInputChange}>
+                </lightning-combobox>
+            </div>
+            <!--  <div class="slds-col slds-m-top_small">
+          <lightning-dual-listbox name="Capabilities" label="Business Capabilities" class="Capabilities"
+                source-label="Available" selected-label="Selected"
+                options={capabilitiesOptions} placeholder="Select up to 3 Options" value={capabilities} onchange={handleInputChange}>
+            </lightning-dual-listbox>
+           </div>-->
+
+           <!--Calling Custom MultiSelect Component and Handling Required Validation-->
+            <div class="slds-col slds-m-top_small">
+                <div class={errorCss}>
+                    <c-cmn-multi-select-combobox name="Capabilities" label="Capabilities" value={capabilities}
+                        options={capabilitiesOptions} onselect={handleInputChange}>
+                    </c-cmn-multi-select-combobox>
+                    <template if:true={errorCss}>
+                        <div class="slds-form-element__help">Please Enter Capabilities</div>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

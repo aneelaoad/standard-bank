@@ -1,0 +1,21 @@
+<!--
+  @description       : Lwc to show documents events list
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-28-2021   TCK   Initial Version
+-->
+<template>
+  <template if:true={loading}>
+    <c-eap-spinner></c-eap-spinner>
+  </template>
+
+  <div class="content">
+    <c-eap-header-detail title={title}></c-eap-header-detail>
+    <c-eap-documents-content onloaded={hasLoaded}></c-eap-documents-content>
+    <c-eap-footer isfixed=true></c-eap-footer>
+  </div>
+</template>

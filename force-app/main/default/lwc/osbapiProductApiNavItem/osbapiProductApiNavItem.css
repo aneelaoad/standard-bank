@@ -1,0 +1,18 @@
+.api-nav-item-container {
+    background: transparent;
+    margin: 0.5rem 0;
+}
+
+.api-nav-item {
+    padding: 0.5rem 1rem 1rem 1rem;
+    color: #767676; 
+}
+.api-nav-item:hover {
+    color: #0089FF;
+    border-bottom: 3px solid #0089FF;
+}
+
+.current-api-page {
+    color: #0089FF;
+    border-bottom: 2px solid #0089FF;
+}

@@ -1,0 +1,27 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-01-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="container">
+    <lightning-spinner lwc:if={isLoading}></lightning-spinner>
+    <template lwc:else>
+      <template for:each={documents} for:item="document" for:index="docIndex">
+        <c-cib_comp_document-uploader
+          key={document.type}
+          required={document.isRequired}
+          is-participant-document={isParticipant}
+          section-id={sectionId}
+          application-id={applicationId}
+          participant-id={participantId}
+          document-type={document.type}
+          label={document.label}
+          guidelines={document.guidelines}
+        ></c-cib_comp_document-uploader>
+      </template>
+    </template>
+  </div>
+</template>

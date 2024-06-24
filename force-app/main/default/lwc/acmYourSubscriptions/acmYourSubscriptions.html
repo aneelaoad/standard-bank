@@ -1,0 +1,44 @@
+<template>
+    <div class="table_parent container">
+        <p style="padding-bottom: 10px;font-size: 15px;font-weight: bold;
+         font-family: var(--lwc-fontFamily,BentonSans);
+         color: #000;border-top: 1px solid #CCCCCC;padding-top: 32px;">Your Subscription</p>
+        <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered subscription-table-entrypoint" aria-label="Your Subscription">
+            <thead class="table_head_sec">
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="API Product">API Product</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Version">Version</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Enviornment">Environment</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Request Status">Request Status</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="table_body_sec">
+                <template for:each={newdataArray} for:item="subscriptionObj">
+                    <tr key={subscriptionObj.subscriptionObj} class="slds-hint-parent">
+                        <td>
+                            <div class="slds-truncate" >{subscriptionObj.apiProduct}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate " >{subscriptionObj.version}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate " >{subscriptionObj.enviornment}</div>
+                        </td>
+                        <td>
+                            <div class={subscriptionObj.statusClass}>{subscriptionObj.status}</div>
+                        </td>
+                    </tr>
+                </template>
+                
+            </tbody>
+        </table>
+    </div>
+</template>

@@ -1,0 +1,151 @@
+<!--
+  @description       : 
+  @author            : simangaliso.mthenjwa@standardbank.co.za
+  @group             : 
+  @last modified on  : 06-20-2024
+  @last modified by  : simangaliso.mthenjwa@standardbank.co.za
+-->
+<template>
+  <!--Unauthenticated users home page landing components-->
+  <template if:true={isGuestBool}>
+    <!--Dynamic carousel component goes here-->
+    <template if:true={promotionCollection}>
+      <div class="midpage-banner-container">
+        <div class="midpage-banner hero-banner">
+          <c-sbg-mid-page-banner
+            is-carousel="false"
+            heading={bannerHeading}
+            description="The smartest way to get your business ahead"
+            sub-text="From small to large businesses, we've got you covered"
+            action={bannerAction}
+            destination-url={bannerDestinationUrl}
+            button-label="Get Started"
+            disabled={bannerDisabled}
+            button-title={bannerButtonTitle}
+            show-button="true"
+            image-path={mallHomeBanner1}
+            image-path-tablet={staticBannerRecord.imagePathTablet}
+            image-path-desktop={staticBannerRecord.imagePathDesktop}
+            interaction-text-before={bannerInteractionTextBefore}
+            interaction-scope={bannerInteractionScope}
+            interaction-text={bannerInteractionText}
+            interaction-type="click"
+            interaction-intent="navigational"
+            onclick={handleSignup}
+            is-hero="true"
+            custom-background-colour={mallHomeBanner1}
+          >
+          </c-sbg-mid-page-banner>
+        </div>
+      </div>
+    </template>
+
+    <!--Business events list goes here-->
+    <c-mall-benefits-list
+      mock-enabled={trueVal}
+      collection={businessEventCollection}
+      is-business-event-item="true"
+    ></c-mall-benefits-list>
+
+
+    <div class="grid-container-first-content">
+      <div class="grid-section__first side-by-side-grid">
+        <div class="grid-column">
+          <h5>{titleFirstParagraph}</h5>
+          <lightning-formatted-rich-text
+            value={contentFirstParagraph}
+          ></lightning-formatted-rich-text>
+        </div>
+        <div class="grid-column img-column">
+          <div class="img-wrapper">
+            <img
+              loading="lazy"
+              src={mallGridImage1}
+              alt={titleFirstParagraph}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+      
+
+    <div class="grid-container-second-content reverse">
+      <div class="grid-section__second side-by-side-grid">
+        <div class="grid-column img-column">
+          <div class="img-wrapper">
+            <img
+              loading="lazy"
+              src={mallGridImage2}
+              alt={titleSecondParagraph}
+            />
+          </div>
+        </div>
+        <div class="grid-column">
+          <h5>{titleSecondParagraph}</h5>
+          <lightning-formatted-rich-text
+            value={contentSecondParagraph}
+          ></lightning-formatted-rich-text>
+        </div>
+      </div>
+    </div>
+
+    <c-mall-solutions-banner></c-mall-solutions-banner>  
+
+    <c-mall-state-insights></c-mall-state-insights>
+    
+    <div class="grid-container-first-content">
+      <div class="grid-section__first side-by-side-grid">
+        <div class="grid-column">
+          <h5>Fine-tune your operations</h5>
+          <lightning-formatted-rich-text
+            value="Improve efficiency and drive results with tools and features built to fuel growth across locations, channels and teams."
+          ></lightning-formatted-rich-text>
+          <div class="opperations-view-demo-button"><a>Watch our demo</a></div>
+        </div>
+        <div class="grid-column img-column">
+          <div class="img-wrapper">
+            <img
+              loading="lazy"
+              src={mallHomeOperationsImage}
+              alt={titleFirstParagraph}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <c-mall-manage-banking-payments></c-mall-manage-banking-payments>
+    <c-mall-reach-out-us></c-mall-reach-out-us>
+
+    <template if:true={promotionCollection}>
+      <div class="midpage-banner-container">
+      <div class="midpage-banner hero-banner">
+        <c-mall-mid-page-banner
+          heading={bannerHeading}
+          description="Ready to move to Standard Bank?"
+          sub-text="open an account with experts who are serious about where your business is going"
+          action={bannerAction}
+          destination-url={bannerDestinationUrl}
+          button-label="SWITCH"
+          disabled={bannerDisabled}
+          button-title={bannerButtonTitle}
+          show-button="false"
+          image-path={mallHomeSwitch}
+          image-path-tablet={staticBannerRecord.imagePathTablet}
+          image-path-desktop={staticBannerRecord.imagePathDesktop}
+          interaction-text-before={bannerInteractionTextBefore}
+          interaction-scope={bannerInteractionScope}
+          interaction-text={bannerInteractionText}
+          interaction-type="click"
+          interaction-intent="navigational"
+          is-hero="true"
+          
+        >
+        </c-mall-mid-page-banner>
+      </div>
+      </div>
+    </template>
+  </template>
+<!--Mall Opperations list goes here-->
+</template>

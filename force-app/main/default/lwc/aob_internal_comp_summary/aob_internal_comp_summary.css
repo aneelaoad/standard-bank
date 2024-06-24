@@ -1,0 +1,144 @@
+.aob-bundle-header {
+   font-size: 26px;
+   font-weight: 300;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.29;
+   letter-spacing: normal;
+   color: #3c4b6c;
+   font-family: 'bentonsans-extra-light-webfont';
+}
+
+.top-left-padding {
+   padding: 0.5rem 0 0 1.5rem !important;
+}
+
+.aob_display-flex {
+   display: flex;
+   justify-content: center;
+}
+
+.aob_estimation_block_content {
+   width: 100% !important;
+   margin-bottom: 5% !important;
+}
+
+.aob_estimation_block_content img {
+   width: 100%;
+}
+
+.aob_bundle_block {
+   width: 100%;
+   height: 57px;
+   object-fit: contain;
+   border-radius: 2px;
+   box-shadow: 0 12px 29px 0 rgba(0, 0, 0, 0.2);
+   background-image: linear-gradient(97deg, #0033a1 0%, #1f59d8 100%);
+}
+
+.aob-bottom-bundle {
+   width: 100%;
+   height: 388px;
+   background-color: rgba(0, 51, 161, 0.1);
+}
+
+.aob-bottom-link {
+   height: 19px;
+   margin: 23px 29px 0 30px;
+   font-family: BentonSans;
+   font-size: 14px;
+   text-align: left;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.36;
+   letter-spacing: normal;
+   color: var(--deep-sky-blue);
+}
+
+.supscript {
+   font-family: BentonSans;
+   font-size: 22px;
+   color: #353637;
+}
+
+.supscript small {
+   font-family: BentonSans;
+   font-size: 13px;
+   color: #353637;
+}
+
+.Line {
+   width: 56px;
+   height: -8px;
+   height: -9px;
+   border-bottom: 4px solid #e02020;
+   position: absolute;
+   transform: translateY(8px) translateX(4px) rotate(0deg);
+
+}
+
+.aob_navigation_buttons {
+   border-radius: 0.15rem;
+   line-height: 2.75rem;
+   text-transform: uppercase;
+   width: 100%;
+   font-size: 14px;
+   letter-spacing: 1.08px;
+   margin-left: 23px;
+}
+
+.modalpop_heading {
+   /* background-color: blue; */
+   text-align: center;
+   display: flex;
+   align-items: center;
+   height: 30px;
+   padding: 30px;
+}
+
+.heading_medium {
+   color: white;
+   margin: 0 auto;
+}
+
+.body_center {
+   text-align: center;
+   padding-top: 25px;
+}
+
+.close_icon {
+   position: absolute;
+   right: 0px;
+   top: 0px;
+}
+
+.card-title{
+  position: relative;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.29;
+  color: #3c4b6c;
+  padding: 15px 0;
+}
+
+.card-container{
+  position: relative;
+}
+
+.close-icon{
+  position:absolute;
+  top: 0px;
+  left: 0px;
+}
+.button-container{
+  /* position: fixed;
+  bottom: 0px; */
+  width: 100%;
+  text-align: center;
+  padding: 20px 50px;
+}
+
+.closeIcon{
+   cursor: pointer;
+}

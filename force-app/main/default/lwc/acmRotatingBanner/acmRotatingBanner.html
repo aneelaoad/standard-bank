@@ -1,0 +1,26 @@
+<template>
+    <template lwc:if={slides}>
+        <div class="indicators-container">
+            <div class="ExtendToFullWidth">
+                <div class="indicators-outer">
+                  <template lwc:if={thresholdCount}>
+                    <div class="slide-indicators">
+                        <span for:each={slides} for:item="slide" key={slide.position}>
+                            <a role="button" onclick={onSlideIconClick} data-position={slide.position} class={slide.classList}></a>
+                        </span>
+                    </div>
+                  </template>
+                </div>
+            </div>
+        </div>
+    </template>
+    <div style={slidesSetHeight} class={widthTypeClass}>
+        <span for:each={ACM_Slides} for:item="banner" key={banner.position} for:index="index">
+            <c-acm-banner title={banner.title} image-path={banner.image_desktop} image-path-mobile={banner.image_mobile}
+                image-path-tablet={banner.image_tablet} content={banner.content} button-label={banner.buttonLabel}
+                destination-url={banner.destinationUrl} carousel-name="MarketplaceSlider"
+                carousel-slide-position={banner.position} height-for-desktop="550px" variant="brand"
+                show-button={ShowBtn} slides-largest-height={slidesSetHeight}></c-acm-banner>
+        </span>
+    </div>
+</template>

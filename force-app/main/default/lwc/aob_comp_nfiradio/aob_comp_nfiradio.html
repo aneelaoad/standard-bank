@@ -1,0 +1,34 @@
+<!--
+  @description       : this component used to get Radio buttons input data
+  @author            : Chandu
+  @group             : 
+  @last modified on  : 19 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348   
+-->
+<template>
+
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div class="cipc_container absPos">
+		<div style="display: flex; margin-bottom: 10px">
+				<img alt="Exclamation Icon" src={ExcIcon}
+					class="aob_modal_close_button slds-m-right_xx-small slds-m-left_large excImg">
+				<p class="titleStyle">{label.AOB_ZA_DoesYourCompany}</p>
+		</div>
+		<ul>
+			<li>{label.AOB_ZA_EarnMoreThan}</li>
+			<li>{label.AOB_ZA_HoldMoreThan}</li>
+		</ul>
+		<div class="alignRadioGrp">
+			<lightning-radio-group name="radioGroup" options={options} value={value} type="radio">
+			</lightning-radio-group>
+			<input type="radio" name="nfiradio" data-name={name} data-value="true" onchange={genericRadioChange}>
+			{label.AOB_Yes} <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<input type="radio" name="nfiradio" data-name={name} data-value="false" onchange={genericRadioChange}>
+			{label.AOB_No}
+		</div>
+		
+	</div>
+
+
+</template>

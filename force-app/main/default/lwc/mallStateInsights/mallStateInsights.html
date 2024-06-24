@@ -1,0 +1,262 @@
+<template>
+  <template if:true={insightsLoaded}>
+    <div class="insight-section">
+      <div class="container insights-container">
+        <h3 class="partner-heading">Gain valuable knowledge</h3>
+        <h4 class="partner-sub-heading">View our expert-driven insights and get the advice and tools you need to make your smart business decisions</h4>
+        <div class="insight-top-button-container">
+          <button class="insight-top-button">Starting a new business</button>
+          <button class="insight-top-button">Managing your business</button>
+          <button class="insight-top-button">Growing your business</button>
+        </div>
+        <div class="insights-grid">
+         <template if:true={topInsight}>
+            <div
+              data-tileid={topInsight.tileId}
+              onclick={showModalBox}
+              data-intent="navigational"
+              data-text-after="link"
+              data-id="link_content"
+              data-text-before={topInsight.tileTitle}
+              data-type="click"
+              data-text="insight link"
+              data-scope="BCB Platform insights"
+              data-insight-id={topInsight.tileId}
+              class="first-insight insight-section-info"
+            >
+              <div class="insight-avatar img-loading">
+                <img
+                  loading="lazy"
+                  src={mallFirstInsight}
+                  alt={topInsight.tileTitle}
+                />
+              </div>
+              <div class="insight-data-info">
+                <!--<label>{topInsight.tileTitle}</label>-->
+                <strong class="slds-line-clamp_x-small">                
+                  12 things to know before starting your own business
+              </strong>
+                <p class="slds-line-clamp_x-small">
+                  <img
+                    loading="lazy"
+                    class="timer-icon"
+                    src={timerIcon}
+                  />{topInsight.readTime} {minReadText}
+                </p>
+                <lightning-formatted-rich-text
+                  class="top-insight-rich-text format-inherit remove-br"
+                  value="If you're an entrepreneur planning to start your own business we've..."
+                >
+                </lightning-formatted-rich-text>
+                <div class="read-more-container">
+                  <span class="read-more">Read more</span>
+                  <!--<span class="chevron"></span>-->
+                </div>
+              </div>
+            </div>
+          </template>
+          <template if:true={secondInsight}>
+            <div
+              data-tileid={secondInsight.tileId}
+              onclick={showModalBox}
+              data-intent="navigational"
+              data-text-after="link"
+              data-id="link_content"
+              data-text-before={secondInsight.tileTitle}
+              data-type="click"
+              data-text="insight link"
+              data-scope="BCB Platform insights"
+              data-insight-id={secondInsight.tileId}
+              class="first-insight insight-section-info"
+            >
+              <div class="insight-avatar img-loading">
+                <img
+                  loading="lazy"
+                  src={mallSecondInsight}
+                  alt={secondInsight.tileTitle}
+                />
+              </div>
+              <div class="insight-data-info">
+                <!--<label>{secondInsight.tileTitle}</label>-->
+                <strong class="slds-line-clamp_x-small">                  
+                  3 ways small businesses can protect themselves
+                </strong>
+                <p>
+                  <img
+                    class="timer-icon"
+                    src={timerIcon}
+                  />{secondInsight.readTime} {minReadText}
+                </p>
+                <lightning-formatted-rich-text
+                  class="format-inherit remove-br slds-line-clamp_x-small"
+                  value="Starting a business requires a significant investment,and in..."
+                >
+                </lightning-formatted-rich-text>
+                <div class="read-more-container">
+                  <span class="read-more">Read more</span>
+                  <!--<span class="chevron"></span>-->
+                </div>
+              </div>
+            </div>
+          </template>
+          <template if:true={insights}>
+            <template for:each={insights} for:item="insight">
+              <div
+                data-tileid={insight.tileId}
+                onclick={showModalBox}
+                data-intent="informational"
+                data-text-after="link"
+                data-id="link_content"
+                data-text-before={insight.tileTitle}
+                data-type="click"
+                data-text="insight link"
+                data-scope="BCB Platform insights"
+                data-insight-id={insight.tileId}
+                key={insight.tileId}
+                class="first-insight insight-section-info"
+              >
+                <div class="insight-avatar img-loading">
+                  <img
+                    loading="lazy"
+                    src={mallThirdInsight}
+                    alt={insight.tileTitle}
+                  />
+                </div>
+                <div class="insight-data-info">
+                  <!--<label>{insight.tileTitle}</label>-->
+                  <strong class="slds-line-clamp_x-small">
+                    {insight.tileText}
+                  </strong>
+                  <p>
+                    <img class="timer-icon" src={timerIcon} />{insight.readTime}
+                    {minReadText}
+                  </p>
+                  <lightning-formatted-rich-text
+                    class="format-inherit remove-br slds-line-clamp_x-small"
+                    value={insight.tileDescription}
+                  >
+                  </lightning-formatted-rich-text>
+                  <div class="read-more-container">
+                    <span class="read-more">Read more</span>
+                    <!--<span class="chevron"></span>-->
+                  </div>
+                </div>
+              </div>
+            </template>
+          </template>
+          <template if:true={secondInsight}>
+            <div
+              data-tileid={secondInsight.tileId}
+              onclick={showModalBox}
+              data-intent="navigational"
+              data-text-after="link"
+              data-id="link_content"
+              data-text-before={secondInsight.tileTitle}
+              data-type="click"
+              data-text="insight link"
+              data-scope="BCB Platform insights"
+              data-insight-id={secondInsight.tileId}
+              class="first-insight insight-section-info"
+            >
+              <div class="insight-avatar img-loading">
+                <img
+                  loading="lazy"
+                  src={mallFourthInsight}
+                  alt={secondInsight.tileTitle}
+                />
+              </div>
+              <div class="insight-data-info">
+                <!--<label>{secondInsight.tileTitle}</label>-->
+                <strong class="slds-line-clamp_x-small">                  
+                  {secondInsight.tileText}
+                </strong>
+                <p>
+                  <img
+                    class="timer-icon"
+                    src={timerIcon}
+                  />{secondInsight.readTime} {minReadText}
+                </p>
+                <lightning-formatted-rich-text
+                  class="format-inherit remove-br slds-line-clamp_x-small"
+                  value={secondInsight.tileDescription}
+                >
+                </lightning-formatted-rich-text>
+                <div class="read-more-container">
+                  <span class="read-more">Read more</span>
+                  <!--<span class="chevron"></span>-->
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+        <div class="insight-view-all-button"><a>View all </a><span class="chevron"></span></div>
+      </div>
+    </div>
+  </template>
+
+  <c-mall-modal
+    active={isShowModal}
+    header={insightsHeading}
+    variant="small"
+    onclose={hideModalBox}
+  >
+    <div slot="content" class="slds-modal__content">
+      <template if:true={selectedInsight}>
+        <div class="insight-section-info-popup">
+          <div class="reverse-wrap">
+            <div class="insights-modal-heading">
+              {selectedInsight.tileTitle}
+            </div>
+            <div class="insight-avatar img-loading">
+              <img
+                loading="lazy"
+                src={mallFirstInsight}
+                alt={selectedInsight.tileTitle}
+              />
+            </div>
+          </div>
+          <div class="insight-data-info insight-data-info2">
+            <label>{selectedInsight.tileDate}</label>
+            <p>
+              <img
+                class="timer-icon"
+                src={timerIcon}
+              />{selectedInsight.readTime} {minReadText}
+            </p>
+            <lightning-formatted-rich-text
+              class="format-inherit format-override-a"
+              value={selectedInsight.tileDescription}
+            >
+            </lightning-formatted-rich-text>
+          </div>
+        </div>
+      </template>
+    </div>
+    <!--<template if:true={isGuestUser}>
+      <div slot="footer" class="footer-button">
+        <a
+          href={signupurl}
+          onclick={handleGoToRegister}
+          data-intent="navigational"
+          data-scope="offering-list-content"
+          data-id="link_content"
+          data-type="click"
+          data-text={mallRegisterOrSignIn}
+          data-text-after="link"
+          data-button={mallRegisterOrSignIn}
+        >
+          <span
+            class="button-text"
+            data-intent="navigational"
+            data-text-after="button"
+            data-id="link_content"
+            data-type="click"
+            data-text="Register/sign in button"
+            data-scope="BCB Platform insight"
+            >{mallRegisterOrSignIn}</span
+          >
+        </a>
+      </div>
+    </template>-->
+  </c-mall-modal>
+</template>

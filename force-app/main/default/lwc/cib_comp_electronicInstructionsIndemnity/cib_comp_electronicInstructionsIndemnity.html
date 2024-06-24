@@ -1,0 +1,278 @@
+<!--
+  @description       : This is used for Electronic Institution Indemnity screen
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 10-16-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Electronic Instructions Indemnity</h2>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="sub-header">
+        <label class="slds-form-element__label" for="form-element-05">
+          <span class="slds-required"> </span>The Bank offers the flexibility
+          for communications to be done via electronic means. It is a
+          requirement before this service is offered, that the Bank, has the
+          contact address for all authorised persons and the Applicant is
+          requested to complete the following indemnity.
+        </label>
+        <label class="slds-form-element__label para" for="form-element-05">
+          <span class="slds-required"> </span>In order to facilitate the
+          operation of any accounts which we maintain with you now or in the
+          future, you are requested to rely upon and are hereby authorised to
+          act upon any communication whether by way of fax or email and to
+          accept such communication and/or any document signed by way of
+          electronic signatures (transmitted via Adobe Sign, an e-signature
+          service provider or any other e-signature service provider as may be
+          agreed by the Bank in writing from time to time) originating from us
+          (or our authorised signatories, specified agent or representatives)or
+          purporting to originate from us (or our authorised signatories,
+          specified agent or representatives) giving instructions in respect of
+          the banking arrangements. Such instructions communicated by means as
+          described above will hereafter be referred to as unauthenticated
+          messages.</label
+        >
+      </div>
+
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required"> </span>
+
+        In consideration of the Bank's agreeing to act upon the request and
+        authority as set out in the above paragraph we:
+      </div>
+
+      <ul class="aob_slds-ul-list">
+        <ul class="slds-list_dotted">
+          <li>
+            Consent to the use of electronic signatures which purport to emanate
+            from us (or from our authorised signatories, specified agent, or
+            representatives) but we do also have the option of printing and then
+            signing any relevant document with an original signature/ "wet ink"
+            signature and mailing these to the Bank if we prefer.
+          </li>
+          <li class="mt_20">
+            confirm that we are aware of the possible risks involved in
+            connection with the giving of any instruction via unauthenticated
+            messages. acknowledge that it is not practical for the Bank to
+            establish the authenticity of all unauthenticated messages which
+            purport to emanate from us. agree that the e-signature service
+            providers are not error-free channels of communication. The fact
+            that an electronic signature may later be shown to be in any way
+            false, inaccurate, unauthorised or otherwise not authentic, will not
+            be an impediment to the Bank's rights in terms of this Electronic
+            Instruction Indemnity.
+          </li>
+          <li class="mt_20">
+            agree that the Bank will not accept responsibility for any loss
+            (consequential or otherwise) incurred by us and we waive all and any
+            claim we may have now or in future against the Bank arising directly
+            or indirectly from any losses or damages which we may suffer as a
+            result of the Bank acting correctly or incorrectly (or failing to
+            act) in respect of any unauthenticated messages in so far as such
+            action or inaction is attributable to a reasonable misunderstanding
+            or uncertainty on your part concerning the contents source or
+            meaning of the unauthenticated messages, or such action or inaction
+            is attributable to the receipt by you of unauthenticated messages
+            which does not originate from us (or our authorised signatories,
+            specified agent or representatives). authorise you to debit any
+            account in our name with any amount(s) that you shall be requested
+            or instructed to pay by our unauthenticated messages.
+          </li>
+          <li class="mt_20">
+            indemnify and keep you indemnified against all actions, costs,
+            demands, expenses, losses and liabilities incurred or sustained by
+            you of whatsoever nature or howsoever arising which may be brought
+            against you either solely, jointly or with others or by way of third
+            party actions or otherwise, or that you may suffer, incur or sustain
+            as a result of having acted correctly or incorrectly (or having fail
+            to act) on the basis of our unauthenticated messages.
+          </li>
+          <li class="mt_20">
+            agree that all unauthenticated messages, mandates, consents,
+            commitments and the like which purport to emanate from us shall be
+            deemed to have been given by us in the form actually received by the
+            Bank (purported unauthenticated messages) - which may as a result of
+            the malfunction of equipment, the distortion of communication links
+            and the like, be different from the intended or sent - and we shall
+            be bound thereby. agree that in respect of the purported
+            unauthenticated messages regarding payment by cheque, draft, mail or
+            telegraphic transfer for the benefit of third parties, the purchase
+            or sale of any foreign currencies, the purchase or sale of Stock
+            Exchange securities, the transfer of money, whether the transfer is
+            from any account in the Applicant's name to any other account in the
+            Applicant's name or to any account in the name of the third party at
+            any branch of the Bank or at any branch or any other Bank, same day
+            value may only be given if the message is received by the Bank a
+            reasonable time before the close of its business to the public.
+          </li>
+          <li class="mt_20">
+            agree that the Bank is not to be held liable for errors or delays in
+            transmissions, or the misinterpretation on receipt, or for any loss
+            or damage from whatever cause as a result of the Bank permitting
+            this agreement, excluding losses arising from the proven unlawful or
+            fraudulent acts of the Bank's employees.
+          </li>
+          <li class="mt_20">
+            agree to implement and adhere to any procedures and/or restrictions
+            imposed on us by the Bank from time to time regarding the sending of
+            unauthenticated messages to the Bank.
+          </li>
+          <li class="mt_20">
+            agree that this indemnity will not be affected by any failure by the
+            Bank to impose any or sufficient procedures or restrictions or to
+            ensure that any, or all of them are adhered to.
+          </li>
+          <li class="mt_20">
+            agree that the Bank will not be obliged to act on any purported
+            unauthenticated messages and that it may at any time on written
+            notice sent to us at the corresponding address withdraw from the
+            arrangements envisaged in this document. We are authorised on behalf
+            of the Applicant to enter into this mandate for opening of business
+            accounts with the Bank in accordance with its terms and conditions
+            including providing to the Bank the Electronic Instruction Indemnity
+            as contemplated above. We agree that the terms of this mandate:
+          </li>
+          <li class="mt_20">
+            shall not alter any terms or mandate that we shall have provided to
+            you; shall be regarded as a request to you and not an obligation
+            upon you to act in any manner whatsoever; and the Electronic
+            Instruction Indemnity hereby given shall be governed by the Laws of
+            Mauritius and the Courts of Mauritius shall have exclusive
+            jurisdiction.
+          </li>
+          <li>
+            By the signatures below, the Applicant confirms having read and
+            understood and agreed to the terms and conditions of the Electronic
+            Instruction Indemnity.
+          </li>
+        </ul>
+      </ul>
+
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required"> </span>
+
+        We agree that the terms of this mandate: shall not alter any terms or
+        mandate that we shall have provided to you;
+      </div>
+
+      <ul class="aob_slds-ul-list">
+        <ul class="slds-list_dotted">
+          <li>
+            shall be regarded as a request to you and not an obligation upon you
+            to act in any manner whatsoever; and
+          </li>
+          <li class="mt_20">
+            the Electronic Instruction Indemnity hereby given shall be governed
+            by the Laws of Mauritius and the Courts of Mauritius shall have
+            exclusive jurisdiction.
+          </li>
+        </ul>
+      </ul>
+      <label class="slds-form-element__label" for="form-element-05">
+        <span class="slds-required"> </span>
+        By the signatures below, the Applicant confirms having read and
+        understood and agreed to the terms and conditions of the Electronic
+        Instruction Indemnity
+      </label>
+    </div>
+    <div class="aob_card-container">
+      <template for:each={participants} for:item="item" for:index="index">
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> *</abbr>Full Name
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  pattern="[a-zA-Z][a-zA-Z '-]+"
+                  message-when-pattern-mismatch="Only Character are allowed"
+                  type="text"
+                  id="form-element-01"
+                  placeholder="Enter the Name"
+                  data-fieldname="Name"
+                  value={item.Name}
+                  aria-describedby="form-error-01"
+                  aria-invalid="true"
+                  required
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element aob_date-picker">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> *</abbr
+                >Date</label
+              >
+              <c-cmn_comp_date-picker
+                data-participant-sequence={item.CIB_Sequence__c}
+                data-name="dateValue"
+                data-index={index}
+                placeholder="dateValue"
+                name="dateValue"
+                data-fieldname="CIB_DateSigned__c"
+                value={item.CIB_DateSigned__c}
+              ></c-cmn_comp_date-picker>
+              <div lwc:if={item.dateError} class="slds-form-element__help">
+                Please enter this field
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_x-large" key={item.CIB_Sequence__c}>
+              <img
+                class="slds-p-left_large"
+                data-participant-sequence={item.CIB_Sequence__c}
+                src={delete_row_icon}
+                alt="delete-row-icon"
+                access-key={index}
+                data-index={index}
+                id={index}
+                data-id={index}
+                alternative-text="Delete Row"
+                size="small"
+                title="Delete Row"
+                onclick={deleteParticipant}
+              />
+            </div>
+          </template>
+        </div>
+      </template>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            title="Primary action with lighter look"
+            onclick={addParticipant}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <c-cib_comp_flow-navigation
+    onsave={saveRecord}
+    onsubmit={submitRecord}
+    onprevious={navigateToPreviousScreen}
+  >
+  </c-cib_comp_flow-navigation>
+</template>

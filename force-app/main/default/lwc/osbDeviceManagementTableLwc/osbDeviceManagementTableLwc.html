@@ -1,0 +1,96 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <table class="device-data" style="width: 100%; margin: auto; padding-bottom: 152px;">
+
+                <tr class="heading-row"
+                    style="height: 60px; width: 90%; font-family: var(--FONT-FAMILY); font-size: 18px; font-weight:300; color: #0033aa; ">
+                    <th class="table-heading column1">Device</th>
+                    <th class="table-heading column2">Link Date</th>
+                    <th class="table-heading column4">Method</th>
+                    <th class="table-heading column6"></th>
+                </tr>
+
+                <template end="4" for:each={allDeviceAuthList} for:item="item">
+                    <tr key={item} class="data-row">
+                        <td>
+                            <div id={item.deviceId} class="table-data column1" style="
+                              
+
+                                color: #0a2240;
+                                font-family: var(--FONT-FAMILY);
+                                font-size: 16px;
+                                letter-spacing: 0;
+                                line-height: 14px;
+                               
+                            ">
+                                <template if:true={item.osTypeAndroid}>
+                                    <i class="ms-icn_phone_android noHighlight"
+                                        style="height: 50px; width: 50px; padding-right: 15px; font-size: 20px;"></i>
+                                </template>
+                                <template if:false={item.osTypeAndroid}>
+                                    <i class="ms-icn_phone_iphone noHighlight"
+                                        style="height: 50px; width: 50px; padding-right: 15px; font-size: 20px; "></i>
+                                </template>
+                                {item.deviceInfo} - {item.deviceModel}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="table-data column2 " style="
+                                height: 14px;
+                                color: #0a2240;
+                                font-family: var(--FONT-FAMILY);
+                                font-size: 16px;
+                                letter-spacing: 0;
+                                line-height: 14px;
+                               
+                            ">
+                                {item.createdTimeStamp}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="table-data column4" style="
+                                height: 14px;
+
+                                color: #0a2240;
+                                font-family: var(--FONT-FAMILY);
+                                font-size: 16px;
+                                letter-spacing: 0;
+                                line-height: 14px;
+                                
+                            ">
+                                {item.authenticatorsDescription}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="table-data column6">
+                                <button value={item.authenticatorsHandle} type="button"
+                                    class="icon ms-icn_bin noHighlight delete-button"
+                                    style="height: 35px; width: 50px; padding-right: 15px; font-size: 20px; border:none; background-color:inherit;"
+                                    data-id="Remove device" data-intent="transactional"
+                                    data-text="Device Management | Remove device" data-scope="device management"
+                                    onclick={confirmationPopupRemove}>
+                                </button>
+                            </div>
+                        </td>
+
+
+                    </tr>
+
+                </template>
+            </table>
+        </lightning-layout-item>
+    </lightning-layout>
+    <template if:true={removeDevice}>
+        <c-osb-market-gram-popup-lwc title="Remove device?"
+            content="Removing a device will unlink the authenticator from your profile." icon="QuestionMark"
+            onclosepopupevent={handlePopupClose}>
+        </c-osb-market-gram-popup-lwc>
+    </template>
+    <template if:true={removeAllDevices}>
+        <c-osb-market-gram-popup-lwc title="Remove all devices?"
+            content="Removing all devices will unlink all authenticators from your profile." icon="QuestionMark"
+            onclosepopupevent={handlePopupClose}>
+        </c-osb-market-gram-popup-lwc>
+    </template>
+</template>

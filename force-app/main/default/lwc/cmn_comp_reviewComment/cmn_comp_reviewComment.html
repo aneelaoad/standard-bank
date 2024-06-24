@@ -1,0 +1,33 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 09-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="info_card" lwc:if={hasReviewComment}>
+    <div class="slds-grid slds-large-size_12-of-12">
+      <div class="slds-col slds-size_2-of-3 slds-large-size_12-of-12">
+        <div class="slds-grid slds-wrap">
+          <img class="infoIcon mr_10" src={info_imp} alt="check" />
+
+          <div class="slds-col .slds-size_2-of-3 slds-large-size_11-of-12">
+            <p class="paragarph">
+              <b>Note the following: </b><br />
+              {reviewerComment}
+            </p>
+          </div>
+          <lightning-icon
+            class="slds-float_right"
+            type="close"
+            icon-name="utility:close"
+            size="x-small"
+            alternative-text="Indicates close"
+          >
+          </lightning-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

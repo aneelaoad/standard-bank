@@ -1,0 +1,43 @@
+<template>
+    <template if:false={showMiniMallFilter}>
+        <div class="AppMarketplaceMain">
+            <div class="AppMarketplaceHolder">
+                <div class="MarketplaceHeadingHolder">
+                    <p>Application Marketplace</p>
+                </div>
+                <div class="MarketplaceCategoryHolder">
+                    <template if:true={records}>
+                        <div class="CategoryWrapper">
+                            <div class="AllApplicationBlock CategoryBlockOutline" data-value="All Applications" onclick={handleClick} data-id="all-applications" data-text="categories | all applications" data-intent="navigational" data-scope="categories">
+                                <div class="CategorySection">
+                                    <div class="CategoryImage">
+                                        <img src={AllApplication} />
+                                    </div>
+                                    <div class="CategoryTitle">
+                                        <p>View all Applications</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <template for:each={records} for:item="record">
+                                <div key={record.Id} class="CategoryBlockOutline" style={record.animationDelay}
+                                data-value={record.MasterLabel} onclick={handleClick} data-text={record.MasterLabel} data-id={record.MasterLabel} data-intent="navigational" data-scope="categories">
+                                    <div class="CategorySection">
+                                        <div class="CategoryImage">
+                                            <img src={record.ImageLink__c} />
+                                        </div>
+                                        <div class="CategoryTitle">
+                                            <p>{record.MasterLabel}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={showMiniMallFilter}>
+        <c-osb-mini-mall-filter category-selected={categories}></c-osb-mini-mall-filter>
+    </template>
+</template>

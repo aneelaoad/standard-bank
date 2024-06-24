@@ -1,0 +1,76 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 10-16-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="container">
+    <article class="aob_page-titles">
+      <h2>You are done!</h2>
+    </article>
+    <div class="aob_info-text mt_20">
+      <h6>You have successfully submitted all required documents.</h6>
+    </div>
+    <div class="aob_card-container displayingcenter">
+      <img class="imgwidth" src={finishIcon} />
+      <div class="aob_info-text mt_20">
+        <p class="content-css">
+          You have successfully uploaded all your documents
+        </p>
+      </div>
+      <div class="aob_info-text">
+        <p class="content-css">
+          Our due diligence team may ask for additional information or provide
+          feedback on a particular document
+        </p>
+      </div>
+      <div class="aob_info-text bluetext">
+        <p>
+          <span>Login and check your dashboard notifications frequently. </span
+          >Our onboarding team usually take between 3 - 10 business days
+        </p>
+      </div>
+    </div>
+    <div class="displaycontent">
+      <div class="aob_info-text mt_20">
+        <img class="imgwidthchat" src={chatQuestionIcon} alt="check" />
+        <p lwc:if={isSurveyDisplayed}>
+          Share your experience with us! Your feedback helps us improve. Thank
+          you!
+        </p>
+        <p if:false={isSurveyDisplayed}>
+          Thank you for your feedback! Your input is invaluable as we strive to
+          improve our services.
+        </p>
+      </div>
+      <div lwc:if={isSurveyDisplayed}>
+        <lightning-button
+          variant="brand-outline"
+          label="SHARE YOUR THOUGHTS"
+          title="Primary action with lighter look"
+          onclick={onSurveyOpen}
+          class="slds-m-left_x-small space-padding"
+        >
+        </lightning-button>
+      </div>
+    </div>
+    <div class="aob_card-container aob_btns-between mt_20">
+      <button
+        class="slds-button aob_btn-empty"
+        onclick={navigateToBack}
+        aria-label="cancel"
+      >
+        <label>cancel</label>
+      </button>
+      <button
+        class="slds-button aob_btn-primary"
+        onclick={navigateToNext}
+        aria-label="Complete"
+      >
+        <label>complete</label>
+      </button>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,26 @@
+<!--
+  @description       : 
+  @author            : mbourhi@salesforce.com
+  @group             : 
+  @last modified on  : 10-08-2021
+  @last modified by  : Chibuye Kunda
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   12-02-2020   mbourhi@salesforce.com   Initial Version
+  1.A   03-20-2021   aaboul@salesforce.com    Switched to custom
+-->
+<template>
+    <label class="aob_screen-field-label slds-m-bottom_none">{label}</label>
+    <lightning-input class="inputcss" name={name} placeholder={placeholder} value={value} onfocus={handleFocus}
+        onblur={handleBlur} onchange={handleChange} variant="label-hidden" required={required}
+         message-when-value-missing={missingValueMessage} field-level-help={helpText}>
+    </lightning-input>
+    <div class="aob_datalist">
+        <ul>
+            <template for:each={currentValues} for:item='item'>
+                <li key={item} data-value={item.Name} data-code={item.AOB_Code__c} onmousedown={handleMouseDown}
+                    data-id={item.Id}>{item.Name}</li>
+            </template>
+        </ul>
+    </div>
+</template>

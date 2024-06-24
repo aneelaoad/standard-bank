@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>SBG Title with subtitle</masterLabel>
+    <description>A centered title with optional subtitle (has 2 states page/module)</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property type="Boolean" name="isPageTitle" label="Set as page title" default="false" />
+            <property type="String" name="title" label="Title"  default="Title"/>
+            <property type="Boolean" name="showSubtitle" label="Show Subtitle"  default="true"/>
+            <property type="String" name="subtitle" label="Subtitle" default="Subtitle" />
+            <property type="String" name="textAlignment" label="Text Alignment" datasource="Center, Left, Right"  default="Left"/>
+            <property type="Color" name="textColor" label="Text Color" default="#3c4b6c"/>
+            <property type="String" name="fontsize" label="Font Size" default=""/>
+            <property type="Boolean" name="titleFullWidth" label="Title Full Width" default="false" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,9 @@
+<template>
+  <template if:true={slides}>
+    <div class="slide-indicators base-spacing">
+      <template for:each={slides} for:item="slide" for:index="index">
+        <a role="button" key={slide.position} data-position={slide.position} onclick={onSlideIconClick} class={slide.classList}></a>
+      </template>
+    </div>
+  </template>
+</template>

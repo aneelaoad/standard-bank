@@ -1,0 +1,57 @@
+:host{
+	position: relative;
+}
+
+.carousel-wrapper{
+	position: relative;
+	display: block;
+	overflow: hidden;
+}
+
+.indicators-container{
+	position: absolute;
+    z-index: 11;
+	width: 100%;
+	bottom: 25px;
+}
+
+.slide-indicators{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+	padding: 0 25px;
+}
+
+.indicator {
+	width: 40px;
+	height: 2px;
+	margin: 5px;
+	background: var(--gray-medium-color);
+	transition: color 1s;
+	display: block;
+}
+.current {
+	background: var(--notification-color);
+}
+
+
+@media screen and (min-width: 768px) {
+	.slide-indicators{
+		left: 0;
+		padding: 0 45px;
+		width: 50%;
+		max-width: 500px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+
+	.indicators-outer{
+		width: 41.6666666667%;
+	}
+	.slide-indicators{
+		width: 100%;
+		max-width: 500px;
+		margin-left: auto;
+	}
+}

@@ -1,0 +1,29 @@
+.subscription-breadcrumb-container {
+    padding: 1em 3em;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: #2574A9;
+}
+
+a:hover {
+    color: #0089ff;
+    text-decoration: none; 
+}
+
+.my-icon {
+    --sds-c-icon-color-foreground-default: #00a9df;
+    padding: 5px;
+}
+
+@media screen and (min-width: 770px) {
+    .container {
+        margin: 2em 5em;
+    }
+}

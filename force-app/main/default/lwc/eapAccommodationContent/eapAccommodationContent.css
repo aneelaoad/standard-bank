@@ -1,0 +1,121 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_container {
+    margin: 0 0 4em 0;
+    min-height: 90vh;
+    background-color: var(--background-grey);
+}
+
+.v1_div_relleno {
+    background-color: var(--background-grey);
+    height: 1em;
+}
+
+.v1_div_card {
+    background-color: white;
+    text-align: left;
+    padding-left: 2em;
+    padding-bottom: 2em;
+    padding-top: 1em;
+}
+
+.v1_title {
+    font-weight: 500;
+}
+.v1_p_subTitle {
+    letter-spacing: .05em;
+}
+
+.v1_div_iconsOnImage {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: .5em;
+    display: grid;
+    height: fit-content;
+    align-items: center;
+    padding: 1.2em 0em;
+    font-size: 1.2em;
+
+}
+
+.v1_div_image lightning-icon {
+    --sds-c-icon-color-foreground-default: #fff;
+    display: flex;
+    padding: .5em;
+    align-items: center;
+    height: 2.5em;
+}
+
+.v1_div_informationOnImage {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: .5em;
+    display: grid;
+    height: fit-content;
+    width: 95%;
+    align-items: center;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 1.2em 0em;
+}
+
+.v1_div_information, .v1_div_gridRelleno {
+    height: 2.5em;
+}
+
+.v1_div_information {
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    background-color: rgba(13, 46, 86, 0.6);
+    border-radius: 2px;
+}
+
+.v1_div_fullAddress {
+    width: 90%;
+}
+
+.v1_div_image {
+    border: 0px;
+    position: relative;
+}
+
+.v1_div_image img {
+    width: 100%;
+    height: 16em;
+    object-fit: cover;
+}
+
+.arrow-up {
+    position: absolute;
+    left: 1em;
+    bottom: 0px;
+    z-index: 2;
+
+    width: 0; 
+    height: 0;
+
+    border-left: 1.7em solid transparent;
+    border-right: 1.7em solid transparent;
+    border-bottom: 2em solid white;
+}
+
+.v1_badge_customBadge {
+    --sds-c-badge-color-background: var(--background-grey);
+    --sds-c-badge-text-color: var(--main-light-blue);
+    --sds-c-badge-radius-border: 0px;
+    --sds-c-badge-font-size: 1.15em;
+}
+
+.v1_div_addReservation {
+    display: flex;
+    justify-content: center;
+    background-color: var(--background-grey);
+    padding: 2em 0;
+}
+
+.v1_div_centerShield[c-eapShieldMessage_eapShieldMessage] {
+    height: 50vh;
+}

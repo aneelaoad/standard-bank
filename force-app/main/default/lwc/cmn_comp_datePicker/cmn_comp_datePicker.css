@@ -1,0 +1,144 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  /* width: 70px; */
+}
+
+.bold {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.link {
+  color: #ffffff;
+  border: 0;
+}
+
+.dates {
+  width: 400px !important;
+  border-radius: 8px;
+  margin: 0 auto;
+  position: absolute;
+  z-index: 99999;
+  background-color: #ffffff;
+  width: 50px;
+  border: 1px solid #e3e3e3;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.buttonContainer:nth-child(1) {
+    border-radius: 8px 8px 0px 0px;
+}
+
+.dates ul {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 364px;
+  margin: 0 auto;
+}
+
+.dates .datePickerHolder {
+  flex-wrap: wrap;
+}
+.field-container {
+  position: relative;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
+  margin: 1px;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  color: #ffffff;
+  background: linear-gradient(93.67deg, #0064fc 1.23%, #0033aa 58.64%);
+  padding: 15px;
+}
+.buttonContainer p {
+  color: #ffffff !important;
+}
+.prev,
+.next {
+  border: none;
+  width: 70px;
+  background: none;
+}
+
+.prev:hover,
+.next:hover,
+.link:hover {
+  cursor: pointer;
+}
+
+.prev:before {
+  content: "←";
+  padding-right: 4px;
+}
+
+.next:after {
+  content: "→";
+  padding-left: 4px;
+}
+
+.datePickerHolder li {
+  color: black;
+  cursor: pointer;
+  border-radius: 8px;
+  width: auto;
+}
+
+.header li {
+  color: black;
+}
+
+.datePickerHolder li:hover {
+  background: #0062e1;
+  color: #ffffff;
+}
+
+.datePickerHolder .padder {
+  color: gray;
+}
+
+.datePickerHolder .today {
+  background-color: orange;
+}
+
+.datePickerHolder .selected {
+  background: #0062e1;
+  color: #ffffff !important;
+}
+.buttonContainer .pickerDaySelected_select {
+  background: linear-gradient(93.67deg, #0064fc 1.23%, #0033aa 58.64%);
+}
+.slds-select {
+  background-color: #0033aa;
+  border: none;
+  max-width: fit-content;
+}
+.slds-form-element__control {
+  width: 100%;
+}
+.slds-form-element__control input {
+  width: 100%;
+  padding: 10px;
+}
+.backdrop {
+  position: fixed;
+  z-index: 800;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

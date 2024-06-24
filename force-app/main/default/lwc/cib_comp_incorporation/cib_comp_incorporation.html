@@ -1,0 +1,205 @@
+<!--
+/***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 12-04-2024
+@ Name of the Class : Cib_comp_incorporation
+@ Description       : This class is responsible for the incorporation of the company
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 12-04-2024
+@ Modification Description : SFP-36750
+***************************************************************************************/
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div>
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Previous registration in another country</h2>
+    </article>
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <lightning-radio-group
+          name="CIB_PR_HasPreviousRegistration__c"
+          label="Is your company registered in another country"
+          options={options}
+          type="radio"
+          data-fieldname="CIB_PR_HasPreviousRegistration__c"
+          data-type="application"
+          value={applicationRecord.CIB_PR_HasPreviousRegistration__c}
+          onchange={onchange}
+          required
+        ></lightning-radio-group>
+      </div>
+    </div>
+
+    <template lwc:if={applicationRecord.CIB_PR_HasPreviousRegistration__c}>
+      <div class="aob_card-container">
+        <div class="slds-grid">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <div class="aob_title-sm">
+                <span class="slds-required" title="required">* </span>Company
+                registered name
+              </div>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  required
+                  type="text"
+                  id="form-element-01"
+                  placeholder="Enter Company registered name"
+                  name="CIB_PR_Name__c"
+                  data-fieldname="CIB_PR_Name__c"
+                  data-type="application"
+                  value={applicationRecord.CIB_PR_Name__c}
+                  aria-describedby="form-error-01"
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="aob_card-container">
+        <div class="aob_title-sm">
+          <span class="slds-required" title="required">* </span>Previous
+          registration
+        </div>
+        <div class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <span class="slds-required" title="required">* </span>Name of
+                issuing authority</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  required
+                  message-when-pattern-mismatch="Only Character are allowed"
+                  pattern="^[a-zA-Z-' ]*$"
+                  type="text"
+                  id="form-element-02"
+                  name="CIB_PR_IssuingAuthorityName__c"
+                  data-fieldname="CIB_PR_IssuingAuthorityName__c"
+                  data-type="application"
+                  value={applicationRecord.CIB_PR_IssuingAuthorityName__c}
+                  placeholder="Enter Name of issuing authority"
+                  aria-describedby="form-error-02"
+                  aria-invalid="true"
+                >
+                </lightning-input>
+              </div>
+              <div class="slds-form-element__help" id="form-error-02"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr
+                >Incorporation number</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  required
+                  message-when-pattern-mismatch="Only Numbers are allowed"
+                  type="text"
+                  id="form-element-04"
+                  name="CIB_PR_IncorporationNumber__c"
+                  data-fieldname="CIB_PR_IncorporationNumber__c"
+                  data-type="application"
+                  value={applicationRecord.CIB_PR_IncorporationNumber__c}
+                  aria-describedby="form-error-04"
+                  aria-invalid="true"
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div
+              class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+            >
+              <label
+                class="slds-form-element__label"
+                for="date-input-id-default2"
+                ><span class="slds-required" title="required">* </span
+                >Incorporation date
+              </label>
+              <c-cmn_comp_date-picker
+                data-fieldname="CIB_PR_IncorporationDate__c"
+                data-type="application"
+                value={applicationRecord.CIB_PR_IncorporationDate__c}
+                required
+              >
+              </c-cmn_comp_date-picker>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr>Business
+                registration number</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  required
+                  type="text"
+                  id="form-element-06"
+                  message-when-pattern-mismatch="Only Numbers are allowed"
+                  name="CIB_PR_RegistrationNumber__c"
+                  data-fieldname="CIB_PR_RegistrationNumber__c"
+                  data-type="application"
+                  value={applicationRecord.CIB_PR_RegistrationNumber__c}
+                  aria-describedby="form-error-06"
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div
+              class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+            >
+              <label
+                class="slds-form-element__label"
+                for="date-input-id-default2"
+                ><span class="slds-required" title="required">* </span>Business
+                registration date</label
+              >
+              <c-cmn_comp_date-picker
+                data-fieldname="CIB_PR_RegistrationDate__c"
+                data-type="application"
+                value={applicationRecord.CIB_PR_RegistrationDate__c}
+                required
+              ></c-cmn_comp_date-picker>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <c-cib_comp_documents-container
+        application-id={recordId}
+        section-id={sectionId}
+      ></c-cib_comp_documents-container>
+    </template>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

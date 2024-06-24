@@ -1,0 +1,18 @@
+<template>
+    <div class="aob_overlay">
+        <div class={aob_modal_container} >
+            <div
+                class={headerClassStyle}>
+                {header}
+                <img alt="Close button Icon" src={closeIcon}
+                    class="aob_modal_close_button slds-m-right_xx-small slds-m-left_large" onclick={closeModal}>
+            </div>
+            <div class="aob_modal_content bg-white aob_font_size_13 aob_slider_value slds-p-around_large">
+                <slot name="content"></slot>
+            </div>
+            <footer class="slds-m-bottom_medium">
+                <slot name="footer"></slot>
+            </footer>
+        </div>
+    </div>
+</template>

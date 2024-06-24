@@ -1,0 +1,54 @@
+<!--
+  @description       : 
+  @author            : devi.ravuri@salesforce.com
+  @group             : 
+  @last modified on  : 29 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+		class="slds-modal slds-fade-in-open">
+		<div class="slds-modal__container">
+			<div class="slds-modal__header ao-background-colour_brand-blue">
+				<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate textcolor">
+					{label.AOB_RegNotFound}</h1>
+			</div>
+			<div class="ao-slds slds-modal__content slds-p-around_medium modal_padding ao-bg" id="modal-content-id-1">
+				<div class="cipc_container">
+					<div class="cipc_header">
+						<img class="imgcls" src={info}
+                                alt="info" />
+						<span>{label.AOB_CantFindReg} <b>{capturedRegNumber}.</b> {label.AOB_PleaseTryAgain}</span>
+					</div>
+					<div
+						class="aob_form_input form_padding slds-col slds-m-top_small slds-small-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+						<label class="aob_screen-field-label slds-m-bottom_none aob_label_wrap">{label.AOB_RegNum}</label>
+						<lightning-input class="validateRegNum" placeholder="e.g.2022/539521/08"
+							name="businessRegistrationNumber" type="text" variant="label-hidden"
+							pattern="^(\d{12}|(\d{4}/\d{2}){2})$"
+							message-when-value-missing="Please complete this field" maxlength="14"
+							onkeyup={addSlashForNumber} data-name="businessRegistrationNumber" required
+							onchange={genericFieldChange} oncommit={validateRegistrationNumber}>
+						</lightning-input>
+						<div class="aob_error_input_label">{regAttemptsMessage} </div>
+					</div>
+				</div>
+				<div class="d-flex responsiveflex">
+					<lightning-button
+						class="slds-size_1-of-2 margin_horizontal_auto aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+						data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent} label={label.AOB_CallMeBack}
+						data-scope={adobePageTag.dataScope} data-text={adobePageTag.cancelButtonText}
+						onclick={callMeBack}></lightning-button>
+					<lightning-button
+						class="slds-size_1-of-2 margin_horizontal_auto aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+						data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+						data-scope={adobePageTag.dataScope} label={label.AOB_Submit} variant="brand"
+						data-text={adobePageTag.continueButtonText} onclick={retryAPI}></lightning-button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+</template>

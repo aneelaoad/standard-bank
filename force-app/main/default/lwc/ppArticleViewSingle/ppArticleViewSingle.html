@@ -1,0 +1,52 @@
+<!-- **
+* @description  : Partner Portal View Single Article Component
+* User Story : SFP-4871
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+    <div class="slds-grid slds-grid_vertical container">
+        <div class="slds-col">
+            <div class="slds-grid">
+                <div class="slds-col">
+                    <div class="slds-grid">
+                        <div class="slds-col" style="flex: none;">
+                            <div class="icon">
+                                <img src={backIcon} onclick={navigateToCommunity}>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <p class="heading-medium-sfProDisplay heading">{articleType}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col">
+            <p class="heading-large-sfProDisplay title">{title}</p>
+        </div>
+        <div class="slds-col">
+            <p class="text-normal-sfProDisplay publish-date"><lightning-formatted-date-time value={lastPublishedDate}
+                year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+            </p>
+        </div>
+        <div class="slds-col">
+            <p class="text-normal-sfProDisplay content">{summary}</p>
+        </div>
+        <div class="slds-col">
+            <p class="text-normal-sfProDisplay content">
+                <lightning-formatted-rich-text value={articleImg}></lightning-formatted-rich-text>
+            </p>
+        </div>
+        <div class="slds-col">
+            <p class="text-normal-sfProDisplay content">
+                <lightning-formatted-rich-text value={info}></lightning-formatted-rich-text>
+            </p>
+        </div>
+        <div class="slds-col">
+            <div class="line"></div>
+        </div>
+       
+    </div>
+</template>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>53.0</apiVersion>
+  <isExposed>true</isExposed>
+
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
+
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="title" label="Title" type="String" default="" required="true" />
+      <property name="titleColor" label="Overriding title color" type="Color" />
+      <property name="level" label="Level" type="String" datasource="h1,h2,h3,h4,h5,h6" default="h1" required="true" />
+      <property name="horizontalAlignment" label="Horizontal Alignment" type="String" datasource="left,center,right" default="left" required="true" />
+      <property name="separator" label="Show a separator" type="Boolean" />
+      <property name="separatorColor" label="Overriding separator color" type="Color" />
+      <property name="backgroundColour" label="Background Colour" type="String" default="transparent" />
+      <property name="fullWidth" type="Boolean" default="false"></property>
+    </targetConfig>
+  </targetConfigs>
+
+</LightningComponentBundle>

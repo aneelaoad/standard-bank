@@ -1,0 +1,66 @@
+.slds-dropdown-trigger_click.slds-is-open .slds-dropdown {
+  width: 100% !important;
+  max-height: 200px;
+  /* padding: 4px; */
+  font-size: 15px;
+  overflow: auto;
+}
+
+.slds-picklist input:focus,
+.slds-picklist input.slds-has-focus,
+.slds-picklist .slds-input:focus {
+  box-shadow: none !important;
+}
+
+.THIS .slds-input:focus,
+.THIS .slds-input:active {
+  border-color: rgb(216, 221, 230);
+  box-shadow: none;
+}
+
+[role="combobox"] input[readonly],
+input[readonly][role="combobox"] {
+  border: 1px solid #e3e3e3 !important;
+}
+
+.slds-form-element {
+  margin-bottom: 0px !important;
+}
+
+li.slds-listbox-item span[role="option"].slds-pill {
+  border-radius: 20px;
+  background-color: #0062e1;
+  border-color: #0062e1;
+  color: white !important;
+}
+li.slds-listbox-item span[role="option"].slds-pill span {
+  color: white;
+}
+
+.main-input {
+  position: relative;
+  height: 100%;
+  min-height: 52px;
+  padding: 8px;
+  border: 1px solid #5c6c80;
+  border-radius: 8px;
+  box-shadow: none;
+  font-family: "bentonsans-regular-webfont" !important;
+  font-size: 16px;
+  color: #1a314d;
+  line-height: normal;
+}
+
+.main-input lightning-input {
+  opacity: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+div.main-input:has(+ div.slds-form-element__help.error-message) {
+  border-color: #dc0a0a;
+}
+div.slds-form-element__help.error-message {
+  position: relative;
+}

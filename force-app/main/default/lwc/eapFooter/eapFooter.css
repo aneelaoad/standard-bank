@@ -1,0 +1,81 @@
+.v1_div_footNav {
+    background-color: #fff;
+    display: grid;
+    width: 100%;
+    grid-auto-flow: column;
+    padding: .8em 0em;
+    border-top: 0.1px solid #0a22401a;
+}
+
+.positionFixed {
+    width: 100%;
+    position:fixed;
+    bottom: 0;
+    z-index: 4;
+    height: 50px;
+}
+
+.v1_div_action {
+    display: inline-block;
+    max-width: 100%;
+    min-width: 25%;
+    text-align: center;
+    color: gray;
+    font-size: .8em;
+    position:relative;
+}
+
+/*.v1_div_action div {
+    display: grid;
+}*/
+
+.v1_div_icon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.v1_div_icon img{
+    width: 16px;
+    height:16px;
+}
+
+
+.v1_div_home {
+    /*background: linear-gradient(70deg,#0a2240 50%,#0d2e56);*/
+    background: linear-gradient(314.65deg, #0062E1 -23.73%, #0033AA 100%);
+    border: 1px solid #FFFFFF;
+    border-radius: 50%;
+    color:#fff;
+    width: 5em;
+    height: 5em;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 23%;
+    justify-content: end;
+    padding-bottom: 3px;
+   
+    /*top: 10%;
+    line-height: 1.2;*/
+}
+
+.v1_div_home img{
+    width: 18px;
+    height: 25px;
+    position: relative;
+    bottom: -5px;
+}
+
+.v1_div_home lightning-icon {
+    --sds-c-icon-color-foreground-default: #fff;
+    padding-top: 1em;
+}
+
+.right {
+    margin-right: 1em;
+}
+
+.left {
+    margin-left: 1em;
+}

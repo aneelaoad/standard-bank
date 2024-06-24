@@ -1,0 +1,25 @@
+<!--
+  @description       : Lwc with the archive event detail overview
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-24-2021   TCK   Initial Version
+-->
+<template>
+    <div class="relleno">
+        <template if:true={event.Img}>
+            <div class="v1_div_imgContainer">
+                <img src={event.Img}/> 
+            </div>
+        </template>
+        
+        <div class="v1_div_overviewContainer">
+            <p class="v1_p_location light_titles">{event.Location}</p>
+            <p class="label v1_p_date">{event.Date}</p>
+            <p class="v1_div_information">{event.Description}</p>
+        </div>
+    </div>
+</template>

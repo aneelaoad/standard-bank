@@ -1,0 +1,23 @@
+<template>
+    <c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <c-aob_comp_modal hasheader='true' onclosed={backToPreviousPage} header={label.AOB_SaveForLater_Title}>
+        <div slot="content" class="aob_text_align_center">
+                <span class="aob_modal_header aob_font_size_28_20 aob_text_align_center aob_sm_text_align_left">{label.AOB_SaveForLater_SubTitle}</span>
+                <div class="slds-m-top_small slds-size_2-of-2">
+                    <label
+                    class="aob_font_size_15 slds-m-top_large slds-m-bottom_large">{label.AOB_SaveForLater_Content}</label>
+                </div>
+                <div>
+                    <label class="aob_font_size_15">{applicationName}</label>
+                </div>
+        </div>
+        <div slot="footer" class="aob_modal_buttons_container">
+            <lightning-button class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                variant="neutral" label="Cancel" title="Cancel" onclick={backToPreviousPage}>
+            </lightning-button>
+            <lightning-button class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                variant="brand" label="Save" title="Save" onclick={saveForLater}>
+            </lightning-button>
+        </div>
+    </c-aob_comp_modal>
+</template>

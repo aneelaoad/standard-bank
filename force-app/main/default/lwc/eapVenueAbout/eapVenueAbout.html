@@ -1,0 +1,85 @@
+<!--
+  @description       : Lwc with the venue info
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-15-2021   TCK   Initial Version
+-->
+<template>
+    <template if:true={haveVenue}>
+        <div class='v1_all'>
+            <div class="v1_card_first">
+                <div class="v1_div_img">
+                    <img src={venue.Img}/> 
+                </div>
+        
+                <div class="v1_div_about">
+                    <h2 class="light_titles">{venue.Name}</h2>
+                    <div class="v1_div_venue_large">
+                        <p>{venue.Description}</p>
+                    </div>
+                </div>
+
+                <div class="v1_div_contact">
+                    <h3 class="v1_title_h3">{labels.Contact}</h3>
+
+                    <template if:true={venue.Web}>
+                        <div class="slds-grid v1_div_user_detail">
+                            <div class="slds-col slds-size_1-of-12">
+                                <img src={globeIcon}/> 
+                            </div>
+                            <div class="slds-col slds-size_11-of-12 v1_txt_div_contact">
+                                <a href={venue.Web}>
+                                    <p class="v1_contact_txt">{venue.Web}</p>
+                                </a>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:true={venue.Address}>
+                        <div class="slds-grid v1_div_user_detail">
+                            <div class="slds-col slds-size_1-of-12">
+                                <img src={locationIcon}/> 
+                            </div>
+                            <div class="slds-col slds-size_11-of-12 v1_txt_div_contact">
+                                <p class="v1_contact_txt">{venue.Address}</p>
+                            </div>
+                        </div>
+                    </template>
+
+                    <template if:true={venue.Phone}>
+                        <div class="slds-grid v1_div_user_detail">
+                            <div class="slds-col slds-size_1-of-12">
+                                <img src={phoneIcon}/> 
+                            </div>
+                            <div class="slds-col slds-size_11-of-12 v1_txt_div_contact">
+                                <a href={venue.RoutePhone}>
+                                    <p class="v1_contact_txt">{venue.Phone}</p>
+                                </a>
+                            </div>
+                        </div>
+                    </template>
+
+                </div>
+
+                <div class="v1_div_facilities">
+                    <h3 class="v1_title_h3 v1_padding_title">{labels.Facilities}</h3>
+
+                    <template for:each={venue.Facilities} for:item="facility">
+                        <div key={facility.Id} class="v1_div_listViewItem">
+                            <p>{facility.Name}</p>
+                        </div>
+                    </template>
+
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={haveVenue}>
+        <c-eap-shield-message message={labels.NoVenue}></c-eap-shield-message>
+    </template>
+</template>

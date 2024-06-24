@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" type="String" default="" label="Title"/>
+            <property name="subtitle" type="String" default="" label="Title below image"/>
+            <property name="listItems" type="String" default="" label="List Items" description="Enter each value followed by a *"/>
+            <property name="image" type="String" default="" label="Image between what the platform provides"/>
+            <property name="setClassForImage" type="String" default="" label="style for image SLDS" description="Enter values like this slds-large-size--6-of-12,slds-small-size--8-of-8"/>
+            <property name="backgroundColor" type="String" default="" label="Background Colour"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

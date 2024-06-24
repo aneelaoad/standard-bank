@@ -1,0 +1,39 @@
+.product-nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    margin: 1.5rem 0 0 0;
+}
+
+.product-nav-breadcrumb-container {
+    width: fit-content;
+}
+
+.search-section {
+    height: 48px;
+    width: 100%;
+}
+
+.search-alignment {
+    height: 45px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: inherit;
+}
+
+.product-nav-input {
+    height: inherit;
+    border: 1px solid #5c6c8042;
+    border-radius: 10px;
+}
+
+.product-nav-input::placeholder {
+    color: #5c6c80;
+}

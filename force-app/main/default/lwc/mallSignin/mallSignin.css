@@ -1,0 +1,14 @@
+a{
+    float: left;
+    padding: 1.6875em .5rem;
+  }
+
+img{
+  width: 1.4rem;
+}
+
+ span{
+    font-size: var(--font-size-body-xs, 0.75rem);
+    margin-left: 0.625rem;
+    text-transform: capitalize;
+  }

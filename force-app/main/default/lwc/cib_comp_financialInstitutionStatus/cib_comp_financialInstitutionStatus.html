@@ -1,0 +1,118 @@
+<!--
+  @description       :  This is used for Financial Institution Statu screen
+  @author            :  Sreekala.Mallavalli@standardbank.co.za
+  @last modified on  : 10-16-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Financial Institution Status</h2>
+    </div>
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <lightning-radio-group
+          name="CIB_FIS_IsRegulatedFinancialInstitution__c"
+          label="Is this business a regulated financial institution?"
+          options={options}
+          onchange={onchange}
+          type="radio"
+          data-fieldname="CIB_FIS_IsRegulatedFinancialInstitution__c"
+          required
+        ></lightning-radio-group>
+
+        <template lwc:if={ssRegulatedFinancialInstitution}>
+          <div class="slds-grid aob_col-gutter slds-wrap mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-05">
+                  <abbr class="slds-required" title="required">* </abbr
+                  >Name</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    required="true"
+                    message-when-value-missing="Please enter the field"
+                    variant="label-hidden"
+                    type="text"
+                    aria-describedby="form-error-06"
+                    aria-invalid="true"
+                    data-fieldname="CIB_FIS_Name__c"
+                    value={applicationRecord.CIB_FIS_Name__c}
+                    data-id="NameInputValue"
+                    name="name"
+                    placeholder="please enter the name"
+                    message-when-pattern-mismatch="Only Character are allowed"
+                    onchange={genericFieldChange}
+                    pattern="[A-Za-z\s\.]+"
+                  >
+                  </lightning-input>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element mb_8">
+                <div
+                  class="slds-form-element__label"
+                  id="combobox-label-id-130"
+                >
+                  <span class="slds-required" title="required">* </span>Country
+                </div>
+                <c-cmn_comp_acpicklist
+                  s-object-name="Application__c"
+                  placeholder="please select a value"
+                  data-fieldname="CIB_FIS_Country__c"
+                  s-object-field-name="CIB_FIS_Country__c"
+                  value={applicationRecord.CIB_FIS_Country__c}
+                  onchange={onchange}
+                  missing-value-message="Please enter the field"
+                  required
+                  is-country-picklist
+                >
+                </c-cmn_comp_acpicklist>
+              </div>
+            </div>
+          </div>
+          <div class="slds-grid aob_col-gutter slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-05">
+                  <abbr class="slds-required" title="required">* </abbr
+                  >Regulatory license number</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    required="true"
+                    message-when-value-missing="Please enter the field"
+                    variant="label-hidden"
+                    type="text"
+                    aria-describedby="form-error-06"
+                    pattern="[A-Za-z0-9]+"
+                    aria-invalid="true"
+                    data-fieldname="CIB_FIS_RegulatoryLicenceNumber__c"
+                    value={applicationRecord.CIB_FIS_RegulatoryLicenceNumber__c}
+                    placeholder="Please enter the license number"
+                    name="regulatoryLicenseNumber"
+                    message-when-pattern-mismatch="Only Character are allowed"
+                    onchange={onchange}
+                  >
+                  </lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

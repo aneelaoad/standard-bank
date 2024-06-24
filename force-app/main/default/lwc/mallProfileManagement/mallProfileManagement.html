@@ -1,0 +1,109 @@
+<template>
+    <h1 class="a_tittle"> My profile
+    </h1>
+
+    <div class="profile-tabs">
+        <lightning-tabset class="active-tab">
+            <lightning-tab label="Personal details">
+                <template if:true={user}>
+                    <c-mall-profile-personal-details user={user}></c-mall-profile-personal-details>
+                </template>
+            </lightning-tab>
+            <!-- <template if:true={showPreferences}> -->
+                <lightning-tab label="Preferences" title="Preferences" class="tab">
+                    <template if:true={user}>
+                        <c-mall-profile-user-prefences user={user} country-list={countryList}
+                            language-list={languageList}></c-mall-profile-user-prefences>
+                    </template>
+                </lightning-tab>
+            <!-- </template> -->
+            <lightning-tab label="Manage notifications" class="tab">
+                <template if:true={user}>
+                    <c-mall-profile-manage-notifications user={user} ></c-mall-profile-manage-notifications>
+                </template>
+            </lightning-tab>
+            <template if:true={showBusinessDetails}>
+                <lightning-tab label="Business details" class="tab">
+                    <template if:true={user}>
+                        <c-mall-profile-business-details user-profile={userProfile} country-name={country}></c-mall-profile-business-details>
+                    </template>
+                </lightning-tab>
+            </template>
+            <lightning-tab label="Consent" class="tab">
+                <template if:true={user}>
+                    <c-mall-profile-marketing-consent user={user}></c-mall-profile-marketing-consent>
+                </template>
+            </lightning-tab>
+        </lightning-tabset>
+    </div>
+
+
+    <div class="mobile-tabs">
+        <ul>
+            <li>
+                <a class="mobile-tab-item" onclick={setMobileTabs} data-tab="Personal Details"><b><img
+                            src={rightIcon}></b>Personal Details</a>
+                <template if:true={showPersonalDetailsMobile}>
+                    <template if:true={user}>
+                        <div class="mobile-tab-body">
+                            <c-mall-profile-personal-details user={user}></c-mall-profile-personal-details>
+                        </div>
+                    </template>
+                </template>
+            </li>
+            <!-- <template if:true={showPreferences}> -->
+                <li>
+                    <a class="mobile-tab-item" onclick={setMobileTabs} data-tab="Preferences"><b><img
+                                src={rightIcon}></b>Preferences</a>
+                    <template if:true={showPreferencesMobile}>
+                        <template if:true={user}>
+                            <div class="mobile-tab-body">
+                                <c-mall-profile-user-prefences user={user} country-list={countryList}
+                                    language-list={languageList}></c-mall-profile-user-prefences>
+                            </div>
+                        </template>
+                    </template>
+                </li>
+            <!-- </template> -->
+
+            <li>
+                <a class="mobile-tab-item" onclick={setMobileTabs} data-tab="Manage Notifications"><b><img
+                            src={rightIcon}></b>Manage Notifications</a>
+                <template if:true={showManageNotificationsMobile}>
+                    <template if:true={user}>
+                        <div class="mobile-tab-body">
+                            <c-mall-profile-manage-notifications user={user}></c-mall-profile-manage-notifications>
+                        </div>
+                    </template>
+                </template>
+            </li>
+            <template if:true={showBusinessDetails}>
+                <li>
+                    <a class="mobile-tab-item" onclick={setMobileTabs} data-tab="Business Details"><b><img
+                                src={rightIcon}></b>Business Details</a>
+                    <template if:true={showBusinessDetailsMobile}>
+                        <template if:true={user}>
+                            <div class="mobile-tab-body">
+                                <c-mall-profile-business-details user-profile={userProfile} country-name={country}>
+                                </c-mall-profile-business-details>
+                            </div>
+                        </template>
+                    </template>
+                </li>
+            </template>
+
+            <li>
+                <a class="mobile-tab-item" onclick={setMobileTabs} data-tab="Marketing Consent"><b><img
+                            src={rightIcon}></b>Marketing Consent</a>
+                <template if:true={showMarketingConsentMobile}>
+                    <template if:true={user}>
+                        <div class="mobile-tab-body">
+                            <c-mall-profile-marketing-consent user={user}></c-mall-profile-marketing-consent>
+                        </div>
+                    </template>
+                </template>
+            </li>
+        </ul>
+    </div>
+
+</template>

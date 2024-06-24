@@ -1,0 +1,37 @@
+<template>
+    <div class="container">
+        <div>
+          <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+              <tr class="slds-line-height_reset">
+                <template for:each={columns} for:item="column">
+                  <th key={column.fieldName} scope="col">
+                    <div class="slds-truncate" title={column.label}>{column.label}</div>
+                  </th>
+                </template>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={displayedData} for:item="record">
+                <tr key={record.id} class="slds-hint-parent">
+                  <template for:each={record.columns} for:item="column">
+                    <td  key={column.name} data-label={column.value}>
+                      <div class="slds-truncate" title={column.value}>{column.value}</div>
+                  </td>
+      
+                  </template>
+                </tr>
+              </template>
+            </tbody>
+         </table>
+        </div>
+        <template if:true={renderPagination}>
+          <c-mall-generic-table-pagination
+              current-page={currentPage}
+              total-pages={totalPages}
+              onpaginationchange={handlePaginationChange}>
+          </c-mall-generic-table-pagination>
+        </template>
+
+    </div>
+</template>

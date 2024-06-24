@@ -1,0 +1,27 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 06-08-2021
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-08-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_heading">
+        <template if:true={iconStart}>
+            <div class="v1_div_start">
+                <lightning-icon size="small" icon-name={iconStart} alternative-text={startText} title={startText} onclick={clickStart}></lightning-icon>
+            </div>
+        </template>
+        <div class="v1_div_title"><span class="v1_span_title">{title}</span></div>
+        <template if:true={iconsEnd}>
+            <div class="v1_div_end">
+                <template for:each={iconsEnd} for:item="icon">
+                    <img class='v1_icon' key={icon.Id} src={icon.Name} onclick={icon.Click}></img>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

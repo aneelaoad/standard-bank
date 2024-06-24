@@ -1,0 +1,70 @@
+.slds-dropdown{
+    z-index:3;
+}
+.multiselect {
+    width: 200px;
+  }
+  
+  .selectBox {
+    position: relative;
+  }
+  
+  .selectBox select {
+    width: 100%;
+    font-weight: bold;
+  }
+  
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .checkboxes {
+    display: none;
+    border: 1px #dadada solid;
+  }
+  
+  .checkboxes label {
+    display: block;
+  }
+
+  .aob_checkboxes label {
+    margin-bottom: -5px;
+  }
+
+  .checkboxes label:hover {
+    background-color: #1e90ff;
+  }
+@media(min-width: 800px){
+  .aob_additional_width{
+    width: 120%;
+  }
+}
+.ao-main-content {
+  background-color: t(sbg_background_gray);
+  flex: 1;
+  align-items: center;
+}
+.aob_tax_input{
+  padding-right:0;
+  padding-left:0
+}
+.slds-listbox .slds-listbox_vertical .slds-dropdown .slds-dropdown_fluid .slds-dropdown_left
+{display:block;
+}
+
+.slds-dropdown-trigger_click.slds-is-open .slds-dropdown, .slds-dropdown-trigger--click.slds-is-open .slds-dropdown{
+  height:400px;
+  width: 400px;
+}
+
+.button-container{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  padding: 20px 50px; 
+}

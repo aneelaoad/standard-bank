@@ -1,0 +1,226 @@
+<template>
+  <div class="search-wrapper" data-flyout-open={openFlyOut}>
+    <div class="search-input-wrapper">
+      <span class="search-icon"> </span>
+      <input
+        type="search"
+        class="search-input"
+        onkeyup={searchKeyphraseChange}
+        placeholder={searchPlaceholderText}
+        value={searchTerm}
+        onkeypress={submitSearchPhraseOnEnter}
+      />
+    </div>
+    <template if:true={openFlyOut}>
+      <div class="search-preview-wrapper">
+        <div class="resp-section form">
+          <button class="back-button" onclick={removeSearchText}>
+            {backText}
+          </button>
+        </div>
+
+        <template if:true={showCategorySelection}>
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <div class="slds-checkbox">
+                <input
+                  type="checkbox"
+                  name="categoryFilter"
+                  id="categoryFilter"
+                  value="categoryFilter"
+                  checked={isCategoryFilterActive}
+                  onchange={applyCategoryFilter}
+                />
+                <label class="slds-checkbox__label" for="categoryFilter">
+                  <span class="slds-checkbox_faux"></span>
+                  <span class="slds-form-element__label"
+                    >{checkboxMessage}
+                    <strong>{checkboxMessageCategory}</strong></span
+                  >
+                </label>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <template if:true={termSuggestions}>
+          <div class="suggestions_terms">
+            <template for:each={termSuggestions} for:item="suggestion">
+              <a
+                key={suggestion.id}
+                class="suggestion-item"
+                data-term={suggestion.name}
+                onclick={navigateToResults}
+                data-intent="informational"
+                data-scope="mall search"
+                data-id="link_content"
+                data-type="click"
+                data-text-before="search suggestion"
+                data-text={suggestion.name}
+                data-text-after="link"
+              >
+                {suggestion.name}
+              </a>
+            </template>
+          </div>
+        </template>
+        <div class="section-heading">
+          {solutionsLabel} ({solutionsCount})
+          <a
+            if:true={showViewAllSolutions}
+            href={searchResultURLSolutions}
+            data-result-type={solutionsLabel}
+            onclick={viewAllResultsByType}
+            data-intent="informational"
+            data-scope="mall search"
+            data-id="link_content"
+            data-type="click"
+            data-text="solutions search results view all link"
+            >{viewAllLabel}</a
+          >
+        </div>
+        <template if:true={loadingSearch}>
+          <div class="suggestions_shop skeleton-view">
+            <template for:each={skeletonSolutions} for:item="item">
+              <div key={item.id} class="shop-item">
+                <div class="shop-image"></div>
+                <span></span>
+              </div>
+            </template>
+          </div>
+        </template>
+        <template if:false={loadingSearch}>
+          <template if:true={solutions}>
+            <div class="suggestions_shop">
+              <template for:each={solutions} for:item="solution">
+                <a
+                  key={solution.id}
+                  onclick={navigateToSolutionDetailPage}
+                  class="shop-item"
+                  data-solutionid={solution.id}
+                  data-intent="navigational"
+                  data-scope="mall search"
+                  data-type="click"
+                  data-id="link_content"
+                  data-text-before="solutions search result"
+                  data-text={solution.name}
+                  data-text-after="image"
+                >
+                  <figure class="shop-image">
+                    <img src={solution.imageUrl} alt={solution.name} />
+                  </figure>
+                  <span
+                    data-intent="navigational"
+                    data-scope="mall search"
+                    data-type="click"
+                    data-id="link_content"
+                    data-text-before="solutions search result"
+                    data-text={solution.title}
+                    data-text-after="link"
+                  >
+                    {solution.title}
+                  </span>
+                </a>
+              </template>
+            </div>
+          </template>
+        </template>
+
+        <div class="section-heading">
+          {productLabel} ({productCount})
+          <a
+            if:true={showViewAllProducts}
+            href={searchResultURLProducts}
+            data-result-type={productLabel}
+            onclick={viewAllResultsByType}
+            data-intent="informational"
+            data-scope="mall search"
+            data-id="link_content"
+            data-type="click"
+            data-text="product search result view all link"
+            >{viewAllLabel}</a
+          >
+        </div>
+        <template if:true={loadingSearch}>
+          <div class="suggestions_product skeleton-view">
+            <template for:each={skeletonProduct} for:item="product">
+              <div key={product.id} class="product-item">
+                <div class="product-info">
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+        <template if:false={loadingSearch}>
+          <template if:true={products}>
+            <div class="suggestions_product">
+              <template for:each={products} for:item="product">
+                <div key={product.id} class="product-item">
+                  <div class="product-info">
+                    <span>
+                      <a
+                        data-intent="navigational"
+                        data-scope="mall search"
+                        data-type="click"
+                        data-id="link_content"
+                        data-text-before="product search result"
+                        data-text={product.shopname}
+                        data-text-after="shop's link"
+                        href={guestUserPageUrl}
+                        onclick={onClickProduct}
+                        data-url={product.desktopUrl}
+                        data-shopname={product.shopName}
+                        >{product.title}</a
+                      >
+                    </span>
+                    <a
+                      onclick={onClickProduct}
+                      class="product-title-wrapper"
+                      data-intent="navigational"
+                      data-scope="mall search"
+                      data-type="click"
+                      data-id="link_content"
+                      data-text-before="product search result"
+                      data-text={product.title}
+                      data-shopname={product.shopName}
+                      data-url={product.desktopUrl}
+                    >
+                      <span>{product.text}</span>
+                    </a>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </template>
+        </template>
+
+        <div class="section-heading">
+          {otherLabel} ({otherCount})
+          <a
+            if:true={showViewAllOthers}
+            href={searchResultURLOthers}
+            data-result-type={othersLabel}
+            onclick={viewAllResultsByType}
+            data-intent="informational"
+            data-scope="mall search"
+            data-id="link_content"
+            data-type="click"
+            data-text="other search results view all link"
+            >{viewAllLabel}</a
+          >
+        </div>
+        <template if:true={loadingSearch}>
+          <div class="suggestions_other skeleton-view">
+            <template for:each={skeletonShop} for:item="item">
+              <div key={item.id} class="other-item">
+                <span></span>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+    </template>
+  </div>
+</template>

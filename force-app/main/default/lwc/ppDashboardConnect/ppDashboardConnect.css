@@ -1,0 +1,57 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    margin: 20px 1px 0 0;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.heading{
+    text-transform: uppercase;
+    color : #6a7286;
+}
+.text-one {
+    text-align: left;
+    padding-bottom: 8px;
+    font-size: 14px;
+    color: #1c263c;
+    padding-top: 20px;
+}
+
+.text-two {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: left;
+    padding-bottom: 12px;
+    color: #6a7286;
+    font-weight: normal;
+}
+
+.get-in-touch {
+    height: 124px;
+    background-color: #f7f9ff;
+    border-radius: 4px;
+    padding: 12px;
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.connect-img {
+    width: 131px;
+    height: 94px;
+    object-fit: cover;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    bottom: -23px;
+    right: -32px;
+}
+
+.connect-link{
+    position: absolute;
+    bottom: 12px;
+    font-size:13px;
+    color: #0089ff;
+}

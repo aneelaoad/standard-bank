@@ -1,0 +1,75 @@
+:host {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+    padding: 0 14px;
+    max-height: 75px;
+    background: linear-gradient(226.56deg, #B04BBA -2.93%, #0033A1 51.98%, #0A2240 97.22%);
+    border-radius: 12px 12px 0px 0px;   
+    border-bottom: 1px solid #FFFFFF;
+    flex-basis: 50px;
+}
+
+img {
+    margin-right: 4px;
+    max-height: 40px;
+    max-width: 40px;
+}
+
+h2 {
+    font-family: var(--lwc-fontFamily);
+    margin: 0;
+    text-align: initial;
+    align-self: center;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: inherit;
+    color: white;
+}
+
+button {
+    background: none;
+    border: none;
+    height: 32px;
+    min-height: 32px;
+    width: 32px;
+    min-width: 32px;
+    position: relative;
+    outline: none;
+}
+
+button:active,
+button:focus,
+button:focus-visible {
+    outline: none;
+}
+
+button:active:before,
+button:focus:before,
+button:focus-visible:before,
+button:hover:before {
+    content: " ";
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    opacity: .2;
+    border-radius: 4px;
+    box-sizing: border-box;
+    pointer-events: none;
+    inset: 0;
+}
+
+lightning-icon {
+    --sds-c-icon-color-foreground-default: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

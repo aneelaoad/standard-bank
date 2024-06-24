@@ -1,0 +1,206 @@
+.slds-modal__container{
+  height: auto;
+}
+.aob_screen-field-label{
+  text-transform: none!important;
+  font-family: 'bentonsans-extra-light-webfont'!important;
+  font-size: 18px!important;
+}
+.cipc_header h2 {
+  height: 40px;
+  font-size: 28px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  text-align: center;
+  color: #3c4b6c;
+  margin-bottom: 15px;
+}
+
+.ao-bg{
+  background-color: white;
+}
+
+.textcolor{
+  color: white;
+}
+
+.aob_error_input_label{
+  color: #0389ff !important;
+}
+.cipc_header{
+  display: flex;
+    align-items: flex-start;
+}
+.cipc_header img{
+      width: 27px;
+    display: block;
+    float: left;
+    padding-right: 10px;
+    padding-top: 3px;
+}
+.cipc_header span {
+  float: right;
+  font-size: 15px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  color: var(--dark-indigo);
+}
+
+.cipc_header span b{
+  font-family: 'bentonsans-bold-webfont';
+}
+
+ul li{
+  margin-bottom: 15px;
+  padding-left: 24px;
+    position: relative;
+    line-height: 24px;
+}
+ul li:before{
+content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 8px solid #f86700;
+    top: 9px;
+    left: 0px;
+    transform: rotate(-180deg);
+}
+
+.aob_display-flex {
+  justify-content: center;
+}
+
+.ao-background-colour_brand-blue {
+  background-color: #0033a1;
+  color: white;
+}
+
+.ao-background-colour_brand-blue h1 {
+  margin-bottom: 0px !important;
+  color: white;
+  font-size: 28px;
+}
+
+.btn-secondary {
+  color: #0089ff !important;
+  font-size: 14px;
+  background-color: white !important;
+  font-family: 'bentonsans-bold-webfont';
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px;
+  border: 1px solid #0089ff;
+}
+
+.custom_icon {
+  position: relative;
+  top: 42px;
+  left: -17px;
+  z-index: 2;
+}
+.slds-modal__content b {
+    font-family: bentonsans-extra-light-webfont;
+}
+
+.slds-modal__content p {
+  color: #858d9d;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.btn-primary{
+  letter-spacing: 1.5px;
+    font-family: 'bentonsans-bold-webfont';
+}
+.detail{
+  font-size: 15px;
+  margin-left: 18px;
+  margin-top: 15px;
+}
+.cipc_header span img {
+  width: 20px !important; 
+  margin: 3px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 700px) {
+  .dflex {
+    display: inherit;
+    margin-top: -25px;
+  }
+
+  .btn-secondary {
+    margin-bottom: 10px;
+  }
+
+  .btn-primary {
+    width: 95%;
+  }
+
+  .btn-secondary {
+    width: 95%;
+  }
+
+  .slds-modal_container {
+    margin: 0 1rem !important;
+  }
+
+}
+
+.ao-slds{
+  min-height: 0px !important;
+}
+
+.modal_padding{
+  background-color: white;
+  padding: 2rem;
+}
+
+.form_padding{
+  padding: 9px;
+}
+@media (max-width: 768px){
+.cipc_header img{
+      width: 30px;
+}
+}
+@media (max-width: 470px){
+.cipc_header img{
+      width: 36px;
+}
+}
+@media (max-width: 575px){
+  .responsiveflex{
+    flex-direction: column;
+    gap: 10px;
+
+  }
+}
+@media (max-width: 350px) {
+  .btn-primary {
+    font-size: 12px;
+  }
+ .btn-secondary {
+   font-size: 12px;
+  }
+  .ao-background-colour_brand-blue h1{
+    font-size: 18px;
+  }
+}
+@media (max-width: 768px){
+  .slds-modal__container{
+  height: auto;
+}
+}

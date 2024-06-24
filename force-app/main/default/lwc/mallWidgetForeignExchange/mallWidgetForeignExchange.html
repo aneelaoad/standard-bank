@@ -1,0 +1,27 @@
+<template>
+  <div class="exchange-wrapper">
+    <template lwc:if={resultData}>
+      <div class="exchange-heading-wrapper">
+        <h3 class="exchange-heading">{heading}</h3>
+        <c-mall-widget-actions></c-mall-widget-actions>
+      </div>
+      <div class="exchange-list-wrapper">
+        <div class="current-country list-grid">
+          <label>
+            <img src={countryFlag} />
+            {countryName}
+          </label>
+          <span> {countryCurrency} - {countryValue} </span>
+        </div>
+        <ul class="exchange-list-scroll">
+          <template for:each={list} for:item="item">
+            <li key={item.id} class="list-grid">
+              <label> {item.name} </label>
+              <span> {item.value} </span>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </template>
+  </div>
+</template>

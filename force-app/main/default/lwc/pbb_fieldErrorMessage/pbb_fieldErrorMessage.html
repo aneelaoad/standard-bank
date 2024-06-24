@@ -1,0 +1,18 @@
+<!--
+ - Created by mpszonka on 01.08.2020.
+ - US-1008
+ -->
+
+<!-- Pbb Unable To Get Data -->
+<template>
+    <p if:true={isEmptyDataError}
+       class="slds-text-body--small slds-p-vertical_x-small slds-text-color_weak"
+       style="color:#bebebe;">
+        No data <template if:false={singleLineText}> <br/> </template> found
+    </p>
+    <p if:false={isEmptyDataError}
+       class="slds-text-body--small slds-p-vertical_x-small slds-text-color_weak"
+       style="color:#bebebe;">
+        Unable to <template if:false={singleLineText}> <br/> </template> get data
+    </p>
+</template>

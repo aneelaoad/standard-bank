@@ -1,0 +1,87 @@
+<!--
+  @description       : 
+  @author            : Mahlatse Tjale
+  @group             : 
+  @last modified on  : 10-17-2023
+  @last modified by  : Mahlatse Tjale
+  Modifications Log
+  Ver   Date         Author           Modification
+  1.0   10-08-2023   Mahlatse Tjale   Initial Version
+-->
+<template>
+	<div class="slds-p-vertical_x-large ao-border-radius screen-container">
+		<!--Form Header-->
+		<c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+		<c-aob_internal_comp_form-header put-title-left="true" 
+			title="Get the debit card by default or upgrade to the cheque card for added benefits"
+			sub-title="Select your preferred card">
+		</c-aob_internal_comp_form-header>
+		<div class="slds-grid slds-gutters_x-small slds-wrap slds-grid_align-center">
+			<div class="aob_form_input slds-col slds-m-top_xx-large slds-small-size_1-of-1 slds-large-size_1-of-1">
+				<!-- first card -->
+				<article class="" style="width:100%">
+					<div class="">
+						<div class="slds-theme--shade card-title">
+							<h2 class="slds-m-left_x-large">{label.mymobiz}</h2>
+						</div>
+						<ul class="slds-m-left_x-large">
+							<li>- {label.AOB_ZA_Visit}</li>
+							<li>- {label.AOB_ZA_Get}</li>
+							<li>- {label.AOB_ZA_Stayin}
+							</li>
+						</ul>
+						<div class="fee-info slds-m-left_x-large">
+							<div class="accountcss">{label.AOB_ZA_ANNUAL} : {label.AOB_ZA_R} {label.AOB_ZA_ZERO}</div>
+						</div>
+						<div class="slds-grid">
+							<lightning-button
+								class="slds-m-left_x-large slds-size_1-of-2 aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center"
+								data-id="link_content"  variant="brand" label="SELECT" title="select"
+								onclick={continueToNextPageDebit}>
+							</lightning-button>
+						</div>
+					</div>
+				</article>
+			</div>
+			<!-- <br /> -->
+			<div class="aob_form_input slds-col slds-m-top_xx-large slds-small-size_1-of-1 slds-large-size_1-of-1">
+				<!-- second card -->
+				<article class="" style="width:100%">
+					<div class="">
+						<div class="slds-theme--shade card-title">
+							<h2 class="slds-m-left_x-large">{label. chequecard}</h2>
+						</div>
+
+						<ul class="slds-m-left_x-large">
+							<li>- {label.AOB_ZA_StayinGetyourbusiness}</li>
+							<li>- {label.AOB_ZA_Getunlimited}</li>
+							<li>- {label.AOB_ZA_Getfreeautomaticrate}</li>
+						</ul>
+						<div class="fee-info slds-m-left_x-large">
+							<div class="accountcss">{label.AOB_ZA_ANNUAL} : {label.AOB_ZA_R} {label.AOB_ZA_NUM}</div>
+						</div>
+						<div class="slds-grid">
+							<lightning-button
+								class="slds-m-left_x-large slds-size_1-of-2 aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center"
+								variant="brand" label="SELECT" title="select"
+								onclick={continueToNextPageCheque}>
+							</lightning-button>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+		<div class="slds-theme--shade button-container slds-m-top_xx-large">
+			<lightning-button data-id=”link_content” data-intent="confirmational" data-scope={adobeDataScope}
+				data-text="back button click"
+				class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+				variant="neutral" label="Back" title="Back" onclick={backToPreviousPage}>
+			</lightning-button>
+		</div>
+	</div>
+	<c-aob_internal_comp_card-delivery lwc:if={isOpenCardDelivery}
+		is-new={isNewToBank} is-modal-open={isOpenCardDelivery}  product-name={productName}
+		application-id={applicationId} price={label.AOB_ZA_NUM} screen-name={screenName} previous-screen=''
+		oncancel={closePopup}	onchildmethod={handleChildMethod}
+	></c-aob_internal_comp_card-delivery>
+</template>

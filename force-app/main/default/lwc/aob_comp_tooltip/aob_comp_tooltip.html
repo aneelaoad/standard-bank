@@ -1,0 +1,21 @@
+<!--
+  @description       : 
+  @author            : aaboul@salesforce.com
+  @group             : 
+  @last modified on  : 03-10-2021
+  @last modified by  : aaboul@salesforce.com
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   11-10-2020   aaboul@salesforce.com   Initial Version
+  2.0   03-10-2021   aaboul@salesforce.com   New style and behavior of tooltip
+-->
+<template>
+    <div class="aob_tooltip" onmouseout={getBackHoverAuto}>
+        <img class="aob_tooltip_icon" alt="Tooltip icon" src={infoIcon}>
+        <div class="aob_arrow">
+        </div>
+        <div class="aob_tooltip_content">
+            {message}
+        </div>
+    </div>
+</template>

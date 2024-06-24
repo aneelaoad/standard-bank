@@ -1,0 +1,34 @@
+<template>
+    <div class="solutions-payment-locations-wrapper">
+        <h2 class="main-header">Manage your money wherever you are</h2>
+        <section class="location-carousel-wrapper">
+            <section class="location-tiles-wrapper">
+                <a class="tile" label="Internet Banking" data-id="internet-banking" onclick={handleNavigate}>
+                    <img src={locationImage1} alt="" />
+                    <p>Internet banking</p>
+                </a>
+                <a  class="tile" label="Mobile App" data-id="mobile-app" onclick={handleNavigate}>
+                    <img src={locationImage2} alt="" />
+                    <p>Mobile app</p>
+                </a>
+                <a class="tile" label="ATM" data-id="atm" onclick={handleNavigate}>
+                    <img src={locationImage3} alt="" />
+                    <p>ATM</p>
+                </a>
+                <a class="tile" label="Cellphone Banking" data-id="cellphone-banking" onclick={handleNavigate}>
+                    <img src={locationImage4} alt="" />
+                    <p>Cellphone banking</p>
+                </a>
+            </section>
+            <nav class="carousel-navigation-wrapper">
+                <img src={chevronLeft} class="left-arrow" />
+                <section class="page-tag-wrapper">
+                    <i class="page-tag active"></i>
+                    <i class="page-tag"></i>
+                </section>
+                <img src={chevronRight} class="right-arrow" />
+            </nav>
+        </section>
+
+    </div>
+</template>

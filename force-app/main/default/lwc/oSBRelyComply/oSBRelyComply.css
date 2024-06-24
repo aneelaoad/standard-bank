@@ -1,0 +1,362 @@
+@font-face {
+  font-family: "proximanova";
+  src: url(/resource/OSB_FontClass/ProximaNova/ProximaNovaRegular.otf);
+}
+
+.splashBanner-container {
+  padding-top: -32px !important;
+}
+
+.btn {
+  display: block;
+  height: 50px;
+  padding: 18px 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 13px;
+  text-align: center;
+  transition: all 0.15s ease-in;
+  cursor: pointer;
+  color: #464646;
+}
+
+.tm_Class {
+  font-weight: normal;
+  font-size: 26px;
+  color: #ffffff;
+  letter-spacing: 0;
+  line-height: 20px;
+  margin-top: 45px;
+  padding-right: 10px;
+}
+
+.topTitle {
+  color: #ffffff;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+
+.SubContent {
+  color: #0a2240;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: 25px;
+  font-weight: 500;
+}
+
+.mainDescription {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.splashContent {
+  padding-left: 144px;
+}
+
+.subDescription {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.splashBanner-secondSec {
+  margin-bottom: 50px;
+  margin-left: 144px;
+}
+
+.tile {
+  padding: inherit;
+}
+
+.midTitle {
+  color: #0a2240;
+  font-size: 42px;
+  letter-spacing: 0;
+  line-height: 57px;
+  font-weight: 100;
+  text-align: left;
+}
+
+.title {
+  color: #121dff;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 43px;
+  background-color: #ffffff;
+}
+
+.subContent {
+  color: #ffffff;
+  font-size: 21px;
+  letter-spacing: 0;
+  line-height: 25px;
+}
+
+.LogoSubContent {
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 25px;
+  padding-right: 5px;
+}
+
+.mainContent {
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+
+.midSection {
+  background-color: #f1f1f1;
+}
+.icons-content {
+  display: contents;
+  text-align: center;
+}
+.endTitle {
+  color: #0a2240;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: 44px;
+  font-weight: 400;
+  max-width: 889px;
+  text-align: center;
+}
+
+.Image-content {
+  float: right;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 20px;
+  background-color: #121dff;
+  color: #ffffff;
+  padding: 8px 15px 8px 15px;
+}
+
+.video {
+  min-height: 540px;
+  background-color: #e8e8e8 !important;
+}
+
+.video-section {
+  width: 100%;
+}
+
+.Image {
+  float: left;
+  min-height: 400px !important;
+}
+
+.Image-title {
+  color: #121dff;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 20px;
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+.sign-up-content {
+  color: #ffffff;
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: 43px;
+  text-align: center;
+  width: 100%;
+}
+.box {
+  display: inline-flex;
+}
+
+.signUpBtn {
+  margin-bottom: 50px !important;
+}
+
+@media (min-width: 1280px) {
+  .Image {
+    min-height: 400px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .video {
+    min-height: 700px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .splashContent {
+    width: 100% !important;
+    padding-left: 0;
+  }
+  .SubContent {
+    width: 100%;
+  }
+  .Image-content {
+    width: 100%;
+    max-height: 480px;
+  }
+  .ThridSection {
+    flex-wrap: wrap;
+  }
+  .Image {
+    min-width: 100% !important;
+    min-height: 150px !important;
+  }
+
+  .Image-self {
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+  }
+
+  .video {
+    width: 100%;
+  }
+
+  .signUpBtn {
+    width: 60%;
+  }
+  .splashBanner-secondSec {
+    margin-bottom: 0;
+    margin-left: 0;
+  }
+}
+
+.splashBanner {
+  letter-spacing: 15px;
+}
+
+.splashBanner__button {
+  float: left;
+  margin-bottom: 110px;
+  color: white;
+  background-color: #1f1f1f;
+  border: solid;
+}
+.splashBanner__button_signUp {
+  background-color: #ffffff;
+  float: left;
+  margin-bottom: 110px;
+  font-weight: 500;
+}
+
+.sec-heading {
+  font-weight: bold;
+}
+
+.list-section {
+  margin-left: 5em;
+}
+
+.rectangle-black {
+  height: 38px;
+  background-color: #000000;
+  display: block;
+  position: absolute;
+  top: 82px;
+  right: 0px;
+}
+
+.rectangle-turquoise {
+  height: 38px;
+  background-color: #00d0d4;
+  display: block;
+  position: absolute;
+  top: 120px;
+  right: 0px;
+}
+
+.titleLogo {
+  color: #121dff;
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 43px;
+  background-color: #ffffff;
+}
+
+.titleLogoR {
+  color: #121dff;
+  letter-spacing: 0;
+  line-height: 26px;
+  background-color: #ffffff;
+  font-size: 20px;
+  padding-right: 5px;
+}
+
+.titleClass {
+  display: flex;
+  color: #ffffff;
+}
+
+.sign-up-section {
+  height: 298px;
+  display: relative;
+}
+
+.signUpBtn {
+  display: block;
+  border-radius: 0px !important;
+}
+
+.btnSection {
+  width: -webkit-fill-available;
+}
+.left-list {
+  font-size: 15px;
+  line-height: 20px;
+  text-align: end;
+}
+.right-list {
+  font-size: 15px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.Register {
+  font-size: 36px;
+  letter-spacing: 0;
+  line-height: 44px;
+  font-weight: bold;
+}
+
+.LogoImageSection {
+  display: inline-flex;
+  top: 0;
+  right: 0;
+}
+
+.footerImage {
+  float: left;
+}
+
+.btn-Logo {
+  display: inline-block;
+}
+@media (max-width: 600px) {
+  .desktopImage {
+    display: none;
+  }
+
+  .left-list {
+    font-size: 15px;
+    line-height: 20px;
+    text-align: left;
+  }
+  .right-list {
+    font-size: 15px;
+    line-height: 20px;
+    text-align: left;
+  }
+  .list {
+    margin-left: 10%;
+  }
+}

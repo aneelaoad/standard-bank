@@ -1,0 +1,115 @@
+<template>
+    <div class="SignUpRequestSol slds-grid slds-gutters" data-id="SignUpRequestSol">
+        <div class="inputSection slds-col slds-large-size_5-of-12 slds-medium-size--4-of-8 slds-small-size--8-of-8">
+            <template lwc:if={RequestNotComplete}>
+                <div
+                    class="slds-text-heading_medium slds-m-bottom_medium title slds-align_absolute-center slds-grid_vertical">
+                    <h1>Request access to {solutionName}</h1>
+                </div>
+                <template for:each={contacts.data} for:item="contact" for:index="index">
+                    <div class="newRequest_section" key={contact.id}>
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="text-input-id-49">Full name</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" data-id="Fullname" value={contact.Name} readonly=""
+                                    class="slds-input" />
+                            </div>
+                        </div>
+
+                        <div lwc:if={hasIdNumber} class="slds-form-element">
+                            <label class="slds-form-element__label" for="text-input-id-49">IdNumber</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" data-id="IdNumber" value={contact.Identity_Number__c} readonly=""
+                                    class="slds-input" />
+                            </div>
+                        </div>
+
+                        <div lwc:if={hasEmail} class="slds-form-element">
+                            <label class="slds-form-element__label" for="text-input-id-49">Email address</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" data-id="EmailAddress" value={contact.Email} readonly=""
+                                    class="slds-input" />
+                            </div>
+                        </div>
+                        <div lwc:if={hasMobile} class="slds-form-element">
+                            <label class="slds-form-element__label" for="text-input-id-49">Mobile number</label>
+                            <div class="slds-form-element__control">
+                                <input type="number" data-id="MobileNumber" value={contact.Phone} readonly=""
+                                    class="slds-input" />
+                            </div>
+                        </div>
+                        <div lwc:if={hasCompany} class="slds-form-element">
+                            <label class="slds-form-element__label" for="text-input-id-49">Company</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" data-id="Company" value={contact.OSB_Company_name__c} readonly=""
+                                    class="slds-input" />
+                            </div>
+                        </div>
+
+                        <template lwc:if={showOperatingCountry}>
+                            <div class="slds-form-element">
+                                <div class="slds-form-element inputFieldContainer" data-id="inputFieldContainer">
+                                    <label class="slds-form-element__label" for="text-input-id-49">Country</label>
+                                    <select class="rectangle-copy-41a slds-select" data-id="Region" name="countryCode"
+                                        required="">
+                                        <option value="">
+                                            Please select a country
+                                        </option>
+                                        <template for:each={displayCountry} for:item="disCountry" class="">
+                                            <option key={disCountry.value} value={disCountry.value}>
+                                                {disCountry.label}
+                                            </option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="slds-form-element__help" data-id="errorMessage" style="display: none;">
+                                    Please select a country</div>
+                            </div>
+                        </template>
+                        <template lwc:if={hasRegion}>
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="text-input-id-49">Country</label>
+                                <div class="slds-form-element__control">
+                                    <input type="text" data-id="Region" value={contact.OSB_Operating_Country__c}
+                                        readonly="" class="slds-input" />
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                <button onclick={requestAccess}
+                    class="slds-button slds-button_neutral btnStyle btn--gray signUp__button"
+                    data-intent="confirmational" data-text={RequestButtonAdobe} data-scope="registration page"
+                    type="submit" data-id="Request">
+                    REQUEST
+                </button>
+                <a class="tnc slds-align_absolute-center" href={tncDownload} data-id="TermsAndConditions"
+                    data-text={TnCAdobeButton} data-intent="transactional" data-scope="registration page" download>
+                    By requesting access I agree to the&nbsp;<span class="tnc_text">
+                        T&C’s</span>
+                </a>
+            </template>
+            <template if:false={RequestNotComplete}>
+                <div class="submittedSection">
+                    <p>
+                        Your request has been submitted<br />
+                        <br />A customer service consultant will be in contact
+                        with you soon<br />
+                        <br />Please contact onehub@standardbank.co.za for any
+                        queries
+                    </p>
+                    <a href="/s" onclick={returnToOneHub}
+                        class="slds-button slds-button_neutral btnStyle btn--gray signUp__button" data-id="ReturnOneHub"
+                        data-intent="navigational" data-text={ReturnButtonAdobe} data-scope="registration page">RETURN
+                        TO ONEHUB</a>
+                </div>
+            </template>
+        </div>
+        <div data-id="right-image"
+            class="rightImage slds-col slds-size_6-of-12 slds-float_right slds-grid_vertical-stretch">
+            <div class="slds-grid slds-grid_vertical slds-align_absolute-center">
+                <img class="slds-col slds-size_medium panellogo" src={Logo} />
+            </div>
+        </div>
+    </div>
+</template>

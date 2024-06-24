@@ -1,0 +1,54 @@
+<template>
+
+    <div class="footer-card clearfix">
+        <div class="theme-container">
+            <div class="footer-card__block">
+                <div class="footer-card__content" data-trackingregion="footer nav">
+                    <div class="row no-gutters">
+                        <div class="col col-12 col-md-8 footer-card__left">
+                            <div class="row">
+                                <div class="col col-12">
+                                    <ul class="footer-card__links-block">
+                                        <!--Loop through all the footer menu items-->
+                                        <template for:each={footerMenu} for:item="menuItem">
+                                            <li key={menuItem.id} class="footer-card__link-list">
+                                                <a class="footer-card__link" href={menuItem.url} data-intent="informational" data-scope="Footer" data-id="link_content" data-text={menuItem.label}>
+                                                    {menuItem.label}
+                                                </a>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-12">
+                                    <div class="footer-card__disclaimer">
+                                        {useDisclaimerText}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-12 col-md-4 footer-card__right">
+                            <div class="footer-card__social-block">
+                                <!--Loop through all the social media items-->
+
+                                <template for:each={socialMenu} for:item="menuItem">
+                                   
+                                        <div key={menuItem.id} class="footer-card__social-list">
+                                            <div class="footer-card__social-link">
+                                                <a target="_blank" href={menuItem.url} data-intent="informational" data-scope="FooterIcons" data-id="link_content" data-text={menuItem.url}>
+                                                    <img src={menuItem.icon}>
+                                                </a>
+                                            </div>
+                                        </div>
+                                   
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

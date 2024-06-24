@@ -1,0 +1,571 @@
+.WyzeTalkSite{
+    width: 100% !important;
+    height: auto;
+}
+
+.HeaderBanner{
+    height: auto;
+    width: 100% !important;
+    background: linear-gradient(90.55deg, #1A1734 0%, rgba(26,23,52,0.97) 20%, rgba(26,23,52,0) 100%), 
+    url(/sfsites/c/resource/OSB_Images_Three/Wyze-MainBanner.png) no-repeat center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.HeaderFirstHalfSection{
+    height: auto;
+    width: 50% !important;
+    padding: 54px 7.63% 54px 7.63%;
+    font-family: var(--FONT-FAMILY);
+    color: #FFFFFF;
+}
+
+.LogoHolder{
+    max-height: 93.83px;
+    max-width: 393.82px;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.QuestionHeaderHolder{
+    height: auto;
+    width: 100% !important;
+    font-size: 27px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 27px;
+    padding-top: 43px;
+}
+
+.ParagraphHolder{
+    height: auto;
+    max-width: 663px;
+    width: 100% !important;
+    font-size: 22.5px;
+    letter-spacing: 0;
+    line-height: 30px;
+    padding-top: 20px;
+}
+
+.ButtonHolder{
+    height: auto;
+    width: 100% !important;
+    padding-top: 48px;
+    display: inline-flex;
+    column-gap: 25px;
+}
+
+.btnStyle {
+    display: block;
+    border: 0;
+    box-sizing: border-box;
+    height: 53.25px;
+    max-width: 223.5px;
+    width: 100% !important;
+    border-radius: 4px;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .15s ease-in;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+
+.btnRegister{
+    background-color: #C9202F;
+    border: 1px solid #C9202F;
+    float: left;
+}
+
+.btnReturn{
+    background-color: transparent;
+    border: 2px solid #FFFFFF;
+    float: right;
+}
+
+.ContentBanner{
+    height: auto;
+    width: 100% !important;
+    background-color: #1A1734;
+    font-family: var(--FONT-FAMILY);
+    color: #FFFFFF;
+}
+
+.ContentHolder{
+    padding: 43px 14.16% 43px 14.16%;
+}
+
+.ContentHeaderSection{
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: 67.5px;
+    text-align: center;
+}
+
+.ContentAdditionalSection{
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 22.5px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.ProductBanner{
+    height: auto;
+    width: 100% !important;
+    background-color: #D6D5D5;
+    font-family: var(--FONT-FAMILY);
+    color: #1A1734;
+}
+
+.ProductHolder{
+    padding: 43px 12.36% 51px 12.36%;
+}
+
+.ProductHeading{
+    font-size: 47px;
+    letter-spacing: 0;
+    line-height: 67.5px;
+    text-align: center;
+}
+
+.ProductGrid{
+    padding-top: 41.75px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 136px;
+    column-gap: 9.44%;
+    grid-template-rows: auto;
+}
+
+.ProductOption{
+    height: auto;
+    width: 100% !important;
+}
+
+.ProductOptionImage{
+    height: 192px;
+    width: 192px;
+    background-color: #FFFFFF;
+    padding: 14px;
+    border-radius: 50%;
+    align-self: center;
+    margin: 0 auto;
+}
+
+.ProductOptionHeading{
+    padding: 28px 0px 0px 0px;
+    font-size: 22.5px;
+    letter-spacing: 0;
+    line-height: 22.5px;
+    text-align: center;
+    font-weight: 400;
+}
+
+.ProductOptionDescription{
+    padding: 25px 0px 0px 0px;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 22.5px;
+    text-align: center;
+}
+
+.BenefitBanner{
+    height: auto;
+    width: 100% !important;
+    background-color: #FFFFFF;
+    font-family: var(--FONT-FAMILY);
+    color: #1A1734;
+}
+
+.BenefitHolder{
+    padding: 43px 6.25% 43px 6.25%;
+}
+
+.BenefitHeading{
+    font-size: 47px;
+    letter-spacing: 0;
+    line-height: 67.5px;
+    text-align: center;
+}
+
+.BenefitGrid{
+    padding-top: 41.75px;
+    display: grid;
+    grid-template-columns: 1fr minmax(400px,780px) 1fr;
+    grid-template-rows: auto;
+}
+
+.BenefitText{
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 22.5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    row-gap: 35px;
+}
+
+.imageFeature{
+    height: 416px;
+    width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.leftBenefit{
+    text-align: right;
+}
+
+.rightBenefit{
+    text-align: left;
+}
+
+.featureImg{
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: contain;
+}
+
+.BenefitImage{
+    height: 400px;
+    width: 100% !important;
+    object-fit: cover;
+}
+
+.BenefitImageSetting{
+    height: 400px;
+}
+
+.FooterBanner{
+    height: auto;
+    width: 100% !important;
+    background-color: #C9202F;
+}
+
+.FooterHolder{
+    padding: 46px 12.98% 75px 12.98%;
+}
+
+.FooterHeading{
+    color: #FFFFFF;
+    font-size: 42px;
+    letter-spacing: 0;
+    line-height: 55px;
+    text-align: center;
+}
+
+.FooterButtonHolder{
+    height: auto;
+    width: 100% !important;
+    padding-top: 48px;
+    display: inline-flex;
+    column-gap: 25px;
+    justify-content: center;
+}
+
+.btnFooterRegister{
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    float: left;
+    color: #C9202F;
+}
+
+.btnFooterReturn{
+    background-color: #C9202F;
+    border: 1px solid #FFFFFF;
+    float: right;
+    color: #FFFFFF;
+}
+
+@media only screen and (max-width:900px){
+    .HeaderFirstHalfSection{
+        width: 65% !important;
+    }
+
+}
+
+
+@media only screen and (max-width:900px){
+
+    .HeaderFirstHalfSection{
+        width: 65% !important;
+        padding: 54px 0px 28px 6.51%;
+    }
+
+    .LogoHolder{
+        max-height: 65px;
+        max-width: 273px;
+    }
+
+    .QuestionHeaderHolder{
+        font-size: 22px;
+        padding-top: 32px;
+    }
+
+    .ParagraphHolder{
+        font-size: 18px;
+        line-height: 22.5px;
+        padding-top: 20px;
+    }
+
+    .ButtonHolder{
+        padding-top: 41px;
+        display: inline-flex;
+        column-gap: 16px;
+    }
+
+    .btnStyle {
+        height: 50px;
+        max-width: 200px;
+        font-size: 14px;
+        line-height: 14px;
+    }
+
+    .ContentHolder{
+        padding: 41px 6.25% 85px 6.25%;
+    }
+
+    .ContentHeaderSection{
+        font-size: 28px;
+        line-height: 35px;
+    }
+
+    .ContentAdditionalSection{
+        line-height: 20px;
+        padding-top: 24px;
+    }
+
+    .ProductHolder{
+        padding: 42px 6.51% 61px 6.51%;
+    }
+
+    .ProductHeading{
+        font-size: 28px;
+        line-height: 24px;
+    }
+
+    .ProductGrid{
+        padding-top: 32px;
+        column-gap: 34px;
+    }
+
+    .ProductOptionImage{
+        height: 130px;
+        width: 130px;
+    }
+
+    .ProductOptionHeading{
+        padding: 32px 0px 0px 0px;
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .ProductOptionDescription{
+        padding: 16px 0px 0px 0px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .BenefitHolder{
+        padding: 42px 15.88% 47px 15.88%;
+    }
+
+    .BenefitHeading{
+        font-size: 28px;
+        line-height: 24px;
+    }
+
+    .BenefitGrid{
+        padding-top: 32px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        row-gap: 26px;
+        column-gap: 40px;
+    }
+
+    .imageFeature{
+        height: 253px;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .leftBenefit{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .rightBenefit{
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .BenefitText{
+        justify-content: initial;
+    }
+
+    .FooterHolder{
+        padding: 37px 7.42% 56px 7.42%;
+    }
+
+    .FooterHeading{
+        font-size: 28px;
+        line-height: 35px;
+    }
+
+}
+
+@media only screen and (max-width:550px){
+
+    .HeaderBanner{
+        background: linear-gradient(90.55deg, #1A1734 0%, rgba(26,23,52,0.97) 20%, rgba(26,23,52,0) 100%), 
+        url(/sfsites/c/resource/OSB_Images_Three/Wyze-MainBanner.png) no-repeat left;
+    }
+
+    .HeaderFirstHalfSection{
+        width: 100% !important;
+        padding: 30px 5.31% 61px 5.31%;
+        text-align: center;
+        display: grid;
+        justify-items: center;
+    }
+
+    .LogoHolder{
+        max-height: 46px;
+        max-width: 193px;
+    }
+
+    .QuestionHeaderHolder{
+        font-size: 18px;
+        padding-top: 16px;
+    }
+
+    .ParagraphHolder{
+        font-size: 16px;
+        line-height: 20px;
+        padding-top: 24px;
+    }
+
+    .ButtonHolder{
+        padding-top: 24px;
+        display: grid;
+        column-gap: 0px;
+        row-gap: 16px;
+        justify-items: center;
+    }
+
+    .ContentHolder{
+        padding: 23px 6.25% 62px 6.25%;
+    }
+
+    .ContentHeaderSection{
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .ContentAdditionalSection{
+        padding-top: 15px;
+    }
+
+    .ProductHolder{
+        padding: 40px 18.75% 32px 18.75%;
+    }
+
+    .ProductHeading{
+        font-size: 24px;
+    }
+
+    .ProductGrid{
+        grid-template-columns: 1fr;
+        column-gap: 0px;
+        grid-template-rows: repeat(3, auto);
+        row-gap: 42px;
+    }
+
+
+    .ProductOptionHeading{
+        padding: 16px 0px 0px 0px;
+    }
+
+    .BenefitHolder{
+        padding: 42px 10% 42px 10%;
+    }
+
+    .BenefitHeading{
+        font-size: 24px;
+    }
+
+    .BenefitGrid{
+        grid-template-columns: 1fr;
+        column-gap: 0px;
+        grid-template-rows: repeat(3, auto);
+        row-gap: 16px;
+    }
+
+    .BenefitText{
+        line-height: 20px;
+    }
+
+    .imageFeature{
+        height: 253px;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .leftBenefit{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .rightBenefit{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+
+    .leftBenefit{
+        text-align: center;
+    }
+
+    .rightBenefit{
+        text-align: center;
+    }
+
+    .FooterHolder{
+        padding: 44px 7.5% 56px 7.5%;
+    }
+
+    .FooterHeading{
+        font-size: 20px;
+        line-height: 25px;
+    }
+
+    .FooterButtonHolder{
+        padding-top: 32px;
+        display: grid;
+        column-gap: 0px;
+        row-gap: 16px;
+        justify-items: center;
+
+    }
+
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="mainTitle" type="String" default="" label="Title for component"/>
+            <property name="showMainTitle" type="Boolean" default="true" label="Show the main title"/>
+            <property name="image1" type="String" default="" label="Image 1" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="title1" type="String" default="" label="Title 1"/>
+            <property name="mainContent1" type="String" default="" label="Main Content 1"/>
+            <property name="image2" type="String" default="" label="Image 2" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="title2" type="String" default="" label="Title 2"/>
+            <property name="mainContent2" type="String" default="" label="Main Content 2"/>
+            <property name="image3" type="String" default="" label="Image 3" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="title3" type="String" default="" label="Title 3"/>
+            <property name="mainContent3" type="String" default="" label="Main Content 3"/>
+            <property name="image4" type="String" default="" label="Image 4" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="title4" type="String" default="" label="Title 4"/>
+            <property name="mainContent4" type="String" default="" label="Main Content 4"/>
+            <property name="backgroundColor" type="String" default="" label="Background Colour"/>
+            <property name="itemCount" type="Integer" default="4" description="How many items to show 1 - 4"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

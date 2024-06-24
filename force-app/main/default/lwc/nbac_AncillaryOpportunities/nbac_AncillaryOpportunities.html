@@ -1,0 +1,21 @@
+<!--
+ - Created by Nikita Haruk on 2023/09/22.
+
+ -   Last Modified By: Nikita Haruk
+ -   Description: SFP-30063: Created to display the ancillary opportunities.
+ -   Last Modified Date: 2023/09/22
+ -->
+<template>
+    <div if:true={recordId}>
+        <lightning-datatable key-field="Id"
+                             data={records}
+                             columns={colums}
+                             hide-checkbox-column="true"
+                             hide-default-actions="true"
+                             if:true={records}>
+        </lightning-datatable>
+        <div if:false={records} class="empty-state">
+            There're no any ancillary opportunities related to this business assessment.
+        </div>
+    </div>
+</template>

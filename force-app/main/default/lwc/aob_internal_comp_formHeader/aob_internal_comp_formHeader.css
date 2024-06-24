@@ -1,0 +1,35 @@
+.mymob_title{
+    font-size: 21px;
+    font-weight: 500;
+    text-align: center;
+}
+.mymob_subtitle{
+    font-size: 15px;
+    font-weight: 400; 
+    letter-spacing: normal;
+    text-align: center;
+    
+
+}
+.aob_form-sub-title{
+    font-weight: 400;
+    padding-bottom: 30px!important;
+}
+.mymob_content{
+	display: block;
+    letter-spacing: 1px;
+  text-align: center;
+  color: slategrey;
+  font-size: 11px;
+}
+.card-title{
+    position: relative;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1.29;
+    color: #3c4b6c;
+}
+
+.card-subTitle{
+    font-size: 18 !important;
+}

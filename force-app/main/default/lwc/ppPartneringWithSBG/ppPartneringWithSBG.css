@@ -1,0 +1,131 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    background-color: #fff;
+    padding-top: 70px;
+}
+
+.main-grid {
+    max-width: 1280px;
+}
+
+.box {
+    height: 320px;
+    margin: 30px 19px 0 0;
+    padding: 30px 21px 95px 32px;
+    border-radius: 2px;
+    box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.box-heading {
+    width: auto;
+    height: auto;
+    margin: 0 0 34px 12px;
+    color: #3c4b6c;
+    padding-top: 8px;
+}
+
+.box-text {
+    width: auto;
+    height: auto;
+    margin: 26px 11px 0 0;
+    letter-spacing: normal;
+    color: #0a2240;
+}
+
+.story-image,
+.story-image-container {
+    max-width: fit-content;
+    height: auto;
+}
+
+.box-heading-container {
+    height: 36px;
+}
+
+.TC-container {
+    padding: 30px 0px 0px 30px;
+
+}
+
+
+.tabTwoContainer {
+
+    width: auto;
+    height: auto;
+    margin: 30px 1px 0 0;
+    padding: 32px 439px 140px 32px;
+    border-radius: 2px;
+    box-shadow: 0 6px 25px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+
+}
+
+.tab {
+    color: #0a2240;
+    line-height: 1.27;
+    letter-spacing: 1.5px;
+    font-size: 11px;
+    font-weight: 500 !important;
+    font-stretch: normal;
+    font-style: normal;
+    text-decoration: none !important;
+}
+
+.line {
+    max-width: 1200px;
+    height: 1px;
+    opacity: 0.3;
+    background-color: #858d9d;
+}
+
+.faq{
+    margin-top: 30px;
+    box-shadow: 0 6px 25px 0 rgb(0 0 0 / 10%);  
+}
+
+@media(min-width: 1280px) {
+    .main-grid {
+        padding: 0px 40px 78px 40px;
+    }
+
+}
+
+@media(max-width: 1024px) {
+    .main-grid {
+        padding: 28px 38px 37px 38px;
+    }
+
+    .box-text,
+    .box-heading,
+    .story-image {
+        width: auto;
+        height: auto;
+    }
+
+}
+
+@media(max-width: 414px) {
+    .main-grid {
+        padding: 20px;
+    }
+
+    .box-text,
+    .box-heading {
+        padding-right: 10px;
+        margin-left: 10px;
+    }
+
+    .main-heading {
+
+        margin: 0 0px 20px 0;
+
+    }
+
+    .box {
+
+        padding: 30px;
+        margin: 30px 0px 0 0;
+    }
+}

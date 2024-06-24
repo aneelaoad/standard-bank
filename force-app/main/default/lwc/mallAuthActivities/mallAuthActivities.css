@@ -1,0 +1,20 @@
+.activities-container { width: 100%; padding-top: 30px; padding-bottom: 30px;}
+
+.activities-container .tittleText { padding-bottom: 20px; font-size: 18px; color: #0033AA;}
+.activities-container .tittleText2 {  font-size: 14px; color: #0033AA;}
+.activities-container .tittleText2 button {background: none !important; border: 0px !important; margin-left: 20px;}
+
+.activityTittle { width: 100%; display: flex; justify-content: space-between; align-items: center;}
+
+
+.activities-container_inner { width: 100%; overflow: hidden; }
+
+
+.ativityCard { width: 100%; background-color: #f8f8f8; padding: 20px;   border-radius: 12px; box-shadow: 0px 0px 5px #cccccc69; min-height: 220px;}
+
+.ativityCardHead { width: 100%; display: flex; align-items: center; justify-content: space-between;}
+
+.ativityCardHead strong { font-size: 16px; color: #1A314D; display: block;}
+.ativityCardHead button { border: 0px; background-color: transparent; padding: 0px;}
+
+.ativityCardHead button img { max-width: 20px;}

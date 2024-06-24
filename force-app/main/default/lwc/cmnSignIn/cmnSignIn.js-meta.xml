@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>54.0</apiVersion>
+  <isExposed>true</isExposed>
+
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+    <target>lightning__FlowScreen</target>
+  </targets>
+
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="hyperlink" label="TandC URL" type="String" />
+      <property name="loginUrl" label="Login Page URL" type="String" />
+      <property name="registrationUrl" label="Registration page URL" type="String" />
+      <property name="signInButtonLabel" label="Sign In Button Label" type="String" />
+      <property name="registerButtonLabel" label="Registration Button Label" type="String" />
+    </targetConfig>
+  </targetConfigs>
+</LightningComponentBundle>

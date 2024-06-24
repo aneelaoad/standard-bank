@@ -1,0 +1,54 @@
+<!-- **
+* @description  : Partner Portal Featured Article Component
+* User Story : SFP-4871
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+
+    <div class="slds-grid slds-grid_vertical container">
+        <div class="slds-col">
+            <p class="heading heading-normal-sfProDisplay">{heading}</p>
+        </div>
+        <template iterator:article={featuredArticles}>
+            <div key={article.value.Id}>
+                <div class="slds-col featured-image">
+                    <img src={article.value.Image__c} class="articleImg">
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay text">{article.value.RecordType}</p>
+                </div>
+                <div class="slds-col">
+                    <p class="heading-large-sfProDisplay title">{article.value.Title}</p>
+                </div>
+                <div class="slds-col">
+                    <p class="text-normal-sfProDisplay summary">{article.value.Summary}</p>
+                </div>
+
+                <div class="slds-col">
+                    <div class="slds-grid slds-grid_align-spread">
+                        <div class="slds-col">
+                            <p class="text-normal-sfProDisplay publish-date">
+                                <lightning-formatted-date-time value={article.value.LastPublishedDate} year="numeric"
+                                    month="short" day="2-digit"></lightning-formatted-date-time>
+                            </p>
+                        </div>
+                        <div class="slds-col">
+                            <a ahref="javascript:void(0)" class="text-normal-sfProDisplay view-details">
+                                <p data-id={article.value.Id} data-intent="navigational" data-scope="article list" 
+                                   data-text="Articles | view detail link click"
+                                   onclick={handleArticleClick}>View Details</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-col">
+                    <div class="line"></div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+</template>

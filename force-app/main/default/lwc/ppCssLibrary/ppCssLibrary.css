@@ -1,0 +1,132 @@
+.heading-large {
+    font-family: BentonSans;
+    font-size: 47px;
+    font-weight: 200;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+}
+
+.heading-normal {
+    width: auto;
+    height: auto;
+    font-family: BentonSans;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: 1px;
+    color: #0a2240;
+}
+
+.heading-small {
+    font-family: BentonSans;
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.07;
+    letter-spacing: normal;
+}
+
+.text-small {
+    font-family: BentonSans;
+    font-size: 11px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.64;
+    letter-spacing: 1px;
+}
+
+.text-large {
+    font-family: BentonSans;
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+}
+
+.text-normal {
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+}
+
+.arrowIcon {
+    margin-left: 6px;
+    width: 6px;
+    height: 9px;
+    padding-bottom: 1px;
+    object-fit: contain;
+}
+
+.breadcrumbs {
+    padding-top: 30px;
+    margin-bottom: 20px;
+    font-family: BentonSans;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.23;
+    letter-spacing: normal;
+    color: #0089FF
+}
+
+.sub-breadcrumbs {
+    padding-left: 4px;
+}
+
+.heading-large-sfProDisplay {
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+}
+
+.heading-normal-sfProDisplay {
+    font-size: 14px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+}
+
+.heading-medium-sfProDisplay {
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+}
+
+.text-normal-sfProDisplay {
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    color: #0069C4;
+}

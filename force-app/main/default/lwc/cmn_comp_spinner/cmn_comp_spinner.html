@@ -1,0 +1,19 @@
+<!-- <template>
+  <div class="slds-m-around_large">
+    <p if:true={isLoaded}>Content has been loaded.</p>
+    <div if:false={isLoaded} class="slds-is-absolute">
+      <lightning-spinner alternative-text="Loading..." variant="brand">
+      </lightning-spinner>
+       <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+  </div>
+</template> -->
+
+
+<template>
+  <div class="slds-align_absolute-center" if:false={isLoaded}>
+   <lightning-spinner alternative-text="Loading..." variant="brand">
+      </lightning-spinner>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </div>
+</template>

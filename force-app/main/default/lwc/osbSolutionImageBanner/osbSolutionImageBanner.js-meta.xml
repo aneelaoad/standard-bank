@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="link" type="String" default="" label="Button Link" description="Link for button to page"/>
+            <property name="linkLabel" type="String" default="" label="Button Label"/>
+            <property name="btnColour" type="String" default="#0089ff" label="Button Color"/>
+            <property name="btnStyle" type="String" default="font-size:12px" label="Button Style SignUp" />
+            <property name="btnStyleOneHub" type="String" default="font-size:12px" label="Button Style OneHub" />
+            <property name="imageId" type="String" label="Image on left or right" default="" description="Enter /sfsites/c/resource/{static resource name}/image.type"/>
+            <property name="textOnRight" type="Boolean" default="false" label="Image left or right" description="Sets the image to left or right"/>
+            <property name="title" type="String" default="" label="Title"/>
+            <property name="mainContent" type="String" default="" label="Main Content" description="Content under Logo"/>
+            <property name="subContent" type="String" default="" label="Sub Content" description="Cotent under main Content"/>
+            <property name="solutionLogo" type="String" default="" label="Solution Logo"/>
+            <property name="backgroundColor" type="String" default="" label="Background Colour"/>
+            <property name="videolink" type="String" default="" label="Video Link" description="Used if no Image applied"/>
+            <property name="showVideo" type="Boolean" default="false" label="Show Video"/>
+            <property name="showOneHubBtn" type="Boolean" default="true" label="Show return to Onehub"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

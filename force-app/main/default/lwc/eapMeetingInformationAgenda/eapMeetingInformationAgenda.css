@@ -1,0 +1,37 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_container {
+    padding: 2em;
+    background-color: var(--background-grey);
+    min-height: 85vh;
+}
+
+.v1_div_listView {
+    border-top: .1em solid #C0C6D0;
+    background-color: #fff;
+    height: 5em;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.v1_div_prettyList {
+    display: inline-block;
+    padding-left: 1em;
+}
+
+.v1_div_title {
+    width: 70%;
+}
+
+.v1_p_title {
+    font-weight:bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.v1_p_subtitle {
+    font-weight: 300;
+}

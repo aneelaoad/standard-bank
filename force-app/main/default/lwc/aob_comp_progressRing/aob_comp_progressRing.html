@@ -1,0 +1,38 @@
+<!--
+  @description       : thi component used to define the which step the user is entering data
+  @author            : Chandu
+  @group             : 
+  @last modified on  : 
+  @last modified by : 
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0                Chandu
+-->
+
+<template>
+
+   <div class="slds-align_absolute-center padding">
+      <div class={ringClass}>
+
+         <div class="slds-progress-ring__progress" role="progressbar" aria-valuemin={min} aria-valuemax={max}
+            aria-valuenow={value}>
+            <svg viewBox="-1 -1 2 2">
+               <path class="slds-progress-ring__path" d={progress}></path>
+            </svg>
+         </div>
+         <div class="slds-progress-ring__content">
+            <template if:false={isComplete}>
+               {stepnumber}
+            </template>
+            <template if:true={isComplete}>
+               <lightning-icon variant="inverse" icon-name="utility:check" size="x-small" alternative-text={state}>
+               </lightning-icon>
+            </template>
+            <div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+</template>

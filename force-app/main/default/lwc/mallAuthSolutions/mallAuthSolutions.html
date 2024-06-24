@@ -1,0 +1,16 @@
+<template>
+    <div class="solution-container">
+        <div class="slds-text-heading_medium tittleText"><strong>My Solutions</strong></div>    
+        <div class="solution-container_inner">
+    <div class="slds-grid slds-gutters">
+      <template if:true={mySolutions}>
+        <template for:each={mySolutions} for:item="solution">
+          <div class="slds-col slds-size_1-of-3" key={solution.title}>
+            <c-mall-auth-solutions-card my-solution={solution} onredirect={handleRedirectionAction}></c-mall-auth-solutions-card>  
+          </div>
+        </template>
+      </template> 
+      </div>
+    </div>
+    </div>
+</template>

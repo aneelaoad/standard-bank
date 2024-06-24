@@ -1,0 +1,65 @@
+<template>
+  <div class="weather-wrapper">
+    <c-mall-widget-actions inverse-contrast="true"></c-mall-widget-actions>
+    <template lwc:if={resultData}>
+      <template lwc:if={isLocationEnabled}>
+        <div class="weather-grid">
+          <div class="day-of-week">{weekDay}</div>
+          <div class="location top-row">{locationRegion}</div>
+          <div class="other-conditions-list mid-row">
+            <div class="icon-output humidity">{humidity}%</div>
+            <div class="icon-output wind">
+              {windDirection}, {windSpeed} km/h
+            </div>
+            <div class="icon-output pressure">{pressure} hPa</div>
+          </div>
+          <span class="current-temperature-display mid-row"
+            >{temperature}°C</span
+          >
+          <span class="current-condition-display mid-row" title={condition}>
+            <span class="weather-icon" data-icon-type={conditionState}></span>
+          </span>
+          <div class="current-minmax-temperature mid-row">
+            {currentConditionForDay} <br />
+            H:{currentHighTemp}°C L:{currentLowTemp}°C
+          </div>
+          <template if:true={forecastCollection}>
+            <div class="bot-row full-width">
+              <template for:each={forecastCollection} for:item="item">
+                <div key={item.id} class="forecast-display">
+                  <span class="weather-icon" data-icon-type={item.state}></span>
+                  <span>{item.day}</span>
+                  <span>{item.temperature}°C</span>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+      <template lwc:else>
+        <div class="error">
+          <div class="state-graphic-wrapper">
+            <div
+              class="state-graphic"
+              style="
+                background-image: url(/sfsites/c/resource/sbgIcons/ALERTSNOTIFICATION/icn_alert.svg);
+              "
+            ></div>
+          </div>
+          {locationError}
+        </div>
+      </template>
+    </template>
+    <template lwc:else>
+      <div class="error">
+        <div class="state-graphic-wrapper">
+          <div
+            class="state-graphic"
+            style="/sfsites/c/resource/sbgIcons/ALERTSNOTIFICATION/icn_alert.svg"
+          ></div>
+        </div>
+        {error}
+      </div>
+    </template>
+  </div>
+</template>

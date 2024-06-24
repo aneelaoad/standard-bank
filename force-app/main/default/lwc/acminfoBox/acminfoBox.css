@@ -1,0 +1,37 @@
+.info-box {
+    border-radius: 0 .75rem .75rem 0;
+border: 1px solid var(--neutrals-pale-grey, #CED3D9);
+border-left: none;
+background: var(--neutrals-pale-grey-25-background, #F4F5F7);
+    display: flex;
+    padding: 1rem 1.25rem 1rem .625rem;
+    align-items: flex-start;
+    gap: .75rem;
+    flex: 1 0 0;
+
+}
+.bg-shadow{
+   background-color: #5C6C80;
+   padding-left:  0.25rem;
+   border-radius: 4px 12px 12px 4px;
+}
+
+.icon-container {
+    color: #0070d2;
+}
+
+.info-content {
+    flex-grow: 1;
+}
+
+.info-title {
+    align-self: stretch;
+}
+
+.info-description {
+    align-self: stretch;
+}
+.custom-icon{
+    width: 2rem;
+    height: 2rem;
+}

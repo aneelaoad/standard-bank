@@ -1,0 +1,94 @@
+<!--
+  @description       : 
+  @author            : mbourhi@salesforce.com
+  @group             : 
+  @last modified on  : 08-01-2023
+  @last modified by  : Devi Ravuri
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   10-22-2020   mbourhi@salesforce.com   Initial Version
+  2.0   08-01-2023   Devi Ravuri			  UI Modifications based on SFP-33099
+-->
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div class="container_block">
+		<div class="container aob_card_container slds-p-horizontal_large slds-p-vertical_x-large">
+			<div class="Main_tab">
+				<span class="gradient-underline"><b> {title} </b> {label.AOB_ZA_BeforeWeBeginAccount}</span>
+			</div>
+			<div class="aob_80_width">
+				<div class="aob_comp_form_title"> {label.AOB_ZA_BeforeWeBegin}
+				</div>
+				<div class="aob_screen-title slds-align_absolute-center">
+					{label.AOB_ZA_AppProcess} </div>
+				<div class="aob_screen-title slds-align_absolute-center slds-m-bottom_medium ">
+					{label.AOB_ZA_EnsureFollwing} </div>
+
+				<diV class="slds-align_absolute-center" style="background-color: #F7F7F7;">
+
+					<div class="align slds-m-top_xx-large slds-m-bottom_x-large ">
+						<img src={Camera} alt="Camera Verification">
+						<div class="slds-m-top_medium slds-m-bottom_medium text2">
+							<lightning-formatted-rich-text value={label.AOB_WFR_AppText12}>
+							</lightning-formatted-rich-text>
+						</div>
+					</div>
+				</diV>
+				<div class="aob_screen-sub-section-title slds-align_absolute-center">
+					{label.AOB_ZA_WhatCanExpect}</div>
+				<div class="aob_screen-sub-title">
+					<lightning-formatted-rich-text value={label.AOB_WFR_AppText13}>
+					</lightning-formatted-rich-text>
+				</div>
+				<div class="aob_r_prefix seperator slds-m-top_large">
+					<img src={sep} alt="seperator">
+             </div>
+					<div class="aob_screen-sub-section-title slds-align_absolute-center">
+						{label.AOB_ZA_Steps}</div>
+					<div class="aob_r_numbers">
+						<div class="align">
+							<div class="number">1</div>
+							<div class="text">
+								<lightning-formatted-rich-text value={label.AOB_WFR_AppText14}>
+								</lightning-formatted-rich-text>
+							</div>
+						</div>
+						<div class="align">
+							<div class="number">2</div>
+							<div class="text">
+								<lightning-formatted-rich-text value={label.AOB_WFR_AppText15}>
+								</lightning-formatted-rich-text>
+							</div>
+						</div>
+							</div>
+						<div class="aob_r_numbers slds-m-top_xx-large">
+							<div class="align">
+								<div class="number">3</div>
+								<div class="text">
+									<lightning-formatted-rich-text value={label.AOB_WFR_AppText16}>
+									</lightning-formatted-rich-text>
+								</div>
+							</div>
+						
+						<div class="align">
+							<div class="number">4</div>
+							<div class="text">
+								<lightning-formatted-rich-text value={label.AOB_WFR_AppText17}>
+								</lightning-formatted-rich-text>
+							</div>
+						</div>
+						</div>
+				
+
+
+				</div>
+				<diV class="aob_background_white_smoke slds-align_absolute-center">
+					<img src={Lock} alt="lock"/><span class="aob_screen-sub-titles">{label.AOB_ZA_ConfidentialInfo}</span>
+				</diV>
+				<button class="slds-button slds-button_brand slds-align_absolute-center"  data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+					data-text={adobePageTag.continueButtonText} onclick={handleContinueClicked}>{label.AOB_Continue}</button>
+
+			</div>
+
+		</div>
+</template>

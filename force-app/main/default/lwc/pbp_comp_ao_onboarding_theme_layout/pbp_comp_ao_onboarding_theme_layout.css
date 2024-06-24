@@ -1,0 +1,239 @@
+/* header starts */
+.exit {
+    width: 61px;
+    height: 27px;
+    margin: 13px 0 15px 54px;
+    font-family: BentonSans;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: 1px;
+    color: white;
+    cursor: pointer;
+}
+.d-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.d-flex a{
+    color: var(--white);
+    cursor: pointer;
+    font-size: 20px;
+    font-family: 'bentonsans-medium-webfont';
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: 1px;
+}
+
+.slds-modal__container{
+    margin: 0 auto!important;
+    max-width: 50rem!important;
+    min-width: 30rem!important;
+}
+.dflex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dflex .btn-secondary{
+    margin: 0 5px;
+    border: aqua;
+
+}
+.aob_header_title h1{
+    font-family: 'bentonsans-extra-light-webfont';
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.07;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--white);
+}
+.closeIcon{
+    position: absolute;
+    top: 15px;
+    right: 14px;
+}
+
+.aob_header_sub_title{
+    padding: 30px;
+}
+.aob_header_sub_title p{
+    font-family: 'bentonsans-regular-webfont';
+    font-size: 17px;
+    margin: 2.3px 34px 49.7px 33px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: center;
+    color: #0a2240;
+    
+}
+.btn-primary span{
+        text-transform: uppercase;
+      font-family: 'bentonsans-regular-webfont';
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: 1.08px;
+  text-align: center;
+  color: var(--color-white);
+}
+.btn-secondary{
+    color: #0089ff;
+    border: 1.5px solid #0089ff;
+    background-color: #fff!important;
+}
+.btn-secondary span{
+    text-transform: uppercase;
+    font-family: 'bentonsans-regular-webfont';
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: 1.08px;
+    text-align: center;
+}
+.btn-secondary:hover span{
+    color:#fff;
+}
+.btn-secondary:hover{
+   background-color: #0089ff!important;
+}
+
+@media (max-width:1090px){
+    .aob_header_title h1{
+        font-size: 24px;
+
+    }
+    .slds-modal__container{
+        max-width: 60%!important;
+    }
+    .btn-primary span{
+        font-size: 10px;
+    }
+    .btn-secondary span{
+        font-size: 10px;
+    }
+}
+@media (max-width:767px){
+    .slds-modal__container{
+        max-width: 60%!important;
+    }
+
+}
+@media (max-width:466px){
+    .dflex{
+        flex-direction: column-reverse;
+        padding-bottom: 10px;
+    }
+    .btn-primary span{
+        font-size: 14px;
+    }
+    .btn-secondary span{
+        font-size: 14px;
+    }
+    .aob_header_sub_title{
+        padding-bottom: 10px;
+    }
+    .aob_header_sub_title p{
+        margin: 2.3px 34px 35px 33px;
+    }
+    .btn-primary{
+        margin-left: 0px;
+        margin-bottom: 15px;
+    }
+    .closeIcon{
+        top: 25px;
+    } 
+    .slds-modal__container{
+        min-width: 100%!important;
+    }
+    .aob_header_title h1{
+    width: 70%;
+    text-align: center;
+    margin-left: 53px;
+
+    }
+}
+
+
+/* header ends */
+
+/* footer starts */
+.footerAlignment{
+    justify-content:space-between;
+    display: flex;   
+
+}
+.textalign{
+    font-size: 22px;
+    margin-left: 30px;
+}
+ .footer .app-card__icon-container {
+    position: relative;
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+}
+.footer .app-card__icon-container span{
+    display: inline-block;
+    width: 2px;
+    height: 30px;
+    background-color:#858d9d;
+    opacity: 0.3;
+}
+  @media (max-width: 1199px) {
+    .footer .app-card__icon-container{
+        width: 400px;
+    
+    }
+  }
+
+  @media (max-width: 991px)  {
+     .container{
+        width: 100%;
+        max-width: 100%;
+    
+    }
+  }
+    @media (max-width: 874px)  {
+     .container{
+        width: 100%;
+        max-width: 100%;
+    }
+    .footer-devices-img img{
+        width: 108px;
+        height: 107px;
+    }
+    .footer .app-card__icon-container a{
+        margin: 0px 25px;
+    
+    }
+  }
+  @media (max-width: 645px)  {
+   .footerAlignment{
+        display: inline;    
+    }
+ .footer .app-card__icon-container{
+        justify-content: space-between;
+        width: 100%;
+    
+    }
+  }  
+
+/* footer ends */

@@ -1,0 +1,49 @@
+:host {
+  --sds-c-button-color-background: var(--tertiary-color);
+}
+button {
+  font-size: 14.7px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  /* letter-spacing: 0.0771428571rem; */
+  height: 3.3rem;
+  text-align: center;
+  color: var(--white-color, #fff);
+  font-family: BentonSans;
+  line-height: 1.43;
+  letter-spacing: 1.05px;
+  border-radius: 2px;
+  max-width: 100%;
+  text-transform: uppercase;
+}
+button.slds-button_brand:not(:disabled) {
+  background-color: var(--sds-c-button-color-background, --tertiary-color);
+}
+button.slds-button_neutral:not(:disabled) {
+  color: var(--sds-c-button-color-background, --tertiary-color);
+  background-color: var(--white-color);
+  border: 1px solid var(--sds-c-button-color-background, --tertiary-color);
+}
+
+.w230 {
+  width: 16rem;
+  margin-left:0px;
+}
+.w236 {
+  width: 16.857rem;
+}
+.w280 {
+  width: 20rem;
+}
+.w300 {
+  width: 21.4286rem;
+}
+.w340 {
+  width: 24.2857rem;
+}
+.w340C {
+  width: 24.2857rem;
+  left: 50%;
+  transform: translate(-50%);
+}

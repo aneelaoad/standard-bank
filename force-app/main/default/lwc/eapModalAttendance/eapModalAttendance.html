@@ -1,0 +1,35 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 03-25-2022
+  @last modified by  : TCK
+-->
+<template>
+    <lightning-quick-action-panel header={labels.AddAttendance}>
+      <template if:false={hasLoaded}>
+        <div class="with-spinner">
+          <div class="slds-spinner">
+            <lightning-spinner variant="brand" alternative-text="Loading" size="medium"></lightning-spinner>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={hasLoaded}>
+        <h1 class="slds-text-heading_small">{labels.Select}</h1>
+        <div style="height: 300px; margin-top: 10px">
+          <lightning-datatable
+                  key-field="id"
+                  data={attData}
+                  columns={columns}
+                  onrowselection={getSelectedAttendee}>
+          </lightning-datatable>
+        </div> 
+
+        <div slot="footer">
+          <lightning-button variant="neutral" label={labels.Cancel} onclick={handleCancel}></lightning-button>
+          <lightning-button variant="brand" label={labels.Save} class="slds-m-left_x-small" onclick={handleSuccess}></lightning-button>
+        </div>
+      </template>
+    </lightning-quick-action-panel>
+</template>

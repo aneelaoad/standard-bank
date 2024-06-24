@@ -1,0 +1,192 @@
+.main-div{
+	color: #444444;
+    font-family: var(--FONT-FAMILY);
+}
+
+.popUp-box {
+    z-index: 9000;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 7px 8px rgba(0,0,0,0.11);
+    box-shadow: 0 10px 10px 0 rgba(0,0,0,0.32);
+    position: fixed;
+    display: block;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    margin-left: 50%;
+    position: fixed;
+    left: 0;
+    top: 40%;
+    height: 201px;
+    max-width: 304px;
+}
+
+.signup{
+    height: auto;
+}
+
+.adjustFooter{
+    padding-bottom:16px;
+}
+
+.popUp-subTitle{
+    padding-top:10px;
+}
+
+.customRadioCls{
+    max-width: 200px;
+}
+
+.customRadioCls .slds-form-element__control .slds-radio{
+    margin-top:11px;
+}
+
+.popUp-arrow-right,
+.popUp-arrow-left {
+    content: "";
+    width: 0;
+    height: 0;
+    position: relative;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    overflow: hidden;
+    background-color: transparent;
+    margin-top: -16px;
+}
+
+.popUp-arrow-right {
+    border-left: 16px solid white;
+    left: 272px;
+}
+.popUp-arrow-left {
+    border-right: 16px solid white;
+    right: 32px;
+}
+
+.popUp-icon {
+    color: #0089FF;
+    font-size: 24px;
+    height: fit-content;
+}
+
+.popUp-close {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+
+.ms-icn_chevron_right {
+    text-align: right;
+}
+
+.ms-icn_questionmark_circle{
+    color: #fff;
+    font-size: 32px;
+    height: fit-content;	
+}
+
+.popUp-start_message,
+.popUp-pages,
+.popUp-content,
+.popUp-title {
+    text-align: center;
+}
+
+.popUp-content {
+    font-size: 14px;
+    line-height: 18px;
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: left;
+}
+
+.popUp-title {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 24px;
+    padding-top: 8px;
+}
+
+.popUp-bottom_row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.popUp-options {
+    height: 19px;	
+    width: 48.72px;	
+    color: #0033AA;	
+    font-size: 14px;	
+    font-weight: 500;	
+    line-height: 19px;	
+    text-align: center;
+    padding-right: 80px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.popUp-start_message {
+    color: #0089FF;
+    font-size: 16px;
+    line-height: 23px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.popUp-icon:hover,
+.popUp-start_message:hover {
+    cursor: pointer;
+}
+
+.popUp-overlay {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    opacity: 0.8;
+    left: 0;
+}
+
+.popUp-visible {
+    background-color: #EEEEEE;
+    z-index: 8999;
+}
+
+.popUp-invisible {
+    z-index: 155;
+    background-color: transparent;
+}
+
+.popUp-title-container {
+    height: 93px;
+	width: 100%;
+	border-radius: 3px 3px 0 0;
+	background-color: #3366CC;
+    text-align: center;
+    padding-top: 16px;
+}
+
+.customRadioCls input[type="radio"]:checked+.slds-radio__label .slds-radio_faux {
+  border-color: #0033a1;
+}
+
+.customRadioCls input[type="radio"]:slds-radio__label .slds-radio_faux {
+  border-color: #767676;
+}
+.popUp-options-holder{
+    padding-left: 136px;
+}
+
+.popUp-icon {
+    color: #fff;
+    font-size: 32px;
+}
+
+@media(min-width: 668px) and (max-width: 1280px) {
+    .popUp-box {
+        width: 33.3333%;
+    }
+}

@@ -1,0 +1,44 @@
+@import 'c/eapCssLibrary';
+
+.content {
+    visibility: hidden;
+}
+
+.v1_div_container {
+    padding: 1em;
+    background-color: var(--background-grey);
+    min-height: 90vh;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+/* See delegates */
+.v1_button_filter {
+    width: 5%;
+    height: 3em;
+    float: right;
+    display: flex;
+    align-items: center;
+    padding-right: 2em;
+    padding-top: 3.25em;
+}
+
+.v1_button_filter lightning-icon {
+    --sds-c-icon-color-foreground-default: var(--main-light-blue);
+}
+
+
+/* Sort by */
+.v1_div_buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-full-button, 
+.custom-full-button:focus,
+.custom-full-button::selection {
+    width: 95%;
+    margin-bottom: 10vh;
+}

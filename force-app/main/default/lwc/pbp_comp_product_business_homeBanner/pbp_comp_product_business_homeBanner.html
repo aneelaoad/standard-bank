@@ -1,0 +1,59 @@
+<template>
+    <section class="bsns_sol_carousel1 " style="overflow: hidden">
+        <div class="bs_carousel1 owl-theme owl-carousel offering-owl1">
+            <template for:each={bannerdata} for:item="datalist">
+                <div key={datalist} class="item">
+                    <div class="slide_ban main-container">
+                        <div class="primary_box">
+                            <h1>{datalist.title}</h1>
+                            <hr />
+                            <p> {datalist.subtitle}</p>
+                            <button class="btn-primary" data-id={datalist.title} data-intent={adobePageTag.dataIntent}
+                                data-scope={datalist.title} data-text={datalist.button} value={datalist.subtitle}
+                                onclick={offers}>{datalist.button}</button>
+                        </div>
+                        <div class="slider_image">
+                            <img src={datalist.image} alt="bannerimg">
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </section>
+    <div class="card">
+        <div class="card_header">{label.Liketoapplyfor}</div>
+        <div>
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <div class="slds-select_container">
+                        <select class="slds-select" data-id={adobePageTag.dataId}
+                        data-intent={adobePageTag.dataIntent} data-scope={label.pleaseselect} data-text={value}  onchange={handleChange} >
+                            <option value="">{label.pleaseselect}</option>
+                            <template for:each={selectedoption} for:item="option">
+                                <option key={option.Id} class="uiInputSelectOption" value={option.value}  >{option.label}
+                                </option>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <span class="help">{label.needhelp}</span>
+            <ul class="help_list">
+                <li><a href={GrowMyBusinessurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneedhelp} data-text={adobePageTag.GrowMyBusinesslink} onclick={callingadobeevent}>{label.GrowMyBusiness} <span> ></span></a>
+                </li>
+                <li><a href={ImportandExporturl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneedhelp} data-text={adobePageTag.ImportandExportlink} onclick={callingadobeevent}>{label.ImportandExport} <span>
+                            ></span></a></li>
+                <li><a href={RewardsforMyBusinessurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneedhelp} data-text={adobePageTag.RewardsforMyBusinesslink} onclick={callingadobeevent}>{label.RewardsforMyBusiness} <span> ></span></a>
+                </li>
+                <li><a href={BusinessAccount} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.datascopeneedhelp} data-text={adobePageTag.BusinessAccountlink} onclick={callingadobeevent}>{label.BusinessAccount} <span> ></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>

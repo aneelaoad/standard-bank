@@ -1,0 +1,23 @@
+.aob_info-text {
+  display: flex;
+  align-items: center;
+}
+
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin: 0 0 0 16px;
+}
+
+.Notefollowing {
+  display: flex;
+}
+.deleteicontopleft {
+  margin-left: 91%;
+}
+.marginTop {
+  margin-top: -20px;
+}

@@ -1,0 +1,42 @@
+<template>
+    <div class="explore-solutions-wrapper">
+        <section class="inner-content">
+            <header class="header-wrapper">
+                <h2 class="header">Explore our solutions</h2>
+                <p class="description">Access a wide range of solutions suited to meet your needs, whether you're starting, growing or managing your business.</p>
+            </header>
+
+            <div class="divider"></div>
+
+            <section class="solution-tiles-wrapper">
+                <section class="solution-tiles">
+                    <a class="tile" label="Bank" data-id="bank" onclick={handleNavigate}>
+                        <img src={bankIcon} class="tile-icon" />
+                        <p class="tile-label">Bank</p>
+                    </a>
+                    <a class="tile" label="Borrow" data-id="bank" onclick={handleNavigate}>
+                        <img src={borrowIcon} class="tile-icon" />
+                        <p class="tile-label">Borrow</p>
+                    </a>
+                    <a class="tile" label="Grow" data-id="bank" onclick={handleNavigate}>
+                        <img src={growIcon} class="tile-icon" />
+                        <p class="tile-label">Grow</p>
+                    </a>
+                    <a class="tile" label="Insure" data-id="bank" onclick={handleNavigate}>
+                        <img src={insureIcon} class="tile-icon" />
+                        <p class="tile-label">Insure</p>
+                    </a>
+                </section>
+                <nav class="carousel-navigation-wrapper">
+                    <img src={chevronLeft} class="left-arrow" />
+                    <section class="page-tag-wrapper">
+                        <i class="page-tag active"></i>
+                        <i class="page-tag"></i>
+                    </section>
+                    <img src={chevronRight} class="right-arrow" />
+                </nav>
+            </section>
+        </section>
+    </div>
+    
+</template>

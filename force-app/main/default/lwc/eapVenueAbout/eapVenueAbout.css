@@ -1,0 +1,63 @@
+@import 'c/eapCssLibrary';
+
+.v1_all{
+    background-color:  white;
+}
+
+.v1_card_first{
+    margin-bottom: 1em;
+}
+.v1_div_img {
+    width: 100%;
+}
+
+.v1_div_img img{
+    min-width: 100%;
+}
+
+.v1_div_user_info{
+    text-align: center;
+    padding: 2em 3em;
+}
+
+.v1_div_about, .v1_div_contact, .v1_div_facilities{
+    padding: 1em 3em;
+}
+
+.v1_div_venue_large{
+    padding-bottom: 1em;
+    padding-top: 1em;
+    line-height: 1.6;
+}
+
+.v1_div_user_detail{
+    color: var(--main-light-blue);
+    margin-top: 10px;
+}
+
+.v1_div_user_detail img{
+    height: 20px;
+}
+
+.v1_txt_div_contact{
+    margin-left: 5px;
+}
+
+.v1_contact_txt{
+    display: inline;
+}
+.v1_title_h3{
+    color: var(--text-dark-grey);
+    font-size: 1.2em;
+}
+
+.v1_padding_title{
+    padding-bottom: 10px;
+}
+ .v1_div_listViewItem{
+    margin-bottom: 5px;
+ }
+
+.pointer{
+    cursor: pointer;
+}

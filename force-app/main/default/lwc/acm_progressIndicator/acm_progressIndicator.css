@@ -1,0 +1,165 @@
+.container{
+    padding: 0;
+}
+
+.progerssItemCompleted {
+	background: #0062e1;
+}
+
+.mobileHeading {
+	font-size: 15px;
+	font-weight: bold;
+}
+.mobileHeadingComplete {
+	font-size: 15px;
+	font-weight: bold;
+	color: #0062e1;
+}
+
+.progerssItemCompleted {
+	background: #0062e1;
+}
+
+.mobileHeading {
+	font-size: 15px;
+	font-weight: bold;
+}
+.mobileHeadingComplete {
+	font-size: 15px;
+	font-weight: bold;
+	color: #0062e1;
+}
+.textWrap {
+	white-space: normal;
+}
+.slds-progress-ring__content {
+	background: #0062e1;
+}
+.slds-progress-ring__progress {
+	width: 29px;
+}
+.slds-progress-ring_complete .slds-progress-ring__path {
+	fill: #0062e1;
+}
+.slds-progress-ring_complete .slds-progress-ring__content {
+	background: #0062e1;
+}
+.step-text {
+	padding: 1rem;
+	font-family: "bentonsans-extra-light-webfont";
+	font-size: 15px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.33;
+	letter-spacing: normal;
+	text-align: center;
+	color: #0a2240;
+}
+
+.mobileMargin {
+	margin-left: 1rem;
+}
+.left-title {
+	font-family: var(--FONT-FAMILY);
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: left;
+}
+
+.step-col {
+	width: 100%;
+}
+.step-grid {
+	flex-wrap: wrap;
+}
+
+.step-grid > .slds-col{
+	position: relative;
+    overflow: hidden;
+    margin-right: 10px;
+    margin-bottom: 10px;
+	padding-bottom: 2px;
+}
+
+@media (min-width: 48em) {
+	.left-title {
+		font-size: 21px;
+		padding-left: 2rem;
+	}
+	.step-col {
+		width: auto;
+	}
+}
+
+@media (min-width: 64em) {
+	.step-text {
+		padding: 1rem 3rem;
+	}
+	.left-title {
+		padding-left: 4rem;
+		font-size: 21px;
+	}
+}
+
+.slds-progress-ring__content {
+	background: #0062e1;
+}
+.slds-progress-ring__progress {
+	width: 29px;
+}
+.slds-progress-ring_complete .slds-progress-ring__path {
+	fill: #0062e1;
+}
+.slds-progress-ring_complete .slds-progress-ring__content {
+	background: #0062e1;
+}
+.step-text {
+	padding: 1rem;
+	font-family: "bentonsans-extra-light-webfont";
+	font-size: 15px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.33;
+	letter-spacing: normal;
+	text-align: center;
+	color: #0a2240;
+}
+
+
+.mobileMargin {
+	margin-left: 1rem;
+}
+.left-title {
+	font-family: var(--FONT-FAMILY);
+	font-size: 15px;
+	letter-spacing: 1px;
+	text-align: left;
+}
+
+@media (min-width: 48em) {
+	.left-title {
+		font-size: 21px;
+		padding-left: 2rem;
+	}
+}
+
+@media (min-width: 64em) {
+	.step-text {
+		padding: 1rem 3rem;
+	}
+	.left-title {
+		padding-left: 4rem;
+		font-size: 21px;
+	}
+}
+
+@media (max-width: 48em) {
+	.step-grid > .slds-col{
+		margin-right: 0;
+        padding-bottom: 34px;
+        margin-bottom: 10px;
+		padding-bottom: 0;
+	}
+}

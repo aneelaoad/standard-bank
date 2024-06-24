@@ -1,0 +1,156 @@
+@import 'c/ppCssLibrary';
+
+.main-container {
+    padding-bottom: 120px;
+    border-radius: 4px;
+}
+
+.container {
+    width: fit-content;
+    height: auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+
+.supportImg {
+    width: 120px;
+    height: 120px;
+    margin: 0 244px 16px;
+    padding: 16px 18px 16px 14px;
+    object-fit: contain;
+}
+
+.cs-heading {
+    margin: 16px 161px 36px 162px;
+    text-align: center;
+    color: #3c4b6c;
+}
+
+.radio-button {
+    margin: 4px 37px 3px 8px;
+    color: #858d9d;
+}
+
+.btn-next {
+    height: 40px;
+    background-color: #0089ff !important;
+    color: #ffffff !important;
+    width: -webkit-fill-available;
+    width: -moz-available;  
+    margin: 32px 0 0;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    border-color: #0089ff !important;
+}
+
+.textarea {
+
+    border-radius: 4px;
+    border: solid 1px #dddddd;
+    background-color: #ffffff;
+    width: 600px;
+    padding: 5px 12px 5px 12px;
+
+}
+
+.textarea-label {
+    color: #3e3e3c;
+}
+
+.heading-container {
+    margin: 0px;
+}
+
+.validationMsg {
+    color: #ea001e;
+    line-height: 1.5;
+    font-size: .8125rem;
+}
+
+.error {
+    border-color: #ea001e;
+    box-shadow: #ea001e 0 0 0 1px inset;
+    -webkit-box-shadow: #ea001e 0 0 0 1px inset;
+}
+
+.popup {
+    width: auto;
+    border-radius: 2px;
+    box-shadow: 0 12px 30px 0 rgba(0, 0, 0, 0.13);
+    background-color: #ffffff;
+    padding-top: 38px;
+    padding-bottom : 38px;
+}
+
+.popup-img {
+
+    width: 72px;
+    height: 72px;
+    margin: 0 179px 16px;
+    padding-top: 16px;
+    object-fit: contain;
+}
+
+.popup-heading {
+    margin: 16px 0 20px;
+    text-align: center;
+    color: #3c4b6c;
+}
+
+.popup-text {
+    margin: 20px 35px 40px;
+    text-align: center;
+    color: #0a2240;
+}
+
+.popup-btn {
+    width: 240px;
+    height: 50px;
+    margin: 0px 95px 0;
+    padding: 16px 1px 14px;
+    border-radius: 2px;
+    background-color: #0089ff;
+    color: #ffffff;
+}
+
+@media(max-width: 1024px) {
+    .poupup {
+        padding: 28px 38px 37px 38px;
+    }
+}
+
+@media(max-width: 414px) {
+    .container {
+        width: min-content;
+        padding: 24px;
+    }
+
+    .popup{
+        width: 373px !important;
+    }
+
+    .popup-img{
+        margin: 0;
+    }
+
+    .cs-heading {
+        margin: 16px 53px 16px 53px;
+    }
+
+    .supportImg {
+        margin: 0px;
+        width : auto !important;
+    }
+
+    .radio-button {
+        margin: 4px 8px 3px 8px;
+    }
+
+    .textarea {
+        width: 293px;
+    }
+
+}

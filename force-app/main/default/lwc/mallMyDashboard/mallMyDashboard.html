@@ -1,0 +1,30 @@
+<template>
+    <template if:false={isGuestBool}>
+        <div class="heading">
+            {introMessage}
+        </div>
+        <p class="sub-heading">{supportingMessage}</p>
+        <c-mall-quicklinks></c-mall-quicklinks>
+        <c-mall-dashboard></c-mall-dashboard>
+        <c-mall-side-bar></c-mall-side-bar>
+
+        <c-mall-modal active={showOtp} header={otpHeading} variant="small">
+            <div slot="content" class="otp-wrapper">
+                <c-mall-otp-stepper onotperrorstate={handleOtpStateChange}></c-mall-otp-stepper>
+            </div>
+
+            <div slot="footer" class="buttons-wrapper">
+                <template lwc:if={showHelpButton}>
+                    <lightning-button lwc:if={toggleHelpState} label={otpHelpLabel} title={otpHelpLabel}
+                        onclick={handleOtpHelp} class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button lwc:else label={otpBackLabel} title={otpBackLabel} onclick={handleOtpHelp}
+                        class="slds-m-left_x-small"></lightning-button>
+                </template>
+                <lightning-button lwc:if={showResendButton} label={otpResendLabel} title={otpResendLabel}
+                    onclick={resend} class="slds-m-left_x-small align-left-auto"></lightning-button>
+                <lightning-button lwc:if={showSubmitButton} label={otpSubmitLabel} title={otpSubmitLabel}
+                    onclick={submitOtp} class="slds-m-left_x-small align-left-auto"></lightning-button>
+            </div>
+        </c-mall-modal>
+    </template>
+</template>

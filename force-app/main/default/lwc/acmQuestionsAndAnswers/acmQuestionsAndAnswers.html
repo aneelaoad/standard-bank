@@ -1,0 +1,536 @@
+<template>
+
+    <!-- Internal Marketplace -->
+    <template if:true={isInternal}>
+        <div class="main">
+            <div class="navigation">
+                <a onclick={selectedA} class="itemA active">How to use the marketplace</a>
+                <div class="questions mobile">
+                    <template if:true={optionA}>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is the API Marketplace?</p>
+                            <p class="A"><span>A: </span>An API marketplace is a user-friendly public hub where API
+                                providers can publish APIs for developers and partners to consume. Creating an API
+                                marketplace is an important step in API monetization. You can also set up subscription
+                                tiers for monetization in your API marketplace.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is the difference between an API Portal and an API
+                                Marketplace?</p>
+                            <p class="A"><span>A: </span>API portals are bridges between API providers and API consumers
+                                that provide information about the API at every stage of an API's lifecycle. API portals
+                                allow providers to expose and publicize their APIs, educate developer communities about
+                                them, provision user access, generate client keys and more. Marketplaces differ from
+                                portals as they aggregate many API providers into a single view and typically add search
+                                functions so developers can browse many different APIs.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is the meaning of errors returned by the Standard Bank API
+                                gateway?</p>
+                            <p class="A"><span>A: </span>The most common error codes that you may encounter when testing
+                                or using the APIs are as follows:<br>
+                                400 Error: Bad Request - reasons for this error include <br>
+                                - Invalid JSON such as a missing comma <br>
+                                - Missing fields <br>
+                                - Wrong data type <br>
+                                - Invalid characters <br>
+                                403 Error: Access Denied <br>
+                                - This error implies a permission issue <br>
+                                404 Error: Not found <br>
+                                - Usually means that your URL is wrong <br>
+                                500 Error: Internal server error <br>
+                                - Usually means there might be issues with the API and you will need to contact support
+                                to assist.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>How do I submit a suggestion for a new API?</p>
+                            <p class="A"><span>A: </span>We would like to hear from you and your feedback helps us make
+                                our Marketplace better for you and other users. Please click the link below to submit
+                                feedback, ask a question, share a concern or to get help.<br>
+                                <span><a href="https://apicentral.standardbank.com/internalapimarketplace/s/support?tabset-725bd=2"
+                                        class="link">https://apicentral.standardbank.com/internalapimarketplace/s/support</a></span>
+                            </p>
+                        </div>
+                    </template>
+                </div>
+                <a onclick={selectedB} class="itemB">Discovering and subscribing to an API</a>
+                <div class="questions mobile">
+                    <template if:true={optionB}>
+                        <div>
+                            <p class="Q"><span>Q: </span>How do I move my application to production?</p>
+                            <p class="A"><span>A: </span>Once you have completed testing in the sandbox environment and
+                                you are ready to move to production, you can request subscription to the live production
+                                environment which will trigger an approval process for production access. </p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>Where do I get endpoints?</p>
+                            <p class="A"><span>A: </span>The API endpoints must be obtained from the API marketplace. To
+                                obtain the API endpoints, follow the steps below.<br>
+                                1. Select an API product<br>
+                                2. Navigate to "What you get” section<br>
+                                3. Select an API and click on “Tell me more”<br>
+                                4. The endpoints will be displayed under the “Documentation” page
+                            </p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>Will I be notified if an API or my subscription changes?</p>
+                            <p class="A"><span>A: </span>We will ensure that any updates or changes made on an API(s) or
+                                your subscription is communicated well in advance and provide you with the supplementary
+                                details about the specific changes on your subscription or API(s) that may require
+                                changes or may be unavailable due to scheduled downtime.</p>
+                        </div>
+                    </template>
+                </div>
+                <a onclick={selectedC} class="itemC">Document and publish an API</a>
+                <div class="questions mobile">
+                    <template if:true={optionC}>
+                        <div>
+                            <p class="Q"><span>Q: </span>How do I publish an API on the Marketplace?</p>
+                            <p class="A"><span>A: </span>Click on the link below to learn how to publish an API <br>
+                                <span><a href="https://aws-tools.standardbank.co.za/confluence/display/api/Auto+catalog"
+                                        class="link">https://aws-tools.standardbank.co.za/confluence/display/api/Auto+catalog</a></span>
+                            </p>
+                        </div>
+                    </template>
+                </div>
+                <a onclick={selectedD} class="itemD">About API's</a>
+                <div class="questions mobile">
+                    <template if:true={optionD}>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is an API?</p>
+                            <p class="A"><span>A: </span>API stands for “Application Programming Interface.” An API is a
+                                software intermediary that allows two applications to talk to each other. In other
+                                words, an API is the messenger that delivers your request to the provider that you're
+                                requesting it from and then delivers the response back to you.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is an API Product?</p>
+                            <p class="A"><span>A: </span>An API Product is when APIs are combined to give a certain
+                                amount of access for client app developers. API products allow for the bundling of
+                                resources at service level i.e. products are created to solve a user's specific need.
+                                Technically, this includes a list of API proxies, access limits and quotas and API key
+                                approval methods to bring monetary value to API's.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>Why and how do I generate a certificate?</p>
+                            <p class="A"><span>A: </span>API Management allows us to secure access to the backend
+                                service of an API using client certificates. This is to establish trust between the
+                                consumer application and provider application. This certificate will be required during
+                                the API subscription process. Please click <a
+                                    href="/sfsites/c/resource/ACM_pdfs/How_to_generate_a_certificate_guide.pdf">here&nbsp;
+                                </a>
+                                to view guidelines on how to generate a certificate.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is a RESTful API?</p>
+                            <p class="A"><span>A: </span>A REST API (also known as RESTful API) is an application
+                                programming interface (API or web API) that conforms to the constraints of REST
+                                architectural style and allows for interaction with RESTful web services.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is the difference between the Sandbox and the Production
+                                environment?</p>
+                            <p class="A"><span>A: </span>The main difference between Sandbox and Production is the data
+                                that is returned by the APIs. In Sandbox test data is returned while in Production live
+                                data is returned. The Sandbox environment enables you to develop and test your
+                                application.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is the difference between a microservice and an API?</p>
+                            <p class="A"><span>A: </span>Microservices is an approach to building an application that
+                                breaks its functionality into modular components. APIs are part of an application that
+                                communicates with other applications. So, APIs can be used to enable microservices. As a
+                                result, you can make it easier to create software.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is API-led?</p>
+                            <p class="A"><span>A: </span>API-led connectivity is a methodical way to connect data to
+                                applications through reusable and purposeful APIs. These APIs are developed to play a
+                                specific role – unlocking data from systems, composing data into processes, or
+                                delivering an experience. When the entire organization adopts what is known as API-led
+                                connectivity, everyone in the business is empowered to access their best capabilities in
+                                delivering applications and projects through discovery, self-service, and reuse. Please
+                                refer to the business toolkit for more information.</p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="questions desktop">
+                <template if:true={optionA}>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is the API Marketplace?</p>
+                        <p class="A"><span>A: </span>An API marketplace is a user-friendly public hub where API
+                            providers can publish APIs for developers and partners to consume. Creating an API
+                            marketplace is an important step in API monetization. You can also set up subscription tiers
+                            for monetization in your API marketplace.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is the difference between an API Portal and an API
+                            Marketplace?</p>
+                        <p class="A"><span>A: </span>API portals are bridges between API providers and API consumers
+                            that provide information about the API at every stage of an API's lifecycle. API portals
+                            allow providers to expose and publicize their APIs, educate developer communities about
+                            them, provision user access, generate client keys and more. Marketplaces differ from portals
+                            as they aggregate many API providers into a single view and typically add search functions
+                            so developers can browse many different APIs.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is the meaning of errors returned by the Standard Bank API
+                            gateway?</p>
+                        <p class="A"><span>A: </span>The most common error codes that you may encounter when testing or
+                            using the APIs are as follows:<br>
+                            400 Error: Bad Request - reasons for this error include <br>
+                            - Invalid JSON such as a missing comma <br>
+                            - Missing fields <br>
+                            - Wrong data type <br>
+                            - Invalid characters <br>
+                            403 Error: Access Denied <br>
+                            - This error implies a permission issue <br>
+                            404 Error: Not found <br>
+                            - Usually means that your URL is wrong <br>
+                            500 Error: Internal server error <br>
+                            - Usually means there might be issues with the API and you will need to contact support to
+                            assist.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>How do I submit a suggestion for a new API?</p>
+                        <p class="A"><span>A: </span>We would like to hear from you and your feedback helps us make our
+                            Marketplace better for you and other users. Please click the link below to submit feedback,
+                            ask a question, share a concern or to get help.<br>
+                            <span><a href="https://apicentral.standardbank.com/internalapimarketplace/s/support?tabset-725bd=2"
+                                    class="link">https://apicentral.standardbank.com/internalapimarketplace/s/support</a></span>
+                        </p>
+                    </div>
+                </template>
+                <template if:true={optionB}>
+                    <div>
+                        <p class="Q"><span>Q: </span>How do I move my application to production?</p>
+                        <p class="A"><span>A: </span>Once you have completed testing in the sandbox environment and you
+                            are ready to move to production, you can request subscription to the live production
+                            environment which will trigger an approval process for production access. </p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>Where do I get endpoints?</p>
+                        <p class="A"><span>A: </span>The API endpoints must be obtained from the API marketplace. To
+                            obtain the API endpoints, follow the steps below.<br>
+                            1. Select an API product<br>
+                            2. Navigate to "What you get” section<br>
+                            3. Select an API and click on “Tell me more”<br>
+                            4. The endpoints will be displayed under the “Documentation” page
+                        </p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>Will I be notified if an API or my subscription changes?</p>
+                        <p class="A"><span>A: </span>We will ensure that any updates or changes made on an API(s) or
+                            your subscription is communicated well in advance and provide you with the supplementary
+                            details about the specific changes on your subscription or API(s) that may require changes
+                            or may be unavailable due to scheduled downtime.</p>
+                    </div>
+                </template>
+                <template if:true={optionC}>
+                    <div>
+                        <p class="Q"><span>Q: </span>How do I publish an API on the Marketplace?</p>
+                        <p class="A"><span>A: </span>Click on the link below to learn how to publish an API <br>
+                            <span><a href="https://aws-tools.standardbank.co.za/confluence/display/api/Auto+catalog"
+                                    class="link">https://aws-tools.standardbank.co.za/confluence/display/api/Auto+catalog</a></span>
+                        </p>
+                    </div>
+                </template>
+                <template if:true={optionD}>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is an API?</p>
+                        <p class="A"><span>A: </span>API stands for “Application Programming Interface.” An API is a
+                            software intermediary that allows two applications to talk to each other. In other words, an
+                            API is the messenger that delivers your request to the provider that you're requesting it
+                            from and then delivers the response back to you.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is an API Product?</p>
+                        <p class="A"><span>A: </span>An API Product is when APIs are combined to give a certain amount
+                            of access for client app developers. API products allow for the bundling of resources at
+                            service level i.e. products are created to solve a user's specific need. Technically, this
+                            includes a list of API proxies, access limits and quotas and API key approval methods to
+                            bring monetary value to API's.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>Why and how do I generate a certificate?</p>
+                        <p class="A"><span>A: </span>API Management allows us to secure access to the backend service of
+                            an API using client certificates. This is to establish trust between the consumer
+                            application and provider application. This certificate will be required during the API
+                            subscription process. Please click <a
+                                href="/sfsites/c/resource/ACM_pdfs/How_to_generate_a_certificate_guide.pdf">here&nbsp;
+                            </a>
+                            to view guidelines on how to generate a certificate.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is a RESTful API?</p>
+                        <p class="A"><span>A: </span>A REST API (also known as RESTful API) is an application
+                            programming interface (API or web API) that conforms to the constraints of REST
+                            architectural style and allows for interaction with RESTful web services.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is the difference between the Sandbox and the Production
+                            environment?</p>
+                        <p class="A"><span>A: </span>The main difference between Sandbox and Production is the data that
+                            is returned by the APIs. In Sandbox test data is returned while in Production live data is
+                            returned. The Sandbox environment enables you to develop and test your application.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is the difference between a microservice and an API?</p>
+                        <p class="A"><span>A: </span>Microservices is an approach to building an application that breaks
+                            its functionality into modular components. APIs are part of an application that communicates
+                            with other applications. So, APIs can be used to enable microservices. As a result, you can
+                            make it easier to create software.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is API-led?</p>
+                        <p class="A"><span>A: </span>API-led connectivity is a methodical way to connect data to
+                            applications through reusable and purposeful APIs. These APIs are developed to play a
+                            specific role – unlocking data from systems, composing data into processes, or delivering an
+                            experience. When the entire organization adopts what is known as API-led connectivity,
+                            everyone in the business is empowered to access their best capabilities in delivering
+                            applications and projects through discovery, self-service, and reuse. Please refer to the
+                            business toolkit for more information.</p>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <!-- External Marketplace -->
+
+    <template if:true={isExternal}>
+        <div class="main">
+            <div class="navigation">
+                <a onclick={selectedA} class="itemA active">How to use the marketplace</a>
+                <div class="questions mobile">
+                    <template if:true={optionA}>
+                        <div>
+                            <p class="Q"><span>Q: </span>How do I get started?</p>
+                            <p class="A"><span>A: </span>Visit the “How to get started” page by clicking on the link
+                                below<br>
+                                <span><a href="https://developer.standardbank.com/APIMarketplace/s/getting-started"
+                                        class="link">https://developer.standardbank.com/APIMarketplace/s/getting-started</a></span>
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="Q"><span>Q: </span>Do I need to register or onboard to trial an API?</p>
+                            <p class="A"><span>A: </span>The mocking service enables you to try out our APIs directly
+                                from the Marketplace. You don’t need to become a registered member or provide any
+                                credentials to interact with the mocking service. Once you are interested in consuming
+                                any of our API product(s), you will then be required to register and subscribe to the
+                                selected API product(s) which will initiate a partner onboarding process.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>How do I submit a suggestion for a new API?</p>
+                            <p class="A"><span>A: </span>We would like to hear from you and your feedback helps us make
+                                our Marketplace better for you and other users. Please click on the link to submit
+                                feedback, ask a question, share a concern or to get help.<br>
+                                <span><a href="https://developer.standardbank.com/APIMarketplace/s/support?tabset-6dba0=1&tabset-694a9=1"
+                                        class="link">https://developer.standardbank.com/APIMarketplace/s/support?tabset-6dba0=1</a></span>
+                            </p>
+                        </div>
+                    </template>
+                </div>
+                <a onclick={selectedB} class="itemB">Discovering and subscribing to an API</a>
+                <div class="questions mobile">
+                    <template if:true={optionB}>
+
+                        <div>
+                            <p class="Q"><span>Q: </span>Why and how do I generate a certificate?</p>
+                            <p class="A"><span>A: </span>API Management allows us to secure access to the backend
+                                service of an API using client certificates. This is to establish trust between the
+                                consumer application and provider application. This certificate will be required during
+                                the API subscription process. Please click <a target="_blank"
+                                    href="/sfsites/c/resource/ACM_pdfs/How_to_generate_a_certificate_guide.pdf">here
+                                    &nbsp;</a>
+                                to view guidelines on how to generate a certificate.
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="Q"><span>Q: </span>Do I need a contract to subscribe to an API?</p>
+                            <p class="A"><span>A: </span>You do not need a contract to trial our API product(s) through
+                                our mocking service, however, to get access to our non-prod and prod environments will
+                                require an agreement to be generated and signed which will be done during the onboarding
+                                process.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>Will I be notified if an API or my subscription changes?</p>
+                            <p class="A"><span>A: </span>We will ensure that any updates or changes made on an API(s) or
+                                your subscription is communicated well in advance and provide you with the supplementary
+                                details about the specific changes on your subscription or API(s) that may require
+                                changes or may be unavailable due to scheduled downtime.</p>
+                        </div>
+                        <div>
+                            <p class="Q"><span>Q: </span>How do I move my application to production?</p>
+                            <p class="A"><span>A: </span>Once you have completed testing in the sandbox environment and
+                                you are ready to move to production, you can request subscription to the live production
+                                environment which will trigger an approval process for production access. </p>
+                        </div>
+                    </template>
+                </div>
+                <a onclick={selectedC} class="itemC">API Gateway</a>
+                <div class="questions mobile">
+                    <template if:true={optionC}>
+
+                        <div>
+                            <p class="Q"><span>Q: </span>Where do I get endpoints?</p>
+                            <p class="A"><span>A: </span>The API endpoints must be obtained from the API marketplace. To
+                                obtain the API endpoints, follow the steps below.<br>
+                                1. Select an API product <br>
+                                2. Navigate to "What you get” section <br>
+                                3. Select an API and click on “Tell me more” <br>
+                                4. The endpoints will be displayed under the “Documentation” page
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="Q"><span>Q: </span>What is the meaning of errors returned by the Standard Bank API
+                                gateway?</p>
+                            <p class="A"><span>A: </span>The most common error codes that you may encounter when testing
+                                or using the APIs are as follows:<br>
+                                400 Error: Bad Request - reasons for this error include <br>
+                                - Invalid JSON such as a missing comma <br>
+                                - Missing fields <br>
+                                - Wrong data type <br>
+                                - Invalid characters <br>
+                                403 Error: Access Denied <br>
+                                - This error implies a permission issue <br>
+                                404 Error: Not found <br>
+                                - Usually means that your URL is wrong <br>
+                                500 Error: Internal server error <br>
+                                - Usually means there might be issues with the API and you will need to contact support
+                                to assist.
+                            </p>
+                        </div>
+                    </template>
+                </div>
+                <a onclick={selectedD} class="itemD">Usage and Price Plans</a>
+                <div class="questions mobile">
+                    <template if:true={optionD}>
+                        <div>
+                            <p class="Q"><span>Q: </span>What is the cost of using the APIs?</p>
+                            <p class="A"><span>A: </span>There is no cost currently to try out our APIs using the
+                                Mocking service. Once you have subscribed to the sandbox and production environments,
+                                the API Product Owner will engage your team to discuss next steps and any pricing that
+                                may be applicable.</p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <!-- External Marketplace - Desktop -->
+            <div class="questions desktop">
+                <template if:true={optionA}>
+                    <div>
+                        <p class="Q"><span>Q: </span>How do I get started?</p>
+                        <p class="A"><span>A: </span>Visit the “How to get started” page by clicking on the link
+                            below<br>
+                            <span><a href="https://developer.standardbank.com/APIMarketplace/s/getting-started"
+                                    class="link">https://developer.standardbank.com/APIMarketplace/s/getting-started</a></span>
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="Q"><span>Q: </span>Do I need to register or onboard to trial an API?</p>
+                        <p class="A"><span>A: </span>The mocking service enables you to try out our APIs directly from
+                            the Marketplace. You don’t need to become a registered member or provide any credentials to
+                            interact with the mocking service. Once you are interested in consuming any of our API
+                            product(s), you will then be required to register and subscribe to the selected API
+                            product(s) which will initiate a partner onboarding process.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>How do I submit a suggestion for a new API?</p>
+                        <p class="A"><span>A: </span>We would like to hear from you and your feedback helps us make our
+                            Marketplace better for you and other users. Please click on the link to submit feedback, ask
+                            a question, share a concern or to get help.<br>
+                            <span><a href="https://developer.standardbank.com/APIMarketplace/s/support?tabset-6dba0=1&tabset-694a9=1"
+                                    class="link">https://developer.standardbank.com/APIMarketplace/s/support</a></span>
+                        </p>
+                    </div>
+                </template>
+                <template if:true={optionB}>
+
+                    <div>
+                        <p class="Q"><span>Q: </span>Why and how do I generate a certificate?</p>
+                        <p class="A"><span>A: </span>API Management allows us to secure access to the backend service of
+                            an API using client certificates. This is to establish trust between the consumer
+                            application and provider application. This certificate will be required during the API
+                            subscription process. Please click <a target="_blank"
+                                href="/sfsites/c/resource/ACM_pdfs/How_to_generate_a_certificate_guide.pdf">here &nbsp;
+                            </a>
+                            to view guidelines on how to generate a certificate.
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="Q"><span>Q: </span>Do I need a contract to subscribe to an API?</p>
+                        <p class="A"><span>A: </span>You do not need a contract to trial our API product(s) through the
+                            mocking service, however, to get access to the sandbox and prod environments will require an
+                            agreement to be generated and signed which will be done during the onboarding process.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>Will I be notified if an API or my subscription changes?</p>
+                        <p class="A"><span>A: </span>We will ensure that any updates or changes made on an API(s) or
+                            your subscription is communicated well in advance and provide you with the supplementary
+                            details about the specific changes on your subscription or API(s) that may require changes
+                            or may be unavailable due to scheduled downtime.</p>
+                    </div>
+                    <div>
+                        <p class="Q"><span>Q: </span>How do I move my application to production?</p>
+                        <p class="A"><span>A: </span>Once you have completed testing in the sandbox environment and you
+                            are ready to move to production, you can request subscription to the live production
+                            environment which will trigger an approval process for production access. </p>
+                    </div>
+                </template>
+                <template if:true={optionC}>
+
+                    <div>
+                        <p class="Q"><span>Q: </span>Where do I get endpoints?</p>
+                        <p class="A"><span>A: </span>The API endpoints must be obtained from the API marketplace. To
+                            obtain the API endpoints, follow the steps below.<br>
+                            1. Select an API product <br>
+                            2. Navigate to "What you get” section <br>
+                            3. Select an API and click on “Tell me more” <br>
+                            4. The endpoints will be displayed under the “Documentation” page
+                        </p>
+                    </div>
+
+                    <div>
+                        <p class="Q"><span>Q: </span>What is the meaning of errors returned by the Standard Bank API
+                            gateway?</p>
+                        <p class="A"><span>A: </span>The most common error codes that you may encounter when testing or
+                            using the APIs are as follows:<br>
+                            400 Error: Bad Request - reasons for this error include <br>
+                            - Invalid JSON such as a missing comma <br>
+                            - Missing fields <br>
+                            - Wrong data type <br>
+                            - Invalid characters <br>
+                            403 Error: Access Denied <br>
+                            - This error implies a permission issue <br>
+                            404 Error: Not found <br>
+                            - Usually means that your URL is wrong <br>
+                            500 Error: Internal server error <br>
+                            - Usually means there might be issues with the API and you will need to contact support to
+                            assist.
+                        </p>
+                    </div>
+                </template>
+                <template if:true={optionD}>
+                    <div>
+                        <p class="Q"><span>Q: </span>What is the cost of using the APIs?</p>
+                        <p class="A"><span>A: </span>There is no cost currently to try out our APIs using the Mocking
+                            service. Once you have subscribed to the sandbox and production environments, the API
+                            Product Owner will engage your team to discuss next steps and any pricing that may be
+                            applicable.</p>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+</template>

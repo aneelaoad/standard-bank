@@ -1,0 +1,119 @@
+<!--
+  @description       : This is used for Annexure A Benifical Ownership screen 
+  @author            : Sreekala.Mallavalli@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Annexure A: Beneficial owner details</h2>
+    </div>
+    <div class="slds-card aob_todo-card">
+      <p class="sub-header">
+        We hereby declare that the beneficial owner(s) of the applicant/company
+        and their effective percentage shareholding held in the
+        applicant/company are as follows:
+      </p>
+    </div>
+    <br />
+    <template for:each={participants} for:item="item">
+      <div class="aob_card-container" key={item.CIB_Sequence__c}>
+        <div class="aob_info-text">
+          <p>
+            <img src={helpicon} alt="check" /> The natural persons who has > 10%
+            ownership of the applicant/company
+          </p>
+        </div>
+
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                Full name
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="text"
+                  placeholder="Enter the Name"
+                  data-fieldname="Name"                  
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  value={item.Name}
+                  aria-describedby="form-error-01"
+                  aria-invalid="true"
+                  data-index={index}                
+                  variant="label-hidden"
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                Voting rights</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="percent"
+                  data-fieldname="CIB_VotingRights__c"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  value={item.CIB_VotingRights__c}
+                  placeholder="00 %"
+                  name="CIB_VotingRights__c"
+                  variant="label-hidden"
+                  data-index={index}
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                Passport/ID number</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="text"
+                  data-fieldname="PassportIdNumber__c"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  value={item.PassportIdNumber__c}                  
+                  name="PassportIdNumber__c"
+                  variant="label-hidden"                  
+                  data-index={index}                  
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_8-of-12">
+          <div class="aob_title-sm mt_20">
+            Documents required for beneficial owner
+          </div>
+        </div>
+
+        <c-cib_comp_documents-container
+          application-id={recordId}
+          section-id={sectionId}
+          is-participant
+          participant-id={item.Id}
+          data-participant-sequence={item.CIB_Sequence__c}
+        ></c-cib_comp_documents-container>
+      </div>
+    </template>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

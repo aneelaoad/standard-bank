@@ -1,0 +1,151 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    padding: 24px;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+.heading {
+    color: #1c263c;
+    margin-top: 1px;
+    margin-bottom: 34px;
+}
+
+.title {
+    padding-bottom: 21px;
+    color: #1c263c;
+}
+
+.line {
+    height: 1px;
+    background-color: #e6eaf3;
+    margin-bottom: 15.5px;
+}
+
+.btn {
+    width: 192px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    padding: 10px 28px;
+    background-color: #0089ff;
+    color: #ffffff;
+    float: right;
+    cursor: pointer;
+}
+
+.btn-icon{
+    width: 20px;
+    height: 20px;
+    margin-left: 30px;
+    margin-bottom: 6px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 4px 0 0;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.content {
+    font-size: 15px;
+    color: #6a7286;
+    font-weight: normal;
+    letter-spacing: 0.03px;
+    line-height: 1.43;
+    padding-bottom: 25px;
+    color: #6a7286;
+}
+
+.publish-date {
+    font-weight: 500;
+    color: #6a7286;
+    margin-bottom: 25px;
+}
+
+.file-heading {
+    color: #6a7286;
+    margin-top: 1px;
+    margin-bottom: 20px;
+}
+
+.file {
+    width: fit-content;
+    margin-bottom: 31.5px;
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.6;
+    letter-spacing: 0.03px;
+    color: #0089ff;
+}
+
+.popup {
+    width: auto;
+    border-radius: 2px;
+    box-shadow: 0 12px 30px 0 rgba(0, 0, 0, 0.13);
+    background-color: #ffffff;
+    padding-top: 38px;
+    padding-bottom: 38px;
+}
+
+.popup-img {
+    margin: 0 179px 16px;
+    padding-top: 16px;
+    object-fit: contain;
+}
+
+.popup-heading {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.popup-text {
+    width: 276px;
+    margin: 20px 35px 40px;
+    text-align: center;
+    color: #0a2240;
+    font-weight: 500;
+    line-height: 1.43;
+    color: #6a7286;
+}
+
+.popup-btn {
+    padding: 12px 49px;
+    font-weight: bold;
+    border-radius: 2px;
+    border: solid 1px #0089ff;
+    background-color: #ffffff;
+    text-align: center;
+    color: #0089ff;
+    cursor: pointer;
+}
+
+@media(max-width: 1024px) {
+    .poupup {
+        padding: 28px 38px 37px 38px;
+    }
+}
+
+@media(max-width: 414px) {
+    .container {
+        padding: 24px;
+    }
+
+    .popup {
+        width: 373px !important;
+    }
+
+    .popup-img {
+        margin: 0;
+    }
+}

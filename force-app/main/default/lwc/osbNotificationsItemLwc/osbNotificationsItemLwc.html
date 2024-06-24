@@ -1,0 +1,57 @@
+<template>
+    <div class="notification-container hidden" onclick={toggle} data-intent="transactional" data-id="uitlink_link" data-text={dataText}>
+        <div if:true={showToastSuccess}>
+            <c-osb-toast toasttype="success" toastmessage="The notification has been deleted successfully." top="150px" left="950px"></c-osb-toast>
+        </div>
+        <div if:true={showToastFailure}>
+            <c-osb-toast toasttype="failure" toastmessage="The notification was not deleted." top="100px" left="100px"></c-osb-toast>
+        </div>
+        <div if:true={showPopUp}>
+            <c-osb-market-gram-popup-lwc onclosepopupevent={handleCloseEvent} sub-title="Are you sure you want to delete this notification?" title="Delete notification?" content="Are you sure you want to delete this notification?"></c-osb-market-gram-popup-lwc>
+        </div>
+        <div class="notification" onclick={updateNotificationEvent}>
+            <div if:true={ishidden}>
+                <div class="notification__header slds-medium-size_12-of-12 slds-x-large-size_12-of-12">
+                    <h1 class="notification__title notification__title--collapsed unread">{title}</h1>
+                    <div class="notification__date">
+                        <lightning-formatted-date-time value={date} year="numeric" month="short" day="numeric"
+                            time-zone="UTC"></lightning-formatted-date-time>
+                        <div class="utitliy-section">
+                            <button class="notification__icon">
+                                <i class="ms-icn_arrow_solid_down"></i>
+                            </button>
+                            <lightning-icon size="x-small"
+                                class="slds-button slds-button_icon slds-button_icon-inverse deleteIcon" data-text="Notifications | delete" data-intent="confirmational"
+                                icon-name="utility:delete" onclick={removeNotification}>
+                            </lightning-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="notification__description slds-size_6-of-6 slds-x-large-size_12-of-12">
+                    <lightning-formatted-rich-text value={content}></lightning-formatted-rich-text>
+                </div>
+            </div>
+            <div if:false={ishidden}>
+                <div class="notification__header slds-medium-size_12-of-12 slds-x-large-size_12-of-12">
+                    <h1 class="notification__title">{title}</h1>
+                    <div class="notification__date">
+                        <lightning-formatted-date-time value={date} year="numeric" month="short" day="numeric"
+                            time-zone="UTC"></lightning-formatted-date-time>
+                        <div class="utitliy-section">
+                            <button class="notification__icon ">
+                                <i class="ms-icn_arrow_solid_up"></i>
+                            </button>
+                            <lightning-icon size="x-small"
+                                class="slds-button slds-button_icon slds-button_icon-inverse deleteIcon" data-text="Notifications | delete" data-intent="confirmational"
+                                icon-name="utility:delete" onclick={removeNotification}>
+                            </lightning-icon>
+                        </div>
+                    </div>
+                    <div class="notification__description slds-size_6-of-6 slds-x-large-size_12-of-12">
+                        <lightning-formatted-rich-text value={content}></lightning-formatted-rich-text>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

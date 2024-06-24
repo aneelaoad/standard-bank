@@ -1,0 +1,41 @@
+<template>
+    <lightning-quick-action-panel header={labels.modal_title}>
+        <div class="slds-card slds-theme_default">
+            <!--error-->
+            <template if:true={error}>
+                {error}
+            </template>
+            <template if:false={error}>
+                <div class="slds-text-body_small">Confirm the full return or the partial return of requested items by updating the returned quantity. For the refund, please contact the administrator.</div>
+                <br>
+                <lightning-card  variant="Narrow"  title="Items returned" icon-name="custom:custom64">
+                    <template if:false={iflistItems}><p>{labels.no_datas}</p></template>
+                    <lightning-datatable 
+                        key-field="Id"
+                        columns={itemsColumns}
+                        data={listItems}
+                        draft-values={draftValues}
+                        onsave={handleSaveTable}
+                        hide-checkbox-column
+                        >
+                    </lightning-datatable>
+                </lightning-card>
+            </template>
+        </div><!--Spinner-->
+        <div class="slds-grid" slot="footer">
+            <div class="button-container slds-text-align_right forceRecordEditActions">
+                <div class="actionsContainer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={closeAction}></lightning-button>
+                    <lightning-button variant="brand" label="Confirm Return" onclick={handleConfirm} disabled={disableConfirm}></lightning-button>
+                    
+                </div>
+            </div>
+          </div>
+        <template if:true={loading}>
+            <div class="slds-p-around_x-large">
+                <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+                </lightning-spinner>
+            </div>
+        </template>
+    </lightning-quick-action-panel>
+</template>

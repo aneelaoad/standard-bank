@@ -1,0 +1,47 @@
+:host {
+    --slds-c-accordion-summary-color-background: #f3f2f2;
+    --slds-c-accordion-section-spacing-block-end: 5px;
+    --slds-c-accordion-section-spacing-block-start: 5px;
+}
+
+span.slds-radio{
+    display : inline-block !important;
+}
+.my-element {
+    margin-right: 40px; 
+  }
+  
+.custom-spacing1 {
+    margin-top: 20px;
+  }
+  .custom-spacing3 {
+    margin-top: 10px;
+  }
+.THIS .slds-radio {  
+    display: inline !important;  
+} 
+.slds-radio{
+    display: inline !important;  
+}
+.slds-modal__content.slds-p-around_medium{
+    max-height :450px !important;
+}
+.header{
+    background-color: #F3F3F2;
+    padding: 1%;
+    font-size: 15px;
+    border-radius: 3%;
+    font-weight: 500;
+}
+.sub-heading{
+    padding: 1%;
+    font-size: 13px;
+    font-weight: 500;
+}
+.vertical-checkbox-group {
+    display: flex; /* Use 'display: grid;' if you prefer using Grid CSS */
+    flex-direction: column; /* Use 'grid-template-columns' if using Grid CSS */
+}
+.slds-checkbox{
+    display: inline-block !important;
+}

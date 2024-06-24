@@ -1,0 +1,18 @@
+<template>
+    <div class="container slds-align_absolute-center">
+        <lightning-accordion>
+            <p class="Faq-heading">{heading}</p>
+            <p class="text-normal text">{text}</p>
+            <p class="text sub-heading">{subHeading}</p>
+
+            <template iterator:faq={articles}>
+                <div key={faq.value.Id}>
+                    <lightning-accordion-section name={faq.value.Title} label={faq.value.Title} class="Faq-label">
+                        <lightning-formatted-rich-text value={faq.value.Info__c}>
+                        </lightning-formatted-rich-text>
+                    </lightning-accordion-section>
+                </div>
+            </template>
+        </lightning-accordion>
+    </div>
+</template>

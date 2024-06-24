@@ -1,0 +1,187 @@
+<template>
+    <form>
+        <lightning-layout multiple-rows="true">
+            <div class="outer-container">
+                <lightning-layout-item size="12">
+                    <div class="inner-container">
+                        <template if:true={isLoading}>
+                            <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+                        </template>
+
+                        <div if:true={showToastFailure}>
+                            <c-osb-toast toasttype="failure" toastmessage={toastMessage} left="50%" top="128px">
+                            </c-osb-toast>
+                        </div>
+                        <div if:true={showToastSuccess}>
+                            <c-osb-toast toasttype="success" toastmessage={toastMessage} left="50%" top="128px">
+                            </c-osb-toast>
+                        </div>
+
+                        <form data-frmcontainer="edit profile" data-id="edit profile" name="edit profile"
+                            onchange={firstFormSubmit}>
+                            <template if:true={pingReturnedData}>
+                                <lightning-layout-item size="12">
+                                    <div id="profilePicContainer" class="newCase__icon slds-align_absolute-center">
+
+                                        <img src={osbEditProfileIcon}>
+
+                                    </div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <h1 class="newCase__title edit-profile  slds-text-align_center">Edit Profile</h1>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="12">
+                                    <div class="newCase__subtitle acc-copy-50">
+                                        You can edit and save any changes made to your profile here.
+                                    </div>
+                                </lightning-layout-item>
+                                <lightning-layout multiple-rows="true">
+
+                                    <lightning-layout-item size="12" class="rectangle">
+                                        <p class="title ">Personal details</p>
+                                    </lightning-layout-item>
+                                </lightning-layout>
+                                <label class="label " for="text-input-id-49">First Name </label>
+                                <div class="slds-form-element__control">
+                                    <input type="text" value={userMap.givenName} name="givenName" required min="1"
+                                        onchange={handleFieldChange}
+                                        class="slds-input rectangle-copy-41 text inputFields" />
+                                </div>
+                                <label class="label" for="text-input-id-49">Last Name </label>
+                                <div class="slds-form-element__control">
+                                    <input type="text" value={userMap.familyName} name="familyName" required min="1"
+                                        onchange={handleFieldChange}
+                                        class="slds-input rectangle-copy-41 text inputFields" />
+                                </div>
+
+                                <lightning-layout multiple-rows="true">
+                                    <lightning-layout-item size="12">
+                                        <label class="label" for="text-input-id-49">Cell number</label>
+                                    </lightning-layout-item>
+                                    <lightning-layout-item size="3">
+                                        <select class=" rectangle-copy-41a text" name="countryCode" id="countrycode"
+                                            onchange={handleFieldChange}>
+                                            <option value="Select">{userMap.countryCode}</option>
+                                            <template for:each={countryCodeOptions} for:item="phoneItem">
+                                                <option key={phoneItem.value} class="text" value={phoneItem.value}>
+                                                    {phoneItem.value}
+                                                </option>
+                                            </template>
+                                        </select>
+
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="9">
+                                        <input type="text" placeholder="Type here" required
+                                            class="rectangle-copy-41b text inputFields" name="phoneNumber"
+                                            onchange={handleFieldChange} value={userMap.phoneNumber} />
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12" class="rectangle-1">
+                                        <p class="title">Work Details</p>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12">
+                                        <label class="label" for="text-input-id-49">Work email</label>
+                                        <div class="slds-form-element__control">
+                                            <input type="email" value={userMap.email} name="email" required disabled
+                                                onchange={handleFieldChange}
+                                                class="slds-input rectangle-copy-41 text" />
+                                        </div>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12">
+                                        <label class="label" for="text-input-id-49">Company name</label>
+                                        <div class="slds-form-element__control">
+                                            <input type="text" placeholder="Type here" required minlength="1"
+                                                class="slds-input rectangle-copy-41 text inputFields"
+                                                onchange={handleFieldChange} name="organization"
+                                                value={userMap.organization} />
+                                        </div>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12">
+                                        <label class="label">Job title</label>
+                                        <div class="slds-form-element__control">
+                                            <input type="text" placeholder="Type here" required minlength="1"
+                                                message-when-value-missing=""
+                                                class="slds-input rectangle-copy-41 text inputFields" name="title"
+                                                value={userMap.title} onchange={handleFieldChange} />
+                                        </div>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12">
+                                        <label class="label" for="text-input-id-49">Company Industry</label>
+                                        <select class="slds-form-element__control rectangle-copy-45 text"
+                                            name="industry" onchange={handleFieldChange}>
+                                            <option value="Select">{userMap.industry}</option>
+                                            <template for:each={IndustryOptions} for:item="indItem">
+                                                <option key={indItem.key} class="text" value={indItem.value}>
+                                                    {indItem.value}
+                                                </option>
+                                            </template>
+                                        </select>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12" large-device-size="6" medium-device-size="6">
+                                        <div class="slds-p-bottom_small slds-p-top_x-large  ">
+                                            <button class="visit-website rectangle-98 " data-id="cancel" type="button"
+                                                data-intent="confirmational" data-text="Edit Profile | cancel"
+                                                data-scope="edit profile" onclick={resetForm}>CANCEL</button>
+                                        </div>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12" large-device-size="6" medium-device-size="6">
+                                        <div class="slds-p-bottom_small slds-p-top_x-large slds-text-align_right ">
+                                            <button class=" mbl-main-button-copy save rectangle-99 " data-id="submit"
+                                                data-intent="confirmational" data-text="Edit Profile | save"
+                                                data-scope="edit profile" value="SAVE"
+                                                onclick={submitForm}>SAVE</button>
+                                        </div>
+                                    </lightning-layout-item>
+
+
+                                </lightning-layout>
+                            </template>
+                        </form>
+                        <template if:true={blankResponse}>
+                            <template if:false={pingReturnedData}>
+                                <div
+                                    class="newCase__form error-form slds-size_6-of-6 slds-medium-size_6-of-6 slds-large-size_6-of-6">
+                                    <div id="DisplayErrorPage"
+                                        class="slds-container_center slds-container_large error-format">
+
+                                        <div class="icon-format alert" style="text-align: center; padding-top: 40px;">
+                                            <i class="ms-icn_alert_circle_outline"></i>
+
+                                        </div>
+                                        <div>
+                                            <p
+                                                style="font-family: BentonSans; text-align:center; font-size:16px; padding-top: 40px;">
+                                                We have
+                                                experienced an unexpected error!</p>
+
+                                        </div>
+                                        <div style="text-align: center; font-size:larger; padding-top: 40px;">
+                                            <lightning-button variant="base" label="RELOAD" title="Reload profile"
+                                                data-id="reload" data-intent="confirmational"
+                                                data-text="Edit Profile | reload" data-scope="edit profile"
+                                                onclick={handleReload}>
+                                            </lightning-button>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </template>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+
+            </div>
+
+        </lightning-layout>
+    </form>
+</template>

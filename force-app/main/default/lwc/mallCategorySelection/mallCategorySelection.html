@@ -1,0 +1,155 @@
+<template>
+  <template if:true={enable}>
+    <ul class="category-selection">
+      <li class="dropdown">
+        <button
+          class="nav-item"
+          onclick={toggleDropdown}
+          aria-controls="category-selection"
+          aria-expanded="false"
+          data-intent="transactional"
+          data-scope="header"
+          data-id="link_content"
+          data-type="click"
+          data-text="Category selector"
+          data-text-after="drop-down"
+        >
+          <img src={categoriesIcon} class="icon" />
+          <div class="nav-text">{selectedCategory.labeloutput}</div>
+          <div class="chevron"></div>
+        </button>
+        <div class="dropdown-panel" id="category-selection">
+          <c-mall-header-dropdown>
+            <template for:each={categoryOptions} for:item="option">
+              <li
+                key={option.value}
+                onclick={setCategory}
+                data-section={option.value}
+                data-value={option.value}
+              >
+                <a
+                  tabindex="0"
+                  data-intent="transactional"
+                  data-scope="category"
+                  data-id="link_content"
+                  data-type="click"
+                  data-text={option.labeloutput}
+                  data-text-after="button"
+                  class={option.categoryLinkClass}
+                  data-category={option.label}
+                  onclick={setCategory}
+                  data-section={option.value}
+                  data-value={option.value}
+                >
+                  <span>{option.labeloutput}</span>
+                  <template if:true={option.selected}>
+                    <div class="selected-indicator"></div>
+                  </template>
+                </a>
+              </li>
+            </template>
+          </c-mall-header-dropdown>
+        </div>
+      </li>
+    </ul>
+  </template>
+  <template lwc:if={isCatalogue}>
+    <div class="catalogue-filter">
+      <ul class="category-selection">
+        <li class="dropdown">
+          <button
+            class="nav-item catalogue-filter-btn"
+            onclick={toggleDropdown}
+            aria-controls="category-selection"
+            aria-expanded="false"
+            data-intent="transactional"
+            data-scope="header"
+            data-id="link_content"
+            data-type="click"
+            data-text="Category selector"
+            data-text-after="drop-down"
+          >
+            <div class="nav-text catalogue-nav-text">Filter by</div>
+            <div class="chevron"></div>
+          </button>
+          <div class="dropdown-panel" id="catalogue-selection">
+            <c-mall-header-dropdown
+              catalogue-helper-text={catalogueSelectorHelperText}
+              is-mobile-catalogue="true"
+              catalogue-filters={isCatalogueFilters}
+              has-selection-error={hasSelectionError}
+              onapply={handleApplySelection}
+              class="catalogue-dropdown"
+            >
+              <template for:each={categoryOptions} for:item="option">
+                <li key={option.value}>
+                  <label
+                    data-intent="transactional"
+                    data-scope="category"
+                    data-id="link_content"
+                    data-type="click"
+                    data-text={option.labeloutput}
+                    data-text-after="button"
+                    class="nav-item catalogue-nav-item"
+                    data-category={option.label}
+                    data-section={option.value}
+                    data-value={option.value}
+                  >
+                    <input
+                      type="checkbox"
+                      name="selection"
+                      checked={option.selected}
+                      value={option.selected}
+                      class="service-check"
+                      data-intent="transactional"
+                      data-type="click"
+                      data-text-after="checkbox"
+                      onchange={handleCategorySelection}
+                    />
+                    <div class="check-indicator"></div>
+                    <span class="catalogue-text">{option.labeloutput}</span>
+                  </label>
+                </li>
+              </template>
+            </c-mall-header-dropdown>
+          </div>
+        </li>
+      </ul>
+      <div class="slds-listbox_selection-group">
+        <ul
+          class="slds-listbox slds-listbox_horizontal"
+          role="listbox"
+          aria-label="Selected Options:"
+          aria-orientation="horizontal"
+        >
+          <template for:each={categoryOptions} for:item="option">
+            <template if:true={option.selected}>
+              <li
+                class="slds-listbox-item"
+                role="presentation"
+                key={option.label}
+              >
+                <span
+                  class="slds-pill"
+                  role="option"
+                  tabindex="0"
+                  aria-selected="true"
+                >
+                  <span class="slds-pill__label" title={option.label}
+                    >{option.label}</span
+                  >
+                  <span
+                    class="close"
+                    onclick={removeSelection}
+                    data-value={option.value}
+                    data-label={option.label}
+                  ></span>
+                </span>
+              </li>
+            </template>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </template>
+</template>

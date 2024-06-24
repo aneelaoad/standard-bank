@@ -1,0 +1,210 @@
+<!--
+/***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 12-04-2024
+@ Name of the Class : Cib_comp_basicInformation
+@ Description       : This class is used to manage the basic information screen of the application.
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 12-04-2024
+@ Modification Description : SFP-36750
+***************************************************************************************/
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Basic account Information</h2>
+    </div>
+    <div class="aob_card-container">
+      <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label
+              class="slds-form-element__label"
+              for="combobox-id-2"
+              id="combobox-label-id-134"
+            >
+              <div class="aob_title-sm">
+                <span class="slds-required" title="required">* </span>Entity
+                Type
+              </div>
+            </label>
+            <c-cmn_comp_acpicklist
+              required
+              data-fieldname="CIB_BAI_EntityType__c"
+              data-type="application"
+              s-object-name="Application__c"
+              missing-value-message="please enter the field"
+              s-object-field-name="CIB_BAI_EntityType__c"
+              value={applicationRecord.CIB_BAI_EntityType__c}
+            >
+            </c-cmn_comp_acpicklist>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <div class="aob_title-sm">
+              <span class="slds-required" title="required">* </span>Company
+              registered name
+            </div>
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                id="form-element-01"
+                placeholder="Company Name."
+                required
+                data-fieldname="CIB_BAI_CompanyRegisteredName__c"
+                data-type="application"
+                name="CIB_BAI_CompanyRegisteredName__c"
+                value={applicationRecord.CIB_BAI_CompanyRegisteredName__c}                
+                aria-describedby="form-error-01"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span
+        >Incorporation/registration &amp; issuing authority
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <span class="slds-required" title="required">* </span>Name of
+              issuing authority</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                id="form-element-02"
+                data-fieldname="CIB_BAI_NameOfIssuingAuthority__c"
+                data-type="application"
+                name="CIB_BAI_NameOfIssuingAuthority__c"
+                value={applicationRecord.CIB_BAI_NameOfIssuingAuthority__c}
+                placeholder="Enter the name"
+                aria-describedby="form-error-02"
+                aria-invalid="true"
+                required
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required">* </abbr
+              >Incorporation number</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                id="form-element-04"
+                required
+                data-fieldname="CIB_BAI_IncorporationNumber__c"
+                data-type="application"
+                name="CIB_BAI_IncorporationNumber__c"
+                value={applicationRecord.CIB_BAI_IncorporationNumber__c}
+                aria-describedby="form-error-04"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label" for="date-input-id-default"
+              >Incorporation date</label
+            >
+            <c-cmn_comp_date-picker
+              data-fieldname="CIB_BAI_IncorporationDate__c"
+              data-type="application"
+              value={applicationRecord.CIB_BAI_IncorporationDate__c}
+            >
+            </c-cmn_comp_date-picker>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              Business registration number</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                id="form-element-06"
+                data-fieldname="CIB_BAI_BusinessRegistrationNumber__c"
+                data-type="application"
+                name="CIB_BAI_BusinessRegistrationNumber__c"
+                value={applicationRecord.CIB_BAI_BusinessRegistrationNumber__c}
+                aria-describedby="form-error-06"
+                aria-invalid="true"
+                variant="label-hidden"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label" for="date-input-id-default2"
+              >Business registration date</label
+            >
+            <c-cmn_comp_date-picker
+              data-fieldname="CIB_BAI_BusinessRegistrationDate__c"
+              data-type="application"
+              value={applicationRecord.CIB_BAI_BusinessRegistrationDate__c}
+            >
+            </c-cmn_comp_date-picker>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt_58 mb_48">
+      <h2>Basic information - Document upload</h2>
+    </div>
+
+    <c-cib_comp_documents-container
+      application-id={recordId}
+      section-id={sectionId}
+    ></c-cib_comp_documents-container>
+    <c-cib_comp_flow-navigation
+      is-first-screen={firstScreen}
+      submit-first-screen="true"
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

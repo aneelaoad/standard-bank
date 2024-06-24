@@ -1,0 +1,28 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<template>
+    <div style="display: none">{recordId}</div>
+    <lightning-quick-action-panel header="Upload Documents">
+        <div class="header" style="background-color: #F3F3F2; padding: 1%; font-size: 15px; border-radius: 3%; font-weight: 500;">
+             Upload documents
+        </div>
+        <template if:true={blnSpinner}>
+            <lightning-spinner variant="brand" size="medium"> </lightning-spinner>
+          </template>
+        <c-omf_upload-documents  record-id={recordId} bln-kyc-upload-document=true></c-omf_upload-documents>
+        <div slot="footer">
+            <lightning-button
+                variant="neutral"
+                label="Continue Later"
+                onclick={handleUploadClose}
+            ></lightning-button>
+            <lightning-button
+                variant="brand"
+                label="Submit"
+                class="slds-m-left_x-small"
+                onclick={handleUploadSubmit}
+            ></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>

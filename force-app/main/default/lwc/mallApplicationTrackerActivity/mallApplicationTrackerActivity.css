@@ -1,0 +1,121 @@
+.activity-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.05rem;
+    box-shadow: 0px 0px 5px #cccccc69;
+    min-height: 220px;
+    border-radius: 0.7rem;
+    border: 2px solid var(--neutrals-pale-grey-50, #E3E6EA);
+    background: var(--neutrals-white, #FFF);
+    height: 100%;
+  }
+  
+  .activity-card-head {
+      width: 100%;
+      position: relative;
+  }
+  
+  .activity-card-head strong {
+      font-size: 16px;
+      color: #1a314d;
+      display: block;
+  }
+  .activity-card-head button {
+      border: 0px;
+      background-color: transparent;
+      padding: 0px;
+      position: absolute;
+      right: 0px;
+      top: 6px;
+      display: block;
+  }
+  
+  .activity-card-head button img {
+      max-width: 12px;
+      display: block;
+  }
+  
+  .appTracker_sec {
+      width: 100%;
+  }
+  
+  .appTracker_bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+  }
+  
+  .appTracker_bar button {
+      width: auto;
+      height: 19px;
+      background-color: transparent;
+      border: 0px;
+  }
+  
+  .appTracker_bar button img {
+      width: 100%;
+      display: block;
+  }
+  
+  .appTracker_bar_info {
+      width: calc(100% - 22px);
+      padding: 0px 10px;
+  }
+  
+  .appTracker_bar_info span {
+      width: 100%;
+      display: block;
+  }
+  .appTracker_bar_info span img {
+      width: 100%;
+      display: block;
+  }
+  
+  .appTracker_text {
+      width: 100%;
+  }
+  
+  .appTracker_text span {
+      width: 18px;
+      display: block;
+      margin-right: 5px;
+  }
+  
+  .appTracker_text span img {
+      display: block;
+      width: 100%;
+  }
+  
+  .appTracker_text p {
+      display: flex;
+      align-items: center;
+      padding-bottom: 10px;
+      color: #5c6c80;
+      font-size: 12px;
+      font-weight: bold;
+  }
+  
+
+.app-tracker-label-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.app-tracker-label-wrapper span:nth-child(2){
+    text-align: right;
+}
+
+.progress-bar{
+  height: 0.78rem;
+  background-color: #E4EAF0;
+  border-radius: 6rem;
+}
+.progress-completion{
+  background: var( --gradient-primary-03-vertical, linear-gradient(90deg, #0064FC 0%, #0033AA 100%) );
+  width: 40%;
+  height: 100%;
+    border-radius: 6rem;
+}

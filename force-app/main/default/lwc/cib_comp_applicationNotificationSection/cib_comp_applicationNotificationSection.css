@@ -1,0 +1,41 @@
+h3 {
+  font-size: 20px;
+}
+.image {
+  width: 28px;
+}
+
+.margin-left {
+  margin-left: 6px;
+}
+.slds-table thead th {
+  height: 50px;
+  background-color: #ffffff;
+}
+.slds-table thead th .slds-truncate {
+  font-family: "bentonsans-regular-webfont";
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.slds-table tbody td .slds-truncate {
+  font-family: "bentonsans-regular-webfont";
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+}
+.slds-table_bordered {
+  border-radius: 10px;
+  overflow: hidden;
+}
+h1 {
+  font-size: 22px;
+  font-family: "bentonsans-regular-webfont";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  color: #1a314d;
+}

@@ -1,0 +1,22 @@
+<!--
+  @description       : Lwc parent to venue content
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-15-2021   TCK   Initial Version
+-->
+<template>
+  <template if:true={loading}>
+    <c-eap-spinner></c-eap-spinner>
+  </template>
+
+  <div class="content">
+    <c-eap-header-detail title={title}></c-eap-header-detail>
+    <c-eap-venue-content onloaded={hasLoaded} onreload={needToLoad}></c-eap-venue-content>
+    <div class="v1_space_footer"></div>
+    <c-eap-footer isfixed=true></c-eap-footer>
+  </div>
+</template>

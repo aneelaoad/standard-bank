@@ -1,0 +1,49 @@
+@import 'c/eapCssLibrary';
+
+.light_titles {
+    margin-left: 3%;
+}
+
+.v1_div_containerFilters {
+    display:grid;
+    grid-template-columns: auto auto;
+    grid-row-gap: 2vh;
+    margin: 2vh auto 4vh;
+}
+
+.v1_div_containerFilters>button{
+    border-radius: 5px;
+    width: 90%;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    justify-self: center;
+}
+
+.v1_div_filter {
+    border: 2px solid grey;
+    background-color: transparent;
+}
+
+.v1_div_filterSelected {
+    border: 2px solid #fff;
+    background-color: #fff;
+}
+
+.v1_div_insideFilter {
+    position: relative;
+    display: block;
+    line-height: 3em;
+}
+
+img.v1_img_filter {
+    filter: var(--filter-black);
+}
+
+.v1_div_insideFilter lightning-icon {
+    --sds-c-icon-color-foreground-default: #000;
+}

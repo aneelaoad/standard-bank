@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="lwc_TextBox">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="applicationId" type="String"/>
+            <property name="personalDetails" type="String"/>
+            <property name="pageName" type="String" label="Adobe : Current screen page name"/>
+            <property name="isFiringScreenLoad" type="Boolean" label="Adobe : Is Component firing loadscreen event?"/>
+            <property name="isShowingCloseButton" type="Boolean" label="Is close button showing on parent card?"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

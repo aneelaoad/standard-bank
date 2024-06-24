@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="createCaseForExternalLink" type="Boolean" default="false" label="Create Case For External Link" description="Create Case For External SignUp Solutions"/>
+            <property name="solutionName" type="String" default="New Solution" label="Solution Name"/>
+            <property name="title" type="String" default="" label="Title"/>
+            <property name="content" type="String" default="" label="content"/>
+            <property name="image" type="String" default="" label="Image" description="Image"/>
+            <property name="setClassForImage" type="String" label="Style for Logo" description="Please enter style separated by ,"/>
+            <property name="backgroundColor" type="String" default="" label="Background Colour"/>
+            <property name="mainContent" type="String" default="" label="Main Content" description="Content under Logo"/>
+            <property name="subContent" type="String" default="" label="Sub Content" description="Cotent under main Content"/>
+            <property name="link" type="String" default="" label="Button Link" description="Link for button to page"/>
+            <property name="linkLabel" type="String" default="" label="Button Label"/>
+            <property name="btnColour" type="String" default="#0089ff" label="Button Color"/>
+            <property name="btnStyle" type="String" default="font-size:12px" label="Button Style SignUp" />
+            <property name="btnStyleOneHub" type="String" default="font-size:12px" label="Button Style OneHub" />
+            <property name="showOneHubBtn" type="Boolean" default="true" label="Show return to Onehub"/>
+            <property name="solutionLogo" type="String" default="" label="Solution Logo"/>
+            <property name="contentStyle" type="String" default="" label="Content Style"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

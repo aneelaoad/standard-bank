@@ -1,0 +1,27 @@
+<template>
+    <article class="small-card">
+        <div class="insights-img">
+
+            <img src={image} class="imageInsights">
+
+        </div>
+
+        <div class="inner-content">
+            <div class="solution-title">
+                <div class="solution-title-text">{title}</div>
+            </div>
+            <div class="intro-container">
+                <div class="core-text">{introduction}</div>
+            </div>
+        </div>
+        <a href={externalurl} target="_blank" data-id={title} data-text={providername} 
+            data-intent="informational" data-scope="insights" >
+            <div class="core-button core-button-text">Read More
+                <div class="col-icon"> <img src={OSB_Col_Icon}></div>
+
+            </div>
+        </a>
+
+    </article>
+
+</template>

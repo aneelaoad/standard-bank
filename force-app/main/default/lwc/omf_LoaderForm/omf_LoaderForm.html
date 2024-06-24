@@ -1,0 +1,964 @@
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-quick-action-panel header={mainheader}>
+        <div style="display: none">{recordId}</div>
+        <template if:true={isFormReady}>
+            <!-- Last Step-->
+            <template if:true={stepReview}>
+                <div class="header" style="margin-bottom:10px">
+                    {sectionHeader}
+                </div>
+            </template>
+            <!-- Step One-->
+            <template if:true={stepOne}>
+                <div class="header">Step 1: Enter client and product information</div>
+                <input type="hidden" name="Client and product information" value="Client and product information" class="loaderForm"></input>
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-layout class="slds-form-element slds-form-element_stacked">
+                            <lightning-layout-item>
+                                <span>CIF ID</span>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <div>
+                            <span>{recordDetails.strCIF}</span>
+                            <input type="hidden" name="CIF ID" value={recordDetails.strCIF} class="loaderForm"></input>
+                        </div>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-layout class="slds-form-element slds-form-element_stacked">
+                            <lightning-layout-item>
+                                <span>Financial Institution</span>
+                                
+                            </lightning-layout-item>
+                        </lightning-layout>
+                        <template for:each={yesNoValues} for:item="item">
+                            <fieldset style="display: block; float: left" key={item.value}>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-radio">
+                                        <input type="radio" class="loaderForm" name="Financial Institution" id={item.value} value={item.value}
+                                              data-name="FinancialInstitution" data-value={item.value} checked={item.checked}/>
+                                        <label class="slds-radio__label" for={item.value} >
+                                            <span class="slds-radio_faux"></span>
+                                            <span class="slds-form-element__label">{item.label}</span>
+                                        </label>
+                                    </span>
+                                </div>
+                            </fieldset>
+                        </template>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text" label="Short Name" data-name="strShortName" value={recordDetails.strShortName}
+                            name="Short Name" class="loaderForm">
+                        </lightning-input>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text" label="Long Name" data-name="strName" value={recordDetails.strName} read-only="true"
+                            name="Long Name" class="loaderForm">
+                        </lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout multiple-rows>
+                    <template if:true={isFixedIncome}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                            <lightning-input type="text" label="Bloomberg Toms Short Name" name="Bloomberg Toms Short Name"
+                                value={recordDetails.BloombergTomsShortName} class="loaderForm" data-name="BloombergToms"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" label="Murex Short Name" name="Murex Short Name"
+                                value={recordDetails.MurexShortName} data-name="MurexShortName" class="loaderForm">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        
+                    </template>
+                    <template if:true={isForeignExchange}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" label="SAP PPC (internal records only)" name="SAP PPC (internal records only)"
+                                value={recordDetails.SAPPPC} class="loaderForm" data-name="SAPPPC">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </template>
+                    <template if:true={isMoneyMarket}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" label="Domestic Treasury ID" name="Domestic Treasury ID"
+                                value={recordDetails.DomesticTreasuryId} class="loaderForm" data-name="DomesticTreasuryId">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+                <div class="slds-border_bottom"></div>
+                <div class="sub-heading"> Trading/Residential Address </div>
+                <lightning-layout multiple-rows="true">
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <div><span style="color:red;padding-right:3px">*</span>Registered Street</div>
+                                <div>
+                                   {recordDetails.strBillingStreet}
+                                    <input required type="hidden"  name="Registered Street_1" value={recordDetails.strBillingStreet} class="loaderForm">
+                                </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <div><span style="color:red;padding-right:3px">*</span>Registered Suburb</div>
+                                <div>
+                                    {recordDetails.strRegisteredSuburb}
+                                    <input type="hidden" name="Registered Suburb_1" value={recordDetails.strRegisteredSuburb} class="loaderForm">
+                                </div>
+                        </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                            <div><span style="color:red;padding-right:3px">*</span>Registered City</div>
+                                <div>
+                                    {recordDetails.strBillingCity}
+                                    <input type="hidden" name="Registered City_1" value={recordDetails.strBillingCity} class="loaderForm">
+                                </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <div><span style="color:red;padding-right:3px">*</span>Registered State/Province</div>
+                                    <div>
+                                        {recordDetails.strBillingState}
+                                        <input type="hidden" name="Registered State/Province_1" value={recordDetails.strBillingState} class="loaderForm">
+                                    </div>
+                        </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                            <div><span style="color:red;padding-right:3px">*</span>Registered Country</div>
+                                <div>
+                                    {recordDetails.strBillingCountry}
+                                    <input type="hidden" name="Registered Country_1" value={recordDetails.strBillingCountry} class="loaderForm">
+                                </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                            <div><span style="color:red;padding-right:3px">*</span>Registered Zip/Postal Code</div>
+                                <div>
+                                    {recordDetails.strBillingPostalCode}
+                                    <input type="hidden" name="Registered Zip/Postal Code_1" value={recordDetails.strBillingPostalCode} class="loaderForm">
+                                </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+               
+            </template>
+            <!--Step Two-->
+            <template if:true={stepTwo}>
+                <div class="header">
+                    Step 2: Select customer subscriptions
+                    <input type="hidden" name="Customer subscriptions" value="Customer subscriptions" class="loaderForm"></input>
+                </div>
+                <lightning-layout multiple-rows>
+                    <template if:true={isFixedIncome}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox" label="Bloomberg Toms" name="Bloomberg Toms"
+                                value={recordDetails.BloombergToms} checked ={recordDetails.BloombergToms} class="loaderForm" data-name="BloombergToms"></lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox" label="Client Account Management (CAMs)" class="loaderForm"
+                                name="Client Account Management (CAMs)" value={recordDetails.ClientAccountManagment_CAMs}
+                                checked={recordDetails.ClientAccountManagment_CAMs} data-name="ClientAccountManagment_CAMs"></lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox" class="loaderForm" label="Murex Core" name="Murex Core"
+                                value={recordDetails.MurexCore} checked={recordDetails.MurexCore} data-name="MurexCore"></lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox" class="loaderForm"  label="Murex EQD SA" name="Murex EQD SA"
+                                value={recordDetails.MurexEQDSA} checked={recordDetails.MurexEQDSA} data-name="MurexEQDSA"></lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox" class="loaderForm" label="Murex Money Market" name="Murex Money Market"
+                                value={recordDetails.MurexMoneyMarket}
+                                checked={recordDetails.MurexMoneyMarket} data-name="MurexMoneyMarket"></lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox"  class="loaderForm" label="Xceptor" value={recordDetails.Xceptor}
+                                name="Xceptor" checked={recordDetails.Xceptor} data-name="Xceptor">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </template>
+                    <template if:true={isForeignExchange}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="3" padding="around-small">
+                            <lightning-input type="checkbox"  class="loaderForm" label="eMarket Trader" name="eMarket Trader"
+                                value={recordDetails.eMarketTrader} checked={recordDetails.eMarketTrader} data-name="eMarketTrader"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="5" padding="around-small">
+                            <lightning-input type="checkbox"  class="loaderForm" label="Foreign Exchange Dealing System (FEDS)"
+                                name="Foreign Exchange Dealing System (FEDS)" value={recordDetails.ForigenExchangeDealingSystem}
+                                checked={recordDetails.ForigenExchangeDealingSystem} data-name="ForigenExchangeDealingSystem"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox"   class="loaderForm" label="Murex FX Version 3" name="Murex FX Version 3"
+                                value={recordDetails.MurexFXVersion3} checked={recordDetails.MurexFXVersion3} data-name="MurexFXVersion3"></lightning-input>
+                        </lightning-layout-item>
+                    </template>
+                    <template if:true={isMoneyMarket}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox"  class="loaderForm" label="Calypso South Africa" name="Calypso South Africa"
+                                value={recordDetails.CalypsoSouthAfrica}
+                                checked={recordDetails.CalypsoSouthAfrica} data-name="CalypsoSouthAfrica"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="4" padding="around-small">
+                            <lightning-input type="checkbox"  class="loaderForm" label="Domestic Treasury " name="Domestic Treasury"
+                                value={recordDetails.DomesticTreasury}
+                                checked={recordDetails.DomesticTreasury} data-name="DomesticTreasury"></lightning-input>
+                        </lightning-layout-item>
+                        <template if:false={isFixedIncome}>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="4" padding="around-small">
+                                <lightning-input type="checkbox"  class="loaderForm" label="Murex Money Market" name="Murex Money Market"
+                                    value={recordDetails.MurexMoneyMarket}
+                                    checked={recordDetails.MurexMoneyMarket} data-name="MurexMoneyMarket"></lightning-input>
+                            </lightning-layout-item>
+                        </template>
+                    </template>
+                </lightning-layout>
+                <!-- Fixed Income-->
+
+                <div class="custom-spacing1"></div>
+            </template>
+            <template if:true={stepThree}>
+                <!-- Fixed Income-->
+                <template if:true={isFixedIncome}>
+                    <div class="header">
+                        Step 3: Select operational code description
+                        <input type="hidden" name="Operational code description" value="Operational code description" class="loaderForm"></input>
+                    </div>
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+
+                            <lightning-combobox name="Master/Fund"  class="loaderForm" label="Master/Fund(Bloomberg Master Ref)" value={recordDetails.MasterFund}
+                                options={masterFundPicklistValue}
+                                onchange={handleMasterFundChange} data-name="MasterFund"></lightning-combobox>
+
+                        </lightning-layout-item>
+
+                        <template if:false={isDFA}>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="text" class="loaderForm" label="Master Code" name="Master Code"
+                                    value={recordDetails.MasterCode} data-name="MasterCode">
+                                </lightning-input>
+                            </lightning-layout-item>
+                        </template>
+                        <template if:true={isDFA}>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="text" class="loaderForm" label="UNEXCOR Code" name="UNEXCOR Code"
+                                    value={recordDetails.UNEXCORCode} data-name="UNEXCORCode">
+                                </lightning-input>
+                            </lightning-layout-item>
+                        </template>
+                    </lightning-layout>
+
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="text"  class="loaderForm" label="Bloomberg Classification Code" name="Bloomberg Classification Code" >
+                                </lightning-input>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="text"  class="loaderForm" label="Bloomberg Alert Id" name="Bloomberg Alert Id" >
+                                </lightning-input>
+                            </lightning-layout-item>
+
+                    </lightning-layout>
+                    <div class="custom-spacing1"></div>
+                </template>
+            </template>
+
+            <template if:true={isCommunication}>
+                <template if:true={stepThree}>
+                    <template if:false={isFixedIncome}>
+                        <template if:true={isMMOrFE}>
+                            <div class="header">
+                                Step 3: Enter and confirm communication details
+                                <input type="hidden" name="Communication details" value="Communication details" class="loaderForm"></input>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <template if:true={stepFour}>
+                    <template if:true={isFixedIncome}>
+                        <div class="header">
+                            Step 4: Enter and confirm communication details
+                            <input type="hidden" name="Communication details" value="Communication details" class="loaderForm"></input>
+                        </div>
+                    </template>
+                </template>
+
+                <div class="custom-spacing2"></div>
+                <div class="slds-border_bottom">
+                    <div class="sub-heading"> Instrument/Product</div>
+                    <input type="hidden" name="Instrument/Product" value="Instrument/Product" class="loaderForm"></input>
+                    <lightning-layout multiple-rows>
+                        <template if:true={isFixedIncome}>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="checkbox"  class="loaderForm" label="12 - Int Rate Derivatives" name="12 Int Rate Derivatives" 
+                                    >
+                                </lightning-input>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="checkbox"  class="loaderForm" label="45- Security" name="45- Security" 
+                                    >
+                                </lightning-input>
+                            </lightning-layout-item>
+                        </template>
+                        <template if:true={isForeignExchange}>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="checkbox" class="loaderForm" label="10 - FX Interbank" name="10 - FX Interbank"
+                                checked disabled="true"></lightning-input>
+                            </lightning-layout-item>
+                        </template>
+                        <template if:true={isMoneyMarket}>
+                            <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                                large-device-size="6" padding="around-small">
+                                <lightning-input type="checkbox"  class="loaderForm" label="70 - Money Markets" name="70 - Money Markets"
+                                checked disabled="true"></lightning-input>
+                            </lightning-layout-item>
+                        </template>
+                    </lightning-layout>
+                </div>
+                <div class="sub-heading"> Contact Details</div>
+                <input type="hidden" name="Contact Details" value="Contact Details" class="loaderForm"></input>
+                <template if:true={isMMOrFE}>
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Cell/Phone Number 1" name="Cell/Phone Number 1"
+                                value={recordDetails.PhoneNumber1} data-name="PhoneNumber1">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </template>
+
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Email Address 1" name="Email Address 1"
+                            value={recordDetails.EmailAddress1} data-name="EmailAddress1">
+                        </lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="checkbox" class="loaderForm" label="Send Client Confirmation via This Email"
+                            name="Send Client Confirmation via This Email" data-name="SendClientConfirmationViaThisEmail1" checked={recordDetails.SendClientConfirmationViaThisEmail1}>
+                        </lightning-input>
+                    </lightning-layout-item>
+                    <template if:true={isMMOrFE}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Cell/Phone Number 2" name="Cell/Phone Number 2"
+                                value={recordDetails.PhoneNumber2} data-name="PhoneNumber2">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                    large-device-size="6" padding="around-small">
+                    </lightning-layout-item>
+                    </template>
+                    
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text"  class="loaderForm" label="Email Address 2" name="Email Address 2"
+                            value={recordDetails.EmailAddress2} data-name="EmailAddress2">
+                        </lightning-input>
+                    </lightning-layout-item>
+                    
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="checkbox" class="loaderForm" label="Send Client Confirmation via This Email"
+                            name="Send Client Confirmation via This Email_1" data-name="SendClientConfirmationViaThisEmail2" checked={recordDetails.SendClientConfirmationViaThisEmail2}>
+                        </lightning-input>
+                    </lightning-layout-item>
+                    <template if:true={isMMOrFE}>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Contact Person" required="true" name="Contact Person"
+                                value={recordDetails.ContactPerson} data-name="ContactPerson">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+            </template>
+            <template if:true={isFxRequirements}>
+                <template if:true={stepFour}>
+                    <template if:false={isFixedIncome}>
+                        <template if:true={isForeignExchange}>
+                            <div class="header">
+                                Step 4: Enter FX requirements (*Mandatory section for all FEDS clients)
+                                <input type="hidden" name="FX requirements" value="FX requirements" class="loaderForm"></input>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <template if:true={stepFive}>
+                    <template if:true={isFixedIncome}>
+                        <template if:true={isForeignExchange}>
+                            <div class="header">
+                                Step 5: Enter FX requirements (*Mandatory section for all FEDS clients)
+                                <input type="hidden" name="FX requirements" value="FX requirements" class="loaderForm"></input>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text"  class="loaderForm" label="Current Account Number" name="Current Account Number"
+                            value={recordDetails.AcNumber}  data-name="AcNumber">
+                        </lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Branch/IBT Number" name="Branch/IBT Number"
+                            value={recordDetails.IBTNumber} data-name="IBTNumber">
+                        </lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Reuters Code" required="true" name="Reuters Code"
+                                value={recordDetails.ReutersCode} pattern="[a-zA-Z]{1,10}"
+                                message-when-pattern-mismatch="Limit the Reuters code to 10 characters. Do not use numbers or special characters"
+                                max-length="10" message-when-too-long="Limit the Reuters code to 10 characters "
+                                field-level-help=" Limit the Reuters code to 10 characters. Do not use numbers or special characters"
+                                data-name="ReutersCode">
+                            </lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text"  class="loaderForm" label="Account Executive/FSM Name" name="Account Executive/FSM Name"
+                            value={recordDetails.AccountExecutive} data-name="AccountExecutive">
+                        </lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                    large-device-size="6" padding="around-small">
+                    <lightning-layout class="slds-form-element slds-form-element_stacked">
+                        <lightning-layout-item>
+                            <span>Direct Dealing</span>
+                            
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <template for:each={yesNoValues} for:item="item">
+                        <fieldset style="display: block; float: left" key={item.value}>
+                            <div class="slds-form-element__control">
+                                <span class="slds-radio">
+                                    <input type="radio" class="loaderForm" name="Direct Dealing" id={item.value} value={item.value}
+                                        checked={recordDetails.DirectDealing} data-name="DirectDealing" data-value={item.value} />
+                                    <label class="slds-radio__label" for={item.value}>
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">{item.label}</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </fieldset>
+                    </template>
+                </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text" label="Rating Code" class="loaderForm" name="Rating Code" value={recordDetails.Rating} data-name="Rating">
+                        </lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="6" padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Dealer Code" name="Dealer Code" value={recordDetails.Dealer} data-name="Dealer">
+                        </lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+            <template if:true={isStdSettelements}>
+                <template if:true={stepFour}>
+                    <template if:false={isFixedIncome}>
+                        <template if:false={isForeignExchange}>
+                            <template if:true={isMoneyMarket}>
+                                <div class="header">
+                                    Step 4: Enter Standard Settlement Instructions (SSI) information
+                                    <input type="hidden" name="Standard Settlement Instructions (SSI) information" value="Standard Settlement Instructions (SSI) information" class="loaderForm"></input>
+                                </div>
+                                <div class="custom-spacing1"></div>
+                            </template>
+                        </template>
+                    </template>
+                </template>
+                <template if:true={stepFive}>
+                    <template if:true={isFixedIncome}>
+                        <template if:true={isMoneyMarket}>
+                            <template if:false={isForeignExchange}>
+                                <div class="header">
+                                    Step 5: Enter Standard Settlement Instructions (SSI) information
+                                    <input type="hidden" name="Standard Settlement Instructions (SSI) information" value="Standard Settlement Instructions (SSI) information" class="loaderForm"></input>
+                                </div>
+                                <div class="custom-spacing1"></div>
+                            </template>
+                        </template>
+                    </template>
+                    <template if:false={isFixedIncome}>
+                        <template if:true={isMoneyMarket}>
+                            <template if:true={isForeignExchange}>
+                                <div class="header">
+                                    Step 5: Enter Standard Settlement Instructions (SSI) information
+                                    <input type="hidden" name="Standard Settlement Instructions (SSI) information" value="Standard Settlement Instructions (SSI) information" class="loaderForm"></input>
+                                </div>
+                                <div class="custom-spacing1 "></div>
+                            </template>
+                        </template>
+                    </template>
+                </template>
+                <template if:true={stepSix}>
+                    <template if:true={isFixedIncome}>
+                        <template if:true={isMoneyMarket}>
+                            <template if:true={isForeignExchange}>
+                                <div class="header ">
+                                    Step 6: Enter Standard Settlement Instructions (SSI) information
+                                    <input type="hidden" name="Standard Settlement Instructions (SSI) information" value="Standard Settlement Instructions (SSI) information" class="loaderForm"></input>
+                                </div>
+                            </template>
+                        </template>
+                    </template>
+                </template>
+                <div class="slds-border_bottom">
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-combobox name="Currency" label="Currency" 
+                                class="label-value loaderForm" place="Select Progress" options={currencyOptions}
+                                onchange={handleCurrencychange} value={recordDetails.Currency} data-name="Currency">
+                            </lightning-combobox>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <div class="vertical-checkbox-group">
+                                <lightning-checkbox-group name="Security Flag" label="Security Flag"
+                                    options={securityFlagOptions} required class="loaderForm" value={recordDetails.Primary} data-name="Primary"
+                                    ></lightning-checkbox-group>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-checkbox-group name="Dr/Cr Indicator" label="Dr/Cr Indicator"
+                                options={drCrOptions} required class="loaderForm" value={recordDetails.drCrOptionsChecked} data-name="Debit"></lightning-checkbox-group>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="date" class="loaderForm" name="Effective From Date" label="Effective From Date" value={recordDetails.EffectiveDate} data-name="EffectiveDate">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-border_bottom">
+                    <div class="sub-heading"> Intermediary - Field 56 (if applicable)</div>                    
+                    <input type="hidden" name="Intermediary - Field 56 (if applicable)" value="Intermediary - Field 56 (if applicable)" class="loaderForm"></input>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="SWIFT Address" name="SWIFT Address_1" value={recordDetails.SwiftAddr1} data-name="SwiftAddr1"></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-border_bottom">
+                    <div class="sub-heading"> Agent/Correspondent Bank - Field 57</div>                    
+                    <input type="hidden" name="Agent/Correspondent Bank - Field 57" value="Agent/Correspondent Bank - Field 57" class="loaderForm"></input>         
+                    <lightning-layout multiple-rows>
+                        <!--<lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Agent's OSD ID" name="Agent's OSD ID" value={recordDetails.AgentsOSDID} data-name="AgentsOSDID"></lightning-input>
+                        </lightning-layout-item>-->
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="SWIFT Address" name="SWIFT Address_2" value={recordDetails.SwiftAddr2} data-name="SwiftAddr2"></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Account Number At Intermediary"
+                                name="Account Number At Intermediary" value={recordDetails.AccountNumberIntermediary} data-name="AccountNumberIntermediary">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Branch Code (EQD and IRD)"
+                                name="Branch Code (EQD and IRD)" value={recordDetails.BranchCode} data-name="BranchCode">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-border_bottom">
+                    <div class="sub-heading">Beneficiary - Field 58</div>
+                    <input type="hidden" name="Beneficiary - Field 58" value="Beneficiary - Field 58" class="loaderForm"></input>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <span>
+                                <div class="label-value">Option</div>
+                            </span>
+                            <div class="slds-grid slds-gutters">
+                                <div class="slds-col">
+                                    <span>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label">A (Bank)</label>
+                                            <div class="slds-form-element__control">
+                                                <span class="slds-checkbox slds-checkbox_standalone">
+                                                    <input type="checkbox" name="A" value="recordDetails.A" class="loaderForm" checked={recordDetails.A} data-name="A"/>
+                                                    <span class="slds-checkbox_faux"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="slds-col">
+                                    <span>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label">D</label>
+                                            <div class="slds-form-element__control">
+                                                <span class="slds-checkbox slds-checkbox_standalone">
+                                                    <input type="checkbox" name="D_1" value="recordDetails.D_1" class="loaderForm" checked={recordDetails.D_1} data-name="D_1"/>
+                                                    <span class="slds-checkbox_faux"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="SWIFT Address/Client Name"
+                                name="SWIFT Address/Client Name_1" value={recordDetails.SwiftAddrClientName1} data-name="SwiftAddrClientName1">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Account Number/IBAN at Agent"
+                                name="Account Number/IBAN at Agent_2" value={recordDetails.AccountNumberIBAN2} data-name="AccountNumberIBAN2">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-border_bottom">
+                    <div class="sub-heading">Address details (if applicable) - Field 58</div>
+                    <input type="hidden" name="Address details (if applicable) - Field 58" value="Address details (if applicable) - Field 58" class="loaderForm"></input>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Street " name="Registered Street_2" value={recordDetails.RegistererdStreet2} data-name="RegistererdStreet2">
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Suburb" name="Registered Suburb_2" value={recordDetails.RegistererdSuburb2} data-name="RegistererdSuburb2">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered City" name="Registered City_2" value={recordDetails.RegistererdCity2} data-name="RegistererdCity2"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered State/Province" name="Registered State/Province_2" value={recordDetails.RegisteredState2} data-name="RegisteredState2">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Country"
+                                name="Registered Country_2" value={recordDetails.RegisteredCountry2} data-name="RegisteredCountry2"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Zip/Postal Code"
+                                name="Registered Zip/Postal Code_2" value={recordDetails.ZipCode2} data-name="ZipCode2"></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="slds-border_bottom">
+                    <div class="sub-heading">Beneficiary - Field 59 </div>
+                    <input type="hidden" name="Beneficiary - Field 59" value="Beneficiary - Field 59" class="loaderForm"></input>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <span>
+                                <div class="label-value">Option</div>
+                            </span>
+                            <div class="slds-grid slds-gutters">
+
+                                <div class="slds-col">
+                                    <span>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label">A (Direct)</label>
+                                            <div class="slds-form-element__control">
+                                                <span class="slds-checkbox slds-checkbox_standalone">
+                                                    <input type="checkbox" name="D_2" value="recordDetails.D_2" class="loaderForm" checked={recordDetails.D_2} data-name="D_2"/>
+                                                    <span class="slds-checkbox_faux"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="slds-col">
+                                    <span>
+                                        <div class="slds-form-element">
+                                            <label class="slds-form-element__label">D (SWIFT)</label>
+                                            <div class="slds-form-element__control">
+                                                <span class="slds-checkbox slds-checkbox_standalone">
+                                                    <input class="loaderForm" type="checkbox" name="F" value="recordDetails.F" checked={recordDetails.F} data-name="F"/>
+                                                    <span class="slds-checkbox_faux"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6">
+                            <lightning-input type="text" class="loaderForm" label="SWIFT Address/Client Name"
+                                name="SWIFT Address/Client Name_2" value={recordDetails.SwiftAddrClientName2} data-name="SwiftAddrClientName2">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Account Number/IBAN at Agent"
+                                name="Account Number/IBAN at Agent_1" value={recordDetails.AccountNumberIBAN1} data-name="AccountNumberIBAN1">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                </div>
+                <div class="slds-border_bottom">
+                    <lightning-layout>
+                        <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                            large-device-size="12">
+                            <div class="sub-heading">Address details (if applicable) - Field 59</div>
+                            <input type="hidden" name="Address details (if applicable) - Field 59" value="Address details (if applicable) - Field 59" class="loaderForm"></input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Street " name="Registered Street_3" value={recordDetails.RegistererdStreet3} data-name="RegistererdStreet3"> 
+                            </lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Suburb" name="Registered Suburb_3" value={recordDetails.RegistererdSuburb3} data-name="RegistererdSuburb3">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered City" name="Registered City_3" value={recordDetails.RegistererdCity3} data-name="RegistererdCity3"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered State/Province" name="Registered State/Province_3" value={recordDetails.RegistererdState3} data-name="RegistererdState3">
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                    <lightning-layout>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Country"
+                                name="Registered Country_3" value={recordDetails.RegistererdCountry3} data-name="RegistererdCountry3"></lightning-input>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6" small-device-size="12" medium-device-size="12"
+                            large-device-size="6" padding="around-small">
+                            <lightning-input type="text" class="loaderForm" label="Registered Zip/Postal Code"
+                                name="Registered Zip/Postal Code_3" value={recordDetails.ZipCode3} data-name="ZipCode3"></lightning-input>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+                <div class="sub-heading">Address details (if applicable) - Field 72</div>
+                <input type="hidden" name="Address details (if applicable) - Field 72" value="Address details (if applicable) - Field 72" class="loaderForm"></input>
+                <lightning-layout>
+                    <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6"
+                        padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Registered Street " name="Registered Street_4" value={recordDetails.RegistererdStreet4} data-name="RegistererdStreet4">
+                        </lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6"
+                        padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Registered Suburb" name="Registered Suburb_4" value={recordDetails.RegistererdSuburg4} data-name="RegistererdSuburg4">
+                        </lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout>
+                    <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6"
+                        padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Registered City" name="Registered City_4" value={recordDetails.RegistererdCity4} data-name="RegistererdCity4"></lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6"
+                        padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Registered State/Province" name="Registered State/Province_4" value={recordDetails.RegistererdState4} data-name="RegistererdState4">
+                        </lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+
+                <lightning-layout>
+                    <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6"
+                        padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Registered Country" name="Registered Country_4" value={recordDetails.RegistererdCountry4} data-name="RegistererdCountry4"></lightning-input>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" small-device-size="12" medium-device-size="12" large-device-size="6"
+                        padding="around-small">
+                        <lightning-input type="text" class="loaderForm" label="Registered Zip/Postal Code"
+                            name="Registered Zip/Postal Code_4" value={recordDetails.RegistererdZipCode4} data-name="RegistererdZipCode4" ></lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+            
+            <template if:true={stepFive}>
+                <template if:true={isFixedIncome}>
+                    <template if:false={isMoneyMarket}>
+                        <template if:false={isForeignExchange}>
+                            <div class="header">
+                                <input type="hidden" name="Additional comments" value="Additional comments" class="loaderForm"></input>
+                                Step 5: Add additional comments
+                            </div>
+                            <lightning-textarea label="Comments" name="Comments" class="loaderForm"
+                                value={recordDetails.Comments} data-name="Comments"></lightning-textarea>
+                        </template>
+                    </template>
+                </template>
+            </template>
+            <template if:true={stepSix}>
+                <template if:true={isFixedIncome}>
+                    <template if:true={isForeignExchange}>
+                        <template if:false={isMoneyMarket}>
+                            <div class="header">
+                                Step 6: Add additional comments
+                                <input type="hidden" name="Additional comments" value="Additional comments" class="loaderForm" data-name="Comments"></input>
+                            </div>
+                            <lightning-textarea class="loaderForm" label="Comments" name="Comments"
+                                value={recordDetails.Comments} data-name="Comments"></lightning-textarea>
+                        </template>
+                    </template>
+                    <template if:true={isMoneyMarket}>
+                        <template if:false={isForeignExchange}>
+                            <div class="header">
+                                Step 6: Add additional comments
+                                <input type="hidden" name="Additional comments" value="Additional comments" class="loaderForm" data-name="Comments"></input>
+                            </div>
+                            <lightning-textarea class="loaderForm"  label="Comments" name="Comments"
+                                value={recordDetails.Comments} data-name="Comments"></lightning-textarea>
+                        </template>
+                    </template>
+                </template>
+            </template>
+
+            <template if:true={stepSeven}>
+                <template if:true={isFixedIncome}>
+                    <template if:true={isForeignExchange}>
+                        <template if:true={isMoneyMarket}>
+                            <div class="header">
+                                Step 7: Add additional comments
+                                <input type="hidden" name="Additional comments" value="Additional comments" class="loaderForm" data-name="Comments"></input>
+                            </div>
+                            <lightning-textarea label="Comments" name="Comments" class="loaderForm"
+                                value={recordDetails.Comments} data-name="Comments"></lightning-textarea>
+                        </template>
+                    </template>
+                </template>
+            </template>
+            <template if:true={isCompleted}>
+                <div class="">
+                    Thank you for providing the requested information and submitting the loader form to OSD.
+                    <br>
+                    <br>
+                    We shall notify you when the fund onboarding is complete.
+                </div>
+            </template>
+        </template>
+        <div slot="footer">
+            <lightning-layout>
+                <lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="2"
+                    padding="around-small">
+                    <template if:false={stepOne}>                        
+                        <lightning-button variant="neutral" onclick={handlePrevious}
+                            label="Previous"></lightning-button>                    
+                    </template>
+                                  
+                    <template if:true={stepReview}>            
+                        <lightning-button variant="neutral" onclick={handlePrevious}
+                            label="Previous"></lightning-button>   
+                    </template>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="7"
+                    padding="around-small">
+                    <template if:false={isCompleted}>
+                        <c-omf_dynamic-progress-bar current-step={currentStep}
+                            count={stepCount}></c-omf_dynamic-progress-bar>
+                    </template>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="4" large-device-size="3"
+                    padding="around-small">
+                    <template if:false={isCompleted}>
+                        <lightning-button variant="neutral" onclick={closeQuickAction}
+                            label="Cancel"></lightning-button>
+                        <lightning-button variant="brand" onclick={handleNext} label="Next"
+                            class="slds-m-left_small"></lightning-button>
+                    </template>
+                    <template if:true={isCompleted}>
+                        <template if:false={showSpinner}>
+                            <lightning-button variant="brand" label="Done" onclick={handleComplete}></lightning-button>
+                        </template>
+                        <template if:true={showSpinner}>
+                            <lightning-spinner variant="brand" size="medium"> </lightning-spinner>
+                        </template>
+                    </template>
+                </lightning-layout-item>
+
+            </lightning-layout>
+        </div>
+    </lightning-quick-action-panel>
+</template>

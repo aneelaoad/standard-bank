@@ -1,0 +1,26 @@
+<template>
+    <div class="category-dropdown">
+        <lightning-button label="Filter By" onclick={toggleFilterList} class="dropdown-button"></lightning-button>
+        <template if:true={showFilterList}>
+            <div class="category-filter">
+                <div class="mobile-filter-header">
+                    <span class="close" onclick={toggleFilterList}></span>
+                </div>
+                <div class="error-message" lwc:if={validationError}>Select a minimum of 1</div>
+                <div class="select-message" lwc:else>Select a minimum of 1</div>
+                <div class="category-checkboxes">
+                    <!-- Iterate over categories and render standard HTML checkboxes -->
+                    
+                    <template for:each={categories} for:item="category">
+                        <div key={category.id}>
+                            <input type="checkbox" id={category.id} oninput={handleCategoryChange} checked={category.checked} data-id={category.id}></input>
+                            <div class="check-indicator"></div>
+                            <label for={category.id}>{category.name}</label>
+                        </div>
+                    </template>
+                </div>
+                <lightning-button label="Apply" onclick={applyFilters}></lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

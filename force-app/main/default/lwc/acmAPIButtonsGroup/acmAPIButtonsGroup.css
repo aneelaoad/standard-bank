@@ -1,0 +1,126 @@
+.api-group-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.api-group-buttons a {
+    text-decoration: none;
+    font-family: var(--FONT-FAMILY);
+    font-size: 1.375rem;
+    color: var(--internal-blue, #000B37);
+    align-content: center;
+}
+
+.api-group-buttons a:hover {
+    color: #FFFFFF;
+}
+
+.api-group-button:hover {
+    background: var(--linear-gradient, linear-gradient(180deg, #813E9F 0%, #18154A 100%));
+
+}
+
+.api-group-button:hover .icon {
+    filter: brightness(0) invert(1);
+}
+
+.api-group-button {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 9.375rem;
+    align-items: center;
+    cursor: pointer;
+    padding: .9375rem 1.25rem;
+    gap: 1.25rem;
+    flex: 1 0 0;
+}
+
+.api-group-button .icon {
+    display: block;
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-right: 1.125rem;
+    align-items: center;
+}
+
+.discover-btn .icon {
+    display: block;
+    margin: auto;
+}
+
+.create-btn .icon {
+    display: block;
+    margin: auto;
+}
+
+.wrap {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.accordion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0 0 .75rem .75rem;
+    background-color: #FFFFFF;
+    border-color: #CED3D9;
+    align-content: flex-start;
+}
+
+.accordion-header {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+    align-self: stretch;
+    border-top: 1px solid var(--neutrals-pale-grey, #CED3D9);
+    border-right: 1px solid var(--neutrals-pale-grey, #CED3D9);
+    border-left: 1px solid var(--neutrals-pale-grey, #CED3D9);
+    background: var(--color-neutrals-00, #FFF);
+}
+
+.chevron {
+    transform: rotate(0deg);
+    margin-right: .625rem;
+    transition: transform 0.3s;
+    fill: #1A314D;
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.accordion-content {
+    display: flex;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+    align-items: flex-start;
+    border-radius: 0 0 .75rem .75rem;
+    border-right: 1px solid var(--neutrals-pale-grey, #CED3D9);
+    border-bottom: 1px solid var(--neutrals-pale-grey, #CED3D9);
+    border-left: 1px solid var(--neutrals-pale-grey, #CED3D9);
+    background: var(--color-neutrals-00, #FFF);
+    flex: 1 0 0;
+}
+
+:not(.expanded)~.accordion-content {
+    display: flex;
+}
+
+.expanded .chevron {
+
+    transform: rotate(180deg);
+}
+
+@media screen and (min-width: 48rem) {
+    .api-group-buttons {
+        flex-direction: row;
+    }
+
+    .api-group-button {
+        margin: 0;
+    }
+}

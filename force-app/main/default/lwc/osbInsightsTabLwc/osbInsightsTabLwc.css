@@ -1,0 +1,298 @@
+.wrapper {
+  width: 100%;
+  padding-bottom: 3.875rem;
+  font-family: var(--FONT-FAMILY);
+}
+
+.lds-inner-content {
+  margin-right: 8.4375rem;
+  margin-left: 8.4375rem;
+  display: inline-block;
+}
+
+.learn-more-card {
+  margin-bottom: 0.9375rem;
+  overflow: hidden;
+  padding: 0 0 0.625rem;
+  border-radius: 0.125rem;
+  box-shadow: 0 0.625rem 0.9375rem 0 rgba(0, 0, 0, 0.09);
+  border-radius: 0.125rem;
+  background-color: #ffffff;
+  height: 25.8125rem;
+  max-width: 62.5rem;
+}
+
+.thought-leadership-card {
+  margin-bottom: 0.9375rem;
+  overflow: hidden;
+  padding: 0 0 0.625rem;
+  border-radius: 0.125rem;
+  box-shadow: 0 0.625rem 0.9375rem 0 rgba(0, 0, 0, 0.09);
+  border-radius: 0.125rem;
+  background-color: #ffffff;
+  height: 24.1875rem;
+  width: auto;
+}
+
+.solutions-background {
+  height: auto;
+  width: 100% !important;
+  background-color: #ffffff;
+}
+
+.slds-rich-text-editor_output img {
+  width: 100%;
+}
+
+.Read-more {
+  height: 1.4375rem;
+  color: #0089ff;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.4375rem;
+  width: 7.25rem;
+}
+
+.imageLd {
+  width: 100%;
+}
+
+.learn-more-about-our {
+  height: 1.6875rem;
+  color: #0a2240;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.0625rem;
+  line-height: 1.6875rem;
+}
+
+.thought-leadership {
+  height: 1.6875rem;
+  color: #0a2240;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.0625rem;
+  line-height: 1.6875rem;
+}
+
+.leadership-header {
+  padding-top: 1.875rem;
+  margin-bottom: 1.875rem;
+  display: block;
+}
+
+.leadership-img {
+  width: 100%;
+  display: block;
+  object-fit: cover !important;
+}
+
+.imageComing {
+  width: 100%;
+  object-fit: cover !important;
+}
+
+.leadership-title {
+  height: 1.5625rem;
+  display: inline-block;
+  padding-bottom: 3.125rem;
+}
+
+.solution-header {
+  margin-bottom: 1.875rem;
+  padding-top: 1.875rem;
+}
+
+.solution-title {
+  height: 1.5625rem;
+  max-width: 16.25rem;
+  color: #3c4b6c;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5625rem;
+  padding: 0rem 0rem 2rem 0rem;
+  display: inline-block;
+}
+
+.leadership-title-text {
+  height: 1.875rem;
+  color: #3c4b6c;
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5625rem;
+  margin-right: 1rem;
+}
+
+.lightning-formatted-rich-text {
+  object-fit: cover;
+}
+
+.card-text {
+  height: 4.875rem;
+  color: #0a2240;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1.25rem;
+  padding-top: 0.625rem;
+  padding-right: 1rem;
+}
+
+.intro-container {
+  padding: 0rem 1rem 2.8125rem 0rem;
+  display: inline-block;
+}
+
+.links-container {
+  padding: 0rem 0rem 1.5625rem 0rem;
+  display: inline-block;
+}
+
+.inner-content {
+  margin-left: 1rem;
+}
+
+.card-image {
+  margin-bottom: 1rem;
+}
+
+.lds-intro-container {
+  padding-bottom: 1.5625rem;
+  display: inline-block;
+}
+
+.intro {
+  height: 4.875rem;
+  color: #0a2240;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+.ReadMoreArrow {
+  padding-left: 0.625rem;
+  vertical-align: baseline;
+}
+
+.container {
+  display: grid;
+}
+
+.learn-more {
+  height: 1.4375rem;
+  color: #0089ff;
+  font-size: 0.9375rem;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 1.4375rem;
+}
+
+.listen-to-podcasts {
+  height: 1.4375rem;
+  max-width: 16.5rem;
+  color: #0089ff;
+  font-size: 0.9375rem;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 1.4375rem;
+}
+
+.tile-padding-right {
+  padding-right: 0.75rem;
+}
+
+.watch-video {
+  height: 1.4375rem;
+  max-width: 16.5rem;
+  color: #0089ff;
+  font-size: 0.9375rem;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 1.4375rem;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .lds-inner-content {
+    margin-right: 1.25rem;
+    margin-left: 1.25rem;
+  }
+
+  .tile-padding-right {
+    padding-right: 0rem;
+  }
+
+  .learn-more-card {
+    height: 25rem;
+  }
+
+  .thought-leadership-card {
+    height: auto;
+  }
+
+  .leadership-title-text {
+    font-size: 1rem;
+    line-height: 1.125rem;
+  }
+
+  .intro-container {
+    padding-bottom: 0rem;
+  }
+
+  .lds-intro-container {
+    padding-bottom: 1.25rem;
+  }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 768px) {
+  .learn-more-card {
+    max-height: 25rem;
+    max-width: 37.5rem;
+  }
+
+  .lds-inner-content {
+    width: 93%;
+    margin-left: 2.125rem;
+    height: auto;
+  }
+
+  .leadership-title-text {
+    font-size: 1rem;
+    line-height: 1.125rem;
+  }
+
+  .leadership-title {
+    padding-bottom: 0rem;
+  }
+
+  .lds-intro-container {
+    padding-bottom: 2.3125rem;
+  }
+
+  .intro-container {
+    padding-bottom: 3rem;
+    display: inline-block;
+  }
+
+  .rich-text-editor__output {
+    height: 31.25rem;
+  }
+
+  .thought-leadership-card {
+    height: 19.8125rem;
+  }
+}
+
+@media only screen and (min-device-width: 769px) and (max-device-width: 1024px) {
+  .intro-container {
+    padding-bottom: 5.1875rem;
+    display: inline-block;
+  }
+
+  .lds-intro-container {
+    padding-bottom: 3.625rem;
+    display: inline-block;
+  }
+}

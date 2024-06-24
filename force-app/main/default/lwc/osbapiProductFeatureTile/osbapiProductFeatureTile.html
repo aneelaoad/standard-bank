@@ -1,0 +1,29 @@
+<template>
+    <div class="feature-tile-container" data-id={title}>
+        <div class="feature-tile-icon-container">
+            <div class="feature-tile-icon">
+                <template if:true={displayIcon}>
+                    <img
+                        class="feature-tile-icon-image"
+                        src={icon}
+                        alt="icon"
+                    />
+                </template>
+                <template if:false={displayIcon}>
+                    <lightning-icon
+                        class="feature-icon"
+                        icon-name="utility:description"
+                    ></lightning-icon>
+                </template>
+            </div>
+        </div>
+        <div class="feature-tile-content-container">
+            <div class="feature-tile-header-container">
+                <h1 class="feature-tile-header">{title}</h1>
+            </div>
+            <div class="feature-tile-description-container">
+                <p class="feature-tile-description">{description}</p>
+            </div>
+        </div>
+    </div>
+</template>

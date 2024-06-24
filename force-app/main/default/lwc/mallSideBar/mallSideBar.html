@@ -1,0 +1,32 @@
+<template>
+
+    <div class={SidebarClassList}>
+        <div class="sidebar-links-container">
+            <button type="button" aria-expanded={expanded} aria-label={expandButtonText} class={sidebarButtonsClassList}
+                onclick={extendSidebar}>
+                <span class="sidebar-expand-mobile-text">{mobileSidebarExpandText}</span>
+                <span class="icon"></span>
+                <span class="sidebar-buttons-extended-text resp-hide">{expandButtonText}</span>
+                <span class="sidebar-buttons-extended-text resp-show">{mobileSidebarHeading}</span>
+            </button>
+            <template for:each={linkList} for:item="link">
+                <a href={link.link} onclick={handleSidebarNavigation} class={link.classes} data-link={link.link}
+                    key={link.linkText}>
+                    <span class="icon"></span>
+                    <template lwc:if={link.otpRequired}>
+                        <template lwc:if={otpCheck}>
+                            <span class="otp-icon" onclick={toggleShowTooltip} onmouseleave={handleHideTooltip}
+                                onmouseenter={handleShowTooltip}>
+                                <span class="icon"></span>
+                            </span>
+                        </template>
+                    </template>
+                    <span class="sidebar-buttons-text-desktop">{link.linkText}</span>
+                    <span class="sidebar-buttons-extended-text">{link.linkText}</span>
+                </a>
+            </template>
+        </div>
+    </div>
+    <c-mall-tooltip is-visible={showTooltip} title={tooltipTitle} message={tooltipMessage}
+        coordinates={tooltipCoordinates} icon={tooltipIcon}></c-mall-tooltip>
+</template>

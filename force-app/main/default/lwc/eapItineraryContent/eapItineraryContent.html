@@ -1,0 +1,46 @@
+<!--
+  @description       : Lwc with the itinerary of the user in the event
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-12-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_tabs v1_div_heading">
+        <nav role="navigation">
+            <template for:each={tabs} for:item="tab">
+                <template if:true={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab active">
+                        <a href="#" title={tab.Name} onclick={handleOnClick} id={tab.Id}>
+                            <span class="slds-assistive-text">{labels.CurrentPage}</span>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+
+                <template if:false={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab">
+                        <a href="#" title={tab.Name} onclick={handleOnClick} id={tab.Id}>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+            </template>
+        </nav>
+    </div>
+
+    <div class="contentView" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
+        <!--Route Tab-->
+        <template if:true={isRoute}>
+            <c-eap-itinerary-route event-id={eventId} onloaded={componentsLoaded} onreload={needToLoad}></c-eap-itinerary-route>
+        </template>
+
+        <!--Travel Documents Tab-->
+        <template if:false={isRoute}>
+            <c-eap-itinerary-documents event-id={eventId} onloaded={componentsLoaded}></c-eap-itinerary-documents>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,53 @@
+.todo_content {
+  padding: 5px 180px 5px 1px;
+  font-family: BentonSans;
+  font-size: 14px;
+  font-weight: 400px;
+  color: #02070d;
+}
+.slds-grids {
+  padding-right: 40px;
+}
+.aob_col-gutter {
+  margin-left: 1px;
+  margin-right: -40px;
+}
+.icon {
+  font-family: BentonSans;
+  font-size: 14px;
+  font-weight: 400px;
+  color: #5c6c80;
+  padding-right: 190px;
+}
+.aob_info-text {
+  display: flex;
+  align-items: center;
+}
+.aob_info-text p {
+  font-style: normal;
+  line-height: 16px;
+  margin: 0 0 0 16px;
+  font-family: "bentonsans-regular-webfont" !important;
+  font-size: 14px;
+  font-weight: 400px;
+  color: #02070d;
+}
+.aob_todo-card {
+  padding: 1px 111px 16px 30px;
+}
+.aob_info {
+  padding: 1px 4px 5px 10px;
+}
+.aob_info-text {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24px;
+}
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin: 0 107px 0 16px;
+}

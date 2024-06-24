@@ -1,0 +1,95 @@
+<template>
+    <header data-f6-region>
+        <div class="slds-container_center ao-slds sb cAOB_SBTheme" style="min-height:0px">
+            <!-- fixed header -->
+            <header class="ao-use-z-index_10 slds-is-fixed slds-size_1-of-1 ao-position_top-left">
+                <div class="slds-container_center slds-rp-horizontal_medium
+                ao-background-colour_brand-blue">
+                    <div class="slds-grid slds-wrap slds-size_1-of-1 aob_grid_sm slds-grid_align-spread slds-grid_vertical-align-center
+                    slds-p-around_medium container">
+                        <div class="d-flex">
+                            <img src={logo} alt="" />
+                            <span class="exit" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                            data-scope={adobePageTag.dataScope} data-text={adobePageTag.exitbuttontext} onclick={openModel}>{label.PBP_ZA_EXIT}</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <template lwc:if={isModalOpen}>
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+                class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+
+                    <div class="slds-modal__header ao-background-colour_brand-blue aob_header_title">
+                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{label.AOB_Exit_Title}</h1>
+                        <button
+                            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse closeIcon">
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="medium" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                                data-scope={adobePageTag.dataScope} data-text={adobePageTag.closeButtonText}
+                                onclick={closeModal}></lightning-icon>
+                            <span class="slds-assistive-text">{label.PBP_ZA_Cancel_and_close}</span>
+                        </button>
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium aob_header_sub_title" id="modal-content-id-1">
+                        <p>{label.PBP_ZA_IfYouExit}</p>
+
+
+                        <div class="dflex">
+                            <button class="slds-button slds-button_neutral btn-secondary" aria-label="Cancel and close"
+                                data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                                data-scope={adobePageTag.dataScope} data-text={adobePageTag.YesImsureButtonText}
+                                onclick={exitApplication}><span> {label.PBP_ZA_YesImsure} </span></button>
+                            <button class="slds-button slds-button_brand btn-primary" data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                                data-text={adobePageTag.continueButtonText} onclick={closeModal}>
+                                <span>{label.PBP_ZA_No}</span></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+        </template>
+    </header>
+
+
+
+    <section data-f6-region>
+        <slot></slot>
+    </section>
+
+
+
+
+    <footer class="ao-footer footer ao-background-colour_brand-blue slds-p-vertical_small">
+        <div class="container">
+            <div class="footerAlignment">
+                <div class="slds-size-1-of-3 align-self-center slds-m-vertical_small ">
+                    <div class="title-module-sub-title text-light textalign">
+                        {label.PBP_ZA_SbBankApp}
+                    </div>
+                </div>
+                <div class="slds-size-1-of-3 align-self-center">
+                    <div class="app-card__icon-container ">
+                        <a class="" href="https://play.google.com/store/apps/details?id=com.sbg.mobile.phone">
+                            <img alt="" class="logo" src={googleplay} title="" />
+                        </a>
+                        <span></span>
+                        <a class="" href="https://itunes.apple.com/za/app/standard-bank-stanbic-bank/id528239110?mt=8">
+                            <img alt="" class="logo" src={applestore} title="" />
+                        </a>
+                    </div>
+                </div>
+                <div class="slds-size-1-of-3 footer-devices-img text-center">
+                    <img alt="" class="aob_footer_image float-right footerimg " src={appsnapshot} />
+                </div>
+            </div>
+        </div>
+
+
+    </footer>
+
+</template>

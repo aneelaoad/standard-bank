@@ -1,0 +1,10 @@
+<template>
+  <div class="grid-container">
+  <div class="grid-item">
+     <c-acm-auth-form application-name={appName} description={appDesc} redirect-uri={redirectUri} app-id={appId} onupdateapplication={handleUpdateApplication}></c-acm-auth-form>
+  </div>
+  <div class="grid-item">
+    <c-acm-client-credentials client-id={clientId} client-secret={clientSecret} modal-client-secret={modalClientSecret} onupdateclientcredentials={handleUpdateClientCredentials}></c-acm-client-credentials>
+  </div>
+  </div>
+</template>

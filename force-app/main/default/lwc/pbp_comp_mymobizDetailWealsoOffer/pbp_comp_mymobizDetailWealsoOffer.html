@@ -1,0 +1,31 @@
+<template>
+  <div class="carousel-container container" style="overflow: hidden">
+    <h2>{label.offer}</h2>
+    <div class="owl-carousel owl-theme offering-owl">
+      <div class="item">
+        <div class="slideCard">
+          <img src={creditcardimg} alt="Cardimg">
+          <div class="cardContent">
+            <h2>{label.ProductScreen}</h2>
+            <p>{label.creditcard}</p>
+            <button class="button" type="button" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+              data-scope={adobePageTag.dataScope} data-text={adobePageTag.tellmemoreButtonText}
+              onclick={TellMeMoreLinkclickcreditcard}>{label.tellme}</button>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="slideCard">
+          <img src={smallbusinessimg} alt="Businessimg">
+          <div class="cardContent">
+            <h2>{label.smallBusiness}</h2>
+            <p>{label.weprotect}</p>
+            <button class="button" type="button" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+              data-scope={adobePageTag.dataScope} data-text={adobePageTag.tellmemoreButtonText}
+              onclick={TellMeMoreLinkclickweprotect}>{label.tellme}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

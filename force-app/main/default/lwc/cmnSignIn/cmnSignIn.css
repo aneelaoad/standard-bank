@@ -1,0 +1,51 @@
+.text-container{
+    text-align: center;
+    margin: auto;
+}
+.btnPrimary {
+    font-size: 16px;
+    font-family: 'HurmeGeometricSans1-SemiBold';
+    background: #0057b7 !important;
+    min-width:245px;
+    padding:13px 10px;
+    text-align:center;
+    border-radius: 25px;
+    margin-left: 0 !important;
+    border:1px solid transparent !important;
+}
+ .button2 {
+    background: #0057b7 !important;
+}
+.button1 {
+    background: #fff !important;
+    color:#0057b7  !important;
+    border-color:#0057b7  !important;
+}
+.button {
+    border: none;
+    width: 280px;
+    color: white;
+    padding: 8px 28px;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 13px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 26px;
+  }
+
+  .btn {
+    width: 280px;
+    color: white;
+    padding: 8px 28px;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: 13px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 26px;
+  }

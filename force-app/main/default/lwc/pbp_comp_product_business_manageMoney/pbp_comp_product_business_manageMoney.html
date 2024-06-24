@@ -1,0 +1,166 @@
+<template>
+    <section class="bsns_sol_carousel m-30" style="overflow: hidden">
+        <div if:false={isMobileDevice}>
+            <div class="main container">
+                <!-- <h1>{label.manage}</h1> -->
+                <div class="containerclass">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                            <h1>{label.business}</h1>
+                        </div>
+                        <div class="slds-col we">
+                            <h1>{label.saftey}</h1>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col cls1">
+                            <h5>{label.once}</h5>
+                        </div>
+                        <div class="slds-col cls">
+                            <h5>{label.itsimportant}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="bs_carousel owl-theme owl-carousel offering-owl ">
+                    <div class="item rectangle1">
+                        <h2>{label.safeways}</h2>
+                        <!-- <p>{label.register}</p> -->
+                        <ul>
+                            <li class="link">
+                                <a href={pocketBizUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.pocketlink} onclick={callingadobeevent}>{label.pocket}<span> ></span></a>
+                                <a href={snapscanUrl}  target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.snaplink} onclick={callingadobeevent}>{label.snap}<span> ></span></a>
+                                <a href={autolinkUrl}  target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.autolinklink} onclick={callingadobeevent}>{label.autolink}<sup></sup><span>
+                                        ></span></a>
+                                <a href={autoswitchurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.autoswitchlink} onclick={callingadobeevent}>{label.autoswitch}<sup></sup><span>
+                                        ></span></a>
+                                <a href={MasterPassUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.masterpasslink} onclick={callingadobeevent}>{label.masterpass}<span> ></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item rectangle1">
+                        <h2>{label.security}</h2>
+                        <!-- <p>{label.familiarise}</p> -->
+                        <ul>
+                            <li class="link">
+                                <a href={yourcardsafeurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.yourcardlink} onclick={callingadobeevent}>{label.yourcard}<span> ></span></a>
+                                <a href={cardfraudurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.protectlink} onclick={callingadobeevent}>{label.protect}<span> ></span></a>
+                                <a href={banksafelyurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.wearelink} onclick={callingadobeevent}>{label.weare}<span> ></span></a>
+                                <a href={scamurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.phishinglink} onclick={callingadobeevent}>{label.phishing}<span> ></span></a>
+                                <a href={safelyonlineurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.howdolink} onclick={callingadobeevent}>{label.howdo}<span> ></span></a>
+                                <a href={myupdatesUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.staylink} onclick={callingadobeevent}>{label.stay}<span> ></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item rectangle1">
+
+                        <h2>{label.easy}</h2>
+                        <!-- <p>{label.youcan}</p> -->
+                        <ul>
+                            <li class="link">
+                                <a href={label.businessstandardbankurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.businessonlinelink} onclick={callingadobeevent}>{label.businessonline}<span>
+                                        ></span></a>
+                                <a href={onlinebankurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.onlinelink} onclick={callingadobeevent}>{label.online}<span> ></span></a>
+                                <a href={mobileappbankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.mobilelink} onclick={callingadobeevent}>{label.mobile}<span> ></span></a>
+                                <a href={cellphonebankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.cellphonelink} onclick={callingadobeevent}>{label.cellphone}<span> ></span></a>
+                                <a href={speechbankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.telephonelink} onclick={callingadobeevent}>{label.telephone}<span> ></span></a>
+                                <a href={atmbankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.atmlink} onclick={callingadobeevent}>{label.atm}<span> ></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div if:true={isMobileDevice}>
+        <div class="container">
+            <div class="accordions">
+                <div class="accordion">
+                    <input type="checkbox" id="first" />
+                    <label for="first" class="acc_label">{label.easy}</label>
+                    <div class="acc_content">
+                        <h3>{label.once}</h3>
+                        <h4>{label.free}</h4>
+                        <ul>
+                            <li class="link">
+                                <a href={label.businessstandardbankurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.businessonlinelink} onclick={callingadobeevent}>{label.businessonline}<span>
+                                        ></span></a>
+                                <a href={onlinebankurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.onlinelink} onclick={callingadobeevent}>{label.online}<span> ></span></a>
+                                <a href={mobileappbankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.mobilelink} onclick={callingadobeevent}>{label.mobile}<span> ></span></a>
+                                <a href={cellphonebankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.cellphonelink} onclick={callingadobeevent}>{label.cellphone}<span> ></span></a>
+                                <a href={speechbankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.telephonelink} onclick={callingadobeevent}>{label.telephone}<span> ></span></a>
+                                <a href={atmbankingurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.atmlink} onclick={callingadobeevent}>{label.atm}<span> ></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <input type="checkbox" id="second" />
+                    <label for="second" class="acc_label">{label.safeways}</label>
+                    <div class="acc_content">
+                        <h5>{label.register}</h5>
+                        <ul>
+                            <li class="link">
+                                <a href={pocketBizUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.pocketlink} onclick={callingadobeevent}>{label.pocket}<span> ></span></a>
+                                <a href={snapscanUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.snaplink} onclick={callingadobeevent}>{label.snap}<span> ></span></a>
+                                <a href={autolinkUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.autolinklink} onclick={callingadobeevent}>{label.autolink}<sup></sup><span> ></span></a>
+                                <a href={autoswitchurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.autoswitchlink} onclick={callingadobeevent}>{label.autoswitch}<sup></sup><span> ></span></a>
+                                <a href={MasterPassUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.masterpasslink} onclick={callingadobeevent}>{label.masterpass}<span> ></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion">
+                    <input type="checkbox" id="third" />
+                    <label for="third" class="acc_label">{label.security}</label>
+                    <div class="acc_content">
+                        <h6>{label.important}</h6>
+                        <ul>
+                            <li class="link">
+                                <a href={yourcardsafeurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.yourcardlink} onclick={callingadobeevent}>{label.yourcard}<span> ></span></a>
+                                <a href={cardfraudurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.protectlink} onclick={callingadobeevent}>{label.protect}<span> ></span></a>
+                                <a href={banksafelyurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.wearelink} onclick={callingadobeevent}>{label.weare}<span> ></span></a>
+                                <a href={scamurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.phishinglink} onclick={callingadobeevent}>{label.phishing}<span> ></span></a>
+                                <a href={safelyonlineurl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.howdolink} onclick={callingadobeevent}>{label.howdo}<span> ></span></a>
+                                <a href={myupdatesUrl} target={label.standardBankUrl} data-id={adobePageTag.dataId}
+                                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope} data-text={adobePageTag.staylink} onclick={callingadobeevent}>{label.stay}<span> ></span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

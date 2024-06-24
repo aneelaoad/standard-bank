@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>SBG Footer</masterLabel>
+    <description>Footer with disclaimer text, link menu and/or social media</description>
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
+
+   <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+
+      <property name="disclaimerText" type="String" label="Disclaimer Note" default="Standard Bank is a licensed financial services provider in terms of the Financial Advisory and Intermediary Services Act and registered credit provider in terms of the National Credit Act, registration number NCRCP15"/>
+      <property type="String" name="socialMenuUrls" label="Social Media target URLs" description="Comma separated values eg, url1, url2"  default="/getting-started,/apis,/forums,/support"/>
+      <property type="String" name="socialMenuIcons" label="Social Media Icons" description="Comma separated values eg, icon1, icon2"  default="/sbg-facebook.svg,/sbg-twitter.svg,/sbg-linkedin.svg,/sbg-youtube.svg"/>
+      <property type="String" name="footerMenuLabels" label="Footer Menu Labels" description="Comma separated values eg, label1, label2"  default="Security Centre,Regulatory, Legal, Terms &amp; Conditions,Complaints Process"/>
+      <property type="String" name="footerMenuUrls" label="Footer Menu Target URLs" description="Comma separated values eg, url1, url2"  default="/getting-started,/apis,/forums,/support"/>
+      
+    </targetConfig>
+  </targetConfigs>
+
+</LightningComponentBundle>

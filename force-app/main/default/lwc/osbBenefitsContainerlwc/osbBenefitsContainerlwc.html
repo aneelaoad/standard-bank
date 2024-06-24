@@ -1,0 +1,36 @@
+<template>
+
+    <div data-id="teaserosbBen" class="Benefits-Container">
+        <div class="benefits slds-wrap slds-grid slds-p-bottom_xx-large slds-align_absolute-center ">
+            <lightning-layout multiple-rows="true">
+                <div class="odd-col slds-col slds-large-size--2-of-8 slds-medium-size--4-of-8 slds-small-size--8-of-8 " data-id="benefitContainerOne"><img class="shield slds-grid slds-gutters slds-align_absolute-center"
+                        src={imageOne} />
+                    <p class="benefits-content slds-align_absolute-center">
+                        <lightning-formatted-rich-text value={benefitsOne}></lightning-formatted-rich-text>
+                    </p>
+                </div>
+                <div class="even-col slds-col slds-large-size--2-of-8 slds-medium-size--4-of-8 slds-small-size--8-of-8 "
+                    data-id="benefitContainerTwo"><img class="shield slds-grid slds-gutters slds-align_absolute-center"
+                        src={imageTwo} />
+                    <p class="benefits-content slds-align_absolute-center ">
+                        <lightning-formatted-rich-text value={benefitsTwo}></lightning-formatted-rich-text>
+                    </p>
+                </div>
+                <div class="odd-col slds-col slds-large-size--2-of-8 slds-medium-size--4-of-8 slds-small-size--8-of-8 "
+                    data-id="benefitContainerThree"><img
+                        class="shield slds-grid slds-gutters slds-align_absolute-center" src={imageThree} />
+                    <p class="benefits-content slds-align_absolute-center">
+                        <lightning-formatted-rich-text value={benefitsThree}></lightning-formatted-rich-text>
+                    </p>
+                </div>
+                <div class="even-col slds-col slds-large-size--2-of-8 slds-medium-size--4-of-8 slds-small-size--8-of-8 "
+                    data-id="benefitContainerFour"><img class="shield slds-grid slds-gutters slds-align_absolute-center"
+                        src={imageFour} />
+                    <p class="benefits-content slds-align_absolute-center ">
+                        <lightning-formatted-rich-text value={benefitsFour}></lightning-formatted-rich-text>
+                    </p>
+                </div>
+            </lightning-layout>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>53.0</apiVersion>
+  <isExposed>true</isExposed>
+
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
+
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="privacyPolicyText" label="Disclaimer text minus link" type="String" default="We use cookies to make your experience with us better. By continuing to use our website without changing the settings, you are agreeing to our use of cookies. To find out more see our" /> 
+      <property name="privacyPolicyLinkLabel" label="Link label" type="String" default="privacy statement." />
+      <property name="privacyPolicyLink" label="Link to privacy policy" type="String" default="https://www.standardbank.co.za/southafrica/personal/about-us/legal/privacy-statement" />
+    </targetConfig>
+  </targetConfigs>
+
+</LightningComponentBundle>

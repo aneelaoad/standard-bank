@@ -1,0 +1,33 @@
+<template>
+    <div class="transaction-statement">
+        <div class="slds-text-heading_medium titleText"><strong>Documents</strong></div>    
+        <div class="documentSection">
+            <div class="documentSection_detail">
+                <h5>Statements</h5>
+            </div>
+            <div class="documentSection_list">
+                <ul>
+                    <template for:each={statements.data} for:item="statement">
+                        <li key={statement.title}>
+                            <div class="documentSection_listInfo">
+                                <div class="documentSection_listInfo_fl">
+                                    <span><img src={icn_document_statement}></span>
+                                    <div class="documentSection_list_flText">
+                                        <strong>{statement.title}</strong>
+                                        <small>{statement.strDate}</small>
+                                    </div>
+                                </div>
+                                <div class="documentSection_listInfo_fr">
+                                    <button data-documentuuid={statement.uid} onclick={handleUnstampedDocumentDownload}><img src={icn_download_statement}></button>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+            <div class="viewAllBtn">
+                <button onclick={redirectionAction}>View All</button>
+            </div>
+        </div>
+    </div>
+</template>

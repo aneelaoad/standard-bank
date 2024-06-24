@@ -1,0 +1,30 @@
+<template>
+    <div class="ApplicationGallery">
+        <lightning-layout>
+          <lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+            <template if:true={noSearchResults}>
+              <div class="noSearchResults">
+                <div>
+                  <p class="headingSearchResults">No search results</p>
+                  <p style="padding-top: 16px;">Try adjusting your search filter</p> 
+                </div>
+              </div>
+            </template>
+            <template if:true={recordDisplay}>
+              <template if:true={productsToDisplay}>
+                <div class="solutionShowcase__items">
+                      <c-osbapi-product-catalogue-pagination fulllist={productsToDisplay}></c-osbapi-product-catalogue-pagination>
+                </div>
+              </template>
+            </template>
+            <template if:true={noFilteredSolutions}>
+              <div class="noSearchResults">
+                <div><p class="headingSearchResults">No filtered results</p>
+                  <p style="padding-top: 16px;">Try choosing a different category</p> 
+                 </div>
+              </div>
+            </template>
+          </lightning-layout-item>
+        </lightning-layout>
+      </div>
+</template>

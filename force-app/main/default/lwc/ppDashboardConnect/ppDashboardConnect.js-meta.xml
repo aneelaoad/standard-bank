@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="heading" label="Heading" type="String" default="Connect"/>
+            <property name="textOne" label="Text 1" type="String" default="Having questions or feedbacks?"/>
+            <property name="textTwo" label="Text 2" type="String" default="Connect with us and we will help you out."/>
+            <property name="link" label="Link" type="String" default="Get in Touch"/>
+            <property name="linkUrl" label="Link Url" type="String"/>
+       </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,72 @@
+.marketplace-call-to-action-headline-light {
+    font-family: BentonSans;
+    font-size: 40.1px;
+    font-weight: 300;
+    line-height: 1.29;
+    text-align: center;
+    color: #fff;
+}
+
+
+
+.marketplace-call-to-action-text-light {
+    font-family: BentonSans;
+    font-size: 21.5px;
+    line-height: 1.67;
+    text-align: center;
+    color: #fff;
+}
+
+.marketplace-visit-our-community {
+    font-size: 13.8px;
+    font-weight: bold;
+    line-height: 1.18;
+    letter-spacing: 1.06px;
+    text-align: center;
+    color: #0089ff;
+}
+.primary-button-white {
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(255, 255, 255);
+    color: rgb(0, 137, 255)!important;
+    padding: 10px;
+    width: 25%;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    font-size: 17px;
+    display: inline-block;
+}
+
+
+
+.padding-vertical-2rem {
+    padding: 2rem 0;
+}
+.padding-vertical-1_5rem {
+    padding: 2.5rem 0 1rem 0;
+}
+
+.button-white{
+    width: 25% !important; 
+}
+
+@media only screen and (max-width: 600px) {
+    .marketplace-call-to-action-headline-light {
+        font-size: 20px;
+    }
+    .marketplace-call-to-action-text-light {
+        padding: 0 2.5rem;
+        font-size: 13px;
+    }
+
+    .button-white {
+        width: 85% !important;
+    }
+
+    .primary-button-white {
+        width: 85% ;
+    }
+
+    
+}

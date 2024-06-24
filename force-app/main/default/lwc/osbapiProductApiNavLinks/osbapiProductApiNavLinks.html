@@ -1,0 +1,7 @@
+<template>
+    <div class="product-api-nav-container">
+        <template for:each={apiList} for:item="api">
+            <c-osbapi-product-api-nav-item key={api.Id} api-id={api.Id} api-name={api.acm_pkg__Name__c} active-page-id={recordId}></c-osbapi-product-api-nav-item>
+        </template>
+    </div>
+</template>

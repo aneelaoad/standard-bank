@@ -1,0 +1,17 @@
+<template>
+    <template if:true={hasSubscriptions}>
+        <div class="subscription-dashboard-container">
+            <div class="subscription-heading-container">
+                <h1 class="subscription-heading">My Subscriptions</h1>
+            </div>
+            <div class="subscription-dashboard-card-container">
+                <template for:each={subscriptionList} for:item="app">
+                    <c-osbapi-subscription-tile
+                        application-id={app.Application_T__c}
+                        key={app.Id}
+                    ></c-osbapi-subscription-tile>
+                </template>
+            </div>
+        </div>
+    </template>
+</template>

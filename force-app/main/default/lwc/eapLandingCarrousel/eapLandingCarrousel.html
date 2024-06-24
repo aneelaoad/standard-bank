@@ -1,0 +1,49 @@
+<!--
+  @description       : Component that shows the upcoming events as a carousel
+  @author            : TCK
+  @last modified on  : 02-07-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-02-2021   TCK   Initial Version
+-->
+<template>
+    <div>
+        <div class="v1-carousel-container slds-box slds-text-align_center ">
+        <!--<div class="v1-carousel-container">-->
+            <!--<p class="v1-carousel-header light_titles">
+                {labels.UpcomingEvents}
+                <a class="v1-a-viewAll" onclick={showAllEventsList}>{labels.ViewAll}</a>
+            </p>-->
+            <div class="v1-carousel-header">
+                <span>{labels.UpcomingEvents}</span>
+                <a class="v1-a-viewAll" onclick={showAllEventsList}>{labels.ViewAll}</a>
+            </div>
+
+            <!--v1-carousel-image -->
+            <div class="owl-carousel owl-theme owl-loaded">
+                <div class="owl-stage-outer">
+                    <!--<div class="owl-stage">-->
+                    <div class="owl-stage">
+                        <template for:each={eventsData} for:item="event">
+                            <div key={event.Id} class="owl-item">
+                                <div class="slds-carousel__image">
+                                    <img src={event.ImageEvent}/>
+                                    <div class="arrow-up"></div>
+                                </div>
+                                <div class="v1-cardCarousel">
+                                    <h2 class="light_titles">{event.Subject}</h2>
+                                    <br/>
+                                    <p class="label">{event.FormatDate}</p>
+                                    <p class="v1-carousel-location">{event.Location}</p>
+                                    <br/><br/>
+                                    <a onclick={event.openEventDetail} name={event.Id}>{labels.ViewEvent}</a>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

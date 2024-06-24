@@ -1,0 +1,39 @@
+@import 'c/eapCssLibrary';
+
+.spinnerContainer {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-grey);
+  position: fixed;
+  top: 0;
+  z-index: 5;
+}
+
+.customSpinner {
+  fill: transparent;
+  stroke: var(--main-dark-blue);
+  stroke-width: 3;
+  stroke-dasharray: 90;
+  stroke-linecap: round;
+  animation: 4s ease-in-out infinite customSpinner--animation;
+}
+
+.backgroundSpinner {
+  stroke-width: 3;
+  stroke: var(--border-light-grey);
+}
+
+/* Keyframe animation which transitions between
+   stroke-dashoffset values.*/
+@keyframes customSpinner--animation {
+  from {
+    stroke-dashoffset: 900;
+  }
+  
+  to {
+    stroke-dashoffset: 0;
+  }
+}

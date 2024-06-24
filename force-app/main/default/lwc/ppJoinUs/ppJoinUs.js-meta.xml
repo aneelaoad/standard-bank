@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="imagePath" type="String" default="/Join-Us-Banner-iMG.png"/>
+            <property name="content" type="String" default="Register to start the partnership journey" />
+            <property name="linkLabel" type="String" default="REGISTER WITH US" />
+            <property name="title" type="String" default="“If you want to go Fast, go Alone." />
+            <property name="title2" type="String" default="if you want to go Far, go Together”" />
+            <property name="link" type="String" default="/partners/s/registration" />
+        </targetConfig>
+    </targetConfigs>
+
+</LightningComponentBundle>

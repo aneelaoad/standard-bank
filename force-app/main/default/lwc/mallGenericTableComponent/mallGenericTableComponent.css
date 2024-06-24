@@ -1,0 +1,14 @@
+.slds-scrollable_x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media only screen and (max-width: 767px) {
+    .slds-scrollable_x {
+        overflow-x: scroll;
+    }
+}
+
+.container {
+    font-family: var(--lwc-fontFamily);
+}

@@ -1,0 +1,105 @@
+<template>
+    <div class="wrapper">
+        <div class="lds-inner-content">
+            <div class="leadership-header">
+                <p class="thought-leadership">THOUGHT LEADERSHIP</p>
+            </div>
+            <lightning-layout multiple-rows="true">
+                <template for:each={displayLeadership} for:item="lds">
+                    <template lwc:if={displayLeadership}>
+                        <lightning-layout-item size="12" large-device-size="6" small-device-size="12"
+                            medium-device-size="6" class="tile-padding-right" key={lds.id}>
+                            <article class="slds-card thought-leadership-card">
+                                <div class="leadership-img">
+                                    <lightning-formatted-rich-text value={lds.Image__c} class="imageLd">
+                                    </lightning-formatted-rich-text>
+                                </div>
+                                <div class="inner-content">
+                                    <div class="leadership-title">
+                                        <p class="leadership-title-text">
+                                            {lds.Title}
+                                        </p>
+                                    </div>
+                                    <div class="lds-intro-container">
+                                        <p class="card-text">
+                                            {lds.Introduction__c}
+                                        </p>
+                                    </div>
+                                    <div class="Read-more">
+                                        <a href={lds.External_url__c} target="_blank" data-id={lds.Title}
+                                            data-text="Insights | Thought Leadership" data-intent="informational"
+                                            data-scope="insights">
+                                            Read more<img class="ReadMoreArrow" src={ReadMore} /></a>
+                                    </div>
+                                </div>
+                            </article>
+                        </lightning-layout-item>
+                    </template>
+                </template>
+            </lightning-layout>
+        </div>
+        <div class="solutions-background">
+            <div class="lds-inner-content">
+                <div class="solution-header">
+                    <p class="learn-more-about-our">
+                        LEARN MORE ABOUT OUR APPLICATIONS
+                    </p>
+                </div>
+                <lightning-layout multiple-rows="true">
+                    <template for:each={displaySolutions} for:item="sol">
+                        <template lwc:if={displaySolutions}>
+                            <lightning-layout-item size="12" large-device-size="3" small-device-size="12"
+                                medium-device-size="4" class="tile-padding-right" key={sol.id}>
+                                <article class="slds-card learn-more-card" key={sol.id}>
+                                    <div class="leadership-img">
+                                        <lightning-formatted-rich-text value={sol.Image__c} class="imageLd">
+                                        </lightning-formatted-rich-text>
+                                    </div>
+                                    <div class="inner-content">
+                                        <div class="solution-title">
+                                            {sol.Title}
+                                        </div>
+                                        <div class="intro-container">
+                                            <div class="intro">
+                                                {sol.Introduction__c}
+                                            </div>
+                                        </div>
+                                        <div class="links-container">
+                                            <template lwc:if={sol.External_url__c}>
+                                                <div class="learn-more">
+                                                    <a href={sol.External_url__c} target="_blank"
+                                                        data-id={sol.External_url__c} data-text="Insights | Learn more"
+                                                        data-intent="informational" data-scope="insights">
+                                                        Learn more<img class="ReadMoreArrow" src={ReadMore} />
+                                                    </a>
+                                                </div>
+                                            </template>
+                                            <template lwc:if={sol.Video_URL__c}>
+                                                <div class="watch-video">
+                                                    <a href={sol.Video_URL__c} target="_blank"
+                                                        data-id={sol.Video_URL__c} data-text="Insights | Watch video"
+                                                        data-intent="informational" data-scope="insights">
+                                                        Watch video<img class="ReadMoreArrow" src={ReadMore} />
+                                                    </a>
+                                                </div>
+                                            </template>
+                                            <template lwc:if={sol.Podcast_URL__c}>
+                                                <div class="listen-to-podcasts">
+                                                    <a href={sol.Podcast_URL__c} target="_blank"
+                                                        data-id={sol.Podcast_URL__c} data-text="Insights | podcast"
+                                                        data-intent="informational" data-scope="insights">
+                                                        Listen to podcast<img class="ReadMoreArrow" src={ReadMore} />
+                                                    </a>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </article>
+                            </lightning-layout-item>
+                        </template>
+                    </template>
+                </lightning-layout>
+            </div>
+        </div>
+    </div>
+</template>

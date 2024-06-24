@@ -1,0 +1,20 @@
+<template>
+    <div class="slds-notify_container">
+        <template for:each={notificationList} for:item="rec">
+            <div key={rec.index} class="containerClass">
+                <div class={rec.outerClass} role="status">
+                    <!-- <span class={rec.innerClass} title={rec.message}>
+                        <lightning-icon icon-name={rec.iconName} alternative-text="icon" styleclass="slds-icon slds-icon_small" variant="inverse" size="small"></lightning-icon>
+                    </span> -->
+                    <div class="slds-notify__content">
+                        <h2 class="toast-header">{rec.header}</h2>
+                        <p class="toast-message">{rec.message}</p>
+                    </div>
+                    <div class="slds-notify__close">
+                        <lightning-button-icon icon-name="utility:close" size="small" variant="bare" name={rec.index}  alternative-text="close" onclick={close} ></lightning-button-icon>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

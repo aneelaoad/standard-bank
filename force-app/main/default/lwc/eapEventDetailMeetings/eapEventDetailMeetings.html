@@ -1,0 +1,73 @@
+<!--
+  @description       : Lwc to show the next meeting of the event
+  @author            : TCK
+  @group             : 
+  @last modified on  : 08-04-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-10-2021   TCK      Initial Version
+-->
+<template>
+    <template if:true={hasMeetingsAndForm}>
+        <div class="v1_div_background">
+            <div class="v1_div_secondCard">
+                <lightning-card class="v1_card_body">
+                    <div class="v1_p_supTitle">{labels.EventSchedule}</div>
+                    <div class="v1_div_today_dark" style={backgroundStyleDark}></div>
+                    <div class="v1_div_today" style={backgroundStyle}>
+                        <h1 class="v1_h1_date">{meetings.Day}</h1>
+                        <span>{meetings.MonthYear}</span>
+                    </div>
+                    <div class="v1_div_otherMeetings">
+                        <p class="v1_p_firstMeeting">{meetings.Title}</p>
+                        <template if:true={meetings.NumMeetings}>
+                            <p>{labels.AndOther} {meetings.NumMeetings} {labels.Meetings}</p>
+                        </template>
+                        <a class="v1_a_viewFullSchedule" onclick={showEventSchedule}>{labels.ViewSchedule}</a>
+                    </div>
+
+                    <div class="v1_div_container">
+                    </div>
+                </lightning-card>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={hasMeetingsAndForm}>
+        <template if:true={meetings}>
+            <div class="v1_div_background meetingsBackground">
+                <div class="v1_div_secondCard">
+                    <lightning-card class="v1_card_body">
+                        <p class="v1_p_supTitle">{labels.EventSchedule}</p>
+                        <div class="v1_div_today_dark" style={backgroundStyleDark}></div>
+                        <div class="v1_div_today" style={backgroundStyle}>
+                            <h1 class="v1_h1_date">{meetings.Day}</h1>
+                            <span>{meetings.MonthYear}</span>
+                        </div>
+                        <div class="v1_div_otherMeetings">
+                            <p class="v1_p_firstMeeting">{meetings.Title}</p>
+                            <template if:true={meetings.NumMeetings}>
+                                <p>{labels.AndOther} {meetings.NumMeetings} {labels.Meetings}</p>
+                            </template>
+                            <a class="v1_a_viewFullSchedule" onclick={showEventSchedule}>{labels.ViewSchedule}</a>
+                        </div>
+                    </lightning-card>
+                </div>
+            </div>
+        </template>
+
+        <template if:true={hasForm}>
+            <div class="v1_div_background formBackground">
+                <div class="v1_div_secondCard">
+                    <lightning-card>
+                        <p class="v1_p_supTitle">{labels.EventSchedule}</p>
+                        <div class="v1_div_container">
+                        </div>
+                    </lightning-card>
+                </div>
+            </div>
+        </template>
+    </template>
+    
+</template>

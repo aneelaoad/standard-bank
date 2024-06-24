@@ -1,0 +1,45 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <div class="outer-container">
+            <lightning-layout-item size="12">
+                <div class="breadCrumbNav">
+                    <ul class="marketplace__navigation-items">
+                        <li class="marketplace__navigation-item-container">
+                            <span class="marketplace__navigation-item--active" id="ProfilesandSettings"
+                                data-tab-name="ProfilesandSettings">
+                                Profiles and Settings<img class="ReadMoreArrow" src={ReadMore} />
+                            </span>
+                        </li>
+
+                        <li class="marketplace__navigation-item-container marketplace__navigation-item-container-hover marketplace__navigation-item_selected"
+                            data-id="top_nav_link" data-text="Profiles and Settings | Device Management">
+                            <span onclick={handleNavigateTo} class="marketplace__navigation-item" id="DeviceManagement"
+                                data-text="Profile and Settings | Device Management" data-intent="navigational"
+                                data-scope="Profile and Settings" data-tab-name="DeviceManagement">
+                                Device Management
+                            </span>
+                        </li>
+
+                        <li class="marketplace__navigation-item-container marketplace__navigation-item-container-hover marketplace__navigation-item_selected"
+                            data-id="top_nav_link" data-text="Profiles and Settings | Edit Profile">
+                            <span onclick={handleNavigateTo} class="marketplace__navigation-item" id="EditProfile"
+                                data-text="Profile and Settings | Edit Profile" data-intent="navigational"
+                                data-scope="Profile and Settings" data-tab-name="EditProfile">
+                                Edit Profile
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </lightning-layout-item>
+        </div>
+
+        <lightning-layout-item size="12">
+            <template lwc:if={selectedNavItemEditProfile}>
+                <c-osb-edit-profilelwc></c-osb-edit-profilelwc>
+            </template>
+            <template lwc:if={selectedNavItemDeviceManagement}>
+                <c-osb-device-management-lwc></c-osb-device-management-lwc>
+            </template>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

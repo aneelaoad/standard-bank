@@ -1,0 +1,258 @@
+<template>
+    <lightning-record-view-form
+            record-id={recordId}
+            object-api-name="Account_Information__c">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                <div class="slds-border_bottom">
+                    <lightning-output-field field-name="Client__c">
+                    </lightning-output-field>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                    <div class="slds-m-bottom_xxx-small">
+                        <span class="slds-form-element__label">Account Age</span>
+                        <template if:true={helptext.ACCOUNT_AGE_HELPTEXT}>
+                            <lightning-helptext content={helptext.ACCOUNT_AGE_HELPTEXT}></lightning-helptext>
+                        </template>
+                    </div>
+                    <div class="slds-form-element__control slds-p-vertical_none">
+                        <template if:true={proactDataLoading}>
+                            <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                        </template>
+                        <div class="slds-form-element__static">{accountAge}</div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <lightning-accordion allow-multiple-sections-open 
+                             active-section-name={initiallyActiveSections}>
+
+            <lightning-accordion-section name="Overview" label="Overview">
+
+                <div class="slds-grid slds-wrap">
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-border_bottom">
+                            <lightning-output-field field-name="Name">
+                            </lightning-output-field>
+                        </div>
+                        <div class="slds-border_bottom">
+                            <lightning-output-field field-name="Account_Name__c">
+                            </lightning-output-field>
+                        </div>
+                        <div class="slds-border_bottom">
+                            <lightning-output-field field-name="Product_Category__c">
+                            </lightning-output-field>
+                        </div>
+                        <div class="slds-border_bottom">
+                            <lightning-output-field field-name="Product_Sub_Category__c">
+                            </lightning-output-field>
+                        </div>
+                        <div class="slds-border_bottom">
+                            <lightning-output-field field-name="Account_Status__c">
+                            </lightning-output-field>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">Currency</span>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={balanceDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{currency}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </lightning-accordion-section>
+
+            <lightning-accordion-section name="Balances" label="Account's Balances">
+
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">Current Balance</span>
+                                <template if:true={helptext.CURRENT_BALANCE_HELPTEXT}>
+                                    <lightning-helptext
+                                            content={helptext.CURRENT_BALANCE_HELPTEXT}></lightning-helptext>
+                                </template>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <div class="slds-form-element__static">
+                                        <template if:true={balanceDataLoading}>
+                                            <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                        </template>
+                                    <template if:true={showCurrency}>
+                                        <lightning-formatted-number value={currentBalance} format-style="currency"
+                                                                    currency-code={currency}></lightning-formatted-number>
+                                    </template>
+                                    <template if:false={showCurrency}>
+                                        {currentBalance}
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">Actual Balance</span>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <div class="slds-form-element__static">
+                                    <template if:true={balanceDataLoading}>
+                                        <lightning-spinner alternative-text="Loading" size="small"
+                                                           style="width:10%;"></lightning-spinner>
+                                    </template>
+                                    <template if:true={showCurrency}>
+                                        <lightning-formatted-number value={actualBalance} format-style="currency"
+                                                                    currency-code={currency}></lightning-formatted-number>
+                                    </template>
+                                    <template if:false={showCurrency}>
+                                        {actualBalance}
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </lightning-accordion-section>
+
+            <lightning-accordion-section name="Information" label="Detailed Information">
+
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">Avarage Credit Turnover L12M</span>
+                                <template if:true={helptext.AVERAGE_CREDIT_TURNOVER_L12M_HELPTEXT}>
+                                    <lightning-helptext
+                                            content={helptext.AVERAGE_CREDIT_TURNOVER_L12M_HELPTEXT}></lightning-helptext>
+                                </template>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{averageCreditTurnoverL12M}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">Avarage Credit Turnover L3M</span>
+                                <template if:true={helptext.AVERAGE_CREDIT_TURNOVER_L3M_HELPTEXT}>
+                                    <lightning-helptext
+                                            content={helptext.AVERAGE_CREDIT_TURNOVER_L3M_HELPTEXT}></lightning-helptext>
+                                </template>
+                            </div> 
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{averageCreditTurnoverL3M}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">ERI</span>
+                                <template if:true={helptext.ERI_HELPTEXT}>
+                                    <lightning-helptext content={helptext.ERI_HELPTEXT}></lightning-helptext>
+                                </template>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{eri}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">ERL</span>
+                                <template if:true={helptext.ERL_HELPTEXT}>
+                                    <lightning-helptext content={helptext.ERL_HELPTEXT}></lightning-helptext>
+                                </template>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{erl}</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">End of Month Instalment</span>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{endOfMonthInstalment}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">End of Month Limit</span>
+                                <template if:true={helptext.END_OF_MONTH_LIMIT_HELPTEXT}>
+                                    <lightning-helptext
+                                            content={helptext.END_OF_MONTH_LIMIT_HELPTEXT}></lightning-helptext>
+                                </template>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{endOfMonthLimit}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">Total Days Dishonour L6M</span>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{totalDaysDishonourL6M}</div>
+                            </div>
+                        </div>
+
+                        <div class="slds-form-element slds-form-element_readonly slds-p-bottom_x-small">
+                            <div class="slds-m-bottom_xxx-small">
+                                <span class="slds-form-element__label">Total Days In Excess L6M</span>
+                            </div>
+                            <div class="slds-form-element__control slds-p-vertical_none">
+                                <template if:true={proactDataLoading}>
+                                    <lightning-spinner alternative-text="Loading" size="small" style="width:10%;"></lightning-spinner>
+                                </template>
+                                <div class="slds-form-element__static">{totalDaysInExcessL6M}</div>
+                            </div> 
+                        </div>
+
+                    </div>
+                </div>
+
+            </lightning-accordion-section>
+        </lightning-accordion>
+
+    </lightning-record-view-form>
+</template>

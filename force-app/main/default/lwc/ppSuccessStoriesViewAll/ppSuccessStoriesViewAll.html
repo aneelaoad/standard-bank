@@ -1,0 +1,49 @@
+<!-- **
+* @description  : Partner Portal All Success Stories Component
+* User Story : SFP-4963
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <div class="container" id="container">
+        <div class="slds-grid slds-grid_vertical">
+                <div class="slds-col">
+                    <img src={bannerImg} class="background-image">
+                </div>
+
+            <div class="slds-col slds-align_absolute-center breadcrumbs">
+
+                <div class="slds-grid">
+                    <a href={breadcrumbUrl} data-intent="navigational" data-scope="Success Stories"
+                       data-id="link_content" data-text="Partner Portal" onclick={tracker}>
+                        <div class="slds-col">
+                            <p>Partner Portal <img class="arrowIcon" src={breadcrumbArrowIcon}><img></p>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col slds-align_absolute-center heading-container">
+
+                <p class="heading-large">{mainHeading}</p>
+
+            </div>
+
+            <div class="slds-col slds-align_absolute-center text-container">
+
+                <p class="text-large">{text}</p>
+
+            </div>
+
+        </div>
+
+        <c-cmn-knowledge-article-listing article-type={articleType} template={template} heading={subHeading}
+        number-of-articles={numberOfArticles} article-detail-base-url={articleDetailBaseUrl}> </c-cmn-knowledge-article-listing>
+
+
+    </div>
+</template>

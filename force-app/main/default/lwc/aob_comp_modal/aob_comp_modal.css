@@ -1,0 +1,22 @@
+div {
+}
+@media (min-width: 768px) {
+  .aob_modal_container-large {
+    max-width: 1160px;
+    max-height: 768px;
+    width: 90%;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  .aob_modal_container-large {
+    max-width: 606px;
+    max-height: 1008px;
+    width: 90%;
+    overflow: hidden;
+  }
+  .aob_header{
+    height: 35px;
+  }
+}

@@ -1,0 +1,43 @@
+.row-heading{
+    margin-left: 0;
+    text-align: Left;
+    color: rgb(0, 11, 55);
+    font-size: 27px;
+    text-transform: uppercase;
+}
+.parent-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+}
+
+@media screen and (max-width: 471px){
+.child-card-container[c-acmBlueprintParent_acmBlueprintParent] {
+    width: 23%;
+    min-width:200px;
+    padding-left:0px!important;
+}
+
+.acm-blueprint-card[c-acmBlueprintTemplates_acmBlueprintTemplates][c-acmBlueprintTemplates_acmBlueprintTemplates] {
+    width: 68%;
+}
+}
+@media screen and (max-width: 768px){
+.parent-container {
+    width: 100%;
+    margin: auto;
+}
+.child-card-container{
+    width: 40%;  
+}
+
+}
+
+
+@media screen and (max-width: 1024px){
+.parent-container {
+    display: block;
+    width: max-content;
+}
+}

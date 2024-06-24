@@ -1,0 +1,77 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    background-color: #F2F3F4;
+    max-width: 1280px;
+}
+
+.main-grid {
+    background-color: #F2F3F4;
+}
+
+.heading {
+    margin-bottom: 50px;
+}
+
+.box-heading {
+    width: 255px;
+    height: 30px;
+    margin: 0px 40px 20px;
+    text-align: center;
+}
+
+.box-text {
+    width: 247px;
+    height: 75px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sbgIcon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.icons-container {
+    position: absolute;
+    margin: 0px -85px -16px -84px;
+    bottom: 36px;
+}
+
+.icon {
+    position: absolute;
+    top: 21px;
+    left: 32px;
+}
+
+.shield-icon {
+    width: 105px;
+    height: 105px;
+    object-fit: cover;
+}
+
+
+@media(min-width: 1280px) {
+    .main-grid {
+        padding: 0px 40px 70px 40px;
+    }
+}
+
+@media(max-width: 1024px) {
+    .main-grid {
+        padding: 28px 38px 37px 38px;
+    }
+}
+
+@media(max-width: 414px) {
+    .main-grid {
+        padding: 14px 19px 18px 19px;
+    }
+
+}

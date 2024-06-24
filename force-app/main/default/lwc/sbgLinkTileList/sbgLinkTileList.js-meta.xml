@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>SBG Link Tile List</masterLabel>
+    <description>A list of links styled in tiles</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">            
+            <!-- Tile Props -->
+            <property type="String" name="tileTexts" label="Tile Text" description="Comma separated values eg, title1, title2"  default="How to get started,Explore APIs,Connect with us,Get support"/>
+            <property type="String" name="tileUrls" label="Tile Target URLs" description="Comma separated values eg, url1, url2"  default="/getting-started,/apis,/forums,/support"/>
+            <!--<property type="String" name="tileIcons" label="Tile Icons" description="Comma separated values eg, icon1, icon2"  default="/sfsites/c/file-asset/acmplanticon,/sfsites/c/file-asset/acmpersonicon,/sfsites/c/file-asset/acmcommunityicon,/sfsites/c/file-asset/acmwalleticon"/>-->
+            <property type="String" name="tileIcons" label="Tile Icons" description="Comma separated values eg, icon1, icon2"  default="/sbg-orange-plant.svg,/sbg-orange-helper.svg,/sbg-orange-parthenon.svg,/sbg-orange-wallet.svg"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

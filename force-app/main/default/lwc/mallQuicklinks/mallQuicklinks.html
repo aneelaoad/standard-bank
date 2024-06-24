@@ -1,0 +1,225 @@
+<template>
+  <div class="heading-container">
+    <h3 class="heading">{heading}</h3>
+    <div class="info-container">
+      <span class="info-icon" onclick={showBubble}></span>
+      <span class="info-text-bubble">
+        <h5 class="info-bubble-header">{infoHeader}</h5>
+        <p class="info-text">{infoText}</p>
+        <span class="close" onclick={closeBubble}></span>
+      </span>
+    </div>
+    <div class="actions-wrapper">
+      <ul class="filter-wrapper">
+        <li class="dropdown filter">
+          <button
+            class="slds-button slds-button_outline-brand"
+            onclick={toggleDropdown}
+            aria-controls="sort-list"
+            aria-expanded="false"
+            data-intent="transactional"
+            disabled={isDisabled}
+            aria-disabled={isDisabled}
+            data-scope="my dashboard"
+            data-id="link_content"
+            data-type="click"
+            data-text="Sort list"
+            data-text-after="drop-down"
+          >
+            <span class="icon-wrapper" style={getSortIcon}></span>
+            <div class="button-text">{sortByLabel}</div>
+          </button>
+          <template if:true={sortList}>
+            <div class="dropdown-panel" id="sort-list">
+              <c-mall-header-dropdown nav-back={triggerCloseDropdowns}>
+                <ul if:true={sortList} class="list-wrapper">
+                  <template for:each={sortList} for:item="item">
+                    <li
+                      key={item.id}
+                      data-id="link_content"
+                      data-intent="transactional"
+                      data-type="click"
+                      data-text={item.name}
+                      data-text-after="sort check"
+                      data-scope="my dashboard"
+                    >
+                      <label class="sort-button-wrapper" for={item.name} onclick={sortQuicklinks} data-value={item.name}>
+                        <input
+                          type="radio"
+                          name={item.name}
+                          id={item.id}
+                          value={item.name}
+                          checked={item.isActive}
+                          class="sort-check"
+                        />
+                        <span>{item.name}</span>
+                      </label>
+                    </li>
+                  </template>
+                </ul>
+              </c-mall-header-dropdown>
+            </div>
+          </template>
+        </li>
+      </ul>
+      <div class="configure-wrapper">
+        <c-mall-cmn-button
+          interaction-intent="transactional"
+          interaction-scope="my dashboard"
+          interaction-type="click"
+          interaction-text="quick links configuration button"
+          icon={configureIcon}
+          variant="outline-brand"
+          label={configureLabel}
+          title={configureLabel}
+          w-class="auto"
+          onclick={openQuicklinksConfiguration}
+          responsive-icon-state="true"
+        ></c-mall-cmn-button>
+      </div>
+    </div>
+  </div>
+  <template if:false={hasQuicklinksRegistered}>
+    <div class="response-container">
+      <p>{noServicesMessage}</p>
+      <c-mall-cmn-button
+        interaction-intent="navigational"
+        interaction-scope="my dashboard"
+        interaction-type="click"
+        interaction-text="browse services button"
+        variant="mall"
+        label={browseServicesLabel}
+        title={browseServicesLabel}
+        w-class="auto"
+        onclick={handleBrowseServices}
+      ></c-mall-cmn-button>
+    </div>
+  </template>
+
+  <template if:true={hasQuicklinksRegistered}>
+    <template if:true={displayServices}>
+      <template for:each={displayServices} for:item="item">
+        <c-mall-quicklink-group
+          key={item.id}
+          service={item}
+          onremovelink={handleRemoveLink}
+        ></c-mall-quicklink-group>
+      </template>
+    </template>
+  </template>
+
+  <c-mall-modal
+    active={isShowModal}
+    header={configureHeading}
+    variant="compact"
+    onclose={hideModalBox}
+  >
+    <div slot="content" class="form">
+      <h3 class="heading">{heading}</h3>
+      <p>{configureQuicklinksHelperText}</p>
+      <div class="slds-form-element">
+        <label
+          class="slds-form-element__label"
+          for="quicklinksSearch"
+          id={configureQuicklinksSearchLabel}
+          >{configureQuicklinksSearchLabel}</label
+        >
+        <div class="slds-form-element__control">
+          <input
+            type="search"
+            onkeyup={handleSearch}
+            id="quicklinksSearch"
+            placeholder={configureQuicklinksSearchPlaceholder}
+            aria-labelledby={configureQuicklinksSearchLabel}
+            class="slds-input"
+            value={searchTerm}
+            data-id="link_content"
+            data-intent="informational"
+            data-scope="mall dashboard"
+            data-text="quicklinks configure modal search"
+            data-type="click"
+          />
+        </div>
+      </div>
+      <div class="divider">
+        <template if:true={showAllCheckbox}>
+          <lightning-input
+            type="checkbox"
+            label={configureAllCheckboxLable}
+            name={configureAllCheckboxLable}
+            onchange={handleAllCheckboxSelection}
+            class="link-checkbox slds-m-vertical_x-small"
+            data-id="link_content"
+            data-intent="transactional"
+            data-scope="mall dashboard"
+            data-text="select all quick links checkbox"
+            data-type="click"
+          ></lightning-input>
+        </template>
+        <p if:true={isSelectionInvalid} class="validation-message">
+          {configureQuicklinksSelectionError}
+        </p>
+        <p if:true={isSearchEmpty}>{noSearchResults}</p>
+      </div>
+      <template if:true={modalServices}>
+        <template for:each={modalServices} for:item="service">
+          <div class="service-group" key={service.id}>
+            <div class="service-label">{service.title}</div>
+            <template for:each={service.collection} for:item="link">
+              <div key={link.id} class="slds-form-element divider">
+                <div class="slds-form-element__control">
+                  <div class="slds-checkbox">
+                    <input
+                      type="checkbox"
+                      name={link.title}
+                      id={link.id}
+                      value={link.id}
+                      data-linkid={link.id}
+                      class="link-checkbox"
+                      onchange={handleCheckboxSelection}
+                      checked={link.modalChecked}
+                      data-id="link_content"
+                      data-intent="transactional"
+                      data-scope="mall dashboard"
+                      data-text={link.title}
+                      data-text-after="quick link checkbox"
+                      data-type="click"
+                    />
+                    <label class="slds-checkbox__label" for={link.id}>
+                      <span class="slds-checkbox_faux"></span>
+                      <span class="slds-form-element__label">{link.title}</span>
+                      <span
+                        class="checkbox-icon icon-wrapper"
+                        style={link.formattedIcon}
+                      ></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+      </template>
+    </div>
+
+    <div slot="footer" class="footer-button">
+      <lightning-button
+        label="Apply"
+        title="Apply"
+        disabled={isSelectionInvalid}
+        onclick={handleApply}
+        class="slds-m-left_x-small"
+        data-id="link_content"
+        data-intent="transactional"
+        data-scope="mall dashboard"
+        data-text="apply selected quicklinks button"
+        data-type="click"
+      ></lightning-button>
+    </div>
+  </c-mall-modal>
+
+  <template if:true={showSpinner}>
+    <lightning-spinner alternative-text="Loading..." variant="brand">
+    </lightning-spinner>
+  </template>
+</template>

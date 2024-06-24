@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="ColumnOneTitle" type="String" default="Functionality" label="Functionality" required="true" />
+            <property name="ColumnTwoTitle" type="String" default="Solution 1" label="Solution 1" required="true" />
+            <property name="ColumnThreeTitle" type="String" default="Solution 2" label="Solution 2" required="true" />
+            <property name="NumberOfRows" type="Integer" default="0" label="Enter No. of Rows 1-12" required="true" />
+            <property name="ContentRow_1_Title" type="String" default="" label="Comparison 1" />
+            <property name="contentRow_1_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1 " />
+            <property name="contentRow_1_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_1_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_1_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_2_Title" type="String" default="" label="Comparison 2" />
+            <property name="contentRow_2_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_2_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_2_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_2_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_3_Title" type="String" default="" label="Comparison 3" />
+            <property name="contentRow_3_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_3_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_3_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_3_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_4_Title" type="String" default="" label="Comparison 4" />
+            <property name="contentRow_4_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_4_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_4_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_4_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_5_Title" type="String" default="" label="Comparison 5" />
+            <property name="contentRow_5_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_5_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_5_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_5_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_6_Title" type="String" default="" label="Comparison 6" />
+            <property name="contentRow_6_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_6_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_6_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_6_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_7_Title" type="String" default="" label="Comparison 7" />
+            <property name="contentRow_7_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_7_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_7_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_7_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_8_Title" type="String" default="" label="Comparison 8" />
+            <property name="contentRow_8_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_8_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_8_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_8_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_9_Title" type="String" default="" label="Comparison 9" />
+            <property name="contentRow_9_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_9_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_9_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_9_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_10_Title" type="String" default="" label="Comparison 10" />
+            <property name="contentRow_10_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_10_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_10_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_10_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_11_Title" type="String" default="" label="Comparison 11" />
+            <property name="contentRow_11_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_11_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_11_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_11_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+            <property name="ContentRow_12_Title" type="String" default="" label="Comparison 12" />
+            <property name="contentRow_12_Column_2" type="Boolean" default="false" label="Tick if available on Solution 1" />
+            <property name="contentRow_12_Column_2_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 1" />
+            <property name="contentRow_12_Column_3" type="Boolean" default="false" label="Tick if available on Solution 2" />
+            <property name="contentRow_12_Column_3_view_only" type="Boolean" default="false" label="Tick if 'view only' on Solution 2" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

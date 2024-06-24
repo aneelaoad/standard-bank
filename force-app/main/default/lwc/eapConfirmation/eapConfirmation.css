@@ -1,0 +1,64 @@
+@import 'c/eapCssLibrary';
+
+.content {
+    visibility: hidden;
+}
+
+.container {
+    background: linear-gradient(135deg, #00A1E0 0%, #0033A1 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered_container {
+    width: 100%;
+}
+
+.v1_div_containerShield {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.v1_div_setIcons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.v1_icon_overShield {
+    position: absolute;
+    z-index: 2;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    height: 25px;
+}
+
+lightning-icon {
+    --sds-c-icon-color-foreground-default: #fff;
+}
+
+.shield {
+    width: 7em;
+    height: 8em;
+}
+
+.v1_div_message {
+    margin-top: 1em;
+    color: #fff;
+    text-align: center;
+    font-size: 1.25em;
+    width: 20em;
+}
+
+.v1_div_containerButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+}

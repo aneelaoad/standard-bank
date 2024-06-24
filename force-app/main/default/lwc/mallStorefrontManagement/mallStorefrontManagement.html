@@ -1,0 +1,158 @@
+<template>
+    <div class="a_heading">
+        <c-sbg-title-with-subtitle title="Manage your storefront" show-subtitle="false"></c-sbg-title-with-subtitle>
+    </div>
+    <div class="c-container section">
+        <template if:false={disablePublish}>
+            <div class="slds-float--right slds-p_large">
+                <lightning-layout>
+                    <lightning-layout-item padding="around-small">
+                        <lightning-button
+                            variant="brand"
+                            label="Publish"
+                            title="Publish"
+                            onclick={handlePublishProvider}
+                            class="slds-p-right_large"
+                            ></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
+        <lightning-layout vertical-align="stretch">
+            <lightning-layout-item padding="around-small">
+                <div class="label">Store Name</div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-formatted-text value={name}> </lightning-formatted-text>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout vertical-align="stretch">
+            <lightning-layout-item padding="around-small">
+                <div class="label">Approval Status</div>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-formatted-text value={status}> </lightning-formatted-text>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout vertical-align="stretch" class="upload-container">
+            <lightning-layout-item padding="around-small" class="no-shrink">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_4-of-5">
+                        <span>               
+                            <div class="slds-required">
+                                <lightning-file-upload
+                                    label="Upload Store Image"
+                                    name="imageUploader"
+                                    accept={acceptedImageFormats}
+                                    record-id={clonedAccountId}
+                                    onuploadfinished={handleImageUploadFinished}
+                                    disabled={disableInput}
+                                    >
+                                </lightning-file-upload>
+                            </div>
+                        </span>
+                    </div>
+                    <template if:true={showRemoveImage}>
+                        <div class="slds-col slds-size_1-of-5 remove-button">
+                            <span>    
+                                <a href="#" class="remove-link" onclick={handleRemoveImage}>Remove</a>
+                            </span>
+                        </div>
+                    </template>
+
+                  </div>
+                <div class="helper-text">
+                    <lightning-formatted-rich-text
+                        class="helper-text"
+                        value={imageHelperText}>
+                    </lightning-formatted-rich-text>
+                </div>
+            </lightning-layout-item>
+                <lightning-layout-item
+                    padding="around-small"
+                    class="image-preview-container"
+                    >
+                    <div class="image" data-guidelines={imageGuide}>
+                        <img src={imageUrl} />
+                    </div>
+                    <p>
+                        The grey broken line above represents the size your image should be
+                        and the pink broken line represents the logo safe area.
+                    </p>
+                </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout vertical-align="stretch">
+            <lightning-layout-item>
+                <div class="description">
+                    <lightning-textarea
+                        name="shortDescription"
+                        max-length={maxLenghtShortDescription}
+                        label="Short Description"
+                        value={shortDescription}
+                        onchange={handleShortDescriptionChange}
+                        disabled={disableInput}
+                        placeholder={shortDescriptionPlaceholder}
+                        message-when-too-long="Short description too long"
+                        required
+                        >
+                    </lightning-textarea>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        <div class="character-count">
+            {lengthShortDescription}/{maxLengthShortDescription}
+        </div>
+        <lightning-layout vertical-align="stretch">
+            <div class="description">
+                <lightning-layout-item>
+                    <lightning-input-rich-text
+                        label="Long Description"
+                        value={longDescription}
+                        onchange={handleLongDescriptionChange}
+                        disabled={disableInput}
+                        placeholder={longDescriptionPlaceholder}
+                        max-length={maxLengthLongDescription}
+                        message-when-too-long="Long description too long"
+                        label-visible
+                        required
+                        >
+                    </lightning-input-rich-text>
+                </lightning-layout-item>
+            </div>
+        </lightning-layout>
+        <div class="character-count">
+            {lengthLongDescription}/{maxLengthLongDescription}
+        </div>
+        <lightning-layout vertical-align="stretch">
+            <div class="description">
+                <lightning-layout-item>
+                    <lightning-textarea
+                        name="comment"
+                        max-length={maxLengthComment}
+                        label="Comment"
+                        value={comment}
+                        onchange={handleApprovalComment}
+                        disabled={disableInput}
+                        placeholder={commentPlaceholder}
+                        message-when-too-long="Comment too long"
+                        >
+                    </lightning-textarea>
+                </lightning-layout-item>
+            </div>
+        </lightning-layout>
+        <div class="character-count">
+            {lengthComment}/{maxLengthComment}
+        </div>
+        <template if:false={disableInput}>
+            <lightning-layout>
+                <lightning-layout-item flexibility="auto" class="slds-text-align_left">
+                    <lightning-button variant="brand-outline" label="Cancel" title="Cancel" onclick={handleCancel}></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto" padding="horizontal-medium" class="slds-text-align_right">
+                    <lightning-button variant="brand-outline" label="Save" title="Save" onclick={handleSave} class="slds-m-right_medium"></lightning-button>
+                    <lightning-button variant="brand" label="Submit for approval" title="Submit for approval" onclick={handleSubmitForApproval}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+    </div>
+</template>

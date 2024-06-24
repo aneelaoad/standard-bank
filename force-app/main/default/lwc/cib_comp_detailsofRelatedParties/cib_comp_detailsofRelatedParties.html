@@ -1,0 +1,170 @@
+<!--
+  @description       : This is used for Details of related parties screen
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <article class="aob_page-titles">
+      <h2>Details of Related Parties</h2>
+    </article>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Definition</div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">
+          1. In relation to a corporation (if fulfils any of the following
+          criteria): means an individual who:
+        </div>
+      </div>
+      <ul class="slds-list_dotted">
+        <li>
+          owns or controls, directly or indirectly, including through a trust or
+          bearer share holding, not less than 10% of the issued share capital of
+          the corporation or,
+        </li>
+        <li>
+          is directly or indirectly, entitled to exercise or control the
+          exercise of not less than 10% of the voting rights at general meetings
+          of the corporation or,
+        </li>
+        <li>
+          exercises ultimate control over the management of the corporation or,
+        </li>
+        <li>
+          If the corporation is acting on behalf of another person, means the
+          other person.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">
+          2. In relation to a partnership (if fulfils any of the following
+          criteria): means an individual who:
+        </div>
+      </div>
+
+      <ul class="slds-list_dotted">
+        <li>
+          is entitled to or controls, directly or indirectly, not less than 10%
+          share of the capital or profits of the partnership; or
+        </li>
+        <li>
+          is directly or indirectly, entitled to exercise or control the
+          exercise of not less than 10% of the voting rights in the partnership;
+          or
+        </li>
+        <li>
+          exercises ultimate control over the management of partnership; or
+        </li>
+        <li>
+          If the partnership is acting on behalf of another person, means the
+          other person
+        </li>
+      </ul>
+
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">
+          3. In relation to a trust (if fulfils any of the following criteria):
+          means an individual who:
+        </div>
+      </div>
+
+      <ul class="slds-list_dotted">
+        <li>
+          is entitled to a vested interest in not less than 10% of the capital
+          of the trust property, whether the interest is in possession or in the
+          remainder or reversion and whether it is defeasible or not; or
+        </li>
+        <li>the settlor of the trust; or</li>
+        <li>a protector or enforcer of the trust; or</li>
+        <li>an individual who has ultimate control over the trust</li>
+      </ul>
+
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">
+          4. In relation to a Fund (if fulfils any of the following criteria):
+          means an investor who:
+        </div>
+      </div>
+
+      <ul>
+        <li>
+          is entitled to or controls, directly or indirectly, not less than 10%
+          stake in the Fund has control over the voting rights; or from
+          exercising other control over the composition and/or the voting
+          rights; or from exercising other control over the composition and/or
+          the voting of the Board of Director as Beneficial Owner can also be
+          the party on whose behalf a transaction or activity is being
+          conducted. The beneficial owners of the Fund are the investors
+          (individuals, entities or Funds) into the Fund. The Investment/Fund
+          Manager who is responsible for making decisions related to the Fund’s
+          portfolio of investments in accordance with the stated goals of the
+          Fund. The Administrator who is reponsible for maintaining a Fund’s
+          share register and books of account, and overseeing that it’s
+          investments reflect the stated strategies as per the original offering
+          documents and verifying Net Asset Value (NAV) calculations and
+          attributions of income as being accurate and error-free.
+        </li>
+        <li></li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">* Intermediate owner:</div>
+      </div>
+
+      <ul>
+        <li>
+          Intermediate Owner is an entity or legal arrangement (e.g. Trust,
+          Foundation etc.) that sits between the entity and the Ultimate
+          Beneficial Owner in the ownership structure.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">^ Key controller:</div>
+      </div>
+
+      <ul>
+        <li>
+          Key Controller is an individual appointed to exercise direct control
+          over the entity, by participating in the governance or
+          senior/executive activities of the business. Key Controller typically
+          sets the strategic direction of the entity and exercises control
+          jointly with other directors or senior executives. It can be a
+          corporate entity. Key Controllers include: • Chief Executive Officer
+          (CEO) Managing Director• Chairman of the Audit/Remuneration/Risk
+          Committee
+        </li>
+      </ul>
+      <ul class="slds-list_dotted">
+        <li>Chief Financial Officer (CFO)/Head of Finance</li>
+        <li>Chief Operating Officer (COO)/Head of Operations</li>
+        <li>Managing Partner</li>
+        <li>Chairman/Deputy Chairman of the Board</li>
+        <li>Authorised Signatory with sole signing authority</li>
+        <li>Nominee</li>
+        <li>Powers of Attorney</li>
+      </ul>
+
+      <ul class="mt_20">
+        <li>
+          # Direct Appointee Direct Appointee is an individual authorised under
+          an executed instrument of the entity to act on its behalf with respect
+          to the banking relationship, and to appoint authorised signatories or
+          delegate authority to others to represent the business in limited
+          circumstances, e.g. the Company secretary. Direct Appointee is
+          typically appointed by the Board of Directors or Key Controllers. It
+          can be a corporate entity.
+        </li>
+      </ul>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" type="String" label="Title of error"/>
+            <property name="subtitle" type="String" label="Subtitle of error"/>
+            <property name="context" type="String" label="Context where error will be used"/>
+            <property name="showMultiButtons" type="Boolean" label="1 or 2 buttons"/>
+            <property name="primaryButtonText" type="String" label="Primary button label"/>
+            <property name="primaryButtonLink" type="String" label="Primary button link"/>
+            <property name="secondaryButtonText" type="String" label="Secondary button label"/>
+            <property name="secondaryButtonLink" type="String" label="Secondary button link"/>
+            <property name="navPage" type="String" label="Community page for nav service"/>
+            <property name="imageName" type="String" label="Name of icon image to show"/>
+            <property name="requiresLogout" type="Boolean" label="Will the page require access to logout url"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

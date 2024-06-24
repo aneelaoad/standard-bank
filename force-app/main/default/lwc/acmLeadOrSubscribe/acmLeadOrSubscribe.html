@@ -1,0 +1,37 @@
+<template>
+    <template lwc:if={isLead}>
+        <div class="lead-subscribe-btn lead-btn">
+            <c-cmn-button variant="brand" class="w300" label="Register Interest" onclick={showModal}
+                ></c-cmn-button>
+        </div>
+    </template>
+
+    <template lwc:if={isSubscription}>
+        <div class="lead-subscribe-btn subscribe-btn">
+            <c-acm-api-subscribe-button label="GET ACCESS" title="GET ACCESS"
+                page-url="subscribe"></c-acm-api-subscribe-button>
+        </div>
+    </template>
+    <template lwc:if={isBoth}>
+        <div class="lead-subscribe-btn lead-btn">
+            <c-cmn-button variant="brand" w-class="w300" label="Register Interest" onclick={showModal}
+                ></c-cmn-button>
+        </div>
+        <div class="lead-subscribe-btn subscribe-btn">
+            <c-acm-api-subscribe-button label="GET ACCESS" title="GET ACCESS"
+                page-url="subscribe"></c-acm-api-subscribe-button>
+        </div>
+    </template>
+
+
+    <template lwc:if={registerInterest}>
+        <div class="cover">
+            <div class="flow-modal" data-id="downloadCertificate">
+                <span class="close" onclick={closeModal}><img src='{close}'></span>
+                <lightning-flow flow-api-name='ACM_Register_Interest' flow-input-variables={inputVariables}>
+                </lightning-flow>
+            </div>
+            <a target="_blank" class="modal-button download-done" onclick={closeModal}>Done</a>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property type="String" name="sbgFilterIcon" label="Filter image URL" default="/sbg-filters.svg" />
+            <property name="filterHeading1" type="String" label="Filter Heading 1" description="Heading for Filter Group 1" />
+            <property name="filterHeading2" type="String" label="Filter Heading 2" description="Heading for Filter Group 2" />
+            <property name="filterHeading3" type="String" label="Filter Heading 3" description="Heading for Filter Group 3" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

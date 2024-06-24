@@ -1,0 +1,82 @@
+<!--
+  @description       : LWC to show or create a new ChangeRequest
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-06-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_container">
+        <p class="light_titles">{meeting.Name}</p>
+        <div class="v1_div_information">
+            <p>{meeting.Location}</p>
+            <p>{meeting.Date}</p>
+            <p>{meeting.Time}</p>
+        </div>
+
+        <template if:true={haveContacts}>
+            <div class="v1_div_relativeContacts">
+                <div class="v1_div_prettyContacts">
+                    <template for:each={contactsToShow} for:item="c">
+                        <div key={c.Id} class="v1_div_imgContact">
+                            <img class={c.style} src={c.Img}></img>
+                        </div>
+                    </template>
+                </div>
+
+                <template if:true={restContacts}>
+                    <div class="v1_div_prettyContacts2">
+                        <div class="v1_div_restContacts">
+                            <h1>+{restContacts}</h1>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <div>
+            <label class="label">{labels.Subject}</label>
+            <br>
+            <template if:true={hasError.Subject}>
+                <lightning-input class="error" type="text" name="subject" variant="label-hidden" onblur={handleInputChange} placeholder={labels.TypeSubject}></lightning-input>
+            </template>
+            <template if:false={hasError.Subject}>
+                <lightning-input type="text" name="subject" variant="label-hidden" onblur={handleInputChange} value={request.Subject} placeholder={labels.TypeSubject}></lightning-input>
+            </template>
+        </div>
+        <div>
+            <label class="label">{labels.Reason}</label>
+            <br>
+            <template if:true={hasError.Reason}>
+                <lightning-textarea class="error" name="reason" variant="label-hidden" onblur={handleInputChange} placeholder={labels.TypeReason}></lightning-textarea>
+            </template>
+            <template if:false={hasError.Reason}>
+                <lightning-textarea name="reason" variant="label-hidden" onblur={handleInputChange} value={request.Reason} placeholder={labels.TypeReason}></lightning-textarea>
+            </template>
+        </div> 
+        <div class="v1_div_double">
+            <label class="label">{labels.ProposedTime}</label>
+            <label class="label"></label>
+            <template if:true={hasError.DateRequest}>
+                <input class="error" type="date" name="dateRequest" onblur={handleInputChange} value={request.DateRequest}></input>
+            </template>
+            <template if:false={hasError.DateRequest}>
+                <input type="date" name="dateRequest" onblur={handleInputChange} value={request.DateRequest}></input>
+            </template>
+            <template if:true={hasError.TimeRequest}>
+                <input class="error" type="time" name="timeRequest" onblur={handleInputChange} value={request.TimeRequest}></input>
+            </template>
+            <template if:false={hasError.TimeRequest}>
+                <input type="time" name="timeRequest" onblur={handleInputChange} value={request.TimeRequest}></input>
+            </template>
+        </div>
+    </div>
+
+    <div class="bottom_button">
+        <button class="custom-full-button" onclick={submitRequest}>{buttonText}</button>
+    </div>
+    <div class="relleno"></div>
+</template>

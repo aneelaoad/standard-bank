@@ -1,0 +1,34 @@
+<!--
+  @description       : 
+  @author            : Mahlatse Tjale
+  @group             : 
+  @last modified on  : 10-18-2023
+  @last modified by  : Sibonelo Ngcobo
+  Modifications Log
+  Ver   Date         Author           Modification
+  1.0   07-27-2023   Mahlatse Tjale   Initial Version
+-->
+<template>
+    <c-aob_internal_comp_form-header  title='Application Complete'
+            sub-title="The application is complete. Further information will be sent to the customer/s via email">
+    </c-aob_internal_comp_form-header>
+    <div class="slds-theme--shade slds-p-left_xx-large slds-p-vertical_medium slds-m-top_large">
+        <p class="title">Next Steps</p>
+    </div>
+    <div class="slds-m-left_xx-large slds-m-top_xx-large">
+        <p class="slds-m-bottom_medium assign">Assign and/or explain to the customer:</p>
+        <ul class="slds-m-left_large">
+            <li>- {labels.NextSteps1}</li>
+            <li>- {labels.NextSteps2}</li>
+            <li>- {labels.NextSteps3}</li>
+            <li>- {labels.NextSteps4}</li>
+            <li>- {labels.NextSteps5}</li>
+        </ul>
+    </div>
+    <div class="slds-theme--shade button-container slds-m-top_xx-large">
+        <lightning-button
+            class="slds-m-left_large" variant="brand" label="Complete" title="Complete"
+            onclick={completeApplication}>
+        </lightning-button>
+    </div>  
+</template>

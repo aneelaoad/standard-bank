@@ -1,0 +1,3 @@
+@import 'c/cmnCssLibrary';
+
+.separator { border-bottom: 1px solid var(--separatorColor, --gray-dark-color); }

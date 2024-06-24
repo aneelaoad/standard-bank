@@ -1,0 +1,89 @@
+<!--
+  @description       : Lwc with the event accomodation info
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-15-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_container">
+        <template if:true={haveAccommodation}>
+            <template for:each={hotelsData} for:item="hotel">
+                <div key={hotel.Id}>
+                    <div class="v1_div_image">
+                        <img src={hotel.ImageHotel}/>
+                        <div class="arrow-up"></div>
+                        <div class="v1_div_iconsOnImage">
+                            <template if:true={hotel.FullAddress}>
+                                <lightning-icon size="small" icon-name="utility:checkin" alternative-text={labels.FullAddress} title={labels.FullAddress} onclick={hotel.clickAddress} name={hotel.Id}></lightning-icon>
+                            </template>
+                            <template if:false={hotel.FullAddress}>
+                                <div class="v1_div_gridRelleno"></div>
+                            </template>
+                            <template if:true={hotel.PhoneNumber}>
+                                <lightning-icon size="small" icon-name="utility:call" alternative-text={labels.PhoneNumber} title={labels.PhoneNumber} onclick={hotel.clickPhoneNumber} name={hotel.Id}></lightning-icon>
+                            </template>
+                            <template if:false={hotel.PhoneNumber}>
+                                <div class="v1_div_gridRelleno"></div>
+                            </template>
+                            <template if:true={hotel.Email}>
+                                <lightning-icon size="small" icon-name="utility:email" alternative-text={labels.Email} title={labels.Email} onclick={hotel.clickEmail} name={hotel.Id}></lightning-icon>
+                            </template>
+                            <template if:false={hotel.Email}>
+                                <div class="v1_div_gridRelleno"></div>
+                            </template>
+                        </div>
+        
+                        <div class="v1_div_informationOnImage">
+                            <template if:true={hotel.FullAddressActive}>
+                                <div class="v1_div_information">
+                                    <div class="v1_div_fullAddress">
+                                        {hotel.FullAddress}
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:false={hotel.FullAddressActive}>
+                                <div class="v1_div_gridRelleno"></div>
+                            </template>
+        
+                            <template if:true={hotel.PhoneNumberActive}>
+                                <div class="v1_div_information">{hotel.PhoneNumber}</div>
+                            </template>
+                            <template if:false={hotel.PhoneNumberActive}>
+                                <div class="v1_div_gridRelleno"></div>
+                            </template>
+        
+                            <template if:true={hotel.EmailActive}>
+                                <div class="v1_div_information">{hotel.Email}</div>
+                            </template>
+                            <template if:false={hotel.EmailActive}>
+                                <div class="v1_div_gridRelleno"></div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="v1_div_card">
+                        <p class="light_titles v1_title">{hotel.Hotel}</p>
+                        <br/>
+                        <p class="v1_p_subTitle">{hotel.Location}</p>
+                        <br/><br/>
+                        <lightning-badge class="v1_badge_customBadge" label={hotel.Dates}></lightning-badge>
+                        <lightning-badge class="v1_badge_customBadge" label={hotel.Guests}></lightning-badge>
+                        <lightning-badge class="v1_badge_customBadge" label={hotel.Nights}></lightning-badge>
+                    </div>
+                    <div class="v1_div_relleno"></div>
+                </div>
+            </template>
+        </template>
+
+        <template if:false={haveAccommodation}>
+            <c-eap-shield-message message={labels.NoAccommodation} is-over-button="true"></c-eap-shield-message>
+        </template>
+    
+        <div class="v1_div_addReservation">
+            <button title={labels.AddReservation} class="custom-full-button" onclick={addReservation}>{labels.AddReservation}</button>
+        </div>
+    </div>
+</template>

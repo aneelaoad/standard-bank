@@ -1,0 +1,127 @@
+<!--
+  @description       : 
+  @author            : chandu.velmajala@standardbank.co.za
+  @group             : 
+  @last modified on  : 19 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+    	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div class="slds-grid aob_form_row slds-gutters_large slds-wrap">
+        <!-- 1st input -->
+        <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-small-size_1-of-1">
+            <label class="aob_screen-field-label slds-m-bottom_none">{label.AOB_CountryofTax}</label>
+            <c-aob_comp_acpicklist sapfield="TAX_TYPE" required={required} name="country" values={options}
+                data-type="firstCountry" missing-value-message="Please fill this field" placeholder="Please select"
+                onchange={firstGenericTaxOnChange} onblur={firstGenericTaxOnChange}
+                value={inputsToDispatchFirst.firstCountry}></c-aob_comp_acpicklist>
+
+            <div if:false={hasNoTaxAndSecondEle} class="slds-m-bottom_small">
+                <label class="aob_blue_clickable_text" data-intent="navigational"
+                data-scope={adobeDataScopeApp} data-text={adobeDataTextBack} onclick={addTaxCountry}>
+                    <img width="35" alt="Lock icon" src={addIMG}>&nbsp; {label.	AOB_Addadditionalcountry}</label>
+            </div>
+        </div>
+
+        <!-- 2nd input -->
+        <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-small-size_1-of-1">
+            
+            <div>
+                <label class="aob_screen-field-label slds-m-bottom_none">{label.AOB_Foreigntaxnum}</label>
+               
+            </div>
+
+            <lightning-input data-type="firstTaxNumber" 
+                placeholder="e.g. 0123456789" type="text" name="taxNumber" data-id="taxNumber" value={taxNumberValue}
+                variant="label-hidden" required={taxNumberRequired} disabled={hasNoTaxNumber}
+                onchange={firstTaxNumberOnChange} onblur={firstTaxNumberOnChange}></lightning-input>
+
+
+
+            <div if:false={hasNoTaxNumber}>
+                <label data-type="hasTaxNumber" class="aob_blue_clickable_text aob_float_right" data-intent="navigational"
+                data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue} onclick={noTaxNumber}>
+                    {label.AOB_Idonothavetaxnum}</label>
+            </div>
+        </div>
+<!-- 3rd input -->
+        <div if:true={hasNoTaxNumber} class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-small-size_1-of-1">
+            <div style="display: flex; justify-content: space-between">
+
+                <label
+                    class="aob_screen-field-label slds-m-bottom_none">{label.AOB_Reasonfortaxnum}</label>
+                <img width="30" data-index={index} data-type="hasTaxNumber" alt="delete" src={closeMG}
+                    class="slds-float_right adjustImg" onclick={deleteReasonInput}>
+
+            </div>
+            <c-aob_comp_acpicklist sapfield="CRSTD_TAXRS" required={required} name="taxReason" data-id="taxReason"
+                data-type="firstReason" missing-value-message="Please fill this field" placeholder="Please select"
+                index={index} onchange={firstGenericTaxOnChange} onblur={firstGenericTaxOnChange}
+                value={inputsToDispatchFirst.firstReason}>
+            </c-aob_comp_acpicklist>
+
+         
+
+
+            <div if:false={hasSecondElem} class="slds-m-bottom_small">
+                <label class="aob_blue_clickable_text" onclick={addTaxCountry}>
+                    <img width="35" alt="Lock icon" src={addIMG}>&nbsp; {label.AOB_Addadditionalcountry}</label>
+            </div>
+        </div>
+
+       
+
+      
+
+    </div>
+
+    <div if:true={hasSecondElem} class="slds-grid aob_form_row slds-gutters_large slds-wrap">
+        <!-- 1st input -->
+        <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-small-size_1-of-1">
+            <label class="aob_screen-field-label slds-m-bottom_none">{label.AOB_CountryofTax}</label>
+            <c-aob_comp_acpicklist sapfield="TAX_TYPE" required={secondRequired} name="country" values={options}
+                data-type="secondCountry" missing-value-message="Please fill this field" placeholder="Please select"
+                onchange={secondGenericTaxOnChange} onblur={secondGenericTaxOnChange}
+                value={inputsToDispatchSecond.secondCountry}></c-aob_comp_acpicklist>
+        </div>
+
+        <!-- 2nd input -->
+        <div class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-small-size_1-of-1">
+            <div style="display: flex; justify-content: space-between">
+                <label class="aob_screen-field-label slds-m-bottom_none">{label.AOB_Foreigntaxnum}</label>
+                <img width="30" alt="delete" src={closeMG} class="slds-float_right adjustImg" onclick={deleteTaxInput}>
+
+            </div>
+            <lightning-input data-type="secondTaxNumber"
+                placeholder="e.g. 0123456789" type="text" name="taxNumber" data-id="taxNumber"
+                value={secondTaxNumberValue} variant="label-hidden" required={secondTaxNumberRequired}
+                disabled={secondItemHasNoTaxNumber} onchange={secondTaxNumberOnChange} onblur={secondTaxNumberOnChange}>
+            </lightning-input>
+            <div if:false={secondItemHasNoTaxNumber} class=" ">
+                <label data-type="hasTaxNumber" class="aob_blue_clickable_text aob_float_right" data-intent="navigational"
+                data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue}
+                    onclick={secondItemNoTaxNumber}>
+                    {label.AOB_Idonothavetaxnum}</label>
+            </div>
+        </div>
+
+        <!-- 3rd input -->
+      <div if:true={secondItemHasNoTaxNumber} class="aob_form_input slds-col slds-m-top_small slds-size_1-of-2 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-small-size_1-of-1">
+            <div style="display: flex; justify-content: space-between">
+                <label
+                    class="aob_screen-field-label slds-m-bottom_none">{label.AOB_Reasonfortaxnum}</label>
+                <img width="30" data-index={index} data-type="hasTaxNumber" alt="delete" src={closeMG}
+                    class="slds-float_right adjustImg" onclick={secondItemDeleteReasonInput}>
+
+            </div>
+            <c-aob_comp_acpicklist sapfield="CRSTD_TAXRS" required={secondRequired} name="taxReason" data-id="taxReason"
+                data-type="secondReason" missing-value-message="Please fill this field" placeholder="Please select"
+                index={index} onchange={secondGenericTaxOnChange} onblur={secondGenericTaxOnChange}
+                value={inputsToDispatchSecond.secondReason}>
+            </c-aob_comp_acpicklist>
+        </div>
+
+       
+    </div>
+</template>

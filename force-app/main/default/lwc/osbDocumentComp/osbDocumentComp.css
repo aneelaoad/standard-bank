@@ -1,0 +1,45 @@
+.body {
+    color: #0A2240;
+    margin-bottom: -170px;
+    height: 1500px;
+}
+
+.iframe{
+    width: 100%;
+    min-height: 1500px;
+}
+
+.terms__background {
+    padding: 48px 180px;
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.25);
+}
+
+.terms__title {
+    font-size: 52px;
+    font-weight: 200;
+    letter-spacing: 2.17px;
+}
+
+.terms__subtitle-new {
+    margin-top: 24px;
+}
+
+.terms__subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.58px;
+    margin-bottom: 8px;
+}
+
+.terms__content {
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.58px;
+    margin-top: 8px;
+}

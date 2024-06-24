@@ -1,0 +1,39 @@
+<template>
+    <div class="ContactHolder">
+        <div class="InfoHolder">
+            <div>
+                <div class="TitleHolder">
+                    {title}
+                </div>
+                <div class="OperatingHours">
+                    Our operating hours are:
+                    <br />Monday-Friday: 08:00 to 17:00
+                </div>
+            </div>
+            <div class="DescriptionHolder">
+                <template lwc:if={addtionaltitle}>
+                    {addtionaltitle}:
+                </template>
+                <div class="EmailHolder">
+                    <template lwc:if={phonenumber}>
+                        <div class="EmailText">
+                            Phone us
+                        </div>
+                        <div class="EmailValue">
+                            <lightning-formatted-phone value={phonenumber} hide-icon></lightning-formatted-phone>
+                        </div>
+                    </template>
+                    <template lwc:if={email}>
+                        <div class="EmailText">
+                            Email us
+                        </div>
+                        <div class="EmailValue">
+                            <lightning-formatted-email value={email} hide-icon></lightning-formatted-email>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>

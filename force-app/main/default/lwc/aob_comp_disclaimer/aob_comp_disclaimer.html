@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : mbourhi@salesforce.com
+  @group             : 
+  @last modified on  : 19 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+  <c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+  <div class="aob_disclaimer_container aob_grid aob_grid_sm">
+    <img alt="Lock icon" src={lockIMG}>
+    <p class="aob_screen-section-paragraph slds-m-left_medium">
+      {label.AOB_disclaimer}
+    </p>
+  </div>
+</template>

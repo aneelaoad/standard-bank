@@ -1,0 +1,57 @@
+<template>
+  <div class="slds-form-element borderSelect">
+    <div class="slds-form-element__control">
+      <div class="slds-combobox_container">
+        <div
+          class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-picklist multi-select-combobox__dropdown"
+        >
+          <div class="slds-input-has-icon slds-input-has-icon_right" role="none">
+            <input
+              class="slds-combobox__input multi-select-combobox__input signUp__inputs"
+              aria-controls="multi-pick-list-dropdown-items"
+              role="textbox"
+              type="text"
+              value={selectedItems}
+              required={required}
+              disabled={isDisabled}
+              readonly
+            />
+            <span
+              class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right multi-select-combobox__icon"
+              title="Click to open the dropdown"
+            >
+              <lightning-icon
+                icon-name="utility:down"
+                size="xx-small"
+                alternative-text="Click here"
+                class="slds-icon slds-icon--selected slds-icon--xx-small slds-icon-text-default dropIcon"
+              >
+              </lightning-icon>
+            </span>
+          </div>
+          <div
+            class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid multi-select-combobox__listbox"
+            role="listbox"
+          >
+            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+              <template for:each={currentOptions} for:item="item">
+                <c-osb-multi-select-combo-box-item-lwc
+                key={item.value} item={item}
+                onchange={handleChange}
+                ></c-osb-multi-select-combo-box-item-lwc>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div lwc:if={hasPillsEnabled}>
+      <lightning-pill-container
+        if:true={isVisible}
+        items={selectedOptions}
+        variant="bare"
+        onitemremove={handleRemove}
+      ></lightning-pill-container>
+    </div>
+  </div>
+</template>

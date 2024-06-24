@@ -1,0 +1,9 @@
+<template>
+    <div if:true={isVisible} style={tooltipPosition} class={wrapperClassList}>
+        <span class="tooltip-icon" style={setIcon}></span>
+        <div class="tooltip-text">
+            <span class="tooltip-title">{title}</span>
+            <span class="tooltip-content">{message}</span>
+        </div>
+    </div>
+</template>

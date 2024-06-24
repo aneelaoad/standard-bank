@@ -1,0 +1,45 @@
+<!--
+  @description       : Lwc with the event description info
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-10-2021   TCK      Initial Version
+-->
+<template>
+    <div class="v1_div_background">
+        <div class="v1_div_firstCard">
+            <lightning-card>
+                <div class="v1_div_event">
+                    <h2 class="v1_h2_headingCard light_titles">{todayEvent.Subject}</h2>
+                    <div class="v1_div_eventData">
+                        <div class="v1_div_icon">
+                            <template if:true={todayEvent.Online}>
+                                <img name={labels.Website} src={iconGlobe}>
+                            </template>
+                            <template if:false={todayEvent.Online}>
+                                <img name={labels.Location} src={iconLocation}>
+                            </template>
+                        </div>
+                        <div class="v1_div_locationTime">
+                            <p>{todayEvent.Location}</p>
+                            <p>{todayEvent.Venue}</p>
+                            <p>{todayEvent.StartTime} - {todayEvent.EndTime}</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="v1_div_img">
+                    <img src={todayEvent.Img}/>
+                </div>
+
+                <div class="v1_div_descriptionContainer">
+                    <div class="v1_div_description">{todayEvent.Information}</div>
+                </div>
+            </lightning-card>
+        </div>
+    </div>
+    <div class="relleno"></div>
+</template>

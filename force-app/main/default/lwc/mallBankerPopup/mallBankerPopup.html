@@ -1,0 +1,39 @@
+<template>
+  <div class="contact-banker-popup-closed" onclick={togglePopup}>
+    <img src={userImage} />
+  </div>
+  <div class="contact-banker-popup-open">
+    <div class="banker-popup-content-wrapper">
+      <div class="banker-popup-open-content">
+        <span class="bank-logo">
+          <img src={bankLogo} />
+        </span>
+        <span class="banker-popup-text-wrapper">
+          <p class="banker-popup-text">
+            Need assistance?<br />Ask your banker directly
+          </p>
+        </span>
+        <span class="close" onclick={togglePopup}></span>
+      </div>
+      <c-mall-cmn-button
+        variant="mall"
+        label={contactBanker}
+        title={contactBanker}
+        w-class="wAuto"
+        onclick={openModal}
+      >
+      </c-mall-cmn-button>
+    </div>
+  </div>
+
+  <c-mall-modal
+    active={isShowModal}
+    header={bankerHeading}
+    variant="small"
+    onclose={hideModalBox}
+  >
+    <div slot="content" class="slds-modal__content">
+      <c-mall-contact-your-banker></c-mall-contact-your-banker>
+    </div>
+  </c-mall-modal>
+</template>

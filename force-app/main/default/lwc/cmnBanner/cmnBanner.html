@@ -1,0 +1,36 @@
+<template>
+
+  <section class={classList}>
+    <div class="content-section slds-col slds-size_1-of-1 slds-medium-size_7-of-12 slds-large-size_5-of-12 slds-order_2 slds-medium-order_1 slds-large-order_1 ">
+      <div class="cmn-banner-text-container base-spacing">  
+        <div class="title-container">
+          <h1 class="title"><lightning-formatted-rich-text class="heading"  value={title} disable-linkify="true"></lightning-formatted-rich-text></h1>
+        </div>
+        <div class="title-gradient title-gradient--banner"></div>
+        <div class="slds-grid slds-wrap slds-grid_vertical-stretch content">
+          <div class="slds-col slds-size_1-of-1 content-container">    
+            <lightning-formatted-rich-text class="heading-Content" value={content} disable-linkify="true"></lightning-formatted-rich-text>
+          </div>
+          <template if:true={buttonLabel}>
+            <div class="slds-col slds-size_1-of-1 button-container">
+              <c-cmn-button
+                interaction-intent="informational"
+                interaction-scope="hero banner"
+                interaction-type="button"
+                action={navigateToUrl}
+                destination-url={destinationUrl}
+                variant="brand"
+                label={buttonLabel}
+                title={buttonLabel}
+                w-class="w300"
+              ></c-cmn-button>
+            </div>
+          </template>
+          </div>
+      </div>
+    </div>
+    <div style={backgroundImage} class="slds-col slds-size_1-of-1 slds-medium-size_5-of-12 slds-large-size_7-of-12 slds-order_1 slds-medium-order_2 slds-large-order_2 banner-image"></div>
+
+  </section>
+  <div if:true={isLastSlide} class="last-slide">&nbsp;</div>
+</template>

@@ -1,0 +1,140 @@
+.ui-text {
+    font-size: 14px;
+    line-height: 22px;
+    color: #0a2240;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 1224px;
+}
+
+.THIS button.btn-signin-options .label {
+    color: #0033aa;
+}
+
+.btn-signin-options {
+    background: #ededed;
+    border: none;
+    margin-bottom: 16px;
+}
+
+.THIS button.ui_button {
+    font-family: var(--FONT-FAMILY);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+    height: 50px;
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.3);
+    border: 1px solid transparent;
+    text-shadow: none;
+}
+
+
+.ui-modal{
+    width: 500px;
+    box-shadow: 0 6px 25px 0 rgba(0,0,0,0.1);
+    background: #ffffff;
+    padding: 40px 40px 48px 40px;
+    border-radius: 4px;
+    overflow-y:auto;
+    top: 76rem;
+    position: relative;
+}
+
+.modalSection{
+    position:absolute!important;
+}
+
+
+.modal-container{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+.teaser {
+    margin: 0 auto;
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.teaser__title {
+    color: #3C4B6C;
+    font-size: 57px;
+    font-weight: 200;
+    line-height: 57px;
+    margin-bottom: 40px;
+}
+
+.teaser__columns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.teaser__columns--reverse > div:first-child {
+    order: 1;
+}
+
+.teaser__content {
+    color: #858D9D;
+    font-size: 22px;
+    line-height: 32px;
+}
+
+.teaser__button {
+    align-self: flex-start;
+    width: 296px;
+}
+
+@media(max-width: 480px) {
+    .teaser__title {
+        text-align: center;
+    }
+
+    .teaser__columns > div {
+        width: 100%;
+    }
+
+    .teaser__button {
+        margin: auto;
+    }
+}
+
+@media(max-width: 1023px) {
+    .teaser {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .teaser__image {
+        display: none;
+    }
+}
+
+@media(min-width: 1024px) and (max-width: 1200px) {
+    .teaser__button {
+        margin-left: 20px;
+    }
+}
+
+@media(min-width: 1280px) {
+    .teaser {
+        width: 66.667%;
+    }
+}

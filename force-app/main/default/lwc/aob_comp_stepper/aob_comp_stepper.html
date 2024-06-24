@@ -1,0 +1,40 @@
+<!--
+  @description       : 
+  @author            : mbourhi@salesforce.com
+  @group             : 
+  @last modified on  : 03-30-2021
+  @last modified by  : aouarti@salesforce.com
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0   11-02-2020   mbourhi@salesforce.com   Initial Version
+  1.1   11-12-2020   aouarti@salesforce.com   Component made dynamique
+  1.2   03-30-2021   aouarti@salesforce.com   fix/DBP-2394
+-->
+<template>
+    <div  class="aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius">
+        <h5 class="aob_screen-header-text slds-align_absolute-center">{productName} APPLICATION</h5>
+        <div class="slds-p-around--medium">
+            <div>
+                <div class="slds-grid aob_grid_sm slds-grid_align-spread slds-p-bottom_x-small"
+                    id="progress-bar-label-id-1">
+                    <span class="aob_progress-bar-title">{currentScreen}</span>
+                    <span aria-hidden="true"
+                        class="aob_stepper_step_number">{currentScreenNum}-{numOfScreens}
+                    </span>
+                </div>
+                <div class="slds-progress-bar" aria-valuemin="0%" aria-valuemax="100%"
+                    aria-valuenow={currentProgressPercentage} aria-labelledby="progress-bar-label-id-1" role="progressbar">
+                    <span class="slds-progress-bar__value" style={getProgressBarStyle}>
+                        <span class="slds-assistive-text">test {currentProgressPercentage}</span>
+                    </span>
+                </div>
+            </div>
+            <template if:true={previousScreen}>
+                <div class="aob_progress-bar-sub-title slds-m-top--x-small">
+                    <img class="aob_stepper_check" alt="Greeen check Icon" src={greenCheckIcon} width="30">
+                    <span class="slds-m-left_xx-small">{previousScreen}</span>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

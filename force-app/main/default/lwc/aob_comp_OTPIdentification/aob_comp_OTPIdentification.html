@@ -1,0 +1,88 @@
+<!--
+  @description       : SFP-27748
+  @author            : devi.ravuri@salesforce.com 
+  @group             : 
+  @last modified on  : 19 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+    	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div if:false={isMobileDevice}
+        class=" headingcss set-padding slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius card-padding">
+        <c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
+        <div class="Enter-One-time-PIN- Desktop-Module-Subtitle-Dark-2">
+            {label.AOB_ZA_EnterOTP}
+        </div>
+        <div class="Lets-keep-you-safe Desktop-Entrance-text-Dark-2">
+            {label.AOB_ZA_LetsKeepYouSafe}
+        </div>
+        <div class="OTP_DSK"></div>
+        <div class="Enter-the-OTP-weve Desktop-Entrance-text-Dark-2">
+            {label.AOB_ZA_EnterTheotp} <br />
+            {displayphonefield}
+        </div>
+        <div class="FIRST-NAME-Copy Desktop-Entrance-text-Dark-2">
+            <lightning-input class="slds-size_medium" label="THIS IS FOR YOUR SECURITY" placeholder="Enter OTP"
+                value={OTPsecurity} onchange={contactChangeVal} message-when-value-missing={message}></lightning-input>
+            <div class="aob_error_input_label slds-p-bottom_x-small" if:true={showError}>{otpError} </div>
+            <div class="aob_error_input_label" if:true={showOTPAttemps}>{otpAttemptsMessage} </div>
+        </div>
+        <div class="Didnt-get-your-OTP Desktop-Entrance-text-Dark-2">
+            {label.AOB_ZA_DidntGetOtp} <br />
+            {label.AOB_ZA_SendToCellPhone}
+        </div>
+        <div class="OTP_DSK"></div>
+        <div
+            class=" set-button aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1 aob_margin_horizontal_auto slds-m-vertical_small">
+            <lightning-button data-id="link_content" data-intent="informational" data-scope={adobeDataScopeApp}
+                data-text={adobeDataTextBack}
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                variant="neutral" label="RESEND" title="RESEND" onclick={resendOTP} disabled={disableResend}>
+            </lightning-button>
+            <lightning-button data-id="link_content" data-intent="confirmational" data-scope={adobeDataScopeApp}
+                data-text={adobeDataTextContinue}
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                variant="brand" label="SUBMIT" title="SUBMIT" onclick={continuetonextpage}></lightning-button>
+        </div>
+    </div>
+    <div if:true={isMobileDevice} class="headingcss set-padding slds-p-vertical_x-large ao-border-radius card-padding">
+        <div class="Enter-One-time-PIN- Desktop-Module-Subtitle-Dark-2">
+            {label.AOB_ZA_EnterOTP}
+        </div>
+        <div class="Lets-keep-you-safe Desktop-Entrance-text-Dark-2">
+            {label.AOB_ZA_LetsKeepYouSafe}
+        </div>
+        <hr class="OTP_DSK">
+        <div class="Enter-the-OTP-weve Desktop-Entrance-text-Dark-2">
+            {label.AOB_ZA_EnterTheotp}<br />
+            {displayphonefield}
+        </div>
+        <div class="FIRST-NAME-Copy Desktop-Entrance-text-Dark-2">
+            <lightning-input class="" label="THIS IS FOR YOUR SECURITY" placeholder="Enter OTP" value={OTPsecurity}
+                onchange={contactChangeVal}></lightning-input>
+                <div class="aob_error_input_label slds-p-bottom_x-small" if:true={showError}>{otpError} </div>
+            <div class="aob_error_input_label" if:true={showOTPAttemps}>{otpAttemptsMessage} </div>
+        </div>
+        <div class="Didnt-get-your-OTP Desktop-Entrance-text-Dark-2">
+            {label. AOB_ZA_DidntGetOtp} <br />
+            {label.AOB_ZA_SendToCellPhone} 
+        
+        </div>
+        <hr class="OTP_DSK">
+        <div
+            class="aob_card_container set-button aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1 aob_margin_horizontal_auto slds-m-vertical_small">
+            <lightning-button data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+                data-text={adobeDataTextContinue}
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                variant="brand" label="SUBMIT" title="SUBMIT" onclick={continuetonextpage}></lightning-button>
+            <lightning-button
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+                data-text={adobeDataTextBack} variant="neutral" label="RESEND" title="RESEND" onclick={backToHome}>
+            </lightning-button>
+        </div>
+    </div>
+    
+    <c-aob_comp_error technical={technicalerror}  content={errorMessage} onretry={retryInitiateAPI}></c-aob_comp_error>
+</template>

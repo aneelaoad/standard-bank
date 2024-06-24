@@ -1,0 +1,21 @@
+<!--
+  @description       : LWC page for archive detail 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-21-2021   TCK   Initial Version
+-->
+<template>
+  <template if:true={loading}>
+    <c-eap-spinner></c-eap-spinner>
+  </template>
+
+  <div class="content">
+    <c-eap-header-detail title={eventName}></c-eap-header-detail>
+    <c-eap-archive-detail-content event-id={eventId} oneventnamechange={handleEventNameChange} onloaded={hasLoaded} onreload={needToLoad}></c-eap-archive-detail-content>
+    <c-eap-footer isfixed="true"></c-eap-footer>
+  </div>
+</template>

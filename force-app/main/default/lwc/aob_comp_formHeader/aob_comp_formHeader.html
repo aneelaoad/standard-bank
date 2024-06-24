@@ -1,0 +1,23 @@
+<!--
+  @description       : 
+  @author            : chandu.velmajala@standardbank.co.za
+  @group             : 
+  @last modified on  : 19 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+		<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div if:false={showBlock}>
+		<h6 class="aob_form-title slds-align_absolute-center">{title}</h6><br />
+		<h6 class="aob_form-sub-title slds-align_absolute-center">{subTitle}</h6>
+	</div>
+
+	<div if:true={showBlock}>
+		<h6 class="mymob_title slds-m-bottom_large">{label.AOB_PA_Title}</h6>
+		<p class="mymob_subtitle slds-m-bottom_xx-small">{label.AOB_PA_SubTitle}</p>
+		<p class="mymob_content"> {label.AOB_PA_Content2}</p>
+	</div>
+
+
+</template>

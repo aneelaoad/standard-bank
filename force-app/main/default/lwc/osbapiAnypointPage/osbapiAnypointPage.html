@@ -1,0 +1,14 @@
+<template>
+    <template if:true={isImage}>
+        <div class="product-image-container">
+            <img src={image} alt="Product Image" />
+        </div>
+    </template>
+    <template if:false={isImage}>
+        <span class="osbapi-anypoint-page-markdown">
+            <lightning-formatted-rich-text
+                value={html}
+            ></lightning-formatted-rich-text>
+        </span>
+    </template>
+</template>

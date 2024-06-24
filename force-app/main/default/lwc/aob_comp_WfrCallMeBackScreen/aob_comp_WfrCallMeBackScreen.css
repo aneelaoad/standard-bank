@@ -1,0 +1,28 @@
+.aob_screen-title {
+    font-family: BentonSans;
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #3c4b6c;
+}
+
+.aob_screen-text-normal {
+   font-family: BentonSans;
+   font-size: 15px;
+   font-weight: normal;
+   font-stretch: normal;
+   font-style: normal;
+   line-height: 1.33;
+}
+
+.aob_screen-text-lowlight{
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+}

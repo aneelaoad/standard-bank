@@ -1,0 +1,256 @@
+<template>
+    <div class={componentWrapper}>
+        <template if:false={showNoResultMessage}>
+            <div class="filter-container">
+                <template if:false={showNoResultMessage}>
+                    <h2 class="categoryTitle">{categoryTitle}</h2>
+                </template>
+                <!--Filters-->
+                <div class="filters-wrapper">
+                    <div class="filter-dropdown" >
+                        <div class="selected-filter">
+                            {activeTab}
+                        </div>
+                    </div>
+                    <template if:false={showNoResultMessage}>
+                        <div class="category-container-desktop">
+                            <template if:false={showNoResultMessage}>
+                                <div class="responsive-container-desktop">
+                                    <div class="filter-scroll-container category-scroll-container" id="menuTab-1"
+                                        data-id="menu">
+                                        <template for:each={searchOptions} for:item="tab">
+                                            <span key={tab.value} class="filter-tab category-filter">
+                                                <input type="checkbox" name="checkbox" class="filter" id={tab.value}
+                                                    value={tab.value} onchange={handleSearchOptionChange} checked={tab.selected}
+                                                     data-id={tab.value} />
+                                                <label class="filter-label" for={tab.value} data-intent="transactional" data-type="click"
+                                                    data-scope="mall search results" data-id="link_content" data-text={tab.label} data-text-after='search filter'>
+                                                    <span class="filter-label-text">
+                                                        {tab.label}
+                                                    </span>
+                                                </label>
+                                            </span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+
+                        </div>
+
+                    </template>
+                </div>
+            </div>
+        </template>
+        <div class="result-output-container">
+            <div class="product-catalogue-heading">
+               
+                <h2 class="title title--page title-underline theme-colour">{title}</h2>
+                <button class="need-popup-button" onclick={toggleOpen} data-intent="transactional" data-scope="mall search results"
+                    data-id="link_content" data-type="click" data-text="display search filters button">
+                    Filter
+                </button>
+                <div class="category-filter-wrapper" onclick={closeCategoryMenuResponsiveContainer}>
+                    <div class="responsive-container">
+                    </div>
+                </div>
+            </div>
+            <template if:false={showNoResultMessage}>
+                <div class="result-count-feedback--container">
+                    <div class="result-count-feedback">
+                        {resultCountFeedbackMessage}
+                    </div>
+                    <button class="mobile-filter-dropdown--btn" onclick={toggleOpen}>
+                    </button>
+                    <template if:true={showMobileCategories}>
+                        <div class="mobile-categories">
+                            <template for:each={searchOptions} for:item="tab">
+                                <span key={tab.value} class="filter-tab category-filter">
+                                    <input type="checkbox" name="checkbox" class="filter" id={tab.value}
+                                        value={tab.value} onchange={handleSearchOptionChange} checked={tab.selected}
+                                        data-id={tab.value} />
+                                    <label class="filter-label" for={tab.value}
+                                    data-intent="transactional" data-scope="mall search results"
+                                    data-id="link_content" data-type="click" data-text={tab.label} data-text-after="search filter">
+                                        <span class="filter-label-text">
+                                            {tab.label}
+                                        </span>
+                                    </label>
+                                </span>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </template>
+            <template if:false={showNoResultMessage}>
+                <template if:true={results}>
+                    <div class="result-tab-container">
+                        <template for:each={results} for:item="resultType">
+                            <div key={resultType.id} class="group-wrapper">
+                                <input id={resultType.name} name={resultType.name} type="checkbox"
+                                    class="tab-item-checkbox" data-result-type={resultType.name}
+                                    onchange={viewAllResultsByType} />
+                                <label for={resultType.name} class="tab-item-label" data-scope="mall search results" data-type="click"
+                                data-id="link_content" data-text-before="result type" data-text={resultType.name}
+                                data-text-after="tab" data-intent="informational">
+                                    {resultType.name}
+                                </label>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </template>
+            <template if:true={showNoResultMessage}>
+                <div class="no-result-count">
+                    0 results
+                </div>
+                <p class="no-results-message">
+
+                    We couldn't find any result for '{searchTerm}' </br>
+                    Try a different term or browse our categories
+                </p>
+            </template>
+            <template if:false={showNoResultMessage}>
+                <template if:true={results}>
+                    <template for:each={results} for:item="resultType">
+                        <div key={resultType.id} class="result-section">
+                            <template if:true={resultTypeAll}>
+                                <template if:false={resultType.all}>
+                                    <div class="result-heading">
+                                        
+                                        {resultType.name} ({resultType.count})
+                                        <template if:true={resultType.count}>
+                                            <a href="" data-result-type={resultType.name} name={resultType.name}
+                                                onclick={viewAllResultsByType} data-intent="informational" data-scope="mall search results"
+                                                data-id="link_content" data-type="click" data-text-before='search result' data-text={resultType.name} data-text-after="view all link">{viewAllLabel}</a>
+                                        </template>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={resultType.all}>
+                                <template if:true={resultType.showSolutions}>
+                                    <template if:true={resultType.count}>
+                                        <div class="result-container">
+
+                                            <template for:each={resultType.solutions} for:item="solution">
+                                                <div key={solution.id} class="product-item">
+                                                    <a onclick={navigateToSolutionsDetailPage} data-shopname={solution.shopName}
+                                                        class="product-image" data-scope="product search results" data-type="click"
+                                                        data-id="link_content" data-text={solution.title}
+                                                        data-text-after="image" data-intent="navigational" data-url={solution.desktopUrl} data-solutionid={solution.id}>
+                                                        <img src={solution.imageUrl} alt={solution.title} data-service-id={solution.id} data-solutionid={solution.id}>
+                                                    </a>
+                                                    <div class="product-info">
+                                                        <a><span onclick={navigateToSolutionsDetailPage} data-url={solution.desktopUrl} data-text={solution.title} data-shopname={solution.shopName} data-solutionid={solution.id}><b>{solution.title}</b></span></a>
+                                                        <span><lightning-formatted-rich-text value={solution.shortDesc}>
+                                                        </lightning-formatted-rich-text></span>
+                                                        <div class="product-buttons-container">
+                                                            <span class="read-more">
+                                                                <a onclick={navigateToSolutionsDetailPage} data-solutionid={solution.id}
+                                                                    data-shopname={solution.shopName}
+                                                                    data-scope="product search results" data-type="click"
+                                                                    data-id="link_content" data-text={solution.title}
+                                                                    data-text-after="image" data-intent="navigational"
+                                                                >Read more</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                        </div>
+                                    </template>
+                                    <template if:false={resultType.count}>
+                                        <div class="no-result-container">
+                                            <p class="no-items-category no-items-stores">We couldn't find any result for '{searchTerm}' </br>
+                                                Try a different term or browse our categories</p>
+                                        </div>
+                                    </template>
+
+                                </template>
+
+                                <template if:true={resultType.showProducts}>
+                                    <template if:true={resultType.count}>
+                                        <div class="result-container">
+
+                                            <template for:each={resultType.products} for:item="product">
+                                                <div key={product.id} class="product-item">
+                                                    <a onclick={navigateToSolutionDetailsWithServices} data-shopname={product.shopName}
+                                                        class="product-image" data-scope="product search results" data-type="click"
+                                                        data-id="link_content" data-text={product.title}
+                                                        data-text-after="image" data-intent="navigational" data-url={product.desktopUrl} data-solutionid={product.solutionId} data-serviceid={product.id}>
+                                                        <img src={product.imageUrl} alt={product.title} data-service-id={product.id} data-solutionid={product.solutionId} data-serviceid={product.id}>
+                                                        <img src={product.imageUrl} class="offering-logo-img" alt={product.title} data-solutionid={product.solutionId} data-serviceid={product.id}>
+                                                    </a>
+                                                    <div class="product-info">
+                                                        <a><span onclick={navigateToSolutionDetailsWithServices} data-url={product.desktopUrl} data-text={product.title} data-shopname={product.shopName} data-solutionid={product.solutionId} data-serviceid={product.id}><b>{product.title}</b></span></a>
+                                                        <span><lightning-formatted-rich-text value={product.shortDesc}>
+                                                        </lightning-formatted-rich-text></span>
+                                                        <div class="product-buttons-container">
+                                                            <span class="read-more">
+                                                                <a onclick={navigateToSolutionDetailsWithServices}
+                                                                data-shopname={product.shopName}
+                                                                data-scope="product search results" data-type="click"
+                                                                data-id="link_content" data-text={product.title}
+                                                                data-text-after="read more" data-intent="navigational"
+                                                                data-solutionid={product.solutionId}
+                                                                data-serviceid={product.id}
+                                                                >Read more</a>
+                                                            </span>
+                                                            <a href="#" class="apply-now" onclick={onClickProduct}  data-scope="product search results"  data-id="link_content" data-url={product.desktopUrl} data-text={product.title} data-shopname={product.shopName} data-text-after="apply now" data-intent="navigational">Apply now</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </template>
+                                        </div>
+                                    </template>
+                                    <template if:false={resultType.count}>
+                                        <div class="no-result-container">
+                                            <p class="no-items-category no-items-services">We couldn't find any result for '{searchTerm}' </br>
+                                                Try a different term or browse our categories</p>
+                                        </div>
+                                    </template>
+
+                                </template>
+
+                     
+                                <template if:true={resultType.showOthers}>
+                                    <template if:true={resultType.count}>
+                                    <div class="result-container">
+                                        
+                                            <template for:each={resultType.websiteInfo} for:item="page">
+                                                <div key={page.id} class="web-info-item-wrapper">
+                                                    <a href={page.desktopUrl}><h5 class="page-label">{page.title}</h5></a>
+
+                                                    <template if:true={page.shortDesc}>
+                                                        <div class="result-description">
+                                                            <b><lightning-formatted-rich-text value={page.shortDesc}>
+                                                            </lightning-formatted-rich-text></b>
+                                                        </div>
+                                                    </template>
+                                                    <template if:true={page.longDesc}>
+                                                        <div class="result-description">
+                                                            <lightning-formatted-rich-text value={page.longDesc}>
+                                                            </lightning-formatted-rich-text>...
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        </template>
+                                        <template if:false={resultType.count}>
+                                            <div class="no-result-container">
+                                                <p class="no-items-category">We couldn't find any result for '{searchTerm}' </br>
+                                                    Try a different term or browse our categories</p>
+                                            </div>
+                                        </template>
+                                    
+                                </template>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

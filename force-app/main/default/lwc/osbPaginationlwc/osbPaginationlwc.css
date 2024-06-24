@@ -1,0 +1,85 @@
+.PaginationMain {
+  height: auto;
+  width: 100%;
+  min-height: 50rem;
+  display: grid;
+}
+
+.PaginationHolder {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.PaginationContainer {
+  height: 2.125rem;
+  display: inline-flex;
+}
+
+.ChevronHolder {
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.Chevron {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.PageNumbersHolder {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  display: inline-flex;
+  column-gap: 0.25rem;
+}
+
+.NumberCircle {
+  border-radius: 50%;
+  width: 2.125rem;
+  height: 2.125rem;
+  font-size: 0.875rem;
+  background-color: #dfeefd;
+  color: #5c6c80;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.SelectedNumber {
+  background-color: #0062e1;
+  color: #ffffff;
+}
+
+.ButtonDisabled {
+  pointer-events: none;
+  cursor: none;
+}
+
+.ListSection {
+  width: 100%;
+}
+
+.TileHolderWrapper {
+  display: inline-flex;
+  grid-auto-columns: max-content;
+  grid-template-rows: auto;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.TileHolder {
+  height: auto;
+}
+
+.notifications__container {
+  margin-bottom: 5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .TileHolderWrapper {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,43 @@
+<template>
+    
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container ">
+             <c-aob_internal_comp_spinner if:false={isLoaded}></c-aob_internal_comp_spinner>
+            <header class="slds-modal__header">
+                <button class="button slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close" onclick={customHideModalPopup}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"
+                        data-id="link_content" data-intent="navigational" data-text={adobeDataTextBack}
+                        onclick={handleClosePoup}>
+                    </lightning-icon>
+                    <span class="slds-assistive-text">{label.close}</span>
+                </button>
+                <h2 class="card-title slds-hyphenate">{label.SignLegalAgreements}</h2>
+            </header>
+            <div class="content slds-modal__content slds-p-around_medium">
+                <lightning-card>
+                    <lightning-datatable
+                        key-field="key"
+                        data={data}
+                        columns={columns}
+                        hide-checkbox-column="true"
+                        onrowaction={handleButtonClick}
+                    ></lightning-datatable>
+                </lightning-card>
+                <iframe
+                src={url}
+                height="100%"
+                width="100%"
+              ></iframe>
+            </div>
+            <div class="slds-theme--shade button-container" style="color:white;">
+                <lightning-button class="" data-id="link_content" data-intent="navigational" variant="brand" label="SIGN" title="SIGN"
+                    data-text={adobeDataTextContinue} onclick={handleSignMethod} type="button">
+                </lightning-button>
+            </div>
+        </div>
+    </section>
+
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

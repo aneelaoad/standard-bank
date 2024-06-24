@@ -1,0 +1,11 @@
+.financial-summary-container { width: 100%; padding-top: 30px;}
+
+.financial-summary .tittleText { padding-bottom: 20px; font-size: 18px; color: #0033AA;}
+
+.financial-summary_inner { width: 100%; background-color: #f8f8f8; border-radius: 12px; overflow: hidden; padding: 16px 15px  17px 15px;}
+
+.tabSetting { padding: 16px !important; height:  auto !important;}
+
+.tabsInner { padding-top: 10px;}
+
+.tabInfo { width: 100%; min-height: 264px;}

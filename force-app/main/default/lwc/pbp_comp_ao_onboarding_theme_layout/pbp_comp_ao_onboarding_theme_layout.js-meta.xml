@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>PBP AO Theme Layout</masterLabel>
+    <description>A custom layout for Ao Screen pages</description>
+    <targets>
+        <target>lightningCommunity__Theme_Layout</target>
+        <target>lightningCommunity__Page_Layout</target>
+    </targets>
+</LightningComponentBundle>

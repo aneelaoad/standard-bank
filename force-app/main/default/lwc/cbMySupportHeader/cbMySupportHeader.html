@@ -1,0 +1,56 @@
+<template>
+    <lightning-card>
+        <h1>
+            <b style="font-size: 20px; padding-left: 1rem">My Dashboard</b>
+            <lightning-button variant="brand" label="Create Case" title="New Case Creation" onclick={openModal}
+                class="slds-m-left_x-small" style="padding-left: 85rem">
+            </lightning-button>
+        </h1>
+        <template if:true={isModalOpen}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div style="padding-left: 29.5rem;">
+                            <lightning-icon icon-name="action:new_case" size="Medium" class="newCase__icon">
+                            </lightning-icon>
+                        </div>
+                        <h1 class="newCase__title">Create a Case</h1>
+                        <br />
+                        <div class="newCase__subtitle">
+                            <p>We continually strive to deliver great customer service.</p>
+                            <p>Thank you for taking the time to share your input with us</p>
+                        </div>
+                        <div class="rectangle">
+                            <div class="customer-service-for">
+                                Case Creation Form
+                            </div>
+                        </div>
+                        <br />
+                        <lightning-input class="newCase__form--input" name="subjectFieldValue" label="Query Subject"
+                            type="text" onchange={handleChange} placeholder="Enter the subject of your message"
+                            required="True"></lightning-input>
+                        <lightning-input class="newCase__form--input newCase__form--textarea"
+                            style="padding-bottom:6rem;" name="descriptionFieldValue" label="What is this query about?"
+                            type="text" onchange={handleChange} rows="5"
+                            placeholder="Enter your message and be as detailed as possible" required="True">
+                        </lightning-input>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeModal}
+                            title="Cancel">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={createCase}
+                            title="Submit">Submit</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </lightning-card>
+</template>

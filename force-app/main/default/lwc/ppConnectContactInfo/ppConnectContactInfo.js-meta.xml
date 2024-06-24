@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="heading" label="Heading" type="String" default="Contact Us"/>
+            <property name="textOne" label="Text 1" type="String" default="Tshediso Khuzwayo"/>
+            <property name="textTwo" label="Text 2" type="String" default="Head, Partner Relations"/>
+            <property name="imgUrl" label="Image Url" type="String" default="/userImg.jpeg"/>
+            <property name="email" label="Email" type="String" default="support@standardbank.co.za"/>
+            <property name="phone" label="Phone" type="String" default="+27 973829920283"/>
+         </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

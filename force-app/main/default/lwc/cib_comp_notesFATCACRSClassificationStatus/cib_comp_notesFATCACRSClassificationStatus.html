@@ -1,0 +1,281 @@
+<!--
+  @description       : This is used for Notes to FATCA and CRS Classification and Status screen 
+  @author            : Sreekala.Mallavalli@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="container">
+    <article class="aob_page-titles">
+      <h2>Notes to FATCA and CRS Classification and Status</h2>
+    </article>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">US Person</div>
+      </div>
+      <ul>
+        <li>Definition</li>
+        <li>
+          The term US Person means a U.S. citizen or resident individual, a
+          partnership or corporation organised in the United States or under the
+          laws of the United States or any State thereof, a trust if a court
+          within the United States would have authority under applicable law to
+          render orders or judgments concerning substantially all issues
+          regarding administration of the trust, and one or more U.S. persons
+          have the authority to control all substantial decisions of the trust,
+          or an estate of a decedent that is a citizen or resident of the United
+          States.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">
+          Financial Institution (FI) /Financial entity
+        </div>
+      </div>
+      <ul>
+        <li>
+          An entity (or the holding company of an entity) who engages in deposit
+          taking in a banking or similar business, holds assets in custody, is
+          an investment entity, is an insurance company or holding company
+          including an insurance company in its expanded affiliated group, or is
+          a holding company or treasury centre that includes any of the former
+          in its expanded affiliated group.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Foreign Financial Institution (FFI)</div>
+      </div>
+      <ul>
+        <li>
+          FFI under FATCA includes any non-US entity that: Accepts deposits in
+          the ordinary course of a banking or similar business,
+        </li>
+        <li>
+          As a substantial portion of its business, holds financial assets for
+          the account of others, or Is engaged (or holding itself out as being
+          engaged) primarily in the business of investing, reinvesting, or
+          trading in securities, partnership interests, commodities, or any
+          interest in such securities, partnership interests, or commodities.
+        </li>
+        <li>
+          FFI's with US investment exposure will have to enter into an FFI
+          agreement with the IRS and comply with reporting and withholding
+          regulations or they may suffer FATCA withholding on qualifying US
+          source payments they receive from USFI's unless their country has
+          signed an IGA agreement.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Non-Financial Foreign Entities (NFFE)</div>
+      </div>
+      <ul>
+        <li>
+          Foreign entities that are not qualified as FFI's will be considered as
+          NFFE's under FATCA. Generally the following category of NFFE's are
+          excluded from
+        </li>
+        <li>FATCA withholding and reporting:</li>
+      </ul>
+
+      <ul class="slds-list_dotted mt_20">
+        <li>
+          Non-financial foreign affiliated groups whose stock is regularly
+          traded on an established securities market;
+        </li>
+        <li>Foreign governments;</li>
+        <li>Central banks and,</li>
+        <li>International organisations.</li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">FATCA</div>
+      </div>
+      <ul>
+        <li>
+          The Foreign Account Tax Compliance Act (FATCA) is a new US tax law
+          designed to prevent US taxpayers from avoiding tax by channelling US
+          source income through non-US foreign financial institutions (FFIs) and
+          off-shore investment vehicles so as to conceal their assets from the
+          US Internal Revenue Service (IRS). The objective of FATCA is for the
+          US Internal Revenue Service (IRS) to detect offshore tax evasion by US
+          citizens or residents by requesting information about U.S. persons and
+          imposing a withholding tax where the applicable documentation and
+          reporting requirements are not met.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Participating FI</div>
+      </div>
+      <ul>
+        <li>
+          The term participating FFI means an FFI that has agreed to comply with
+          requirements of an FFI agreement, including an FFI described in a
+          Model 2 IGA that has agreed to comply with the requirements of an FFI
+          agreement. The term also includes a QI branch of a U.S. financial
+          institution, unless such branch is a reporting Model 1 FFI.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Non Participating FI</div>
+      </div>
+      <ul>
+        <li>
+          An FFI that is not a PFFI, a deemed-compliant FFI, or an exempt
+          beneficial owner. In terms of jurisdictions with model 1
+          Intergovernmental Agreements in place, it additionally does not
+          include any FI from FATCA Partner jurisdictions except for FIs that
+          are treated as non-participating in terms of the intergovernmental
+          agreement due to significant non-compliance.
+        </li>
+      </ul>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Active NFFE</div>
+      </div>
+      <ul>
+        <li>An active non-financial foreign entity is an entity</li>
+        <li>with any of the following:</li>
+      </ul>
+      <ul class="slds-list_ordered mt_20">
+        <li>
+          Has less than 50% of its gross income for the preceding year or other
+          appropriate reporting period from the list [of passive income] below,
+          and less than 50% of its assets held during that period produce or are
+          held for passive income).
+        </li>
+      </ul>
+      <ul>
+        <li>
+          That non-exhaustive list includes:
+          <ul class="slds-list_dotted">
+            <li>Dividends</li>
+            <li>Interest</li>
+            <li>
+              Income equivalent to interest, including substitute interest
+            </li>
+            <li>
+              Rents, royalties other than those received in an active conduct of
+              a trade or business conducted in some part by the employees of the
+              NFFE
+            </li>
+            <li>Annuities</li>
+            <li>
+              Excess of gains over losses from the sale or exchange of property
+              giving rise to passive income
+            </li>
+            <li>Commodity hedging</li>
+            <li>
+              Excess of foreign currency gains over losses under a US ‘section
+              988 transaction’
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="slds-list_ordered mt_20">
+        <li class="mt_20">
+          (However, the above passive income does not include interest,
+          dividends, rents or royalties where it is properly allocable).
+        </li>
+        <li class="mt_20">
+          The stock of the NFFE is regularly traded on an established securities
+          market or the NFFE is a Related Entity of an Entity the stock of which
+          is traded on an established securities market.
+        </li>
+        <li class="mt_20">
+          The NFFE is organised in a U.S. Territory and all of the owners of the
+          payee are bona fide residents of that U.S. Territory.
+        </li>
+        <li class="mt_20">
+          The NFFE is a non-U.S. government, a government of a U.S. Territory,
+          an international organisation, a non-U.S. central bank of issue, or an
+          Entity wholly owned by one or more of the foregoing.
+        </li>
+        <li class="mt_20">
+          Substantially all of the activities of the NFFE consist of holding (in
+          whole or in part) the outstanding stock of, and providing financing
+          and services to, one or more subsidiaries that engage in trades or
+          businesses other than the business of a Financial Institution, except
+          that an NFFE shall not qualify for this status if the NFFE functions
+          (or holds itself out) as an investment fund, such as a private equity
+          fund, venture capital fund, leveraged buyout fund or any investment
+          vehicle whose purpose is to acquire or fund companies and then hold
+          interests in those companies as capital assets for investment
+          purposes;
+        </li>
+        <li class="mt_20">
+          The NFFE is not yet operating a business and has no prior operating
+          history, but is investing capital into assets with the intent to
+          operate a business other than that of a Financial Institution;
+          provided, that the NFFE shall not qualify for this exception after the
+          date that is 24 months after the date of the initial organisation of
+          the NFFE;
+        </li>
+        <li class="mt_20">
+          The NFFE was not a Financial Institution in the past five years, and
+          is in the process of liquidating its assets or is reorganising with
+          the intent to continue or recommence operations in a business other
+          than that of a Financial Institution;
+        </li>
+        <li class="mt_20">
+          The NFFE primarily engages in financing and hedging transactions with
+          or for Related Entities that are not Financial Institutions, and does
+          not provide financing or hedging services to any Entity that is not a
+          Related Entity, provided that the group of any such Related Entities
+          is primarily engaged in a business other than that of a Financial
+          Institution; or
+        </li>
+        <li class="mt_20">
+          The NFFE meets all of the following requirements:
+          <ul class="slds-list_dotted">
+            <li class="mt_20">
+              It is established and maintained in its country of residence
+              exclusively for religious, charitable,
+            </li>
+            <li class="mt_20">
+              It is exempt from income tax in its country of residence;
+            </li>
+            <li class="mt_20">
+              It has no shareholders or members who have a proprietary or
+              beneficial interest in its income or assets;
+            </li>
+            <li>
+              The applicable laws of the Entity's country of residence or the
+              Entity's formation documents do not permit any income or assets of
+              the Entity to be distributed to, or applied for the benefit of, a
+              private person or non- charitable Entity other than pursuant to
+              the conduct of the Entity's charitable activities, or as payment
+              of reasonable compensation for services rendered, or as payment
+              representing the fair market value of property which the Entity
+              has purchased; and The applicable laws of the Entity's country of
+              residence or the Entity's formation documents require that, upon
+              the Entity's liquidation or dissolution, all of its assets be
+              distributed to a governmental Entity or other non- profit
+              organisation, or escheat to the government of the Entity's country
+              of residence or any political subdivision thereof.
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="aob_title-sm">Participating Jurisdiction</div>
+      </div>
+      <ul>
+        <li>
+          (1) Any Financial Institution that is resident in a Participating
+          Jurisdiction (i.e participating in the OECD agreement for the Common
+          Reporting Standard for the automatic exchange of information for tax
+          purposes). But excludes any branch of that Financial Institution that
+          is located outside such Participating Jurisdiction, and (ii) any
+          branch of that financial institution that is not resident in a
+          participating jurisdiction, if that branch is located in such
+          participating jurisdiction.
+        </li>
+      </ul>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

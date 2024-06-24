@@ -1,0 +1,21 @@
+<!--
+  @description       : Lwc Parent to show meeting information
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-05-2021   TCK   Initial Version
+-->
+<template>
+    <template if:true={loading}>
+        <c-eap-spinner></c-eap-spinner>
+    </template>
+
+    <div class="content">
+        <c-eap-header-detail title={meetingName}></c-eap-header-detail>
+        <c-eap-meeting-information-content meeting-id={meetingId} oneventnamechange={handleEventNameChange} onloaded={hasLoaded} onreload={needToLoad}></c-eap-meeting-information-content>
+        <c-eap-footer isfixed="true"></c-eap-footer>
+    </div>
+</template>

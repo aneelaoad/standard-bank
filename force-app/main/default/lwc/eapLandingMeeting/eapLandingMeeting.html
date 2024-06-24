@@ -1,0 +1,85 @@
+<!--
+  @description       : Component that shows the upcoming meeting 
+  @author            : TCK
+  @last modified on  : 04-04-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-02-2021   TCK   Initial Version
+-->
+<template>
+    <div class="container">
+        <template if:true={todayEvent.print}>
+            <!--<div class="rellenoTop"></div>-->
+            <div class="rellenoBody"></div>
+            <div class="v1_div_landingCard">
+                <div class="v1_div_today_dark" style={backgroundStyleDark}></div>
+                <div class="v1_div_today" style={backgroundStyle}>
+                    <h1 class="v1_h1_date">{todayEvent.Date}</h1>
+                    <span>{todayEvent.MonthYear}</span>
+                </div>
+
+                <lightning-card class="v1_card">
+                    <h2 class="v1_h2_headingCard light_titles">{todayEvent.EventName}</h2>
+
+                    <div class="v1_div_eventData">
+                        <div class="v1_div_icon">
+                            <template if:false={todayEvent.isOnline}>
+                                <img class="imgFilter" name="Location" src={iconLocation}>
+                            </template>
+                            <template if:true={todayEvent.isOnline}>
+                                <img name="Globe" src={iconGlobe}>
+                            </template>
+                        </div>
+                        <div class="v1_div_locationTime">
+                            <p>{todayEvent.Subject}</p>
+                            <p>{todayEvent.StartTime} - {todayEvent.EndTime}</p>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <template if:true={haveContactsToShow}>
+                        <div class="v1_div_relativeContacts">
+                            <div class="v1_div_prettyContacts">
+                                <template for:each={contactsToShow} for:item="c">
+                                    <div key={c.Id} class="v1_div_imgContact">
+                                        <img class={c.style} src={c.Img}></img>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <template if:true={restContacts}>
+                                <div class="v1_div_prettyContacts2">
+                                    <div class="v1_div_restContacts">
+                                        <h1>+{restContacts}</h1>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template if:true={todayEvent.link}>
+                        <div class="v1_div_meetingLink">
+                            <button title="Meeting link" onclick={openTodayEventLink} class="custom-empty-button">{labels.MeetingLink}</button>
+                        </div>
+                    </template>
+
+                    <div class="v1_div_openMeeting">
+                        <button title="Open meeting" onclick={showTodayEvent} class="custom-full-button">{labels.OpenMeeting}</button>
+                    </div>
+                    
+                </lightning-card>
+                
+            </div>
+        </template>
+        <template if:true={noMettings}>
+            <div class="relleno"></div>
+
+            <div class="v1_div_landingCard">
+                <lightning-card class="v1_card">
+                    <h4 class="v1_h4_landing_no_meet">{labels.NoMeetings}</h4>         
+                </lightning-card>
+            </div>
+        </template>
+    </div>
+</template>

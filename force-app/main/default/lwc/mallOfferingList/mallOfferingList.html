@@ -1,0 +1,148 @@
+<!--
+  @description       : 
+  @author            : simangaliso.mthenjwa@standardbank.co.za
+  @group             : 
+  @last modified on  : 06-06-2024
+  @last modified by  : simangaliso.mthenjwa@standardbank.co.za
+-->
+<template>
+  <template if:true={list}>
+    <div if:true={coverImage} class="cover-image">
+      <h3 class="offering-type-heading">{offeringType}Benefits</h3>
+      <!-- <img src={coverImage.imgUrl} alt={offeringType} /> -->
+      <p class={coverImageClass} if:true={coverImage.description}>
+        {coverImage.description}
+      </p>
+    </div>
+    <div class={backgroundClass}>
+      <div
+        class="ol-wrapper"
+        data-slider-active={showShopSliderArrows}
+        data-range-type={offeringType}
+      >
+        <template if:true={list}>
+          <div class="offering-section">
+            <template lwc:if={isSolutions}>
+              <div class="view-all-section">
+                <a
+                  href="/mall/s/solutions-catalogue"
+                  data-intent="informational"
+                  data-scope="BCB Platform solutions"
+                  data-type="click"
+                  data-id="link_content"
+                  data-text="solutions view all link"
+                  onclick={goToSolutionsCatalogue}
+                  >View All</a
+                >
+              </div>
+            </template>
+            <div class={shopSliderScrollBtnsCLassList}>
+              <button
+                id="previous"
+                class="scroll-button_prev"
+                onmousedown={shopSliderScroll}
+                onmouseup={shopSliderScroll}
+                type="button"
+              >
+                {prevButtonLabel}
+              </button>
+            </div>
+            <div class="list-wrapper" data-showarrow="true">
+              <div class="list-track" data-slider-id="slider">
+                <template for:each={list} for:item="item">
+                  <template if:true={item}>
+                    <lightning-layout-item
+                      key={item.id}
+                      data-id={item.id}
+                      data-paginationname={offeringType}
+                    >
+                      <c-mall-offering-item
+                        item={item}
+                        offering-type={offeringType}
+                        onpopup={showModalBox}
+                        is-business-event-item={isBusinessEventItem}
+                        is-offering-detail={isOfferingDetail}
+                        is-success-story={isSuccessStory}
+                      >
+                      </c-mall-offering-item>
+                    </lightning-layout-item>
+                  </template>
+                </template>
+              </div>
+            </div>
+            <div class={shopSliderScrollBtnsCLassList}>
+              <button
+                id="nextButton"
+                class="scroll-button_next"
+                onmousedown={shopSliderScroll}
+                onmouseup={shopSliderScroll}
+                type="button"
+              >
+                {nextButtonLabel}
+              </button>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </template>
+  <div>
+    <template if:true={enableModal}>
+      <template if:true={isShowModal}>
+        <c-mall-modal
+          active={isShowModal}
+          header={selectedItem.title}
+          variant="small"
+          onclose={hideModalBox}
+        >
+          <div slot="content" class="slds-modal__content">
+            <template if:true={selectedItem}>
+              <div class="item-section-info-popup">
+                <div class="reverse-wrap">
+                  <div class="item-modal-heading">{selectedItem.title}</div>
+                  <div class="item-avatar">
+                    <span
+                      ><img
+                        src={selectedItem.imageUrl}
+                        alt={selectedItem.title}
+                    /></span>
+                  </div>
+                </div>
+                <div class="item-data-info item-data-info2">
+                  <lightning-formatted-rich-text
+                    class="format-inherit remove-br"
+                    value={selectedItem.description}
+                  >
+                  </lightning-formatted-rich-text>
+                </div>
+              </div>
+            </template>
+          </div>
+          <div slot="footer" class="footer-button">
+            <template if:true={modal}>
+              <template for:each={modal.buttons} for:item="button">
+                <template if:true={button.title}>
+                  <div key={button.title} class="footer-button">
+                    <a
+                      href={button.url}
+                      onclick={handleModalButtonClick}
+                      data-intent="navigational"
+                      data-scope="offering-list-content"
+                      data-id="link_content"
+                      data-type="click"
+                      data-text={button.title}
+                      data-text-after="link"
+                      data-button={button.title}
+                      data-callback={button.callback}
+                      ><span class="button-text">{button.title}</span></a
+                    >
+                  </div>
+                </template>
+              </template>
+            </template>
+          </div>
+        </c-mall-modal>
+      </template>
+    </template>
+  </div>
+</template>

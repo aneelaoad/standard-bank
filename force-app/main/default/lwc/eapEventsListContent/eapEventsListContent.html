@@ -1,0 +1,49 @@
+<!--
+  @description       : Lwc to show event list content 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-28-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_container">
+        <p class="label v1_p_search">{labels.Search}</p>
+        <div class="v1_div_searchContainer">
+            <div class="shadowSearch">
+                <input id="search" name="searchEvent" class="v1_input_search" type="text"
+                    placeholder={labels.EnterSearch} oninput={findEvent} />
+                <div class="v1_button_search" onclick={findEvent}>
+                    <lightning-icon size="small" icon-name="utility:search" alternative-text={labels.Search} title={labels.Search}>
+                    </lightning-icon>
+                </div>
+            </div>
+        </div>
+
+        <template for:each={events} for:item="event">
+            <div key={event.Id} class="elem">
+                <template if:true={event.Img}>
+                    <img src={event.Img} key={event.Id} class="v1_img_listview v1_div_data">
+                </template>
+                <template if:false={event.Img}>
+                    <div class="v1_div_initials v1_div_data">{event.Initials}</div>
+                </template>
+
+                <div class="v1_div_data data_values">
+                    <div>
+                        <p class="label v1_p_longData">{event.SupTitle}</p>
+                        <p class="v1_p_title v1_p_longData">{event.Title}</p>
+                        <p class="v1_p_subTitle v1_p_longData">{event.SubTitle}</p>
+                    </div>
+                </div>
+
+                <div class="v1_div_data end_arrow">
+                    <lightning-icon icon-name="utility:chevronright" size="x-small" name={event.Id} onclick={event.openEventDetail}>
+                    </lightning-icon>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

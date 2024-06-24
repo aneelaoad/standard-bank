@@ -1,0 +1,94 @@
+<template>
+    <template if:true={Bool_Personal_Details}>
+        <label>{nextscreen}</label>
+        <div class="applications">
+            <c-aob_internal_comp_form-Creator  onbuttonclick={handleEvent} screen-name='Personal Details' data={dataToDisplay} previous-screen='Personal Details'
+            next-screen="Residential Address" application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    
+    <template if:true={Bool_Residential_Address}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator  onbuttonclick={handleEvent} screen-name='Residential Address' data={dataToDisplay}  previous-screen="Personal Details"
+        next-screen="Employment Details"        
+        application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_Employment_Details}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator onbuttonclick={handleEvent} screen-name='Employment Details' data={dataToDisplay}  previous-screen="Residential Address"
+        next-screen="Company Details"        
+        application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_Company_Details}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator onbuttonclick={handleEvent} screen-name='Company Details' data={dataToDisplay}  previous-screen="Employment Details"
+        adobe-data-scope="MyMoBiz" next-screen="Company Trading Address"        
+         application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_Company_Trading_Address}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator  onbuttonclick={handleEvent} screen-name='Company Trading Address' data={dataToDisplay} previous-screen="Company Details"
+        next-screen="Company Financial Details"        
+         application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_Company_Financial_Details}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator  onbuttonclick={handleEvent} screen-name='Company Financial Details' data={dataToDisplay} previous-screen="Company Trading Address"
+        next-screen="Marketing Consent Internal"        
+         application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_Marketing_Consent}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator  onbuttonclick={handleEvent} screen-name='Marketing Consent Internal' data={dataToDisplay} previous-screen="Company Financial Details"
+        next-screen="Card Selection"        
+         application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_Card_Selection}>
+        <div class="applications">
+        <c-aob_internal_comp_select_card  onbuttonclick={handleEvent} screen-name='Card Selection' data={dataToDisplay} previous-screen="Marketing Consent Internal"
+        next-screen="Notifications"        
+         application-id={recordId}> </c-aob_internal_comp_select_card>
+        </div>
+    </template>
+    <template if:true={Bool_Notifications}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator  onbuttonclick={handleEvent} screen-name='Notifications' data={dataToDisplay} previous-screen="Card Selection"
+        next-screen="Available Bundles"        
+         application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_Available_Bundles}>
+        <div class="applications">
+        <c-aob_internal_comp_available_bundles onbuttonclick={handleEvent} screen-name='Available Bundles' data={dataToDisplay} previous-screen="Notifications"
+        next-screen={availableBundles}       
+         application-id={recordId}> </c-aob_internal_comp_available_bundles>
+        </div>
+    </template>
+    <template if:true={Bool_SnapScan}>
+        <div class="applications">
+        <c-aob_internal_comp_form-Creator pocketbiz={pocketbiz}  onbuttonclick={handleEvent} screen-name='SnapScan' data={dataToDisplay} previous-screen="Available Bundles"
+        next-screen="Summary"       
+         application-id={recordId}> </c-aob_internal_comp_form-Creator>
+        </div>
+    </template>
+    <template if:true={Bool_PocketBiz}>
+        <div class="applications">
+        <c-aob_internal_comp_pockit-Biz snapscan={snapscan}  onbuttonclick={handleEvent} screen-name='PocketBiz' data={dataToDisplay} previous-screen="Available Bundles"
+        next-screen={PocketBiz}       
+         application-id={recordId}> </c-aob_internal_comp_pockit-Biz>
+        </div>
+    </template>
+    <template if:true={Bool_Summary}>
+        <div class="applications">
+        <c-aob_internal_comp_summary  onbuttonclick={handleEvent} screen-name='Summary' data={dataToDisplay} previous-screen="SnapScan"
+        next-screen="Application Complete"        
+         application-id={recordId}> </c-aob_internal_comp_summary >
+        </div>
+    </template>
+</template>

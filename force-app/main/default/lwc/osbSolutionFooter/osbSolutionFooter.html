@@ -1,0 +1,67 @@
+<template>
+    <div data-id="background" class="slds-align_absolute-center btnSection slds-p-top_xx-large slds-p-bottom_xx-large display-section">
+        <div class="endTitle slds-m-top_xx-large slds-m-bottom_x-large slds-align_absolute-center">
+            <lightning-formatted-rich-text class="subDescription" value={calltoactiontitle}></lightning-formatted-rich-text>
+        </div>
+        <div class="slds-align_absolute-center slds-grid">
+            <div if:true={showFooterLogo}  class="footerlogo  slds-col slds-size_1-of-12 slds-m-top_large slds-m-right_small slds-m-left_small slds-show_large slds-align_absolute-center">
+                <img src={solutionlogo} style="max-width:200%;margin-bottom:25px;margin-right:180px">
+            </div>
+            <div if:true={createCaseForExternalLink} >
+                <button class="btn splashBanner__button slds-col slds-size_5-of-12 slds-m-top_large slds-m-right_small slds-m-left_small slds-align_absolute-center"  onclick={requestAccess}
+                style={btnStyle} data-id="uitlink_link"
+                data-intent="navigational" data-text={RequestButtonAdobe} data-scope="splash page"
+                >{btnlabel}
+                </button>
+            </div>
+            <div if:false={createCaseForExternalLink} >
+                <a class="btn splashBanner__button slds-col slds-size_5-of-12 slds-m-top_large slds-m-right_small slds-m-left_small slds-align_absolute-center"  
+                href={btnlink} style={btnStyle} data-id="uitlink_link"
+                data-intent="navigational" data-text={RequestButtonAdobe} data-scope="splash page"
+                >{btnlabel}
+            </a>
+            </div>
+          
+        </div>
+    </div>
+    <div data-id="background-bottom" class="slds-align_absolute-center btnSection slds-p-top_xx-large slds-p-bottom_xx-large display-section"></div>
+        <div if:true={showFooterExt} >
+        <div class="footerNavigation slds-grid" style="margin: auto;">
+            <div class="footer__left">
+            <div class="footer__nav">
+                <ul class="footer__menu slds-col slds-order_2 slds-small-order_1 slds-size_6-of-6 slds-medium-size_7-of-12 slds-large-size_8-of-8">
+                <li class="footer__menuitem slds-col slds-size_6-of-6 slds-medium-size_2-of-12 slds-large-size_1-of-8">
+                    <a href={terms} target="_blank" data-id="uitlink_link" data-text="Footer | Terms and Conditions" data-intent="navigational">Terms and
+                    Conditions</a>
+                </li>
+                <li class="footer__menuitem slds-col slds-size_6-of-6 slds-medium-size_2-of-12 slds-large-size_1-of-8">
+                    <a href={legal} target="_blank" data-id="uitlink_link" data-text="Footer | Legal" data-intent="navigational">Legal</a>
+                </li>
+                <li class="footer__menuitem slds-col slds-size_6-of-6 slds-medium-size_3-of-12 slds-large-size_1-of-8">
+                    <a href={notices} target="_blank" data-id="uitlink_link"
+                    data-text="Footer | Important notices" data-intent="navigational">Important Notices</a>
+                </li>
+                <li class="footer__menuitem slds-col slds-size_6-of-6 slds-medium-size_3-of-12 slds-large-size_2-of-8">
+                    <a href={certification} target="_blank" data-id="uitlink_link"
+                    data-text="Footer | USA Patriot Act Certification" data-intent="navigational">USA Patriot Act
+                    Certification</a>
+                </li>
+                <li
+                    class="footer__menuitem slds-col slds-size_6-of-6 slds-medium-size_2-of-12 slds-large-size_2-of-8">
+                    <a href={questionnaire} target="_blank" data-id="uitlink_link"
+                    data-text="Footer | Wolfsberg Questionnaire" data-intent="navigational">Wolfsberg
+                    Questionnaire</a>
+                </li>
+                
+                </ul>
+            </div>
+            <div class="slds-col footer__copyright">
+                Standard Bank is a licensed financial services provider in terms of
+                the Financial
+                Advisory and Intermediary Services Act and a registered credit provider in terms of the National Credit Act,
+                registration number NCRCP15
+            </div>
+            </div>
+        </div>
+    </div>
+</template>

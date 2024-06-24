@@ -1,0 +1,45 @@
+<template>
+    <div class="financial-summary">
+        <div class="slds-text-heading_medium tittleText"><strong>Financial Summary</strong></div>
+        <div class="financial-summary_inner">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_3-of-3">
+                    <div class="slds-var-p-around_medium">
+                        <lightning-tabset active-tab-value={activeTab} active-tab-value-change={handleTabChange}>
+                            <lightning-tab label="Overview" value="tab-1">
+                                <div class="tabsInner">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <c-mall-financial-summary-overview></c-mall-financial-summary-overview>
+                                        </div>
+                                        <div class="slds-col slds-size_1-of-2">
+                                            <c-mall-financial-summary-banner></c-mall-financial-summary-banner>
+                                        </div>
+                                    </div>  
+                                </div>                                
+                                
+                            </lightning-tab>
+                            <lightning-tab label="Savings" value="tab-2">
+                                <div class="tabInfo">
+                                    <p>This is the content of Saving.</p>
+                                </div>
+                            </lightning-tab>
+                            <lightning-tab label="Expenses" value="tab-3">
+                                <div class="tabInfo">
+                                    <p>This is the content of Expenses.</p>
+                                </div>
+                            </lightning-tab>
+                            <lightning-tab label="Insurance" value="tab-4">
+                                <div class="tabInfo">
+                                    <p>This is the content of Insurance.</p>
+                                </div>
+                            </lightning-tab>
+                        </lightning-tabset>
+                    </div>
+                </div>       
+            </div>
+        </div>
+
+            
+    </div>
+</template>

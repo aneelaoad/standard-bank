@@ -1,0 +1,28 @@
+<!--
+ACTION  TICKET    DATE       OWNER         COMMENT
+Created SFP-9125  19-11-2022 Gill Lumley   Copied from MVP1 
+-->
+<template>
+		<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<c-aob_comp_modal2 if:true={isVisible} hasheader='true' hasscrollbar='false' onclosed={closeCameraPopup}
+		header={label.AOB_NoCamera_Title}>
+		<div slot="content" class="aob_text_align_center">
+			<div class="slds-m-top_small slds-size_1-of-1">
+				<label class="aob_screen-text-normal aob_text_align_center">{label.AOB_NoCamera_DeviceNoCamera1}</label>
+				<br/>
+				<label class="aob_screen-text-bold aob_text_align_center">{label.AOB_NoCamera_DeviceNoCamera2}</label>
+			</div>
+			<br/>
+			<div class="slds-m-top_small slds-size_1-of-1">
+				<label class="aob_screen-text-lowlight aob_text_align_center">{label.AOB_NoCamera_ScanQR}</label>
+			</div>
+		</div>
+		<div slot="footer" class="aob_modal_buttons_container slds-m-horizontal_large">
+			<lightning-button class="aob_modal_button" data-id={adobePageTag.dataId}
+				data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+				data-text={adobePageTag.continueText} variant="brand" label={label.AOB_Continue}
+				title={label.AOB_Continue} onclick={callIDV}>
+			</lightning-button>
+		</div>
+	</c-aob_comp_modal2>
+</template>

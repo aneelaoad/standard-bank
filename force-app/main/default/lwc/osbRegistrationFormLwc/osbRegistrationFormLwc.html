@@ -1,0 +1,384 @@
+<template>
+    <div class="slds-grid RegistrationMainContainer">
+        <template lwc:if={signUpError}>
+            <div class="signUp">
+            <div class="formContainer">
+                <div class="formHeaderSection">
+                    <div class="iconSection">
+                        <div class="iconSectionWrapper">
+                            <i class="msClass ms-icn_shield_lock shieldIcon"></i>
+                        </div>
+                    </div>
+                    <div class="HeaderSection">
+                        <h2 class="signUp__title">{errorTitle}</h2>
+                        <h3 class="signUp__subtitle">{errorSubtitle}</h3>
+                        <h3 class="signUp__subtitle"><b>{errorMessage}</b></h3>
+                    </div>
+                </div>
+                <div class="signUp_footer">
+                    <div class="btn--neutral" onclick={errorProceed}>
+                        <button class="slds-button signBtn" data-id="errorProceed">{errorButtonText}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </template>
+        <template lwc:else>
+            <template lwc:if={isLoading}>
+                <c-osb-loading-screenlwc class="isLoadingClass"></c-osb-loading-screenlwc>
+            </template>
+            <template lwc:else>
+                <template lwc:if={submitLoading}>
+                    <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+                </template>
+                <div lwc:if={showToastFail}>
+                    <c-osb-toast
+                        toasttype="failure" 
+                        closepopup={showToastFail}
+                        toastmessage="Please complete all required fields and check for errors"
+                        left="50%"
+                        top="160px"
+                    >
+                    </c-osb-toast>
+                </div>
+                <div class="formContainer">
+                    <div class="formHeaderSection">
+                        <div class="iconSection">
+                            <div class="iconSectionWrapper">
+                                <i class="msClass ms-icn_shield_lock shieldIcon"></i>
+                            </div>
+                        </div>
+                        <div class="HeaderSection">
+                            <h2 class="signUp__title">Welcome to OneHub {contactName}</h2>
+                            <template lwc:if={authorization}>
+                                <h3 class="signUp__subtitle" lwc:if={firstSectionAp} >
+                                    Before we can give you access to OneHub, we would like to ask that 
+                                    you provide us with some information and confirm the details that are 
+                                    then presented to you. Once done, we will create your profile using the email: 
+                                    <br/> {contactEmail}
+                                </h3>
+                                <h3 class="signUp__subtitle" lwc:if={showInformation}>
+                                    Before we can give you access to OneHub, we would like to ask that 
+                                    you provide us with some information. Once done, we will create your profile.
+                                </h3>
+                            </template>
+                            <template lwc:else>
+                                <h3 class="signUp__subtitle">
+                                    Before we can give you access to OneHub, we would like to ask that 
+                                    you provide us with some information which will take less than two 
+                                    minutes to complete. Once done, we will create your profile.
+                                </h3>
+                            </template>
+                        </div>
+                    </div>
+                    <form name="RegistrationForm" class="signUp__form" onsubmit={formSubmitted}>
+                    <template lwc:if={authorization}>
+                        <template lwc:if={firstSectionAp}>
+                            <h3 class="signUp__subheading">Let's get started</h3>
+                            <div class="detailsSection">
+                                <label>Document type</label>
+                                <div class="columnContainer">
+                                    <div class="signUp__radioInput">
+                                        <input
+                                            type="radio"
+                                            name="docTypeAp"
+                                            value="ID Number"
+                                            checked
+                                            oninput={handleChangeAp}
+                                            data-id="id_number_option_ap"
+                                        />
+                                        <label class="signUp__radioText">ID Number</label>
+                                    </div>   
+                                    <div class="signUp__radioInput">
+                                        <input
+                                            type="radio"
+                                            name="docTypeAp"
+                                            value="Passport Number"
+                                            oninput={handleChangeAp}
+                                            data-id="passport_number_option_ap"
+                                        />
+                                        <label class="signUp__radioText">Passport Number</label>
+                                    </div>
+                                </div>
+                                <div class="inputsContainer_AP">
+                                    <label>{docTypeLabel}</label>
+                                    <input
+                                        type="text"
+                                        placeholder={docTypePlaceholder}
+                                        name="docTypeIdInput"
+                                        data-id="docTypeIdInput"
+                                        class="slds-input signUp__inputs"
+                                    />
+                                    <div class="signUp__Error" data-id="docTypeIdInputError" id="form-error-08">{idNumberMessage}</div>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                    <template lwc:if={showInformation}>
+                        <h3 class="signUp__subheading">Personal details</h3>
+                        <div class="detailsSection">
+                            <div class="signUp__readSection" lwc:if={authorization}>
+                                <div class="signUp__readSection" lwc:if={docTypeChecked}>
+                                    <label>{docTypeLabel}</label>
+                                    <p class="signUp__readInputs" data-id="identity_number_field">{contactIdNum}</p>
+                                </div>
+                                <div class="signUp__readSection" lwc:else>
+                                    <label>{docTypeLabel}</label>
+                                    <p class="signUp__readInputs" data-id="identity_number_field">{contactPassportNum}</p>
+                                </div>
+                            </div>
+                            <div class="columnContainer">
+                                <div class="signUp__readSection">
+                                    <label>Name</label>
+                                    <p class="signUp__readInputs" data-id="name_field">{contactName}</p>
+                                </div>
+                                <div class="signUp__readSection">
+                                    <label>Surname</label>
+                                    <p class="signUp__readInputs" data-id="surname_field">{contactLastName}</p>
+                                </div> 
+                            </div>
+                            <div class="phoneSection">
+                                <div class="codeContainer">
+                                    <label>Country code</label>
+                                    <select name="countryCode" id="countryCode" data-id="countryCode" class="slds-input signUp__inputs signUp__select" oninput={handleChange} required>
+                                        <option value="" class="signUp__placeholderText" disabled selected hidden>Select country</option>
+                                        <template for:each={countryCodeOptions} for:item="phoneItem">
+                                            <template lwc:if={phoneItem.selected}>
+                                                <option key={phoneItem.value} class="text" value={phoneItem.value} selected>
+                                                    {phoneItem.value}
+                                                </option>
+                                            </template>
+                                            <template lwc:else>
+                                                <option key={phoneItem.value} class="text" value={phoneItem.value}>
+                                                    {phoneItem.value}
+                                                </option>
+                                            </template>
+                                        </template>
+                                    </select>
+                                    <div class="signUp__Error" data-id="countryCodeError">Select a country code</div>
+                                </div>
+                                <div class="phoneContainer">
+                                    <label>Phone number</label>
+                                    <input
+                                    type="text"
+                                    placeholder="Enter phone number"
+                                    name="phoneNumber"
+                                    data-id="phoneNumber"
+                                    class="slds-input signUp__inputs"
+                                    value={contactPhoneNum}
+                                    oninput={handleChange}
+                                    required
+                                    min="1"
+                                    />
+                                    <div class="signUp__Error" data-id="phoneNumberError">Enter a valid cellphone number</div>
+                                </div>
+                            </div>
+                            <div class="signUp__documentType" lwc:if={additionalNpDp}>
+                                <label>Document type</label>
+                                <div class="columnContainer">
+                                    <div class="signUp__radioInput">
+                                        <input
+                                            type="radio"
+                                            name="docType"
+                                            value="ID Number"
+                                            checked
+                                            oninput={handleChange}
+                                            data-id="id_number_option"
+                                        />
+                                        <label class="signUp__radioText">ID Number</label>
+                                    </div>   
+                                    <div class="signUp__radioInput">
+                                        <input
+                                            type="radio"
+                                            name="docType"
+                                            value="Passport Number"
+                                            oninput={handleChange}
+                                            data-id="passport_number_option"
+                                        />
+                                        <label class="signUp__radioText">Passport Number</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="inputsContainer" lwc:if={additionalNpDp}>
+                                <label>{docTypeLabel}</label>
+                                <input
+                                    type="text"
+                                    placeholder={docTypePlaceholder}
+                                    name="docTypeInput"
+                                    data-id="docTypeInput"
+                                    class="slds-input signUp__inputs"
+                                />
+                            </div>
+                        </div>
+                        <h3 class="signUp__subheading">
+                            Work details
+                        </h3>
+                        <div class="detailsSection">
+                            <div class="inputsContainer">
+                                <label>Job title</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter current job title"
+                                    name="jobTitle"
+                                    class="slds-input signUp__inputs"
+                                    value={contactJobTitle}
+                                    data-id="jobTitle"
+                                    oninput={handleChange}
+                                    required
+                                    min="1"
+                                />
+                                <div class="signUp__Error" data-id="jobTitleError">Enter a valid job title</div>
+                            </div>
+                            <div class="inputsContainer">
+                                <label>Company name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter company name"
+                                    name="companyName"
+                                    class="slds-input signUp__inputs"
+                                    value={contactCompany}
+                                    data-id="companyName"
+                                    oninput={handleChange}
+                                    required
+                                    min="1"
+                                />
+                                <div class="signUp__Error" data-id="companyNameError">Enter a valid company name</div>
+                            </div>
+                            <div class="inputsContainer">
+                                <label>Industry</label>
+                                <select name="industry" id="industry" data-id="industry" class="slds-input signUp__inputs signUp__select" oninput={handleChange} required>
+                                    <option value="" class="signUp__placeholderText" disabled selected hidden>Select the industry you are in</option>
+                                    <template for:each={industryOptions} for:item="indItem">
+                                        <template lwc:if={indItem.selected}>
+                                            <option key={indItem.value} class="text" value={indItem.value} selected>
+                                                {indItem.value}
+                                            </option>
+                                        </template>
+                                        <template lwc:else>
+                                            <option key={indItem.value} class="text" value={indItem.value}>
+                                                {indItem.value}
+                                            </option>
+                                        </template>
+                                    </template>
+                                </select>
+                                <div class="signUp__Error" data-id="industryError">Select an industry</div>
+                            </div>
+                            <div class="inputsContainer_operatingCountry">
+                                <label>Operating countries</label>
+                                    <c-osb-multi-select-combo-box-lwc
+                                    label="opCountries"
+                                    name="opCountries"
+                                    options={operatingCountriesOptions}
+                                    onchange={handleChangeOC}
+                                    data-id="opCountries"
+                                >
+                                </c-osb-multi-select-combo-box-lwc>
+                                <div class="signUp__Error_op" data-id="opCountriesError">Select an operating country</div>
+                            </div> 
+                        </div>
+                        <h3 class="signUp__subheading">
+                            Sign in credentials
+                        </h3>
+                        <div class="detailsSection">
+                            <div class="signUp__readSection">
+                                <label>Work email</label>
+                                <p class="signUp__readInputs" data-id="email_field">{contactEmail}</p>
+                            </div>
+                            <template lwc:if={foundOldUser}>
+                                <div class="blurb">
+                                    <p><b>Please note:</b> We have identified that you already have an existing Standard Bank Internet Banking profile. <br/><br/> Please continue to sign into OneHub using your Internet Banking password.</p>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <template lwc:if={passIsTyped}>
+                                    <div id="password_Info" data-id="password_checklist" class="validationsContainer">
+                                        Make sure to include at least:
+                                        <div class="pass_feature"><span class={upperValidations}></span>1 UPPERCASE</div>
+                                        <div class="pass_feature"><span class={lowerValidations}></span>1 lowercase</div>
+                                        <div class="pass_feature"><span class={specialValidations}></span>1 special character</div>
+                                        <div class="pass_feature"><span class={numberValidations}></span>2 numbers</div>
+                                        <div class="pass_feature"><span class={whiteValidations}></span>Please remove any white spaces</div>
+                                        <div class="pass_feature"><span class={lengthValidations}></span>minimum of 8 alphanumeric characters</div>
+                                    </div>
+                                </template>  
+                                
+                                <div class="signUp__input_password">
+                                    <label>Password</label>
+                                    <input 
+                                        type={showPasswordText} 
+                                        placeholder="Enter password" 
+                                        name="password"
+                                        id="password"
+                                        data-id="password"
+                                        class="slds-input signUp__inputs"
+                                        autocomplete="cc-passwordCheck"
+                                        oninput={handlePassEntered}
+                                        required
+                                        min="7"
+                                    />
+                                    <div class="btn btn-default icon" onmousedown={togglePassword}><span class={showPasswordClass}></span></div>
+                                    <div class="signUp__Error" data-id="passwordError">{passwordMessage}</div>
+                                    <p class="signUp__passwordText">
+                                        Must contain at least 1 UPPERCASE, 1 lowercase, 1 special character (~!@#$%^&#38;*()-_=+[]{}|;:,.&#60;&#62;/?) 
+                                        and a minimum of 8 alphanumeric characters and cannot be first name, last name or username
+                                    </p>
+
+                                </div>
+    
+                                <div class="signUp__input_password">
+                                    <label>Confirm Password</label>
+                                    <input 
+                                        type={showConfirmPasswordText} 
+                                        placeholder="Confirm entered password" 
+                                        class="slds-input signUp__inputs"
+                                        name="confirmPassword" 
+                                        id="confirmPassword"
+                                        data-id="confirmPassword"
+                                        required
+                                        min="7"
+                                    />
+                                    <div class="btn btn-default icon" onmousedown={toggleConfirmPassword}><span class={showConfirmPasswordClass}></span></div>
+                                    <div class="signUp__Error" data-id="confirmPasswordError">{confirmPasswordMessage}</div>
+                                </div>
+                            </template>
+                            <div class="signUp__tnc">
+                                By signing up, you agree to the following <a data-id="terms_and_conditions_link" class="signUp__tncLink" target="_blank" href={termsConditionsURL}>T&amp;Cs.</a>
+                            </div> 
+                        </div>
+                    </template>
+                    </form>
+                    <template lwc:if={authorization}>
+                        <template lwc:if={firstSectionAp}>
+                            <div class="signUp_footer">
+                                <div class="btn--neutral" onclick={proceed}>
+                                    <button class="slds-button signBtn" data-id="submit">Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                    <template lwc:if={showInformation}>
+                        <div class="signUp_footer">
+                            <div class="btn--darkblue">
+                                <button class="slds-button cancelBtn" data-id="cancel" data-intent="conformational"
+                                data-text="OneHub Registration | Registration Redirect | cancel"
+                                data-scope="OneHub Registration" onclick={cancel}>CANCEL</button>
+                            </div>
+                            <div class="btn--neutral" onclick={formSubmitted}>
+                                <button class="slds-button signBtn" data-id="signUp"
+                                    >SIGN UP</button>
+                            </div>
+                        </div>
+                        <div lwc:if={showPopUp}>
+                            <c-osb-market-gram-popup-lwc onclosepopupevent={handleCloseEvent}
+                                sub-title="You are about to cancel your application to sign up. Do you want to continue?" title="Cancel Sign Up?"
+                                content="You are about to cancel your application to sign up. Do you want to continue?">
+                            </c-osb-market-gram-popup-lwc>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

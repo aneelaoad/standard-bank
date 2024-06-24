@@ -1,0 +1,149 @@
+<template>
+    <div class="a_heading">
+        <c-sbg-title-with-subtitle title="Store profile" show-subtitle="false" subtitle=""></c-sbg-title-with-subtitle>
+    </div>
+    <div class="container slds-grid">
+        <div class="slds-col slds-size_1-of-2">
+            <span>
+                <div class="slds-grid column-separator">
+                    <div class="slds-col slds-size_1-of-1 section-top section-separation">
+                        <span>
+                            <div class="slds-section slds-border_radius">
+                                <div class="slds-section__title">General Information</div>
+                            </div>
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Business Name</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{name}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Store Categories</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">
+                                            {categoriesString}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Cellphone</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{cellphone}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Transactional Relationships</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{transactionRelationships}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Email Address</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{emailAddress}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Country</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{country}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">URL</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{url}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">VAT Registration Number</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{vatRegistrationNumber}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-grid column-separator">
+                    <div class="slds-col slds-size_1-of-1 section-bottom section-separation">
+                        <span>
+                            <div class="slds-section slds-border_radius">
+                                <div class="slds-section__title">Banking Information</div>
+                            </div>
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Bank Name</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{bankName}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Bank Account Type</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{bankAccountType}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Bank Account Name</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{bankAccountName}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Swift Code</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{swiftCode}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-form-element">
+                                        <span class="slds-form-element__label">Account Number</span>
+                                        <div class="slds-form-element__control">
+                                            <span class="slds-form-element__static">{bankAccountNumber}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <div class="slds-col slds-size_1-of-2 section-right section-separation">
+            <span>
+                <div class="slds-section slds-border_radius">
+                    <template if:true={contacts}>
+                        <div class="slds-section__title">Store representatives</div>
+                        <c-mall-generic-table-component records={contacts} columns={columns} page-size=12></c-mall-generic-table-component>
+                    </template>
+                </div>
+            </span>
+        </div>
+    </div>
+</template>

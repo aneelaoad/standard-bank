@@ -1,0 +1,66 @@
+.cover {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  z-index: 4;
+  isolation: isolate;
+  background-color: rgba(0, 0, 0, 0.49);
+  backdrop-filter: blur(2px);
+}
+.modal-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14.7px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  color: #ffffff !important;
+  text-decoration: none;
+  height: 3.3rem;
+  text-align: center;
+  line-height: 1.43;
+  letter-spacing: 1.05px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  background-color: #0089ff;
+  margin: 0 auto;
+}
+.flow-modal {
+  width: 65%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 5;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+.slds-select[name="plReasonforInterest"] {
+  background-position: 98% center !important;
+}
+
+lightning-flow[c-acmleadorsubscribe_acmleadorsubscribe] {
+  width: 90%;
+}
+c-cmn-button button.slds-button.buttonx.slds-button_brand.w300 {
+  margin-left: 100px;
+}

@@ -1,0 +1,12 @@
+@import 'c/eapCssLibrary';
+
+.v1_space_footer{
+    padding-bottom: 6em;
+    background-color: var(--background-grey);
+}
+
+.content {
+    visibility: hidden;
+    height: 100vh;
+    background-color: var(--background-grey);
+}

@@ -1,0 +1,24 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_archived{
+    text-align: center;
+    background-color: var(--background-grey);
+    /*padding: 25px 0px;*/
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 918px;
+    padding-top: 1.5em;
+}
+
+.v1_button_archived{
+    font-weight: 700;
+    text-transform: uppercase;
+    width: 90%;
+    padding: 1em 0;
+    background-color: transparent;
+    color: var(--main-light-blue);
+    border: solid 1px var(--main-light-blue);
+    letter-spacing: .1em;
+    border-radius: 2px;
+}

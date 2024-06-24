@@ -1,0 +1,38 @@
+.moreText {
+    display: none;
+}
+
+.moreLess,
+.moreLess:focus {
+    border: none;
+    outline: none;
+    background-color: inherit;
+    color: #0389ff;
+    font-weight: bold;
+}
+
+hr {
+    margin: 0px;
+}
+
+.textclass {
+    text-decoration: underline;
+    color: #0389ff !important;
+    font-size: 13.5px;
+}
+
+.textSpace {
+    padding-right: 2px;
+}
+
+.textLeftSpace {
+    padding: 0px 2px;
+    text-decoration: underline;
+    color: #0389ff;
+}
+
+@media (min-width: 1395px) {
+    .testCls {
+        display: block;
+    }
+}

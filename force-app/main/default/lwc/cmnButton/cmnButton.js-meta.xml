@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>53.0</apiVersion>
+  <isExposed>true</isExposed>
+
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+		<target>lightning__FlowScreen</target>
+  </targets>
+
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="action" label="Action" type="String" default="navigateToUrl" />
+      <property name="variant" label="[base, neutral, brand, brand-outline, destructive, destructive-text, inverse, success]" type="String" default="brand" />
+      <property name="label" label="Label" type="String" default="Label" />
+      <property name="title" label="Title" type="String" default="Title" />
+      <property name="disabled" label="Disabled" type="Boolean" default="false" />
+      <property name="wClass" label="Predefined width [w236, w280, w300, w340, w340C]" type="String" default="w300" />
+      <property name="destinationUrl" label="Community page url or absolute url" type="String" />  
+      <property name="customCssClasses" label="Custom CSS classes that will be added to the wrapping element" type="String" /> 
+      <property name="interactionIntent" label="Intent - Intension for  tracking (informational, transactional, query etc.)" default="informational" type="String" />  
+      <property name="interactionScope" label="Scope - Component / Area for tracking (Hero Banner, Product List etc.)" default="Common Button" type="String" />  
+      <property name="interactionType" label="Type - Interaction type for tracking (Button, link etc.)" default="button" type="String" />  
+    </targetConfig>
+		<targetConfig targets="lightning__FlowScreen">
+			<property name="label" label="01) Label" type="String" />
+      <property name="variant" label="02) Variant: [base, neutral, brand, brand-outline, destructive, destructive-text, inverse, success]" type="String" default="brand" role="inputOnly" />
+      <property name="disabled" label="03) Disabled" type="Boolean" default="false" role="inputOnly" />
+      <property name="wClass" label="04) Predefined width [w236, w280, w300, w340]" type="String" default="w300" role="inputOnly" />
+		</targetConfig>
+  </targetConfigs>
+
+</LightningComponentBundle>

@@ -1,0 +1,43 @@
+<template>
+    <div class="notifications-wrapper">
+        <div class="notifications" onclick={toggleNotificationsOpen} data-unread-notifications={hasUnread}>
+            <img src="/mall/s/sfsites/c/resource/mallIcons/bell.svg" />
+        </div>
+        <template if:true={isOpen}>
+            <div class="notifications-container">
+                <div class="header-section">
+                    <h5>{heading}</h5>
+                    <span class="notification__close" onclick={toggleNotificationsOpen}>
+                        <img src={crossImage} />
+                    </span>
+                </div>
+                <div class="notifications-toggle--container">
+                    <lightning-input class="unread-notifications-toggle" type="toggle" value={showUnread} label="Unread only" name="showunread"
+                    onchange={toggleUnread}>
+                </lightning-input>
+                </div>
+                <template if:true={notificationList}>
+                    <div class="notification-list-wrapper">
+                        <ul>
+                            <template for:each={notificationList} for:item="notification">
+                                <li key={notification.id} class="notification">
+                                    <c-mall-notification-item id={notification.id} read={notification.read}
+                                        notificationid = {notification.id}
+                                        type={notification.type} url={notification.url} message={notification.message}
+                                        description={notification.description}
+                                        last-modified={notification.lastModified} onnotificationsupdated={handleNotificationsUpdate}>
+                                    </c-mall-notification-item>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+                <template if:true={noNotificationToShow}>
+                    <p class="notification-message no-notifications">
+                        You don't have any notifications at the moment.
+                    </p>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

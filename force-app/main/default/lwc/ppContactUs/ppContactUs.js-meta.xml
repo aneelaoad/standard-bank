@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="leftSecHeading" label="Left Section Heading" type="String" default="Contact Information"/>
+            <property name="leftSecText1" label="Left Section Text 1" type="String" default="Our operating hours are:"/>
+            <property name="leftSecText2" label="Left Section Text 2" type="String" default="Monday-Friday: 9:00 to 16:00"/>
+            <property name="email" label="Email" type="String" default="support@standardbank.co.za"/>
+            <property name="phone" label="Phone" type="String" default="+27 973829920283"/>
+            <property name="rightSecHeading" label="Right Section Heading" type="String" default="Reach Out to Us"/>
+            <property name="rightSecText1" label="Right Section Text 1" type="String" default="If you have any specific issues, you can send a message dirrectly from here."/>
+            <property name="linkText" label="Link Text" type="String" default="Send a Message"/>
+            <property name="link" label="Link" type="String" default="/customer-support"/>
+         </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

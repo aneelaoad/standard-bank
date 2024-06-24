@@ -1,0 +1,28 @@
+<!--
+  @description       : this component used to get the private address data from inflight data
+  @author            : 
+  @group             : 
+  @last modified on  : 10-17-2023
+  @last modified by  : Mahlatse Tjale
+-->
+
+<template>
+	<c-aob_internal_comp_acpicklist sapfield={sapfield} name={name}  value={defaultData}
+		missing-value-message={missingValueMessage} placeholder="Please select" onblur={genericComponentChangeBlur}
+		onchange={genericComponentChange} data-name={name} data-value={selectedPicklistValue}>
+	</c-aob_internal_comp_acpicklist>
+
+	<br />
+	<div lwc:if={personalResidentialAddress}>
+		{label.AOB_ZA_Mypersonal}
+		<c-aob_internal_comp_residential-address address={resaddress}>
+		</c-aob_internal_comp_residential-address>
+	</div>
+	<div lwc:if={companyTradingAddress}>
+		{label.AOB_ZA_Mycompany}
+		<c-aob_internal_comp_company-address address={companytradingdata}>
+		</c-aob_internal_comp_company-address>
+
+	</div>
+
+</template>

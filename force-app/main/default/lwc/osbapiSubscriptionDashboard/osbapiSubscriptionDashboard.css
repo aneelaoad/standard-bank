@@ -1,0 +1,59 @@
+.subscription-dashboard-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 3rem;
+    background-color: #f6f6f6;
+    margin-top: 2rem;
+}
+
+.subscription-heading-container h1 {
+    color: #002f93;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+}
+
+.subscription-dashboard-card-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(10, 1fr);
+    width: 100%;
+    justify-items: center;
+}
+
+@media only screen and (max-width: 1800px) {
+    .subscription-dashboard-card-container {
+        grid-template-columns: repeat(9, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .subscription-dashboard-card-container {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .subscription-dashboard-card-container {
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .subscription-dashboard-card-container {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .subscription-dashboard-card-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .subscription-dashboard-card-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

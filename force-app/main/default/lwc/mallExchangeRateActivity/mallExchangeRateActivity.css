@@ -1,0 +1,18 @@
+.ativityCard { width: 100%; background-color: #f8f8f8; padding: 8px 10px;   border-radius: 12px; box-shadow: 0px 0px 5px #cccccc69; min-height: 226px;}
+
+.ativityCardHead { width: 100%;  position: relative; }
+
+.ativityCardHead strong { font-size: 16px; color: #1A314D; display: block;}
+.ativityCardHead button { border: 0px; background-color: transparent; padding: 0px; position: absolute; right: 0px; top: 6px; display: block;}
+
+.ativityCardHead button img { max-width: 12px; display: block;}
+
+.exchangeSection { width: 100%; padding-top: 15px;}
+
+.exchangeSection { color: #1A314D; font-size: 14px; padding-bottom: 10px;}
+
+.zarImg { width: 100%; display: block;}
+.zarImg img { width: 100%; display: block;}
+
+.arrowImg { width: 100%; display: block; max-width: 40px; margin: auto; transform: scale(2.3); border: 0px; background-color: transparent;}
+.arrowImg img { width: 100%; display: block;}

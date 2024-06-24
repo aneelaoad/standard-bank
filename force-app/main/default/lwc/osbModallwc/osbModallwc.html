@@ -1,0 +1,130 @@
+<template>
+  <div class="ModalMain" data-id="Modal">
+    <div class="ModalCard">
+      <div class="ModalCloseButton">
+        <i class="msClass ms-icn_close closeButtonIcon" onclick={closeModel} data-id="close_modal" data-scope="Modal"
+          data-text="Modal | Close Icon" data-intent="confirmational"></i>
+      </div>
+      <div class="ModalSection">
+        <div class="ModalWrapper">
+          <div class="ModalImage">
+            <template lwc:if={thirdParty}>
+              <img src={iconImage} class="logoHeight">
+            </template>
+            <template lwc:else>
+              <img src={SBlogo}></img>
+            </template>
+          </div>
+          <div class="ModalTitle">
+            <template lwc:if={solTM}>
+              <div>{modaltitle}<sup class="tmClass">TM</sup></div>
+            </template>
+            <template lwc:else>
+              <div>{modaltitle}</div>
+            </template>
+          </div>
+          <div class="ModalLine"></div>
+          <div class="ModalIntroduction">
+            <div>{modalcontent}</div>
+          </div>
+          <div class="ModalButtons">
+            <template lwc:if={modalissolution}>
+              <template lwc:if={buttonChangeTwo}>
+                <div class="ModalButtonSection">
+
+                  <div>
+                    <button onclick={opensecondurl} class="slds-button slds-button_neutral btnStyle"
+                      title="VIEW DOCUMENTATION" data-id="modal_view" data-text="Modal | View Documentation"
+                      data-intent="informational" data-scope="Modal">
+                      Find out more
+                    </button>
+                  </div>
+                  <div>
+                    <button onclick={openfirsturl} class="slds-button slds-button_neutral btnStyle btnSignUp"
+                      title="SIGN UP TO SUBSCRIBE" data-id="modal_sub" data-text="Modal | Sign Up To Subscribe"
+                      data-intent="navigational" data-scope="Modal">
+                      SIGN UP
+                    </button>
+                  </div>
+                </div>
+              </template>
+              <template lwc:if={buttonChange}>
+                <div class="ModalButtonSection">
+                  <div class="modalFirstButton">
+                    <button onclick={openfirsturl} class="slds-button slds-button_neutral btnStyle btnSignUp"
+                      title="SIGN UP TO SUBSCRIBE" data-id="modal_sub" data-text="Modal | Sign Up To Subscribe"
+                      data-intent="navigational" data-scope="Modal">
+                      ACCESS SOLUTION
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </template>
+          </div>
+          <div class="ModalAddApp">
+
+            <template lwc:if={modalissolutionTwo}>
+
+              <button class="slds-button slds-button_neutral btnStyle btnAddApp" onclick={addSolutionAsFavourite}
+                data-id="Modal | Add to My Application" data-text={ModalAddAppText} disabled={disabled}
+                value="ADD TO MY DASHBOARD" data-intent="transactional" data-scope="Modal">
+                <i class="msClass ms-icn_add_circle addButtonIcon"></i>
+                <div>
+                  <p class="TextButton-Add">Add to my dashboard</p>
+                </div>
+              </button>
+            </template>
+
+            <template lwc:if={exitProvider}>
+              <template lwc:if={stopduplicate}>
+                <button class="slds-button slds-button_neutral btnStyle btnAddApp" onclick={addSolutionAsFavourite}
+                  data-id="Modal | Add to My Application" data-text={ModalAddAppText} disabled={disabled}
+                  value="ADD TO MY DASHBOARD" data-intent="transactional" data-scope="Modal">
+                  <i class="msClass ms-icn_add_circle addButtonIcon"></i>
+                  <div>
+                    <p class="TextButton-Add">Add to my dashboard</p>
+                  </div>
+                </button>
+              </template>
+            </template>
+          </div>
+
+          <template lwc:if={providerspace}>
+            <div class="solutionProviderSection">
+
+              <template for:each={displayProvider} for:item="disP">
+                <div class="solutionProviderSectionTitle" key={disP.Id}>
+                  <div class="providerTitle">Solution provided by</div>
+                </div>
+                <div class="viewMoreSolutionsBtn" key={disP.Id}>
+                  <button class="TextButton slds-button slds-button_neutral" onclick={goToProvider}
+                    data-id="Modal | View more solutions from Provider" data-text={ModalAddAppText} disabled={disabled}
+                    value="View more solutions" data-title={disP.Title} data-providerid={disP.Id}
+                    data-content={disP.Introduction__c} data-intent="transactional" data-scope="Modal">{disP.Title}
+                  </button>
+
+                </div>
+
+              </template>
+
+            </div>
+          </template>
+          <template lwc:if={exitProvider}>
+            <div class="solutionProviderSection">
+              <div class="solutionProviderSectionTitle">
+                <div class="providerTitle ">Solution provided by</div>
+              </div>
+              <div class="viewMoreSolutionsBtn">
+
+                <p class="TextButton " style="color: #5C6C80;">{providertitle}</p>
+
+              </div>
+            </div>
+          </template>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>

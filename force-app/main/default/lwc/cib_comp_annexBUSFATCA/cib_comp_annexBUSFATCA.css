@@ -1,0 +1,36 @@
+.sub-header {
+  padding: 20px 143px 25px 20px;
+}
+
+.aob_info-text {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24px;
+}
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin: 0 0 0 16px;
+}
+.deleteicon {
+  margin: 3% 2%;
+}
+.checkbox_text {
+  flex-flow: nowrap;
+}
+
+.checkbox_top {
+  padding: 10px;
+}
+
+.us-font {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 32px;
+  margin-bottom: 20px;
+  color: #1a314d;
+}

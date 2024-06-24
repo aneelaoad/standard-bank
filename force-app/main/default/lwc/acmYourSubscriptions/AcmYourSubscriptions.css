@@ -1,0 +1,39 @@
+tbody.table_body_sec tr td {
+    border: 0px;
+    color: #000;
+  padding: 0.65rem 0.5rem !important;
+    font-weight: 500 !important;
+  } 
+  
+  .table_head_sec tr th {
+    border-bottom: 1px solid #CCCCCC;
+  background-color: transparent !important;
+  padding: 0.65rem 0.5rem !important;
+    font-weight: 900 !important;
+    color: #000;
+    font-size: 14px;
+    border-top: 1px solid #CCCCCC;
+  }
+
+
+  .table_head_sec tr th .slds-truncate{ 
+  font-family: var(--lwc-fontFamily,BentonSans);
+}
+
+  
+  
+  
+  .dynamic-pending-status { 
+    color: #FFB94F;
+  }
+  .dynamic-approved-status {
+  color: #00AD6C;
+  }
+  .dynamic-rejected-status {
+    color: red;
+}
+  
+  .subscription-table-entrypoint {
+    border-bottom: 0px !important;
+    background-color: transparent !important;
+  }

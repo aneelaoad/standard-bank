@@ -1,0 +1,45 @@
+<template>
+  <button
+    data-intent={interactionIntent}
+    data-scope={interactionScope}
+    data-type={interactionType}
+    data-text-before={interactionTextBefore}
+    data-text={buttonInteractionText}
+    data-text-after="button"
+    data-id="link_content"
+    type={buttonType}
+    class={classList}
+    title={title}
+    onclick={onClick}
+    disabled={disabled}
+    aria-disabled={disabled}
+  >
+    <span if:true={icon} class="icon-wrapper" style={iconStyle}></span
+    ><lightning-formatted-rich-text
+      value={label}
+      disable-linkify="true"
+    ></lightning-formatted-rich-text>
+  </button>
+
+  <!-- <button
+  data-intent={interactionIntent}
+  data-scope={interactionScope}
+  data-type={interactionType}
+  data-text-before={interactionTextBefore}
+  data-text={buttonInteractionText}
+  data-text-after="button"
+  data-id="link_content"
+  type={buttonType}
+  class={classList}
+  title={title}
+  onclick={handleSignUpPage}
+  disabled={disabled}
+  aria-disabled={disabled}
+> 
+  <span if:true={icon} class="icon-wrapper" style={iconStyle}></span
+  ><lightning-formatted-rich-text
+    value={label}
+    disable-linkify="true"
+  ></lightning-formatted-rich-text>
+</button>-->
+</template>

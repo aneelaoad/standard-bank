@@ -1,0 +1,27 @@
+<template>
+    <div class="clock-wrapper">
+      <template lwc:if={resultData}>
+        <div class="clock-heading-wrapper">
+          <h3 class="clock-heading">{heading}</h3>
+          <c-mall-widget-actions></c-mall-widget-actions>
+        </div>
+        <div class="clock-list-wrapper">
+            <div class="clock-list-grid">
+                <template for:each={list} for:item="clock">
+                    <div key={clock.id} class="clock-card">
+                        <div class="clock-timezone">{clock.timezone}</div>
+                        <div class="clock-time-wrapper">
+                            <span class="clock-time-of-day">{clock.timeOfDay}</span>
+                            <span class="clock-time">{clock.time}</span>
+                        </div>
+                        <div class="clock-information-wrapper">
+                            <span class="clock-city">{clock.city}</span>
+                            <span class="clock-day">{clock.day}</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+      </template>
+    </div>
+  </template>

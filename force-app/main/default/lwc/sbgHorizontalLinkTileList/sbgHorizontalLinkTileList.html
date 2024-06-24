@@ -1,0 +1,41 @@
+<template>
+    <div class="container">
+        <div class="row">
+            <div class="col col-12">
+                <div class="component horizontal-buttons horizontal-buttons--text-detail-small"
+                    data-trackingregion="content button">
+
+                    <template if:true={sectionHeading}>
+                        <div class="title title--module-title horizontal-buttons__title">
+                            {sectionHeading}
+                        </div>
+                    </template>
+                    <div class="row">
+                        <template for:each={insights} for:item="insight">
+                            <div class="d-flex col col-12 col-md-4 col-lg-2 col-md-4 col-lg-4" key={insight.tileId} onclick={tileClick} data-key={insight.tileId}>
+                                <a class="horizontal-buttons-item" href="#" data-target-url={insight.tileUrl}
+                                    data-intent="informational" data-scope="HorizontalTileMenu"
+                                    data-id="link_content_content button" data-text={insight.tileTitle}
+                                    data-key={insight.tileId}>
+                                    <div class="horizontal-buttons-item__inner">
+                                        <div class="horizontal-buttons-item__icon ">
+                                            <img src={insight.tileIcon}>
+                                        </div>
+                                        <div class="horizontal-buttons-item__detail">
+                                            <div class="title title--module-sub-title horizontal-buttons-item__title">
+                                                {insight.tileTitle}
+                                            </div>
+                                            <p class="horizontal-buttons-item__copy">
+                                                {insight.tileDescription}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </template> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

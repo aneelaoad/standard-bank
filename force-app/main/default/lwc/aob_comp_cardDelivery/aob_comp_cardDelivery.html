@@ -1,0 +1,114 @@
+<!--
+  @description       : this component used to capture the delivery choice of customer to deliver the selected card
+  @author            : Chandu
+  @group             : 
+  @last modified on  : 19 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+<template>
+		<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<template if:true={isModalOpen}>
+		<c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
+		<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+			class="slds-modal slds-fade-in-open slds-modal_medium">
+			<div class="slds-modal__container">
+				<div class="slds-modal__header ao-background-colour_brand-blue aob_header_title cd_title">
+					<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate " tabindex="-1">
+						{label.PBP_ZA_Carddelivery}</h1>
+					<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse closeIcon">
+						<lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+							data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+							data-text={adobeDataTextBack} size={iconSize} onclick={closeModal} style="float: right;">
+						</lightning-icon>
+						<span class="slds-assistive-text">{label.AOB_ZA_CancelandcloseCancel}</span>
+					</button>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+					<p class="subtitle slds-m-around_medium">{screenSubtitle}</p>
+					<template for:each={sections} for:item="section" for:index="sectionIndex">
+						<div if:true={section.title} key={section.id}
+							class="aob_screen-section-title slds-align_absolute-center aob_border-bottom">
+							{section.title}</div>
+						<div key={section.id} class="slds-grid slds-gutters_large slds-wrap">
+							<template for:each={section.fields} for:item="field" for:index="index">
+								<div key={field} class={section.gridClass} if:false={field.isHidden}>
+									<template if:false={field.isHelpText}>
+										<template if:false={field.isOutput}>
+											<label if:false={field.isCheckbox}
+												class="aob_screen-field-label slds-m-bottom_none">
+												<lightning-formatted-rich-text value={field.label}>
+												</lightning-formatted-rich-text>
+												<c-aob_comp_tooltip if:true={field.helpTxt} message={field.helpTxt}>
+												</c-aob_comp_tooltip>
+											</label>
+										</template>
+									</template>
+									<lightning-input if:true={field.isInput} key={field.id}
+										placeholder={field.placeholder} name={field.name} type="text"
+										variant="label-hidden" message-when-value-missing={field.errorMesage}
+										data-name={field.name} data-error={field.errorMessage}
+										minlength={field.minLength} maxlength={field.maxLength}
+										value={field.defaultValue} message-when-pattern-mismatch={field.errorMesage}
+										pattern={field.pattern} required={field.isRequired}
+										onchange={genericFieldChange}>
+									</lightning-input>
+									<div if:true={field.isHelpText} class="row aob-helptext-wrap">
+										<div>
+											<img width="18" class="aob_tooltip_icon" alt="" src={infoIMG}>
+										</div>
+										<div class="col">
+											<span class="aob-info-text">{field.label}</span>
+										</div>
+									</div>
+
+									<c-aob_comp_acpicklist if:true={field.isCombobox} sapfield={field.mriTable}
+										name={field.name} values={field.options}
+										missing-value-message={field.errorMessage} placeholder="Please select"
+										onblur={genericComponentChangeBlur} onchange={genericComponentChange}
+										data-name={field.name} data-value={selectedPicklistValue} data-id={field.id}
+										sole-owner-value={isSoleOwnership} value={field.defaultValue}
+										business-registered={isBusinessReg}>
+									</c-aob_comp_acpicklist>
+
+									<div if:true={field.isOutput} class="aob_screen-field-label slds-m-bottom_small">
+										{field.label}</div>
+
+									<div if:true={field.isRadio} class="slds-grid aob_form_row aob_grid_sm">
+										<template for:each={field.options} for:item="radioItem" for:index="radioIndex">
+											<div key={radioItem.id} class="slds-p-right_xx-large">
+												<input type="radio" data-name={field.name} data-value={radioItem.value}
+													data-id={field.id} data-show={field.childShowingValue}
+													name={field.id} onchange={genericRadioChange}>
+												<label class="aob_screen-section-paragraph" for={field.id}>
+													{radioItem.label}</label>
+											</div>
+										</template> <br />
+									</div>
+
+									<div if:true={field.isPrivateaddress}>
+										<c-aob_comp_privateaddress sapfield={field.mriTable} required={field.isRequired}
+											name={field.name} missing-value-message={field.errorMessage}
+											data-name={field.name} placeholder="Please select" resaddress={field.value}
+											default-data={field.defaultValue}
+											companytradingdata={field.compTradingValue}
+											onaddressblur={genericComponentChangeBlur} data-id={field.id}>
+										</c-aob_comp_privateaddress>
+									</div>
+									<p key={field} class="aob_error_input_label" if:true={field.showError}>
+										{field.errorMessage}
+									</p>
+								</div>
+							</template>
+						</div>
+					</template>
+					<button data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+						data-text={adobeDataTextContinue}
+						class=" continuebtn slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+						title="continue" onclick={continueToNextPage}>{label.AOB_Continue}</button>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+	</template>
+</template>

@@ -1,0 +1,26 @@
+@import 'c/eapCssLibrary';
+
+.relleno{
+    background-color:  var(--background-grey);
+    min-height: 85vh;
+}
+
+.v1_section{
+    padding: 2em 3em;
+}
+
+.v1_lastSection {
+    padding: 2em 3em 7em;
+}
+
+.v1_settings_info{
+    padding-top: 1em;
+}
+
+.v1_div_prettyList.v1_div_endInfo > a {
+    margin-left: auto;
+}
+
+.filter {
+    filter: var(--filter-light-blue);
+}

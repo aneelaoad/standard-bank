@@ -1,0 +1,17 @@
+.overviewCHart { width: 100%; background-color: #F4F5F7; position: relative; border-radius: 16px; padding: 39px 35px; display: flex;}
+
+.overviewCHartInfo { width: 176px;}
+
+.overviewCHartInfo span { width: 100%; display: block;}
+.overviewCHartInfo span img { width: 100%; display: block;}
+
+.overviewCHartText { width: calc(100% - 176px); padding-left: 60px;}
+
+.overviewCHartText_info { width: 100%;}
+
+.overviewCHartText_info  small {color: #5C6C80; font-size: 16px; padding-bottom: 5px;  display: block;}
+.overviewCHartText_info  strong {color: #1A314D; font-size: 20px; padding-bottom: 5px; font-weight: bold; display: block;}
+
+.savingInfo { width: 100%; display: flex; padding-top: 25px;}
+
+.savingInfoFl{ width: 50%; padding-right: 10px;}

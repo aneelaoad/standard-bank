@@ -1,0 +1,143 @@
+.sectionTitle {
+    border-width: 0px;
+    position: absolute;
+    text-align: center;
+    width: 694px;
+    height: 62px;
+    display: flex;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: #858D9D;
+    line-height: 32px;
+}
+.selectcls{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 7rem;
+    padding-right: 7rem;
+} 
+.closeIcon:focus{
+    border: none;
+}
+.picklist{
+    z-index: 99999999;
+}
+.radion_button{
+    display: flex;
+    padding-bottom: 12px;
+}
+.buttons{
+    display: flex;
+}
+.picklist{
+    position: sticky !important;
+}
+.feilds{
+    color: #858d9d;
+    font-family: BentonSans;
+    font-size: 11px;
+    font-weight: bold; 
+    letter-spacing: 1px;
+
+}
+.continue{
+    text-align: center;
+    justify-content: center;
+}
+.aob_label_wrap {
+    max-width: 279px;
+}
+.aob_header_title h1{
+    font-family: 'bentonsans-extra-light-webfont';
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.07;
+    letter-spacing: normal;
+    text-align: center;
+    color: var(--white);
+}
+.subtitle{
+    color: #858d9d;
+    font-family: bentonsans-extra-light-webfont;
+    text-align: center;
+    font-size: 21px;
+    overflow: none!important;
+    font-weight: bold;
+}
+.cd_title{
+    justify-content: center;
+    font-family: BentonSans;
+    padding: 1rem;
+}
+
+.aob-subsection-header{
+  font-family: BentonSans;
+  font-size: 16px;
+  line-height: 1.38;
+  color: #858d9d;
+}
+.continuebtn{
+    display: flex;
+    height: 50px;
+    width: 46%;
+    text-align: center;
+    color: white;
+    background-color: #0089ff;
+    border: none;
+    justify-content: center;
+    margin: 25px auto;
+    align-items: center;
+    text-transform: uppercase;
+} 
+
+.slds-form-element__control span{
+    margin-right: 0px;
+}
+.consent_display{
+    display: inline;
+}
+
+.row.aob-helptext-wrap {
+    margin-left: -3px;
+}
+
+.row.aob-helptext-wrap .col {
+    margin: 0 7px;
+}
+
+.row.aob-helptext-wrap .col .aob-info-text {
+    margin: 0;
+}
+.aob_form_input{
+    position: relative;
+}
+
+@media (max-width: 767px){
+    .subtitle{
+        font-size: 15px; 
+    }
+    .button_reverse{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .selectcls{
+        position: relative;
+        margin-left: 0px;
+        margin-right: 0px;  
+    } 
+}
+@media (max-width: 767px){
+  .aob_header_title h1{
+      font-size: 25px;
+  }  
+}
+@media (max-width: 550px){
+    .continuebtn{
+        width:100%;
+        border-radius: 3px;
+    }
+}

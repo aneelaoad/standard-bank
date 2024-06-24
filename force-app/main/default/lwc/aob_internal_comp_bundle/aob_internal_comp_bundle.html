@@ -1,0 +1,38 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="aob_estimation_block_container">
+
+        <div class="aob_estimation_block_content slds-p-bottom_large">
+            <div class="slds-theme--shade slds-p-vertical_medium">
+                <p class="card-title slds-m-left_x-large">{title}</p>
+            </div>
+            <div class="aob_bundle-actions-content slds-p-around_medium">
+                <!-- pck : {title} --> 
+                <ul class="slds-m-left_xx-large">
+                    <template for:each={itemsList} for:item="item">
+                        <li key={item}>
+                            - {item}</li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+        <div class="aob-bottom-bundle">
+            <template for:each={priceList} for:item="item">
+                <div key={item} class="slds-m-left_x-large">{item.subTitle}: {item.price}</div>
+            </template>
+            <template for:each={percentList} for:item="item">
+                <div key={item} class="slds-m-left_x-large">{item.subTitle}: {item.percent} %</div>
+            </template>
+            <br />
+        </div>
+        <div class="slds-m-left_x-large slds-m-bottom_xx-large">
+            <div class="">
+                <h4>
+                    <input type="checkbox" name={productCode} id="addToBundle" data-id="link_content" data-intent="navigational"
+					data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue} onclick={click} checked={getformData}/>
+                    <label class="slds-m-left_x-small">{label.AOB_ZA_Addtobundle}</label> 
+                </h4>
+            </div>
+        </div>
+    </div>
+</template>

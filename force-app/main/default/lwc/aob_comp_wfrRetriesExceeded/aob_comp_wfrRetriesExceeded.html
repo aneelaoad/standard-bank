@@ -1,0 +1,22 @@
+<!--
+ACTION  TICKET    DATE       OWNER         COMMENT
+Created SFP-8831  17-11-2022 Gill Lumley   Copied from MVP1 and removed CallMeBack pop-up (not applicable to MVP2)
+@last modified on  : 26 APRIL 2024
+@last modified by  : Narendra 
+@Modification Description : SFP-38348
+-->
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div class="retries">
+		<div>
+			<div class="aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius ">
+				<h2 class="slds-align_absolute-center heading">{label.AOB_ZA_VerificationRetries} </h2><br />
+				<p class="slds-align_absolute-center sub">{label.AOB_ZA_YouSeemToBeStruggling}</p><br />
+				<div class="aob_display-flex aob_mobile_1_of_1 ">
+					<button class="slds-button slds-button_brand btn-primary" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+					data-scope={adobePageTag.dataScope} data-text={adobePageTag.callMeBackText} onclick={backToBrowsing}>{label.AOB_BackToBrowsing}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

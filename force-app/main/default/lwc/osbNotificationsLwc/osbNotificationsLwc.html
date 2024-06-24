@@ -1,0 +1,66 @@
+<template>
+    <div class="notification-container stretch slds-size_6-of-6 slds-medium-size_8-of-12 slds-large-size_4-of-6">
+        <div class="notifications slds-size_6-of-6 slds-medium-size_8-of-12 slds-large-size_4-of-6">
+            <div if:true={showPopUp}>
+                <c-osb-market-gram-popup-lwc onclosepopupevent={handleCloseEvent} sub-title="Are you sure you want to delete all notifications?" title="Delete notification?" content="Are you sure you want to delete all notifications?"></c-osb-market-gram-popup-lwc>
+            </div>
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="12">
+                    <div class="slds-align_absolute-center top-section">
+                        <i class="msClass ms-icn_bell notification__bell bell-icon"></i>
+                        <h3 class="title">Notifications</h3>
+                        <p class="statement">You can view and stay up to date with any news and notifcations here.</p>
+                    </div>
+                    <div if:true={empty}>
+                        <div class="notifications__empty">
+                            <img src={OSB_notificationsEmpty} />
+                            <div>You have no new notifications at this time.</div>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+            <div if:false={empty} onrefresh={refrehsHandler}>
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12" small-device-size="12" medium-device-size="12"
+                        large-device-size="12">
+                        <div class="searchSection slds-form-element">
+                            <div class="searchAlignnment">
+                                <div
+                                    class="searchInput slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                                    <lightning-icon size="x-small"
+                                        class="slds-icon slds-float_right slds-input__icon slds-input__icon_left slds-icon-text-default"
+                                        icon-name="utility:search"></lightning-icon>
+                                    <input type="text" id="searchInput" data-id="searchInput"
+                                        data-text="Notifications | Search for Notification"
+                                        onkeyup={searchForNotifcations} placeholder="Search notification"
+                                        class="slds-input input-search" />
+                                </div>
+                                <p class="helpText">Please enter minimum of 2 characters.</p>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12">
+                        <template if:true={noSearchResults}>
+                            <div class="noSearchResults">
+                              <div>
+                                <p class="headingSearchResults">No search results</p>
+                                <p style="padding-top: 16px;">Try adjusting your search filter</p> 
+                              </div>
+                            </div>
+                          </template>
+                          <template if:false={noSearchResults}>
+                            <div class="pagination-cls" if:true={pages}>
+                                <c-osb-paginationlwc page-size="6" full-list-value={notificationsList} shownotification="true">
+                                </c-osb-paginationlwc>
+                            </div>
+                            <div if:false={empty}>
+                                <lightning-button variant="base" class="deleteAll" onclick={removeAllNotification} data-id="remove all" label="Delete all notifications" data-text="Notification | delete all" data-intent="confirmational" data-scope="notifications"></lightning-button>
+                            </div>
+                        </template>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </div>
+    </div>
+</template>

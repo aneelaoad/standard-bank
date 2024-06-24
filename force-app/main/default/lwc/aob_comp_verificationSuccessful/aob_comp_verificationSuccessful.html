@@ -1,0 +1,120 @@
+<!--
+  @description       : SFP-27748
+  @author            : Devi.ravuri@salesforce.com
+  @group             : 
+  @last modified on  : 26 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->
+
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div class="container">
+		<div>
+      <div class="aob_comp_form_title"> {label.AOB_VerificationSuccessfulTitle}
+      </div>
+			<div
+				class="aob_card_container">
+				<div class="text">
+					{label.AOB_VerificationMessage}
+				</div>
+			</div>
+		</div>
+
+		<div if:true={showProceedToApp}
+			class="aob_required-actions-section ao-box-shadow_medium ao-background-colour_white-100 slds-m-bottom--large section">
+
+			<div class="aob_required-actions-content">
+				<div>
+					<div class="sub-texts">
+						{label.AOB_ZA_ItLooksYou}
+					</div>
+					<div class="content">
+						{label.AOB_VerificationSC_SigninMSG}
+					</div>
+					<div class="aob_mobile_1_of_2 slds-size_1-of-1  aob_margin_horizontal_auto slds-m-vertical_small slds-m-bottom_large">
+						<button  class="btn-primary slds-m-bottom_x-large" type='button' data-id={adobePageTag.dataId}
+                  data-context="ProceedToApplication" data-intent={adobePageTag.dataIntent}
+                  data-scope={adobePageTag.dataScope} data-text="Proceed to Application Button click"
+                  onclick={launchApplication}>{label.AOB_ZA_PoceedToApplication}</button>
+					</div>
+				</div>
+				<div class="line1"></div>
+			</div>
+		</div>
+
+		 <div if:true={showSignInRegister} style="background-color: #FFFFFF;position:relative">
+			<div class="cards">
+				<div class="slds-size_1-of-2">
+					<div
+						class="aob_required-actions-section ao-background-colour_white-100 slds-m-bottom--large section">
+						<div class="aob_required-actions-contents ">
+							<div class="sub-text">
+								{label.AOB_VerificationSC_VerifyIDDesc}
+							</div>
+							<div class="contents slds-p-bottom_x-large">
+								{label.AOB_VerificationSC_SignOffer}
+							</div>
+							<div class="aob_mobile_1_of_2 aob_margin_horizontal_auto slds-m-vertical_small">
+								<button  class="btn-primary one" type='button' data-id={adobePageTag.dataId}
+                      data-context="SignIn" data-intent={adobePageTag.dataIntent}
+                      data-scope={adobePageTag.dataScope} data-text="sign In Button click"
+                      onclick={launchApplication}>{label.AOB_VerificationSC_SigninBTN}</button>
+							</div>
+							<div class="Terms">
+								{label.AOB_VerificationSC_TsandCs}<span><a href={label.AOB_VS_Terms}>T&Cs</a></span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="slds-size_1-of-2">
+					<div
+						class="aob_required-actions-section  ao-background-colour_white-100 slds-m-bottom--large section">
+						<div class="sub-container">
+							<div class="vertical_line">
+								<div class="sub-text">
+									{label.AOB_VerificationSC_CompleteApplication}
+								</div>
+								<div class="contents slds-p-bottom_xx-small">{label.AOB_VerificationSC_SigninRegister}
+								</div>
+								<div
+									class="aob_mobile_1_of_2  aob_margin_horizontal_auto slds-m-vertical_small slds-p-bottom_xx-large">
+									<button class="btn-primary btnTwo" type='button' data-id={adobePageTag.dataId}
+                        data-context="Register" data-intent={adobePageTag.dataIntent}
+                        data-scope={adobePageTag.dataScope} data-text="Register Button click"
+                        onclick={launchApplication}>{label.AOB_ZA_Register}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="line"></div>
+		</div>
+
+		<div if:true={showSignIn}
+			class="aob_required-actions-section ao-box-shadow_medium ao-background-colour_white-100 slds-m-bottom--large section">
+			<div class="aob_required-actions-content">
+				<div class="sub-texts">
+					{label.AOB_VerificationSC_Signin}
+				</div>
+				<div class="content slds-p-bottom_x-large">
+					{label.AOB_VerificationSC_SigninMSG}
+				</div>
+				<div class="aob_mobile_1_of_2  aob_margin_horizontal_auto slds-m-bottom_xx-large slds-m-vertical_small">
+					<button  class="btn-primary" type='button' data-id={adobePageTag.dataId}
+              data-context="SignIn" data-intent={adobePageTag.dataIntent}
+              data-scope={adobePageTag.dataScope} data-text="Sign In Button click"
+              onclick={launchApplication}>{label.AOB_VerificationSC_SigninBTN}</button>
+				</div>
+				<div class="Terms">
+					{label.AOB_VerificationSC_TsandCs}<span><a href={label.AOB_VS_Terms}>T&Cs</a></span>
+				</div>
+				<div>
+					<div class="line1"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

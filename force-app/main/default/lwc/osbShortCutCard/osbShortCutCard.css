@@ -1,0 +1,156 @@
+.ApplicationCardHolder {
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+    border: 1px solid #ededed;
+    border-radius: 5px;
+    animation: fadeIn 2s forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    100% {
+        opacity: 1;
+    }
+}
+
+.ShortcutCardHolder {
+    width: 100%;
+    height: auto;
+    background: #ffffff;
+    border: 1px solid #ededed;
+    border-radius: 5px;
+    animation: fadeIn 2s forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+
+.CardWrapper {
+    padding: 1.5rem 1rem;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.ShortcutCardWrapper {
+    padding: 1rem 0.75rem;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.CardTitleHolder {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: #1a314d;
+}
+
+.CardTitle {
+    height: auto;
+}
+
+.ShortcutCardTitle {
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: #02070d;
+}
+
+.CardImage {
+    width: auto;
+    height: 1.875rem;
+}
+
+img {
+    max-width: 100%;
+    height: 100%;
+    width: auto;
+}
+
+.tmClass {
+    position: relative;
+    font-size: 40%;
+    line-height: 0;
+    vertical-align: baseline;
+    top: -1.2em;
+}
+
+.btnStyle {
+    display: inline-flex;
+    height: 1.875rem;
+    background-color: transparent;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.15s ease-in;
+    cursor: pointer;
+    border-color: transparent;
+    align-items: flex-end;
+    border-radius: 0.5rem;
+}
+
+.AddButtonStyle {
+    color: #0062e1;
+}
+
+.AddButtonStyle:hover {
+    background: rgba(0, 110, 252, 0.1);
+}
+
+.addButtonIcon {
+    font-size: 1.5rem;
+}
+
+.RemoveButtonStyle {
+    color: #dc0a0a;
+}
+
+.RemoveButtonStyle:hover {
+    background: rgba(220, 10, 10, 0.1);
+}
+
+.DisabledButtonStyle {
+    cursor: not-allowed;
+    color: #1a314d;
+}
+
+.addDisabledButtonIcon {
+    font-size: 1.5rem;
+    color: #5c6c80;
+}
+
+.TitleMobileView {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .ApplicationCardHolder {
+        height: 6rem;
+        display: grid;
+        align-items: center;
+    }
+    .CardTitle {
+        max-width: 10.5rem;
+    }
+    .btnStyle {
+        width: 100% !important;
+    }
+    .addButtonIcon {
+        font-size: 1.25rem;
+    }
+    .TextButton {
+        display: none;
+    }
+    .TitleNonMobileView {
+        display: none;
+    }
+    .TitleMobileView {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,19 @@
+/**
+ * Created by A250460 on 2023/03/17.
+ */
+.slds-modal__container{
+	width:90%;
+	max-width: none;
+	min-width: 40rem;
+	height: 100%;
+	padding: 3rem 0;
+}
+
+.slds-spinner{
+	position: relative !important;
+	margin-top: 70px;
+}
+
+.body-container{
+	min-height: 100px;
+}

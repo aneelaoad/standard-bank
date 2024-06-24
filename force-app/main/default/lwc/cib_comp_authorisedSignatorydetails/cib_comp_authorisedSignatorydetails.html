@@ -1,0 +1,201 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Authorised signatory details</h2>
+    </article>
+    <template for:each={participants} for:item="item" for:index="index">
+      <div key={item.CIB_Sequence__c} class="aob_card-container">
+        <template lwc:if={index}>
+          <div
+            class="slds-p-top_medium deleteicontopleft"
+            key={item.CIB_Sequence__c}
+          >
+            <img
+              class="slds-p-top_large slds-p-left_large"
+              src={delete_row_icon}
+              alt="delete-row-icon"
+              access-key={item.CIB_Sequence__c}
+              id={index}
+              data-id={index}
+              data-index={index}
+              alternative-text="Delete Row"
+              size="small"
+              title="Delete Row"
+              onclick={deleteParticipant}
+            />
+          </div>
+        </template>
+        <label class="aob_title-sm" for="form-element-05">
+          <span class="slds-required" title="required">* </span>
+          Authorised signatories</label
+        >
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr
+                >Name</label
+              >
+              <lightning-input
+                value={item.Name}
+                data-index={index}
+                variant="label-hidden"
+                type="text"
+                aria-describedby="form-error-06"
+                data-participant-sequence={item.CIB_Sequence__c}
+                aria-invalid="true"
+                data-fieldname="Name"
+                name="Name"
+                required                
+              >
+              </lightning-input>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <label
+              class="slds-form-element__label"
+              for="date-input-id-default2"
+            >
+              <abbr class="slds-required" title="required">* </abbr>Permanent
+              residential address</label
+            >
+            <div
+              class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+            >
+              <lightning-input
+                value={item.CIB_PermanentResidentialAddress__c}
+                data-participant-sequence={item.CIB_Sequence__c}
+                data-index={index}
+                variant="label-hidden"
+                type="text"
+                aria-describedby="form-error-06"
+                aria-invalid="true"
+                data-fieldname="CIB_PermanentResidentialAddress__c"
+                name="CIB_PermanentResidentialAddress__c"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr>Mobile
+                Number</label
+              >
+              <lightning-input
+                value={item.CIB_MobileNumber__c}
+                data-participant-sequence={item.CIB_Sequence__c}
+                data-index={index}
+                variant="label-hidden"
+                type="telephone"
+                aria-invalid="true"
+                data-fieldname="CIB_MobileNumber__c"
+                name="CIB_MobileNumber__c"
+                required
+              >
+              </lightning-input>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <label
+              class="slds-form-element__label"
+              for="date-input-id-default2"
+            >
+              <abbr class="slds-required" title="required">* </abbr>Telephone
+              Number</label
+            >
+            <div
+              class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+            >
+              <lightning-input
+                data-participant-sequence={item.CIB_Sequence__c}
+                value={item.TelephoneNumber__c}
+                data-index={index}
+                variant="label-hidden"
+                aria-invalid="true"
+                data-fieldname="TelephoneNumber__c"
+                type="telephone"
+                name="TelephoneNumber__c"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <label
+              class="slds-form-element__label"
+              for="date-input-id-default2"
+            >
+              <abbr class="slds-required" title="required">* </abbr>Email
+              Address</label
+            >
+            <div
+              class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+            >
+              <lightning-input
+                data-participant-sequence={item.CIB_Sequence__c}
+                value={item.Email__c}
+                data-index={index}
+                variant="label-hidden"
+                type="email"
+                aria-invalid="true"
+                data-fieldname="Email__c"
+                name="Email__c"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="aob_title-sm">
+          <span class="slds-required" title="required">* </span>Documents
+          required for authorised signatory
+        </div>
+
+        <c-cib_comp_documents-container
+          application-id={recordId}
+          section-id={sectionId}
+          participant-id={item.Id}
+          data-participant-sequence={item.CIB_Sequence__c}
+          is-participant
+        ></c-cib_comp_documents-container>
+      </div>
+    </template>
+    <div class="slds-grid aob_col-gutter slds-wrap mb_20">
+      <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+        <lightning-button
+          variant="brand-outline"
+          icon-name="utility:new"
+          label="ADD ADDITIONAL"
+          title="Primary action with lighter look"
+          onclick={addParticipant}
+          class="slds-m-left_x-small space-padding"
+        >
+        </lightning-button>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    ></c-cib_comp_flow-navigation>
+  </div>
+</template>

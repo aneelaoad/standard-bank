@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="lwc_TextBox">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+		<target>lightningCommunity__Default</target>
+		<target>lightning__FlowScreen</target>
+		<target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="txtBoxVal" type="String" />
+            <property name="applicationId" type="String" />
+            <property name="pageName" type="String" label="Adobe : Current screen page name" />
+            <property name="currentDataScope" type="String" label="Adobe : Current component data scope" default="content links" />
+            <property name="isFiringScreenLoad" type="Boolean" label="Adobe : Is Component firing loadscreen event?" />
+            <property name="continueBtnDataIntent" type="String" label="Adobe : Continue Button Data Intent" default="informational" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

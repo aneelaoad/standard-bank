@@ -1,0 +1,16 @@
+.header{
+    background-color: #F3F2F2;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #E7E5E5;
+}
+.main{
+    padding: 2%;
+    border-style: solid;
+    border-color: #E7E5E5;
+}
+.my-icon{
+    --sds-c-icon-color-foreground-default: #FFB75D
+}

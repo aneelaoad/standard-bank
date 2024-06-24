@@ -1,0 +1,42 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #f4f5f7;
+  border-radius: 12px;
+}
+.Back-Button {
+  color: #0062e1;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  border: none !important;
+  padding: 0px 50px;
+  background-color: white;
+  margin-top: 7px;
+}
+.Save-Button {
+  color: #0062e1;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  border: none !important;
+  padding: 0px 50px;
+  background-color: white;
+  margin-top: 7px;
+}
+.Next-Button {
+  background-color: #0062e1;
+  color: #f4f5f7;
+  border-radius: 8px;
+  font-style: normal;
+
+  font-size: 14px;
+  line-height: 16px;
+  border: none;
+  height: 33px;
+  padding: 7px 25px;
+  margin-bottom: 15px;
+}

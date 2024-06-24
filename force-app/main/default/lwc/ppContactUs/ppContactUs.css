@@ -1,0 +1,156 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    background-color: #F2F3F4;   
+}
+
+.main-grid{
+    padding-bottom: 20px;
+    max-width: 1280px;
+}
+
+.text{
+    width: 69%;
+    height: auto;
+    margin: 20px 0px 70px;
+    text-align: center;
+    color: #858d9d;
+}
+
+.heading {
+    min-width: fit-content;
+    margin: 20px;
+    text-align: center;
+    color: #3c4b6c;
+}
+
+.contact-Information {
+    height: 240px;
+    padding: 30px;
+    border-radius: 3px;
+    background-color: #ffffff;
+}
+
+.reach-out-to-us {
+    width: 583px;
+    height: 273px;
+    margin: 0 0 0 20px;
+    padding: 30px 55px 30px 30px;
+    border-radius: 3px;
+    background-color: #ffffff;
+}
+
+.contact-info-heading {
+    color: #3c4b6c;
+}
+
+.contact-info-text{
+    margin-top: 4.5px;
+}
+
+.send-email-link{
+  margin: 0 10px 0 0;
+  color: #0089ff;
+  position: relative;
+  top: 35px;
+  font-weight: bold;
+}
+
+.countryFlag{
+    width: 28px;
+    height: 28px;
+    margin: 21px 8px 0 0;
+    object-fit: contain;  
+}
+
+.con-us-sub-heading {
+    width : 358.453px;
+    margin: 0px 42px 35px 0;
+    color: #0a2240;
+}
+
+.contact-us-email {
+    margin: 0px 149px 8px 8px;
+    color: #0089ff;
+    font-weight: bold;
+}
+
+.con-us-details-container{
+    width: fit-content;
+}
+
+.contact-us-phone {
+    margin: 0px 215px 0px 8px;
+    color: #0089ff;
+    font-weight: bold;
+}
+
+.con-us-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0px 0px 8px 0;
+    object-fit: contain;
+}
+
+.countryFlag{
+    width: 28px;
+    height: 28px;
+    margin: 18px 8px 0 0;
+    object-fit: contain;   
+}
+
+
+@media(max-width: 1024px) {
+    
+    .contact-info-container {
+        padding-bottom: 20px;
+    }
+    .text{
+        margin: 20px 100px 70px;
+    }
+    .contact-info-heading{
+        margin: 0px 64px 0px 0;
+    }
+
+}
+
+@media(max-width: 414px) {
+    .contact-info-container {
+        padding-bottom: 20px;
+    }
+    .contact-Information{
+        margin:  0px;
+        padding: 20px;
+        background-color: #ffffff;
+    }
+    .text{
+        margin: 0px 0px 70px 0px;
+    }
+    .contact-info-heading{
+        margin: 0 40px 0 0;
+    }
+
+    .con-us-sub-heading{
+        width: 254.453px;
+    }
+    .contact-us-email{
+        margin : 0px 0px 8px 8px;
+    }
+
+    .contact-us-phone {
+        margin : 0px 0px 0px 8px;
+    }
+    .countryFlag{
+        margin: 21px 34px 0 0;
+    }
+    .country-combo-box{
+        width: 100px;
+    }
+}
+
+@media(max-width: 1280px) {
+    .contact-Information{
+        height: 260px;
+        background-color: #ffffff;
+    }
+}

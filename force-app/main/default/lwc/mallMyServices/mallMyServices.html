@@ -1,0 +1,133 @@
+<template>
+    <div class="services-header">
+        <span>
+            <h3>{myServicesHeader}</h3>
+            <p>{myServicesSubHeader}</p>
+        </span>
+            <button onclick={showModalBox} data-intent="transactional" data-scope="mall my services" data-id="link_content"
+             data-type="click" data-text="services edit button" class="services-header--btn">{myServicesBtnText}</button>
+    </div>
+
+    <div class="serviceList">
+        <template if:true={items}>
+            <template for:each={items} for:item="item">
+                <div class={item.serviceTileClassList} key={item.shopId} onclick={showServicesHandler} 
+                data-products={item.products} data-shopid={item.shopId} data-id="link_content" data-scope="mall my services" 
+                data-intent="informational" data-text-before="my services" data-text={item.name} data-text-after="shop" data-type="click">
+                    <div class="serviceTile-img"> 
+                        <Img src={item.imageUrl}></Img>
+                        <div class="serviceTile-img-overlays">
+                            <template if:true={item.isNew}>
+                                <span class="serviceTile-newBanner">{newBannerText}</span>
+                            </template>
+                            <button class={item.selectedServiceArrowBtnClassList}></button>
+                        </div>
+                        
+                    </div>
+        
+                    <span class="serviceTile-info">
+                        <span class="serviceTile-info-header">{item.Name}</span>
+                        <span class="serviceTile-info-text">{item.shortDesc}</span>
+                    </span>
+                    <button class="serviceTile-arrowBtn serviceTile-arrowBtnMobile"></button>
+                    <template if:true={item.showMobileService}>
+                        <div class="myServices-serviceList-container--mobile">
+                            <template for:each={products} for:item="link">
+                                <div class="myServices-serviceList-links--container--mobile" key={link.Id}>
+                                    <a class="myServices-serviceList-links--mobile" data-intent="navigational"
+                                    data-scope="mall my services" data-id="link_content" data-text={link.Name} 
+                                    data-text-after="service link" data-type="click">{link.Name}</a>
+                                    <div class="chevron"></div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+    </div>
+
+    <template if:true={showServices}>
+        <hr class="myServices-seperator--blue">
+        <div class="myServices-serviceList-container">
+            <template for:each={products} for:item="link">
+                <div class="myServices-serviceList-links--container" key={link.Id}>
+                    <a class="myServices-serviceList-links" href={link.Link__r.Desktop_url__c} data-intent="navigational"
+                    data-scope="mall my services" data-id="link_content" data-text={link.Name} 
+                    data-text-after="service link" data-type="click">{link.Name}</a>
+                </div>
+            </template>
+        </div>
+    </template>
+
+
+    <template if:true={isShowModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={hideModalBox}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                        Edit my services</h2>
+                </header>
+
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="serviceList-modal-subheader">
+                        <h4>Choose up to six services for quick access by selecting and editing from the available options.</h4>
+                            <label class="serviceList-modal-radioContainer">
+                                <input type="checkbox" name="selection" checked={selectionChecked} onchange={setSelectAllServices}
+                                        class="service-check" data-intent="transactional" data-id="link_content" data-type="click"
+                                        data-text="my services select all checkbox" data-scope="mall my services"/>
+                                <span class="selectAll-text"> Select all </span>
+                                <div class="check-indicator"></div>
+                            </label>
+                    </div>
+                    <div class="serviceList-modalContainer">
+                        <template if:true={shops}>
+                            <template for:each={shops} for:item="shop">
+                                <div class="serviceTile" onclick={setSelectedServices} key={shop.id}
+                                    data-intent="transactional" data-id="link_content" data-type="click"
+                                        data-text-before="my services" data-text={shop.name} data-text-after="select checkbox" data-scope="mall my services">
+                                    <div class="serviceTile-img">
+                                        <Img src={shop.imageUrl}></Img>
+                                        <div class="serviceTile-img-overlays">
+                                            <template if:true={shop.isNew}>
+                                                <span class="serviceTile-newBanner">{newBannerText}</span>
+                                            </template>
+                                            <label class="serviceList-modal-radioContainer">
+                                                <input type="checkbox" name="serviceSelection" checked={shop.isSelected} onchange={setSelectedServices}
+                                                        class="service-check" data-intent="transactional" data-type="click" data-id={shop.id}
+                                                        data-text-after="checkbox" />
+                                                <div class="check-indicator"></div>
+                                            </label>
+                                        </div>
+                                        
+                                    </div>
+                        
+                                    <span class="serviceTile-info">
+                                        <span class="serviceTile-info-header">{shop.name}</span>
+                                        <span class="serviceTile-info-text">{shop.title}</span>
+                                    </span>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- modal footer start-->
+                    <footer class="slds-modal__footer">
+                        <button class="serviceTile-modal-footerbtn" onclick={saveShortcuts} data-intent="transactional" data-id="link_content" data-type="click"
+                        data-text="my services add selected button" data-scope="mall my services">ADD SELECTED</button>
+                    </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

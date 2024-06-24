@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="createCaseForExternalLink" type="Boolean" default="false" label="Create Case For External Link" description="Create Case For External SignUp Solutions"/>
+            <property name="btnlink" type="String" default="" label="Button link"/>
+            <property name="solutionName" type="String" default="New Solution" label="Solution Name"/>
+            <property name="btnlabel" type="String" default="" label="Button Label"/>
+            <property name="btnColour" type="String" default="#0089ff" label="Button Color"/>
+            <property name="btnStyle" type="String" default="font-size:12px" label="Button Style" />
+            <property name="solutionlogo" type="String" default="" label="Solution logo"/>
+            <property name="calltoactiontitle" type="String" default="" label="Title" description="Title for section with solution name"/>
+            <property name="background" type="String" default="" label="Background Colour" description="Colour for the component"/>
+            <property name="backgroundbtm" type="String" default="" label="Background Colour of Bottom section" description="Colour for the component bottom section"/>
+            <property name="showFooterExt" type="Boolean" default="false" label="Show the footer Extension"/>
+            <property name="showFooterLogo" type="Boolean" default="false" label="Show the footer Logo"/>
+            <property name="terms" type="String" default="https://corporateandinvestment.standardbank.com/cib/global/about-us/legal" label="Terms and Conditions"/>
+            <property name="legal" type="String" default="https://corporateandinvestment.standardbank.com/cib/global/about-us/legal" label="Legal"/>
+            <property name="notices" type="String" default="https://corporateandinvestment.standardbank.com/cib/global/about-us/legal/important-notices" label="Important Notices"/>
+            <property name="certification" type="String" default="https://corporateandinvestment.standardbank.com/cib/global/about-us/legal/usa-patriot-act-certification" label="USA Patriot Act Certification"/>
+            <property name="questionnaire" type="String" default="https://corporateandinvestment.standardbank.com/cib/global/about-us/legal/wolfsberg-questionnaire" label="Wolfsberg Questionnaire"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

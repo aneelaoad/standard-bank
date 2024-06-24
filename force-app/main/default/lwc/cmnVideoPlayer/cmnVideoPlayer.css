@@ -1,0 +1,43 @@
+@import 'c/ppCssLibrary';
+
+.container{
+    background-color: #FFFFFF;   
+}
+
+.video-container{
+    max-width: 1280px;
+    padding: 56px 76px 74px 77px;
+}
+
+.iframe{
+    width: -webkit-fill-available;
+    height: 675px;
+}
+
+@media(min-width: 1280px) {
+    .video-container{
+       width: 1280px;
+       padding: 56px 40px 74px 40px;
+   }
+   
+}
+
+@media(max-width: 1024px) {
+    .video-container{
+       width: 1024px;
+       padding: 28px 38px 37px 38px;
+   }
+   .iframe{
+    height: 534px;
+   }
+   
+}
+
+@media(max-width: 414px) {
+    .video-container{
+       padding: 14px 19px 18px 19px;
+   }
+   .iframe{
+    height: 193px;
+   }
+}

@@ -1,0 +1,15 @@
+.header{
+    background-color: #F3F3F2;
+    padding: 1%;
+    font-size: 15px;
+    border-radius: 3%;
+    font-weight: 500;
+}
+.slds-modal__container {
+    max-width: 50% !important;
+}
+.border{
+    background-color:#DDDBDA;
+    height:1px;
+    width: 760px;
+}

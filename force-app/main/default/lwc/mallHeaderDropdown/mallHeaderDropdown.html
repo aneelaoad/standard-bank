@@ -1,0 +1,44 @@
+<template>
+  <div class="header-dropdown">
+    <div if:true={navigationHeading} class="nav-back">
+      <button
+        data-intent="navigational"
+        data-scope="dropdown"
+        data-type="click"
+        data-text="Back"
+        data-text-after="button"
+        data-id="link_content"
+        class="back"
+        onclick={navBack}
+      >
+        back</button
+      >{navigationHeading}
+    </div>
+    <div
+      if:true={isMobileCatalogue}
+      class="nav-back catalogue-mobile-filter-header"
+    >
+      <span class="close" onclick={closeFilters}></span>
+    </div>
+    <div if:true={catalogueHelperText}>
+      <div class="catalogue-mobile-header">{mobileFilterHeader}</div>
+      <div class="helper-text catalogue-helper-text">{catalogueHelperText}</div>
+    </div>
+    <div if:true={helperText} class="helper-text">{helperText}</div>
+    <slot> </slot>
+    <div if:true={catalogueFilters} class="apply-selection">
+      <button
+        data-intent="transactional"
+        data-scope="dropdown"
+        data-type="click"
+        data-text="Apply Now"
+        data-text-after="button"
+        data-id="link_content"
+        class="apply-selection-btn"
+        onclick={applySelection}
+      >
+        {catalogueFilterBtnText}
+      </button>
+    </div>
+  </div>
+</template>

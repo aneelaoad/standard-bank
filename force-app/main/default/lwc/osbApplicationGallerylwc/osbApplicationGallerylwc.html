@@ -1,0 +1,32 @@
+<template>
+    <div class="ApplicationGallerySection">
+        <template lwc:if={isLoading}>
+            <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+        </template>
+        <template lwc:if={noResults}>
+            <div class="NoResultsSection">
+                <div class="NoResultsImageHolder">
+                    <img class="NoResultsImageBanner" src={NoResultsImg}/>
+                </div>
+                <div class="NoResultsHeader">
+                    <p>No search results</p>
+                </div>
+                <div class="NoResultsAdditional">
+                    <p>Try adjusting your search filter</p>
+                </div>
+            </div>
+        </template>
+        <template lwc:else>
+            <template lwc:if={searchinput}>
+                    <template lwc:if={appSearchedSolutions}>
+                        <c-osb-paginationlwc full-list-value={appSearchedSolutions} showapplication="true"></c-osb-paginationlwc>
+                    </template>
+            </template>
+            <template lwc:else>
+                    <template lwc:if={appSolutions}>
+                        <c-osb-paginationlwc full-list-value={appSolutions} showapplication="true"></c-osb-paginationlwc>
+                    </template>
+            </template>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,88 @@
+<template>
+    <div class={apiContainerClasses}>
+            <template for:each={displayedData} for:item="apiItem">
+                <c-osbapi-api-catalogue-item class="api-item-tile" key={apiItem.Id} title={apiItem.acm_pkg__Name__c} description={apiItem.acm_pkg__Description__c} icon={apiItem.acm_pkg__Icon__c} record-id={apiItem.Id} show-icon={showIcons} parent-id={communityAssetVersionId}></c-osbapi-api-catalogue-item>
+            </template> 
+    </div>
+    <template if:true={displayPagination}>
+        <div data-ersatz-aura-id="navigation-container" class="navigation-container">
+          <template if:true={DisableLeft}>
+            <div data-id="LeftButtonDisabled"
+              class="LeftButtonDisabled Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+              <div data-id="navButton" onclick={onFirstPage} aria-disabled="true" data-type="left" data-disabled="true"
+                class="navigation-leftMostButton navigation-element__chevron navigation-element__chevron-disabled skipBtn"
+                data-text="Pagination | First Page">
+                <img class="ms-icn_chevron_left" src="/resource/OSB_pagination/ms_icn_leftSkip.svg"></img>
+              </div>
+              <div data-id="navButton" onclick={onPrevPage} aria-readonly="true" data-type="left" data-disabled="true"
+                class="navigation-leftButton navigation-element__chevron navigation-element__chevron-disabled leftChev skipBtn"
+                data-text="Pagination | Previous Page">
+                <img class="ms-icn_chevron_left btnTrans" src="/resource/OSB_pagination/ms_icn_pre_left.svg"></img>
+              </div>
+            </div>
+          </template>
+          <template if:false={DisableLeft}>
+            <div data-id="LeftButtonSec"
+              class="LeftButtonSec Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+              <div data-id="navButton" onclick={onFirstPage} aria-disabled="true" data-type="left" data-disabled="true"
+                class="navigation-leftMostButton navigation-element__chevron navigation-element__chevron-disabled skipBtn"
+                data-text="Pagination | First Page">
+                <img class="ms-icn_chevron_left workingLeftChevron "
+                  src="/resource/OSB_pagination/ms_icn_leftSkip.svg"></img>
+              </div>
+              <div data-id="navButton" onclick={onPrevPage} aria-readonly="true" data-type="left" data-disabled="true"
+                class="navigation-leftButton navigation-element__chevron navigation-element__chevron-disabled leftChev skipBtn"
+                data-text="Pagination | Previous Page">
+                <img class="ms-icn_chevron_left btnTrans workingLeftChevron"
+                  src="/resource/OSB_pagination/ms_icn_pre_left.svg"></img>
+              </div>
+            </div>
+          </template>
+  
+          <div class="btnSec NavigationPages slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+            <template for:each={pages} for:item="pageItem">
+              <template if:false={pageItem.pgCurr}>
+                <div key={pageItem.pgNum} class="pageSelection" onclick={onPageButtonClick} data-id={pageItem.pgNum}>
+                  {pageItem.pgNum}
+                </div>
+              </template>
+              <template if:true={pageItem.pgCurr}>
+                <div key={pageItem.pgNum} class="pageSelectionCurrent" onclick={onPageButtonClick}
+                  data-id={pageItem.pgNum}>
+                  {pageItem.pgNum}
+              </div>
+              </template>
+            </template>
+          </div>
+  
+          <template if:true={DisableRight}>
+            <div data-id="rightButtonSecDisabled"
+              class="rightButtonSecDisabled Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+              <div data-id="navButton" onclick={onNextPage} data-type="right" data-disabled="false"
+                class="navigation-rightButton navigation-element__chevron rightChev" data-text="Pagination | Next Page">
+                <img class="ms-icn_chevron_right disabledRightChevron"
+                  src="/resource/OSB_pagination/ms_icn_pre_Act.svg"></img>
+              </div>
+              <div data-id="navButton" onclick={onLastPage} data-type="right" data-disabled="false"
+                class="navigation-rightMostButton navigation-element__chevron" data-text="Pagination | Last Page">
+                <img class="ms-icn_chevron_right disabledRightChevron"
+                  src="/resource/OSB_pagination/ms_icn_rightSkip.svg"></img>
+              </div>
+            </div>
+          </template>
+          <template if:false={DisableRight}>
+            <div data-id="rightButtonSec"
+              class="rightButtonSec Navigationbutton slds-small-size_2-of-6 slds-medium-size_2-of-6 slds-large-size_2-of-6">
+              <div data-id="navButton" onclick={onNextPage} data-type="right" data-disabled="false"
+                class="navigation-rightButton navigation-element__chevron rightChev" data-text="Pagination | Next Page">
+                <img class="ms-icn_chevron_right" src="/resource/OSB_pagination/ms_icn_pre_Act.svg"></img>
+              </div>
+              <div data-id="navButton" onclick={onLastPage} data-type="right" data-disabled="false"
+                class="navigation-rightMostButton navigation-element__chevron" data-text="Pagination | Last Page">
+                <img class="ms-icn_chevron_right" src="/resource/OSB_pagination/ms_icn_rightSkip.svg"></img>
+              </div>
+            </div>
+          </template>
+        </div>
+      </template>
+</template>

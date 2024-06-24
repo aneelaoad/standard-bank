@@ -1,0 +1,106 @@
+<!--
+   @description       : this component used for musltiselect input fields
+  @author            : Chandu
+  @group             : 
+  @last modified on  : 09-26-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div
+    class="slds-form-element__control slds-col slds-size_1-of-1 no-paddibg-left"
+  >
+    <div class="slds-combobox_container">
+      <div
+        id="ms-picklist-dropdown"
+        class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-picklist ms-picklist-dropdown"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        role="combobox"
+      >
+        <div class="main-input" role="none">
+          <lightning-spinner lwc:if={isLoading} size="x-small"></lightning-spinner>
+          <lightning-input
+            variant="label-hidden"
+            class="slds-combobox__input ms-input"
+            id="ms-input"
+            type="text"
+            value={_selectedItems}
+            required={required}
+            name={name}
+            placeholder="Select Options"
+            hidden
+          >
+          </lightning-input>
+          <label for="ms-input">
+            <ul
+              class="slds-listbox slds-listbox_horizontal"
+              role="listbox"
+              aria-label="Selected Options:"
+              aria-orientation="horizontal"
+              aria-describedby="listbox-pill-with-avatar"
+            >
+              <template for:each={displaySelectedOptions} for:item="item">
+                <li
+                  class="slds-listbox-item slds-p-around_xx-small"
+                  role="presentation"
+                  key={item.value}
+                >
+                  <span
+                    class="slds-pill"
+                    role="option"
+                    tabindex="0"
+                    aria-selected="true"
+                  >
+                    <span
+                      class="slds-avatar slds-avatar_x-small slds-pill__icon_container"
+                    >
+                      <div style={item.iconStyle}></div>
+                    </span>
+                    <span class="slds-pill__label" title={item.value}
+                      >{item.value}</span
+                    >
+                    <span
+                      class="slds-icon_container slds-pill__remove"
+                      title="Remove"
+                    >
+                      <img
+                        src={removeIcon}
+                        data-item={item.value}
+                        onclick={removeItem}
+                        alt="closeIcon"
+                        class="slds-icon slds-icon_x-small slds-icon-text-default"
+                      />
+                    </span>
+                  </span>
+                </li>
+              </template>
+            </ul>
+          </label>
+        </div>
+        <div
+          class="slds-form-element__help error-message"
+          id="error-message-id-49"
+          lwc:if={isInvalid}
+        >
+          Please select atlest one option.
+        </div>
+        <div id="ms-dropdown-items" class="te" role="listbox">
+          <ul
+            class="customList slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid"
+            role="presentation"
+          >
+            <template for:each={options} for:item="item">
+              <div class={item.cssClass} key={item.value}>
+                <c-cmn_comp_multi-select-picklist-item
+                  item={item}
+                  onitems={handleItemSelected}
+                >
+                </c-cmn_comp_multi-select-picklist-item>
+              </div>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

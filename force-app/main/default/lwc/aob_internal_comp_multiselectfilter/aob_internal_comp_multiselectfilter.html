@@ -1,0 +1,51 @@
+<template>
+    <div class="slds-form-element__control  slds-col  slds-size_1-of-2 no-paddibg-left">
+        <div class="slds-combobox_container">
+            <div id="ms-picklist-dropdown"
+                class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-picklist ms-picklist-dropdown"
+                aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                <div role="none">
+                    <lightning-input class="slds-combobox__input ms-input inputcss validate" id="ms-input" type="text"
+                        value={_selectedItems} required={required} name={name} placeholder="Please select" readonly>
+                    </lightning-input>
+                </div>
+                <div id="ms-dropdown-items" class="te" role="listbox">
+                    <ul class="customList slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid"
+                        role="presentation">
+                        <template for:each={options} for:item="item">
+                            <div class={item.cssClass} key={item}>
+                                <c-aob_comp_picklistitem key={item} item={item} onitems={handleItemSelected}>
+                                </c-aob_comp_picklistitem>
+                            </div>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slds-grid aob_form_row slds-gutters_large slds-wrap">
+        <template for:each={options} for:item="field" for:index="index">
+            <div key={field} if:true={field.Selected} class=" slds-col slds-m-top_small slds-size_1-of-2">
+                <div style="display: flex; justify-content: space-between">
+                    <label key={field.Id}
+                        class="aob_screen-field-label slds-m-bottom_none">{field.Name}{label.AOB_ZA_AVERAGEMonthlyAmount}
+                    </label>
+                    <!-- <img key={item} width="30" alt="delete" src={closeMG} class="slds-float_right customClose"
+                        onclick={deleteSelectedInput} data-index={index} data-value={field.Id} data-name={field.Name} data-code={field.AOB_Code__c}> -->
+                        <div>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="" class="slds-float_right customClose" size="x-small"
+                                data-index={index} data-value={field.Id} data-name={field.Name} data-code={field.AOB_Code__c}
+                                onclick={deleteSelectedInput}>
+                            </lightning-icon>
+                        </div>
+
+                </div>
+
+                <lightning-input key={field.Id} type="number" formatter="currency"  class="ama" required
+                    name={field.Name} data-name={field.Name} data-code={field.AOB_Code__c} placeholder="R 100.00" step="1" variant="label-hidden"
+                    value={field.defaultValue} onblur={handleInput}></lightning-input>
+            </div>
+        </template>
+    </div>
+</template>

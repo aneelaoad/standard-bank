@@ -1,0 +1,106 @@
+c-mall-cmn-button {
+  --sds-c-button-color-background: var(--THEME-ACCENT-DARK);
+  --slds-c-button-color-border: var(--THEME-ACCENT-DARK);
+  --border-radius-button: 1.65rem;
+  --slds-c-button-brand-spacing-inline-start: 1.5rem;
+  --slds-c-button-brand-spacing-inline-end: 1.5rem;
+
+  --lwc-brandDisabled: #aa005020;
+  --lwc-colorTextButtonBrandDisabled: var(--white-color, #ffffff);
+  margin: 0 auto 2rem;
+}
+
+.greetings-modal .slds-modal__container {
+  width: auto;
+}
+
+.greetings-modal .greetings-modal-header {
+  background-color: var(--THEME-COLOUR);
+  position: relative;
+  color: var(--white-color, #ffffff);
+}
+
+.greetings-modal .slds-modal__close {
+  --lwc-colorTextIconDefault: var(--white-color, #ffffff);
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.greetings-modal .slds-modal__content {
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.greetings-modal .greetings-modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.greetings-modal .slds-p-around_medium {
+  padding: 1rem;
+}
+
+.greetings-modal .modal-heading {
+  color: var(--white-color, #ffffff);
+  font-size: var(--font-size-body-m, 1rem);
+  line-height: 1.4;
+  font-weight: 700;
+  margin: 0;
+  display: inline-block;
+  padding-right: 1rem;
+}
+
+.greetings-modal p {
+  line-height: 1.25;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  color: #696969;
+}
+
+.greetings-modal .terms-text {
+  color: #7c868d;
+  font-size: var(--font-size-body-xs, 0.75rem);
+  text-align: center;
+}
+
+.greetings-modal .terms-text a {
+  color: var(--THEME-ACCENT-DARK);
+  font-weight: normal;
+  font-size: var(--font-size-body-xs, 0.75rem);
+}
+
+@media all and (min-width: 768px) {
+  c-mall-cmn-button {
+    margin: 1rem auto 2rem;
+  }
+
+  .greetings-modal .slds-modal__content {
+    border-radius: 2rem;
+  }
+
+  .greetings-modal .slds-modal__close {
+    right: 2rem;
+  }
+
+  .greetings-modal .slds-p-around_medium {
+    padding: 2rem 3rem 2rem;
+  }
+
+  .greetings-modal .modal-heading {
+    font-size: 23px;
+    padding-right: 0;
+  }
+
+  .greetings-modal p {
+    font-size: var(--font-size-body-m, 1rem);
+  }
+
+  .greetings-modal .modal-heading {
+    font-size: 23px;
+  }
+}

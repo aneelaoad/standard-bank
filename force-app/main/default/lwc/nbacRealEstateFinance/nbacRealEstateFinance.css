@@ -1,0 +1,191 @@
+.custom-card {
+    margin: 20px;
+    padding: 15px;
+}
+
+h3{
+    width: 98%;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.ref-container{
+    border: 1.5px solid #d1d1d1;
+    padding-left: 11px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    flex-direction: column;
+    display: flex; 
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 13px;
+}
+
+.custom-table-container {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 0px 15px;
+}
+.ref-fields{
+    display: flex;
+    flex: 1;
+}
+.ref-field{
+    width: 100%;
+    flex: 1;
+}
+
+.custom-table {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    margin-top: 13px;
+    width: 100%;
+}
+
+.ref-labels,.ref-records {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.ref-label-old {
+    margin-top: 0px;
+    padding: 22px 5px 7px 0;
+    display: flex;
+    width: 270px;
+}
+
+.ref-label{
+    padding-bottom: -5px;
+    padding: 5px;
+    height: 45.6px;
+    width: 270px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.icon{
+    position: relative;
+    bottom: 4px;
+}
+
+
+.custom-input {
+    margin-right: 2px;
+    width: 100%;
+}
+
+.total{
+    margin-bottom: 20px;
+}
+
+.custom-input label {
+    margin-right: 2px;
+    font-size: 0px;
+}
+
+.remove-button {
+    margin-top: 7px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+.add-ref-button {
+    margin:20px 0 0 10px;
+}
+
+.ref-action{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px;
+}
+
+
+.input-container-active,.input-container-inactive,.read-only-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 45.6px;
+    padding-bottom: 20px;
+    border-radius: 4px;
+}
+
+
+.edit-icon-active {
+   position: absolute;
+   right: 0%; 
+   top: 0%; 
+   opacity: 0.2;
+   cursor: pointer;
+   z-index: 10;
+}
+
+.edit-icon-active-top {
+    position: absolute;
+    right: 0%; 
+    top: 50%; 
+    opacity: 0.2;
+    cursor: pointer;
+    z-index: 10;
+ }
+
+.edit-icon-active:hover,.edit-icon-active-top:hover {
+    opacity: 1;
+ }
+
+ .edit-icon-active:checked, .edit-icon-active:active, .edit-icon-active-top:checked, .edit-icon-active-top:active {
+   border: none;
+ }
+
+.edit-icon-inactive {
+    display: none;
+}
+
+:host{
+    --slds-c-input-shadow-focus: none;
+}
+
+.ref-input{
+    position: relative;
+    display: flex;
+    padding-top: 5px;
+    margin: 0px 2px 13px 1px;
+    border-radius: 4px;
+}
+
+.loan{
+    width: 100%;
+}
+
+.help{
+    margin: 10px;
+    padding: 10px;
+    border: 1px dashed gray;
+}
+
+.curInput{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 7px;
+    min-height: 35px;
+    margin: 2px 2px 11px 0px;
+    border-radius: 4px;
+    border: 0.5px solid gray;
+}
+
+.readOnly{
+    background: #f2f2f2;
+}

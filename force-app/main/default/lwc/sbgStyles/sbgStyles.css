@@ -1,0 +1,93 @@
+:host {
+  --white-color: #fff;
+  --stature-blue: #0a2240;
+  --primary-blue: #0033a1;
+  --tertiary-color: #0089ff;
+  --positive-color: #0e8a00;
+  --negative-color: #e70011;
+  --accent-color: #f61;
+  --notification-color: #ffb822;
+  --identifyer-color: #b34fc5;
+  --font-dark-color: #1e1e2f;
+  --font-medium-color: #434549;
+  --font-light-color: #6d7278;
+  --gray-dark-color: #b9c5d4;
+  --gray-medium-color: #edf0f3;
+  --gray-light-color: #f0f6fb;
+  --primary-color-light: #e5eaf6;
+  --background-gray: #d9e1e5;
+  --secondary-color-light: #0acffe;
+  --bg-red-light: #fff5f5;
+  --bg-red-light-hover: #ffe5e5;
+  --bg-tertiary-blue-light: #f2f9ff;
+  --bg-tertiary-blue-hover: #e5f3ff;
+  --bg-primary-blue-light-select: #f0f3fa;
+  --secondary-blue: #335cbb;
+  --input-disabled-color: #e6e9eb;
+
+  /* .com */
+  --PRIMARY-COLOR: var(--primary-blue);
+  --PRIMARY-COLOR-GRADIENT: #6497ff;
+  --PRIMARY-COLOR-ALPHA: rgba(0, 51, 170, 168);
+  --SECONDARY-COLOR: var(--tertiary-color);
+  --SECONDARY-COLOR-GRADIENT: #64edff;
+  --SECONDARY-COLOR-ALPHA: rgba(0, 137, 255, 168);
+  --TERTIARY-COLOR: #00aadd;
+  --TERTIARY-COLOR-GRADIENT: #64ffff;
+  --TERTIARY-COLOR-ALPHA: rgba(0, 170, 221, 168);
+  --POSITIVE-COLOR: #0e8a00;
+  --POSITIVE-COLOR-GRADIENT: #72ee64;
+  --POSITIVE-COLOR-ALPHA: rgba(14, 138, 0, 168);
+  --NEGATIVE-COLOR: #e0000f;
+  --NEGATIVE-COLOR-GRADIENT: #ff6473;
+  --NEGATIVE-COLOR-ALPHA: rgba(224, 0, 15, 168);
+  --ACCENT-COLOR: #ff6611;
+  --ACCENT-COLOR-GRADIENT: #ffca75;
+  --ACCENT-COLOR-ALPHA: rgba(255, 102, 17, 168);
+  --NOTIFICATION-COLOR: #ffb822;
+  --NOTIFICATION-COLOR-GRADIENT: #ffff86;
+  --NOTIFICATION-COLOR-ALPHA: rgba(255, 184, 34, 168);
+  --IDENTIFIER-COLOR: #b34fc5;
+  --IDENTIFIER-COLOR-GRADIENT: #ffb3ff;
+  --IDENTIFIER-COLOR-ALPHA: rgba(179, 79, 197, 168);
+  --WHITE-COLOR: #ffffff;
+  --GRAY-DARK-COLOR: #dbdbdb;
+  --GRAY-MEDIUM-COLOR: #ededed;
+  --GRAY-LIGHT-COLOR: #f6f6f6;
+  --FONT-DARK-COLOR: #222222;
+  --FONT-MEDIUM-COLOR: #444444;
+  --FONT-LIGHT-COLOR: #707070;
+  --GRAPH1: #222222;
+  --GRAPH2: #00a1af;
+  --GRAPH3: #b3c2e4;
+  --GRAPH4: #ff6611;
+  --GRAPH5: #0033a1;
+  --GRAPH6: #cccccc;
+  --GRAPH7: #00aadd;
+  --GRAPH8: #00c18b;
+  --GRAPH9: #675dc6;
+  --GRAPH10: #b34fc5;
+  --GRAPH11: #ffb822;
+  --PRIMARY-COLOR-LIGHT: #e5eaf6;
+
+  --font-family: var(--lwc-fontFamily);
+  --FONT-FAMILY: var(--lwc-fontFamily);
+  --titles-color: #3c4b6c;
+
+  /* Styling hooks */
+  --sds-c-button-radius-border: 0;
+  /* messes up the upload file button on case support page --sds-c-button-color-background: var(--tertiary-color); */
+  --sds-c-button-sizing-border: 0;
+  --sds-c-button-spacing-block-start: 0.3em;
+  --sds-c-button-spacing-block-end: 0.3em;
+  --sds-c-button-line-height: auto;
+  --sds-c-radio-color-border: var(--gray-dark-color);
+  --lwc-colorBorderInput: var(--gray-dark-color);
+  --sds-c-button-text-color: var(--primary-blue);
+  --lwc-colorTextIconDefault: var(--primary-blue);
+  --sds-c-icon-color-foreground-default: var(--primary-blue);
+
+  /* left and right padding for list view (slds-card) */
+  --sds-c-card-spacing-inline-start: 8px;
+  --sds-c-card-spacing-inline-end: 8px;
+}

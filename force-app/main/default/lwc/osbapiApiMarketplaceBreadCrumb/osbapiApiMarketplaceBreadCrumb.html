@@ -1,0 +1,63 @@
+<template>
+    <div class="container">
+        <ul>
+            <li>
+                <a
+                    onclick={navigateMarketplace}
+                    data-navigation="Dashboard"
+                    data-intent="navigational"
+                    >Home</a
+                >
+            </li>
+            <lightning-icon
+                class="my-icon"
+                icon-name="utility:chevronright"
+                alternative-text="Utility chevronright"
+                title="chevronright"
+                size="xx-small"
+            ></lightning-icon>
+            <li>
+                <a
+                    data-id="onedeveloper-breadcrumb"
+                    onclick={navigateMarketplace}
+                    data-intent="navigational"
+                    data-navigation="OneDeveloper"
+                    >OneDeveloper</a
+                >
+            </li>
+            <lightning-icon
+                class="my-icon"
+                icon-name="utility:chevronright"
+                alternative-text="Utility chevronright"
+                title="chevronright"
+                size="xx-small"
+            ></lightning-icon>
+            <li>
+                <a
+                    data-id={productName}
+                    data-intent="navigational"
+                    onclick={navigateToProductPage}
+                    data-navigation="OneDeveloper"
+                    >{productName}</a
+                >
+            </li>
+            <template if:true={showApi}>
+                <lightning-icon
+                    class="my-icon"
+                    icon-name="utility:chevronright"
+                    alternative-text="Utility chevronright"
+                    title="chevronright"
+                    size="xx-small"
+                ></lightning-icon>
+                <li>
+                    <a
+                        data-intent="navigational"
+                        data-navigation="OneDeveloper"
+                        data-id={apiName}
+                        >{apiName}</a
+                    >
+                </li>
+            </template>
+        </ul>
+    </div>
+</template>

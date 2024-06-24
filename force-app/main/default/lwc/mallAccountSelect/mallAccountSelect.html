@@ -1,0 +1,61 @@
+<template>
+    <div class="account-dropdown-selects">
+        <span class="account-dropdown account-user-select">
+            <ul class="account-selection">
+                <li class="dropdown">
+                    <button class="account-item" onclick={toggleDropdown} aria-controls="user-select"
+                        aria-expanded="false" data-intent="transactional" data-scope="header" data-id="link_content"
+                        data-type="click" data-text="Category selector" data-text-after="drop-down">
+                        <div class="account-text">
+                            {selectedProfileName}
+                        </div>
+                        <div class="chevron"></div>
+                    </button>
+                    <div class="dropdown-panel" id="user-select">
+                        <c-mall-header-dropdown>
+                            <template for:each={userOptions} for:item="option">
+                                <li key={option.value} data-section={option.value} data-value={option.value}>
+                                    <a tabindex="0" data-intent="transactional" data-scope="category" data-id="link_content"
+                                        data-type="click" data-text={option.labeloutput} data-text-after="button"
+                                        class="account-item" data-category={option.label}
+                                        data-section={option.value} data-value={option.value} onclick={handleProfileChange}>
+                                        <span>{option.labeloutput}</span>
+                                    </a>
+                                </li>
+                            </template>
+                        </c-mall-header-dropdown>
+                    </div>
+                </li>
+            </ul>
+        </span>
+
+        <span class=" account-dropdown account-type-select">
+            <ul class="account-selection">
+                <li class="dropdown">
+                    <button class="account-item" onclick={toggleDropdown} aria-controls="account-select"
+                        aria-expanded="false" data-intent="transactional" data-scope="header" data-id="link_content"
+                        data-type="click" data-text="Category selector" data-text-after="drop-down">
+                        <div class="account-text">
+                            {selectedAccountName}
+                        </div>
+                        <div class="chevron"></div>
+                    </button>
+                    <div class="dropdown-panel" id="account-select">
+                        <c-mall-header-dropdown>
+                            <template for:each={accountOptions} for:item="account">
+                                <li key={account.value} data-section={account.value} data-value={account.value}>
+                                    <a tabindex="0" data-intent="transactional" data-scope="category" data-id="link_content"
+                                        data-type="click" data-text={account.labeloutput} data-text-after="button"
+                                        class="account-item" data-category={account.label}
+                                        data-section={account.value} data-value={account.value} onclick={handleAccountChange}>
+                                        <span>{account.labeloutput}</span>
+                                    </a>
+                                </li>
+                            </template>
+                        </c-mall-header-dropdown>
+                    </div>
+                </li>
+            </ul>
+        </span>
+    </div>
+</template>

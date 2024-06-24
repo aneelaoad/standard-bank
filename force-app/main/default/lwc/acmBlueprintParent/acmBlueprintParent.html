@@ -1,0 +1,42 @@
+<template>
+    <div class="row-heading">
+        <c-sbg-title-with-subtitle title={rowheading}></c-sbg-title-with-subtitle>
+    </div>
+    <div class="parent-container">
+        <template if:true={card1Heading}>
+            <div class="child-card-container slds-col slds-large-size_1-of-3 slds-medium-size_1-of-3 slds-small-size_1-of-1 slds-p-around_small">
+                <c-acm-blueprint-templates
+                    is-recommended={card1IsRecommended}
+                    heading={card1Heading}
+                    description={card1Description}
+                    button-label={card1ButtonLabel}
+                    button-url={card1ButtonUrl}
+                ></c-acm-blueprint-templates>
+            </div>
+        </template>
+        
+        <template if:true={card2Heading}>
+            <div class="child-card-container slds-col slds-large-size_1-of-3 slds-medium-size_1-of-3 slds-small-size_1-of-1 slds-p-around_small">
+                <c-acm-blueprint-templates
+                    is-recommended={card2IsRecommended}
+                    heading={card2Heading}
+                    description={card2Description}
+                    button-label={card2ButtonLabel}
+                    button-url={card2ButtonUrl}
+                ></c-acm-blueprint-templates>
+            </div>
+        </template>
+
+        <template if:true={card3Heading}>
+            <div class="child-card-container slds-col slds-large-size_1-of-3 slds-medium-size_1-of-3 slds-small-size_1-of-1 slds-p-around_small">
+                <c-acm-blueprint-templates
+                    is-recommended={card3IsRecommended}
+                    heading={card3Heading}
+                    description={card3Description}
+                    button-label={card3ButtonLabel}
+                    button-url={card3ButtonUrl}
+                ></c-acm-blueprint-templates>
+            </div>
+        </template>
+    </div>
+</template>

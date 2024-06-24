@@ -1,0 +1,54 @@
+<template>
+	<template if:true={communityApiList}>
+		<template if:true={communityApiListHasvalue}>
+			<div class="slds-scope customPadding">
+				<div class="slds-grid slds-wrap ">
+					<template for:each={communityApiList} for:item="communityApi">						 
+						<div key={communityApi.apiProductId} class="slds-col slds-size--1-of-1 slds-small-size--1-of-3 slds-medium-size--1-of-3 slds-p-left_x-small slds-p-right_x-small slds-p-top_x-small slds-p-bottom_x-small" style="padding: 20px;">
+							<div class="src-components-apiCatalog-apiCatalog__apiCatalogCardContainer--3OJir">
+								<div class="api-card-container api-catalog-card-container" >
+									<div class="src-components-apiCard-apiCard__apiCard--q-4B9 api-card-border api-catalog-card-border" style="box-shadow: 0 12px 25px 0 rgba(0,0,0,.1); border-width: 1px; min-height: 290px; border-radius: 5px; cursor: auto;">												
+										<div class="src-components-apiCard-apiCardHeader-apiCardHeader__header--3obmC api-card-header api-catalog-card-header">
+											<div>
+
+											</div>
+											<img class="src-components-apiCard-apiCardHeader-apiCardHeader__apiCatalogCardImg--3o9jQ api-card-icon api-catalog-card-icon" alt="" src={communityApi.apiProductIconUrl}>
+											<div class="src-components-apiCard-apiCardHeader-apiCardHeader__apiName--3ZI5P api-card-name api-catalog-card-name api-card-title api-catalog-card-title">
+												<div class="src-components-commons-maxLinesText-maxLinesText__lineClamp--3LFXU src-components-apiCard-apiCardHeader-apiCardHeader__maxLinesName--1iyqT" style="-webkit-line-clamp: 3;">
+													<div class="src-components-apiCard-apiCardHeader-apiCardHeader__apiNameText--cWYJA">{communityApi.apiProductName}</div>
+												</div>
+											</div>
+										</div>
+										<div class="src-components-apiCard-apiCardContent-apiCardContent__description--1Efwx api-card-description api-catalog-card-description" style="height: 100px;">
+											<div class="src-components-commons-maxLinesText-maxLinesText__lineClamp--3LFXU src-components-apiCard-apiCardContent-apiCardContent__maxLinesDescription--JA9je" style="-webkit-line-clamp: 4;">
+												<div class="src-components-apiCard-apiCardContent-apiCardContent__innerDiv--3tM1Q">{communityApi.apiProductDescription}</div>
+											</div>
+										</div>
+										<div class="src-components-apiCard-apiCardFooter-apiCardFooter__buttonsContainer--anTQ5 api-card-buttons-container api-catalog-card-buttons-container">
+											<div>
+
+											</div>
+											<button class="acm-color-primary api-card-details-button api-catalog-card-details-button" role="link" name={communityApi.apiProductId} onclick={navigateToCommunityApiProduct}>
+											{buttonLabel}
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</template>
+				</div>
+			</div>
+		</template>
+		<template if:false={communityApiListHasvalue} >
+			<div class="noApiProductsAssociatedWithThisApi">
+				There are no API Products associated with this API
+			</div>
+		</template>		
+	</template>
+	<template if:true={error}>
+		<lightning-card title="Error Message">        
+			<p>{error}</p>
+		</lightning-card>
+	</template>
+</template>

@@ -1,0 +1,45 @@
+<!--
+ACTION  TICKET    DATE       OWNER         COMMENT
+Created SFP-8831  17-11-2022 Gill Lumley   Copied from MVP1 and removed CallMeBack pop-up (not applicable to MVP2)
+@last modified on  : 26 APRIL 2024
+@last modified by  : Narendra 
+@Modification Description : SFP-38348
+-->
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div class="aob_card_container">
+		<div slot="content" class="aob_text_align_center">
+			<div class="aob_screen-title slds-align_absolute-center">
+				{label.AOB_VerificationSessionExpired}
+			</div>
+			<br />
+			<div class="slds-m-horizontal_large aob_wfr_subtitle slds-align_absolute-center">
+				{label.AOB_IdentityVerificationExpired}
+			</div>
+			<br />
+			<div class="slds-m-horizontal_large aob_screen-text-lowlight slds-align_absolute-center redirect">
+				{label.AOB_RetryiiDentifii}
+			</div>
+			<div
+				class="aob_display-flex aob_mobile_1_of_1  aob_margin_horizontal_auto slds-m-vertical_small button_reverse">
+				<div class="btn-neutral">
+					<lightning-button
+						class=" slds-col slds-order_2 slds-medium-order_1 slds-large-order_1 slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+						data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+						data-scope={adobePageTag.dataScope} data-text={adobePageTag.callMeBackText} variant="neutral"
+						label={label.AOB_CallMeBack} title={label.AOB_CallMeBack} onclick={confirmCallback}>
+					</lightning-button>
+				</div>
+				<div class="btn-neutral">
+					<lightning-button
+						class=" slds-col slds-order_1 slds-medium-order_2 slds-large-order_2 slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+						data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+						data-scope={adobePageTag.dataScope} data-text={adobePageTag.retryText} variant="brand"
+						label={label.AOB_ZA_RETR} title={label.AOB_ZA_RETR}
+						onclick={retryCallback}>
+					</lightning-button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

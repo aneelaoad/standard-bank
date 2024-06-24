@@ -1,0 +1,36 @@
+<template>
+    <div class="TileHolder" onclick={createmodalwindow} data-id={tileClick}
+    data-text={tileLinkName} data-intent="Informational" data-scope="application gallery item">
+        <div class="MainTile">
+            <div class="TileWrapper">
+                <div class="TileImage">                    
+                    <template lwc:if={thirdParty}>
+                        <img src={iconImage} class="logoHeight">
+                    </template>
+                    <template lwc:else>
+                        <img src={iconImage}></img>
+                    </template>
+                </div>
+                <div class="TileTitle">
+                    <template lwc:if={solTM}>
+                        <div>{title}<sup class="tmClass">TM</sup></div>
+                    </template>
+                    <template lwc:else>
+                        <div>{title}</div>
+                    </template>
+                </div>
+                <div class="TileIntroduction">
+                    <div>{content}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template lwc:if={isOpen}>
+        <c-osb-modallwc
+            isopen={isOpen} modaltitle={title} modallogo={largelogo} modalcontent={content}
+            modalfirstbuttonurl={link} modalscndbuttonurl={solutionsiteurl} modaltype={secondLevel}
+            recordid={solutionid} currenttab={currentTab} isonshowcase={isOnShowcase} onclose={modalCloseHandler}
+            applicationowner={applicationowner} urlname={urlname} providerid={providerid}
+        ></c-osb-modallwc>
+    </template>
+</template>

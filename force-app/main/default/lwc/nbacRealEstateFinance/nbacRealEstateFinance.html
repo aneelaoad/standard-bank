@@ -1,0 +1,521 @@
+<template>
+    <template lwc:if={isLoading}>
+        <lightning-spinner variant="brand" size="medium" alternative-text="Loading..."></lightning-spinner>
+    </template>
+    <template lwc:if={error}>
+        <p class="space"></p>
+    </template>
+    <template lwc:else>
+        <lightning-card class="custom-card">
+            <div class="header">
+                <h3 class="slds-section__title slds-theme_shade">
+                    <span title="Real Estate Finance" class="slds-truncate">Real Estate Finance</span>
+                </h3>
+                <template lwc:if={showTick}>
+                    <lightning-icon icon-name="utility:check" size="small" variant="success"
+                        alternative-text="Section completed"></lightning-icon>
+                </template>
+                <template lwc:else>
+                    <lightning-icon icon-name="utility:close" size="small" variant="error"
+                        alternative-text="Section not completed"></lightning-icon>
+                </template>
+            </div>
+            <lightning-layout class="ref-container">
+                <template if:true={isReadOnly}>
+                    <div class="ref-input">
+
+                        <lightning-input label="Development Funding Loan" value={baData.Development_Funding_Loan__c}
+                            field-level-help="Development Funding Loan?" readonly>
+                        </lightning-input>
+
+                        <template if:false={isLocked}>
+                            <div class="icon1">
+                                <lightning-button-icon label="info-icon" icon-name="utility:edit" variant="container"
+                                    alternative-text="edit" class="slds-m-left_xx-small  edit-icon-active-top"
+                                    onclick={activateEditMode} title="Edit"></lightning-button-icon>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+                <template if:false={isReadOnly}>
+                    <lightning-layout-item flexibility="auto" padding="around-small">
+                        <div class="ref-input">
+                            <lightning-combobox name="Development_Funding_Loan__c" label="Development Funding Loan"
+                                value={baData.Development_Funding_Loan__c} options={loanOptions}
+                                field-level-help="Development Funding Loan?" class="loan"
+                                onchange={handleSelectionChange}>
+
+                            </lightning-combobox>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+
+            <template lwc:if={showAdditionalForm}>
+                <lightning-layout class="ref-container">
+                    <p class="help">Add a minimum of 1 metric and a maximum of 3 metrics.</p>
+                    <div class="custom-table-container">
+                        <div class="custom-table">
+
+                            <div class="ref-labels">
+                                <template for:each={fieldSetValuesList} for:item="fieldSetValues">
+                                    <div key={fieldSetValues.key}>
+                                        <template for:each={fieldSetValues.values} for:item="refLabel">
+                                            <div key={refLabel.apiName} class={refLabel.class}>
+                                                <p>{refLabel.label}</p>
+                                                <lightning-helptext content={refLabel.helperText}
+                                                    class="slds-m-left_xx-small icon"></lightning-helptext>
+                                            </div>
+                                        </template>
+                                        <div class="space"></div>
+                                    </div>
+                                </template>
+                                <template lwc:if={editMode}>
+                                    <template lwc:if={removeButton}>
+                                        <p class="ref-label">Delete Metric</p>
+                                    </template>
+                                </template>
+                            </div>
+                            <div class="ref-fields">
+                                <template for:each={refDataList} for:item="ref" for:index="index">
+                                    <div key={ref.Id} class="ref-field">
+                                        <div ref-id="Metric__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <p> <lightning-formatted-text
+                                                            value={ref.Metric__c}></lightning-formatted-text></p>
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Metric__c" type="text" step=".01"
+                                                        value={ref.Metric__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="Land_Cost__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.Land_Cost__c}>
+                                                        <p><lightning-formatted-number value={ref.Land_Cost__c}
+                                                                format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Land_Cost__c" type="number" step=".01"
+                                                        value={ref.Land_Cost__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="Improvement_Cost_Construction_Cost__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.Improvement_Cost_Construction_Cost__c}>
+                                                        <p><lightning-formatted-number
+                                                                value={ref.Improvement_Cost_Construction_Cost__c}
+                                                                format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Improvement_Cost_Construction_Cost__c"
+                                                        type="number" step=".01"
+                                                        value={ref.Improvement_Cost_Construction_Cost__c}
+                                                        class={inputClass} onchange={handleInputChange}
+                                                        data-index={index} data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="General_Sundry_Costs__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.General_Sundry_Costs__c}>
+
+                                                        <p><lightning-formatted-number
+                                                                value={ref.General_Sundry_Costs__c}
+                                                                format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="General_Sundry_Costs__c" type="number"
+                                                        step=".01" value={ref.General_Sundry_Costs__c}
+                                                        class={inputClass} onchange={handleInputChange}
+                                                        data-index={index} data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="Interest_Limit__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.Interest_Limit__c}>
+
+                                                        <p><lightning-formatted-number value={ref.Interest_Limit__c}
+                                                                format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Interest_Limit__c" type="number" step=".01"
+                                                        value={ref.Interest_Limit__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="Structuring_Fee__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.Structuring_Fee__c}>
+
+                                                        <p><lightning-formatted-number value={ref.Structuring_Fee__c}
+                                                                format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Structuring_Fee__c" type="number" step=".01"
+                                                        value={ref.Structuring_Fee__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="Other_Finance_Cost__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.Other_Finance_Cost__c}>
+
+                                                        <p><lightning-formatted-number value={ref.Other_Finance_Cost__c}
+                                                                format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Other_Finance_Cost__c" type="number"
+                                                        step=".01" value={ref.Other_Finance_Cost__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="Consultant_Professional_Fees__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.Consultant_Professional_Fees__c}>
+
+                                                        <p><lightning-formatted-number
+                                                                value={ref.Consultant_Professional_Fees__c}
+                                                                format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Consultant_Professional_Fees__c"
+                                                        type="number" step=".01"
+                                                        value={ref.Consultant_Professional_Fees__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div class="curInput readOnly" ref-id="Total_Budgeted_Development_Cost__c" ref-index={index}>
+
+                                            <template if:true={ref.Total_Budgeted_Development_Cost__c}>
+
+                                                <p><lightning-formatted-number
+                                                        value={ref.Total_Budgeted_Development_Cost__c}
+                                                        format-style="currency" currency-code="ZAR"
+                                                        minimum-fraction-digits="2"></lightning-formatted-number>
+                                                </p>
+                                            </template>
+
+                                        </div>
+                                        <div ref-id="Capital_Amount__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <template if:true={ref.Capital_Amount__c}>
+
+                                                        <p><lightning-formatted-number
+                                                                value={ref.Capital_Amount__c} format-style="currency" currency-code="ZAR"
+                                                                minimum-fraction-digits="2"></lightning-formatted-number>
+                                                        </p>
+                                                    </template>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Capital_Amount__c" type="number" step=".01"
+                                                        value={ref.Capital_Amount__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div class="curInput readOnly" ref-id="Interest_Limit__c" ref-index={index}>
+
+                                            <template if:true={ref.Interest_Limit__c}>
+
+                                                <p><lightning-formatted-number value={ref.Interest_Limit__c}
+                                                        format-style="currency" currency-code="ZAR"
+                                                        minimum-fraction-digits="2"></lightning-formatted-number></p>
+                                            </template>
+
+                                        </div>
+                                        <div class="curInput readOnly" ref-id="Structuring_Fee__c" ref-index={index}>
+
+                                            <template if:true={ref.Structuring_Fee__c}>
+
+                                                <p><lightning-formatted-number value={ref.Structuring_Fee__c}
+                                                        format-style="currency" currency-code="ZAR"
+                                                        minimum-fraction-digits="2"></lightning-formatted-number></p>
+                                            </template>
+
+                                        </div>
+                                        <div class="curInput readOnly" ref-id="Facility_Amount__c" ref-index={index}>
+
+                                            <template if:true={ref.Facility_Amount__c}>
+
+                                                <p><lightning-formatted-number value={ref.Facility_Amount__c}
+                                                        format-style="currency" currency-code="ZAR"
+                                                        minimum-fraction-digits="2"></lightning-formatted-number></p>
+                                            </template>
+
+                                        </div>
+                                        <div class="curInput readOnly" ref-id="Equity__c" ref-index={index}>
+
+                                            <template if:true={ref.Equity__c}>
+
+                                                <p><lightning-formatted-number value={ref.Equity__c}
+                                                        format-style="currency" currency-code="ZAR"
+                                                        minimum-fraction-digits="2"></lightning-formatted-number></p>
+                                            </template>
+
+                                        </div>
+                                        <div class="curInput readOnly" ref-id="Total_Budgeted_Development_Cost__c" ref-index={index}>
+
+                                            <template if:true={ref.Total_Budgeted_Development_Cost__c}>
+
+                                                <p><lightning-formatted-number
+                                                        value={ref.Total_Budgeted_Development_Cost__c}
+                                                        format-style="currency" currency-code="ZAR"
+                                                        minimum-fraction-digits="2"></lightning-formatted-number>
+                                                </p>
+                                            </template>
+
+                                        </div>
+                                        <div class="curInput readOnly" ref-id="Loan_to_Cost__c" ref-index={index}>
+
+                                            <p><lightning-formatted-number value={ref.Loan_to_Cost__c}
+                                                    format-style="percent"
+                                                    minimum-fraction-digits="2"></lightning-formatted-number></p>
+
+                                        </div>
+                                        <div ref-id="Development_Period__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <p> <lightning-formatted-text
+                                                            value={ref.Development_Period__c}></lightning-formatted-text>
+                                                    </p>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Development_Period__c" type="text" step=".01"
+                                                        value={ref.Development_Period__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div ref-id="Gross_Building_Area__c" ref-index={index}>
+                                            <template if:true={isReadOnly}>
+                                                <div class="curInput">
+
+                                                    <p> <lightning-formatted-text
+                                                            value={ref.Gross_Building_Area__c}></lightning-formatted-text>
+                                                    </p>
+
+
+                                                    <template if:false={isLocked}>
+                                                        <lightning-button-icon label="info-icon"
+                                                            icon-name="utility:edit" variant="container"
+                                                            alternative-text="edit"
+                                                            class="slds-m-left_xx-small  edit-icon-active"
+                                                            onclick={activateEditMode} title="Edit">
+                                                        </lightning-button-icon>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                            <template if:false={isReadOnly}>
+                                                <div class={inputContainerClass}>
+                                                    <lightning-input name="Gross_Building_Area__c" type="text"
+                                                        step=".01" value={ref.Gross_Building_Area__c} class={inputClass}
+                                                        onchange={handleInputChange} data-index={index}
+                                                        data-id={ref.Id}></lightning-input>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <template lwc:if={editMode}>
+                                            <template lwc:if={removeButton}>
+                                                <div class="remove-button">
+                                                    <lightning-button-icon label="info-icon" icon-name="utility:delete"
+                                                        alternative-text="Delete" title="Delete" variant="bare"
+                                                        onclick={handleDeleteRecord} data-index={index}
+                                                        data-id={ref.Id}></lightning-button-icon>
+                                                </div>
+                                            </template>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <template lwc:if={editMode}>
+                            <template lwc:if={addButton}>
+                                <div class="add-ref-button">
+                                    <lightning-button label="Add" onclick={addRef}></lightning-button>
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+                </lightning-layout>
+            </template>
+        </lightning-card>
+    </template>
+</template>

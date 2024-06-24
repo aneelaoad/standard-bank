@@ -1,0 +1,163 @@
+@import 'c/ppCssLibrary';
+
+.container {
+  width: 285px;
+  margin: 0 1px 0 0;
+  padding: 16px;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
+
+.heading {
+  text-align: left;
+  color: #6a7286;
+  text-transform: uppercase;
+}
+
+.phase {
+  font-weight: bold;
+  text-align: left;
+  color: #1c263c;
+}
+.phase-icon-container{
+  width: 28px;
+  height: 28px;
+  margin: 3px 8px 3px 0;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.phase-icon{
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  vertical-align: unset;
+}
+
+.status{
+  color: #6a7286;
+  font-weight: normal;
+  margin-top: 4px;
+}
+
+.item-sequence{
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.03px;
+  text-align: center;
+  color: #fff;
+  margin-top: 2px;
+}
+
+.sub-item{
+  text-align: left;
+  color: #1c263c;
+  line-height: 1.54;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sub-item-icon{
+  width: 12px;
+  height: 12px;
+  margin: 5px 18px 6px 6px;
+  object-fit: contain;
+}
+
+.sub-step-circle{
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 5px 18px 6px 6px;
+}
+
+.panel li:last-child span { display: none; }
+
+.accordion {
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: 0.4s;
+  margin: 20.5px 0 3px;
+}
+
+.acc-arrow{
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.panel {
+  display: none;
+  background-color: white;
+  overflow: hidden;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.acc-arrow-rotate{
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+
+.line {
+  height: 1px;
+  opacity: 0.3;
+  background-color: #bdc4d2;
+  margin-top: 19.5px;
+}
+
+
+.contact-Information {
+  padding: 16px;
+  margin-top: 12px;
+  border-radius: 4px;
+  background-color: #F4F6FB;
+}
+
+.con-us-icon {
+  width: 16px;
+  height: 16px;
+  margin: 0px 0px 8px 0;
+  object-fit: contain;
+}
+
+.user-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.name {
+  margin-bottom: 4px;
+  font-weight: bold;
+  text-align: left;
+  color: #1c263c;
+}
+
+.contact-us-email {
+  margin: 0px 0px 8px 8px;
+  font-weight: normal;
+  color: #6a7286;
+}
+
+.con-us-details-container {
+  width: fit-content;
+}
+
+.contact-us-phone {
+  margin: 0px 0px 0px 8px;
+  font-weight: normal;
+  color: #6a7286;
+}

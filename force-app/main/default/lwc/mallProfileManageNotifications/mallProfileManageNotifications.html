@@ -1,0 +1,60 @@
+<template>
+  <div class="row">
+    <p class="prefernce-help-text">{notificationHelpText}</p>
+  </div>
+  <div class="grid-container">
+    <template if:true={notificationTypes}>
+      <template for:each={notificationTypes} for:item="notificationType">
+        <div class="notifications-container" key={notificationType.id}>
+          <div class="grid-item" data-formfield={notificationType.id}>
+            <template if:true={notificationType.options}>
+              <lightning-radio-group
+                label={notificationType.name}
+                name={notificationType.id}
+                options={notificationType.options}
+                disabled={notificationType.disabled}
+                value={notificationType.selectedOptionValue}
+                variant="label-stacked"
+                type="radio"
+                data-formfield={notificationType.id}
+                onchange={handleSelectionChange}
+              >
+              </lightning-radio-group>
+            </template>
+          </div>
+        </div>
+      </template>
+    </template>
+  </div>
+
+  <div>
+    <div class="form_submit">
+      <c-mall-cmn-button
+        interaction-intent={buttonInteractionIntent}
+        interaction-scope={buttonInteractionScope}
+        interaction-type={buttonInteractionType}
+        interaction-text={buttonInteractionText}
+        interaction-text-before={buttonInteractionTextBefore}
+        variant="mall"
+        label={sendButtonLabel}
+        title={sendButtonLabel}
+        button-type="submit"
+        w-class="auto"
+        onclick={handleRequiredNotificationChange}
+      ></c-mall-cmn-button>
+      <template if:true={isSaving}>
+        <p class="saving-icon">
+          <img src={mallSavingIcon} class="saving-icon-image" />Saving changes
+        </p>
+      </template>
+      <template if:true={isSaved}>
+        <p class="saving-icon">
+          <img
+            src={mallSavedIcon}
+            class="saving-icon-image saved-image"
+          />Changes saved
+        </p>
+      </template>
+    </div>
+  </div>
+</template>

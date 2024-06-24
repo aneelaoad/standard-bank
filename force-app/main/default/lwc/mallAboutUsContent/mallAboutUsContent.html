@@ -1,0 +1,69 @@
+<template>
+  <div class="about-us-container-grid">
+    <div class="grid-section__banner">
+      <c-sbg-mid-page-banner
+        is-carousel="false"
+        is-gradient="true"
+        heading={bannerHeading}
+        description={bannerDescription}
+        sub-text={bannerSubText}
+        action={bannerAction}
+        destination-url={bannerDestinationUrl}
+        button-label={bannerButtonLabel}
+        disabled={bannerDisabled}
+        button-title={bannerButtonTitle}
+        show-button={bannerShowButton}
+        image-path={bannerImagePath}
+        image-path-tablet={bannerImagePathTablet}
+        image-path-desktop={bannerImagePathDesktop}
+        interaction-text-before={bannerInteractionTextBefore}
+        interaction-scope={bannerInteractionScope}
+        interaction-text={bannerInteractionText}
+        interaction-type="click"
+        interaction-intent="navigational"
+      >
+      </c-sbg-mid-page-banner>
+    </div>
+    <div class="grid-section__shopper side-by-side-grid">
+      <div class="grid-column">
+        <template if:true={contentShopper}>
+          <h5>{titleAbout}</h5>
+          <lightning-formatted-rich-text
+            value={contentAbout}
+          ></lightning-formatted-rich-text>
+        </template>
+        <template if:true={contentShopper}>
+          <h5>{titleShopper}</h5>
+          <lightning-formatted-rich-text
+            value={contentShopper}
+          ></lightning-formatted-rich-text>
+        </template>
+      </div>
+      <div class="grid-column img-column">
+        <div class="img-wrapper">
+          <img loading="lazy" src={imgAbout} alt={titleAbout} />
+        </div>
+      </div>
+    </div>
+
+    <template if:true={contentSeller}>
+      <div class="grid-section__seller side-by-side-grid reverse">
+        <div class="grid-column img-column">
+          <div class="img-wrapper">
+            <img loading="lazy" src={imgSeller} alt={titleSeller} />
+          </div>
+        </div>
+        <div class="grid-column">
+          <h5>{titleSeller}</h5>
+          <lightning-formatted-rich-text
+            value={contentSeller}
+          ></lightning-formatted-rich-text>
+        </div>
+      </div>
+    </template>
+    <div class="grid-section__value-proposition full-width">
+      <c-mall-about-us-value-proposition json-collection={valuePropositionJson}>
+      </c-mall-about-us-value-proposition>
+    </div>
+  </div>
+</template>

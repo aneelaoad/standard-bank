@@ -1,0 +1,86 @@
+:host {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+}
+
+.widget-actions{
+    background-color: transparent;  
+    border: 0;
+    position:relative;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.widget-actions::before{
+    content: url("/sfsites/c/resource/sbgIcons/NAVIGATIONVIEWS/icn_view_list.svg");
+    display: block;
+    position: absolute;
+    inset: 0;
+    filter:brightness(0) invert(100%);
+}
+
+.widget-actions:not(.inverse-contrast)::before{
+    filter:invert(12%) sepia(52%) saturate(5997%) hue-rotate(221deg) brightness(98%) contrast(104%);
+}
+
+.widget-actions:not(.open) ~ .widget-actions-list {
+    display: none;
+}
+
+.widget-actions-list {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 1rem);
+    background-color: #fff;
+    box-shadow: #ccc 0 0 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+.widget-actions-list::before {
+    content: "";
+    height: 0;
+    width: 0;
+    display: inline-block;
+    position: absolute;
+    border-right: 0.4375rem transparent solid;
+    border-bottom: .6875rem #fff solid;
+    border-left: 0.4375rem transparent solid;
+    top: 0;
+    background-color: transparent;
+    right: 0.5rem;
+    transform: translateY(-0.625rem);
+}
+
+.widget-actions-list li {
+    width: 7.5rem;
+    display: flex;
+}
+
+li:first-child .action-button {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+li:last-child .action-button {
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+
+.action-button {
+    background-color: transparent;
+    border: 0;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    flex: 100% 1 1;
+    width: 100%;
+    background-color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.action-button:hover {
+    background-color: #DDE8F2;
+}

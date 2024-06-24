@@ -1,0 +1,37 @@
+<!--
+  @description       : LWC parent for delegates child
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-17-2021   TCK   Initial Version
+-->
+<template>
+    <template if:true={loading}>
+        <c-eap-spinner></c-eap-spinner>
+    </template>
+    
+    <div class="content">
+        <c-eap-header-detail title={title}></c-eap-header-detail>
+
+        <div class="v1_div_container">
+            <template if:true={showDelegates}>
+                <div class="v1_button_filter pointer" onclick={changeView}>
+                    <lightning-icon size="small" icon-name="utility:slider" alternative-text={labels.Filter} title={labels.Filter}></lightning-icon>
+                </div>
+                <c-eap-delegates-content event-id={eventId} is-sorted-by-name={isSortedByName} is-sorted-ascending={isSortedAscending} onloaded={hasLoaded}></c-eap-delegates-content>
+            </template>
+            
+            <template if:true={showSortBy}>
+                <c-eap-delegates-sort is-sorted-by-name={isSortedByName} is-sorted-ascending={isSortedAscending}></c-eap-delegates-sort>
+                <div class="v1_div_buttonContainer">
+                    <button title={labels.ApplyOrder} onclick={changeView} class="custom-full-button">{labels.ApplyOrder}</button>
+                </div>
+            </template>
+        </div>
+
+        <c-eap-footer isfixed=true></c-eap-footer>
+    </div>
+</template>

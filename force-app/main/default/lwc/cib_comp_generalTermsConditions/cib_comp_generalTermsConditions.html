@@ -1,0 +1,826 @@
+<!--
+  @description       : This is used for General Terms and conditions screen
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 11-02-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Terms & Conditions</h2>
+    </div>
+
+    <div class="aob_card-container mt_20">
+      <div class="aob_title-sm">
+        The hereunder terms and conditions govern the electronic statements
+        (“E-Statements”) service offered by the Bank. By using the service,you
+        agree with the following terms and conditions. By accepting the present
+        terms and conditions or by otherwise using the service, you agree to use
+        the service only for bonafide and lawful purposes permitted under this
+        agreement. These terms and conditions are in addition to the general
+        terms and conditions that apply to the account(s) held by the customer
+        with the Bank.
+      </div>
+
+      <div class="aob_title-sm mt_20">1.Application for E-statement</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        You agree to receive E-Statements from the Bank on the email address(es)
+        recorded in this mandate. The Bank reserves the right to provide this
+        service to you subject to your application for and use of this service
+        complying at all times with the Bank’s internal policies. The provision
+        of this service is at the Bank’s discretion, and this service may be
+        modified, suspended, withdrawn, cancelled or discontinued by the Bank at
+        any time. In the event of such modification, suspension, withdrawal,
+        cancellation or discontinuance of the service, the Bank shall notify you
+        and shall revert to sending the periodic account statement(s) in paper
+      </label>
+      <div class="aob_title-sm mt_20">2.Banks Responsibility</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        The email from the Bank containing the E-statements will be encrypted
+        with password protection and shall be sent only to the email address(es)
+        recorded in this mandate as may be amended from time to time by written
+        notice to the Bank. The Bank is not liable to verify the authenticity of
+        the email addresses as provided by you.
+      </label>
+      <div class="aob_title-sm mt_20">3.Customer Responsibility</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        3.1 You undertake to notify the Bank by registered mail, fax or email of
+        a change in email address. The Bank shall not be liable for, and you
+        hereby irrevocably release the Bank from any liability if you fail to
+        notify the Bank in writings of any change in email address.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.2 You understand that if your email password is compromised, you will
+        have the responsibility of information the Bank immediately. The Bank,
+        shall, after receipt of your written request, suspend the service until
+        further instruction is received from you to reactivate the service.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.3 You understand the importance of your role in preventing misuse of
+        your accounts and agree to promptly examine the account statements as
+        soon as these are received. You agree to protect the confidentiality of
+        your account details and your password. You understand that information
+        related to your account(s), may allow unauthorised access to your
+        account(s). For security and privacy reasons, email sent containing the
+        E-Statements is password encrypted. You agree to indemnify and keep the
+        Bank harmless from and against any and all charges, complaints, costs,
+        damages, demands, expenses, liabilities and losses resulting from any
+        unauthorised access to your email account for reasons which are beyond
+        the Bank’s control.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.4 Upon transmission of the E-Statement to your email address you will
+        have the sole responsibility for maintaining security of the email. You
+        hereby agree to indemnify and keep the Bank harmless from and against
+        any and all charges, complaints, costs, damages, demands, expenses,
+        liabilities and losses resulting from any delay, non-receipt,
+        unauthorised access or incompleteness resulting from any failure, defect
+        or any other causes connected with telecommunications network, failure
+        of equipment or any other cause.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.5 You shall ensure that your email account does not exceed the mailbox
+        quota at all times and understand that the Bank may not ascertain
+        whether the email containing the E-Statements has failed to reach the
+        customer’s email account
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.6 You agree that the General Terms and Conditions governing your
+        relationship with Standard Bank (Mauritius) Limited, including the fax
+        and email indemnity shall apply to this service.
+      </label>
+    </div>
+
+    <div class="aob_card-container mt_20">
+      <div class="aob_title-sm mt_20">
+        <p>
+          The relationship between the Standard Bank (Mauritius) Limited ("the
+          Bank") and its customers are subject to the General Terms and
+          Conditions below and to the Laws, regulations and general banking
+          customs of Mauritius.
+        </p>
+      </div>
+      <div class="aob_title-sm mt_20">
+        1.Fixed Deposit Account and Account Operation
+      </div>
+      <label class="slds-form-element__label" for="form-element-01">
+        1.1 I/We agree that interest for funds placed with the Bank will be paid
+        at the end of the period for which the funds are invested.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.2 I/We agree that the Bank will accept for deposits to my/our account
+        all cash, cheques, and other items payable to me/us.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.3 I/We agree that the deposited amount may not be less than United
+        States Dollars one hundred thousand (USD100,000) or its equivalent in
+        another currency. This minimum amount may be amended by the Bank from
+        time to time and I/We are requested to consult the Tariff Guide(s)
+        published on the Bank's website at http://www.standardbank.mu/.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.4 I/We agree that I/We will earn interest on my/our deposited amount
+        at the Bank's prevailing rate on the Fixed Deposit Date. The Interest
+        rate may change from time to time. The interest earned on the deposited
+        amount shall be paid at Maturity.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.5 I/We may choose to automatically roll over my/our deposited amount
+        or not. If I/We do not elect the automatic roll over option, the Bank
+        will transfer the funds into mu/our Nominated Bank Account at Maturity.
+        If I/We elect the automatic roll over option, I/We are required to
+        select whether the principal amount only or the principal amount plus
+        interest shall be automatically roll over for another Investment Term.
+        The applicable interest shall be the Bank's prevailing interest rate for
+        fixed deposit at the time of the automatic roll over. Should I/We choose
+        to automatically roll over the principal amount only, the interest
+        portion shall be transferred into my/our Nominated Bank Account.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.6 In accordance with the Bank of Mauritius guiding principle with
+        respect to Section 59 (Abandoned Funds) of the Banking Act 2004, as may
+        be amended from time to time, I/We are not allowed to roll over my/our
+        fixed deposit for a period of more than seven (7) years. Accordingly, at
+        Final Maturity Date, the Bank will transfer the funds into my/our
+        Nominated Bank Account.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.7 My/Our request for a withdrawal of funds before the end of the
+        initial Investment Term or before the end of subsequent Investment Terms
+        (in the event that I/We have elected for automatic roll over) is at the
+        Bank's sole and absolute discretion and, if agreed by the Bank's Tariff
+        Guide(s) published on the Bank's website. The penalty amount shall be
+        deducted from my/our deposited amount before my/our funds are paid to
+        me/us.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.8 Should the payment of any funds be due on a Sunday or on a public
+        holiday, the Bank will make the payment on the following Business Day.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.9 At Maturity (in the absence of instructions in accordance with
+        clause
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.10 below), or at the Final Maturity Date, or if paid out before the
+        end of an Investment Term in accordance with clause 1.7, the Fixed
+        Deposit Account shall be closed and the Bank will transfer the funds
+        into my/our Nominated Bank Account. 1.10 I/We shall have the option to
+        change my/our Investment Term (such term not exceeding the Final
+        Maturity Date) and/or the deposited amount, for a subsequent roll over,
+        by sending written instructions to the Bank, at least two (2) Business
+        Days before the end of the Initial Investment Term or subsequent
+        Investment Term, as may be applicable. The interest rate applicable will
+        be the rate prevailing for fixed deposit accounts on the day of the roll
+        over. The interest rate may change from time to time.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.11 IfI/We pledge funds in my/our Fixed Deposit Account as security for
+        any credit facilities with the Bank, I/We shall not have access to the
+        amount pledged.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.12 For the purpose of this mandate: "Business Day" means any calendar
+        day excluding Sundays, and public holidays in the Republic of Mauritius.
+        "Fixed Deposit Account" means the fixed deposit account the Bank has
+        opened in my/our name at my/our request. "Fixed Deposit Date" means the
+        date on which I/We deposit the deposited amount into my/our Fixed
+        Deposit Account. "Final Maturity Date" means the last working date at
+        the end of the seven (7) years period which starts from the Fixed
+        Deposit Date. "Investment Term" means the fixed period of time for which
+        I/We have deposited my/our money, which will start from the Fixed
+        Deposit Date. "Maturity" means when the Investment Term comes to an end.
+        "Nominated Bank Account" means the bank account that I/We nominated at
+        application stage held with the Bank.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1.13 I/We agree that the Bank is entitled to set off debit and credit
+        balances of my/our accounts without notice in case of default of any of
+        my/our obligations towards the Bank, including if my/our account is
+        overdrawn without suitable arrangement.
+      </label>
+      <div class="aob_title-sm mt_20">2.Instructions</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        2.1 By arrangement, I/We may instruct the Bank by means of computer or
+        other electronic equipment to make payments from my/our account and the
+        Bank will debit my/our account with the amounts concerned. In the event
+        that the Bank accepts orders over the telephone or by fax, I/we agree
+        that such orders will be carried out for my/our account and at our risk.
+        I/We agree, as per the Fax and Email Indemnity section (below), to bear
+        all the consequences thereof including those attributable to errors and
+        duplications.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.2 I/We agree that cheques and drafts in most major currencies accepted
+        for the credit of my/our account, will be converted to the currency of
+        the account at the Bank's exchange rate ruling on the day of conversion.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.3 I/We agree that funds will be available two (2) working days after
+        actual receipt of funds by the Bank and that all payments will be
+        effected value two (2) working days after the actual debit to my/our
+        account. I/We agree that drawings against cheques and drafts deposited
+        in the account will be possible only after such cheques and drafts have
+        been cleared and that in the event of cheques being returned unpaid, the
+        Bank will have full recourse against me/us. Any charges levied by
+        intermediary banks will be for my/our account. I/We agree that my/our
+        account will be debited with such associated bank charges and details of
+        such charges are available on request.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.4 I/We agree that the Bank will debit my/our account with the amount
+        of any cheque or other item deposited to which I/we am/are not entitled
+        and may pay the amount to the owner thereof, whether my/our account is
+        in credit or debit, and the Bank will advise us/me of the action
+        taken.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.5 I/We agree that overdrafts will not be allowed unless prior
+        arrangements have been made.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.6 I/We agree that payment/transfer/withdrawal instructions will not be
+        processed unless there are sufficient funds available, subject to the
+        minimum balance requirement being observed.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.7 The Bank may demand payment of all amounts owing by me/us at any
+        time.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.8 A certificate signed by a manager of the Bank containing details of
+        an amount, including interest, owed by us/me will be sufficient proof
+        thereof unless the contrary is proved.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.9 I/We agree that the Bank may accept stop payments of debit orders
+        but the onus rests on me/us to cancel the underlying contract and I/we
+        agree to indemnify the Bank against any legal action arising out of such
+        cancellation.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.10 I/We agree that in the presence of various instructions, the total
+        amount of which exceeds the available balance on my/our account(s) or
+        the credit limit granted, you shall be entitled to determine at your own
+        discretion which instruction should be executed, regardless of the date
+        which they bear or that on which they were received.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.11 I/We agree that the Bank reserves the right to determine the method
+        of execution of any orders received from me/us for the payment or
+        transfer of funds.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.12 I/We agree that the Bank shall not be liable for delays or errors
+        in carrying out instructions which arise as a result of incorrect,
+        incomplete, misleading or illegible information from me/us, including
+        misdirection resulting from incorrect, incomplete or contradictory
+        details of accounts or account numbers in transfer instructions.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.13 I/We agree that the law governing electronic payments recognises
+        Bank Account numbers as being the basis for applying the credit or
+        debit. Any name or commentary attached to an electronic payment is
+        ignored. I/We recognise that the Bank does not validate Bank Account
+        names against Bank Account numbers, neither does the Bank nor the
+        banking industry check that Bank Account numbers are consistent with
+        branch numbers.</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2.14 I/We agree that the Bank and other member of the Standard Bank
+        Group may take any action in its sole and absolute discretion in
+        accordance with or by reference to the laws, regulations and requests of
+        public and regulatory authorities operating in various jurisdictions
+        which relate to the prevention of money laundering, terrorist financing,
+        the provision of financial and other services to any persons or entities
+        which may be subject to sanctions or for any other purpose as required
+        under such laws, regulations or requests including any requirement under
+        the FATCA (Foreign Account Tax Compliance Act under the United States
+        Internal Revenue Code of 1986) or laws having similar effects. I/We
+        agree that neither the Bank nor any member of the Standard Bank Group
+        will be liable for loss (whether direct or consequential and including,
+        without limitation, loss of profit or interest) or damage suffered by
+        any party and I/we shall keep the Bank harmless and fully indemnified
+        against any claims arising out of:</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        a. any delay or failure by the Bank or any member of the Standard Bank
+        Group in processing any such payment instructions or other information
+        or communications, or in performing any of its duties or other
+        obligations in connection with any accounts or the provision of any
+        services to me/us, caused in whole or in part by any steps which the
+        Bank or such other member, in its sole and absolute discretion,
+        considers appropriate to take in accordance with or by reference to all
+        such laws, regulations and requests; or</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        b. the exercise of any of the Bank's rights under this clause; or</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        c. in certain circumstances, the action which the Bank may take or may
+        prevent or where a delay is caused, in the processing of certain
+        information; or</label
+      >
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        d. the acts of any correspondent bank; or
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        e. any deduction or withholding from a payment under FATCA or any laws
+        having similar effects.</label
+      >
+      <div class="aob_title-sm mt_20">3.Correspondence and records</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        3.1 I/We agree that written correspondence and/or electronic advice from
+        the Bank shall be deemed to be effective provided it was properly
+        dispatched/sent to me/us at the address/email address shown in the
+        records of the Bank, even if that correspondence is marked 'unable to
+        deliver' or with a similar legend. There is presumption of proper
+        dispatch if the sending thereof is recorded on a dispatch note or list
+        of the Bank.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.2 I/We agree that all communications sent by post addressed to the
+        last address registered with the Bank shall be deemed to have been duly
+        delivered to me/us. Where in the Bank's opinion communications sent to
+        the last address registered with the Bank will fail to reach me/us, the
+        Bank may in its sole discretion stop sending further communication
+        (including without limitation account statements, debit/credit advices
+        and other communications) to such address of mine/ours. Copies of
+        account statement and/or documents evidencing transactions performed on
+        the account can be produced, and provided to me/us upon request in
+        writing subject to the Bank's handling charge.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.3 I/We agree that any change of address or change in the email address
+        for electronic advices must be notified to the Bank in writing.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3.4 I/We agree that verification of signatures is required to be made by
+        a bank/ public notary/person known to the Bank or on the basis of
+        passports/identity cards.
+      </label>
+      <div class="aob_title-sm mt_20">4.Objections</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        I/We shall verify the correctness of each statement and balance of
+        accounts received from the Bank and shall notify the Bank in writing of
+        any objections relating to the statements and balances of accounts by
+        registered mail at the latest within 15 days following the date of
+        dispatch. If I/we fail to notify the Bank within the time frame provided
+        above and this results in losses taking place the Bank will be entitled
+        to refuse to refund the loses to me/us provided however that the Bank
+        has not been grossly negligent nor have defaulted willfully.
+      </label>
+      <div class="aob_title-sm mt_20">5.Charges</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        5.1 I/We agree that the Bank is entitled to charge me/us for services,
+        in particular interest, fees, commissions, expenses and disbursements.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        5.2 I/We agree that charges may be made by the Bank against any of my/
+        our accounts with the Bank. In addition to any other general lien or
+        similar right to which the Bank, as banker, may be entitled by law, the
+        Bank may at any time and without notice to me/us combine or consolidate
+        all or any of my/our accounts and set off or transfer any sum or sums
+        standing to the credit of any one or more of such accounts in or towards
+        satisfaction of any of my/our liabilities to the Bank on any other
+        account or in any other respect whether such liabilities be actual or
+        contingent, primary or collateral and several or joint.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        5.3 Such charges and interest rates will be made in accordance with the
+        Bank's usual rates, which may be unilaterally amended by the Bank from
+        time to time. The Bank will decide in what manner these alterations will
+        be brought to my/our notice.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        5.4 The Bank will charge me/us interest on any overdrawn balances and
+        the Bank shall inform me/us of the applicable rate of interest charged,
+        upon request.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        5.5 I/We agree that all expenses and disbursements incurred in my/our
+        interest in particular for legal (including all of the Bank's reasonable
+        costs in recovering any amounts that I/we owe the Bank and legal fees on
+        an attorney and own client basis, collection fees and tracing fees or
+        any other fees which the Bank may incur as a result of the Bank's
+        efforts) and other professional fees, insurances, printed matter, taxes,
+        postage, telephone calls, telegrams, and telexes may be charged by the
+        Bank to my/our account.
+      </label>
+      <div class="aob_title-sm mt_20">6.Cheque</div>
+      <label class="slds-form-element__label mt_5" for="form-element-01">
+        6.1 I/We agree to use any chequebook and any cheque form with the utmost
+        care.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        6.2 I/We further agree to ensure:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        <p>
+          6.2.1 that all uncompleted cheque forms are kept in safe custody at
+          all times;
+        </p>
+        <p>
+          6.2.2 that I/we shall inform the Bank immediately upon discovery by
+          me/us
+        </p>
+
+        <p>
+          that any cheque book or any cheque form has been stolen, lost or
+          mislaid;
+        </p>
+
+        <p>6.2.3 that any person preparing a cheque is authorised to do so;</p>
+
+        <p>
+          6.2.4 that any cheque is prepared and signed in ink or other indelible
+          writing material;
+        </p>
+        <p>
+          6.2.5 that the amount of cheque is written in such a manner as to
+          prevent any
+        </p>
+        <p>unauthorised addition of letters or figures;</p>
+        <p>
+          6.2.6 that any cheque and any alteration is signed by an authorised
+          signatory;
+        </p>
+        <p>
+          6.2.7 upon closure of any account I/we will return to you any
+          remaining uncompleted cheque forms relating to that account.
+        </p>
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        6.3 I/We agree that you will not be held liable for losses arising from
+        unauthorised alterations to cheques which are not readily detectable.
+      </label>
+
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        6.4 I/We agree that in the normal course, the Bank is unable to process
+        postdated cheques.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        6.5 I/We may stop payment of a cheque that I/we have issued before it is
+        presented for payment unless the Bank has made a commitment to pay it
+      </label>
+      <div class="aob_title-sm mt_20">7.Confidentiality and data privacy</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        7.1 I/We consent:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.1.1 to you seeking information on us and any of our surety and/or
+        guarantor from public sources for credit assessment including from the
+        Mauritius Credit Information Bureau (the "MCIB");
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.1.2 to you providing to the MCIB, within such time frame as may be
+        determined by the MCIB, credit information, both positive and negative
+        regarding us and any of our surety and/or guarantor including credit
+        facilities with arrears.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.2 I/We consent to you collecting my/our Personal Information from me/
+        us and where lawful and reasonable, from public sources for fraud and
+        compliance purposes, as well as the purposes set out below.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.3 IfI/we give you Personal Information about or on behalf of another
+        person (including, but not limited to, my family members and dependents,
+        account signatories, directors, shareholders, principal executive
+        officers, trustees and beneficiaries,
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.4.4 by sharing my/our Personal Information with your third-party
+        service providers, locally and outside the country where the products or
+        services are provided. You ask people who provide services to you to
+        agree to your privacy policies if they need access to any Personal
+        Information to carry out their services; and
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.4.5 within the Standard Bank Group.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.5 I/We shall find your Processing practices in your Privacy Statement.
+        The Bank's Privacy Statement is available on the Bank's website or on
+        request. I/We acknowledge having read and understood the Bank's Privacy
+        Statement.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.6 IfI/We am/are unsure about my/our tax or legal position as a result
+        of my/our Personal Information being Processed in countries other than
+        where I/we live or I/we are incorporated, I/we acknowledge that I/we
+        am/are required to get independent advice.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        7.7 For the purposes of this mandate:"Confidential Information" means
+        any data, reports, records, correspondence, information relating to
+        me/us or relating to me/our "Data Subject" means an identified or
+        identifiable individual/natural person and/or juristic person whose
+        Personal Information is being Processed by you; "Standard Bank Group"
+        means Standard Bank Group Limited, its Limited. "Personal Information"
+        means information about a Data Subject including, but not limited to
+        information about: race, gender, sex, pregnancy, marital status,
+        nationality, ethnic or social origin, colour, sexual orientation, age,
+        physical or mental health; well-being, disability; religion; conscience;
+        belief, culture, language, birth, education, medical, financial,
+        criminal or employment history, any identifying number, symbol, e-mail,
+        postal or physical address, telephone number, location, any online
+        identifier, any other particular assignment of the person, biometric
+        information, personal opinions, views or preferences of the person or
+        the views or opinions of another individual about the person, and the
+        name of the person if it appears with other personal information
+        relating to the person or if the disclosure of the name itself would
+        reveal information about the person. Personal Information includes any
+        Confidential Information. "Process" means any operation or set of
+        operations performed on Personal Information or sets of Personal
+        Information, whether or not by automated means, such as collection,
+        recording, organisation, structuring, storage, adaptation or alteration,
+        retrieval, consultation, use, disclosure by transmission, dissemination
+        or otherwise making available, alignment or combination, restriction,
+        erasure or destruction. Processing and Processed will have a similar
+        meaning.
+      </label>
+      <div class="aob_title-sm mt_20">
+        8 .Termination of business relationship
+      </div>
+      <label class="slds-form-element__label" for="form-element-01">
+        8.1 I/We agree that you can close the account at any time by giving us
+        30 days (the 'Notice Period') prior notice by mail at my/our last known
+        address and that you shall not be obliged to give reasons for such
+        action. In such circumstances, within the Notice Period, I,We shall
+        provide you with instructions to effect transfer of any funds available
+        in my/our account to another nominated bank account. In the absence of
+        such instructions, you reserve the right to issue a draft of the
+        equivalent amount in Mauritian rupees and send the bank draft to me/us
+        at my/our last known address following which you may close my/our bank
+        account.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        8.2 You shall close my account on receipt of a written request (board
+        resolution for a company) from me/us however I/we agree that the closure
+        will not be effective until I/we have returned any unused cheques and
+        bank cards, all cheques or other items deposited with you have been paid
+        and all my/our electronic transactions have been settled. Should any of
+        my/our electronic transactions only be settled after closure of my/our
+        account, I/we shall be liable for the costs thereof.
+      </label>
+      <div class="aob_title-sm mt_20">9. Disclaimer and indemnity</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        9.1 I/We agree that the Bank shall not be liable to me/us for any loss,
+        damage or reduction in any expected profit or gain for whatever reason.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        9.2 I/We agree that in any case where the Bank uses any agent or
+        correspondent in any country then the Bank shall have no responsibility
+        for any act or omission of that agent or correspondent.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        9.3 I/We indemnify and hold the Bank harmless for any loss whatsoever
+        that is the direct or indirect result of the Bank carrying out or
+        attempting to carry out any transaction or service requested by me/us.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        9.4 I/We agree that cheques deposited to my/our account will be sent for
+        collection. I/We indemnify the Bank against any loss, damage or delay
+        however caused.
+      </label>
+      <div class="aob_title-sm mt_20">10.Sanctions</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        10.1 I/We declare, warrant and represent to the Bank that on the date of
+        signature hereof, 1/we, our parent or shareholder, surety and/or
+        guarantor for any facility taken with the Bank, are not Sanctioned or
+        are not the subject of sanctions investigations and have no reason to
+        believe that any of us will be Sanctioned or become the subject of
+        sanctions investigations in the foreseeable future. I/We undertake to
+        inform the Bank immediately should any of us become Sanctioned or become
+        the subject of sanctions investigations in the future.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.2 Notwithstanding clause 8, I/we agree that you can terminate our
+        relationship and close the account with immediate effect should I/We our
+        parent or shareholder, surety and/or guarantor for any facility taken
+        with the Bank:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.2.1 be Sanctioned; and/or
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.2.2 directly or indirectly, to benefit any party which is Sanctioned.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.3 I/We agree that I/we are strictly prohibited from using any funds
+        which have been advanced to us by virtue of a facility with the Bank or
+        using any proceeds, directly or indirectly to benefit or finance any
+        person, entity or country which is Sanctioned. (This includes making
+        funds available to a person/entity or to a country which is Sanctioned
+        at the time of the funding).
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.4 In addition to clause 9, I/we indemnify and hold the Bank harmless
+        against any actions, proceedings, claims and/or demands that may be
+        brought against the Bank, as well as against losses, damages, costs and
+        expenses which the Bank may incur or sustain, in connection with:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.4.1 the seizure, blocking or withholding of any funds by any
+        Competent Authority; and/or
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.4.2 conduct activity on our part that (directly or indirectly)
+        benefits any party which is Sanctioned.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.5 I/We agree that should I/we have exposure to any country which is
+        the subject of Comprehensive Sanctions, I/we undertake that funds or
+        facilities granted will not be used to facilitate any financial
+        transactions with the Government or state owned entities of those
+        countries or any other financial institution/person/entity located in
+        these countries.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        10.6 For the purposes of this clause 10:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        "Competent authority" means:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        1. Her Majesty's Treasury of the United Kingdom ("HMT");
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        2. the Office of Foreign Assets Control of the Department of Treasury of
+        the United States of America ("OFAC");
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        3. the United Nations Security Council ("UNSC"):
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        4. the European Union's Council ("EU");
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        5. French Ministry of Economy, Finances and Industry (MINEFI); and
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        6. a regulatory body duly authorised to issue sanctions.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        "Comprehensive sanctions" means sanctions that target the country as a
+        whole and where trade with such country is prohibited.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        "Financial sanctions" means coercive measures or restrictions which are
+        imposed by Competent Authorities.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        "Sanctioned" means any person, entity or country that is subject to
+        trade, economic or Financial Sanctions, embargoes or restrictive
+        measures imposed by a Competent Authority.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        11.4 I/We further acknowledge and agree that should the authority of a
+        person acting as Authorised Dealer and/or Authorised Signatory be
+        limited in any respect:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        11.4.1 I am/We are responsible for ensuring that such person remains
+        within such limitations:
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        11.4.21 am/We are responsible for notifying the Bank in writing where I/
+        We have replaced and/or terminated the authority of such person; and
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        11.4.3 the Bank shall not be: (a) responsible for determining whether or
+        not such person is acting within such limitations; (b) responsible for
+        ensuring that such person stays within such limitations; or (c) liable
+        for any damages. losses and/or expenses resulting from (i) the actions
+        of such person which is not within such limitations; (ii) the Bank's
+        reliance upon and/or compliance with instructions given or purportedly
+        given by such person: or (iii) My/Our failure to timeously advise the
+        Bank of any changes in respect of such person.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        11.5 For the purpose of clause 28 of the General Conditions, the notice
+        shall be made to My/Our registered address as per the Bank's latest
+        record. 11.6 I/We agree that should I/We wish to conclude foreign
+        exchange transactions the settlement date of which exceeds two Business
+        Days following the date of execution of any such transaction, additional
+        terms and conditions as may be required by the Bank, including the
+        execution of a Global Markets Dealing Mandate, shall apply.
+      </label>
+      <div class="aob_title-sm mt_20">12.Applicable law and jurisdiction</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        12.1 I/We agree that the place of performance shall be the register the
+        Bank.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        12.2 I/We agree that the mandate shall be governed by and construed in
+        accordance with the Laws of Mauritius.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        12.3 I/We agree that the parties hereto agree that any legal action or
+        proceeding arising out of or in connection with this mandate is
+        submitted to the jurisdiction of the Courts of Mauritius.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        12.4 I/We agree that the submission to such jurisdiction shall not be
+        construed so as to limit the right of the Bank to take proceedings
+        against me/us in whatsoever jurisdiction in which me/us shall have.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        12.5 The Bank shall regard the latest postal or residential address
+        given by me/us to the Bank as the address where notices may be given and
+        documents in legal proceedings may be served.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        12.6 If necessary, the Bank may take legal action against me/us in an
+        appropriate Court of Law even if our claim exceeds its jurisdiction.
+      </label>
+      <div class="aob_title-sm mt_20">
+        13.Amendments in general terms and conditions
+      </div>
+      <label class="slds-form-element__label" for="form-element-01">
+        13.1 I/We agree that the present General Terms and Conditions may be
+        modified in the way you think most appropriate and upon providing me
+        with thirty (30) days written notification prior to any such change
+        taking effect so that I/we will have time to decide whether I/we want to
+        continue with the applicable product or service or maintaining the
+        account with you.
+      </label>
+      <div class="aob_title-sm mt_20">14.Company declaration</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        14.1 I/We warrant that all particulars given to the Bank (whether in an
+        account opening form or otherwise) are, to the best my/our knowledge,
+        accurate. I/We undertake to notify the Bank in writing of any change of
+        address or other pertinent particulars recorded with the Bank.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        14.2 I/We undertake to promptly notify the Bank in writing of any change
+        to my/our FATCA status/tax residency status and shall upon demand
+        furnish the Bank with relevant forms, documentation or other information
+        required to assess my/our FATCA status/tax residency status.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        14.3 I/We authorise the Bank to make any independent enquiries on any
+        shareholders, directors or authorised signatories in accordance with but
+        not limited to a bank reference from existing banks.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        14.4 I/We undertake to inform the Bank in the event of a change in
+        beneficial ownership, directorship, shareholding and authorised
+        signatories.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        14.5 Any information obtained from the Bank in this application and in
+        our dealings with the Bank may be shared within the Standard Bank Group.
+        We understand that the information may be used for assessment and
+        analysis (including credit scoring, market and product analysis,
+        customer service etc) and to advise us of products and services.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        14.6 I/We shall comply with all statutes, laws, regulations, and by-laws
+        as are applicable to me/us from time to time.
+      </label>
+      <div class="aob_title-sm mt_20">15.Complaints</div>
+      <label class="slds-form-element__label" for="form-element-01">
+        15.1 I/We acknowledge that I/we may refer any complaint I/we may have in
+        relation to the provision of the services by the Bank to the complaints
+        officer of the Bank in accordance with the Bank's Complaints Procedures.
+      </label>
+      <label class="slds-form-element__label mt_20" for="form-element-01">
+        15.2 The Complaints Handling Procedures are available on the Bank's
+        website at "http://www.standardbank.mu" or upon request to the Bank, a
+        copy shall be provided to me/us free of charge.
+      </label>
+
+      <lightning-radio-group
+        class="radio-css slds-p-top_medium"
+        data-type="application"
+        type="radio"
+        id="AcceptT&C"
+        options={options}
+        data-id="Accepttermsconditions"
+        data-name="termsAndConditions"
+        name="termsAndConditions"
+        value={termsAndConditionsValue}
+        variant="label-hidden"
+        required       
+      >
+      </lightning-radio-group>
+    </div>
+
+    <c-cib_comp_flow-navigation
+      is-first-screen={firstScreen}
+      submit-first-screen="true"
+      accept-terms-text="true"
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

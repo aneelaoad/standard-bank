@@ -1,0 +1,54 @@
+<template>
+    <div class="aob_card_container container">
+        <div class="slds-grid step-grid ">
+            <template for:each={progressIndicatorsStages} for:item="indicatorStage">
+                <!--First Step-->
+                <template if:true={indicatorStage.firstStage}>
+                    <div class="slds-col step-col" key={indicatorStage.stagenumber}>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col step-item">
+                                <c-acm_progress-ring min="0" max="100" value={indicatorStage.stagevaluenow}
+                                    stagename={indicatorStage.stagename} state={indicatorStage.statename}
+                                    stepnumber={indicatorStage.stagenumber}></c-acm_progress-ring>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+                <!--First Step end here-->
+                <!--Middle Step-->
+                <template if:true={indicatorStage.middleStage}>
+                    <div class="slds-col step-col" key={indicatorStage.stagenumber}>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col step-item">
+
+                                <c-acm_progress-ring min="0" max="100" value={indicatorStage.stagevaluenow}
+                                    stagename={indicatorStage.stagename} state={indicatorStage.statename}
+                                    stepnumber={indicatorStage.stagenumber}></c-acm_progress-ring>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+                <!--Middle Step end here-->
+                <!--last Step-->
+                <template if:true={indicatorStage.lastStage}>
+                    <div class="slds-col step-col" key={indicatorStage.stagenumber}>
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col step-item">
+                                <div style="right:-50%">
+                                    <c-acm_progress-ring min="0" max="100" value={indicatorStage.stagevaluenow}
+                                        stagename={indicatorStage.stagename} state={indicatorStage.statename}
+                                        stepnumber={indicatorStage.stagenumber}></c-acm_progress-ring>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </template>
+            </template>
+            <!--Last Step end here-->
+        </div>
+    </div>
+</template>

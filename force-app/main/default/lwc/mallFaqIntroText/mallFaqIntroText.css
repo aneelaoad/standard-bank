@@ -1,0 +1,29 @@
+.faq-intro-heading {
+    font-family: var(--lwc-fontFamilyMedium, "bentonsans-medium-webfont");
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 32px;
+    color: #0034A7;
+    margin-bottom: 2rem;
+}
+
+.faq-intro-text,
+.faq-supporting-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 1rem;
+}
+
+@media all and (min-width:768px) {
+    .faq-intro-heading {
+        margin-bottom: 1.75rem;
+    }
+
+    .faq-intro-text,
+    .faq-supporting-text {
+        font-size: 16px;
+        line-height: 20px;
+    }
+}

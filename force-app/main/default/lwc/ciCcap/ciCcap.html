@@ -1,0 +1,16 @@
+<template>
+    <article class={cardClasses}>
+        <div class="slds-grid slds-p-around_small">
+            <div class="slds-col slds-align-middle">
+                <p class="slds-text-heading_small ccap-font_size"> {label.CCAP_Label} </p>
+                <div class="slds-m-top_x-small ccap-font_size">
+                    <lightning-spinner size="medium" variant="base" if:true={showSpinner}></lightning-spinner>
+                    <template for:each={ccapList} for:item="ccap" if:false={showSpinner}>
+                        <lightning-formatted-text value={ccap} key={ccap}></lightning-formatted-text><br key={ccap}/>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <lightning-helptext class="slds-is-absolute dock_right dock_bottom slds-p-around_xx-small" content={label.CCAP_HelpText} ></lightning-helptext>
+    </article>
+</template>

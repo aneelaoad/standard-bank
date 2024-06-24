@@ -1,0 +1,111 @@
+<!--
+  @description       : This is used for state Ownership Status Screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 10-10-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+
+    <article class="aob_page-titles">
+      <h2>State Ownership Status</h2>
+    </article>
+    <div class="aob_card-container">
+      <label class="aob_title-sm" for="form-element-05">
+        State or government owned entity
+      </label>
+      <div class="aob_info-text mt_20">
+        <img src={helpIcon} alt="check" />
+        <p>
+          Applicable if the company is owned directly or indirectly by state or
+          government over 10%
+        </p>
+      </div>
+
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              Name of state or government</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                message-when-pattern-mismatch="Only Character are allowed"
+                pattern="[A-Za-z\s]+"
+                type="text"
+                id="form-element-02"
+                name="CIB_SOS_StateGovName__c"
+                value="Name"
+                data-name="name"
+                placeholder="please enter the text"
+                aria-describedby="form-error-02"
+                aria-invalid="true"
+                onchange={genericInputChange}
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label" for="date-input-id-default2"
+              >Ownership (%)</label
+            >
+            <div
+              class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+            >
+              <lightning-input
+                placeholder="Please enter percentage"
+                type="number"
+                message-when-pattern-mismatch="Only  Digits are allowed"
+                formatter="percent-fixed"
+                step="0.01"
+                pattern="^(0*100{1,1}\.?((?<=\.)0*)?%?$)|(^0*\d{0,2}\.?((?<=\.)\d*)?%?)$"
+                data-name="ownership"
+                name="CIB_SOS_VotingRightsPercentage__c"
+                variant="label-hidden"
+                onchange={genericInputChange}
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              Voting rights percentage (%) (if different)</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="number"
+                message-when-pattern-mismatch="Only  Digits are allowed"
+                formatter="percent-fixed"
+                step="0.01"
+                pattern="^(0*100{1,1}\.?((?<=\.)0*)?%?$)|(^0*\d{0,2}\.?((?<=\.)\d*)?%?)$"
+                placeholder="Please enter percentage"
+                data-name="voting"
+                name="CIB_SOS_OwnershipPercentage__c"
+                variant="label-hidden"
+                onchange={genericInputChange}
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

@@ -1,0 +1,42 @@
+.slds-notify {
+  border-left: 3px solid var(--positive-color, #008545) !important;
+  background: var(--neutral-light-grey, #f4f5f7) !important;
+  color: #ced3d9 !important;
+  max-width: 600px;
+  border-radius: 4px 12px 12px 4px;
+}
+
+.slds-button {
+  border: none !important;
+  background: none !important;
+}
+
+.slds-notify_container {
+  top: 150px;
+}
+
+.toast-message {
+  color: var(--primary-text-medium-grey, #283640);
+  font-style: normal;
+  font-weight: 400;
+  font-size: var(--font-size-body-s, 0.875rem);
+  line-height: 16px;
+}
+
+.toast-header {
+  font-family: var(--lwc-fontFamily);
+  font-weight: 500;
+  font-size: var(--font-size-body-m, 1rem);
+  line-height: 20px;
+  color: var(--secondary-text-dark-grey, #0b0f14);
+}
+
+@media all and (max-width: 767px) {
+  .slds-notify_container {
+    top: 130px;
+  }
+  .slds-notify {
+    min-width: auto;
+    max-width: auto;
+  }
+}

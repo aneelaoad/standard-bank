@@ -1,0 +1,57 @@
+.aob_tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.aob_tooltip .aob_arrow {
+    visibility: hidden;
+    background: #858d9d;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    bottom: 86%;
+    transform: rotate(45deg);
+}
+
+/* Tooltip text */
+.aob_tooltip .aob_tooltip_content {
+    visibility: hidden;
+    width: 25vw;
+    max-width: 380px;
+    position: absolute;
+    bottom: 100%;
+    left: -20px;
+    color: white;
+    text-align: left;
+    z-index: 1;
+    padding: 10px;
+    border-radius: 2px;
+    background-color: #858d9d;
+    font-size: 13px;
+    line-height: 17px;
+    text-transform: initial;
+}
+
+.icon{
+    width: 12px !important;
+}
+
+/* Show the tooltip text when hovering over the tooltip container */
+.aob_tooltip:hover .aob_arrow,
+.aob_tooltip:hover .aob_tooltip_content {
+    visibility: visible;
+}
+
+@media(max-width: 768px) {
+    .aob_tooltip .aob_tooltip_content {
+        width: 30vw;
+        font-size: 11px;
+    }
+}
+
+@media(max-width: 576px) {
+    .aob_tooltip .aob_tooltip_content {
+        width: 80vw;
+    }
+}

@@ -1,0 +1,10 @@
+.aob_modal_container {
+    max-width: 1000px;
+}
+
+@media (max-width: 575px){
+  .responsiveflex{
+    flex-direction: column;
+    gap: 10px;
+ }
+}

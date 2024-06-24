@@ -1,0 +1,138 @@
+.DashboardSection {
+    width: 100% !important;
+    height: auto;
+}
+.ApplicationMarketPlaceSection {
+    width: 100% !important;
+    height: auto;
+}
+.whiteBackground {
+    height: auto;
+    width: 100% !important;
+    background-color: #ffffff;
+}
+.AddPadding {
+    width: 100% !important;
+    height: auto;
+    padding: 0 6.875rem;
+}
+.hidden {
+    display: hidden;
+}
+
+.pageGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: auto;
+}
+
+.HolderOne {
+    padding: 3.25rem 1.5rem;
+    background-color: #f4f5f7;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.MarketplaceHolderOne {
+    padding: 3.25rem 1.5rem;
+    background-color: #f4f5f7;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.HolderTwo {
+    background-color: #e3e6ea;
+    padding: 1.5rem;
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}
+
+.HolderThree {
+    background-color: #ffffff;
+    padding: 3rem 1.5rem;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.MarketplaceHolderThree {
+    background-color: #ffffff;
+    padding: 3rem 1.5rem;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
+
+.withGallery {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.noBackground {
+    background: none;
+}
+
+@media only screen and (max-width: 64rem) {
+    .pageGrid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .HolderOne {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .MarketplaceHolderOne {
+        padding: 3.25rem 1.5rem;
+        background-color: #f4f5f7;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+    .ProviderSpace {
+        padding: 3.25rem 0rem;
+   
+    }
+    .HolderTwo {
+        padding: 1.5rem 1.25rem 3rem 1.25rem;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .HolderThree {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+}
+
+.HolderTwoSec {
+    width: 100%;
+}
+
+@media only screen and (max-width: 26.563rem) {
+    .pageGrid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .HolderOne {
+        padding: 3.25rem 1.5rem;
+    }
+}

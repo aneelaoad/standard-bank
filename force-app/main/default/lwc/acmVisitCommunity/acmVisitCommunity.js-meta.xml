@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+     <isExposed>true</isExposed>
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
+
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="headerText" type="String" label="Header Text" default="Collaborate with the experts"/>
+      <property name="subHeaderText" type="String" label="Sub Header Text" default="Get your questions answered, connect and interact with over 1000 API experts."/>
+      <property name="buttonLabel" label="Button Label" type="String" default="VISIT OUR COMMUNITY"/>
+      <property name="destinationUrl" label="Community page url or absolute url" type="String" default="/APIMarketplace/s/forums"/>
+       
+    </targetConfig>
+  </targetConfigs>
+</LightningComponentBundle>

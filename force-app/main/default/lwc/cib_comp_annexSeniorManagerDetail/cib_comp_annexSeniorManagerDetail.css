@@ -1,0 +1,24 @@
+.sub-header {
+  padding: 20px 145px 25px 20px;
+  font-style: Benton Sans;
+  font-size: 14px;
+  font-weight: 400px;
+}
+.aob_todo-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #ced3d9;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+p img {
+  padding-right: 10px;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400px;
+}

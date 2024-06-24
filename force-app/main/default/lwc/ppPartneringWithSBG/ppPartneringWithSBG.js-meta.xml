@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>51.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="mainHeading" label="Main Heading" type="String" default="KNOW MORE ABOUT PARTNERING WITH STANDARD BANK"/>
+            <property name="headingOne" label="Heading 1" type="String" default="Registration"/>
+            <property name="textOne" label="Text 1" type="String" default="Answer a brief questionnaire to help us get to know you better."/>
+            <property name="headingTwo" label="Heading 2" type="String" default="Discovery"/>
+            <property name="textTwo" label="Text 2" type="String" default="Complete due diligence and discover what our new partnership has the potential to achieve."/>
+            <property name="headingThree" label="Heading 3" type="String" default="Onboarding"/>
+            <property name="textThree" label="Text 3" type="String" default="Legally define our relationship and finalise the onboarding process."/>
+            <property name="faqHeading" label="Faq Heading" type="String" default=""/>
+            <property name="faqSubHeading" label="Faq Sub Heading" type="String" default=""/>
+            
+        </targetConfig>
+    </targetConfigs>
+    
+</LightningComponentBundle>

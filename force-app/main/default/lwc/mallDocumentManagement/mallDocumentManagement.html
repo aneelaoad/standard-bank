@@ -1,0 +1,260 @@
+<template>
+  <div class="document-management">
+    <div class="document-header-section">
+      <h3 class="document-header">{header}</h3>
+      <p class="document-header-text">{subHeader}</p>
+      <c-mall-account-select
+        onaccountselection={handleAccountSelectionChange}
+        onprofileselection={handleProfileSelectionChange}
+        user-options={businessProfiles}
+        account-options={businessAccounts}
+      ></c-mall-account-select>
+    </div>
+    <template lwc:if={noAccountSelected}>
+      <div class="no-account">
+        <div class="no-account-img"></div>
+        <div class="no-account-text">
+          <span class="no-account-header">{noAccountHeader}</span>
+          <span class="no-account-subtext">{noAccountSubText}</span>
+        </div>
+      </div>
+    </template>
+    <template lwc:elseif={documentError}>
+      <div class="document-error">
+        <div class="document-error-img"></div>
+        <div class="document-error-text">
+          <span class="document-error-header">{documentErrorHeader}</span>
+          <span class="document-error-subtext">{documentErrorSubText}</span>
+        </div>
+      </div>
+    </template>
+    <template lwc:else>
+      <div class="card-container">
+        <template
+          for:each={documentList}
+          for:item="currentDocument"
+          for:index="index"
+        >
+          <div class="card" key={currentDocument.cardHeader}>
+            <div class="card-inner-container">
+              <span class="card-text">
+                <p class="card-header" data-header={currentDocument.cardHeader}>
+                  {currentDocument.cardHeader}
+                </p>
+                <template lwc:if={statementView}>
+                  <p class="stamp-text">{currentDocument.isStamped}</p>
+                </template>
+                <template if:true={errorUnstampedRange}>
+                  <template if:true={currentDocument.isExtendedMonths}>
+                    <p class="error-message-unstamped">{errorUnstampedRange}</p>
+                  </template>
+                </template>
+                <template if:false={currentDocument.isExtendedMonths}>
+                  <p class="card-date">{currentDocument.cardDate}</p>
+                  <span class="account-details">
+                    <p class="account-name">{currentDocument.accountName}</p>
+                    <p class="account-number">
+                      {currentDocument.accountNumber}
+                    </p>
+                  </span>
+                </template>
+              </span>
+              <template lwc:if={documentView}>
+                <button
+                  data-index={index}
+                  aria-expanded="false"
+                  aria-label="Query file"
+                  class="card-icon-documents-btn"
+                  onclick={showQueryModal}
+                ></button>
+              </template>
+              <template lwc:elseif={statementView}>
+                <span class="card-icon-statements"></span>
+              </template>
+            </div>
+            <template lwc:if={statementView}>
+              <template lwc:if={currentDocument.isExtendedMonths}>
+                <div class="date-pickers-container">
+                  <p id="start-date-input">
+                    <lightning-input
+                      type="date"
+                      aria-labelledby="start-date-input"
+                      data-name="startdate"
+                      label="Start Date"
+                      value={startDate}
+                      onchange={handleDateChange}
+                    ></lightning-input>
+                  </p>
+                  <p id="end-date-input">
+                    <lightning-input
+                      type="date"
+                      aria-labelledby="end-date-input"
+                      data-name="enddate"
+                      label="End Date"
+                      value={endDate}
+                      onchange={handleDateChange}
+                    ></lightning-input>
+                  </p>
+                </div>
+                <div class="action-downloading statements-extended-download">
+                  Downloading...
+                  <div class="downloading-spinner">
+                    <div class="slds-spinner_container">
+                      <div
+                        role="status"
+                        class="slds-spinner slds-spinner_large"
+                      >
+                        <span class="slds-assistive-text">Downloading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </template>
+            <template if:false={currentDocument.isExtendedMonths}>
+              <div class="card-action">
+                <button
+                  aria-label="Download file"
+                  class="action-btn"
+                  onclick={handleDownloadDocument}
+                  data-documentuuid={currentDocument.uid}
+                >
+                  Download
+                </button>
+                <div class="action-downloading">
+                  Downloading...
+                  <div class="downloading-spinner">
+                    <div class="slds-spinner_container">
+                      <div
+                        role="status"
+                        class="slds-spinner slds-spinner_small"
+                      >
+                        <span class="slds-assistive-text">Downloading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+        <template lwc:if={statementView}>
+          <template lwc:if={datesSelected}>
+            <template if:true={unstampedStatementsLoaded}>
+              <div class="previous-statements-container">
+                <p class="previous-statements-header">Unstamped</p>
+                <template
+                  for:each={unstampedStatements}
+                  for:item="unstampedStatement"
+                >
+                  <div class="previous-statement" key={unstampedStatement.uid}>
+                    <span class="statement-dates"
+                      >{unstampedStatement.cardDate}</span
+                    >
+                    <span class="statement-account-details"
+                      >{unstampedStatement.accountNumber}</span
+                    >
+                    <span class="statement-action"
+                      ><button
+                        aria-label="Download statement"
+                        class="action-btn"
+                        onclick={handleUnstampedDocumentDownload}
+                        data-documentuuid={unstampedStatement.uid}
+                      >
+                        Download
+                      </button>
+                      <div class="action-downloading">
+                        Downloading...
+                        <div class="downloading-spinner">
+                          <div class="slds-spinner_container">
+                            <div
+                              role="status"
+                              class="slds-spinner slds-spinner_small"
+                            >
+                              <span class="slds-assistive-text"
+                                >Downloading</span
+                              >
+                              <div class="slds-spinner__dot-a"></div>
+                              <div class="slds-spinner__dot-b"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </template>
+        </template>
+      </div>
+    </template>
+    <div class="documents-banker-information">
+      <p class="banker-text">{bankerText}</p>
+      <c-mall-cmn-button
+        variant="mall"
+        label={contactLabel}
+        title={contactLabel}
+        w-class="wAuto"
+        onclick={handleContactBanker}
+      >
+      </c-mall-cmn-button>
+      <div class="banker-contact">
+        <p class="banker-name">{bankerName}</p>
+        <a href={bankerEmailLink} class="banker-email">{bankerEmail}</a>
+        <p class="banker-call-centre">{bankerCallCentre}</p>
+      </div>
+    </div>
+  </div>
+  <c-mall-side-bar></c-mall-side-bar>
+  <c-mall-modal
+    active={showModal}
+    header={queryHeading}
+    variant="small"
+    onclose={closeQueryModal}
+  >
+    <div slot="content" class="query-wrapper">
+      <div class="query-modal-subheader">
+        <h4>Please provide more details about your query.</h4>
+      </div>
+      <div id="subject-input" class="modal-subject-container">
+        <lightning-input
+          name="subject-query"
+          aria-labelled-by="subject-input"
+          aria-label="Query subject"
+          type="text"
+          label="Subject"
+          value={modalSubject}
+          disabled="true"
+        ></lightning-input>
+      </div>
+      <div class="query-text-area-modal-container">
+        <lightning-textarea
+          name="query-input"
+          label="Your message"
+          placeholder="Enter your message here and be as detailed as possible."
+          required
+          value={additionalComment}
+          onchange={handleCommentChange}
+        ></lightning-textarea>
+        <div class="input-error-helper">
+          This is a required field. Please provide some detail regarding your
+          query.
+        </div>
+      </div>
+    </div>
+
+    <div slot="footer" class="footer-button">
+      <lightning-button
+        label={queryBtnText}
+        title={queryBtnText}
+        onclick={submitQuery}
+        class="slds-m-left_x-small query-submit-button"
+      ></lightning-button>
+    </div>
+  </c-mall-modal>
+</template>

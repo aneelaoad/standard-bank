@@ -1,0 +1,64 @@
+<template>
+    <div class="backdrop" if:true={isModalOpen}></div>
+    <div class="filter-modal" if:true={isModalOpen}>
+        <div class="close-icon" onclick={closeFilterModal}>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.7501 17.1466L17.1465 17.7501C16.8133 18.0833 16.273 18.0833 15.9396 17.7501L9.00001 10.8103L2.06027 17.75C1.72705 18.0833 1.18669 18.0833 0.853415 17.75L0.249958 17.1465C-0.0833193 16.8133 -0.0833193 16.273 0.249958 15.9396L7.18968 9.00001L0.249958 2.06027C-0.0833193 1.72705 -0.0833193 1.18669 0.249958 0.853415L0.853402 0.24997C1.18668 -0.0833071 1.72705 -0.0833071 2.06027 0.24997L9.00001 7.18968L15.9396 0.249958C16.273 -0.0833193 16.8133 -0.0833193 17.1465 0.249958L17.7501 0.853402C18.0833 1.18668 18.0833 1.72705 17.7501 2.06027L10.8103 9.00001L17.7501 15.9396C18.0833 16.273 18.0833 16.8133 17.7501 17.1466Z" fill="#5C6C80"/>
+            </svg>    
+        </div>
+        <div class="filter-header">
+            <div class="filter-title">Filters</div>
+        </div>
+        <div class="divider">
+          
+        </div>
+        <div class="filter-group">
+            <div class="filter-heading">{filterHeading1}</div>
+            <div class="filter-options">
+                <lightning-checkbox-group name="countryMarket" options={countryMarketOptions} onchange={handleCountryChange}
+                    value={selectedCountry}></lightning-checkbox-group>
+            </div>
+        </div>
+        <div class="divider">
+         
+        </div>
+
+        <div class="filter-group">
+            <div class="filter-heading">{filterHeading2}</div>
+            <div class="filter-options">
+                <lightning-checkbox-group name="customerSegments" options={customerSegmentsOptions} onchange={handleSegmentChange}
+                    value={selectedSegment}></lightning-checkbox-group>
+            </div>
+        </div>
+        <div class="divider">
+           
+        </div>
+        <div class="filter-group">
+            <div class="filter-heading">{filterHeading3}</div>
+            <div class="filter-options">
+                <lightning-checkbox-group name="apiTypes" options={apiTypesOptions} onchange={handleAPIChange}
+                    value={selectedApiType}></lightning-checkbox-group>
+            </div>
+        </div>
+        <div class="divider">
+           
+        </div>
+        <div class="button-container">
+            <lightning-button label="CLEAR ALL" onclick={clearAllFilters}></lightning-button>
+            <lightning-button label="APPLY" variant="brand" onclick={applyFilters}></lightning-button>
+        </div>
+        <div class="warning-message-wrapper">
+            <h4 class="warning-message">If the filter that you have selected does not have any matching APIs in the catalog, it will return the original list of
+            APIs</h4>
+        </div>
+    </div>
+    <div class="filter-wrapper">
+        <div class="modal-icon" onclick={openFilterModal}>
+            <span>
+                <img src={iconImage}>
+            </span>
+            <p class="filter-btn-header">Filters</p>
+        </div>
+        
+    </div>
+</template>

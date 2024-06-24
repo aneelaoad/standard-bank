@@ -1,0 +1,159 @@
+<template>
+    <div class="TileHolder">
+        <template lwc:if={requiresmfa}>
+            <template lwc:if={valuereceived}>
+                <template lwc:if={hasdevices}>
+                    <div onclick={goToRedirect}>
+                        <div class="MainTile">
+                            <div class="TileWrapper">
+                                <div class="TileDeleteHolder">
+                                    <div class="DeleteIconHolder">
+                                        <i class="msClass ms-icn_bin deleteIcon" onclick={removeSolutionAsFavourite} disabled={disabled}
+                                        data-id={deleteValue} data-scope='My Shortcuts'>
+                                        </i>
+                                    </div>
+                                </div>
+                                <div class="TileRedirectHolder">
+                                    <div class="TileImage">
+                                        <template lwc:if={thirdParty}>
+                                            <img src={iconImage} class="logoHeight">
+                                        </template>
+                                        <template lwc:else>
+                                            <img src={SBlogo}></img>
+                                        </template>
+                                    </div>
+                                    <div class="TileTitle">
+                                        <template lwc:if={solTM}>
+                                            <div>{title}<sup class="tmClass">TM</sup></div>
+                                        </template>
+                                        <template lwc:else>
+                                            <div>{title}</div>
+                                        </template>
+                                        <div class="ShortcutTitle">{shortcutname}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <div onclick={stepUpPerformance}>
+                        <div class="MainTile">
+                            <div class="TileWrapper">
+                                <div class="TileDeleteHolder">
+                                    <div class="DeleteIconHolder">
+                                        <i class="msClass ms-icn_bin deleteIcon hideDelete" onclick={removeSolutionAsFavourite} disabled={disabled}
+                                        data-scope='My Shortcuts' data-id={deleteValue}>
+                                        </i>
+                                    </div>
+                                </div>
+                                <div class="TileRedirectHolder">
+                                    <div class="TileImage">
+                                        <template lwc:if={thirdParty}>
+                                            <img src={iconImage} class="logoHeight">
+                                        </template>
+                                        <template lwc:else>
+                                            <img src={SBlogo}></img>
+                                        </template>
+                                    </div>
+                                    <div class="TileTitle">
+                                        <template lwc:if={solTM}>
+                                            <div>{title}<sup class="tmClass">TM</sup></div>
+                                        </template>
+                                        <template lwc:else>
+                                            <div>{title}</div>
+                                        </template>
+                                        <div class="ShortcutTitle">{shortcutname}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="MFAHoverSection" data-id="My Shortcuts | MFA Required"
+                        data-text={mfarequiredtileValue}  onclick={stepUpPerformance}
+                        data-intent="informational" data-scope='My Applications'>
+                            <div class="MFAHoverText">
+                                <div>
+                                    This shortcut requires multi-factor authentication.
+                                </div>
+                                <div>
+                                    Click to link a device using OneHub Authenticator.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+            <template lwc:else>
+                <div class="unavailableClass">
+                    <div class="MainTile">
+                        <div class="TileWrapper">
+                            <div class="TileDeleteHolder">
+                                <div class="DeleteIconHolder">
+                                    <i class="msClass ms-icn_bin deleteIcon" onclick={removeSolutionAsFavourite} disabled={disabled}
+                                    data-id={deleteValue} data-scope='My Shortcuts'>
+                                    </i>
+                                </div>
+                            </div>
+                            <div class="TileRedirectHolder">
+                                <div class="TileImage">
+                                    <template lwc:if={thirdParty}>
+                                        <img src={iconImage} class="logoHeight">
+                                    </template>
+                                    <template lwc:else>
+                                        <img src={SBlogo}></img>
+                                    </template>
+                                </div>
+                                <div class="TileTitle">
+                                    <template lwc:if={solTM}>
+                                        <div>{title}<sup class="tmClass">TM</sup></div>
+                                    </template>
+                                    <template lwc:else>
+                                        <div>{title}</div>
+                                    </template>
+                                    <div class="ShortcutTitle">{shortcutname}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </template>
+        <template lwc:else>
+            <div onclick={goToRedirect}>
+                <div class="MainTile">
+                    <div class="TileWrapper">
+                        <div class="TileDeleteHolder">
+                            <div class="DeleteIconHolder">
+                                <i class="msClass ms-icn_bin deleteIcon" onclick={removeSolutionAsFavourite} disabled={disabled}
+                                data-id={deleteValue} data-scope='My Shortcuts'>
+                                </i>
+                            </div>
+                        </div>
+                        <div class="TileRedirectHolder">
+                            <div class="TileImage">
+                                <template lwc:if={thirdParty}>
+                                    <img src={iconImage} class="logoHeight">
+                                </template>
+                                <template lwc:else>
+                                    <img src={SBlogo}></img>
+                                </template>
+                            </div>
+                            <div class="TileTitle">
+                                <template lwc:if={solTM}>
+                                    <div>{title}<sup class="tmClass">TM</sup></div>
+                                </template>
+                                <template lwc:else>
+                                    <div>{title}</div>
+                                </template>
+                                <div class="ShortcutTitle">{shortcutname}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+    <template lwc:if={deviceNotRegistered}>
+        <c-osb-new-device-modal-lwc onmfadeviceregistered={handleMFAUpdate} onupdatedeviceregistered={handleDeviceRegisteration} indashboard="false"></c-osb-new-device-modal-lwc>
+    </template>
+</template>

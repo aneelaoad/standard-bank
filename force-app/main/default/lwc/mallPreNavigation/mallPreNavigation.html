@@ -1,0 +1,72 @@
+<template>
+  <template if:true={isShowModal}>
+    <c-mall-modal
+      active={isShowModal}
+      header={modalConfig.title}
+      variant="small"
+      onclose={handleRedirectCancel}
+    >
+      <div slot="content" class="slds-modal__content">
+        <template if:true={modalConfig}>
+          <div class="slds-modal__content">
+            <div class="popup-icon">
+              <img
+                loading="lazy"
+                src={modalConfig.icon}
+                alt={modalConfig.title}
+              />
+            </div>
+            <div class="message">
+              <div>
+                {modalConfig.contentMessage1}
+                <template if:true={modalConfig.storeName}>
+                  <span class="store-name">{modalConfig.storeName}</span>,
+                </template>
+              </div>
+              <div>{modalConfig.contentMessage2}</div>
+              <div>{modalConfig.contentMessage3}</div>
+            </div>
+          </div>
+        </template>
+      </div>
+      <template if:true={isGuestUser}>
+        <div slot="footer" class="footer footer-link">
+          <a
+            href={signupurl}
+            onclick={handleGoToRegister}
+            data-button={mallRegisterOrSignIn}
+          >
+            <span
+              class="button-text"
+              data-intent="navigational"
+              data-text-after="button"
+              data-id="link_content"
+              data-type="click"
+              data-text="Register/sign in button"
+              data-scope="Pre navigation modal"
+              >REGISTER / SIGN IN</span
+            >
+          </a>
+        </div>
+      </template>
+      <template if:false={isGuestUser}>
+        <div slot="footer" class="footer footer-link modal-footer-buttons">
+          <a onclick={handleRedirectCancel} class="slds-m-left_x-small"
+            >CANCEL</a
+          >
+          <a
+            onclick={handleRedirectContinue}
+            class="slds-m-left_x-small"
+            data-intent="navigational"
+            data-text-after="store/service button"
+            data-id="link_content"
+            data-type="click"
+            data-text={modalConfig.storeName}
+            data-scope="Pre navigation modal"
+            >CONTINUE</a
+          >
+        </div>
+      </template>
+    </c-mall-modal>
+  </template>
+</template>

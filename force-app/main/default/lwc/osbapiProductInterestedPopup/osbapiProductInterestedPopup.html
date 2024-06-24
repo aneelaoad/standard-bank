@@ -1,0 +1,28 @@
+<template>
+    <div class="slds-modal slds-fade-in-open slds-backdrop">
+        <div class="slds-modal__container product-popup-modal-container">
+            <div class="product-popup-modal-close-container">
+                <lightning-icon
+                    icon-name="utility:close"
+                    alternative-text="close"
+                    title="close"
+                    onclick={closeModal}
+                ></lightning-icon>
+            </div>
+            <h1 class="product-popup-modal-heading" data-id={apiName}>
+                {apiName}
+            </h1>
+            <div class="product-popup-modal-seperator"></div>
+            <div class="product-popup-modal-message">
+                Thank you for your interest. Our team will be in touch.<br /><br />For
+                further information, please see the&nbsp;
+                <a
+                    class="product-popup-modal-terms"
+                    data-id="interested-terms-and-conditions"
+                    onclick={navigateToTAndC}
+                    >Terms and Conditions</a
+                >
+            </div>
+        </div>
+    </div>
+</template>

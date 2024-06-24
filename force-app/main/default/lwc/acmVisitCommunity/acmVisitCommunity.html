@@ -1,0 +1,35 @@
+<template>
+    <div style="background-color: #0134a2;">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-col" >
+                <div class="marketplace-call-to-action-headline-light padding-vertical-1_5rem">
+                    {useHeaderText}
+                </div>
+            </div>
+
+            <div class="slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-col" >
+                <div class="marketplace-call-to-action-text-light">
+                    {useSubHeaderText}
+                </div>
+            </div>
+
+            
+                
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-col slds-text-align_center padding-vertical-2rem" >
+                      
+                        <c-cmn-button
+                        data-intent="informational" data-scope="visitCommunity" data-id="link_content" data-text="buttonLabel" data-type="button"
+                        destination-url={destinationUrl}
+                        variant="neutral"
+                        label={buttonLabel}
+                        title={buttonLabel}
+                        ></c-cmn-button>
+                       
+                         
+                    </div>
+
+                
+                
+        </div>
+    </div>
+</template>

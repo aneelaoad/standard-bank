@@ -1,0 +1,23 @@
+<template>
+  <div class="container">
+      <div class="form">
+          <fieldset class="form-field">
+              <span class="auth-form-label" for="appName">Application Name</span>
+              <input data-id="applicationName" class="auth-input-field" value={applicationName} oninput={handleInputChange} placeholder="Enter application name" required disabled></input>
+          </fieldset>
+          <fieldset class="form-field">
+              <span class="auth-form-label" for="description">Description</span>
+              <input data-id="description" class="auth-input-field" value={description} oninput={handleInputChange} placeholder="Enter description" required disabled></input>
+          </fieldset>
+          <fieldset class="form-field">
+              <span  class="auth-form-label" for="redirectUri">OAuth 2.0 redirect URIs (Optional)</span>
+              <input data-id="redirectUri"  class="auth-input-field" value={redirectUri} oninput={handleInputChange} placeholder="Enter redirect URI" required disabled></input>
+          </fieldset>
+          <template lwc:if={isNotValid}><span class="form-message">{message}</span></template>
+          
+          <template lwc:if={isSave}><c-cmn-button variant="neutral" title="Save" w-class="w200" label={editBtnLabel} onclick={handleEditClick}></c-cmn-button></template>
+          <template lwc:if={cancelBtn}><c-cmn-button variant="neutral" title="Cancel" w-class="w200" label="CANCEL" onclick={handleCancelClick}></c-cmn-button></template>
+          <template if:false={isEditing}><c-cmn-button variant="brand" title="Edit" w-class="w200" label="EDIT APPLICATION" onclick={handleEditClick}></c-cmn-button></template>
+      </div>
+  </div>
+</template>

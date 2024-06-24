@@ -1,0 +1,33 @@
+.aob_display-flex{
+
+    justify-content: center;
+
+}
+.aob_card_container{
+    width: 100%;
+}
+ .ao-slds{
+    min-height: 100%!important;
+    
+} 
+ .btn-primary{
+    width: 320px!important;
+    padding: 0px!important;
+    /* display: flex;
+    margin: 0 auto; */
+}
+.sub{
+  color: #0a2240;
+}
+.heading{
+    color: #3c4b6c;
+}
+.retries{
+background-color: white;
+}
+@media(max-width:425px){
+    .btn-primary{
+        width: 260px!important;
+    } 
+
+}

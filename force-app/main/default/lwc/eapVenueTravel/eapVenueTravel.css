@@ -1,0 +1,36 @@
+@import 'c/eapCssLibrary';
+
+.v1_all{
+    background-color: var(--background-grey);
+    min-height: 80vh;
+}
+
+.v1_div_user_info{
+    margin-bottom: 10px;
+}
+
+.v1_div_user_contact{
+    margin: 0em 2.5em;
+}
+
+.v1_contact_txt{
+    display: inline;
+    line-height: 22px;
+}
+
+.v1_h2_headingAbout{
+    padding-bottom: 12px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+
+.v1_section{
+    margin-bottom: 2.5em;
+}
+
+.v1_div_settings{
+    padding: 2em 3em;
+}

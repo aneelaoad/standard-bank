@@ -1,0 +1,33 @@
+<template>
+    <section class="get-started-wrapper">
+        <header class="get-started-header-main">
+            <h2>Get started with our popular solutions</h2>
+            <p>Grow your business with these essential solutions.</p>
+        </header>
+        <section class="solution-tile-wrapper">
+
+    <template for:each={solutionsData} for:item="solution">
+         <div class="solution-tile" key={solution.name}>
+
+                <figure class="solution-image">
+                    <figcaption class="solution-tile-tag" >{solution.tag}</figcaption>
+                    <!-- <img src={solutionImage1} alt=""> -->
+                    <img src={solution.image} alt="">
+                </figure>
+
+                <section class="solution-content">
+                    <article class="solution-content-text">
+                        <h3>{solution.name}</h3>
+                        <p>{solution.description}</p>
+                    </article>
+                    <section class="solution-content-button-wrapper">
+                        <button class="sbds-button learn-more"><label> <a href={solution.learnMoreLink} class="learn-more">Learn More</a> </label></button>
+                        <button class="sbds-button apply-now"><label> <a href={solution.applyNowLink} class="apply-now">Apply Now</a> </label></button>
+                        <!-- <button class="sbds-button apply-now"><label>Apply Now</label></button> -->
+                    </section>
+                </section>
+            </div>
+    </template>
+       </section>
+    </section>
+</template>

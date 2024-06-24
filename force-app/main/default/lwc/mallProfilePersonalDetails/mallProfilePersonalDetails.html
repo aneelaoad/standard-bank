@@ -1,0 +1,175 @@
+<template>
+  <div class="profile_form">
+    <ul>
+      <li>
+        <div class="formInput">
+          <label class="form-label">First Name</label>
+          <div class="formInput_field">
+            <input
+              disabled
+              maxlength="80"
+              name="name"
+              size="20"
+              type="text"
+              class="form-control"
+              value={firstName}
+            />
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="formInput">
+          <label class="form-label">Last Name</label>
+          <div class="formInput_field">
+            <input
+              disabled
+              maxlength="80"
+              name="name"
+              size="20"
+              type="text"
+              class="form-control"
+              value={lastName}
+            />
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="formInput">
+          <label class="form-label">Cell Phone</label>
+          <div class="formInput_field">
+            <input
+              disabled
+              maxlength="80"
+              name="name"
+              size="20"
+              type="text"
+              class="form-control"
+              value={cellPhone}
+            />
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="formInput">
+          <label class="form-label">Email address</label>
+          <div class="formInput_field">
+            <input
+              disabled
+              maxlength="80"
+              name="name"
+              size="20"
+              type="text"
+              class="form-control"
+              value={emailAddress}
+            />
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="formInput">
+          <label class="form-label">Username</label>
+          <div class="formInput_field">
+            <input
+              disabled
+              maxlength="80"
+              name="name"
+              size="20"
+              type="text"
+              class="form-control"
+              value={userName}
+            />
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="formInput">
+          <label class="form-label">Password</label>
+          <div class="formInput_field">
+            <input
+              disabled
+              maxlength="80"
+              name="name"
+              size="20"
+              type="text"
+              class="form-control"
+              value="*********"
+            />
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!-- <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="formInput">
+                            <label class="form-label">Cell Phone</label>
+                            <div class="formInput_field">
+                                <input disabled maxlength="80" name="name" size="20" type="text"
+                                    class="form-control" value={cellPhone}>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+       
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6">
+                       
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="formInput">
+                            <label class="form-label">Password</label>
+                            <div class="formInput_field">
+                                <input disabled maxlength="80" name="name" size="20" type="text"
+                                    class="form-control" value="*********">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div> -->
+
+    <div class="row">
+      <div class="col-lg-12">
+        <p class="prefernce-help-text-bottom">{mallProfileUpdateText}</p>
+      </div>
+    </div>
+    <div>
+      <div class="form_submit">
+        <c-mall-cmn-button
+          variant="mall"
+          label={sendButtonLabel}
+          title={sendButtonLabel}
+          button-type="submit"
+          destination-url={updateProfileDetailLink}
+          w-class="auto"
+        ></c-mall-cmn-button>
+        <template if:true={isSaving}>
+          <p class="saving-icon">
+            <img src={mallSavingIcon} class="saving-icon-image" />Saving changes
+          </p>
+        </template>
+        <template if:true={isSaved}>
+          <p class="saving-icon">
+            <img
+              src={mallSavedIcon}
+              class="saving-icon-image saved-image"
+            />Changes saved
+          </p>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>

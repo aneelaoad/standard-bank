@@ -1,0 +1,45 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_buttonsIRL {
+    background-color: var(--background-grey);
+    /*display: grid;
+    grid-template-columns: auto auto;*/
+    padding: 1em;
+    position: relative;
+    top: 8em;
+}
+
+.v1_div_buttonsOnline {
+    background-color: var(--background-grey);
+    display: grid;
+    padding: 1em 1em 15vh 1em;
+}
+
+.v1_div_button {
+    margin: .5em;
+    cursor: pointer;
+}
+
+.v1_div_iconButton {
+    background: linear-gradient(70deg, #0A2240 50%, #0d2e56);
+    border-radius: 3px 0 0 3px;
+    float: left;
+    width: 3em;
+    height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter {
+    filter: grayscale(100%) contrast(50);
+}
+
+.v1_div_textButton {
+    background-color: #fff;
+    height: 3em;
+    padding-left: .5em;
+    border-radius: 0px 3px 3px 0px;
+    display: flex;
+    align-items: center;
+}

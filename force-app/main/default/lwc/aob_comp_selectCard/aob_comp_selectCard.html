@@ -1,0 +1,81 @@
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<div class="aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius card-padding">
+		<!--Form Header-->
+		<c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
+		<c-aob_comp_form-header put-title-left="true"
+			title="Get the debit card by default or upgrade to the cheque card for added benefits"
+			sub-title="Select your preferred card">
+		</c-aob_comp_form-header>
+		<div class="slds-grid slds-gutters_x-small slds-wrap slds-grid_align-center">
+			<div class="aob_form_input slds-col slds-m-top_xx-large slds-small-size_1-of-1 slds-large-size_1-of-2">
+				<!-- first card -->
+				<article class="account-card" style="width:100%">
+					<img class="tag-img" src={defaultImg} alt="card-img">
+					<img class="card-img-sm" src={debitCard} alt="card-img">
+					<div class="account-card-body">
+						<h2>{label.PBP_ZA_MYMOBizDebitCard}</h2>
+						<ul>
+							<li>{label.AOB_ZA_Visit}</li>
+							<li>{label.AOB_ZA_Get}</li>
+							<li>{label.AOB_ZA_Stayin}
+							</li>
+						</ul>
+						<div class="fee-info" style="margin-top: 48px;">
+							<h3><span>{label.AOB_R}</span>{label.AOB_ZA_ZERO}</h3>
+							<p class="accountcss">{label.AOB_ZA_ANNUAL}</p>
+						</div>
+						<div class="slds-grid left-end">
+							<lightning-button
+								class="slds-size_1-of-2 aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center"
+								data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+								data-name="debitCard" data-text={adobeDataTextBack} variant="brand" label="SELECT"
+								title="select" onclick={continueToNextPage}>
+							</lightning-button>
+						</div>
+					</div>
+				</article>
+			</div>
+			<div class="aob_form_input slds-col slds-m-top_xx-large slds-small-size_1-of-1 slds-large-size_1-of-2">
+				<!-- second card -->
+				<article class=" account-card" style="width:100%">
+					<img class="tag-img" src={upgradeImg} alt="card-img">
+					<img class="card-img-sm" src={chequeCard} alt="card-img">
+					<div class="account-card-body">
+						<h2 class="slds-card__header-title">{label.PBP_MYMOBizChequeCard}</h2>
+						<ul>
+							<li>{label.AOB_ZA_StayinGetyourbusiness}</li>
+							<li>{label.AOB_ZA_Getunlimited}</li>
+							<li>{label.AOB_ZA_Getfreeautomaticrate}</li>
+						</ul>
+						<div class="fee-info">
+							<h3><span>{label.AOB_R}</span>{label.AOB_ZA_NUM}</h3>
+							<p>{label.AOB_ZA_ANNUAL}</p>
+						</div>
+						<div class="slds-grid left-end">
+							<lightning-button
+								class="slds-size_1-of-2 aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center"
+								data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+								data-name="chequeCard" data-text={adobeDataTextContinue} variant="brand" label="SELECT"
+								title="select" onclick={initiateGetCustomerAPI}>
+							</lightning-button>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+		<div
+			class="aob_display-flex aob_mobile_1_of_1 slds-size_1-of-1 aob_margin_horizontal_auto slds-m-vertical_small aob_navigation_buttons">
+			<lightning-button data-id=”link_content” data-intent="navigational" data-scope={adobeDataScopeApp}
+				data-text="card selection | back button click"
+				class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+				variant="neutral" label="Back" title="Back" onclick={backToPreviousPage}></lightning-button>
+		</div>
+		<template if:true={isOpenCardDelivery}>
+			<c-aob_comp_card-delivery is-new={isNewToBank} is-modal-open={isOpenCardDelivery}  product-name={productName}
+				application-id={applicationId} price={label.AOB_ZA_NUM} screen-name={screenName} previous-screen=''
+				oncancel={closePopup}></c-aob_comp_card-delivery>
+		</template>
+	</div>
+	<c-aob_comp_error technical={technicalerror} product-name={productName} content={errorMessage} onretry={retryInitiateAPI}></c-aob_comp_error>
+</template>

@@ -1,0 +1,146 @@
+<template>
+
+	<!--to activate the trigger-->
+	<template if:true={trigger}>
+		<div class="trigger" onclick={open}>
+			<slot name="trigger">
+				<a>{trigger}</a>
+			</slot>
+		</div>
+	</template>
+
+	<!--spinner-->
+	<template if:true={loading}>
+		<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+	</template>
+
+	<template if:false={loading}>
+
+		<template if:true={active}>
+			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+				aria-describedby="modal-content" class={modalClassList}>
+
+				<div class="slds-modal__container">
+
+					<lightning-button-icon class="slds-modal__close" title="Close" icon-name="utility:close"
+						icon-class="slds-button_icon-inverse" onclick={close}></lightning-button-icon>
+
+					<header class="slds-modal__header">
+
+						<slot name="header">
+							<h2 class="title slds-text-heading_medium slds-hyphenate header-string">
+								{header}
+							</h2>
+						</slot>
+					</header>
+
+
+					<div class="slds-modal__content slds-p-around_medium">
+						<slot name="content">
+							Nothing in modal's content slot.
+						</slot>
+					</div>
+
+
+					<footer class="slds-modal__footer modal-hidden">
+
+						<lightning-button if:true={showFooterClose} variant="base" label="Close"
+							onclick={close}></lightning-button>
+
+						<slot name="footer"></slot>
+
+					</footer>
+				</div>
+			</section>
+			<div class="slds-backdrop slds-backdrop_open"></div>
+
+		</template>
+
+		<template if:true={newUser}>
+			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+				aria-describedby="modal-content" class={modalClassList}>
+
+				<div class="slds-modal__container">
+					<!--close icon-->
+					<!-- <lightning-button-icon class="slds-modal__close" title="Close" icon-name="utility:close"
+						icon-class="slds-button_icon-inverse" onclick={close}></lightning-button-icon> -->
+
+					<header class="slds-modal__header">
+						<!--header slot-->
+						<slot name="header">
+							<h2 class="title slds-text-heading_medium slds-hyphenate header-string">
+								Data Privacy
+							</h2>
+						</slot>
+					</header>
+
+					<!--content slot-->
+					<div class="slds-modal__content slds-p-around_medium">
+						<slot>
+							<c-mall-modal-user-consent></c-mall-modal-user-consent>
+						</slot>
+					</div>
+
+
+					<!--footer slot-->
+					<footer class="slds-modal__footer modal-hidden">
+
+						<!--foooter close button-->
+						<lightning-button if:true={showFooterClose} variant="base" label="Close"
+							onclick={close}></lightning-button>
+
+						<!--footer slot-->
+						<slot>
+							<button onclick={close} class="consent-modal--footerBtn">Next</button>
+						</slot>
+
+					</footer>
+				</div>
+			</section>
+			<div class="slds-backdrop slds-backdrop_open"></div>
+
+		</template>
+
+		<template if:true={missingNotification}>
+			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading" aria-modal="true"
+				aria-describedby="modal-content" class={modalClassList}>
+
+				<div class="slds-modal__container">
+
+					<lightning-button-icon class="slds-modal__close" title="Close" icon-name="utility:close"
+						icon-class="slds-button_icon-inverse" onclick={close}></lightning-button-icon>
+
+					<header class="slds-modal__header">
+
+						<slot name="header">
+							<h2
+								class="title slds-text-heading_medium slds-hyphenate header-string missing-notification-modal-header">
+								Oh no!
+							</h2>
+						</slot>
+					</header>
+
+
+					<div class="slds-modal__content slds-p-around_medium missing-notification-modal-text">
+						A search party was sent out to find this notification for you, but it is no longer available.
+					</div>
+
+
+					<footer class="slds-modal__footer modal-hidden">
+
+						<lightning-button if:true={showFooterClose} variant="base" label="Close"
+							onclick={close}></lightning-button>
+
+						<slot>
+							<button onclick={close} class="consent-modal--footerBtn">Got It</button>
+						</slot>
+
+					</footer>
+				</div>
+			</section>
+			<div class="slds-backdrop slds-backdrop_open"></div>
+
+		</template>
+
+	</template>
+</template>

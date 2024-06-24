@@ -1,0 +1,18 @@
+.aob_info-text {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24px;
+}
+.aob_info-text p {
+  font-family: "bentonsans-regular-webfont" !important;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #5c6c80;
+  margin: 0 0 0 16px;
+}
+.deleteicontopleft {
+  display: flex;
+  justify-content: end;
+  padding: 0;
+}

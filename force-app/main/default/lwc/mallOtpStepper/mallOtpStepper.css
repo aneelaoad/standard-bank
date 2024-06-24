@@ -1,0 +1,116 @@
+:host {
+  --_validation-color: var(--negative-color);
+  --_validation-offset-color: #f7c4c4;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.otp-container {
+  width: 100%;
+  max-width: 26rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 2.25rem;
+}
+
+.otp-heading {
+  color: var(--secondary-text-dark-grey, #0b0f14);
+  font-family: Benton Sans;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2rem;
+}
+
+.message {
+  color: var(--primary-text-medium-grey, #283640);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 26rem;
+}
+
+.otp-container lightning-button {
+  margin-left: auto;
+}
+
+.expire-timer-message {
+  color: var(--primary-color, #00164e);
+  font-size: var(--font-size-body-s, 0.875rem);
+  font-weight: 400;
+  line-height: 1rem;
+}
+
+.otp-container button {
+  color: var(--sbg-blue, #0034a7);
+  font-size: var(--font-size-body-m, 1rem);
+  font-weight: 400;
+  line-height: 1.25rem;
+  background-color: transparent;
+  border: 0;
+}
+
+[data-message-type="error"] {
+  --_validation-color: var(--negative-color);
+  --_validation-offset-color: #f7c4c4;
+}
+
+[data-message-type="success"] {
+  --_validation-color: var(--positive-color);
+  --_validation-offset-color: #bfe0cc;
+}
+
+.validation-message {
+  display: inline-flex;
+  border-radius: 0 0.5rem 0.5rem 0;
+  position: relative;
+  isolation: isolate;
+  padding: 0rem 0.375rem 0rem 0.625rem;
+  z-index: 2;
+  color: #fff;
+  font-size: var(--font-size-body-s, 0.875rem);
+  font-weight: 700;
+  line-height: 1rem;
+  min-height: 2.375rem;
+  align-items: center;
+}
+
+.validation-message::before {
+  content: "";
+  inset: 0;
+  background-color: var(--_validation-offset-color);
+  position: absolute;
+  z-index: -1;
+  border-radius: 0.25rem 0.75rem 0.75rem 0.25rem;
+}
+
+.validation-message::after {
+  content: "";
+  inset: 1px 1px 1px 0.25rem;
+  position: absolute;
+  background-color: var(--_validation-color);
+  z-index: -1;
+  border-radius: 0rem 0.75rem 0.75rem 0rem;
+}
+
+.input {
+  text-align: center;
+  font-size: 2.25rem;
+  flex: 0 1 3rem;
+  display: flex;
+  max-width: 3rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--secondary-text-dark-grey, #0b0f14);
+}

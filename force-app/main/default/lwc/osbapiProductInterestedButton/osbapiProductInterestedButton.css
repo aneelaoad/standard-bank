@@ -1,0 +1,38 @@
+.osbapiProductInterestedButton {
+    border-radius: 5px;
+    width: 320px;
+    height: 50px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 29px;
+    background-color: transparent;
+    margin-left: 3rem;
+    margin-top: 2rem;
+    transition: all 200ms linear;
+}
+
+.disabled {
+    color: #a5a5a5;
+    border: 2px solid #a5a5a5;
+}
+
+.disabled:hover {
+    cursor: default;
+}
+
+.enabled {
+    border: 2px solid #FFFFFF;
+    color: white;
+}
+
+.enabled:hover {
+    background-color: white;
+    color: #0D2E5E;
+}
+
+@media screen and (max-width: 1490px){
+    .osbapiProductInterestedButton {
+        width: 200px
+    }
+}

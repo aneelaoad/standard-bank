@@ -1,0 +1,15 @@
+<template>
+    <button
+        class={buttonStyle}
+        data-id="product-interested"
+        type="button"
+        onclick={handleOnClick}
+    >
+        {labelText}
+    </button>
+    <template if:true={showPopup}>
+        <c-osbapi-product-interested-popup
+            api-name={productName}
+        ></c-osbapi-product-interested-popup>
+    </template>
+</template>

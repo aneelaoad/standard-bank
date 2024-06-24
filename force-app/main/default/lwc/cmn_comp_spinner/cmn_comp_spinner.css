@@ -1,0 +1,11 @@
+.slds-backdrop_open, .slds-backdrop--open{
+    z-index: 1;
+    opacity: 0.6;
+    background: rgba(0, 0, 0, 0.5);
+}
+.slds-is-absolute{
+    z-index: 3;
+}
+lightning-spinner{
+	position: fixed;
+}

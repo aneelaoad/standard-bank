@@ -1,0 +1,44 @@
+<template>
+<template if:true={showContracts}>
+    <div if:true={showContracts}>
+        <div class="header slds-m-top_large">
+            <c-aob_internal_comp_form-header put-title-left="true" title=Contracts
+                sub-title="Download or Preview contracts">
+            </c-aob_internal_comp_form-header>
+        </div>
+        <div class="dataTable slds-m-vertical_xx-large">
+            <lightning-datatable
+                key-field="key"
+                data={data}
+                columns={columns}
+                hide-checkbox-column="true"
+                onrowaction={handleRowAction}
+            ></lightning-datatable>
+        </div>
+        <div class="lawTrustLauncherContainer slds-m-vertical_large">
+            <lightning-button class="" data-text={adobeDataTextContinue} variant="brand" label="Launch Law Trust" title="LawTrust" onclick={onLawTrust}>
+            </lightning-button>
+        </div>
+
+        <div class="footer-buttons">
+            <div class="slds-theme--shade button-container">
+                <lightning-button
+                    variant="neutral" label="Back" title="Back" onclick={onBack}>
+                </lightning-button>
+
+                <lightning-button
+                    class="slds-m-left_large" variant="brand" label="Continue" onclick={launchSignPage}>
+                </lightning-button> 
+            </div>
+        </div>
+
+    </div>
+</template>
+    <template if:true={showSummary}>
+        <c-aob_internal_comp_summary application-id={applicationId}>
+        </c-aob_internal_comp_summary>
+    </template>
+    <template if:true={signPage}>
+        <c-aob_internal_comp_-sign-page application-id={applicationId}></c-aob_internal_comp_-sign-page>
+    </template>
+</template>

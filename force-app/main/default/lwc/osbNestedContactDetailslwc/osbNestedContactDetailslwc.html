@@ -1,0 +1,524 @@
+<template>
+    <div class="ContactMainHolder">
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12" large-device-size="12" small-device-size="12" medium-device-size="12">
+                <div class="accordion-div">
+                    <div class="Contacts-header">
+                        {header}
+                    </div>
+                    <button onclick={DropDown} class="accordion-South">{headerButton}</button>
+                    <div class="panel">
+
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo1} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleOne}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextOne}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactOneNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactOneEmail} class="contact-us-item__email">
+                                        {contactOneEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo2} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleTwo}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextTwo}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactTwoNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactTwoEmail} class="contact-us-item__email">
+                                        {contactTwoEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo3} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleThree}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextThree}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactThreeNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactThreeEmail} class="contact-us-item__email">
+                                        {contactThreeEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo4} />
+                        </div>
+
+                        <div class="title--notes">
+                            {TitleFour}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextFour}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactFourNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactFourEmail} class="contact-us-item__email">
+                                        {contactFourEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo5} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleFive}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextFive}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactFiveNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactFiveEmail} class="contact-us-item__email">
+                                        {contactFiveEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo6} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleSix}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextSix}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactSixNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactSixEmail} class="contact-us-item__email">
+                                        {contactSixEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo7} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleSeven}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextSeven}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactSevenNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactSevenEmail} class="contact-us-item__email">
+                                        {contactSevenEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo8} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleEight}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextEight}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactEightNumber}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactEightEmail} class="contact-us-item__email">
+                                        {contactEightEmail}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <button onclick={DropDown} class="accordion-West">{headerButtonTwo}</button>
+                    <div class="panel">
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo1of2} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleOneofTwo}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextOneofTwo}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">{contactOneofTwo}</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactOneNumberofTwo}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactOneEmailofTwo} class="contact-us-item__email">
+                                        {contactOneEmailofTwo}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo2of2} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleTwoofTwo}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextTwoofTwo}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactTwoNumberofTwo}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactTwoEmailofTwo} class="contact-us-item__email">
+                                        {contactTwoEmailofTwo}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo3of2} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleThreeofTwo}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextThreeofTwo}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactThreeNumberofTwo}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactThreeEmailofTwo} class="contact-us-item__email">
+                                        {contactThreeEmailofTwo}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo4of2} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleFourofTwo}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextFourofTwo}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactFourNumberofTwo}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactFourEmailofTwo} class="contact-us-item__email">
+                                        {contactFourEmailofTwo}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo5of2} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleFiveofTwo}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextFiveofTwo}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactFiveNumberofTwo}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactFiveEmailofTwo} class="contact-us-item__email">
+                                        {contactFiveEmailofTwo}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>                        
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo6of2} />
+                            {TitleSixofTwo}
+                        </div>
+                    </div>
+                    <button onclick={DropDown} class="accordion-East">{headerButtonThree}</button>
+                    <div class="panel">
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo1of3} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleOneofThree}
+                        </div>
+                        <div class="accordion__title">
+                            {contactOneofThree}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactOneNumberofThree}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactOneEmailofThree} class="contact-us-item__email">
+                                        {contactOneEmailofThree}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo2of3} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleTwoofThree}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextTwoofThree}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactTwoNumberofThree}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactTwoEmailofThree} class="contact-us-item__email">
+                                        {contactTwoEmailofThree}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo3of3} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleThreeofThree}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextThreeofThree}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactThreeNumberofThree}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactThreeEmailofThree} class="contact-us-item__email">
+                                        {contactThreeEmailofThree}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo4of3} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleFourofThree}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextFourofThree}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactFourNumberofThree}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactFourEmailofThree} class="contact-us-item__email">
+                                        {contactFourEmailofThree}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo5of3} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleFiveofThree}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextFiveofThree}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactFiveNumberofThree}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactFiveEmailofThree} class="contact-us-item__email">
+                                        {contactFiveEmailofThree}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <div class="contact-accordion-single__country__icon">
+                            <img src={Logo6of3} />
+                        </div>
+                        <div class="title--notes">
+                            {TitleSixofThree}
+                        </div>
+                        <div class="accordion__title">
+                            {subTextSixofThree}
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="col col-12 col-md-4">International</td>
+                                <td class="col tel col-12 col-md-8">
+                                    {contactSixNumberofThree}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col col-12 col-md-4">Email us</td>
+                                <td class="contact-us-item__email">
+                                    <a href={contactSixEmailofThree} class="contact-us-item__email">
+                                        {contactSixEmailofThree}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+</template>

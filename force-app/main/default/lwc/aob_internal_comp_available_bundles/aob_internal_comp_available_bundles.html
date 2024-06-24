@@ -1,0 +1,44 @@
+<template>
+    <div class="aob_card_container_pocketbiz slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius">
+        <!--screen Header-->
+        <c-aob_internal_comp_form-header put-title-left="true" title="Available Bundles"
+            sub-title="Select products offered at a lower rate when taken with this business account :">
+        </c-aob_internal_comp_form-header>
+        <!--Form Header-->
+        <div class="slds-grid aob_form_row  slds-wrap">
+            <!--SFP-8743-->
+            <div class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-large-size_1-of-1">
+                <!-- Third Bundle -->
+                <c-aob_internal_comp_bundle available-bundle-image={imageLink3} title={bundleTitle3}
+                    items-list={bundle3ListItems} price-list={bundle3ListPrices} percent-list={bundle3ListPercents}
+                    product-code="4488" onselect={handleClick} form-data={selectedBundles} ></c-aob_internal_comp_bundle>
+            </div>
+            <div class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-large-size_1-of-1">
+                <!-- First Bundle -->
+                <c-aob_internal_comp_bundle available-bundle-image={imageLink} product-code="ZPOB" onselect={handleClick} title={bundleTitlep} 
+                    items-list={bundlePListItems} percent-list={bundlePListPercents} price-list={bundlePListPrices} form-data={selectedBundles}>
+                </c-aob_internal_comp_bundle>
+            </div>
+            <div class="aob_form_input slds-col slds-m-top_small slds-small-size_1-of-1 slds-large-size_1-of-1">
+                <!-- Second Bundle -->
+                <c-aob_internal_comp_bundle available-bundle-image={imageLink2} title={bundleTitle} items-list={bundle2ListItems}
+                    price-list={bundle2ListPrices} percent-list={bundle2ListPercents} product-code="ZPSS" form-data={selectedBundles}
+                    onselect={handleClick}></c-aob_internal_comp_bundle>
+            </div>
+        </div>
+        <!--Navigation Buttons-->
+        <div if:true={isLoaded}
+            class="slds-theme--shade button-container">
+            <lightning-button data-id="link_content" data-intent="confirmational" data-scope={adobeDataScopeApp}
+                data-text={adobeDataTextBack}
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                variant="neutral" label="Back" title="Back" onclick={backToPreviousPage}></lightning-button>
+           
+            <lightning-button data-id="link_content" data-intent="confirmational"
+                data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue}
+                class="slds-size_1-of-2 aob_mobile_1_of_1 aob_margin_horizontal_auto slds-m-vertical_xx-small aob_text_align_center slds-p-horizontal_small"
+                variant="brand" label="Continue" title="continue" onclick={continueToNextPage}></lightning-button>
+        </div>
+    </div>
+    <c-aob_comp_error if:true={failing} content={errorMessage}></c-aob_comp_error>
+</template>

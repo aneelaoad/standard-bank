@@ -1,0 +1,52 @@
+<!--
+  @description       : Lwc to show delegates list
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-17-2021   TCK   Initial Version
+-->
+<template>
+    <p class="label">{labels.Search}</p>
+    <div class="v1_div_searchContainer">
+        <div class="shadowSearch">
+            <input id="search" name="searchDelegate" class="v1-input-search" type="text" placeholder={labels.EnterSearch} oninput={findDelegate}/>
+            <div class="v1-button-search pointer" onclick={findDelegate}>
+                <lightning-icon size="small" icon-name="utility:search" alternative-text={labels.Search} title={labels.Search}></lightning-icon>
+            </div>
+        </div>
+    </div>
+
+    <div class="v1_div_badges">
+        <template for:each={allFilters} for:item="filter">
+            <template if:true={filter.State}>
+                <lightning-badge key={filter.Name} name={filter.Name} class="v1_badge_customBadgeSelected" label={filter.Reference} onclick={selectFilter}></lightning-badge>
+            </template>
+            <template if:false={filter.State}>
+                <lightning-badge key={filter.Name} name={filter.Name} class="v1_badge_customBadge" label={filter.Reference} onclick={selectFilter}></lightning-badge>
+            </template>
+        </template>
+    </div>
+
+    <p class="label">{numberDelegates} {labels.Delegates}</p>
+    <template for:each={delegates} for:item="delegate">
+        <div key={delegate.Id} class="elem" onclick={delegate.openElem}>
+            <template if:true={delegate.Img}>
+                <img src={delegate.Img} key={delegate.Id} class="v1_img_listview v1_div_data">
+            </template>
+            <template if:false={delegate.Img}>
+                <div class="v1_div_initials v1_div_data">{delegate.Initials}</div>
+            </template>
+
+            <div class="v1_div_data data_values">
+                <div class="v1_div_data">
+                    <p class="label v1_p_longData">{delegate.Name}</p>
+                    <p class="v1_p_title v1_p_longData">{delegate.RolInEvent}</p>
+                    <p class="v1_p_subTitle v1_p_longData">{delegate.ClientName}</p>
+                </div>
+            </div>
+        </div>
+    </template>
+</template>

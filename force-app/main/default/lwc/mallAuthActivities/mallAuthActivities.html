@@ -1,0 +1,25 @@
+<template>
+    <div class="activities-container">
+        <div class="activityTittle">
+        <div class="slds-text-heading_medium tittleText"><strong>Activities</strong></div>    
+        <div class="slds-text-heading_medium tittleText2"><strong><button><img src={gearIcon}></button> <button>VIEW ALL</button></strong></div>    
+
+        </div>
+        <div class="activities-container_inner">
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-4">
+            <c-mall-cash-flow-activity></c-mall-cash-flow-activity>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+            <c-mall-application-tracker-activity></c-mall-application-tracker-activity>
+        </div>
+        <div class="slds-col slds-size_1-of-4">
+            <c-mall-stocks-activity></c-mall-stocks-activity>
+        </div>        
+        <div class="slds-col slds-size_1-of-4">
+            <c-mall-exchange-rate-activity></c-mall-exchange-rate-activity>
+        </div>        
+      </div>
+    </div>
+    </div>
+</template>

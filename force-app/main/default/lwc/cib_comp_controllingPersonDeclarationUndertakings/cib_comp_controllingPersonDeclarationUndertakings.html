@@ -1,0 +1,174 @@
+<!--
+  @description       : This is used for controlling person and undertaking screen 
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 10-16-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Controlling Person Declaration and Undertakings</h2>
+    </div>
+    <div class="aob_card-container">
+      <label class="aob_title-sm" for="form-element-05"> Declaration</label>
+      <p class="mt_20" style="font-size: 14px">
+        I acknowledge that the information provided in this form and regarding
+        the Controlling Persons and related information may be reported to the
+        tax authorities of the jurisdiction in which the account(s) of the
+        Entity is/are maintained and exchanged with tax authorities of another
+        jurisdiction, in which I/the Controlling Person(s) may be tax resident
+        pursuant to International Agreement to exchange financial account
+        information. I certify that I am the Controlling Person, or am
+        authorised to sign for the Controlling Person, of all account(s) held by
+        the Entity Account Holder to which this form relates. I declare, that
+        all the statements made in this declaration are, to the best of my
+        knowledge, accurate, true, current and complete. I am aware that the
+        declaration provided for FATCA purposes is under penalties of perjury. I
+        undertake to advise the Bank promptly and provide an updated Entity Tax
+        Classification form within 30 days where any changes in circumstances
+        occur which causes any of the information contained in this form to be
+        inaccurate or incomplete.
+      </p>
+    </div>
+    <div class="aob_card-container">
+      <label class="aob_title-sm" for="form-element-05">
+        <span class="slds-required" title="required">* </span>
+        Controlling person details</label
+      >
+      <div class="checkbox-container">
+        <input
+          class="checkbox-input"
+          id="Yes"
+          data-fieldname="CIB_CPDU_IsControllingPerson__c"
+          data-type="application"
+          name="CIB_CPDU_IsControllingPerson__c"
+          type="checkbox"
+          checked={applicationRecord.CIB_CPDU_IsControllingPerson__c}
+          onchange={onchange}
+        />
+        <label class="checkbox" for="Yes">
+          <span class="slds-m-right_medium">
+            <img src={checkboxicon} alt="check" />
+          </span>
+          Indicate if you are not the controlling person</label
+        >
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <template lwc:if={applicationRecord.CIB_CPDU_IsControllingPerson__c}>
+          <div class="slds-form-element">
+            <label
+              class="slds-form-element__label contrlPerLabel"
+              for="form-element-01"
+            >
+              If you are not the controlling person, indicate the capacity in
+              which you are signing in this form</label
+            >
+            <div
+              class="slds-col slds-size_1-of-1 slds-large-size_8-of-12 ctrlInputParDiv"
+            >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  type="text"
+                  id="form-element-04"
+                  aria-describedby="form-error-06"
+                  placeholder="please enter the text here"
+                  pattern="[A-Za-z\s]+"
+                  aria-invalid="true"
+                  data-fieldname="CIB_CPDU_NonControllingPersonCapacity__c"
+                  data-type="application"
+                  name="CIB_CPDU_NonControllingPersonCapacity__c"
+                  value={applicationRecord.CIB_CPDU_NonControllingPersonCapacity__c}
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                id="form-element-01"
+                required=""
+                aria-describedby="form-error-04"
+                label="Name of authorised signatory"
+                aria-invalid="true"
+                data-fieldname="CIB_CPDU_AuthorizedSignatoryName__c"
+                data-type="application"
+                name="CIB_CPDU_AuthorizedSignatoryName__c"
+                value={applicationRecord.CIB_CPDU_AuthorizedSignatoryName__c}
+                placeholder="please enter the name"
+                pattern="[A-Za-z\s]+"
+                message-when-pattern-mismatch="Only Character are allowed"
+                message-when-value-missing="Please enter this field"
+              ></lightning-input>
+            </div>
+            <template lwc:if={isValid}>
+              <div
+                class="slds-form-element__help"
+                id="form-error-04"
+                if:false={isValidField1}
+              >
+                Enter a value.
+              </div>
+            </template>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label" for="date-input-id-default">
+              <abbr class="slds-required" title="required">* </abbr>Date
+            </label>
+            <c-cmn_comp_date-picker
+              message-when-value-missing="Please enter this field"
+              data-fieldname="CIB_CPDU_AuthorizedSignatoryDate__c"
+              data-type="application"
+              value={applicationRecord.CIB_CPDU_AuthorizedSignatoryDate__c}
+              required
+            >
+            </c-cmn_comp_date-picker>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                id="form-element-03"
+                required=""
+                aria-describedby="form-error-06"
+                label="Position/Title"
+                aria-invalid="true"
+                data-fieldname="CIB_CPDU_AuthorizedSignatoryTitle__c"
+                data-type="application"
+                name="CIB_CPDU_AuthorizedSignatoryTitle__c"
+                value={applicationRecord.CIB_CPDU_AuthorizedSignatoryTitle__c}
+                placeholder="please enter the position or title"
+                pattern="[A-Za-z\s]+"
+                message-when-pattern-mismatch="Only Character are allowed"
+                message-when-value-missing="Please enter this field"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <c-cib_comp_flow-navigation
+    onsave={saveRecord}
+    onsubmit={submitRecord}
+    onprevious={navigateToPreviousScreen}
+  >
+  </c-cib_comp_flow-navigation>
+</template>

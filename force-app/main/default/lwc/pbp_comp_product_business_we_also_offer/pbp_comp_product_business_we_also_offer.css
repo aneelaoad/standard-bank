@@ -1,0 +1,80 @@
+.carousel-container {
+    margin: 0px auto 35px;
+}
+
+.carousel-container>h2 {
+    font-size: 20px;
+    font-weight: inherit;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: 1px;
+    color: #0a2240;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    font-family: 'bentonsans-medium-webfont';
+}
+
+.carousel-container .item {
+    height: 100%;
+    width: 100%;
+}
+
+.slideCard {
+    display: flex;
+    flex-direction: column;
+    height: 100%
+}
+
+.owl-item {
+    display: flex;
+    flex: 1 0 auto;
+}
+
+.cardContent {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.slideCard h2 {
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #3c4b6c;
+    margin: 15px 0;
+}
+
+.slideCard p {
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    color: #0a2240;
+    margin-bottom: 30px;
+    flex-grow: 1;
+    text-align: justify;
+}
+
+.slideCard .button {
+    width: 260px;
+    max-width: 100%;
+    min-height: 50px;
+    padding: 4px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #fff;
+    border: 0;
+    border-radius: 2px;
+    background-color: #0089ff;
+}

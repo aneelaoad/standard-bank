@@ -1,0 +1,38 @@
+.slds-progress-ring__progress{
+   
+    width:32px;
+}
+.slds-progress-ring_complete .slds-progress-ring__path{
+    fill:#00ad6c;
+}
+.slds-progress-ring_complete .slds-progress-ring__content{
+    background: #00ad6c;
+}
+.step-text {
+    font-family: "bentonsans-medium-webfont", "FuturaStd", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 15px;
+    line-height: 1.33;
+    text-align: center;
+    color: #0a2240;
+  }
+
+
+.slds-progress-ring__content {
+    font-family: "bentonsans-medium-webfont", "FuturaStd", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 10px;
+    line-height: 3;
+    letter-spacing: normal;
+    color: #0a2240;
+}
+.slds-progress-ring__path{
+    background: #00ad6c;
+    fill:#1d89fb;
+}
+
+
+@media (min-width: 64em){
+    .padding{
+    padding-right:3rem;
+    padding-left:3rem;
+}
+}

@@ -1,0 +1,100 @@
+@import 'c/eapCssLibrary';
+
+/* Search Bar*/
+.v1_div_searchContainer {
+    padding: .5em 0em;
+    cursor: pointer;
+    margin-bottom: 1em;
+}
+
+.label {
+    text-transform: uppercase;
+    font-size: .9em;
+    color: grey;
+    letter-spacing: 1px;
+    padding-top: .5em 0em;
+}
+
+.v1-input-search, .v1-button-search, .shadowSearch{
+    display:inline-block;
+}
+
+.v1-button-search {
+    background-color: var(--main-light-blue);
+    width: 15%;
+    min-width: 3em;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 1.5px 1.5px 0;
+}
+
+.v1-button-search:before {
+    content: "";
+    float: left;
+    padding-top: calc(100% - 24px);
+}
+
+.v1-button-search lightning-icon {
+    --sds-c-icon-color-foreground-default: #fff;
+}
+
+.v1-input-search {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    width: 90%;
+    min-height: 2.3em;
+    border: 0px;
+    font-size: 1.2em;
+    margin-bottom: 0em;
+}
+
+.v1-input-search::placeholder {
+    font-weight: 300;
+}
+
+.v1-input-search:focus {
+    font-weight: 300;
+    outline: none;
+}
+
+.shadowSearch {
+    box-shadow: 0px 5px 10px #8080802b;
+    width: 90%;
+    position: relative;
+    border-radius: 1.5px;
+}
+
+/* Badges */
+.v1_div_badges {
+    margin: 1em 0em;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.v1_div_badges::-webkit-scrollbar {
+    display: none;
+}
+
+.v1_div_badges lightning-badge {
+    --sds-c-badge-radius-border: 0px;
+    --sds-c-badge-font-size: 1.15em;
+    cursor: pointer;
+}
+
+.v1_badge_customBadge {
+    flex: 0 0 auto;
+    --sds-c-badge-color-background: #fff;
+    --sds-c-badge-text-color: var(--main-light-blue);
+}
+
+.v1_badge_customBadgeSelected {
+    display: inline-block;
+    --sds-c-badge-color-background: #0d2e56;
+    --sds-c-badge-text-color: #fff;
+}

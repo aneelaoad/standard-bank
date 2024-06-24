@@ -1,0 +1,89 @@
+@import 'c/sbgStyles';
+
+.heading-large,
+.title {
+  font-family: var(--FONT-FAMILY);
+  font-size: 47px;
+  font-weight: 200;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+}
+
+.heading-normal {
+  width: auto;
+  height: auto;
+  font-family: var(--FONT-FAMILY);
+  font-size: var(--font-size-heading-m, 1.25rem);
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.35;
+  letter-spacing: 1px;
+  color: #0a2240;
+}
+
+.heading-small {
+  font-family: var(--FONT-FAMILY);
+  font-size: var(--font-size-heading-xl, 1.75rem);
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.07;
+  letter-spacing: normal;
+}
+
+.text-small {
+  font-family: var(--FONT-FAMILY);
+  font-size: 11px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.64;
+  letter-spacing: 1px;
+}
+
+.text-large {
+  font-family: var(--FONT-FAMILY);
+  font-size: var(--font-size-body-m, 1rem);
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: normal;
+}
+
+.text-normal {
+  font-family: var(--FONT-FAMILY);
+  font-size: 15px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: normal;
+}
+
+.arrowIcon {
+  margin-left: 6px;
+  height: 9px;
+  padding-bottom: 1px;
+  object-fit: contain;
+}
+
+.breadcrumbs {
+  padding-top: 30px;
+  margin-bottom: 20px;
+  font-family: var(--FONT-FAMILY);
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.23;
+  letter-spacing: normal;
+  color: #0089ff;
+}
+
+.sub-breadcrumbs {
+  padding-left: 4px;
+}

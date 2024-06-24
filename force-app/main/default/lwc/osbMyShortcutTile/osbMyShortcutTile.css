@@ -1,0 +1,150 @@
+.TileHolder {
+    width: 9.75rem;
+    height: 8rem;
+    color: #ffffff;
+    font-family: var(--FONT-FAMILY);
+    background: linear-gradient(129.21deg, #1a72e4 10.14%, #0058cb 100%);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 0.25rem;
+    cursor: pointer;
+    position: relative;
+    animation: fadeIn 2s forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+    font-size: 1rem;
+}
+
+@keyframes fadeIn {
+    100% {
+        opacity: 1;
+    }
+}
+
+.MFAHoverSection {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0.25rem;
+    background: rgba(2, 7, 13, 0.64);
+    color: #ffffff;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    text-align: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+}
+
+.MFAHoverText {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+
+.TileHolder:hover {
+    background: linear-gradient(178.92deg, #1a72e4 1.85%, #004eb4 98.15%);
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.24);
+}
+
+.MainTile {
+    padding: 0.4375rem 0.625rem;
+    position: relative;
+}
+
+.TileDeleteHolder {
+    position: absolute;
+    float: right;
+    right: 0.625rem;
+    top: 0.4375rem;
+}
+
+.DeleteIcon {
+    color: #0062e1;
+}
+
+.deleteIcon {
+    font-size: 1.25rem;
+}
+
+.hideDelete {
+    display: none;
+}
+
+.TileWrapper {
+    display: grid;
+    /* row-gap: 0.9375rem; */
+}
+
+.TileRedirectHolder {
+    display: grid;
+    row-gap: 0.9375rem;
+}
+
+.TileImage {
+    width: auto;
+    height: 1.875rem;
+}
+
+img {
+    max-width: 100%;
+    height: 100%;
+    width: auto;
+}
+
+.tmClass {
+    position: relative;
+    font-size: 40%;
+    line-height: 0;
+    vertical-align: baseline;
+    top: -1.2em;
+}
+
+.TileTitle {
+    font-weight: 400;
+    font-size: 0.625rem;
+}
+
+.ShortcutTitle {
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.TileHolder:hover .MFAHoverSection {
+    visibility: visible;
+    opacity: 1;
+    font-weight: 400;
+}
+
+.unavailableClass {
+    cursor: not-allowed;
+    opacity: 0.5;
+    font-weight: 400;
+}
+
+@media only screen and (max-width: 425px) {
+    .TileHolder {
+        width: 15rem;
+        height: 6rem;
+    }
+    .MainTile {
+        padding: 0.5rem 1rem;
+    }
+
+    .TileWrapper {
+        display: grid;
+        place-content: flex-start;
+        text-align: inherit;
+    }
+
+    .TileImage {
+        height: 1.875rem;
+    }
+
+    .TileTitle {
+        font-size: 0.625rem;
+    }
+}

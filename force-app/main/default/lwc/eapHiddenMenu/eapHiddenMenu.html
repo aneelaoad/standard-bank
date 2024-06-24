@@ -1,0 +1,50 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-27-2022
+  @last modified by  : TCK
+-->
+<template>
+    <div class="v1_div_background" onclick={closeMenu}>
+    </div>
+
+    <div class="slide">
+        <div class="v1_div_menu">
+
+            <div class="v1_div_information">
+                <div class="v1_div_img">
+                    <img src={user.Img}/> 
+                </div>
+                <div>
+                    <p class="light_titles">
+                        {user.Name}
+                    </p>
+                    <p class="v1_p_title">
+                        {user.ClientName}
+                    </p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="v1_div_action" onclick={openContact}>
+                <lightning-icon size="x-small" icon-name="utility:call"></lightning-icon>
+                <label class="label">Contact Us</label>
+            </div>
+            <div class="v1_div_action" onclick={openTC}>
+                <lightning-icon size="x-small" icon-name="utility:contract_doc"></lightning-icon>
+                <label class="label">Terms and Conditions</label>
+            </div>
+    
+            <div class="v1_div_bottom_actions">
+                <hr>
+                <div class="v1_div_logout">
+                    <a href={logoutLink} class="custom-contrast-button">Sign Out</a>
+                    <lightning-icon size="x-small" icon-name="utility:logout"></lightning-icon>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>

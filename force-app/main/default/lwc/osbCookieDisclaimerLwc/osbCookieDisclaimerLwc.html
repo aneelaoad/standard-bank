@@ -1,0 +1,20 @@
+<template>
+    <div id="cookie-disclaimer" class="mobile__cookie-disclaimer">
+        <div class="header_mainSec">
+            <div data-id="header-cookie--container" class="header-cookie--container header_InnerSec header-cookie--open slds-grid">
+                <div>
+                    <div class="header_cookie-disclaimer--message">
+                        We use cookies to make your experience with us better. By continuing to use our website without
+                        changing the settings, you are agreeing to our use of cookies. To find out more see our
+                        <a class="header_cookie-disclaimer--message--link"
+                           href={privacypolicy} target="_blank"
+                           data-id= "cookie_link"
+                           data-text= "Cookie Disclaimer | Privacy Statement"> privacy statement.</a>
+                    </div>
+                </div>
+                <lightning-icon onclick={closeDisclaimer} size="small" class="header_cookie-disclaimer--close--icon" icon-name="utility:close" data-text="cookie disclaimer | close"
+                                alternative-text="Close" title="Close" data-id="close_cookie" data-intent="confirmational" data-scope="cookie disclaimer"></lightning-icon>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,61 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-card title="Insight Trends">
+          <div class="slds-float_right">
+            <legend class="slds-form-element__legend slds-form-element__label">Date Range&nbsp;</legend>
+            <br/><label class="slds-radio__label" for="day_7">
+              <span class="slds-radio_faux"></span>
+              <span class="slds-form-element__label">Last 7&nbsp;&nbsp;Days&nbsp;</span>
+            </label>
+            <input type="radio" id="day_7" class="day_7" value="7" name="day"  onclick={dateChange}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <br/><label class="slds-radio__label" for="day_14">
+              <span class="slds-radio_faux"></span>
+              <span class="slds-form-element__label">Last 14 Days</span>
+            </label>
+            <input type="radio" id="day_14" class="day_14" value="14" name="day" onclick={dateChange}/>
+            <br/><label class="slds-radio__label" for="day_30">
+              <span class="slds-radio_faux"></span>
+              <span class="slds-form-element__label">Last 30 Days</span>
+            </label>
+            <input type="radio" id="day_30" class="day_30" value="30" name="day" checked="checked" onclick={dateChange}/>
+          </div>
+        <div class="slds-grid">
+        <div class="slds-size_1-of-4">
+            <h1 class="slds-text-align_center">Insights per Client Portfolio(Top 5)</h1>
+            <div class="slds-p-around_small slds-grid slds-grid--vertical-align-center slds-grid--align-center">
+              <canvas class="barChart inspercli" lwc:dom="manual"></canvas>
+              <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                  <lightning-spinner alternative-text="Loading" size="medium" variant="base"></lightning-spinner>
+              </div>
+            </div>
+        </div>
+        <div class="slds-size_1-of-4">
+          <h1 class="slds-text-align_center">Accepted/Rejected</h1>
+            <div class="slds-p-around_small slds-grid slds-grid--vertical-align-center slds-grid--align-center">
+              <canvas class="barChart valunv" name lwc:dom="manual"></canvas>
+              <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                  <lightning-spinner alternative-text="Loading" size="medium" variant="base"></lightning-spinner>
+              </div>
+            </div>
+        </div>
+        <div class="slds-size_1-of-4">
+          <h1 class="slds-text-align_center">Opportunity States</h1>
+          <div class="slds-p-around_small slds-grid slds-grid--vertical-align-center slds-grid--align-center">
+            <canvas class="donut oppSt" lwc:dom="manual"></canvas>
+            <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="base"></lightning-spinner>
+            </div>
+          </div>
+        </div>
+        <div class="slds-size_1-of-4">
+          <h1 class="slds-text-align_center">Snoozed by Category</h1>
+            <div class="slds-p-around_small slds-grid slds-grid--vertical-align-center slds-grid--align-center">
+              <canvas class="barChart snIns" lwc:dom="manual"></canvas>
+              <div if:false={isChartJsInitialized} class="slds-col--padded slds-size--1-of-1">
+                  <lightning-spinner alternative-text="Loading" size="medium" variant="base"></lightning-spinner>
+              </div>
+            </div>
+        </div>
+      </div>
+     </lightning-card>
+</template>

@@ -1,0 +1,128 @@
+<!-- **
+* @description  : Partner Portal View Single Partnership Opportunity Component
+* User Story : SFP-4879
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+
+    <div class="slds-grid slds-grid_vertical container">
+        <div class="slds-col">
+            <div class="slds-grid">
+                <div class="slds-col">
+                    <div class="slds-grid">
+                        <div class="slds-col" style="flex: none;">
+                            <div class="icon">
+                                <img src={backIcon} onclick={navigateToOpportunities}>
+                            </div>
+                        </div>
+                        <div class="slds-col">
+                            <p class="heading-medium-sfProDisplay heading">{heading}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col">
+            <p class="heading-large-sfProDisplay title">{title}</p>
+        </div>
+        <div class="slds-col">
+            <p class="text-normal-sfProDisplay publish-date">Posted on <lightning-formatted-date-time
+                    value={publishStartDate} year="numeric" month="short" day="2-digit"></lightning-formatted-date-time>
+            </p>
+        </div>
+        <div class="slds-col">
+            <p class="text-normal-sfProDisplay content">
+                <lightning-formatted-rich-text value={content}></lightning-formatted-rich-text>
+            </p>
+        </div>
+        <div class="slds-col">
+            <p class="heading-medium-sfProDisplay file-heading">Files and Documents</p>
+        </div>
+        <div class="slds-col file">
+            <template for:each={filesList} for:item="file">
+                <div key={file.value}>
+                    <a href={file.url}>
+                        <p>{file.label}</p>
+                    </a>
+                </div>
+            </template>
+        </div>
+        <div class="slds-col">
+            <div class="line"></div>
+        </div>
+
+        <div class="slds-col">
+            <div class='btn' onclick={handleInterestClick}>
+                <div class="slds-grid">
+                    <div class="slds-col" style="flex: none;">
+                        <p class="interest-btn" data-intent="transactional" data-scope="Opportunities"
+                           data-id="link_content" data-text={btnText} onclick={tracker}>{btnText}</p>
+                    </div>
+                    <template if:true={interestedFlag}>
+                        <div class="slds-col">
+                            <img src={tickIcon} class="btn-icon">
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width: 420px;">
+
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    style="top: 114px;" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small">
+                    </lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+
+                <div class="slds-modal__content slds-p-around_medium popup" id="modal-content-id-1">
+                    <div class="slds-grid slds-grid_vertical slds-align_absolute-center">
+                        <div class="slds-col">
+                            <img style="width: 120px; height: 120px;" src={popupImg} />
+                        </div>
+                        <template if:false={alreadyInterestedFlag}>
+                            <div class="slds-col heading-large-sfProDisplay">
+                                <p class="popup-heading heading-medium-sfProDisplay">Thank you!</b></p>
+                            </div>
+                        </template>
+
+                        <div class="popup-text heading-normal-sfProDisplay">
+                            <div class="slds-col">
+                                <p>{popupText}</p>
+                            </div>
+                        </div>
+                        <template if:true={alreadyInterestedFlag}>
+                            <div class="slds-col">
+
+                                <div class="slds-grid slds-gutters_direct">
+                                    <div class='popup-btn heading-normal-sfProDisplay' onclick={closeModal}
+                                        style="margin-right: 12px;">
+                                        <div class="slds-col">
+                                            <p>NO, KEEP IT</p>
+                                        </div>
+                                    </div>
+                                    <div class='popup-btn' onclick={removeInterest}>
+                                        <div class="slds-col">
+                                            <p>YES, REMOVE</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </template>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

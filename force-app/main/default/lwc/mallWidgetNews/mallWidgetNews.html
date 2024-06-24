@@ -1,0 +1,42 @@
+<template>
+  <div class="news-wrapper">
+    <template lwc:if={resultData}>
+      <div class="news-heading-wrapper">
+        <h3
+          class="news-heading"
+          data-heading-start={headingStart}
+          data-heading-end={headingEnd}
+        >
+          {heading}
+        </h3>
+      </div>
+      <c-mall-widget-actions></c-mall-widget-actions>
+      <div class="tab-list-wrapper">
+        <template for:each={tabList} for:item="item">
+          <button
+            key={item.name}
+            onclick={handleTabChange}
+            class={item.tabClass}
+          >
+            {item.name}
+          </button>
+        </template>
+      </div>
+      <div class="news-list-wrapper">
+        <ul class="news-list-scroll">
+          <template for:each={list} for:item="item">
+            <li key={item.id} class="list-grid" >
+              <a href={item.url} data-url={item.url} onclick={handleNavigateToNewsSource}>
+                <p>{item.description}</p>
+                <span>{item.timeStamp}</span>
+                <template if:true={item.imageUrl}>
+                  <img src={item.imageUrl} />
+                </template>
+              </a>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </template>
+  </div>
+</template>

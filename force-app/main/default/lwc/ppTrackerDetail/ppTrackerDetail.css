@@ -1,0 +1,120 @@
+@import 'c/ppCssLibrary';
+
+.container {
+    padding: 24px;
+    text-align: left;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.heading {
+    color: #021237;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.phase {
+    color: #6a7286;
+    margin-bottom: 24px;
+    margin-top: 4px;
+    font-weight: normal
+}
+
+.next-step {
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #6a7286;
+}
+
+.dotted-line {
+    margin: 13px 0 2px 8.5px;
+    border-top: 1px dotted #b2bcd1;
+    ;
+}
+
+.icon-container {
+    width: 28px;
+    height: 28px;
+    margin: 0 12px 16px 0;
+    padding: 3px 0px 2px 5px;
+    border-radius: 6px;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.description {
+    max-width: 800px;
+    margin: 24px 40px 24px;
+    padding: 12px 12px 20px;
+    border: solid 1px #ebedf1;
+    line-height: 1.54;
+    letter-spacing: 0.03px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    color: #6a7286;
+}
+
+
+.completed-Icon {
+    width: 120px;
+    height: 120px;
+}
+
+.completed-msg-heading {
+    font-size: 28px;
+    text-align: center;
+    color: #1c263c;
+    margin-bottom: 16px;
+}
+
+.completed-steps-container {
+    margin-top: 16px;
+    padding: 18px 16px 0px;
+    border-radius: 4px;
+    background-color: #F4F6FB;
+}
+
+.completion-date {
+    color: #6a7286;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
+.doc-link {
+    color: #0089ff;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.acc-arrow {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.acc-arrow-rotate {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}

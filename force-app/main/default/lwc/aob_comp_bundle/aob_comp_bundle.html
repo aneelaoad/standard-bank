@@ -1,0 +1,50 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <div class="aob_estimation_block_container" style="width:97%">
+        <div class="aob_bundle_block">
+            <div class="aob_add_bundle">
+                <h4>
+                    <input type="checkbox" name={productCode} id="addToBundle" data-id="link_content" data-intent="navigational"
+					data-scope={adobeDataScopeApp} data-text={adobeDataTextContinue} onclick={click} checked={getformData}/>
+                    <label>{label.AOB_ZA_Addtobundle}</label> 
+                </h4>
+            </div>
+        </div>
+        <div class="aob_estimation_block_content slds-p-bottom_large">
+            <div>
+                <img alt="List element arrow icon" src={availableBundleImage} style="object-fit: contain;
+                width: 100%;">
+            </div>
+            <p class="aob-bundle-header slds-p-top_medium">{title}</p>
+            <div class="aob_bundle-actions-content slds-p-around_medium">
+                <!-- pck : {title} -->
+                <ul>
+                    <template for:each={itemsList} for:item="item">
+                        <li key={item}><img class="aob_required_action_item_icon" alt="List element arrow icon"
+                                src={listArrow}>
+                            {item}</li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+        <div class="aob-bottom-bundle">
+            <template for:each={priceList} for:item="item">
+                <div key={item} data-currency={item.currency} class="aob_bundle_text aob_r_prefix">
+                    <span>{item.price}</span>
+                    <span data-currency={item.oldcurrency} class="aob_r_prefix smalltext">
+                        <s class="vrline">
+                            <p class="crosswordsize">{item.oldPrice}</p>
+                        </s>
+                    </span>
+                </div>
+                <div key={item} class="subtitle">{item.subTitle}</div>
+            </template>
+            <template for:each={percentList} for:item="item">
+                <div key={item} class="aob_bundle_text aob_r_prefix">{item.percent} %</div>
+                <div key={item} class="subtitle">{item.subTitle}</div>
+            </template>
+            <br />
+        </div>
+    </div>
+</template>

@@ -1,0 +1,83 @@
+.heading-large{
+    font-family: BentonSans;
+    font-size: 47px;
+    font-weight: 200;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+}
+
+.heading-normal {
+    width: auto;
+    height: auto;
+    font-family: BentonSans;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.35;
+    letter-spacing: 1px;
+    color: #0a2240;   
+}
+
+.heading-small {
+    font-family: BentonSans;
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.07;
+    letter-spacing: normal;
+}
+
+.text-small{
+    font-size: 11px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.64;
+    letter-spacing: 1px;
+}
+
+.text-large {
+    font-family: BentonSans;
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+}
+
+.text-normal{
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+}
+
+.arrowIcon {
+    margin-left: 6px;
+    height: 9px;
+    padding-bottom: 1px;
+    object-fit: contain;
+}
+
+.breadcrumbs {
+    margin-top: 30px;
+    font-family: BentonSans;
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.23;
+    letter-spacing: normal;
+    color: #0089ff;
+}
+
+.sub-breadcrumbs {
+    padding-left: 4px;
+}

@@ -1,0 +1,31 @@
+.card-title{
+    position: relative;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.29;
+    color: #3c4b6c;
+    padding: 15px 0;
+}
+  
+
+.button-container{
+    /* position: fixed;
+    bottom: 0px; */
+    width: 100%;
+    text-align: center;
+    padding: 20px 50px;
+}
+
+.lawTrustLauncherContainer{
+    text-align: center;
+ }
+
+.table-sizing{
+    width: 60%;
+    margin: 0 auto
+}
+
+.dataTable{
+    width: 60%;
+    margin: 0 auto   
+}

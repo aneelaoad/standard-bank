@@ -1,0 +1,105 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_background{
+  /*height: 12em;*/
+  padding: 1em;
+  margin-bottom: 1.5em;
+  display: flex;
+  position: relative;
+  
+  /*background:  var(--main-dark-blue);*/
+  color: #fff;
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.relleno {
+  background-color: var(--background-grey);
+  min-height: var(--min-height);
+  /*height: 12em;*/
+}
+  
+.v1_div_firstCard {
+  --min-height: 173px;
+  position: absolute;
+  transform: translate(-50%, 0);
+  left: 50%;
+  top: -9em;
+  z-index: 2;
+  width: 90%;
+  text-align: left;
+  color: black;
+  min-height: var(--min-height);
+}
+
+.v1_div_event {
+  width: 70%;
+  display: inline-block;
+}
+
+.v1_h2_headingCard {
+  padding-left: 1em;
+  display: block;
+  line-height: 120%;
+}
+
+.v1_div_eventData {
+  padding-left: 1em;
+  padding-top: 1em;
+  color: var(--main-light-blue);
+  font-weight: bold;
+}
+
+.v1_div_locationTime {
+  display: inline-block;
+  margin-left: 2.7em;
+}
+
+.custom-adress {
+  --sds-c-icon-color-foreground: var(--main-light-blue);
+  --sds-c-icon-color-background: #fff;
+}
+
+.v1_div_icon {
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: .5em;
+}
+
+.v1_div_icon img{
+  filter: var(--filter-light-blue);
+}
+
+.v1_div_img {
+  display: inline-block;
+  width: 30%;
+  vertical-align: top;
+}
+
+.v1_div_img img {
+  width: 5.5em;
+  height: 5.5em;
+  object-fit: cover;
+}
+
+.v1_div_descriptionContainer {
+  padding: 1em 2em 1em 1.5em;
+}
+
+.v1_div_description {
+  line-height: 22px;
+  display: inline;
+}
+
+.v1_div_preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.v1_a_read {
+  font-weight: bold;
+}

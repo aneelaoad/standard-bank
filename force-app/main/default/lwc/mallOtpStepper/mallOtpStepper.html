@@ -1,0 +1,24 @@
+<template>
+
+    <lightning-formatted-rich-text lwc:if={displayHelp} value={helpContent}
+        class="paragraph-spacing"></lightning-formatted-rich-text>
+
+    <c-mall-modal-state lwc:elseif={showState} state-type={state} title={stateTitle}
+        description={stateDescription}></c-mall-modal-state>
+
+    <div lwc:else class="otp-container">
+        <h4 class="otp-heading">{enterPinHeading}</h4>
+        <p class="message">{otpSentToMessage}</p>
+        <div class="validation-wrapper" data-message-type={responseType} lwc:if={showHelperText}><label
+                class="validation-message">{responseMessage}</label></div>
+        <p lwc:else>{otpHint}</p>
+        <div id="inputs" class="inputs" data-state={responeType}>
+            <template for:each={inputs} for:item="input">
+                <input key={input} class="input" data-input-position={input.index} onpaste={handlePasteInput}
+                    oninput={focusNextInput} onkeyup={focusPrevInput} type="text" inputmode="numeric" maxlength="1" />
+            </template>
+        </div>
+        <lightning-button label={resendButtonLabel} title={resendButtonLabel} onclick={requestOtp}></lightning-button>
+        <p class="expire-timer-message">{sessionExpireMessage}<strong>{minutes}:{seconds}</strong></p>
+    </div>
+</template>

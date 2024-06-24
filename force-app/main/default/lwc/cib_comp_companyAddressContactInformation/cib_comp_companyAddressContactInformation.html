@@ -1,0 +1,764 @@
+<!--
+  @description       : This is used for Contact Details screen 
+  @author            : Sreekala.Mallavalli@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title">
+      <h2>Company Address and Contact Information</h2>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm" id="combobox-label-id-130">
+        <span class="slds-required" title="required">*</span>Registration
+        address in country of incorporation
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label
+              class="slds-form-element__label"
+              for="date-input-id-default2"
+            >
+              <abbr class="slds-required" title="required">* </abbr
+              >Country</label
+            >
+            <div
+              class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+            >
+              <c-cmn_comp_acpicklist
+                data-type="Application"
+                is-country-picklist
+                s-object-name="Application__c"
+                s-object-field-name="CIB_CD_RegistrationAddressCountry__c"
+                data-fieldname="CIB_CD_RegistrationAddressCountry__c"
+                value={applicationRecord.CIB_CD_RegistrationAddressCountry__c}
+                required
+              >
+              </c-cmn_comp_acpicklist>
+            </div>
+          </div>
+          <span
+            class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right"
+          >
+            <img src={MAU_dropDown} />
+          </span>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required">* </abbr
+              >State/province</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                data-fieldname="CIB_CD_RegistrationAddressProvince__c"
+                name="CIB_CD_RegistrationAddressProvince__c"
+                value={applicationRecord.CIB_CD_RegistrationAddressProvince__c}
+                variant="label-hidden"
+                required
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05"
+              ><abbr class="slds-required" title="required">* </abbr>City</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                data-fieldname="registrationAddressCity"
+                value={applicationRecord.CIB_CD_RegistrationAddressCity__c}
+                required
+                variant="label-hidden"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-05"
+              ><abbr class="slds-required" title="required">* </abbr>Postal
+              code</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                data-fieldname="CIB_CD_RegistrationAddressPostalCode__c"
+                name="CIB_CD_RegistrationAddressPostalCode__c"
+                value={applicationRecord.CIB_CD_RegistrationAddressPostalCode__c}
+                required
+                variant="label-hidden"
+                pattern="^\d{4,6}$"
+              ></lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm" id="combobox-label-id-130-1">
+        <span class="slds-required" title="required">*</span>Trading address
+      </div>
+      <div class="slds-col slds-size_5-of-12">
+        <div class="checkbox-container">
+          <input
+            class="checkbox-input"
+            id="same-as-above-trading"
+            type="checkbox"
+            data-type="Application"
+            data-fieldname="CIB_CD_SameTradingAddressAsRegistered__c"
+            checked={applicationRecord.CIB_CD_SameTradingAddressAsRegistered__c}
+            name="CIB_CD_SameTradingAddressAsRegistered__c"
+            onchange={onchange}
+          />
+          <label class="checkbox" for="same-as-above-trading">
+            <span class="slds-m-right_medium">
+              <img src={checkboxicon} alt="check" />
+            </span>
+            Same as above</label
+          >
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label
+              class="slds-form-element__label"
+              for="date-input-id-default2"
+            >
+              <abbr class="slds-required" title="required">* </abbr
+              >Country</label
+            >
+            <div
+              class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+            >
+              <c-cmn_comp_acpicklist
+                data-type="Application"
+                is-country-picklist
+                s-object-name="Application__c"
+                s-object-field-name="CIB_CD_TradingAddressCountry__c"
+                name="CIB_CD_TradingAddressCountry__c"
+                data-fieldname="CIB_CD_TradingAddressCountry__c"
+                required
+                disable-field={applicationRecord.CIB_CD_SameTradingAddressAsRegistered__c}
+                value={applicationRecord.CIB_CD_TradingAddressCountry__c}
+              >
+              </c-cmn_comp_acpicklist>
+            </div>
+          </div>
+          <span
+            class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right"
+            ><img src={MAU_dropDown}
+          /></span>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-05"
+              ><abbr class="slds-required" title="required">* </abbr
+              >State/province</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                class="trading"
+                data-fieldname="CIB_CD_TradingAddressProvince__c"
+                name="CIB_CD_TradingAddressProvince__c"
+                required
+                variant="label-hidden"
+                disabled={applicationRecord.CIB_CD_SameTradingAddressAsRegistered__c}
+                value={applicationRecord.CIB_CD_TradingAddressProvince__c}
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-05"
+              ><abbr class="slds-required" title="required">* </abbr>City</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                class="trading"
+                data-fieldname="CIB_CD_TradingAddressCity__c"
+                name="CIB_CD_TradingAddressCity__c"
+                required
+                variant="label-hidden"
+                disabled={applicationRecord.CIB_CD_SameTradingAddressAsRegistered__c}
+                value={applicationRecord.CIB_CD_TradingAddressCity__c}
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required">* </abbr>Postal
+              code</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                class="trading"
+                data-fieldname="CIB_CD_TradingAddressPostalCode__c"
+                name="CIB_CD_TradingAddressPostalCode__c"
+                required
+                variant="label-hidden"
+                disabled={applicationRecord.CIB_CD_SameTradingAddressAsRegistered__c}
+                value={applicationRecord.CIB_CD_TradingAddressPostalCode__c}
+                pattern="^\d{4,6}$"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm" id="combobox-label-id-130-2">
+        <span class="slds-required" title="required">*</span>Correspondence
+        address and statement to be sent to
+      </div>
+      <div class="slds-col slds-size_5-of-12">
+        <div class="checkbox-container">
+          <input
+            class="checkbox-input"
+            data-type="Application"
+            id="same-as-above-correspondence"
+            type="checkbox"
+            name="CIB_CD_HasSameCorrespondAsRegistered__c"
+            data-fieldname="CIB_CD_HasSameCorrespondAsRegistered__c"
+            checked={applicationRecord.CIB_CD_HasSameCorrespondAsRegistered__c}
+            onchange={onchange}
+          />
+          <label class="checkbox" for="same-as-above-correspondence">
+            <span class="slds-m-right_medium">
+              <img src={checkboxicon} alt="check" /> </span
+            >Same as above</label
+          >
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label
+              class="slds-form-element__label"
+              for="date-input-id-default2"
+            >
+              <abbr class="slds-required" title="required">* </abbr
+              >Country</label
+            >
+            <div
+              class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right"
+            >
+              <c-cmn_comp_acpicklist
+                data-type="Application"
+                is-country-picklist
+                s-object-name="Application__c"
+                s-object-field-name="CIB_CD_CorrespondAddressCountry__c"
+                name="CIB_CD_CorrespondAddressCountry__c"
+                data-fieldname="CIB_CD_CorrespondAddressCountry__c"
+                required
+                value={applicationRecord.CIB_CD_CorrespondAddressCountry__c}
+                disable-field={applicationRecord.CIB_CD_HasSameCorrespondAsRegistered__c}
+              >
+              </c-cmn_comp_acpicklist>
+            </div>
+          </div>
+          <span
+            class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right"
+            ><img src={MAU_dropDown}
+          /></span>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-05"
+              ><abbr class="slds-required" title="required">* </abbr
+              >State/province</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                class="correspondance"
+                data-fieldname="CIB_CD_CorrespondAddressProvince__c"
+                name="CIB_CD_CorrespondAddressProvince__c"
+                required
+                variant="label-hidden"
+                value={applicationRecord.CIB_CD_CorrespondAddressProvince__c}
+                disabled={applicationRecord.CIB_CD_HasSameCorrespondAsRegistered__c}
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-05"
+              ><abbr class="slds-required" title="required">* </abbr>City</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                class="correspondance"
+                data-fieldname="CIB_CD_CorrespondAddressCity__c"
+                name="CIB_CD_CorrespondAddressCity__c"
+                required
+                variant="label-hidden"
+                value={applicationRecord.CIB_CD_CorrespondAddressCity__c}
+                disabled={applicationRecord.CIB_CD_HasSameCorrespondAsRegistered__c}
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element mb_8">
+            <label class="slds-form-element__label" for="form-element-05">
+              <abbr class="slds-required" title="required">* </abbr>Postal
+              code</label
+            >
+            <div class="slds-form-element__control">
+              <lightning-input
+                type="text"
+                data-type="Application"
+                class="correspondance"
+                data-fieldname="CIB_CD_CorrespondAddressPostalCode__c"
+                name="CIB_CD_CorrespondAddressPostalCode__c"
+                required
+                variant="label-hidden"
+                value={applicationRecord.CIB_CD_CorrespondAddressPostalCode__c}
+                disabled={applicationRecord.CIB_CD_HasSameCorrespondAsRegistered__c}
+                pattern="^\d{4,6}$"
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm" id="combobox-label-id-130-3">
+        <span class="slds-required" title="required">*</span>Office numbers
+      </div>
+      <template for:each={officeNumbers} for:item="item" for:index="index">
+        <div key={item.id} class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label">
+                <abbr class="slds-required" title="required">* </abbr>Telephone
+                number
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="tel"
+                  data-fieldname="CIB_CD_OfficeNumbersTelephoneNumber__c"
+                  name="telephoneNumber"
+                  onchange={onchange}
+                  required
+                  value={item.telephoneNumber}
+                  variant="label-hidden"
+                  data-index={index}
+                  data-id="officeNumbers"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr>Fax
+                number</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="tel"
+                  data-fieldname="CIB_CD_OfficeNumbersFaxNumber__c"
+                  name="faxNumber"
+                  onchange={onchange}
+                  required
+                  value={item.faxNumber}
+                  variant="label-hidden"
+                  data-index={index}
+                  data-target="officeNumbers"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_medium" key={item.id}>
+              <img
+                class="slds-p-top_large slds-p-left_large"
+                src={delete_row_icon}
+                alt="delete-row-icon"
+                icon-name="utility:delete"
+                data-target="officeNumbers"
+                data-index={index}
+                alternative-text="Delete Row"
+                size="small"
+                title="Delete Row"
+                onclick={removeRow}
+              />
+            </div>
+          </template>
+        </div>
+      </template>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            title="Primary action with lighter look"
+            data-target="officeNumbers"
+            onclick={addRow}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm" id="combobox-label-id-130-4">
+        <span class="slds-required" title="required">*</span>Email addresses
+      </div>
+      <template for:each={emailAddresses} for:item="item" for:index="index">
+        <div key={item.id} class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05"
+                ><abbr class="slds-required" title="required">* </abbr>Company
+                email address</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="email"
+                  data-fieldname="CIB_CD_EmailAddressesMain__c"
+                  name="CIB_CD_EmailAddressesMain__c"
+                  required
+                  value={item.CIB_CD_EmailAddressesMain__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  placeholder="info@melcorp.net"
+                  data-id="emailAddress"
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                >
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr>Email
+                address for electronic advices</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="email"
+                  data-fieldname="CIB_CD_EmailAddressesElectroAdvices__c"
+                  name="CIB_CD_EmailAddressesElectroAdvices__c"
+                  required
+                  value={item.CIB_CD_EmailAddressesElectroAdvices__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  placeholder="info@melcorp.net"
+                  data-id="emailAddress"
+                  pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_medium" key={item.id}>
+              <img
+                class="slds-p-top_large slds-p-left_large"
+                src={delete_row_icon}
+                alt="delete-row-icon"
+                icon-name="utility:delete"
+                data-target="email"
+                data-index={index}
+                alternative-text="Delete Row"
+                size="small"
+                title="Delete Row"
+                onclick={removeRow}
+              />
+            </div>
+          </template>
+        </div>
+      </template>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            data-target="email"
+            title="Primary action with lighter look"
+            onclick={addRow}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="aob_title-sm" id="combobox-label-id-130-5">
+        Company website
+      </div>
+      <template for:each={urls} for:item="item" for:index="index">
+        <div key={item} class="slds-grid aob_col-gutter slds-wrap">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05"
+                >URL link</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="url"
+                  data-fieldname="CIB_CD_URL_link__c"
+                  name="CIB_CD_URL_link__c"
+                  value={item}
+                  variant="label-hidden"
+                  data-index={index}
+                  data-target="urls"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_medium">
+              <img
+                class="slds-p-top_large slds-p-left_large"
+                src={delete_row_icon}
+                alt="delete-row-icon"
+                access-key={index}
+                id={index}
+                alternative-text="Delete Row"
+                data-index={index}
+                data-target="urls"
+                size="small"
+                title="Delete Row"
+                onclick={removeRow}
+              />
+            </div>
+          </template>
+        </div>
+      </template>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            title="Primary action with lighter look"
+            data-target="urls"
+            data-index={index}
+            onclick={addRow}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <template for:each={participants} for:item="item" for:index="index">
+        <div key={item.CIB_Sequence__c} class="aob_title-sm">
+          <span class="slds-required" title="required">* </span> Details of
+          contact person
+        </div>
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <lightning-radio-group
+            name={item.CIB_Sequence__c}
+            id={item.CIB_Sequence__c}
+            class="half-width"            
+            data-fieldname="CIB_CD_ContactSalutation__c"
+            data-participant-sequence={item.CIB_Sequence__c}
+            variant="label-hidden"
+            options={options}
+            value={item.CIB_CD_ContactSalutation__c}
+          >
+          </lightning-radio-group>
+        </div>
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05"
+                ><span class="slds-required" title="required">* </span
+                >Name</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="text"
+                  data-fieldname="Name"
+                  name="name"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  required
+                  value={item.Name}
+                  variant="label-hidden"
+                  data-index={index}
+                  data-id="contactList"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05"
+                ><span class="slds-required" title="required">* </span>
+                Telephone number</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="text"
+                  data-fieldname="TelephoneNumber__c"
+                  required
+                  name="telephoneNumber"
+                  value={item.TelephoneNumber__c}
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  data-id="contactList"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05"
+                ><span class="slds-required" title="required">* </span>Job
+                title</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="text"
+                  data-fieldname="Title__c"
+                  name="title"
+                  required
+                  value={item.Title__c}
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  data-id="contactList"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element mb_8">
+              <label class="slds-form-element__label" for="form-element-05"
+                ><span class="slds-required" title="required">* </span>Mobile
+                number</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  type="text"
+                  data-fieldname="CIB_MobileNumber__c"
+                  required
+                  name="mobileNumber"                  
+                  value={item.CIB_MobileNumber__c}
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  variant="label-hidden"
+                  data-index={index}
+                  data-id="contactList"
+                  pattern="(\+\d{1,3}\s?)?\d{1,15}"
+                  minlength="5"
+                  maxlength="15"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_medium">
+              <img
+                class="slds-p-top_large slds-p-left_large"
+                src={delete_row_icon}
+                data-participant-sequence={item.CIB_Sequence__c}
+                alt="delete-row-icon"
+                access-key={index}
+                id={index}
+                alternative-text="Delete Row"
+                data-index={index}
+                size="small"
+                title="Delete Row"
+                onclick={deleteParticipant}
+                data-id="contactList"
+                data-record={item.id}
+              />
+            </div>
+          </template>
+        </div>
+      </template>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            data-id="contactList"
+            title="Primary action with lighter look"
+            onclick={addParticipant}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

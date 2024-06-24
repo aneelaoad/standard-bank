@@ -1,0 +1,79 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 02-08-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-12-2021   TCK   Initial Version
+-->
+<template>
+    <template if:true={haveItinerary}>
+        <div class="v1_div_mapa">
+            <!--<lightning-map map-markers={mapMarkers} list-view="hidden" options={mapOptions}></lightning-map>-->
+            <iframe width="100%" height="250px" frameborder="0" src={mapLink} salesforce-mask-redirects='false' onload={testLoad}></iframe>
+        </div>
+
+        <div class="v1_file_div">
+            <p class="light_titles">{labels.EventItinerary}</p>
+
+            <template for:each={itinerary} for:item="elem">
+                <div key={elem.realId} data-id={elem.realId} onclick={openItineraryStep} class="v1_div_containerListView">
+                    <div class="v1_div_listView">
+                        <template if:true={elem.IconStart}>
+                            <template if:true={isFlight}>
+                                <div class="v1_div_prettyList_plane">
+                                    <img class="v1_img_filter" src={elem.IconStart}>
+                                </div>
+                            </template>
+                            <template if:false={isFlight}>
+                                <div class="v1_div_prettyList">
+                                    <img class="v1_img_filter" src={elem.IconStart}>
+                                </div>
+                            </template>
+                        </template>
+
+                        <template if:true={elem.Number}>
+                            <div class="v1_div_prettyNumber">
+                                {elem.Number}
+                            </div>
+                        </template>
+
+                        <div class="v1_div_prettyList v1_div_title">
+                            <p class="v1_p_title">{elem.Title}</p>
+                            <template if:true={elem.Subtitle}>
+                                <p class="v1_p_subtitle">{elem.Subtitle}</p>
+                            </template>
+                        </div>
+
+                        <div class="v1_div_prettyList v1_div_endInfo">
+                            <template if:true={elem.IconEnd}>
+                                <img src={elem.IconEnd} class="v1_icon_end" name={elem.realId}></img>
+                            </template>
+                            <template if:true={elem.ExtraInfo}>
+                                <p class="v1_p_subtitle">{elem.ExtraInfo}</p>
+                            </template>
+                        </div>
+                    </div>
+
+                    <template if:true={elem.Summary}>
+                        <div class="v1_div_summary">
+                            <p class="v1_p_summary">{elem.Summary}</p>
+                        </div>
+                    </template>
+                </div>
+            </template>
+            <button class="custom-full-button" onclick={addItinerary}>{labels.AddMore}</button>
+        </div>
+    </template>
+    
+    <template if:false={haveItinerary}>
+        <div class="v1_div_empty">
+            <c-eap-shield-message message={labels.NoItineraryAdded} is-over-button="true"></c-eap-shield-message>
+            <div class="v1_div_buttonContainer">
+                <button class="custom-full-button" onclick={addItinerary}>{labels.AddItinerary}</button>
+            </div>
+        </div>
+    </template>
+</template>

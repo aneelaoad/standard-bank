@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>53.0</apiVersion>
+  <isExposed>true</isExposed>
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="name" label="Name (unique on a page)" type="String" />
+      <property name="slideDurationInMilliseconds" label="Duration of a slide (milliseconds)" type="Integer" />
+    </targetConfig>
+  </targetConfigs>
+</LightningComponentBundle>

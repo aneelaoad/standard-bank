@@ -1,0 +1,92 @@
+<template>
+   <div class="content">
+      <div class="configure-wrapper">
+         <c-mall-cmn-button interaction-intent={buttonInteractionIntent} interaction-scope={buttonInteractionScope}
+            interaction-type={buttonInteractionType} interaction-text={buttonInteractionText}
+            interaction-text-before={buttonInteractionTextBefore} icon={configureIcon} disabled={isDisabled}
+            variant="outline-brand" label={configureLabel} title={configureLabel} w-class="auto"
+            onclick={handleConfigureActive} responsive-icon-state="true"></c-mall-cmn-button>
+      </div>
+
+      <div class="heading-container">
+         <h3 class="heading">{heading}</h3>
+         <div class="info-container">
+            <span class="info-icon" onclick={showBubble}></span>
+            <span class="info-text-bubble">
+               <h5 class="info-bubble-header">{infoHeader}</h5>
+               <p class="info-text">{infoText}</p>
+               <span class="close" onclick={closeBubble}></span>
+            </span>
+         </div>
+      </div>
+      <div class="widget-grid">
+         <template if:true={showWeather}>
+            <div class="widget-wrapper">
+               <c-mall-weather></c-mall-weather>
+            </div>
+         </template>
+
+         <template if:true={showWorldClock}>
+            <div class="widget-wrapper">
+               <c-mall-world-clock></c-mall-world-clock>
+            </div>
+         </template>
+
+         <template if:true={showNews}>
+            <div class="widget-wrapper">
+               <c-mall-widget-news></c-mall-widget-news>
+            </div>
+         </template>
+
+         <template if:true={showExchange}>
+            <div class="widget-wrapper">
+               <c-mall-widget-foreign-exchange></c-mall-widget-foreign-exchange>
+            </div>
+         </template>
+
+         <template if:true={showAccountDetails}>
+            <div class="widget-wrapper">
+               <c-mall-account-balance></c-mall-account-balance>
+            </div>
+         </template>
+      </div>
+      <c-mall-modal active={showModal} header={editWidgetHeading} variant="small">
+         <div slot="content" class="service-wrapper">
+            <div class="service-list-modal-subheader">
+               <h4>{widgetConfigureModalHeader}</h4>
+               <label class="service-list-modal-radio-container">
+                  <input type="checkbox" name="selection" checked={widgetAllSelectionChecked}
+                     onclick={setSelectAllWidgets} class="service-check" data-intent="transactional" data-type="click"
+                     data-text-after="checkbox" />
+                  <span class="selectAll-text"> Select all </span>
+                  <div class="check-indicator"></div>
+               </label>
+            </div>
+            <div class="service-list-modal-container">
+               <template if:true={widgets}>
+                  <template for:each={widgets} for:item="widget">
+                     <div class="service-tile" onclick={setSelectedWidgets} key={widget.id} data-id={widget.id}>
+                        <div class="service-tile-img">
+                           <Img src={widget.image}></Img>
+                           <div class="service-tile-img-overlays">
+                              <label class="service-list-modal-radio-container">
+                                 <input type="checkbox" name="widgetSelection" checked={widget.isSelected}
+                                    onchange={setSelectedWidgets} class="service-check" data-intent="transactional"
+                                    data-type="click" data-id={widget.id} data-text-after="checkbox" />
+                                 <div class="check-indicator"></div>
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                  </template>
+               </template>
+            </div>
+         </div>
+
+         <div slot="footer" class="footer-button">
+            <lightning-button label={editWidgetsSaveBy} title={editWidgetsSaveBy} onclick={handleSaveWidgets}
+               class="slds-m-left_x-small"></lightning-button>
+         </div>
+      </c-mall-modal>
+   </div>
+</template>

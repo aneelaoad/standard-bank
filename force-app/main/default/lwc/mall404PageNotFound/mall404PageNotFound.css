@@ -1,0 +1,63 @@
+.error-container{
+    /* padding: 10px 30px; */
+    margin: 10px 30px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap-reverse;
+    background-color: #F4F5F7;
+    border-radius: 12px;
+
+}
+.error-message h1{
+    font-size: 40px;
+    font-family: 'Benton Sans';
+    font-weight: 700;
+    color: #10223E;
+    padding-bottom: 20px;
+}
+.error-message p{
+    padding: 10px 0px;
+    font-family: 'Benton Sans';
+    font-weight: 400;
+}
+
+.error-message span {
+    padding: 10px 0px;
+    font-family: 'Benton Sans';
+    font-weight: 400;
+}
+
+.error-message span a {
+    color: #B150C5;
+    font-weight: 500;
+}
+
+.error-message{
+    padding: 40px 30px;
+    background-color: #F4F5F7;
+    border-radius: 12px;
+    
+}
+.error-image{
+
+}
+
+.errorClass{
+    flex: 1;
+}
+
+
+@media only screen and (max-width: 500px) {
+    .error-container{
+        flex-direction: column-reverse;
+        margin: 5px;
+        padding: 5px;
+    }
+    .error-container h1{
+   
+    font-size: 1rem;
+    }
+}    
+.home-button{
+    padding-top: 40px;
+}

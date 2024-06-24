@@ -1,0 +1,29 @@
+<!-- **
+* @description  : Partner Portal Regisrtaion Form Sub Component
+* User Story : SFP-5159
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <template if:true={renderFlag}>
+        <div class="TY-Container">
+            <div class="slds-col" style="margin-top: 100px;">
+                <img src={icon} class="sec-icon" />
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <p class="sec-heading">Thank You!</p>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <p class="text">Thank you for registering, we will verify your application and get back to you!</p>
+                <p class="confirmation-text"></p>
+            </div>
+            <div class="slds-col slds-m-top_small">
+                <a style="text-decoration: none;" data-intent="Navigate to Home Page" data-scope="Registration From"
+                   data-id="link_content" data-text="partner connect | go to home page button click" onclick={tracker}>
+                <button class="slds-button slds-button_neutral btn" onclick={navigateToHome}>GO TO HOME PAGE</button>
+                </a>
+            </div>
+        </div>
+    </template>
+</template>

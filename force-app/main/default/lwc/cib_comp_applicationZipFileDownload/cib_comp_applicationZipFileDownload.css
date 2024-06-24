@@ -1,0 +1,6 @@
+.main-panel {
+  position: relative;
+}
+.main-content {
+  min-height: 400px;
+}

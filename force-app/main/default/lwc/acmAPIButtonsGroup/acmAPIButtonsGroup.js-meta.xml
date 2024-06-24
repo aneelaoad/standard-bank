@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>ACM API Button group</masterLabel>
+    <description>A popup notification on new site toask user to revert back to old site.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property type="String" name="SBGMouseIcon" label="Mouse image URL" default="/sbg-mouse.svg" />
+            <property type="String" name="SBGPcIcon" label="PC image URL" default="/sbg-pc.svg" />
+            <property 
+                name="discoverAPIButtonLabel" 
+                type="String"
+                label="Discover API label" 
+                default="LABEL"
+                placeholder="e.g I want to dicover APIs"
+                description="What the user sees written on the button." />
+            <property 
+                name="discoverAPIUrl" 
+                type="String"
+                label="Discover destination path" 
+                placeholder="e.g https://someurl.co.za/"
+                description="Where the button takes the user." />
+
+                <property 
+                name="discoverAccordionHeading" 
+                type="String"
+                label="Discover Accordion Heading" 
+                placeholder="place heading here"
+                description="Accordion Heading." />
+
+                <property 
+                name="discoverAccordionText" 
+                type="String"
+                label="Discover Accordion Text" 
+                placeholder="place text here"
+                description="Accordion text." />
+
+            <property 
+                name="createAPIButtonLabel" 
+                type="String"
+                label="Create API label" 
+                default="LABEL"
+                placeholder="e.g I want to create APIs"
+                description="What the user sees written on the button." />
+            <property 
+                name="createAPIUrl" 
+                type="String"
+                label="Create destination path" 
+                placeholder="e.g https://someurl.co.za/"
+                description="Where the button takes the user." />
+
+                <property 
+                name="createAccordionHeading" 
+                type="String"
+                label="Create Accordion Heading" 
+                placeholder="place heading here"
+                description="Accordion Heading." />
+
+                <property 
+                name="createAccordionText" 
+                type="String"
+                label="Create Accordion Text" 
+                placeholder="place text here"
+                description="Create text." />
+
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

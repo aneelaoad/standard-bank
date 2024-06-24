@@ -1,0 +1,56 @@
+<!--
+ACTION  TICKET    DATE       OWNER         COMMENT
+Created MVP1 Copy 19-11-2022 Gill Lumley   Copied from MVP1 and removed CallMeBack pop-up (not applicable to MVP2)
+@last modified on  : 26 APRIL 2024
+@last modified by  : Narendra 
+@Modification Description : SFP-38348
+-->
+<template>
+	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+	<template if:true={isVisible}>
+		<section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+			class="slds-modal slds-fade-in-open">
+			<div class="slds-modal__container">
+				<button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse custom_icon"
+          data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+          data-text={adobePageTag.cancelmodalpopup} onclick={closeModal}>
+          <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+          </svg>
+          <span class="slds-assistive-text">{label.Cancelandclose}</span>
+        </button>
+				<div class="slds-modal__header ao-background-colour_brand-blue">
+					<h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+						{label.AOB_ServiceUnavailable_Title}</h1>
+				</div>
+				<div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+					<b>{label.AOB_ServiceUnavailable_CannotRedirect}</b>
+					<br />
+					<br />
+					<b>{label.AOB_PleaseTryAgain}</b>
+					<p>{label.AOB_WFRCallMeBack}</p>
+
+					<div class="d-flex">
+						<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+						<div class="aob_mobile_1_of_2  aob_margin_horizontal_auto slds-m-vertical_small">
+							<button class="btn-secondary" type='button' data-id={adobePageTag.dataId}
+                data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScope}
+                data-text={adobePageTag.retryText} title={label.AOB_ZA_RETR}
+                onclick={retryCallback}>{label.AOB_ZA_RETR}</button>
+						</div>
+						</div>
+						
+						<div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2">
+						<div class="aob_mobile_1_of_2  aob_margin_horizontal_auto slds-m-vertical_small">
+							<button class="btn-primary" data-id={adobePageTag.dataId} data-intent={adobePageTag.dataIntent}
+                data-scope={adobePageTag.dataScope} data-text={adobePageTag.callMeBackText} type='button'
+                title={label.AOB_CallMeBack} onclick={confirmCallback}>{label.AOB_CallMeBack}</button>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+	</template>
+</template>

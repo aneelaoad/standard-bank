@@ -1,0 +1,253 @@
+<!--
+  @description       : This is used for General company financial information screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 11-01-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>General Company Financial Information</h2>
+    </article>
+    <div class="aob_card-container">
+      <label class="aob_title-sm" for="form-element-05">
+        Relevant financials</label
+      >
+      <div class="aob_info-text mt_20">
+        <img src={helpIcon} alt="check" />
+        <p>
+          Estimate the total annual turnover of the company. If your company is
+          a start-up business, advise based on the projections in your business
+          plan.
+        </p>
+      </div>
+      <template for:each={lineItems} for:item="item" for:index="index">
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-01">
+                <abbr class="slds-required" title="required"> *</abbr>Year range
+                from</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  placeholder="Please enter number"
+                  type="text"
+                  data-fieldname="YearStart__c"
+                  data-line-item-sequence={item.CIB_Sequence__c}
+                  value={item.YearStart__c}
+                  required                  
+                  message-when-pattern-mismatch="Only 4 Digits are allowed"
+                  pattern="^\d{0,4}$"
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> *</abbr>Year range
+                to</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  placeholder="Please enter number"
+                  type="text"
+                  data-fieldname="YearEnd__c"
+                  data-line-item-sequence={item.CIB_Sequence__c}
+                  value={item.YearEnd__c}
+                  required
+                  message-when-pattern-mismatch="Only 4 Digits are allowed"
+                  pattern="^\d{0,4}$"
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr>Currency
+                for financial year ending {item.yearFrom}</label
+              >
+              <c-cmn_comp_acpicklist
+                s-object-name="Application_Line_Item__c"
+                s-object-field-name="CurrencyStart__c"
+                data-line-item-sequence={item.CIB_Sequence__c}
+                data-fieldname="CurrencyStart__c"
+                value={item.CurrencyStart__c}
+                required
+                is-currency
+              ></c-cmn_comp_acpicklist>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required">* </abbr>Currency
+                for financial year ending {item.YearEnd__c}</label
+              >
+              <c-cmn_comp_acpicklist
+                s-object-name="Application_Line_Item__c"
+                s-object-field-name="CurrencyEnd__c"
+                data-line-item-sequence={item.CIB_Sequence__c}
+                data-fieldname="CurrencyEnd__c"
+                value={item.CurrencyEnd__c}
+                required
+                is-currency
+              ></c-cmn_comp_acpicklist>
+            </div>
+          </div>
+        </div>
+
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-05">
+                <abbr class="slds-required" title="required"> *</abbr>Amount for
+                financial year ending {item.yearFrom}
+              </label>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  placeholder="Please enter number"
+                  type="text"
+                  data-fieldname="AmountStart__c"
+                  data-line-item-sequence={item.CIB_Sequence__c}
+                  value={item.AmountStart__c}
+                  required
+                  message-when-pattern-mismatch="Only Numbers are allowed"
+                  pattern="[0-9]+"
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-06">
+                <abbr class="slds-required" title="required"> *</abbr>Amount for
+                financial year ending {item.YearEnd__c}</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  variant="label-hidden"
+                  placeholder="Please enter number"
+                  type="text"
+                  data-fieldname="AmountEnd__c"
+                  value={item.AmountEnd__c}
+                  data-line-item-sequence={item.CIB_Sequence__c}
+                  required
+                  message-when-pattern-mismatch="Only Numbers are allowed"
+                  pattern="[0-9]+"
+                  aria-invalid="true"
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <template lwc:if={index}>
+            <div class="slds-p-top_medium" key={item.indexId}>
+              <img
+                class="slds-p-top_large slds-p-left_large"
+                src={delete_row_icon}
+                alt="delete-row-icon"
+                access-key={item.indexId}
+                id={index}
+                data-index={index}
+                alternative-text="Delete Row"
+                size="small"
+                title="Delete Row"
+                onclick={deleteLineItem}
+              />
+            </div>
+          </template>
+        </div>
+      </template>
+
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <lightning-button
+            variant="brand-outline"
+            data-index={index}
+            icon-name="utility:new"
+            label="ADD ADDITIONAL"
+            title="Primary action with lighter look"
+            onclick={addLineItem}
+            class="slds-m-left_x-small space-padding"
+          >
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <lightning-radio-group
+          required
+          name="hasIndependentAuditor"
+          label="Do you have a independent auditor?"
+          data-fieldname="CIB_GCFI_HasIndependentAuditor__c"
+          data-type="application"
+          options={options}
+          onchange={onchange}
+          value={hasIndependentAuditor}
+        >
+        </lightning-radio-group>
+
+        <template lwc:if={applicationRecord.CIB_GCFI_HasIndependentAuditor__c}>
+          <div class="slds-grid mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-05">
+                  <abbr class="slds-required" title="required">* </abbr>Name of
+                  independent auditor</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    variant="label-hidden"
+                    data-type="application"
+                    placeholder="Please enter Text"
+                    type="text"
+                    data-fieldname="CIB_GCFI_IndependentAuditorName__c"
+                    value={applicationRecord.CIB_GCFI_IndependentAuditorName__c}
+                    required
+                    aria-invalid="true"
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

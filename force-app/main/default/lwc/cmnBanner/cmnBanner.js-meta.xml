@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+  <apiVersion>53.0</apiVersion>
+  <isExposed>true</isExposed>
+  <targets>
+    <target>lightningCommunity__Page</target>
+    <target>lightningCommunity__Default</target>
+  </targets>
+  <targetConfigs>
+    <targetConfig targets="lightningCommunity__Default">
+      <property name="title" label="Title" type="String" />
+      <property name="imagePath" label="Image path" type="String" />
+      <property name="content" label="Content" type="String" />
+      <property name="buttonLabel" label="Button label" type="String" />
+      <property name="destinationUrl" label="Community page url or absolute url" type="String" />
+      <property name="heightForDesktop" label="Height (with unit) for desktop size" type="String" />
+      <property name="carouselName" label="Unique name of the carousel (optional)" type="String" />
+      <property name="carouselSlidePosition" label="Position of the slide in the carousel (mandatory if part of a carousel)" type="Integer" />
+    </targetConfig>
+  </targetConfigs>
+</LightningComponentBundle>

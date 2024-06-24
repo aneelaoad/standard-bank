@@ -1,0 +1,129 @@
+<!-- **
+* @description  : Partner Portal Support Page Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+
+    <div class="container" id="container">
+        <div class="slds-grid slds-wrap main-grid" id="main-grid">
+            <div class="slds-col">
+                <p class="heading-normal-sfProDisplay heading">{heading}</p>
+            </div>
+            <div class="slds-col slds-size_12-of-12">
+                <div class="slds-grid slds-wrap slds-gutters_direct">
+
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 contact-info-container">
+                        <div class="slds-col contact-Information">
+                            <div class="slds-grid slds-grid_vertical">
+
+                                <div class="slds-col">
+
+                                    <div class="slds-grid">
+                                        <div class="slds-col">
+                                            <div class="slds-grid">
+                                                <div class="slds-col" style="flex: none; margin-right: 7px;">
+                                                    <img class="user-img" src={imgUrl} />
+                                                </div>
+                                                <div class="slds-col">
+                                                    <p class="heading-normal-sfProDisplay name">{textOne}</p>
+                                                    <p class="text-normal-sfProDisplay" style="color: #6a7286;">
+                                                        {textTwo}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="slds-col" style="margin-top: 24px;">
+                                    <div class="slds-grid con-us-details-container">
+                                        <div class="slds-col">
+                                        <template if:true={phone}>
+                                            <img class="con-us-icon" src={phoneIcon}>
+                                        </template>
+                                        </div>
+                                        <div class="slds-col" style="height: 24px;">
+                                            <p class="text-normal-sfProDisplay contact-us-phone">{phone}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-grid con-us-details-container">
+                                        <div class="slds-col">
+                                            <img class="con-us-icon" src={emailIcon}>
+                                        </div>
+                                        <div class="slds-col">
+                                            <p class="text-normal-sfProDisplay contact-us-email">{email}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-2 contact-info-container">
+                        <div class="slds-col contact-Information">
+                            <div class="slds-grid slds-grid_vertical">
+
+                                <div class="slds-col">
+
+                                    <div class="slds-grid">
+                                        <div class="slds-col">
+                                            <div class="slds-grid">
+                                                <div class="slds-col" style="flex: none; margin-right: 7px;">
+                                                    <img class="user-img" src={userImgUrl} />
+                                                </div>
+                                                <div class="slds-col">
+                                                    <p class="heading-normal-sfProDisplay name">{user.FirstName}
+                                                        {user.LastName}</p>
+                                                    <p class="text-normal-sfProDisplay" style="color: #6a7286;">
+                                                        {user.Title}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="slds-col" style="margin-top: 24px;">
+                                    <div class="slds-grid con-us-details-container">
+
+                                        <div class="slds-col">
+                                            <template if:true={user.Phone}>
+                                                <img class="con-us-icon" src={phoneIcon}>
+                                            </template>
+                                        </div>
+
+                                        <div class="slds-col" style="height: 24px;">
+                                            <p class="text-normal-sfProDisplay contact-us-phone">{user.Phone}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-grid con-us-details-container">
+                                        <div class="slds-col">
+                                            <img class="con-us-icon" src={emailIcon}>
+                                        </div>
+                                        <div class="slds-col">
+                                            <p class="text-normal-sfProDisplay contact-us-email">{user.Email}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col">
+            <div class="line"></div>
+        </div>
+    </div>
+
+</template>

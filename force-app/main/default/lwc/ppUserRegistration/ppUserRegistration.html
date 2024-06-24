@@ -1,0 +1,188 @@
+<!--
+  @description       : 
+  @author            : Peter Guest
+  @group             : CloudSmiths
+  @last modified on  : 08-16-2023
+  @last modified by  : Areeba Khan (areeba.khan@standardbank.co.za)
+-->
+<template>
+    <!-- SPINNER -->
+    <lwc if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </lwc>
+    <!-- / SPINNER -->
+
+    <!-- CONTAINER -->
+    <div class="main-container">
+        <!-- FORM CONTAINER -->
+        <div class="slds-align_absolute-center">
+            <div class="slds-grid slds-grid_vertical container">
+                <!-- FORM NAME AND STEP COUNTER -->
+                <div class="slds-col sec-padding">
+                    <div class="slds-grid slds-grid_align-spread">
+                        <div class="slds-col">
+                            <p class="text-normal-sfProDisplay text">INVITATION TO PARTNERCONNECT</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-col slds-m-top_small">
+                    <div class="lline"></div>
+                </div>
+
+                <!-- FORM CONTENT -->
+                <div class="sec-padding">
+                    <!-- FINISHED LOADING -->
+                    <lwc if:false={isLoading}>
+                        <!-- VALID LINK -->
+                        <lwc if:false={error}>
+                            <!-- STEP 1 -->
+                            <lwc lwc:if={isStepOne}>
+                                <c-pp-form-step-header
+                                    title="Create A User Login"
+                                    description="Lets get started by first checking whether your email address is associated with an existing username."
+                                    icon="reg-contact-icon.png"
+                                ></c-pp-form-step-header>
+                                <lightning-input
+                                    type="email"
+                                    label="Email Address"
+                                    name="emailAddress"
+                                    class="lt-input Email"
+                                    placeholder="Your company email address"
+                                    value={emailAddress}
+                                    onchange={handleInputChange}
+                                ></lightning-input>
+                            </lwc>
+                            <!-- / STEP 1 -->
+
+                            <!-- STEP 2 -->
+                            <lwc lwc:if={isStepTwo}>
+                                <c-pp-form-step-header
+                                    title="Provide Us Your Details"
+                                    description="Provide the below details so that we can setup a user account."
+                                    icon="reg-contact-icon.png"
+                                ></c-pp-form-step-header>
+                                <lightning-input
+                                    type="email"
+                                    name="emailAddress"
+                                    abel="Email Address"
+                                    value={emailAddress}
+                                    onchange={handleInputChange}
+                                    disabled
+                                ></lightning-input>
+                                <lightning-input
+                                    type="text"
+                                    name="firstName"
+                                    label="First Name"
+                                    value={firstName}
+                                    onchange={handleInputChange}
+                                    required
+                                ></lightning-input>
+                                <lightning-input
+                                    type="text"
+                                    name="lastName"
+                                    label="Last Name"
+                                    value={lastName}
+                                    onchange={handleInputChange}
+                                    required
+                                ></lightning-input>
+                                <lightning-input
+                                    type="phone"
+                                    name="mobileNumber"
+                                    label="Moble Number"
+                                    value={mobileNumber}
+                                    onchange={handleInputChange}
+                                    required
+                                ></lightning-input>
+                                <lightning-input
+                                    type="text"
+                                    name="userName"
+                                    label="Username"
+                                    value={userName}
+                                    onchange={handleInputChange}
+                                    required
+                                ></lightning-input>
+
+                                <div class="slds-text-longform">
+                                    <h4 class="slds-text-title_caps">Password Policy</h4>
+                                    <ul class="slds-text-title">
+                                        <li>Minimum of <b>8</b> characters in length.</li>
+                                        <li>Contains <b>1</b> or more upper and low case characters.</li>
+                                        <li>Contains <b>1</b> or more special characters.</li>
+                                        <li>Contains <b>2</b> or more numbers.</li>
+                                    </ul>
+                                </div>
+
+                                <lightning-input
+                                    type="password"
+                                    data-id="password"
+                                    name="password"
+                                    label="Password"
+                                    value={password}
+                                    onchange={handleInputChange}
+                                    required
+                                ></lightning-input>
+                                <lightning-input
+                                    type="password"
+                                    data-id="passwordRepeat"
+                                    name="passwordRepeat"
+                                    label="Repeat Password"
+                                    value={passwordRepeat}
+                                    onchange={handleInputChange}
+                                    required
+                                ></lightning-input>
+                            </lwc>
+                            <!-- / STEP 2 -->
+
+                            <!-- STEP 3 -->
+                            <lwc lwc:if={isStepThree}>
+                                <c-pp-form-step-header
+                                    title="User Registration Successful!"
+                                    description="You have sucessfully registered for Partner Connect.  Use the below button to login into your dashboard."
+                                    icon="trackerCompleteIcon.png"
+                                ></c-pp-form-step-header>
+                            </lwc>
+                            <!-- / STEP 3 -->
+
+                            <!-- FORM BUTTONS -->
+                            <div class="slds-col slds-m-top_small">
+                                <div class="slds-grid slds-grid_align-spread">
+                                    <div class="slds-col">
+                                        <button
+                                            if:false={isStepThree}
+                                            class="slds-button slds-button_neutral btn next-btn"
+                                            data-name="next"
+                                            onclick={handleButtonClick}
+                                        >
+                                            NEXT
+                                        </button>
+                                        <button
+                                            if:true={isStepThree}
+                                            class="slds-button slds-button_neutral btn next-btn"
+                                            data-name="login"
+                                            onclick={handleButtonClick}
+                                        >
+                                            LOGIN INTO PARTNERCONNECT
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- / FORM BUTTONS -->
+                        </lwc>
+
+                        <!-- VALID LINK -->
+                        <lwc if:true={error}>
+                            <c-pp-form-step-header
+                                title="Oops, there is a problem."
+                                description={error.body.message}
+                                icon="reg-contact-icon.png"
+                            ></c-pp-form-step-header>
+                        </lwc>
+                    </lwc>
+                </div>
+                <!-- / FORM CONTENT -->
+            </div>
+        </div>
+        <!-- /  FORM CONTAINER -->
+    </div>
+    <!-- / CONTAINER -->
+</template>

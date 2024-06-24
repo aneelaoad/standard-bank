@@ -1,0 +1,24 @@
+<!--
+  @description       : 
+  @author            : chandu.velmajala@standardbank.co.za
+  @group             : 
+  @last modified on  : 14-01-2023
+  @last modified by : chandu.velmajala@standardbank.co.za
+  Modifications Log 
+  Ver   Date         Author                   Modification
+  1.0 11-09-2022 chandu.velmajala@standardbank.co.za Initial Version
+-->
+<template>
+	<div if:false={showBlock}>
+		<h6 class="aob_form-title slds-align_absolute-center card-title">{title}</h6><br />
+		<h6 class="aob_form-sub-title slds-align_absolute-center card-subTitle">{subTitle}</h6>
+	</div>
+
+	<div if:true={showBlock}>
+		<h6 class="mymob_title slds-m-bottom_large">{label.AOB_PA_Title}</h6>
+		<p class="mymob_subtitle slds-m-bottom_xx-small">{label.AOB_PA_SubTitle}</p>
+		<p class="mymob_content"> {label.AOB_PA_Content2}</p>
+	</div>
+
+
+</template>

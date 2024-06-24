@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="lwc_TextBox">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="currentScreen" type="String"/>
+            <property name="currentScreenNum" type="String"/>
+            <property name="numOfScreens" type="String"/>
+            <property name="previousScreen" type="String"/>
+            <property name="productName" type="String"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

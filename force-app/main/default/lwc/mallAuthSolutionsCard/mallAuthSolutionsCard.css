@@ -1,0 +1,24 @@
+.solution_card { border: 0px !important; background-color: #0062E1 !important; border-radius: 12px !important; padding: 18px 20px ; }
+
+
+.solution_cardHead { display: flex; width: 100%; align-items: center; padding-bottom: 8px;}
+
+.solution_cardHead_icon { width: 40px;}
+
+.solution_cardHead_icon button { background: none !important; border: 0px !important;    padding: 0px;}
+.solution_cardHead_icon span { width: 40px; height: 40px; display: block;;}
+.solution_cardHead_icon span img { width: 100%; height: 100%; display: block;;}
+
+.solution_cardText { padding-left: 10px; width: calc(100% - 40px);}
+
+.solution_cardText strong { display: block; color: #fff; font-size: 16px; padding-bottom: 2px;}
+.solution_cardText p {  color: #fff; font-size: 12px; }
+.solution_cardText p b { font-weight: bold;}
+
+.solution_cardDescription { width: 100%; padding-bottom: 15px; border-bottom: 1px solid #fff; width: 100%; min-height: 67px;}
+.solution_cardDescription strong { display: block; color: #fff; font-size: 18px; }
+.solution_cardDescription small {  color: #fff; font-size: 12px;padding-bottom: 5px; }
+
+.solution_cardBtn { width: 100%; padding-top: 15px; min-height: 45px;}
+
+.solution_cardBtn button {  background-color: #DFEEFD; border: 0px; font-weight: bold; color: #0062E1; font-size: 12px; padding: 6px 13px; border-radius: 100px;}

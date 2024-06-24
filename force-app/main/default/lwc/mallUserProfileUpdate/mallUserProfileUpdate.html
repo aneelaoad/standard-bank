@@ -1,0 +1,32 @@
+<template>
+  <div class="profile-update-wrapper">
+    <h1 class="a_tittle"> Update Profile Details 
+    </h1>
+    <div class="section">
+      <div class="heading">
+        <c-sbg-title-with-subtitle
+          apply-theme-colour-to-title={isTrue}
+          show-subtitle="false"
+          title="Update personal details"
+        ></c-sbg-title-with-subtitle>
+      </div>
+      <iframe
+        class="iframe-wrapper"
+        src={pingUserdetailsUpdateUrl}
+        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+      ></iframe>
+    </div>
+
+    <!-- <lightning-button variant="Brand" label="BACK TO MY PROFILE" onclick={handleBackToProfile}></lightning-button> -->
+   <div class="back-button">
+    <c-mall-cmn-button
+    title={buttonTitle}
+    label={buttonTitle}
+    variant="mall"
+    w-class="236"
+    onclick={handleBackToProfile}
+  >
+  </c-mall-cmn-button>
+   </div>
+  </div>
+</template>

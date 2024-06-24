@@ -1,0 +1,103 @@
+.main-container{
+    font-family: system-ui;
+}
+.container {
+    border-style: solid;
+    border-width: 1px;
+    border-color:  #BCC4D3;
+}
+.col {
+    padding: 10px 0px 10px 11px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #BCC4D3;
+}
+.last-col {
+    padding: 10px 0px 10px 11px;
+}
+.validationMsg{
+    color : rgb(234, 0, 30);
+    font-size: 12px;
+}
+.sec-heading {
+    width: 276px;
+    height: 68px;
+    margin-top: 32px;
+    margin-bottom: 16px; 
+    opacity: 1;
+    font-size:28px;
+    color :#1C263C;
+    line-height: 1.21
+}
+.sec-icon {
+    width: 120px;
+    opacity: 1;
+    padding-top: 27px;
+}
+.row {
+    display: flex;
+}
+.column {
+    flex: 50%;
+}
+.text {
+    width: 276px;
+    height: 40px;
+    text-align: left;
+    opacity: 1;
+    color :#6A7286;
+    font-size:14px;
+    line-height: 1.43;
+    letter-spacing: normal;
+    margin-bottom: 22px;
+}
+
+.field-label{
+    opacity: 1;
+    color :#6A7286;
+    font-size:14px;
+    line-height: 1.43;
+    letter-spacing: normal;
+}
+
+.no-border-option{
+    padding: 10px 0px 0px 11px;
+}
+
+.other-field{
+  width: 372px;
+  height: 40px;
+  margin: 0px 0px 12px 11px;
+  padding: 12px;
+  border-radius: 2px;
+  border: solid 1px #bcc4d3;
+  background-color: #fff;
+}
+
+.annual-bussiness-field{
+    position: absolute;
+    color: #696969;
+    font-size: 12px;
+}
+
+.turnover{
+    flex: none; 
+    width: 311px;
+    margin-top: 6px;
+}
+
+@media(max-width: 414px) {
+    .turnover {
+        width: 207px;
+    }
+    .text{
+        width: auto;
+    }
+    .sec-heading{
+        width: 193px;
+        height: auto;
+    }
+    .other-field{
+        width: 267px;
+    }
+}

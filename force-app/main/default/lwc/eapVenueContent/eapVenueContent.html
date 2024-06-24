@@ -1,0 +1,51 @@
+<!--
+  @description       : Lwc to show venue details tabs
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-15-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_tabs v1_div_heading">
+        <nav role="navigation">
+            <template for:each={tabs} for:item="tab">
+                <template if:true={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab active">
+                        <a href="#" title={tab.Name} onclick={handleChangeTemplate} id={tab.Id}>
+                            <span class="slds-assistive-text">{labels.CurrentPage}</span>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+
+                <template if:false={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab">
+                        <a href="#" title={tab.Name} onclick={handleChangeTemplate} id={tab.Id}>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+            </template>
+        </nav>
+    </div>
+
+
+    <div id="context-tab-panel-1" class="slds-show v1_all" role="tabpanel" aria-labelledby="context-tab-id-1" ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
+
+        <template if:true={isAbout}>
+            <c-eap-venue-about event-id={eventId} onloaded={componentsLoaded}></c-eap-venue-about>
+        </template>
+        
+        <template if:true={isTravel}>
+            <c-eap-venue-travel event-id={eventId} onloaded={componentsLoaded}></c-eap-venue-travel>
+        </template>
+        
+        <template if:true={isDocuments}>
+            <c-eap-venue-documents event-id={eventId} onloaded={componentsLoaded}></c-eap-venue-documents>
+        </template>
+        
+    </div>
+</template>

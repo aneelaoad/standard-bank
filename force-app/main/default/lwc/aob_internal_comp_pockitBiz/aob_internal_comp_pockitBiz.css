@@ -1,0 +1,245 @@
+.aob_form_row{
+    align-items: normal;
+  }
+  .aob_card_container{
+    /* padding: 0 7rem!important; */
+  
+  }
+  .comb-box{
+    margin: 5px 0 0 0;
+  }  
+  .Select-the-card-type {
+    height: 44px;
+    display: block;
+    font-family: BentonSans;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.38;
+    letter-spacing: normal;
+    color: #858d9d;
+  }
+  .ao-slds .slds-input{
+    margin-bottom: 16px !important;
+  }
+  
+  .Delivery {
+    height: 64px;
+    font-family: BentonSans;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #3889ff;
+    /* display: block; */
+  }
+  .Rectangle-3 {
+    height: 658px;
+    box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.1);
+  }
+  .Rectangle-4 {
+    height: 151px;
+    padding: 28px 41px 28px 38px;
+    background-image: linear-gradient(290deg, rgba(255,185,79,1) 0%, rgba(255,90,0,1) 38%);
+  }
+  .Fee {
+    height: 32px;
+    margin: 0 0 4px;
+    font-family: BentonSans;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+    display: block;
+  }
+   .R {
+    font-size: 20px; 
+    color: white;
+  }
+  .Devicetotal {
+    font-size: 42px;
+    color: white;
+    font-family: 'bentonsans-extra-light-webfont';
+  }
+  .text-num{
+    display: flex;
+    justify-content: center;
+    top: -15px;
+    position: relative;
+  }
+  .Additional_fee {
+    
+    /* margin: 0px 93px 20px 92px; */
+      display: flex;
+      justify-content: center;
+      color: #858d9d;
+      /* width: 302.7px; */
+      margin: 0 93px 20px 92.8px;
+      font-family: BentonSans;
+      font-size: 20px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.45;
+      letter-spacing: normal;
+      text-align: center;
+  }
+  
+  .HR {
+    height: 1px;
+    border: solid 1px #858d9d;
+  }
+  .Total_monthly_fee {
+    display: block;
+    margin: 20px 0 20px;
+    font-family: BentonSans;
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: center;
+    color: #858d9d;
+  }
+  .R1 {
+    font-size: 20px;
+    color:black;
+  }
+  .Devicetotal1 {
+    font-size: 42px;
+    color:black;
+    font-family: 'bentonsans-extra-light-webfont';
+  }
+  
+  .Excludes {
+    display: block;
+    position: relative;
+    top: -15px;
+    position: relative;
+    font-family: BentonSans;
+    font-size: 19px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    text-align: center;
+    color: #0a2240;
+    /* width: 439px; */
+  }
+  .continue-click{
+    /* top: -75px; */
+    position: relative;
+  }
+  .field-label-cards{
+    width: 65%;
+  }
+  
+  
+  .Pocitbiz-checkbox {
+   --sds-c-checkbox-color-border: #000000;
+   --sds-c-checkbox-color-background-checked: #18a4db;
+   --sds-c-checkbox-color-background : #18a4db;
+  }
+  .Pocitbiz-checkbox1{
+    --sds-c-checkbox-color-background-checked: #18a4db;
+  }
+
+  .input-width{
+    width: 65%;
+  }
+
+  .button-container{
+    /* position: fixed;
+    bottom: 0px; */
+    width: 100%;
+    text-align: center;
+    padding: 20px 50px; 
+  }
+  
+  /* Lokesh */
+  
+  @media (min-width: 768px) and (max-width: 1024px)  {
+    .aob_card_container{
+      /* width: 90%!important; */
+    }
+    .Select-the-card-type{
+      height: 59px;
+    }
+    .Rectangle-3{
+      height: 576px;
+    }
+    .Rectangle-4{
+      padding: 22px 0 0 0;
+    }
+  }
+  
+  @media (min-width: 320px) and (max-width: 576px)  {
+    .aob_card_container{
+      /* width: 90%!important; */
+    }
+    .Select-the-card-type{
+      height: 71px!important;
+      padding-bottom: 93px!important;
+    }
+    .adjust-checkbox-text{
+      display: flex;
+      margin:0px!important;
+    }
+    .slds-form-element__control span {
+      margin-right: 0px!important;
+    }
+    .text-num{
+      display: flex;
+      justify-content: center;
+      /* top: -10px; */
+      position: relative;
+    }
+    .R {
+      font-size: 13px; 
+    }
+    .Devicetotal{
+      font-size: 26px;
+    }
+    .R1 {
+      font-size: 13px;
+    }
+    .Fee{
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .Devicetotal1 {
+      font-size: 26px;
+    }
+    .Additional_fee{
+      margin-bottom: 20px;
+    }
+    /* .adjust-checkbox-text  .slds-form-element__control span {
+      margin-right: 0px;
+    } */
+  
+    .aob_card_container{
+    padding: 0 7rem!important;
+  }
+  
+  
+  }
+  
+  .slds-form-element__control span {
+    margin-right: 0px!important;
+  }
+  
+  
+  .mb_25{
+    margin-bottom: 25px;
+  }

@@ -1,0 +1,154 @@
+<!-- **
+* @description  : Partner Portal Support Component
+* User Story : SFP-5296
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+  <div class="main-container" id="topSec">
+    <div class="spinner">
+      <template if:true={isProcessing}>
+        <lightning-spinner alternative-text="Loading" variant="brand" size="large">
+        </lightning-spinner>
+      </template>
+    </div>
+
+    <template if:false={usrId}>
+      <div class="slds-col slds-align_absolute-center breadcrumbs">
+        <div class="slds-grid">
+          <a href={breadcrumbOneUrl} data-intent="navigational" data-scope="Contact Us Form"
+           data-id="link_content" data-text="partner connect | home" onclick={tracker}>
+            <div class="slds-col">
+              <p>Partner Portal <img class="arrowIcon" src={breadcrumbArrowIcon}><img></p>
+            </div>
+          </a>
+
+          <a href={breadcrumbTwoUrl} data-intent="navigational" data-scope="Contact Us Form"
+           data-id="link_content" data-text="partner connect | contact Us" onclick={tracker}>
+            <div class="slds-col">
+              <p class="sub-breadcrumbs">Contact Us <img class="arrowIcon" src={breadcrumbArrowIcon}><img></p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </template>
+    <div class="slds-grid slds-grid_vertical slds-align_absolute-center container" data-frmcontainer="PartnerConnect Customer Support From" id="PartnerConnect_Customer_Support_From">
+      <template if:false={usrId}>
+      <img class="supportImg" src={supportImage} />
+    </template>
+      <div class="slds-col slds-align_absolute-center heading-container">
+        <div class="slds-text-title_bold heading-medium-sfProDisplay  cs-heading">Partner Feedback</div>
+      </div>
+      <div class="slds-col slds-m-top_small">
+
+        <div class="slds-col">
+          <label class="radio-button text-normal">
+            <input type="radio" name="supportType" data-id="Support" value="Support" onchange={handleInputChange}
+              checked> Support
+          </label>
+
+          <label class="radio-button text-normal">
+            <input type="radio" name="supportType" data-id="Compliment" value="Compliment" onchange={handleInputChange}> Compliment </label>
+
+          <label class="radio-button text-normal">
+            <input type="radio" name="supportType" data-id="Complaint" value="Complaint" onchange={handleInputChange}> Complaint </label>
+
+        </div>
+
+        <template if:false={usrId}>
+
+          <div class="slds-col">
+
+            <div class="slds-grid">
+
+              <div class="slds-col slds-size_1-of-2 slds-m-top_small">
+                <lightning-input type="text" label="First Name" name="firstName" class="firstName"
+                  placeholder="First Name" onchange={handleInputChange}>
+                </lightning-input>
+              </div>
+              <div class="slds-col slds-size_1-of-2 slds-m-top_small lname">
+                <lightning-input type="text" label="Last Name" name="lastName" class="lastName" placeholder="Last Name"
+                  onchange={handleInputChange}>
+                </lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-m-top_small">
+            <lightning-input type="email" label="Email" name="email" class="email" placeholder="Your Email Address"
+              onchange={handleInputChange}>
+            </lightning-input>
+          </div>
+          <div class="slds-col slds-m-top_small">
+            <lightning-input type="tel" label="Phone" name="phone" class="phone" placeholder="Your Phone Number"
+              onchange={handleInputChange}>
+            </lightning-input>
+          </div>
+
+        </template>
+        <div>
+          <lightning-combobox name="Country" class="Country" label="Country" options={countryOptions}
+            onchange={handleInputChange}>
+          </lightning-combobox>
+        </div>
+        <div class="slds-col slds-m-top_small">
+          <lightning-input type="text" label="Messege Subject" name="messegeSubject" class="messegeSubject"
+            placeholder="Subject" onchange={handleInputChange}>
+          </lightning-input>
+        </div>
+        <div class="slds-col slds-m-top_small">
+          <label class="textarea-label" for="Message">Message</label>
+        </div>
+        <div class="slds-col">
+          <textarea id="Message" name="Message" rows="10" cols="40" class={textAreaStyle} placeholder="Your Message"
+            onchange={messageHandleChange}></textarea>
+        </div>
+        <div class="slds-col">
+          <p class="validationMsg">{validationError}</p>
+        </div>
+        <div class="slds-col">
+          <a data-intent="navigational" data-scope="Contact Us Form" data-id="link_content" data-text="contact us | partner feedback | submit button click"
+             onclick={tracker}>
+            <button class="slds-button slds-button_neutral btn btn-next" onclick={handleSubmit}>SUBMIT</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <template if:true={isModalOpen}>
+    <!-- Modal/Popup Box -->
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+      aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-align_absolute-center">
+      <div class="slds-modal__container">
+
+
+        <div class="slds-modal__content slds-p-around_medium popup" id="modal-content-id-1">
+          <div class="slds-grid slds-grid_vertical slds-align_absolute-center">
+            <div class="slds-col">
+              <img class="popup-img" src={thankYouScreenImage} />
+            </div>
+            <div class="slds-col">
+              <p class="popup-heading heading-medium-sfProDisplay">Thank you!</b></p>
+            </div>
+            <div class="popup-text text-normal">
+              <div class="slds-col heading-normal-sfProDisplay">
+                <p>We have received your message.</p>
+              </div>
+              <div class="slds-col heading-normal-sfProDisplay">
+                <p>Our support team will look into it and contact you back shortly.</p>
+              </div>
+            </div>
+            <div class="slds-col" >
+                <button class="slds-button slds-button_neutral popup-btn" onclick={navigateToConnect}>Done</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+
+</template>

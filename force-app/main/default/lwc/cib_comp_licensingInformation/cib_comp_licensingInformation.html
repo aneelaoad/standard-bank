@@ -1,0 +1,126 @@
+<!--
+  @description       : This is used for Licensing Information Screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 11-07-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+
+    <div class="aob_form_title">
+      <h2>Licensing Information</h2>
+    </div>
+
+    <div class="aob_card-container">
+      <div class="slds-form-element">
+        <lightning-radio-group
+          name="CIB_LI_IsMauManagementCompany__c"
+          label="Is your company administered by a Mauritius management company?"
+          options={options}
+          type="radio"
+          data-fieldname="CIB_LI_IsMauManagementCompany__c"
+          onchange={onchange}
+          required
+        ></lightning-radio-group>
+        <template lwc:if={showMCNameInput}>
+          <div class="slds-grid mt_40">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <div class="aob_title-sm">
+                  <span class="slds-required" title="required">* </span
+                  >Management company name
+                </div>
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    variant="label-hidden"
+                    type="text"
+                    id="form-element-02"
+                    placeholder=" Enter company name"
+                    name="managementCompanyname"
+                    required
+                    data-name="managementCompanyname"
+                    pattern="[A-Za-z0-9\s]+"
+                    aria-describedby="form-error-01"
+                    aria-invalid="true"
+                    onchange={licensetype}
+                    data-fieldname="CIB_LI_ManagementCompanyName__c"
+                    value={applicationRecord.CIB_LI_ManagementCompanyName__c}
+                  >
+                  </lightning-input>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <div class="aob_card-container">
+      <label class="slds-form-element__label" for="form-element-05">
+        <span class="slds-required" title="required"> </span
+        ><b> Basic license information</b></label
+      >
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="slds-form-element__label" id="combobox-label-id-130">
+              <abbr class="slds-required" title="required"> </abbr>License type
+            </div>
+            <c-cmn_comp_acpicklist
+              s-object-name="Application__c"
+              data-name="licenseType"
+              placeholder="Please select"
+              s-object-field-name="CIB_LI_LicenceType__c"
+              data-fieldname="CIB_LI_LicenceType__c"
+              value={applicationRecord.CIB_LI_LicenceType__c}
+            >
+            </c-cmn_comp_acpicklist>
+          </div>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <div class="slds-form-element__label">
+              <abbr class="slds-required" title="required"> </abbr>License
+              number
+            </div>
+            <div class="slds-form-element__control">
+              <lightning-input
+                variant="label-hidden"
+                type="text"
+                id="form-element-04"
+                placeholder="Please enter.."
+                name="licenseNmber"
+                data-name="licenseNmber"
+                aria-describedby="form-error-01"
+                aria-invalid="true"
+                pattern="^[A-Za-z0-9_-]*$"
+                onchange={licensetype}
+                data-fieldname="CIB_LI_LicenceNumber__c"
+                value={applicationRecord.CIB_LI_LicenceNumber__c}
+              >
+              </lightning-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <c-cib_comp_documents-container
+      application-id={recordId}
+      section-id={sectionId}
+    ></c-cib_comp_documents-container>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

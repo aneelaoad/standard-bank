@@ -1,0 +1,15 @@
+<!--
+  @description       : LWC parent to landing content
+  @author            : TCK
+  @group             : 
+  @last modified on  : 07-13-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-02-2021   TCK   Initial Version
+-->
+<template>
+    <c-eap-landing-meeting onloaded={meetingLoaded} onreload={needToLoad}></c-eap-landing-meeting>
+    <c-eap-landing-carrousel onloaded={carrouselLoaded} onreload={needToLoad}></c-eap-landing-carrousel>
+    <c-eap-landing-archive onreload={needToLoad}></c-eap-landing-archive>
+</template>

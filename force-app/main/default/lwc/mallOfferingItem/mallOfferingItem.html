@@ -1,0 +1,229 @@
+<template>
+  <template if:true={item.hideModal}>
+    <div
+      class="product-item"
+      data-type={item.offeringType}
+      data-tile="service"
+      onclick={handleItemNavigationReadMore}
+    >
+      <template if:true={isBusinessEventItem}>
+        <div class="business-img-date">{currentItemDate}</div>
+      </template>
+      <div class="product-img img-loading">
+        <img
+          class="tile-img"
+          loading="lazy"
+          src={item.imageUrl}
+          alt={item.name}
+          data-intent="navigational"
+          data-text-after="image"
+          data-id="link_content"
+          data-text-before={item.taggingBeforeText}
+          data-type="click"
+          data-text={item.taggingText}
+          data-scope={item.taggingScope}
+        />
+        <template lwc:if={showLogoImg}>
+          <img
+            class="logo-img-small"
+            loading="lazy"
+            src={item.shopImageUrl}
+            alt={item.name}
+          />
+        </template>
+      </div>
+      <div class="product-info-container">
+        <template lwc:if={showPriceBanner}>
+          <div class="price-banner">
+            from <span class="item-price">R210</span>
+          </div>
+        </template>
+        <template lwc:if={isSuccessStory}>
+          <div class="success-story-date">01/01/23</div>
+        </template>
+        <!-- <span class="store-name">{item.shopName}</span> -->
+        <span
+          class="product-title"
+          data-intent="navigational"
+          data-text-after="link"
+          data-text-before={item.taggingBeforeText}
+          data-id="link_content"
+          data-type="click"
+          data-text={item.taggingText}
+          data-scope={item.taggingScope}
+        >
+          {item.title}
+        </span>
+        <span class="title-underline"></span>
+        <span class="product-description">
+          <lightning-formatted-rich-text
+            data-intent="navigational"
+            data-text-after="image"
+            data-text-before={item.taggingBeforeText}
+            data-id="link_content"
+            data-type="click"
+            data-text={item.taggingText}
+            data-scope={item.taggingScope}
+            value={item.text}
+          >
+          </lightning-formatted-rich-text>
+        </span>
+
+        <div class="product-item-btn--mobile">
+          <span class="read-more">
+            <a
+              href={item.readMoreUrl}
+              data-intent="navigational"
+              data-scope={item.taggingScope}
+              data-type="click"
+              data-text={item.taggingText}
+              data-text-after="button"
+              data-id="link_content"
+              title={buttonTitle}
+              onclick={handleItemNavigationReadMore}
+              >Read more</a
+            >
+          </span>
+          <template if:true={item.url}>
+            <a
+              href={item.url}
+              class="apply-now-btn"
+              data-intent="navigational"
+              data-scope={item.taggingScope}
+              data-type="click"
+              data-text={item.taggingText}
+              data-text-after="button"
+              data-id="link_content"
+              title={buttonTitle}
+              onclick={handleItemNavigationApplyNow}
+              >{buttonLabel}
+            </a>
+          </template>
+        </div>
+      </div>
+      <div class="product-item-btn--desktop">
+        <span class="read-more">
+          <a
+            href={item.readMoreUrl}
+            data-intent="navigational"
+            data-scope={item.taggingScope}
+            data-type="click"
+            data-text={item.taggingText}
+            data-text-after="button"
+            data-id="link_content"
+            title="Read more"
+            onclick={handleItemNavigationReadMore}
+            >Read more</a
+          >
+        </span>
+        <template if:true={item.url}>
+          <a
+            href={item.url}
+            class="apply-now-btn"
+            data-intent="navigational"
+            data-scope={item.taggingScope}
+            data-type="click"
+            data-text={item.taggingText}
+            data-text-after="button"
+            data-id="link_content"
+            title={buttonTitle}
+            onclick={handleItemNavigationApplyNow}
+            >{buttonLabel}
+          </a>
+        </template>
+      </div>
+    </div>
+  </template>
+  <template if:false={item.hideModal}>
+    <div class="product-item" onclick={showModalBox}>
+      <div class="product-img img-loading">
+        <template if:true={isBusinessEventItem}>
+          <div
+            class="business-img-date"
+            data-intent="navigational"
+            data-text-after="image"
+            data-text-before={item.taggingBeforeText}
+            data-id="link_content"
+            data-type="click"
+            data-text={item.taggingText}
+            data-scope={item.taggingScope}
+          >
+            {currentItemDate}
+          </div>
+        </template>
+        <img
+          class="tile-img"
+          loading="lazy"
+          src={item.imageUrl}
+          alt={item.name}
+        />
+        <template lwc:if={showLogoImg}>
+          <img
+            class="logo-img-small"
+            loading="lazy"
+            src={item.imageUrl}
+            alt={item.name}
+          />
+        </template>
+      </div>
+      <div class="product-info-container">
+        <span
+          class="product-title"
+          data-intent="navigational"
+          data-text-after="image"
+          data-text-before={item.taggingBeforeText}
+          data-id="link_content"
+          data-type="click"
+          data-text={item.taggingText}
+          data-scope={item.taggingScope}
+        >
+          {item.title}
+        </span>
+        <span class="product-description">
+          <lightning-formatted-rich-text
+            data-intent="navigational"
+            data-text-after="image"
+            data-text-before={item.taggingBeforeText}
+            data-id="link_content"
+            data-type="click"
+            data-text={item.taggingText}
+            data-scope={item.taggingScope}
+            value={item.text}
+          ></lightning-formatted-rich-text>
+        </span>
+
+        <div class="product-item-btn--mobile">
+          <span class="read-more">
+            <a
+              onclick={showModalBox}
+              data-intent="navigational"
+              data-scope={item.taggingScope}
+              data-type="click"
+              data-text={item.taggingText}
+              data-text-after="button"
+              data-id="link_content"
+              title={buttonTitle}
+              >Read more</a
+            >
+          </span>
+        </div>
+      </div>
+
+      <div class="product-item-btn--desktop">
+        <span class="read-more">
+          <a
+            onclick={showModalBox}
+            data-intent="navigational"
+            data-scope={item.taggingScope}
+            data-type="click"
+            data-text={item.taggingText}
+            data-text-after="button"
+            data-id="link_content"
+            title={buttonTitle}
+            >Read more</a
+          >
+        </span>
+      </div>
+    </div>
+  </template>
+</template>

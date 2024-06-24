@@ -1,0 +1,77 @@
+.TileHolder {
+  width: 20.5rem;
+  height: 18rem;
+  color: #0a2240;
+  font-family: var(--FONT-FAMILY);
+  background: linear-gradient(84.55deg, #ffffff 25.53%, #fafbfc 91.28%);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.08);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeIn {
+  100% {
+    opacity: 1;
+  }
+}
+
+.TileHolder:hover {
+  background: linear-gradient(178.92deg, #ffffff 1.85%, #eef1f5 98.15%);
+  box-shadow: 0 0.25rem 1.5rem rgba(0, 0, 0, 0.24);
+}
+
+.MainTile {
+  padding: 1.25rem 1.25rem;
+}
+
+.TileWrapper {
+  display: grid;
+}
+
+.TileImage {
+  width: auto;
+  height: 3.875rem;
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+  width: auto;
+}
+
+.TileTitle {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.tmClass {
+  position: relative;
+  font-size: 40%;
+  line-height: 0;
+  vertical-align: baseline;
+  top: -1.2em;
+}
+
+.TileIntroduction {
+  margin-top: 0.5rem;
+  font-size: 0.875em;
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 1024px) {
+  .TileHolder {
+    width: 15.25rem;
+    height: 18rem;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .TileHolder {
+    width: 17rem;
+    height: 18rem;
+  }
+}

@@ -1,0 +1,299 @@
+<template>
+  <div if:true={errorMessage}>
+    <h3 slot="title">{errorMessage.statusText}</h3>
+    <p class="slds-p-horizontal_small slds-text-color_error">
+      {errorMessage.body.message}
+    </p>
+  </div>
+  <lightning-record-view-form
+    if:true={isView}
+    record-id={recordId}
+    object-api-name="Call_Report__c"
+    onload={handleViewLoad}
+  >
+    <lightning-accordion
+      allow-multiple-sections-open
+      active-section-name={activeAccordionSections}
+    >
+      <template for:each={layoutSections} for:item="section">
+        <lightning-accordion-section
+          key={section.sectionIdentifier}
+          name={section.sectionIdentifier}
+          label={section.label}
+          class="section slds-m-vertical_small"
+        >
+          <template
+            if:false={section.hasTwoColumns}
+            for:each={section.layoutItems}
+            for:item="field"
+            class="slds-p-vertical_x-small"
+          >
+            <div key={field.field} class="slds-grid slds-border_bottom">
+              <div
+                if:true={field.isReadonly}
+                class="slds-col slds-size_12-of-12"
+              >
+                <lightning-output-field
+                  field-name={field.field}
+                  class="slds-m-bottom_none"
+                ></lightning-output-field>
+              </div>
+              <template if:false={field.isReadonly}>
+                <div class="slds-col slds-size_11-of-12">
+                  <lightning-output-field
+                    field-name={field.field}
+                    ondblclick={handleDbClick}
+                    class="slds-m-bottom_none"
+                  ></lightning-output-field>
+                </div>
+                <div
+                  class="slds-col slds-size_1-of-12 slds-align-bottom slds-p-bottom_xx-small slds-text-align_right"
+                >
+                  <lightning-button-icon
+                    icon-name="utility:edit"
+                    variant="bare"
+                    onclick={handleEditButton}
+                    data-id={field.field}
+                  ></lightning-button-icon>
+                </div>
+              </template>
+            </div>
+          </template>
+
+          <div
+            key={section.sectionIdentifier}
+            if:true={section.hasTwoColumns}
+            class="slds-p-vertical_x-small"
+          >
+            <div class="slds-grid slds-wrap">
+              <div
+                class="slds-col slds-size_1-of-2 slds-max-small-size_1-of-1 slds-p-right_small"
+              >
+                <template for:each={section.leftColumn} for:item="field">
+                  <div
+                    key={field.field}
+                    class="slds-grid slds-size_full slds-border_bottom"
+                  >
+                    <div
+                      if:true={field.isReadonly}
+                      class="slds-size_12-of-12 slds-border_bottom"
+                    >
+                      <lightning-output-field
+                        field-name={field.field}
+                        class="slds-m-bottom_none"
+                      ></lightning-output-field>
+                    </div>
+                    <template if:false={field.isReadonly}>
+                      <div class="slds-size_11-of-12">
+                        <lightning-output-field
+                          field-name={field.field}
+                          ondblclick={handleDbClick}
+                          class="slds-m-bottom_none"
+                        ></lightning-output-field>
+                      </div>
+                      <div
+                        class="slds-size_1-of-12 slds-align-bottom slds-p-bottom_xx-small slds-text-align_right"
+                      >
+                        <lightning-button-icon
+                          icon-name="utility:edit"
+                          variant="bare"
+                          onclick={handleEditButton}
+                          data-id={field.field}
+                        ></lightning-button-icon>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+              <div
+                class="slds-col slds-size_1-of-2 slds-max-small-size_1-of-1 slds-p-left_small"
+              >
+                <template for:each={section.rightColumn} for:item="field">
+                  <div
+                    key={field.field}
+                    class="slds-grid slds-size_full slds-border_bottom"
+                  >
+                    <template if:false={field.isReadonly}>
+                      <div class="slds-size_11-of-12">
+                        <lightning-output-field
+                          field-name={field.field}
+                          ondblclick={handleDbClick}
+                          class="slds-m-bottom_none"
+                        ></lightning-output-field>
+                      </div>
+                      <div
+                        class="slds-size_1-of-12 slds-align-bottom slds-p-bottom_xx-small slds-text-align_right"
+                      >
+                        <lightning-button-icon
+                          icon-name="utility:edit"
+                          variant="bare"
+                          onclick={handleEditButton}
+                          data-id={field.field}
+                        ></lightning-button-icon>
+                      </div>
+                    </template>
+                    <template if:true={field.isReadonly}>
+                      <div class="slds-size_12-of-12">
+                        <lightning-output-field
+                          field-name={field.field}
+                          class="slds-m-bottom_none"
+                        ></lightning-output-field>
+                      </div>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </lightning-accordion-section>
+      </template>
+    </lightning-accordion>
+  </lightning-record-view-form>
+
+  <lightning-record-edit-form
+    if:false={isView}
+    object-api-name="Call_Report__c"
+    record-id={recordId}
+    record-type-id={recordTypeId}
+    onsubmit={handleSubmit}
+    onsuccess={handleSuccess}
+    onerror={handleError}
+  >
+    <lightning-accordion
+      allow-multiple-sections-open
+      active-section-name={activeAccordionSections}
+    >
+      <template for:each={layoutSections} for:item="section">
+        <lightning-accordion-section
+          key={section.sectionIdentifier}
+          name={section.sectionIdentifier}
+          label={section.label}
+          class="section slds-m-vertical_small"
+        >
+          <template
+            if:false={section.hasTwoColumns}
+            for:each={section.layoutItems}
+            for:item="field"
+            class="slds-p-vertical_x-small"
+          >
+            <div key={field.field} class="slds-grid">
+              <div class="slds-col slds-size_full">
+                <lightning-input-field
+                  if:false={field.isCurrency}
+                  field-name={field.field}
+                  required={field.isRequired}
+                  read-only={field.isReadonly}
+                  class="slds-m-bottom_none"
+                  data-name={field.field}
+                ></lightning-input-field>
+                <lightning-input
+                  if:true={field.isCurrency}
+                  required={field.isRequired}
+                  read-only={field.isReadonly}
+                  data-name={field.field}
+                  type="number"
+                  step=".01"
+                  min="0"
+                  label={field.label}
+                  value={field.value}
+                ></lightning-input>
+              </div>
+            </div>
+          </template>
+          <div
+            key={section.sectionIdentifier}
+            if:true={section.hasTwoColumns}
+            class="slds-p-vertical_x-small"
+          >
+            <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-2 slds-max-small-size_1-of-1">
+                <template for:each={section.leftColumn} for:item="field">
+                  <div key={field.field} class="slds-grid slds-size_full">
+                    <div class="slds-size_full">
+                      <lightning-input-field
+                        if:false={field.isCurrency}
+                        field-name={field.field}
+                        required={field.isRequired}
+                        read-only={field.isReadonly}
+                        data-name={field.field}
+                        class="slds-m-bottom_none"
+                      ></lightning-input-field>
+                      <lightning-input
+                        if:true={field.isCurrency}
+                        required={field.isRequired}
+                        read-only={field.isReadonly}
+                        data-name={field.field}
+                        type="number"
+                        step=".01"
+                        min="0"
+                        label={field.label}
+                        value={field.value}
+                      ></lightning-input>
+                    </div>
+                  </div>
+                </template>
+              </div>
+              <div class="slds-col slds-size_1-of-2 slds-max-small-size_1-of-1">
+                <template for:each={section.rightColumn} for:item="field">
+                  <div key={field.field} class="slds-grid slds-size_full">
+                    <div class="slds-size_full">
+                      <lightning-input-field
+                        if:false={field.isCurrency}
+                        field-name={field.field}
+                        required={field.isRequired}
+                        read-only={field.isReadonly}
+                        data-name={field.field}
+                        class="slds-m-bottom_none"
+                      ></lightning-input-field>
+                      <lightning-input
+                        if:true={field.isCurrency}
+                        required={field.isRequired}
+                        read-only={field.isReadonly}
+                        data-name={field.field}
+                        type="number"
+                        step=".01"
+                        min="0"
+                        label={field.label}
+                        value={field.value}
+                      ></lightning-input>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </lightning-accordion-section>
+      </template>
+    </lightning-accordion>
+    <div
+      class="slds-docked-form-footer slds-grid slds-grid_align-center"
+      style="position: sticky"
+    >
+      <lightning-button-group class="slds-col">
+        <lightning-button
+          class="slds-p-right_xx-small"
+          label="Cancel"
+          onclick={handleCancel}
+          type="reset"
+        ></lightning-button>
+        <lightning-button
+          class="slds-p-left_xx-small"
+          label="Save"
+          type="submit"
+          variant="brand"
+        ></lightning-button>
+      </lightning-button-group>
+    </div>
+  </lightning-record-edit-form>
+
+  <template
+    if:true={showSpinner}
+    class="slds-is-relative slds-align_absolute-center"
+  >
+    <lightning-spinner
+      variant="brand"
+      size="medium"
+      alternative-text="Loading..."
+    ></lightning-spinner>
+  </template>
+</template>

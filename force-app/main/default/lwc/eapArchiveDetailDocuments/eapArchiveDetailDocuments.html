@@ -1,0 +1,46 @@
+<!--
+  @description       : Lwc to show archive event detail documents
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-24-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_container">
+        <template if:true={haveInformation}>
+            <template for:each={information} for:item="elem">
+                <div key={elem.Id} class="v1_div_listView" onclick={elem.openFile}>
+                    <template if:true={elem.IconStart}>
+                        <div class="v1_div_prettyList">
+                            <img src={elem.IconStart}></img>
+                        </div>
+                    </template>
+
+                    <div class="v1_div_prettyList v1_div_title">
+                        <p class="v1_p_title">{elem.Title}</p>
+                        <template if:true={elem.Subtitle}>
+                            <p class="v1_p_subtitle">{elem.Subtitle}</p>
+                        </template>
+                    </div>
+
+                    <div class="v1_div_prettyList v1_div_endInfo">
+                        <template if:true={elem.IconEnd}>
+                            <lightning-icon size="x-small" icon-name="utility:chevronright" alternative-text="Icon"
+                                title="Icon" class="v1_icon_end" name={elem.Id}></lightning-icon>
+                        </template>
+                        <template if:true={elem.ExtraInfo}>
+                            <p class="v1_p_subtitle">{elem.ExtraInfo}</p>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </template>
+
+        <template if:false={haveInformation}>
+            <c-eap-shield-message message={labels.NoDocuments}></c-eap-shield-message>
+        </template>
+    </div>
+</template>

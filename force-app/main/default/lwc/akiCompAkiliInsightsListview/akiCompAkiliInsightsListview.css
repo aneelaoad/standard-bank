@@ -1,0 +1,18 @@
+.THIS.orangeColor {
+    color: orange;
+}
+td.orangeColor {
+    color: yellowgreen;
+}
+.THIS.td.orangeColor {
+    color: rgb(84, 50, 205);
+}
+.td.orangeColor {
+    color: rgb(241, 24, 176);
+}
+.orangeColor {
+    color: darkblue;
+}
+.td-orangeColor {
+    color: rgb(10, 197, 57);
+}

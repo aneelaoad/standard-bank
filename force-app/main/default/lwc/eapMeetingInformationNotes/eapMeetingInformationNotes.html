@@ -1,0 +1,62 @@
+<!--
+  @description       : Lwc to show and manage the notes related to the meeting
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-06-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_container">
+        <!--Show a list of existing notes-->
+        <template if:true={showNotes}>
+            <template if:true={haveNotes}>
+                <template for:each={notes} for:item="note">
+                    <div key={note.Id} class="v1_div_listView" data-item={note.Id} onclick={editNote}>
+                        <div class="v1_div_prettyList v1_div_title">
+                            <p class="v1_p_title">{note.Title}</p>
+                            <template if:true={note.Subtitle}>
+                                <p class="v1_p_subtitle">{note.Subtitle}</p>
+                            </template>
+                        </div>
+        
+                        <div class="v1_div_prettyList v1_div_endInfo">
+                            <template if:true={note.IconEnd}>
+                                <img src={note.IconEnd} class="v1_icon_end"></img>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </template>
+
+            <template if:false={haveNotes}>
+                <c-eap-shield-message message="No notes added" is-over-two-buttons="true"></c-eap-shield-message>
+            </template>
+
+            <button title={labels.AddNotes} class="custom-full-button" onclick={addNotes}>{labels.AddNotes}</button>
+        </template>
+
+        <!--Write a new note-->
+        <template if:false={showNotes}>
+            <p class="v1_div_search">{labels.Notes}</p>
+            <template if:true={error.Title}>
+                <lightning-input class="error" type="text" name="titleNote" variant="label-hidden" placeholder={labels.Title} onblur={handleInputChange}></lightning-input>
+            </template>
+            <template if:false={error.Title}>
+                <lightning-input type="text" name="titleNote" variant="label-hidden" placeholder={labels.Title} onblur={handleInputChange}></lightning-input>
+            </template>
+
+            <template if:true={error.Content}>
+                <lightning-textarea class="error" name="contentNote" placeholder={labels.TypeHere} onblur={handleInputChange}></lightning-textarea>
+            </template>
+            <template if:false={error.Content}>
+                <lightning-textarea name="contentNote" placeholder={labels.TypeHere} onblur={handleInputChange}></lightning-textarea>
+            </template>
+
+            <button title={labels.Cancel} class="custom-contrast-button" onclick={cancelNote}>{labels.Cancel}</button>
+            <button title={labels.Save} class="custom-full-button" onclick={saveNote}>{labels.Save}</button>
+        </template>
+    </div>
+</template>

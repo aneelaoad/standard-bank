@@ -1,0 +1,14 @@
+:host { --sds-c-button-color-background: var(--tertiary-color); }
+.slds-button_brand { background-color: var(--sds-c-button-color-background, --tertiary-color); }
+button { 
+  font-size: 14px; font-weight: 500; font-stretch: normal; font-style: normal;
+  letter-spacing: 0.0771428571rem;
+  height: 3.571rem;
+  text-align: center;
+  color: var(--white-color, #fff);
+}
+
+.w236 { width: 16.857rem; }
+.w280 { width: 20rem; }
+.w300 { width: 21.4286rem; }
+.w340 { width: 24.2857rem; }

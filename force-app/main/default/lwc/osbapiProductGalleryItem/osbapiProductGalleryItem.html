@@ -1,0 +1,29 @@
+<template>
+    <div
+        class="sb-api-product"
+        onclick={handleNavigation}
+        data-id={title}
+        data-intent="Informational"
+        data-text="Application Gallery | Standard Bank Applicaion Clicked"
+    >
+        <div class="solutionShowcaseItem__logo">
+            <template if:true={hasIcon}>
+                <img src={icon} class="logoSolution" />
+            </template>
+            <template if:false={hasIcon}>
+                <img src={SBLogo} class="logoSolution" />
+            </template>
+        </div>
+        <div class="solutionShowcaseItem__title">
+            <template if:true={solTM}>
+                <p>{title}<sup class="tmClass">TM</sup></p>
+            </template>
+            <template if:false={solTM}>
+                <p>{title}</p>
+            </template>
+        </div>
+        <div class="solutionShowcaseItem__content">
+            <p>{description}</p>
+        </div>
+    </div>
+</template>

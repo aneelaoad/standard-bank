@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+          <property type="String" name="SBGInfoBoxIcon" label="Icon image URL" default="/sbg-info-circle.svg" />
+          <property name="Title" label="Title" type="String" default="" />  
+          <property name="Description" label="Description" type="String" default="" />  
+        </targetConfig>
+      </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,36 @@
+<template>
+    <div class="multi-select-input">
+        <div class="slds-form-element__label">
+            <template if:true={isRequired}>
+                <abbr title="required" class="slds-required">*</abbr>
+            </template>
+            {inputLabel}
+        </div>
+        <div class="slds-form-element__control">
+            <button class={buttonClass} onclick={toggleSelectDropdown}>
+                <template if:true={showPlaceholder}>
+                    <span class="input-placeholder" if:true={inputPlaceholder}>{inputPlaceholder}</span>
+                </template>
+                <template if:true={selectOptions}>
+                    <template for:each={selectOptions} for:item="option">
+                        <template if:true={option.selected}>
+                            <lightning-pill key={option.value} onclick={handleCheckboxChange} data-value={option.value}
+                                label={option.value}></lightning-pill>
+                        </template>
+                    </template>
+                </template>
+                <lightning-icon icon-name="utility:down" size="x-small"></lightning-icon>
+
+            </button>
+            <template if:true={showSelectDropdown}>
+                <div class="dropdown-content">
+                    <template for:each={selectOptions} for:item="option">
+                        <lightning-input key={option.value} type="checkbox" name="option" value={option.value}
+                            label={option.label} checked={option.selected}
+                            onchange={handleCheckboxChange}></lightning-input>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

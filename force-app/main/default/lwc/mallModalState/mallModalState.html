@@ -1,0 +1,10 @@
+<template>
+    <div class="modal-state" data-state={state}>
+        <div class="state-graphic-wrapper">
+            <div class="state-graphic" style={image}></div>
+        </div>
+        <p class="state-title">{title}</p>
+        <lightning-formatted-rich-text value={description}
+            class="state-description paragraph-spacing format-inherit"></lightning-formatted-rich-text>
+    </div>
+</template>

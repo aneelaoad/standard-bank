@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+
+    <targets>
+        <target>lightning__FlowScreen</target>
+        <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+
+        <targetConfig targets="lightning__FlowScreen,lightning__RecordPage,lightningCommunity__Default">
+            <property name="title" label="Progress Bar Title" type="String" description="It describes the title of the progress bar" />
+            <property name="stagenames" label="Stage Names" type="String" description="It describes the comma seperated stage names" />
+            <property name="currentstagenumber" label="Current Stage Number" type="String" description="It describes the current stage number which is in progress" />
+            <property name="currentstagestatus" label="Current Stage Status" type="String" description="It describes the current stage status(New=10, In Progress=50, Completed=100)" />
+            <property name="currentsectionnumber" label="Current Section Number" type="String" description="It describes number of current section" />
+            <property name="totalsectionnumber" label="Total Section Number" type="String" description="The number of total sections in the current stage" />
+            <property name="mobilesubheading" label="Mobile Subheading" type="String" description="It describes the sub heading information for mobile devices like how many sections completed" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,708 @@
+.overall {
+    z-index: 7003;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    font-family: var(--FONT-FAMILY);
+}
+
+.header_menu_item,
+.THIS dropdown__list {
+    color: #666666;
+    font-size: 14px;
+}
+
+.with-shadow {
+    box-shadow: 0 0.25rem 1.875rem 0 rgba(0, 0, 0, 0.2);
+}
+
+.header-container {
+    background: #0033a1;
+    display: block;
+}
+
+.header {
+    height: 5rem;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0033a1;
+}
+
+@media (max-width: 1279px) {
+    .header {
+        flex-direction: row-reverse;
+    }
+
+    .cancel_reverse {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1280px) {
+    .header {
+        height: 5rem;
+    }
+}
+
+.header__logo {
+    position: absolute;
+    padding: 0.5rem 0;
+    margin-left: 1rem;
+}
+
+@media (min-width: 1280px) {
+    .header__logo {
+        transform: translate(-50%, -50%);
+        top: 50%;
+    }
+}
+
+.withMenu .header__logo {
+    transform: translate(0, 0);
+    left: 0;
+    top: 0;
+}
+
+.logo_external {
+    position: relative !important;
+}
+
+.header.withMenu {
+    margin: auto;
+    padding: 0.5rem 0;
+}
+
+.header__account,
+.header__account_logged {
+    height: 100%;
+    display: flex;
+    margin-left: auto;
+    color: #fff;
+    align-items: center;
+}
+
+.header__account_logged {
+    margin-right: 0 !important;
+}
+
+@media (max-width: 479px) {
+    .header__account {
+        display: none;
+    }
+}
+
+@media (max-width: 1279px) {
+    .hide_on_bigres {
+        display: none !important;
+    }
+
+    .header__account {
+        margin-right: 0 !important;
+    }
+}
+
+@media (min-width: 480px) {
+    .header.withMenu {
+        padding-right: 1.25rem;
+        height: 5.625rem;
+    }
+
+    .header_button {
+        width: 9.625rem;
+        padding-left: 1rem;
+    }
+}
+
+.ms-icn_menu {
+    font-size: 3.125rem;
+    margin-left: 1.75rem;
+    color: #fff;
+}
+
+.header__user__icon {
+    font-size: 1.5625rem;
+    color: #fff;
+}
+
+@media (min-width: 1280px) {
+    .header__user__icon {
+        display: none;
+    }
+}
+
+.header__btn {
+    display: flex;
+    align-items: center;
+    padding: 0.5625rem 0.6875rem;
+    border: 1px solid #ffffff;
+    border-radius: 0.1875rem;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 0.875rem;
+    text-transform: uppercase;
+    background: transparent;
+    white-space: nowrap;
+}
+
+.header__btn__icon {
+    color: #fff;
+}
+
+.header__btn__icon,
+.header__user__icon {
+    align-self: center;
+    font-size: 2.25rem;
+}
+
+.header__user {
+    display: contents;
+    align-items: center;
+    margin-right: 0.625rem;
+    white-space: nowrap;
+}
+
+.header__user__name {
+    color: #fff;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+    font-weight: 300;
+}
+
+.login-container {
+    display: inline-flex;
+}
+
+.logoContainer {
+    background-image: var(--lwc-brandLogoImage);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 99;
+    cursor: pointer;
+    position: relative;
+    max-width: 100%;
+    max-height: 3.3125rem;
+    display: block;
+    outline: 0;
+    height: 3.3125rem;
+    min-width: 18.75rem;
+}
+
+.withMenu .logoContainer {
+    background-position: left;
+    margin-left: 0;
+}
+
+@media (max-width: 776px) {
+    .header__logo {
+        position: relative;
+        top: 0;
+        transform: translate(0, 0);
+        left: 0;
+    }
+}
+
+.header__button {
+    display: flex;
+    align-items: center;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    background: #0089ff;
+    padding: 1.5rem 2.8125rem;
+    margin: -0.5rem 0;
+    color: #fff;
+    border: 0;
+}
+
+.header__button--left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 0.5rem;
+    font-weight: 300;
+}
+
+.header__button--left span:first-child {
+    margin-left:  0.1875rem;
+}
+
+.header__button--icon {
+    display: block;
+    font-size: 1.5rem;
+}
+
+.header__button span {
+    white-space: nowrap;
+}
+
+.header__navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header__navigation li {
+    color: #fff;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.header__navigation .slds-is-active {
+    font-weight: 400;
+}
+
+.header__navigation--right {
+    margin-left: auto;
+}
+
+.slds-button:hover,
+.slds-button:focus,
+.THIS button {
+    color: #fff;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.no-hover:hover {
+    color: #fff;
+}
+
+.slds-m-left_xx-small {
+    margin-left: 1rem;
+    display: inline-flex;
+}
+
+.slds-dropdown {
+    padding: inherit;
+}
+
+.header__fixed-height {
+    height: 1.875rem;
+}
+
+.tabset {
+    padding-left: 1.375rem;
+    background-color: #ffffff;
+    box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.2);
+    height: 2.5rem;
+    margin-bottom: 1.5625rem;
+}
+
+.tab-menu-selected::after {
+    content: '';
+    box-sizing: border-box;
+    height: 0rem;
+    width: calc(100% + 1rem);
+    border: 4px solid #ffffff;
+    position: relative;
+    top: 2.25rem;
+    left: -0.5rem;
+    display: block;
+    margin-top: -0.6rem;
+}
+
+.tab-menu-selected-notif::after {
+    content: '';
+    box-sizing: border-box;
+    height: 0rem;
+    width: calc(100% + 1rem);
+    border: 4px solid #ffffff;
+    position: relative;
+    top: 0.625rem;
+    display: block;
+    margin-top: -0.6rem;
+}
+
+.tab-menu-selected-notif-None::after {
+    content: '';
+    box-sizing: border-box;
+    height: 0rem;
+    width: calc(100% + 1rem);
+    border: 4px solid #ffffff;
+    position: relative;
+    top: 2rem;
+    display: block;
+    margin-top: -0.6rem;
+}
+
+.tab-menu-scroll-notif::after {
+    top: -0.3125rem;
+}
+
+.tab-menu-scroll-notif-None::after {
+    top: 1rem;
+}
+
+.tab-menu-scroll::after {
+    top: 1.3rem;
+}
+
+.tabScroll::after {
+    content: '';
+    box-sizing: border-box;
+    height: 0px;
+    width: calc(100% + 16px);
+    border: 4px solid #ffffff;
+    position: relative;
+    top: 1.4rem;
+    left: -8px;
+    display: block;
+    margin-top: -10px;
+}
+
+.breadcrumbs__item {
+    height: 0.8125rem;
+    width: 9.25rem;
+    color: #767676;
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    line-height: 2.125rem;
+}
+
+.breadcrumb_gallerypage {
+    height: 2.375rem;
+    width: 100rem;
+    background-color: #ffffff;
+    box-shadow: 0 0.125rem 0.125rem 0 rgba(0, 0, 0, 0.2);
+    border-color: #767676;
+}
+
+.header__overlay {
+    background: #eeeeee;
+    opacity: 0.8;
+    height: -webkit-fill-available;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 150;
+}
+
+.header__notification {
+    margin-bottom: 0.0625rem;
+    margin-block: 0.25rem;
+}
+
+.notification__bell {
+    font-size: 1.75rem;
+    padding-left: 0.75rem;
+}
+
+.header_contact {
+    margin-right: 0.3125rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+}
+
+.header_dashboard {
+    margin-right: 0.3125rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+}
+
+.header_application {
+    margin-right: 0.3125rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+}
+
+.header_marketplace {
+    margin-right: 0.3125rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: relative;
+}
+
+.header_contact_menu {
+    margin-right: 0.3125rem;
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 0.625rem;
+    position: relative;
+}
+
+.align-nav {
+    display: inline-block;
+    margin-left: 6.25rem;
+    letter-spacing: 0;
+}
+
+.slds-button-class {
+    --sds-c-button-text-color-: #fff !important;
+    --sds-c-button-text-color: #fff !important;
+}
+
+.header__contact-container {
+    display: flex;
+    position: relative;
+    height: 100%;
+    margin-bottom: 0.3125rem;
+    margin-right: 0.9375rem;
+}
+
+.withMenu .header__contact-container .hoverCls:hover {
+    color: #0089ff;
+}
+
+.withMenu .header__contact-container:hover::after {
+    content: '';
+    height: 0.0625rem;
+    width: 100%;
+    position: absolute;
+    width: 100%;
+    bottom: -0.5rem
+}
+
+.header_dropdown {
+    margin-left: 0.625rem;
+    position: relative;
+}
+
+.slds-m-left_xx-small {
+    margin-left: 0.5rem;
+}
+
+.header__unread-notifications {
+    position: relative;
+    top: -2.1875rem;
+    right: -1.75rem;
+    display: inline-block;
+    margin-right: -16px;
+}
+
+.header__unread-notifications-container .header__unread-notifications {
+    position: relative;
+    top: -0.125rem;
+    right: 0.9375rem;
+    display: inline-block;
+    margin-right: -1rem;
+}
+
+.header__unread-notification {
+    height: 1rem;
+    min-width: 1rem;
+    background-color: #e70011;
+    border-radius: 0.5rem;
+}
+
+.header__unread-notification-number {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.three__digits {
+    width: 1rem;
+    margin-right: -0.75rem;
+    padding-right: 0.12rem;
+}
+
+.two__digits {
+    width: 1.3125rem;
+    margin-right: -0.3125rem;
+}
+
+.mobile__menu {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    padding-right: 1rem;
+    position: fixed;
+    z-index: 999;
+}
+
+.mobile__menu-header {
+    background-color: token(SBPrimaryBlue);
+    height: 4rem;
+    width: 100%;
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.mobile__menu-sign {
+    background-color: token(OSBLightBlue);
+    color: #fff;
+    height: 3rem;
+    width: 100%;
+    line-height: 1.75rem;
+    font-weight: 300;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile__menu-contact {
+    background-color: #fff;
+    color: token(OSBMediumGrey);
+    line-height: 1.75rem;
+    font-weight: 300;
+    padding-left: 2rem;
+    padding-top:  0.4375rem;
+}
+
+.ms-icn_close {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+@media (min-width: 1280px) {
+    .header.withMenu {
+        margin: auto;
+        height: 5.625rem;
+    }
+
+    .withMenu .header__logo {
+        margin-top: 0.375rem;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 1279px) {
+    .header__logo {
+        position: relative;
+        transform: translate(0, 0);
+        margin: unset;
+        flex-grow: 1;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 1279px) {
+    .header__mobile-menu {
+        flex-grow: 1;
+    }
+}
+
+.header__icon {
+    border-style: solid;
+    border-radius: 0.3125rem;
+    border: 0.0625rem solid white;
+    height: 2.5rem;
+    width: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 1280px) {
+    .header__mobile-menu {
+        display: none;
+    }
+
+    .header__icon {
+        display: none;
+    }
+}
+
+.header__unread-notifications__left {
+    position: relative;
+    top: -3.375rem;
+    right: -3.8125rem;
+    display: inline-block;
+    color: white;
+}
+
+.header__line-mobile {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.header__line-mobile>button>div {
+    padding-right: 1.25rem;
+}
+
+.header__line-mobile>button>div>img {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.header_dropdown-full-menu {
+    width: 100%;
+}
+
+.uit_link_inner > li {
+    list-style: none;
+}
+.uit_link > li {
+    list-style: none;
+}
+
+.cOSBBreadcrumb {
+    display: flex;
+    position: revert;
+    margin-top: 0 !important;
+}
+
+.breadcrumbs__container > div {
+    flex-grow: 1;
+}
+
+.breadcrumb__wide {
+    width: 100%;
+    text-align: center;
+}
+
+.links__container {
+    position: absolute;
+    width: 100%;
+    background: #ffffff;
+}
+
+.hidden_nonmobile {
+    display: none;
+}
+
+.hidden_link {
+    display: none;
+}
+
+.partial_link {
+    margin-left: 0.1875rem;
+    font-weight: bold;
+}
+
+.terms_link {
+    margin-left: 0.3125rem;
+    margin-top: 1.5625rem;
+}
+
+.ct_us {
+    margin-top: 2.5rem;
+}
+
+.header__button_contatiner {
+    padding-right: 0.625rem;
+}
+
+@media (max-width: 479px) {
+    .hidden_nonmobile {
+        display: flex;
+    }
+    .header.withMenu {
+        padding-right: 1.25rem;
+        height: 5.625rem;
+    }
+}

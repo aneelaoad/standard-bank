@@ -1,0 +1,27 @@
+<template>
+    <div class="Site_Container">
+        <div
+            class="containerDiv slds-size_6-of-6 slds-small-size_12-of-12 slds-medium-size_6-of-6 slds-large-size_6-of-6">
+            <div
+                class="content slds-size_6-of-6 slds-small-size_6-of-6 slds-medium-size_5-of-6 slds-large-size_4-of-6' : 'contentDifPad'}">
+                <img src={Logo2} />
+                <p class="ContentTitle ">
+                    {title}
+                </p>
+                <p class="contentText">
+                    <lightning-formatted-rich-text value={subtitle}></lightning-formatted-rich-text>
+                </p>
+            </div>
+            <div class="buttons">
+                <div
+                    class="buttons__container slds-size_6-of-6 slds-small-size_12-of-12 slds-medium-size_4-of-6 slds-large-size_4-of-6">
+                    <button class="primaryButton" data-id="uitlink_link" onclick={handleActionPrimary}>
+                        {primaryButtonText}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</template>

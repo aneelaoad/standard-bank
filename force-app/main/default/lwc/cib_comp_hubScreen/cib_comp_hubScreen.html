@@ -1,0 +1,167 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-12-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="aob_container-two">
+    <article class="aob_page-titles">
+      <h2 lwc:if={isLoaded}>Account Hub: {company}</h2>
+      <h2 lwc:else>
+        Account Hub:
+        <cmn_comp_stencil style="width: 100px; height: 32px"></cmn_comp_stencil>
+      </h2>
+    </article>
+    <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+      <div class="slds-size_6-of-12">
+        <div class="slds-m-around_x-small">
+          <div class="slds-grid slds-align-items_center">
+            <div class="icon">
+              <img style="padding-top: 10px" src={questionIcon} alt="help" />
+            </div>
+            <div>
+              <h6 class="" style="padding-top: 9px; font-size: 16px">
+                Do you need help?
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slds-size_6-of-12">
+        <div class="slds-text-align_right">
+          <lightning-button
+            class="slds-var-p-top_large"
+            label="Contact your Relationship Manager"
+            onclick={requestAssistance}
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+    <div class="aob_sec-title slds-p-top_x-large">
+      <h6>Document notification</h6>
+    </div>
+    <c-cib_comp_application-notification-section
+      data-id="notificationComp"
+      id="notificationComp"
+      record-id={recordId}
+      onsectionclick={navigateToSection}
+    >
+    </c-cib_comp_application-notification-section>
+
+    <template lwc:if={loading}>
+      <c-cib_comp_application-section
+        is-loading
+      ></c-cib_comp_application-section>
+      <c-cib_comp_application-section
+        is-loading
+      ></c-cib_comp_application-section>
+      <c-cib_comp_application-section
+        is-loading
+      ></c-cib_comp_application-section>
+      <c-cib_comp_application-section
+        is-loading
+      ></c-cib_comp_application-section>
+      <c-cib_comp_application-section
+        is-loading
+      ></c-cib_comp_application-section>
+    </template>
+
+    <template lwc:if={hasTodo}>
+      <div class="aob_sec-title mt_24">
+        <h6>To do</h6>
+      </div>
+      <template for:each={inProgressSections} for:item="section">
+        <c-cib_comp_application-section
+          data-id={section.Id}
+          key={section.Id}
+          section={section}
+          type="In Progress"
+          onsectionclick={navigateToSection}
+        ></c-cib_comp_application-section>
+      </template>
+    </template>
+
+    <template lwc:if={hasSubmitted}>
+      <div class="aob_sec-title mt_24">
+        <h6>Submitted</h6>
+      </div>
+      <template for:each={submittedSections} for:item="section">
+        <c-cib_comp_application-section
+          data-id={section.Id}
+          key={section.Id}
+          section={section}
+          type="Completed"
+          onsectionclick={navigateToSection}
+        ></c-cib_comp_application-section>
+      </template>
+    </template>
+
+    <template lwc:if={hasCompleted}>
+      <div class="aob_sec-title mt_24">
+        <h6>Completed</h6>
+      </div>
+      <template for:each={completedSections} for:item="section">
+        <c-cib_comp_application-section
+          data-id={section.Id}
+          key={section.Id}
+          section={section}
+          type="Completed"
+          onsectionclick={navigateToSection}
+        ></c-cib_comp_application-section>
+      </template>
+    </template>
+
+    <div class="aob_card-container aob_btns-between mt_20">
+      <lightning-button
+        label="Back"
+        class="slds-button"
+        variant="base"
+        onclick={navigateToBack}
+      ></lightning-button>
+      <lightning-button
+        disabled={isSubmittedDisabled}
+        label="Submit All"
+        onclick={handleSubmitAll}
+      ></lightning-button>
+    </div>
+
+    <template lwc:if={assistanceModal}>
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open"
+      >
+        <div class="slds-modal__container">
+          <header class="slds-modal__header header-background">
+            <button
+              class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+              title="Close"
+              onclick={closeAssistanceRequest}
+            >
+              <div src={closeIcon} class="survey_closed"></div>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-01" class="header-text">Need Assistance?</h2>
+          </header>
+          <div
+            class="slds-modal__content"
+            id="modal-content-id-1"
+            style="border-radius: 0px 0px 8px 8px"
+          >
+            <lightning-flow
+              flow-api-name="CIB_MAU_Assistance_Request_Flow"
+              flow-input-variables={assistanceRequestInputVariables}
+              onstatuschange={handleFlowStatusChange}
+            ></lightning-flow>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+  </div>
+</template>

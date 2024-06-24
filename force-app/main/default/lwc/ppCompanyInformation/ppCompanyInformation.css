@@ -1,0 +1,46 @@
+@import 'c/ppCssLibrary';
+.container{
+    font-family: system-ui;
+}
+.sec-heading {
+    width: 276px;
+    height: 68px;
+    margin-top: 32px;
+    margin-bottom: 16px; 
+    opacity: 1;
+    font-size:28px;
+    color :#1C263C;
+    line-height: 1.21
+}
+.sec-icon {
+    width: 120px;
+    opacity: 1;
+    padding-top: 27px;
+}
+.row {
+    display: flex;
+}
+.column {
+    flex: 50%;
+}
+.text {
+    width: 276px;
+    text-align: left;
+    opacity: 1;
+    color :#6A7286;
+    font-size:14px;
+    line-height: 1.43;
+    letter-spacing: normal;
+    margin-bottom: 22px;
+}
+
+
+@media(max-width: 414px) {
+    .text{
+        width: auto;
+    }
+    .sec-heading{
+        width: 193px;
+        height: auto;
+    }
+}

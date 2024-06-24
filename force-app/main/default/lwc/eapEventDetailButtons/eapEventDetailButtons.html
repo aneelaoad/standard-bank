@@ -1,0 +1,79 @@
+<!--
+  @description       : LWC to show event buttons
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-10-2021   TCK   Initial Version
+-->
+<template>
+    <template if:true={isOnline}>
+        <div class="v1_div_buttonsOnline">
+            <div class="v1_div_button" onclick={showDelegates}>
+                <div class="v1_div_iconButton">
+                    <img name={labels.Delegates} src={iconDelegate}>
+                </div>
+                <div class="v1_div_textButton">{labels.Delegates}</div>
+            </div>
+    
+            <div class="v1_div_button">
+                <div class="v1_div_iconButton" onclick={showDocuments}>
+                    <img name={labels.Documents} src={iconDocument}>
+                </div>
+                <div class="v1_div_textButton">{labels.Documents}</div>
+            </div>
+    
+            <div class="v1_div_button" onclick={showContacts}>
+                <div class="v1_div_iconButton">
+                    <img name={labels.Contacts} src={iconPhone}>
+                </div>
+                <div class="v1_div_textButton">{labels.Contacts}</div>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={isOnline}>
+        <div class="v1_div_buttonsIRL">
+            <div class="v1_div_button" onclick={showDelegates}>
+                <div class="v1_div_iconButton">
+                    <img name={labels.Delegates} src={iconDelegate}>
+                </div>
+                <div class="v1_div_textButton">{labels.Delegates}</div>
+            </div>
+            <div class="v1_div_button" onclick={showVenue}>
+                <div class="v1_div_iconButton" >
+                    <img name={labels.Venue} src={iconVenue}>
+                </div>
+                <div class="v1_div_textButton">{labels.Venue}</div>
+            </div>
+    
+            <div class="v1_div_button" onclick={showDocuments}>
+                <div class="v1_div_iconButton">
+                    <img name={labels.Documents} src={iconDocument}>
+                </div>
+                <div class="v1_div_textButton">{labels.Documents}</div>
+            </div>
+            <div class="v1_div_button" onclick={showContacts}>
+                <div class="v1_div_iconButton">
+                    <img name={labels.Contacts} src={iconPhone}>
+                </div>
+                <div class="v1_div_textButton">{labels.Contacts}</div>
+            </div>
+
+            <div class="v1_div_button" onclick={showItinerary} if:true={hasItinerary}>
+                <div class="v1_div_iconButton">
+                    <img class="filter" name={labels.Itinerary} src={iconItinerary}>
+                </div>
+                <div class="v1_div_textButton">{labels.Itinerary}</div>
+            </div>
+            <div class="v1_div_button" onclick={showAccommodation} if:true={hasAccommodation}>
+                <div class="v1_div_iconButton">
+                    <img name={labels.Accommodation} src={iconAccommodation}>
+                </div>
+                <div class="v1_div_textButton">{labels.Accommodation}</div>
+            </div>
+        </div>
+    </template>
+</template>

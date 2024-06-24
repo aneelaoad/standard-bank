@@ -1,0 +1,30 @@
+.body {
+    background-color: #D0021B;
+    width: 100%;
+    color: white;
+    font-family: var(--FONT-FAMILY);
+    font-size: 15px;
+    padding: 24px 20px;
+    font-weight: 400;
+}
+
+.strong{
+    font-weight: bolder;
+}
+
+@media(min-width: 1366px) {
+    .body{
+        padding-left: 7%;
+    }
+}
+
+@media(min-width: 1920px) {
+    .body {
+        padding-left: 20%;
+    }
+}
+@media(max-width: 480px) {
+    .mobile__banner-message {
+        display: none;
+    }
+}

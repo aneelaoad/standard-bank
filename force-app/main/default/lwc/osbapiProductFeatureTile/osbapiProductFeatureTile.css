@@ -1,0 +1,52 @@
+.feature-tile-container {
+    display: flex;
+    padding: 2rem;
+    background-color: white;
+    height: 12rem;
+}
+
+.feature-tile-content-container {  
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feature-tile-icon-container {
+    height: 4rem;
+    width: 4rem;
+    background-color: #002F93;
+    border-radius: 50%;
+    margin: 0.5rem 2rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature-tile-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature-tile-icon-image {
+    width: 60%;
+    height: auto;
+}
+
+.feature-tile-header-container {
+    color: #002F93;
+    font-weight: 400;
+    font-size: x-large;
+}
+
+.feature-tile-description-container {
+    color: #002F93;
+    height: 3rem;
+    margin-top: 1rem;
+    font-size: medium;
+}
+
+.feature-icon {
+    --sds-c-icon-color-foreground-default: white;
+}

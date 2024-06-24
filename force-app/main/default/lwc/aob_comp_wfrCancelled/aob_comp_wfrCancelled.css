@@ -1,0 +1,36 @@
+.aob_screen-title {
+    font-size: 28px!important;
+}
+
+.btn-secondary{
+    background-color: #fff!important;
+    color: #0089ff!important;
+  }
+  .btn-neutral{
+    width:320px;
+    margin-left: 15px;
+  }
+  .button_reverse{
+    margin-bottom: 34px;
+  }
+  @media (max-width:920px){
+  .aob_card_container{
+    padding-left: 7rem!important;
+    padding-right: 7rem!important;
+  }
+}
+div{}
+@media (max-width: 767px){
+  .button_reverse{
+    flex-direction: column-reverse;
+  }
+  .btn-neutral{
+    width: 250px;
+    margin: 15px auto;
+  }
+  .aob_card_container{
+    padding-left: 0rem!important;
+    padding-right: 0rem!important;
+  }
+  
+}

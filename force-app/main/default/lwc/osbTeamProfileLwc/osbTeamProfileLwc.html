@@ -1,0 +1,241 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="12">
+            <div class="TeamInvitesMain">
+                <div lwc:if={showToastFailure}>
+                    <c-osb-toast toasttype="failure" toastmessage={toastMessage} top="202px" left="760px"></c-osb-toast>
+                </div>
+                <div lwc:if={showToastSuccess}>
+                    <c-osb-toast toasttype="success" toastmessage={toastMessage} top="202px" left="760px"></c-osb-toast>
+                </div>
+                <template lwc:if={showLoading}>
+                    <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+                </template>
+                <div class="TeamInvitesMainHolder">
+                    <div class="breadCrumbNav">
+                        <ul class="marketplace__navigation-items">
+                            <li class="marketplace__navigation-item-container">
+                                    <span  class="marketplace__navigation-item marketplace__navigation-item--active" id="ProfilesandSettings"
+                                    data-tab-name="TeamProfile">
+                                    Team Profile<img class="ReadMoreArrow"
+                                      src={ReadMore}/>          
+                                  </span>
+                                
+                            </li>
+                            <li class="marketplace__navigation-item-container" data-id="top_nav_link"
+                                data-text="Team Profile | Invite team members"  data-intent="navigational" data-scope="Invite team members">
+                                <span onclick={handleNavItemChange} class="marketplace__navigation-item"
+                                    id="inviteMembers" data-tab-name="Invite team members">
+                                    Invite team members
+                                </span>
+                            </li>
+                            <li class="marketplace__navigation-item-container" data-id="top_nav_link"
+                                data-text="Team Profile | Pending Approvals" data-intent="navigational" data-scope="Pending Approvals">
+                                <span onclick={handleNavItemChange} class="marketplace__navigation-item" id="approvals"
+                                    data-tab-name="Pending approvals">
+                                    Invites
+                                </span>
+                            </li>
+                            <li class="marketplace__navigation-item-container" data-id="top_nav_link"
+                                data-text="Team Profile | Team details" data-intent="navigational" data-scope="Team details">
+                                <span onclick={handleNavItemChange}
+                                    class="marketplace__navigation-item" id="teamDetails" data-tab-name="Team details">
+                                    Team details
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="InviteHolder">
+                        <div class="newCase__form">
+                            <div lwc:if={showInviteSection}>
+                                <div class="align_Icon_center">
+                                    <img src={Logo} />
+                                </div>
+                                <h1 class="newCase__title">Invite team members</h1>
+                                <div class="newCase__subtitle">
+                                    <p>As an {Designation} you can invite team members and be able to manage their
+                                        access.
+                                    </p>
+                                </div>
+                                <div class="InviteSenderFormHolder">
+                                    <div class="rectangle">
+                                        <div class="SectionHeading">
+                                            Invites
+                                        </div>
+                                    </div>
+                                    <div class="InviteFormSection">
+                                        <form data-frmcontainer="invite team" data-id="invite team" id="inviteTeam" onsubmit={firstFormSubmit}>
+                                            <template for:each={rows} for:item="row" for:index="idx">
+                                                <div class="add_member" key={row.Id}>
+                                                    <div class="slds-form-element ">
+                                                        <lightning-input name="firstName" class="validate" type="text"  onchange={validateOnChange} onkeypress={stopSpecialChars}
+                                                            data-id="FirstName" label="Name" ></lightning-input>
+                                                    </div>
+                                                    <div class="slds-form-element surnameInputHolder">
+                                                        <lightning-input name="surname" class="validate" type="text" onkeypress={stopSpecialChars} 
+                                                            data-id="LastName" label="Surname"  onchange={validateOnChange}></lightning-input>
+                                                    </div>
+                                                    <div class="slds-form-element emailInputHolder">
+                                                        <lightning-input name="email" class="validate" type="email"
+                                                            data-id="Email" label="Email"  onchange={validateOnChange}></lightning-input>
+                                                    </div>
+                                                    <template lwc:if={accessLevel}>
+                                                        <div class="slds-form-element inviteToggle">
+                                                            <span class="slds-form-element__label">Can
+                                                                invite
+                                                                others?</span>
+                                                            <label class="slds-checkbox_toggle slds-grid">
+                                                                <input data-id="toggle" type="checkbox" value="false" />
+                                                                <span class="slds-checkbox_faux_container"
+                                                                    aria-live="assertive">
+                                                                    <span class="slds-checkbox_faux"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </template>                                                    
+                                                </div>
+                                            </template>
+                                            <lightning-layout-item size="12">
+
+                                                
+                                                <div
+                                                    class=" device   slds-small-size--3-of-6 slds-medium-size--3-of-6 slds-large-size--3-of-12 ">
+                                                    
+                                                    <lightning-layout-item class="slds-var-p-right_medium " size=12>
+                                                   
+                                                        <button type="button"
+                                                            class="ms-icn_add_circle noHighlight"
+                                                            data-id="Add another" data-intent="transactional" data-text="Team Profile | Invite Team Members | Add Another" data-scope="team profile"
+                                                            onclick={addRow}>
+                                                        </button>
+                                                      
+                                                        <lightning-layout-item size="12">
+                                                            <lightning-button variant="base" label="Add another"
+                                                                class="acc-copy-61 noHighlight "
+                                                                style="margin: auto; position:absolute; color: #585858 !important;"
+                                                               data-id="Add another" data-intent="transactional" data-text="Team Profile | Invite Team Members | Add Another" data-scope="team profile"
+                                                                onclick={addRow}>
+                                                            </lightning-button>
+                                                        </lightning-layout-item>
+                                               
+                                                    </lightning-layout-item>
+                                                    
+                                                </div>
+                                                
+                                            </lightning-layout-item>
+
+
+                                        </form>
+                                        <div class="newCase__buttons-container">                                               
+                                            <div class="btn--darkblue">
+                                                <button class="slds-button slds-button_neutral"
+                                                    data-id="cancel" data-intent="confirmational" type="button"  data-text="Team Profile | Invite Team Member | cancel" data-scope="team profile"
+                                                    onclick={cancel}>CANCEL</button>
+                                            </div>
+                                            <div class="btn--neutral">
+                                                <button class="slds-button slds-button_neutral tset"
+                                                   data-id="submit" data-intent="confirmational" data-text="Team Profile | Invite Team Member | submit" data-scope="team profile"
+                                                    onclick={sendInvite}>SEND</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div lwc:if={showPendingApprovals}>
+                                <div class="align_Icon_center">
+                                    <img src={Logo2} />
+                                </div>
+                                <h1 class="newCase__title">Invites</h1>
+                                <div class="newCase__subtitle">
+                                    Here you can view all the invites you've sent, and resend them if necessary.
+                                </div>
+                                <div class="rectangle">
+                                    <div class="SectionHeading">
+                                       Sent Invites
+                                    </div>
+                                </div>
+                                <div class="team_Invites_sec">
+                                    <template lwc:if={sentInviteLength}>
+                                        <template for:each={sentInvite} for:item="contact" for:index="index">
+                                            <div class="sentInvitesGrid" key={contact}>
+                                                <p class="teamFirstName">{contact.FirstName}</p>
+                                                <p class="teamLastName">{contact.LastName}</p>
+                                                <p class="teamEmail">{contact.Email}</p>
+                                                <input value={contact.Id} type="hidden" data-id={contact.unqiueValue}
+                                                    id={contact.Id} name="Contact Id"></input>
+                                                <lightning-formatted-date-time class="InviteSentDate"
+                                                    value={contact.OSB_Date_Invite_Sent__c} year="numeric"
+                                                    month="numeric" day="numeric">
+                                                </lightning-formatted-date-time>
+                                                <div class="btn--darkblue" key={contact.Id}>
+                                                    <button class="btnStyle btn--gray resend__button"
+                                                        onclick={resendOHInvitePopup}
+                                                        data-id={contact.unqiueValue}
+                                                        data-intent="confirmational" data-text="Team Profile | Pending Approval | Resend Invite" data-scope="team profile"
+                                                        >RESEND
+                                                        INVITES</button>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </template>
+                                    <template lwc:else>
+                                        <span>You have no sent invites.</span>
+                                    </template>
+                                </div>
+                            </div>
+                            <div lwc:if={showTeamDetails}>
+                                <div class="align_Icon_center">
+                                    <img src={Logo1} />
+                                </div>
+                                <h1 class="newCase__title">Team details</h1>
+                                <div class="newCase__subtitle aligncenter">
+                                    As a {Designation} you are able to deactivate a team member profile.
+                                    <p class="disclaimer">
+                                        <lightning-formatted-rich-text value={disclaimer}>
+                                        </lightning-formatted-rich-text>
+                                    </p>
+                                </div>
+                                <div class="rectangle">
+                                    <div class="SectionHeading">
+                                        Deactivate profile
+                                    </div>
+                                </div>
+                                <div class="detail_section">
+                                    <template lwc:if={teamDetailsLength}>
+                                        <template for:each={teamDetails} for:item="contact" for:index="index">
+                                            <div class="teamDeatilsGrid" key={contact}>
+                                                <p class="detailsFirstName"> {contact.FirstName}</p>
+                                                <p class="detailsLastName">{contact.LastName}</p>
+                                                <p class="detailEmail">{contact.Email}</p>
+                                                <p class="accessRole">{contact.OSB_Community_Access_Role__c}
+                                                </p>
+                                                <input value={contact.Id} type="hidden" data-id={contact.unqiueValue}
+                                                    id={contact.Id} name="Contact Id"></input>
+                                                <div class="btn--darkblue deactivate" key={contact.Id}>
+                                                    <button class="btnStyle btn--gray deactivate__button"
+                                                        onclick={deactivateUserOHAccessPopup}
+                                                        data-id={contact.unqiueValue}
+                                                        data-intent="confirmational" data-text="Team Profile | Team Details | Deactivate Member" data-scope="team profile"
+                                                        >DEACTIVATE</button>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </template>
+                                    <template lwc:else>
+                                        <span>You have no team members.</span>
+                                    </template>
+                                </div>
+                            </div>
+                            <template lwc:if={showMarketgramPopup}>
+                                <c-osb-market-gram-popup-lwc title={titleForPopup} content={contentForPopup}
+                                    onclosepopupevent={handleCloseEvent} >
+                                </c-osb-market-gram-popup-lwc >
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

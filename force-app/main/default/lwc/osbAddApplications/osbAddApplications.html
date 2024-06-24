@@ -1,0 +1,245 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="MyApplicationSection">
+        <template lwc:if={isDeleting}>
+            <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+        </template>
+        <template lwc:if={hasShortcut}>
+            <div class="HeaderSection">
+                <div class="ShortcutHeaderSectionWrapper">
+                    <div class="HeaderSectionWrapper">
+                        <p>My Shortcuts</p>
+                        <template lwc:if={myShortcutDisplay}>
+                            <button
+                                onclick={navigatetoManageShortcuts}
+                                title="Add"
+                                class="slds-button slds-button_neutral btnStyle btnStyleHeader removeWidth"
+                                data-id="nav_manage_shortcut"
+                                data-text="My Shortcuts | Add shortcuts"
+                                data-intent="navigational"
+                                data-scope="Add shortcuts"
+                            >
+                                <i
+                                    class="msClass ms-icn_add_circle addButtonIcon"
+                                ></i>
+                                <div>
+                                    <p class="TextButton removeText">
+                                        Add a Shortcut
+                                    </p>
+                                </div>
+                            </button>
+                        </template>
+                    </div>
+                    <i
+                        class="msClass ms-icn_chevron_up chevronIcon"
+                        data-id="ShortcutChevron"
+                        onclick={shortcutsDisplayChevron}
+                    ></i>
+                </div>
+            </div>
+            <div class="TileSection">
+                <div class="ApplicationHolder">
+                    <div class="ApplicationsBanner">
+                        <div
+                            class="myShortcutsContainer"
+                            data-id="myShortcutsContainer"
+                        >
+                            <template if:false={shortcutsHidden}>
+                                <template lwc:if={myShortcutDisplay}>
+                                    <div class="ApplicationTileWrapper">
+                                        <template lwc:if={registeredShortcuts}>
+                                            <template
+                                                for:each={registeredShortcuts}
+                                                for:item="shortcut"
+                                            >
+                                                <div
+                                                    class="ApplicationTileHolder"
+                                                    key={shortcut}
+                                                >
+                                                    <c-osb-my-shortcut-tile
+                                                        title={shortcut.Solution__r.Title}
+                                                        logo={shortcut.Solution__r.Large_Solution_Logo__c}
+                                                        solutionid={shortcut.Id}
+                                                        mediumlogo={shortcut.Solution__r.Medium_Solution_Logo__c}
+                                                        onappsolutionid={deleteSolution}
+                                                        applicationowner={shortcut.Solution__r.Application_Owner__c}
+                                                        ssoredirecturl={shortcut.Solution__r.SSO_Redirect_URL__c}
+                                                        hasdevices={mfaDevices}
+                                                        valuereceived={mfaReceived}
+                                                        ondevicemfarefresh={handleMFADevice}
+                                                        shortcutname={shortcut.Short_Cut_Name__c}
+                                                        shortcuturl={shortcut.Short_Cut_Redirect_URL__c}
+                                                        featuremanagement={shortcut.Solution__r.Feature_Management__c}
+                                                    >
+                                                    </c-osb-my-shortcut-tile>
+                                                </div>
+                                            </template>
+                                        </template>
+                                    </div>
+                                </template>
+                                <template lwc:else>
+                                    <div class="BannerHolder">
+                                        <div class="BannerWrapper">
+                                            <div class="ImageBannerHolder">
+                                                <img
+                                                    class="ImageBanner"
+                                                    src={AddShortcutImage}
+                                                />
+                                            </div>
+                                            <div class="TextBannerHolder">
+                                                <div class="TextSection">
+                                                    <p style="font-weight: 500">
+                                                        You have subscribed to
+                                                        an application that
+                                                        supports shortcuts.
+                                                    </p>
+                                                    <br />
+                                                    <p>
+                                                        Shortcuts are a quick
+                                                        way to get to your every
+                                                        day functions. Add a
+                                                        shortcut for your
+                                                        convenience.
+                                                    </p>
+                                                    <br />
+                                                </div>
+                                                <div class="ButtonSection">
+                                                    <button
+                                                        onclick={navigatetoManageShortcuts}
+                                                        title="Add"
+                                                        class="slds-button slds-button_neutral btnStyle"
+                                                        data-id="nav_manage_shortcut"
+                                                        data-text="My Shortcuts | Add shortcuts"
+                                                        data-intent="navigational"
+                                                        data-scope="Add shortcuts"
+                                                    >
+                                                        <i
+                                                            class="msClass ms-icn_add_circle addButtonIcon"
+                                                        ></i>
+                                                        <div>
+                                                            <p
+                                                                class="TextButton"
+                                                            >
+                                                                Add a Shortcut
+                                                            </p>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <div class="HeaderSection">
+            <div class="HeaderSectionWrapper">
+                <p>My Applications</p>
+                <template lwc:if={myAppsDisplay}>
+                    <button
+                        onclick={navigatetoApplicationGallery}
+                        title="Add"
+                        class="slds-button slds-button_neutral btnStyle btnStyleHeader removeWidth"
+                        data-id="nav_app_gallery"
+                        data-text="Dashboard | Add applications"
+                        data-intent="navigational"
+                        data-scope="Add applications"
+                    >
+                        <i class="msClass ms-icn_add_circle addButtonIcon"></i>
+                        <div>
+                            <p class="TextButton removeText">Add application</p>
+                        </div>
+                    </button>
+                </template>
+            </div>
+        </div>
+        <template lwc:if={isLoading}>
+            <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+        </template>
+        <template lwc:else>
+            <div class="TileSection">
+                <div class="ApplicationHolder">
+                    <div class="ApplicationsBanner">
+                        <template lwc:if={myAppsDisplay}>
+                            <div class="ApplicationTileWrapper">
+                                <template
+                                    for:each={registeredApplications}
+                                    for:item="registeredApplicationItem"
+                                >
+                                    <div
+                                        class="ApplicationTileHolder"
+                                        key={registeredApplicationItem}
+                                    >
+                                        <c-osb-my-applications-tile
+                                            title={registeredApplicationItem.Solution__r.Title}
+                                            logo={registeredApplicationItem.Solution__r.Large_Solution_Logo__c}
+                                            solutionid={registeredApplicationItem.Id}
+                                            mediumlogo={registeredApplicationItem.Solution__r.Medium_Solution_Logo__c}
+                                            onappsolutionid={deleteSolution}
+                                            applicationowner={registeredApplicationItem.Solution__r.Application_Owner__c}
+                                            ssoredirecturl={registeredApplicationItem.Solution__r.SSO_Redirect_URL__c}
+                                            hasdevices={mfaDevices}
+                                            valuereceived={mfaReceived}
+                                            ondevicemfarefresh={handleMFADevice}
+                                            featuremanagement={registeredApplicationItem.Solution__r.Feature_Management__c}
+                                        >
+                                        </c-osb-my-applications-tile>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <template lwc:else>
+                            <div class="BannerHolder">
+                                <div class="BannerWrapper">
+                                    <div class="ImageBannerHolder">
+                                        <img
+                                            class="ImageBanner"
+                                            src={AddApplicationImage}
+                                        />
+                                    </div>
+                                    <div class="TextBannerHolder">
+                                        <div class="TextSection">
+                                            <p style="font-weight: 500">
+                                                You have not subscribed to any
+                                                applications.
+                                            </p>
+                                            <br />
+                                            <p>
+                                                Find your solution in our
+                                                marketplace now.
+                                            </p>
+                                            <br />
+                                        </div>
+                                        <div class="ButtonSection">
+                                            <button
+                                                onclick={navigatetoApplicationGallery}
+                                                title="Add"
+                                                class="slds-button slds-button_neutral btnStyle"
+                                                data-id="nav_app_gallery"
+                                                data-text="Dashboard | Add applications"
+                                                data-intent="navigational"
+                                                data-scope="Add applications"
+                                            >
+                                                <i
+                                                    class="msClass ms-icn_add_circle addButtonIcon"
+                                                ></i>
+                                                <div>
+                                                    <p class="TextButton">
+                                                        Add an application
+                                                    </p>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

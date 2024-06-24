@@ -1,0 +1,303 @@
+.container_block{
+  background: linear-gradient(135deg, #0033A1 0%, #1F59D8 100%)!Important;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.aob_comp_form_title{
+  font-family: bentonsans-extra-light-webfont, "bentonsans-extra-light-webfont", sans-serif !important;
+    font-Weight : 300;
+    font-Size :47px;
+    line-height: 57px;
+    text-align: center;
+    color: #3C4B6C;
+    margin-bottom: 20px;
+  }
+  .aligns{
+    display: grid;
+    place-items: end;
+  }
+  .align{
+    display: grid;
+    place-items: center;
+  }
+  .aob_r_images{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+margin-top: 60px;
+margin-bottom: 60px;
+}
+.aob_r_images img{
+  margin-bottom:10px;
+}
+.aob_r_numbers{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+  .aob_background_white_smoke{
+    background-color: #F7F7F7;
+    margin: 30px 0;
+    padding: 40px;
+    margin-bottom: 50px;
+  }
+  .aob_background_white_smoke img{
+    padding-right: 12px;
+  }
+  .aob_screen-title{
+    font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 30px;
+    color: #3C4B6C;
+  }
+  .text{
+    font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+    width: 258px;
+    text-align: center;
+    height: 50px;
+    font-weight: 400;
+    font-size: 15px;
+    color: #858D9D;
+    margin-top: 15px;
+
+  }
+  .number{
+    border-radius: 50%;
+  width: 58px;
+  height: 58px;
+  padding: 20px;
+  color: #fff;
+  background: #1F59D8;
+  text-align: center;
+  font: 15px Arial, sans-serif;
+  }
+.text1{
+  font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 25px;
+  text-align: center;
+  width: 65%;
+  color: #858D9D;
+}
+.text2{
+  font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 25px;
+  text-align: center;
+  width: 50%;
+  color: #6F6F6F;
+}
+.text span{
+  font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 25px;
+  text-align: center;
+}
+.text2 span{
+  font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 25px;
+  text-align: center;
+}
+  .aob_screen-sub-section-title{
+    font-family: bentonsans-extra-light-webfont, "bentonsans-extra-light-webfont", sans-serif !important;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 57px;
+    color: #3C4B6C;
+    margin: 15px 0;
+  }
+  .slds-button{
+    width: 300px !important;
+    height: 50px !important;
+    background-color: #0089FF;
+    color: #F7F7F7;
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .aob_80_width{
+    width: 100%!important;
+    margin-left: 0%!important;
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  .aob_screen-sub-title{
+    font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 30px;
+    color: #858D9D;
+    
+  }
+.aob_screen-sub-titles{
+  font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif !important;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 30px;
+    color: #0A2240;
+    margin-bottom: 0px !important;
+    padding-top: 4px;
+}
+
+  
+
+  .gradient-underline {
+    padding-bottom: 4px;
+    position: relative;
+    text-decoration: none;
+    margin-left: 20px;
+    box-sizing: border-box;
+    line-height: 30px;
+  display: block;
+}
+.gradient-underline::after {
+  background: linear-gradient(270deg, #FFB94F 0%, #FF5A00 100%);
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 14%;
+}
+ .aob_card_container{
+    padding: 30px 0 !important;
+  }
+  @media(max-width:1024px){
+    .aob_card_container{ 
+      width: 80%;
+  }
+}
+@media(max-width:1000px){
+  .aob_card_container{ 
+    width: 80%;
+}
+}
+@media(max-width:425px){
+  .aob_r_images{
+    display: block;
+  }
+  .aob_r_images .align {
+    display: flex;
+    justify-content: center;
+    margin-right: 50px;
+  }
+  .aob_r_numbers{
+    display: block;
+  }
+  .aob_r_images .align{
+    display: block;
+  }
+  .slds-button{
+    width: 80%!important;
+  }
+}
+
+@media(max-width:700px) and (min-width:425px){
+  .aob_r_images{
+    display: grid;
+    place-items: center;
+  }
+
+  .aob_r_numbers{
+    display: block;
+  }
+  .aob_r_images .aligns {
+    display: grid;
+    place-items: center;
+  }
+  
+}
+@media(max-width:425px){
+.aob_r_images .align{
+  margin-left: 50px;
+}
+.aob_r_numbers{
+  display: block;
+}
+}
+@media(max-width:425px){
+  .text2{
+    width: 100%;
+  }
+}
+@media(max-width:1024px) and (min-width:769px){
+  .Main_tab img{
+    width: 220px;
+  }
+  .gradient-underline::after{
+    width: 20%;
+  }
+}
+@media(max-width:768px) and (min-width:426px){
+  .gradient-underline::after{
+    width: 60%;
+  }
+  .gradient-underline{
+    line-height: 45px;
+  }
+}
+@media(max-width:425px) and (min-width:320px){
+  .Main_tab img{
+    width: 220px;
+  }
+  .gradient-underline::after{
+    width: 90%;
+  }
+}
+@media(max-width:998px) and (min-width:701px){
+  .text1{
+    width: 85%;
+  }
+}
+@media(max-width:425px) {
+ .aligns{
+  display: grid;
+    place-items: center;
+ }
+}
+@media(max-width:320px) {
+  .align{
+    margin-right: 0px;
+  }
+  .aob_r_numbers{
+    place-items: center;
+    display: grid;
+  }
+}
+@media(max-width:1200px) and (min-width:1024px){
+  .gradient-underline::after{
+    width: 17%;
+  }
+}
+@media(max-width:991px) and (min-width:769px){
+  .gradient-underline::after{
+    width: 26%;
+  }
+}
+@media(max-width:570px) and (min-width:424px){
+  .gradient-underline::after{
+    width: 85%;
+  }
+}
+@media(max-width:700px){
+  .aob_r_numbers{
+    margin-top: 0px !important;
+  }
+}
+@media(max-width:320px){
+  .text2{
+    font-size: 14px;
+  }
+  .aob_screen-title{
+    font-size: 14px;
+  }
+}

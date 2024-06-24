@@ -1,0 +1,77 @@
+<!-- **
+* @description  : Partner Portal Login Page Component
+* User Story : SFP-4844
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    <div class="container">
+        <img src={backgroundImage} class="backgroundImg">
+        <div class="slds-grid slds-wrap main-grid">
+            <div class="slds-col slds-size_12-of-12 slds-align_absolute-center">
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col form-container">
+                        <div class="slds-grid slds-grid_vertical" data-frmcontainer="Login to Partner Connect" id="Login_to_Partner_Connect">
+                            <div class="slds-col">
+                                <img src={logo} class="slds-align_absolute-center lg-logo">
+                            </div>
+                            
+                            <div class="slds-col top-heading">
+                                <p class="slds-align_absolute-center">Login to </p>
+                                <p class="slds-align_absolute-center">Partner Connect</p>
+                            </div>
+                            <div class="slds-col lg-text">
+                                <p class="slds-align_absolute-center">Welcome back!</p>
+                                <p class="slds-align_absolute-center">Please enter your partner connect credentials to login.</p>
+                            </div>
+                            <div class="slds-col fields">
+                                <lightning-input type="email" label="Registered Username" name="registeredemail"
+                                    class="registeredemail" onchange={handleInputChange} placeholder="Username">
+                                </lightning-input>
+
+                            </div>
+                            <div class="slds-col fields" style="margin-top: 0;">
+                                <lightning-input type="password" label="Password" name="password" class="password"
+                                    onchange={handleInputChange} placeholder="Enter Password"></lightning-input>
+                            </div>
+
+                            <div class="slds-col forget-password">
+                                <a href={forgetPasswordPage} data-intent="navigational" data-scope="Login Page" data-id="link_content"
+                                   data-text="Login to partner connect | Forget Password link click" onclick={tracker}>
+                                    Forgot Password?
+                                </a>
+                            </div>
+
+                            <template if:true={errorMsg}>
+                                <div class="slds-col error">
+
+                                    <p>{errorMsg}</p>
+
+                                </div>
+                            </template>
+                            <div class="slds-col">
+                                <button class="slds-button slds-button_neutral btn-login"
+                                    onclick={handleLogin}
+                                    data-intent="navigational" data-scope="Login Page" data-id="link_content" data-text="Login to partner connect | Login button click"
+                                    >LOGIN</button>
+                            </div>
+
+                            <div class="slds-col register">
+
+                                <p>Haven’t registered with us yet? <a href={registrationPage}
+                                    data-intent="navigational" data-scope="Login Page" data-id="link_content"
+                                    data-text="Login to partner connect | Register link click" onclick={tracker}>Register</a>
+                                </p>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</template>

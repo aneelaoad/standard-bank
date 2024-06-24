@@ -1,0 +1,179 @@
+<template>
+    <div class="device-container">
+        <div class="device-rectangle">
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12">
+                    <template if:true={loading}>
+                        <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+                    </template>
+
+                    <template if:true={deviceRemoved}>
+                        <c-osb-toast
+                            toasttype="success"
+                            toastmessage={toastMessage}
+                            top="18%"
+                            left="50%"
+                        ></c-osb-toast>
+                    </template>
+                    <template if:true={allDevicesRemoved}>
+                        <c-osb-toast
+                            toasttype="success"
+                            toastmessage={toastMessage}
+                            top="18%"
+                            left="50%"
+                        ></c-osb-toast>
+                    </template>
+                    <template if:true={qrTimedOut}>
+                        <c-osb-toast
+                            close-popup={qrTimedOut}
+                            toasttype="warning"
+                            top="18%"
+                            left="50%"
+                            toast-message="QR code timed out. Please use device management to add a new device"
+                        >
+                        </c-osb-toast>
+                    </template>
+                    <template if:true={unexpectedError}>
+                        <c-osb-toast
+                            close-popup={unexpectedError}
+                            toasttype="warning"
+                            top="18%"
+                            left="50%"
+                            toast-message="An unexpected error occured"
+                        ></c-osb-toast>
+                    </template>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <div class="device-list">
+                        <div class="Sign__icon">
+                            <i class="ms-icn_shield_lock"></i>
+                        </div>
+
+                        <h1 class="device-management">Device Management</h1>
+                        <div class="acc-copy-51">
+                            Manage the devices that you use to access OneHub
+                            here.
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <div class="rectangle-copy">
+                        <div class="linked-devices title">Linked Devices</div>
+                    </div>
+                </lightning-layout-item>
+                <template if:false={blankResponse}>
+                    <lightning-layout-item
+                        size="12"
+                        small-device-size="12"
+                        medium-device-size="12"
+                        large-device-size="12"
+                        class="slds-var-p-around_small"
+                    >
+                        <template if:false={noDevicesLinked}>
+                            <div class="device-table">
+                                <c-osb-device-management-table-lwc
+                                    all-device-auth-list={allDeviceAuthList}
+                                    ondeletevent={handleDeleteDevice}
+                                >
+                                </c-osb-device-management-table-lwc>
+                            </div>
+                        </template>
+                    </lightning-layout-item>
+
+                    <template if:true={noDevicesLinked}>
+                        <div
+                            class="acc-copy-53"
+                            style="text-align: center; margin: auto"
+                        >
+                            You don't have any linked devices.
+                        </div>
+                    </template>
+
+                    <lightning-layout-item size="12">
+                        <lightning-layout-item
+                            class="slds-var-p-right_xx-small"
+                            size="12"
+                        >
+                            <button
+                                type="button"
+                                class="ms-icn_add_circle noHighlight"
+                                style="text-align: center"
+                                data-id="Add Device"
+                                data-intent="transactional"
+                                data-text="Device Management | Add devices"
+                                data-scope="device management"
+                                onclick={handleAddDevice}
+                            ></button>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12">
+                            <button
+                                type="button"
+                                class="add-device noHighlight"
+                                style="margin: auto; position: absolute"
+                                data-id="Add Device"
+                                data-intent="transactional"
+                                data-text="Device Management | Add devices"
+                                data-scope="device management"
+                                onclick={handleAddDevice}
+                            >
+                                ADD DEVICE
+                            </button>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12">
+                            <template if:false={noDevicesLinked}>
+                                <template if:true={deviceListNotGreaterThanOne}>
+                                    <button
+                                        class="remove-all-devices noHighlight noHighlight slds-float_right slds-var-p-right_small"
+                                        type="button"
+                                        data-id="Remove all devices"
+                                        data-intent="transactional"
+                                        data-text="Device Management | Remove all devices"
+                                        data-scope="device management"
+                                        onclick={handleRemoveAllDevices}
+                                    >
+                                        Remove all devices
+                                    </button>
+                                </template>
+                            </template>
+                        </lightning-layout-item>
+                    </lightning-layout-item>
+                </template>
+
+                <template if:true={blankResponse}>
+                    <div class="no-data-received">
+                        No data received from server. Please try after sometime.
+                    </div>
+                </template>
+
+                <lightning-layout-item>
+                    <template if:true={openModal}>
+                        <c-osb-new-device-modal-lwc
+                            onmfadeviceregistered={handleMFADevice}
+                            onupdatedeviceregistered={handleMFAModal}
+                            indashboard="false"
+                        ></c-osb-new-device-modal-lwc>
+                    </template>
+                    <template if:true={cantAddDevice}>
+                        <c-osb-market-gram-popup-lwc
+                            title="You can’t add more devices"
+                            content="You have added the maximum amount of devices and cannot add more."
+                            info-popup="true"
+                        >
+                        </c-osb-market-gram-popup-lwc>
+                    </template>
+                    <template if:true={removeAllDevices}>
+                        <c-osb-market-gram-popup-lwc
+                            title="Remove all devices?"
+                            onclosepopupevent={handleDeleteAllDevices}
+                            content="Removing all devices will unlink all authenticators from your profile."
+                            icon="QuestionMark"
+                        >
+                        </c-osb-market-gram-popup-lwc>
+                    </template>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,82 @@
+<!--
+  @description       : SFP-27748
+  @author            : devi.ravuri@salesforce.com
+  @last modified on  : 26 APRIL 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38348
+-->  
+<template>
+<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container ">
+            <c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
+            <header class="slds-modal__header">
+                <button class="button slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                    title="Close" onclick={customHideModalPopup}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"
+                        data-id="link_content" data-intent="navigational" data-text={adobeDataTextBack}
+                        onclick={handleClosePoup}>
+                    </lightning-icon>
+                    <span class="slds-assistive-text">{label.AOB_Close}</span>
+                </button>
+                <h2 class="header slds-text-heading_medium slds-hyphenate">{label.AOB_SignLegalAgreements}</h2>
+            </header>
+            <div class="content slds-modal__content slds-p-around_medium">
+                <div class="By-clicking-sign-I Desktop-Entrance-text-Dark-2">
+                    {label.AOB_ByClickingSign}
+
+                </div>
+                <ul>
+                    <li class="confrim">{label.AOB_ConfirmThatIHaveRead}</li>
+                    <li class="links"><a data-code="0" onclick={fetchDocument} data-id="link_content"
+                            data-intent="informational" data-scope={scope}
+                            data-text={adobedatatextappGeneralTermsandconditions}>{label.AOB_GeneralTermsAndConditions}</a>
+                    </li>
+                    <li class="links"><a data-code={mymoBizId} onclick={fetchDocument} data-id="link_content"
+                            data-intent="informational" data-scope={scope}
+                            data-text={adobedatatextappMymobizbusinessaccounttermsandconditions}>
+                            {label.AOB_MymobizBusinessAccountTermsAndC}</a></li>
+                    <li class="links"><a data-code={marketLinkId} if:true={marketLinkId} onclick={fetchDocument}
+                            data-id="link_content" data-intent="informational" data-scope={scope}
+                            data-text={adobedatatextappMarketlinkTermsAndconditions}>{label.AOB_MarketlinkTermsAndConditions}</a>
+                    </li>
+                    <li class="links"><a data-code={pocketBizId} if:true={pocketBizId} onclick={fetchDocument}
+                            data-id="link_content" data-intent="informational" data-scope={scope}
+                            data-text={adobedatatextappPocketbiztermandconditions}>{label.AOB_PocketbizTermsAndConditions}</a>
+                    </li>
+                    <li class="links"><a data-code={snapScanId} if:true={snapScanId} onclick={fetchDocument}
+                            data-id="link_content" data-intent="informational" data-scope={scope}
+                            data-text={adobedatatextappSnapscantermandconditions}>{label.AOB_SnapscanTermAndConditions}</a>
+                    </li>
+                    <li class="links"><a data-code="111" onclick={fetchDocument} data-id="link_content"
+                            data-intent="informational" data-scope={scope}
+                            data-text={adobedatatextappShareHolderCertificate}>{label.AOB_ShareHolder}</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="confrim">
+                        {label.AOB_Acknowledge} <b>{label.AOB_WFR}</b>
+                        
+                    </li>
+                    <li class="confrim">{label.AOB_Warrant}
+                    </li>
+                </ul>
+                <ul>
+                    <li class="dots">{label.AOB_Authorised} </li>
+                    <li class="dots">{label.AOB_AgreementConstitutes} </li>
+                    <li class="dots">{label.AOB_AccountsAreSubject} </li>
+                    <li class="dots">{label.AOB_TermsAgreement} </li>
+                    <li class="dots"> {label.AOB_AllInformationProvided}</li>
+                    <li class="dots">{label.AOB_CompanyIsNotInDefault}</li>
+                </ul>
+                <div class="btn_standard" style="color:white;">
+                    <button class="slds-button slds-button_brand" data-id="link_content" data-intent="confirmational"
+                        data-scope={scope} data-text={adobeDataTextContinue} onclick={handleSignMethod}
+                        type="button">SIGN</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

@@ -1,0 +1,53 @@
+@import 'c/ppCssLibrary';
+
+.main-container{
+    text-align: left;
+    font-family: system-ui;
+}
+
+.btn {
+    width: 100%;
+    height: 40px;
+    background-color: #0089ff;
+    border-color: #0089ff !important; 
+    color: #ffffff;
+    font-weight: bold;   
+    line-height: 1.43;
+    letter-spacing: 1px;
+    border-radius: 2px;
+}
+
+.btn:hover{
+    background-color: #0069C4;
+}
+
+.text{
+  font-weight: normal;
+  line-height: 1.43;
+  letter-spacing: 0.03px;
+  color: #6a7286;
+}
+
+.lline{
+    background: #c6c6c8;
+    height: 2px;
+}
+
+.fieldName {
+    text-align: left;
+    color: #6a7286;
+    padding-bottom: 8px;
+}
+
+.fieldValue {
+    text-align: left;
+    color: #1c263c;
+    padding-bottom: 12px;
+}
+
+@media(max-width: 414px) {
+    .combobox-container {
+        width: 259px;
+    }
+
+}

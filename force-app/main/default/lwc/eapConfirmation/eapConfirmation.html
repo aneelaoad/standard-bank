@@ -1,0 +1,28 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 02-09-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-28-2021   TCK   Initial Version
+-->
+<template>
+    <div class="container">
+        <div class="centered_container">
+            <div class="v1_div_containerShield">
+                <div class="v1_div_setIcons">
+                    <img class="shield" src={shield}>
+                    <img class="v1_icon_overShield" src={icon}>
+                </div>
+                <lightning-formatted-rich-text class="v1_div_message" value={message}></lightning-formatted-rich-text>
+            </div>
+    
+            <div class="v1_div_containerButton">
+                <button label={labels.Close} class="custom-contrast-button" onclick={showAccommodation}>{labels.Close}</button>
+            </div>
+        </div>
+    </div>
+    <c-eap-footer isfixed="true"></c-eap-footer>
+</template>

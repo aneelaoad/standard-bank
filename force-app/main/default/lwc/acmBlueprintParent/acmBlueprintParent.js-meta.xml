@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Default</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default,lightning__FlowScreen">
+            <property name="rowheading" type="String" label="Row Heading" />
+            <property name="card1IsRecommended" type="Boolean" label="Card 1 Recommended" />
+            <property name="card1Heading" type="String" label="Card 1 Heading" />
+            <property name="card1Description" type="String" label="Card 1 Description" />
+            <property name="card1ButtonLabel" type="String" label="Card 1 Button Label" />
+            <property name="card1ButtonUrl" type="String" label="Card 1 Button URL" />
+
+            <property name="card2IsRecommended" type="Boolean" label="Card 2 Recommended" />
+            <property name="card2Heading" type="String" label="Card 2 Heading" />
+            <property name="card2Description" type="String" label="Card 2 Description" />
+            <property name="card2ButtonLabel" type="String" label="Card 2 Button Label" />
+            <property name="card2ButtonUrl" type="String" label="Card 2 Button URL" />
+
+            <property name="card3IsRecommended" type="Boolean" label="Card 3 Recommended" />
+            <property name="card3Heading" type="String" label="Card 3 Heading" />
+            <property name="card3Description" type="String" label="Card 3 Description" />
+            <property name="card3ButtonLabel" type="String" label="Card 3 Button Label" />
+            <property name="card3ButtonUrl" type="String" label="Card 3 Button URL" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

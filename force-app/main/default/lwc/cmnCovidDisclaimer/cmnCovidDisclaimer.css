@@ -1,0 +1,62 @@
+.alertBanner { padding: 15px; font-size: 14px; text-align: center; background: #d0021b; color: var(--white-color); display: block; }
+.alertBanner a { color: var(--white-color);  text-decoration:underline; }
+
+.container {
+  z-index: 30;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  font-family: var(--lwc-fontFamilyHeader);
+  font-weight: 200;
+  display: inline-block;
+}
+
+@media (min-width: 576px) {
+  .container { max-width: 540px; }
+}
+
+@media (min-width: 768px) {
+  .container { max-width: 720px; }
+}
+
+@media (min-width: 992px) {
+  .container { max-width: 960px; }
+}
+
+@media (min-width: 1200px) {
+  .container { max-width: 1140px; }
+}
+
+@media (min-width: 1200px) {
+  .container { max-width: 1220px; }
+}
+
+@media (min-width: 768px) {
+  .container { max-width: 1220px; }
+}
+
+@media (min-width: 500px) {
+  .container { max-width: 1220px; }
+}
+
+.row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-md-12 {
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}

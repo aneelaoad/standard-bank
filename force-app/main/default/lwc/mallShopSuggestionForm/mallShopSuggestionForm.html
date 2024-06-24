@@ -1,0 +1,151 @@
+<template>
+  <c-mall-toast-notifcation auto-close-time="10000"></c-mall-toast-notifcation>
+  <div class="wrapper">
+    <div class="contact_us_section">
+      <div class="container">
+        <div class="contact_us_inner">
+          <div class="shop_form_title">
+            <p class="shop_form_title_text">{shopFormTextTitle}</p>
+          </div>
+          <template if:false={isSuggestionSubmitted}>
+            <div class="row">
+              <div class="col-lg-8 col-md-7">
+                <div class="contact_us_detail">
+                  <div>
+                    <div class="contact_text">
+                      <p>{noShopText}</p>
+                    </div>
+                    <div class="form">
+                      <div class="form">
+                        <div class="grid-container">
+                          <template if:true={isFieldRequired}>
+                            <div class="grid-item">
+                              <div class="formInput">
+                                <label class="form-label"
+                                  ><abbr title="required" class="slds-required"
+                                    >*</abbr
+                                  >{fullNameLabel}</label
+                                >
+                                <div class="formInput_field">
+                                  <input
+                                    id="name"
+                                    required={isFieldRequired}
+                                    maxlength="80"
+                                    name="name"
+                                    size="20"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder={placeholderFullName}
+                                    onchange={handleNameChange}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="grid-item">
+                              <div class="formInput">
+                                <div class="formInput">
+                                  <label class="form-label"
+                                    ><abbr
+                                      title="required"
+                                      class="slds-required"
+                                      >*</abbr
+                                    >{emailAddressLabel}</label
+                                  >
+                                  <div class="formInput_field">
+                                    <input
+                                      id="email"
+                                      required={isFieldRequired}
+                                      maxlength="80"
+                                      name="email"
+                                      size="20"
+                                      type="email"
+                                      class="form-control"
+                                      placeholder={placeholderEmailAddress}
+                                      onchange={handleEmailChange}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </template>
+                          <div class="grid-item">
+                            <div class="formInput col-lg-6">
+                              <label class="form-label" for="description"
+                                ><abbr title="required" class="slds-required"
+                                  >*</abbr
+                                >{shopSugegestionTitleLabel}</label
+                              >
+                              <div class="formInput_field">
+                                <textarea
+                                  class="form-control_textarea"
+                                  required
+                                  name="description"
+                                  placeholder={placeholderShopSugegestionTitle}
+                                  onchange={handleDescriptionChange}
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="grid-item">
+                            <div class="formInput col-lg-6">
+                              <label class="form-label" for="comment"
+                                >{contactSuggestedShopLabel}</label
+                              >
+                              <div class="formInput_field">
+                                <textarea
+                                  class="form-control_textarea"
+                                  name="comment"
+                                  placeholder={placeholderContactSuggestedShopLabel}
+                                  onchange={handleCommentChange}
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div>
+                          <div class="col-lg-12">
+                            <div class="form_submit">
+                              <c-mall-cmn-button
+                                interaction-intent={buttonInteractionIntent}
+                                interaction-scope={buttonInteractionScope}
+                                interaction-type={buttonInteractionType}
+                                interaction-text={buttonInteractionText}
+                                interaction-text-before={buttonInteractionTextBefore}
+                                variant="mall"
+                                label={sendButtonLabel}
+                                title={sendButtonLabel}
+                                w-class="auto"
+                                onclick={handleSaveCase}
+                              ></c-mall-cmn-button>
+                            </div>
+                          </div>
+
+                          <div class="form-validation">
+                            <p class="mall-shop-required">
+                              *Fields marked with an * are mandatory.
+                            </p>
+                            <p class="mall-shop-required">
+                              *We will try our best, but we cannot guarantee
+                              that suggested providers or offerings will be
+                              added to BCB Platform
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template if:true={showSpinner}>
+            <div class="backdrop">
+              <lightning-spinner alternative-text="Loading" size="medium" variant="brand" class="spinshow"></lightning-spinner>
+            </div>
+          </template>        
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

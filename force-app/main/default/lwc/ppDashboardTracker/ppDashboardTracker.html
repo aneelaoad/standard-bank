@@ -1,0 +1,58 @@
+<!-- **
+* @description  : Partner Portal Dashboard Tracker Component
+* User Story : SFP-4873
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date Aug 2021
+*/ -->
+<template>
+    <div class="container">
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <p class="heading heading-normal-sfProDisplay">{partnershipName}</p>
+                <p class="phase heading-normal-sfProDisplay">{currentStep.PP_Phase__c}</p>
+            </div>
+            <div class="slds-col slds-align_absolute-center">
+                <img src={img} class="img">
+            </div>
+            <div class="slds-col slds-align_absolute-center">
+                <p class="heading-large-sfProDisplay text">{heading}</p>
+            </div>
+
+            <div class="slds-col" style="margin-bottom : 20px;">
+                <div class="slds-grid">
+                    <div class="slds-col" style="flex: none;">
+                        <p class="next-step">Next Step</p>
+                    </div>
+                    <div class="slds-col">
+                        <hr class="dotted-line">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-col">
+                <div class="slds-grid">
+                    <div class="slds-col" style="flex: none;">
+                        <div class="icon-container" style="background-color: #ffa101;">
+                            <img src={icon} class="icon">
+                        </div>
+                    </div>
+                    <div class="slds-col">
+                        <p class="heading heading-normal-sfProDisplay">{currentStep.PP_Step__c}</p>
+                        <p class="heading-normal-sfProDisplay description">
+                            <lightning-formatted-text value={currentStep.Description}></lightning-formatted-text>
+                        </p>
+                    </div>
+                    <div class="slds-col" style="text-align: right;">
+                        <a href={linkUrl} class="text-normal-sfProDisplay link" data-intent="navigational"
+                            data-scope="Dashboard" data-id="link_content"
+                            data-text="Partner connect | business engagement | go to tracker link click" onclick={tracker}>
+                            {linkText}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>

@@ -1,0 +1,152 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_overviewContainer {
+    padding: 2em;
+}
+
+.v1_div_overviewContainer > p{
+    font-size: 1.3em;
+    color: grey;
+    letter-spacing: .025em;
+    font-weight: 300;
+    margin-bottom: 1em;
+}
+
+.v1_div_overviewContainer img{
+    margin-right: 1em;
+}
+
+.v1_div_meetingTime{
+    display: flex;
+    align-items: center;
+}
+
+.v1_div_clock{
+    display: flex;
+    width: 3.5em;
+    justify-content: center;
+}
+
+.v1_p_information {
+    color: var(--main-light-blue);
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.v1_div_tag {
+    background: linear-gradient(70deg,#0a2240 50%,#0d2e56);
+    color: #fff;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 0.15em 1.5em;
+    font-size: 1.1em;
+    border-radius: 2px;
+}
+
+.v1_div_meetingLocation {
+    display: flex;
+    margin-top: .5em;
+    margin-bottom: 2em;
+}
+
+.v1_div_location {
+    display: flex;
+    width: 3.5em;
+    justify-content: center;
+}
+
+.imgFilter {
+    filter: var(--filter-light-blue);
+}
+
+.custom-empty-button, .custom-empty-button:focus, .custom-full-button, .custom-full-button:focus{
+    width: 99%;
+}
+
+.custom-empty-button, .custom-empty-button:focus{
+    margin-top: 1em;
+}
+
+.v1_div_meetingLocation img {
+    height: 25px;
+    width: 25px;
+}
+
+.v1_div_attendees {
+    background-color: var(--background-grey);
+    min-height: 60vh;
+    padding: 2em 1em;
+    margin-bottom: 3em;
+    box-shadow: 0 1px 3px #000;
+}
+
+.light_titles {
+    font-weight: 300;
+}
+
+/* Search Bar */
+.v1_div_search {
+    font-size: .8rem;
+}
+
+.v1_div_searchContainer {
+    padding: .5em 0em;
+    cursor: pointer;
+    margin-bottom: 1em;
+}
+
+.shadowSearch {
+    box-shadow: 0px 5px 10px #8080802b;
+    width: 90%;
+    position: relative;
+    border-radius: 1.5px;
+}
+
+.v1_input_search, .v1_button_search, .shadowSearch{
+    display:inline-block;
+}
+
+.v1_input_search {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    width: 100%;
+    min-height: 2.3em;
+    border: 0px;
+    font-size: 1.3em;
+    margin-bottom: 0em;
+}
+
+.v1_input_search::placeholder {
+    font-weight: 300;
+}
+
+.v1_input_search:focus {
+    font-weight: 300;
+    outline: none;
+}
+
+.v1_button_search {
+    background-color: var(--main-light-blue);
+    width: 10%;
+    min-width: 3em;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.v1_button_search:before {
+    content: "";
+    float: left;
+    padding-top: calc(100% - 24px);
+}
+
+.v1_button_search lightning-icon {
+    --sds-c-icon-color-foreground-default: #fff;
+}

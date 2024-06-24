@@ -1,0 +1,165 @@
+.main-div{
+    height: 700px;
+    background-color: var(--pale-grey);
+}
+.Enter-One-time-PIN- {
+    height: 36px;
+    font-family: BentonSans;
+    font-size: 28px;
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    text-align: center;
+    color: #475479;
+    margin-bottom: 13px;
+  }
+.error{
+  padding-top: 61px;
+  padding-left: 10px;
+  color: red;
+}
+  .set-button{
+    box-shadow: none;
+    margin-top: 30px;
+  }
+  .headingcss{
+    position: relative;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 10rem;
+  background: white;
+  box-shadow: 0 20px 25px 0 rgb(110 110 110 / 14%);
+  }
+
+  .Lets-keep-you-safe {
+    font-family: BentonSans;
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.45;
+    letter-spacing: normal;
+    text-align: center;
+    color: #9197a8;
+    margin-bottom: 33px;
+  }
+
+  .OTP_DSK {
+    height: 1px;
+    background-color: grey;
+  }
+
+  .Enter-the-OTP-weve {
+    font-family: BentonSans;
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 1.45;
+    color: #9197a8;
+    margin-top: 55px;
+    margin-bottom:30px;
+  }
+
+  .FIRST-NAME-Copy {
+    width: 182px;
+    height: 18px;
+    font-family: BentonSans;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.64;
+    letter-spacing: 1px;
+    color: #9197a8;
+    inline-size : max-content;
+  }
+
+  .Didnt-get-your-OTP {
+    width: 594px;
+    height: 64px;
+    margin: 100px 502px 61px 0px;
+    font-family: BentonSans;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2;
+    letter-spacing: normal;
+    color: #3889ff;
+  }
+  .SELECT-TO-COMPARE {
+    width: 278.8px;
+    height: 20px;
+    font-family: BentonSans;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.43;
+    letter-spacing: 1.08px;
+    text-align: center;
+    color: var(--deep-sky-blue);
+  }
+
+  @media screen and (max-width: 865px){
+    .Didnt-get-your-OTP {
+      font-size: 14px;
+    }
+    .headingcss{
+      position: relative;
+      width: 100%;
+       padding-left: 4rem;
+      padding-right: 4rem; 
+      background: white;
+      box-shadow: 0 20px 25px 0 rgb(110 110 110 / 14%);
+
+    }
+    .Enter-One-time-PIN- {
+      height: 36px;
+    font-family: BentonSans;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    text-align: center;
+    color: #475479;
+    }
+    .Lets-keep-you-safe {
+      font-size: 16px;
+    }
+
+  }
+  @media screen and (max-width: 520px)and (min-width: 366px){
+    .headingcss{
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .Didnt-get-your-OTP {
+      font-size: 11px;
+    }
+    }
+    @media screen and (max-width: 375px){
+      .Didnt-get-your-OTP {
+      font-size: 9px;
+    }
+    .headingcss{
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+     
+    .Enter-the-OTP-weve {
+      font-size: 18px;
+    }
+  }
+
+    @media screen and (max-width: 320px){
+    .Didnt-get-your-OTP{
+      font-size: 9px;
+      margin: 90px 492px 30px 0px;
+
+    }
+    
+    .Enter-the-OTP-weve {
+      margin-top: 29px;
+      font-size: 14px;
+    }
+    }

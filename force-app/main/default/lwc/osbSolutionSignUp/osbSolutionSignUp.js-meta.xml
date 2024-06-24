@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="solutionLogo" type="String" label="Solution Logo" default=""/>
+            <property name="solutionName" type="String" default="New Solution" label="Solution Name"/>
+            <property name="termsConditionsDoc" type="String" label="Terms and conditions doc name"/>
+            <property name="Email" type="Boolean" default="true" label="Show Email field"/>
+            <property name="Mobile" type="Boolean" default="true" label="Show Mobile field"/>
+            <property name="Company" type="Boolean" default="true" label="Show Company field"/>
+            <property name="Region" type="Boolean" default="true" label="Show Region field"/>
+            <property name="IdNumber" type="Boolean" default="true" label="Show Id Number field"/>
+            <property name="sendEmailCheck" type="Boolean" default="false" label="Send an email" description="Sends an email to the solution owner"/>
+            <property name="backgroundColor" type="String" default="" label="Background Colour"/>
+            <property name="parentFont" type="String" default="Calibri" label="Solution font"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

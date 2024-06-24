@@ -1,0 +1,60 @@
+<template>
+    <div data-id="main-div" class="teaser-container">
+        <div class="teaser">
+            <div if:true={showMainTitle}
+                class="midTitle slds-p-top_x-large slds-m-bottom_x-large slds-align_absolute-center">
+                <lightning-formatted-rich-text value={mainTitle}></lightning-formatted-rich-text>
+            </div>
+            <div class="slds-grid slds-wrap  slds-p-bottom_x-large">
+                <div if:true={showOne} data-id="container-one"
+                    class=" tile slds-col slds-medium-size--4-of-8 slds-small-size--8-of-8">
+                    <img class="slds-grid slds-gutters slds-align_absolute-center adjust-image" src={image1} />
+                    <div class="icons-content slds-align_absolute-center">
+                        <div class="mainDescription slds-m-top_large slds-m-bottom_large">
+                            <lightning-formatted-rich-text value={title1}></lightning-formatted-rich-text>
+                        </div>
+                        <div class="subDescription">
+                            <lightning-formatted-rich-text value={mainContent1}></lightning-formatted-rich-text>
+                        </div>
+                    </div>
+                </div>
+                <div if:true={showTwo} data-id="container-two"
+                    class=" tile slds-col slds-medium-size--4-of-8 slds-small-size--8-of-8">
+                    <img class="slds-grid slds-gutters slds-align_absolute-center adjust-image" src={image2} />
+                    <div class="icons-content slds-align_absolute-center">
+                        <div class="mainDescription slds-m-top_large slds-m-bottom_large">
+                            <lightning-formatted-rich-text value={title2}></lightning-formatted-rich-text>
+                        </div>
+                        <div class="subDescription">
+                            <lightning-formatted-rich-text value={mainContent2}></lightning-formatted-rich-text>
+                        </div>
+                    </div>
+                </div>
+                <div if:true={showThree} data-id="container-three"
+                    class=" tile slds-col slds-medium-size--4-of-8 slds-small-size--8-of-8">
+                    <img class="slds-grid slds-gutters slds-align_absolute-center adjust-image" src={image3} />
+                    <div class="icons-content slds-align_absolute-center">
+                        <div class="mainDescription slds-m-top_large slds-m-bottom_large">
+                            <lightning-formatted-rich-text value={title3}></lightning-formatted-rich-text>
+                        </div>
+                        <div class="subDescription">
+                            <lightning-formatted-rich-text value={mainContent3}></lightning-formatted-rich-text>
+                        </div>
+                    </div>
+                </div>
+                <div if:true={showFour} data-id="container-four"
+                    class=" tile slds-col slds-medium-size--4-of-8 slds-small-size--8-of-8">
+                    <img class="slds-grid slds-gutters slds-align_absolute-center adjust-image" src={image4} />
+                    <div class="icons-content slds-align_absolute-center">
+                        <div class="mainDescription slds-m-top_large slds-m-bottom_large">
+                            <lightning-formatted-rich-text value={title4}></lightning-formatted-rich-text>
+                        </div>
+                        <div class="subDescription">
+                            <lightning-formatted-rich-text value={mainContent4}></lightning-formatted-rich-text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

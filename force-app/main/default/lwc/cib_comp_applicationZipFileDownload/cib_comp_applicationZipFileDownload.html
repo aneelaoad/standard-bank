@@ -1,0 +1,70 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 10-22-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <div class="main-panel">
+    <lightning-spinner lwc:if={showSpinner}></lightning-spinner>
+    <template lwc:if={error}>{error}</template>
+    <h1 class="slds-modal__title slds-hyphenate slds-modal__header">
+      File Download Wizard
+    </h1>
+    <div class="main-content">
+      <div
+        class="slds-modal__content slds-p-around_medium"
+        lwc:if={isInitial}
+      >
+        <div>
+          <lightning-radio-group
+            name="radioGroup"
+            label="Group By"
+            options={options}
+            value={type}
+            type="radio"
+            onchange={handleChange}
+            variant=""
+          ></lightning-radio-group>
+        </div>
+      </div>
+      <div
+        class="slds-modal__content slds-p-around_medium"
+        lwc:if={isZipFile}
+      >
+        <h1 class="slds-modal__title slds-hyphenate">
+          Generating Zip File...
+        </h1>
+      </div>
+
+      <div
+        class="slds-modal__content slds-p-around_medium"
+        lwc:if={isFinal}
+      >
+        <h1 class="slds-modal__title slds-hyphenate">
+          Download will start shortly...
+        </h1>
+      </div>
+    </div>
+    <div class="slds-modal__footer">
+      <button
+        class="slds-button slds-button_neutral"
+        onclick={closemodal}
+        disabled={showSpinner}
+      >
+        Cancel
+      </button>
+      <button
+        disabled={showSpinner}
+        variant="brand"
+        label=""
+        title="Download Files"
+        class="slds-button slds-button_brand"
+        onclick={closemodal}
+      >
+        Confirm
+      </button>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,65 @@
+div,
+selection,
+template {
+  padding: 0.5rem;
+}
+
+.shower {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+}
+
+button,
+lightning-button {
+  margin: 0.8rem;
+}
+
+.footer__center {
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.consent-modal--footerBtn {
+  color: var(--secondary-actions);
+  font-weight: bold;
+  font-size: var(--font-size-body-s, 0.875rem);
+  text-transform: uppercase;
+  background: none;
+  border: none;
+}
+
+.form.slds-form-element__label {
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-weight: bold;
+  font-size: var(--font-size-body-s, 0.875rem);
+}
+
+.missing-notification-modal-text {
+  font-size: var(--font-size-body-s, 0.875rem);
+}
+
+.missing-notification-modal-header {
+  font-size: var(--font-size-body-m, 1rem);
+}
+
+.modal-compact .slds-modal__container {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+footer.slds-modal__footer slot:not(:empty) {
+  flex-grow: 1;
+  display: block;
+}
+
+@media all and (min-width: 768px) {
+  .title {
+    font-size: var(--font-size-body-m, 1rem);
+  }
+}

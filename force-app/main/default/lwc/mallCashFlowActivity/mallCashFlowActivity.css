@@ -1,0 +1,126 @@
+.activityCard {
+    width: 100%;
+    padding: 1.05rem;
+    box-shadow: 0px 0px 5px #cccccc69;
+    min-height: 220px;
+    border-radius: 0.7rem;
+    border: 2px solid var(--neutrals-pale-grey-50, #E3E6EA);
+    background: var(--neutrals-white, #FFF);
+  }
+  
+  .activityCardHead {
+    width: 100%;
+    position: relative;
+  }
+  
+  .activityCardHead strong {
+    font-size: 16px;
+    color: #1a314d;
+    display: block;
+  }
+  .activityCardHead button {
+    border: 0px;
+    background-color: transparent;
+    padding: 0px;
+    position: absolute;
+    right: 0px;
+    top: 6px;
+    display: block;
+  }
+  
+  .activityCardHead button img {
+    max-width: 12px;
+    display: block;
+  }
+  
+  .cashflow_section {
+    width: 100%;
+    padding-top: 3px;
+  }
+  
+  .incomeExp {
+    width: 100%;
+    display: flex;
+    background-color: #d9e0f2;
+    padding: 2px;
+    border-radius: 100px;
+    max-width: 93px;
+  }
+  
+  .incomeExp button {
+    background-color: transparent;
+    border-radius: 100px;
+    border: 0px;
+    padding: 4px 9px;
+    color: #000;
+    font-size: 7px;
+    text-align: center;
+    display: block;
+    font-weight: bold;
+  }
+  
+  .incomeExp button.active {
+    background-color: #0062e1;
+    color: #fff;
+  }
+  
+  .incomeExpText {
+    width: 100%;
+    padding-top: 2px;
+  }
+  
+  .incomeExpText strong {
+    font-size: 14px;
+    color: #1a314d;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .incomeExpText p {
+    color: #5c6c80;
+    font-size: 10px;
+  }
+  
+  .chartbarImg {
+    width: 100%;
+    padding-bottom: 3px;
+  }
+  
+  .chartbarImg span {
+    display: block;
+    width: 100%;
+  }
+  .chartbarImg span img {
+    display: block;
+    width: 100%;
+    max-width: 94%;
+    margin: auto;
+  }
+  
+  .chart-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: start;
+    gap: 0.58175rem;
+    overflow-x: scroll;
+    margin: 0.7rem;
+  }
+  .chart-item {
+  }
+  .chart-label {
+    color: var(--neutrals-light-grey-text-subdued, #5c6c80);
+    text-align: center;
+    font-size: 0.63663rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%; /* 0.82763rem */
+    margin: 0.13rem 0;
+  }
+  .chart-bar {
+    width: 0.79506rem;
+    background: #aaa;
+    background: var(
+      --gradient-primary-03-vertical,
+      linear-gradient(180deg, #00bfff 0%, #03a 100%)
+    );
+  }

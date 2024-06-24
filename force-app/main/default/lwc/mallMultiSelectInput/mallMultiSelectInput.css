@@ -1,0 +1,24 @@
+.multi-select-input .slds-form-element__control>.slds-button:not([disabled], :disabled) {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.multi-select-input .slds-form-element__control>.slds-button:not([disabled], :disabled):hover {
+    background-color: #fff;
+    border-color: #ccc;
+    color: #10223e;
+}
+
+.multi-select-input .slds-form-element__control>.slds-button:active{
+    background-color: #fff;
+    border-color: var(--sbg-blue);
+    box-shadow: inset 0 0 0 1px var(--sbg-blue);
+    border-width: 1px;
+     color: #10223a;
+}
+
+.multi-select-input .slds-form-element__control>.slds-button:focus,
+.multi-select-input .slds-form-element__control>.slds-button:focus-visible,
+.multi-select-input .slds-form-element__control>.slds-button:focus-within{
+    box-shadow: inset var(--THEME-COLOUR) 0 0 0 2px;
+}

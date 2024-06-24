@@ -1,0 +1,63 @@
+<template>
+    <div class="product-catalogue-container">
+        <div class="product-catalogue-section-one">
+            <div class="product-filter-container" style={dynamicHeight}>
+                <div class="product-filter-header-container">
+                    <div class="product-filter-header-image-container">
+                        <img src={filterLogo} alt="Filter" />
+                    </div>
+                    <div class="product-filter-header-text-container">
+                        <p>Filter</p>
+                    </div>
+                </div>
+                <div
+                    class="product-filter-category-container"
+                    onclick={handDropdown}
+                    data-id="product-filter"
+                >
+                    <p>Categories</p>
+                    <div class="product-filter-arrow-container">
+                        <div
+                            id="dropdown-arrow"
+                            class="dropdown-arrow open"
+                            data-id="dropdown-arow"
+                        ></div>
+                    </div>
+                </div>
+                <div
+                    class="product-filter-container__items open"
+                    data-id="product-filter-container"
+                >
+                    <template for:each={categories} for:item="category">
+                        <label
+                            key={category}
+                            class="product-filter-category-item"
+                        >
+                            <input
+                                type="checkbox"
+                                name="options"
+                                data-id={category}
+                                data-name="categories"
+                                value={category}
+                                onchange={handleCheckbox}
+                                data-intent="transactional"
+                            />
+                            {category}
+                        </label>
+                    </template>
+                </div>
+                <div class="box-shadow" style={setBoxShadowHeight}></div>
+            </div>
+        </div>
+        <div class="product-catalogue-section-two">
+            <template if:false={showLoader}>
+                <c-osbapi-product-gallery></c-osbapi-product-gallery>
+            </template>
+            <template if:true={showLoader}>
+                <div class="product-catalogue-gallery-container">
+                    <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

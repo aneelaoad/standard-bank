@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="terms" type="String" default="/s/terms-and-conditions" label="Terms and Conditions"/>
+            <property name="privacy" type="String" default="https://www.standardbank.com/sbg/standard-bank-group/legal/privacy-statement" label="Privacy"/>
+            <property name="notices" type="String" default="https://corporateandinvestment.standardbank.com/cib/global/about-us/legal/important-notices" label="Important Notices"/>
+            <property name="securitycentre" type="String" default="https://www.standardbank.co.za/southafrica/personal/products-and-services/security-centre/bank-safely" label="Security Centre"/>
+            <property name="regulartory" type="String" default="https://www.standardbank.co.za/southafrica/personal/about-us/regulatory" label="Regulartory"/>
+            <property name="legal" type="String" default="https://www.standardbank.co.za/southafrica/personal/about-us/legal" label="Legal"/>
+            <property name="certification" type="String" default="false" label="USA Patriot Act Certification"/>
+            <property name="questionnaire" type="String" default="false" label="Wolfsberg Questionnaire"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

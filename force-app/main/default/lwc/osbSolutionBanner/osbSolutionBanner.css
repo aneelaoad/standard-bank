@@ -1,0 +1,237 @@
+:host {
+    --component-primary-color: var(--color-primary);
+    --component-primary-text-color: white;
+    position: relative;
+}
+
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.container {
+    flex: 1;
+}
+
+.container:first-child {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.container:nth-child(2) {
+    position: relative;
+}
+
+.container__text {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.container__header span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.container__header span img {
+    height: 10.875rem;
+    width: auto;
+    margin-right: 1rem;
+}
+
+.container__header h1 {
+    font-size: var(--font-size-3x-large);
+}
+
+.container__paragraph {
+    margin-bottom: 2rem;
+    font-size: var(--font-size-base);
+}
+
+.container__buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.container__banner-image {
+    overflow: hidden;
+}
+
+.container__banner-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.input__text {
+    padding: 0.5rem;
+    border: 2px solid rgb(190, 190, 190);
+    border-radius: 0.313rem;
+    background-color: transparent;
+    width: 100%;
+}
+
+.input-section__heading {
+    display: flex;
+}
+
+.input__heading {
+    font-size: var(--font-size-3x-large);
+}
+
+.input__provider {
+    color: var(--component-primary-color);
+}
+
+.input__description {
+    width: 100%;
+    resize: none;
+}
+
+.input__icon {
+    position: relative;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input__icon input[type='file'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.container__input-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 31rem;
+}
+
+.ms-icn_download {
+    font-size: 1.25rem;
+    color: #0062e1;
+}
+
+.input__banner-image input[type='file'] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.input-drag-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 1rem;
+    border: 1px dashed gray;
+    border-radius: 0.313rem;
+}
+
+.input-drag-text p span {
+    font-weight: var(--font-weight-medium);
+}
+
+.banner-image-icon {
+    font-size: 5.625rem !important;
+    margin-bottom: 2rem;
+}
+
+button {
+    text-transform: uppercase;
+}
+
+.button,
+.button__inverse {
+    border: 1px solid var(--component-primary-color);
+    border-radius: 0.625rem;
+    padding: 0.5rem 2rem;
+    font-size: var(--font-size-base);
+    transition: all 100ms linear;
+}
+
+.button {
+    background-color: var(--component-primary-color);
+    color: var(--component-primary-text-color);
+    margin: 0.5rem;
+}
+
+.button:hover {
+    background-color: transparent;
+    color: var(--component-primary-color);
+}
+
+.button__inverse {
+    background-color: transparent;
+    color: var(--component-primary-color);
+    margin: 0.5rem;
+}
+
+.button__inverse:hover {
+    color: var(--component-primary-text-color);
+    background-color: var(--component-primary-color);
+}
+
+.container__banner-image,
+.container__default-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.container__default-image {
+    background-color: var(--color-pale-grey);
+    min-height: 18.75rem;
+}
+
+.container__default-image img {
+    height: 6.25rem;
+    width: auto;
+}
+
+@media screen and (min-width: 640px) {
+    .container__buttons {
+        flex-direction: row;
+    }
+
+    .button,
+    .button__inverse {
+        font-size: var(--font-size-large);
+    }
+
+    .button {
+        margin: 0 1rem 0 0;
+    }
+
+    .button__inverse {
+        margin: 0 0 0 1rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    section {
+        flex-direction: row;
+        height: 33rem;
+    }
+
+    .container {
+        align-items: center;
+    }
+}

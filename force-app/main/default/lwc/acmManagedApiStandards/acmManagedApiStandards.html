@@ -1,0 +1,1186 @@
+<template>
+    <div class="card">
+      <span class="card-title">{title}</span>
+      <p class="card-subtitle">{subtitle}</p>
+      <div class="knowledge">
+        <c-cmn-button label={buttonLabel} variant="brand" destination-url={buttonLink}></c-cmn-button>
+      </div>
+    </div>
+
+    <div class="card-banner">
+      <div class="text">
+        <span class="banner-card-title">{bannerTitle}</span>
+        <p class="banner-card-subtitle">{bannerSubtitle}</p>
+        <div class="knowledge">
+          <c-cmn-button label={bannerButtonLabel} variant="neutral" destination-url={bannerbuttonLInk} w-class="w236"></c-cmn-button>
+        </div>
+        <p class="small-text">
+          For contract employees please contact <a href="mailto:APIEnterprise@standardbank.co.za">APIEnterprise@standardbank.co.za</a> for API Bootcamp enrollment
+        </p>
+      </div>
+      <div class="img">
+        <img src={banner} alt="">
+      </div>
+    </div>
+
+    <h1><span>Managed API Standards</span></h1>
+    <h2>These standards are not applicable to unmanaged/raw API's</h2>
+
+    <h3 class="subtext-m">API SHOULD use API-led connectivity</h3>
+    <p><a href="https://blogs.mulesoft.com/learn-apis/api-led-connectivity/what-is-api-led-connectivity/" target="_blank">API-Led connectivity</a> is an <a href="https://dzone.com/articles/mulesoft-api-led-connectivity-architectural-and-de" target="_blank">architectural style</a> that connects applications through a reusable and purposeful API</p>
+
+    <h3 class="subtext-m">API SHOULD follow API-first principle</h3>
+    <p>Define APIs first before coding its implementations. This promotes reusability and consistency, and the ability to get early review feedback</p>
+
+    <h3 class="subtext-m">Each REST API MUST be documented using <a href="https://opensource.zalando.com/restful-api-guidelines/#101" target="_blank">Open API Specification.</a></h3>
+
+    <h3 class="table-m">Each API specification MUST have a title, version, and description.</h3>
+    <div class="wrapper">
+        <div class="table-header">
+          A title MUST be easily identifiable and descriptive, and a description MUST be clear, understandable, and concise
+        </div>
+        <div class="table">
+    
+          <div class="row header bolder">
+            <div class="cell">
+              Title Rules
+            </div>
+            <div class="cell">
+              Incorrect
+            </div>
+            <div class="cell">
+              Correct
+            </div>
+          </div>
+            
+          <div class="row">
+            <div class="cell" data-title="Title Rules">
+                Do not add the word ‘API’ to the title
+              </div>
+              <div class="cell" data-title="Incorrect">
+                Customer Management API
+              </div>
+              <div class="cell" data-title="Correct">
+                Customer Management
+              </div>
+            </div>
+            
+            <div class="row">
+                <div class="cell" data-title="Title Rules">
+                    Start each letter of new word with upper case and use spaces in between words to make it more readable.
+                </div>
+                <div class="cell" data-title="Incorrect">
+                    accountManagement
+                </div>
+                <div class="cell" data-title="Correct">
+                    Account Management
+                </div>
+              </div>
+            
+              <div class="row">
+                <div class="cell" data-title="Title Rules">
+                    Do not include architectural style or API type in the title name. Reflect the purpose or functionality if possible.
+                </div>
+                <div class="cell" data-title="Incorrect">
+                    Customer Management REST API
+                </div>
+                <div class="cell" data-title="Correct">
+                    Customer Management
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="cell" data-title="Title Rules">
+                    Avoid acronyms or unnecessarily shortening the title or using technical words.
+                </div>
+                <div class="cell" data-title="Incorrect">
+                    DB Cust Mngmnt
+                </div>
+                <div class="cell" data-title="Correct">
+                    Customer Management
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="cell" data-title="Title Rules">
+                    Include sufficient context that the purpose of the API is well understood.
+                </div>
+                <div class="cell" data-title="Incorrect">
+                    Create
+                </div>
+                <div class="cell" data-title="Correct">
+                    Create Payment Order
+                </div>
+              </div>
+            
+          </div>
+    </div>
+
+    <h3 class="table-m">Every API specification MUST include a group name and email of the team who will support the API. The email address MUST be valid</h3>
+    <div class="wrapper">
+        <div class="table-header">
+            Each API specification MUST have a title, version, and description.
+        </div>
+        <div class="table">
+    
+            <div class="row header bolder">
+              <div class="cell">
+                Field
+              </div>
+              <div class="cell">
+                Incorrect
+              </div>
+              <div class="cell">
+                Correct
+              </div>
+            </div>
+    
+
+              <div class="row">
+                <div class="cell" data-title="Field">
+                    Name
+                </div>
+                <div class="cell" data-title="Incorrect">
+                    John Doe
+                </div>
+                <div class="cell" data-title="Correct">
+                    Account Support Team
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="cell" data-title="Field">
+                    Email
+                </div>
+                <div class="cell" data-title="Incorrect">
+                    John.Doe@standardbank.co.za
+                </div>
+                <div class="cell" data-title="Correct">
+                    acntsupport@standardbank.co.za
+                </div>
+              </div>
+            
+          </div>
+    </div>
+
+
+    <h3 class="subtext-m"><span class="styled-heading">OAS2:</span> consumes and produces property MUST be defined and MUST contain <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types" target="_blank">MIME types</a> supported by the backend API or types that the API proxy can handle.</h3>
+
+    <h3 class="subtext-m"><span class="styled-heading">OAS2:</span> basePath SHOULD be specified and MUST NOT be just a “/”.</h3>
+    <h3 class="subtext-m"><span class="styled-heading">OAS3:</span> A server SHOULD be defined at the root document level. Different types of servers can be defined, for example, development, sandbox, or production server. </h3>
+    <h3 class="subtext-m">Each API SHOULD provide descriptions for all data definitions, paths, and parameters</h3>
+
+
+    <h3 class="subtext-m">Each API specification MUST have a title, version, and description.</h3>
+    <p>Contact Enterprise Architecture for a list of approved API Management platforms</p>
+
+    <h3 class="url-links">Any URL in the specification document must comply with the following rules</h3>
+    <ul>
+        <li>URL MUST follow the URI specification <a href="https://datatracker.ietf.org/doc/html/rfc3986" target="_blank">RFC 3986</a>.</li>
+        <li>URL MUST use ‘https’ scheme and not 'http'.</li>
+        <li>URL MUST NOT direct to <a href="https://example.com/" target="_blank">example.com</a>.</li>
+        <li>URLs in the API MUST be valid and not point to non-existent endpoints.</li>
+        <li>DO NOT put secure Information in the URL</li>
+    </ul>
+
+    <h3 class="subtext-m">Resources</h3>
+    <p>A resource is an object or representation of something, which has some associated data with it and there can be set of actions to operate on it.</p>
+
+    <ul>
+      <li>For example, customer, account and transaction are resources.</li>
+      <li>Retrieve, Delete, Add, Update are operations that can be performed on these resources.</li>
+    </ul>
+
+    <p>A resource can be a collection or a singleton.</p>
+
+    <ul>
+      <li>For example, customers is the collection of customer</li>
+    </ul>
+
+    <div class="wrapper">
+      <div class="table-header">
+        A URL (Uniform Resource Locator) is a path through which a resource can be located and some actions can be performed on it.
+      </div>
+      <div class="table">
+  
+          <div class="row header bolder">
+            <div class="cell">
+              Guideline
+            </div>
+            <div class="cell">
+              Incorrect
+            </div>
+            <div class="cell">
+              Correct
+            </div>
+          </div>
+  
+
+            <div class="row">
+              <div class="cell" data-title="Guideline">
+                Resource path declarations MUST NOT be empty and MUST NOT be just a "/" only
+              </div>
+              <div class="cell" data-title="Incorrect">
+                /
+              </div>
+              <div class="cell" data-title="Correct">
+                /customers
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="cell" data-title="Guideline">
+                Resource path parameter declarations MUST NOT be empty.
+              </div>
+              <div class="cell" data-title="Incorrect">
+                /customers/{}
+              </div>
+              <div class="cell" data-title="Correct">
+                /customers/&lcub;cus-no&rcub;
+              </div>
+            </div>
+
+        </div>
+  </div>
+
+  <h3 class="subtext-m">Parameters specified in resource paths MUST be defined.</h3>
+
+  <div class="wrapper">
+    <div class="table-header">
+      A URL (Uniform Resource Locator) is a path through which a resource can be located and some actions can be performed on it.
+    </div>
+    <div class="table">
+
+        <div class="row header bolder">
+          <div class="cell">
+            Guideline
+          </div>
+          <div class="cell">
+            Incorrect
+          </div>
+          <div class="cell">
+            Correct
+          </div>
+        </div>
+
+
+          <div class="row">
+            <div class="cell" data-title="Guideline">
+              Resource names SHOULD use characters as defined in <a href="https://www.rfc-editor.org/rfc/rfc1123" target="_blank">RFC 1123</a>. Resource names MUST NOT contain special characters such as ”$”, “&”,”+”, ”,” ,”;” ,”=” ,”?” and “@”.
+            </div>
+            <div class="cell" data-title="Incorrect">
+              /customer$
+            </div>
+            <div class="cell" data-title="Correct">
+              /customers
+            </div>
+          </div>
+
+      </div>
+  </div>
+
+  <h3 class="subtext-m">Slang or vulgarities MUST NOT be used in resource names.</h3>
+  <h3 class="subtext-m">Resource names SHOULD NOT leak or expose technology-specific information</h3>
+
+  <div class="wrapper">
+    <div class="table-header">
+      A URL (Uniform Resource Locator) is a path through which a resource can be located and some actions can be performed on it.
+    </div>
+    <div class="table">
+
+        <div class="row header bolder">
+          <div class="cell">
+            Guideline
+          </div>
+          <div class="cell">
+            Incorrect
+          </div>
+          <div class="cell">
+            Correct
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="Guideline">
+            Resource names SHOULD NOT contain extensions
+          </div>
+          <div class="cell" data-title="Incorrect">
+            /customers.pdf
+          </div>
+          <div class="cell" data-title="Correct">
+            /customers
+          </div>
+        </div>
+        
+      </div>
+  </div>
+
+  <h3 class="subtext-m">Resource names MUST be unique within an API</h3>
+  <h3 class="subtext-m">Resource names SHOULD NOT include abbreviations or acronyms</h3>
+  <h3 class="subtext-m">Personally Identifiable Information and other sensitive data MUST NOT be used in the URL.</h3>
+
+  <div class="wrapper">
+    <div class="table-header">
+      A URL (Uniform Resource Locator) is a path through which a resource can be located and some actions can be performed on it.
+    </div>
+    <div class="table">
+
+        <div class="row header bolder">
+          <div class="cell">
+            Guideline
+          </div>
+          <div class="cell">
+            Incorrect
+          </div>
+          <div class="cell">
+            Correct
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="Guideline">
+            Nouns and not verbs MUST be used to name resources. Resources are objects or ‘things’ and not functions. HTTP Methods represent verbs
+          </div>
+          <div class="cell" data-title="Incorrect">
+            /getAllCustomers
+          </div>
+          <div class="cell" data-title="Correct">
+            /customers  - use with a <span>GET</span> method to retrieve data
+          </div>
+        </div>
+        <div class="row">
+          <div class="cell" data-title="">
+           
+          </div>
+          <div class="cell" data-title="Incorrect">
+            /createAccount
+          </div>
+          <div class="cell" data-title="Correct">
+            /accounts - use with a <span>POST</span> method to add or create
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="Guideline">
+            Resource Names MUST be in kebab-case (i.e., lowercase and separate words with hyphens)
+          </div>
+          <div class="cell" data-title="Incorrect">
+            /customerAccount
+          </div>
+          <div class="cell" data-title="Correct">
+            /customer-accounts
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="Guideline">
+            Resource path MUST NOT contain trailing slashes
+          </div>
+          <div class="cell" data-title="Incorrect">
+            /employee/
+          </div>
+          <div class="cell" data-title="Correct">
+            /employee
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="Guideline">
+            Resource names SHOULD be pluralised
+          </div>
+          <div class="cell" data-title="Incorrect">
+            /employee
+          </div>
+          <div class="cell" data-title="Correct">
+            /employees
+          </div>
+        </div>
+        
+      </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="table-header">
+      An API MUST identify resources and sub-resources via path segments
+    </div>
+    <div class="table">
+
+        <div class="row header bolder">
+          <div class="cell">
+            Guideline
+          </div>
+          <div class="cell">
+            URL Path
+          </div>
+          <div class="cell">
+            Description
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="Guideline">
+            API resources may contain or reference sub-resources. Embedded sub-resources, which are not top-level resources, are parts of a higher-level resource and cannot be used outside of its scope. Sub-resources should be referenced by their name and identifier in the path segments as follows:
+          </div>
+          <div class="cell" data-title="URL Path">
+            /customers
+          </div>
+          <div class="cell" data-title="Description">
+            Returns a list of all customers
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="cell" data-title="">
+            
+          </div>
+          <div class="cell" data-title="URL Path">
+            /customers/&lcub;cust-no&rcub;
+   
+          </div>
+          <div class="cell" data-title="Description">
+            Returns information about a specific customer identified by &lcub;cust-no&rcub;
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="">
+            
+          </div>
+          <div class="cell" data-title="URL Path">
+            /customers/&lcub;cust-no&rcub;/accounts
+       
+          </div>
+          <div class="cell" data-title="Description">
+            Returns a list of all accounts belonging to a customer identified by &lcub;cust-no&rcub;
+     
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="">
+            
+          </div>
+          <div class="cell" data-title="URL Path">
+            /customers/&lcub;cust-no&rcub;/accounts/&lcub;acc-no&rcub;
+          </div>
+          <div class="cell" data-title="Description">
+            Returns information about a specific account identified by &lcub;acc-no&rcub; and belonging to a customer identified by &lcub;cust-no&rcub;
+          </div>
+        </div>
+
+      </div>
+  </div>
+
+  <h3 class="subtext-m">API MUST always adhere to Data privacy Standards</h3>
+  <p>Refer to <a href="https://standardbank.sharepoint.com/:b:/r/sites/PSF/GDU%20resources/Group%20Data%20Privacy%20Operating%20Standard.pdf?csf=1&web=1&e=ulfrNi" target="_blank">Group Data Privacy Operating Standard</a></p>
+  
+  <h3 class="subtext-m">Slang or vulgarities MUST NOT be used as schema, property or in enums</h3>
+  
+  <h3 class="subtext-m">Abbreviations MUST NOT be used unless the abbreviation is clear and would make sense to the consumers</h3>
+
+  <div class="wrapper">
+    <div class="table-header">
+        Data / Schema
+    </div>
+    <div class="table">
+
+        <div class="row header bolder">
+          <div class="cell">
+            Guideline
+          </div>
+          <div class="cell">
+            Incorrect
+          </div>
+          <div class="cell">
+            Correct
+          </div>
+        </div>
+
+
+          <div class="row">
+            <div class="cell" data-title="Field">
+              Every schema names or properties that are arrays, SHOULD use pluralised for better readability and consistency
+            </div>
+            <div class="cell" data-title="Incorrect">
+              CustomerAccount
+            </div>
+            <div class="cell" data-title="Correct">
+              CustomerAccounts
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" data-title="Field">
+              Every schema of type object or non-array, SHOULD use singular names
+            </div>
+            <div class="cell" data-title="Incorrect">
+              Customers
+            </div>
+            <div class="cell" data-title="Correct">
+              Customer
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" data-title="Field">
+              Schema names MUST use upper <a href="https://en.wikipedia.org/wiki/Camel_case" target="_blank">camelCase</a>
+            </div>
+            <div class="cell" data-title="Incorrect">
+              accountTransaction
+            </div>
+            <div class="cell" data-title="Correct">
+              AccountTransaction
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" data-title="">
+              
+            </div>
+            <div class="cell" data-title="Incorrect">
+              Customer_Address
+            </div>
+            <div class="cell" data-title="Correct">
+              CustomerAddress
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" data-title="">
+              
+            </div>
+            <div class="cell" data-title="Incorrect">
+              ERROR_DETAILS
+            </div>
+            <div class="cell" data-title="Correct">
+              ErrorDetails
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" data-title="Field">
+              Schema field names MUST be in lower <a href="https://en.wikipedia.org/wiki/Camel_case" target="_blank">camelCase</a>
+            </div>
+            <div class="cell" data-title="Incorrect">
+              FirstName
+            </div>
+            <div class="cell" data-title="Correct">
+              firstName
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" data-title="">
+              
+            </div>
+            <div class="cell" data-title="Incorrect">
+              first_name
+            </div>
+            <div class="cell" data-title="Correct">
+              firstName
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" data-title="">
+              
+            </div>
+            <div class="cell" data-title="Incorrect">
+              firstNAME
+            </div>
+            <div class="cell" data-title="Correct">
+              firstName
+            </div>
+          </div>
+        
+      </div>
+  </div>
+  
+  <h3 class="subtext-m"><span class="styled-heading">OAS2:</span> API Schemas MUST be defined under definitions section.</h3>
+  <h3 class="subtext-m"><span class="styled-heading">OAS3:</span> API Schemas MUST be defined under components section.</h3>
+  <h3 class="subtext-m">DO NOT define schemas in-line</h3>
+  <h3 class="subtext-m">Schema names MUST be simple, descriptive, and meaningful to consumers.</h3>
+
+  <h3 class="subtext-m">APIs MUST validate inputs against a well-defined schema to ensure that they are of correct type, format and structure, thereby preventing errors and ensuring that the API behaves as expected.</h3>
+  <ul>
+    <li>Input validation failures MUST be logged and assume that a client or consuming application performing a high number of failed input validation in a short period, has malicious intent.</li>
+    <li>API MUST validate incoming Content-Type header parameter. Specified Content-Type in the header should be checked against the supplied content in the Body. Reject incompatible Content-Type with status code “406 – Not Acceptable”.</li>
+    <li>API SHOULD validate the ‘Accept’ header of incoming requests to ensure that they specify an acceptable type for response. If the specified type is not supported, the API should return a “406 - Not Acceptable” status code. Providing a well-defined list of acceptable response types in the API specification can help clients select appropriate response types and avoid errors.</li>
+    <li>The maximum, minimum, maxLength and minLength properties SHOULD be used to specify acceptable value ranges.</li>
+    <li>Regular expressions SHOULD be defined using pattern keyword for string values. This can assist in ensuring that only values matching this pattern will be acceptable. Refer to the following <a href="https://swagger.io/docs/specification/data-models/data-types/#pattern" target="_blank">link</a> for more information.</li>
+    <li>A required property SHOULD be used to provide a list of fields/properties that are mandatory. By default, all fields/properties are optional. Refer to the following <a href="https://swagger.io/docs/specification/data-models/data-types/#required" target="_blank">link</a>.</li>
+  </ul>
+
+  <div class="wrapper">
+    <div class="table-header">
+      Data / Schema
+    </div>
+    <div class="table">
+
+        <div class="row header bolder">
+          <div class="cell">
+            Guideline
+          </div>
+          <div class="cell">
+            Incorrect
+          </div>
+          <div class="cell">
+            Correct
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="Guideline">
+            An enum limits the possible values to a predetermined set of options. Each element in the enum MUST be unique.
+          </div>
+          <div class="cell" data-title="Incorrect">
+            title:  <br>
+            type: <strong>“integer”</strong> <br>
+            enum:  <br>
+            - "Mr"  <br>
+            - "Mrs" <br>
+            - "Dr" <br>
+          </div>
+          <div class="cell" data-title="Correct">
+            title:   <br>
+            type: <strong>“string”</strong> <br>
+            enum:  <br>
+            - "Mr" <br>
+            - "Mrs" <br>
+            - "Dr" <br>
+          </div>
+        </div>
+       
+
+      </div>
+  </div>
+
+  <h3 class="subtext-m">Every data returned or accepted by API MUST be an instance of a defined schema</h3>
+  
+  <h3 class="subtext-m">Use Common Information Model: Leverage Enterprise Data Model like BIAN’s BOM or Bounded Context Data Model where possible</h3>
+  <p>Consult Enterprise Architecture team for guidance on Common Information Model</p>
+  
+  <h3 class="subtext-m">Schema fields or properties MUST contain examples</h3>
+
+  <h3 class="subtext-m">Use appropriate formats for data and time. This should be designed with data interchange in mind.</h3>
+  <ul>
+    <li>SHOULD use standard <a href="https://opensource.zalando.com/restful-api-guidelines/#169" target="_blank">date and time formats</a></li>
+    <li>SHOULD define dates properties compliant with <a href="https://opensource.zalando.com/restful-api-guidelines/#126" target="_blank">RFC 3339</a> - Refer to the following <a href="https://www.rfc-editor.org/rfc/rfc3339" target="_blank">link</a>.</li>
+    <li>ISO 8601 standard MUST be use for datetime representation. If other formats are required due to source system limitations, convert it to standard format within the API. Refer to the following <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">link</a>.</li>
+  </ul>
+
+  <h3 class="subtext-m">SHOULD use standardised <a href="https://opensource.zalando.com/restful-api-guidelines/#238" target="_blank">property formats</a></h3>
+  <h3 class="subtext-m">SHOULD use standards for <a href="https://opensource.zalando.com/restful-api-guidelines/#170" target="_blank">country, language and currency codes</a></h3>
+
+  <!-- <h3 class="subtext-m">HTTP Methods</h3> -->
+  <h3 class="subtext-m">HTTP verbs or methods MUST be used as operations that can be performed on each resource</h3>
+  <p>Use appropriate HTTP verbs (GET, POST, PUT, PATCH, DELETE) to operate on the collections and elements.</p>
+
+  <div class="wrapper">
+    <div class="table-header">
+      HTTP Methods
+    </div>
+    <div class="table">
+
+        <div class="row header bolder">
+          <div class="cell">
+            CRUD Operation
+          </div>
+          <div class="cell">
+            Description
+          </div>
+          <div class="cell">
+            HTTP Methods
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="CRUD Operation">
+            Create
+          </div>
+          <div class="cell" data-title="Description"> 	
+            Creation of an instance of the resource.
+          </div>
+          <div class="cell" data-title="HTTP Method">
+            POST
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="CRUD Operation">
+            Read
+          </div>
+          <div class="cell" data-title="Description"> 	
+            Retrieve an instance of the resource.
+          </div>
+          <div class="cell" data-title="HTTP Method">
+            GET
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="CRUD Operation">
+            Update
+          </div>
+          <div class="cell" data-title="Description"> 	
+            Alters the state of an instance of the resource.
+          </div>
+          <div class="cell" data-title="HTTP Method">
+            PUT (full update) <br>
+            PATCH (partial update)
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="cell" data-title="CRUD Operation">
+            Delete
+          </div>
+          <div class="cell" data-title="Description"> 	
+            Removes an instance of the resource.
+          </div>
+          <div class="cell" data-title="HTTP Method">
+            DELETE
+          </div>
+        </div>
+
+      </div>
+  </div>
+
+  <ul>
+    <li>Each verb SHOULD represent a single operation on a given resource. Query parameters MUST NOT be used to pass additional operations.</li>
+    <li>Each operation response MUST use correct standard HTTP status codes to indicate the result of a request.</li>
+  </ul>
+
+  <h3 class="subtext-m">Operation parameters SHOULD be unique and non-repeating. The name and in MUST be unique</h3>
+  <ul>
+    <li>Operations MUST NOT have in:body and in:formData parameters defined at the same time. This applies to OAS2.</li>
+    <li>Operations SHOULD only have one in:body</li>
+    <li>
+      <ul>
+        Operations with an in:formData parameter MUST include a consumes property with one of these values:
+        <li>application/x-www-form-urlencoded</li>
+        <li>multipart/form-data</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 class="subtext-m"><span class="styled-heading">OAS2:</span> Operations SHOULD define consumes and produces MIME types, if data type expected or provided at operation level is different from the global consumes AND produces.</h3>
+  <h3 class="subtext-m"><span class="styled-heading">OAS3:</span> content property under requestBody in operations SHOULD define data types expected from a request..</h3>
+  <h3 class="subtext-m"><span class="styled-heading">OAS3:</span> content property under response in operations SHOULD define data types provides as a response.</h3>
+  <h3 class="subtext-m"><span class="styled-heading">OAS2:</span> Operation security values MUST match a scheme defined in the global securityDefinitions</h3>
+  <h3 class="subtext-m"><span class="styled-heading">OAS3:</span> Operation security values MUST match a scheme defined in the global security.Schemes object.</h3>
+
+  <h3 class="subtext-m">Operations SHOULD have at least one 2xx success or a 3xx response defined</h3>
+  <h3 class="subtext-m">HTTP status code range 2xx MUST NOT be returned alongside an error message in the body of the HTTP response, as this can cause confusion and hinder proper error handling</h3>
+  <h3 class="subtext-m">Operations MUST use status codes 4xx or 5xx to communicate errors.</h3>
+  
+  <div class="mainHeader">
+    The following table specifies a minimum set of HTTP Response codes that an API SHOULD support:
+  </div>
+  <div class="slds-p-vertical_medium checked-table">
+    <table class="responsive-table precedence ">
+        <thead class="tableHeader">
+        <tr>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">Status Code</td>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">Description</td>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">POST</td>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">GET (collection)</td>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">GET (singleton)</td>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">PUT</td>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">DELETE</td>
+            <td class="slds-p-vertical_small slds-p-horizontal_large tableHeaderText">PATCH</td>
+        </tr>
+        </thead>
+        <tbody class="precedenceTableBody">
+        <tr>
+            <td class="slds-p-vertical_small slds-p-horizontal_large">200</td>
+            <td><strong>Successful</strong> request - should be used for so safe API requests, meaning those requests that do not change the state of any resource</td>
+            <td></td>
+            <td class="checked"></td>
+            <td class="checked"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="slds-p-vertical_small slds-p-horizontal_large">201</td>
+            <td><strong>Created</strong> - This status code should almost always be used for successful POST requests. The Location HTTP Header can provide a link to the newly created resource. Avoid returning 200 for POST requests.</td>
+            <td class="checked"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="slds-p-vertical_small slds-p-horizontal_large">202</td>
+            <td><strong>Accepted</strong> - it means that a request has been accepted for processing, but the result is not yet known. This means that the operation that needs to be performed on the server side is probably going to take longer than required for the response to be in a timely manner.</td>
+            <td class="checked"></td>
+            <td></td>
+            <td></td>
+            <td class="checked"></td>
+            <td class="checked"></td>
+            <td class="checked"></td>
+            
+        </tr>
+        <tr>
+            <td class="slds-p-vertical_small slds-p-horizontal_large">204</td>
+            <td><strong>No Content</strong> – This status code should be used where an empty response body is returned.</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="checked"></td>
+            <td class="checked"></td>
+            <td class="checked"></td>
+            
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">400</td>
+          <td><strong>Bad Request</strong> – Indicates that a request from the client is not properly constructed.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">401</td>
+          <td><strong>Unauthorized</strong> – Status code is primary concerned with authentication problem. User doesn’t have access to the resource.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">403</td>
+          <td><strong>Forbidden</strong> – The status code should be returned if the client is authenticated but is not authorized to use the endpoint.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">404</td>
+          <td><strong>Not found</strong> – Status code should be used where a requested or provided resource does not exist. Do not mix 404 with 400.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">415</td>
+          <td><strong>Unsupported Media Type</strong> – Returned if data/MIME type provided is not supported.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td></td>
+          <td class="checked"></td>
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">429</td>
+          <td><strong>Too Many Requests</strong> – Returned if number requests exceed rate limit.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">500</td>
+          <td><strong>Internal Server Error</strong> – This status code indicates a server error and MUST NOT be returned in the case of client error. This is use as a catch all server error.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">501</td>
+          <td><strong>Method Not implemented</strong> – Returned when a requested operation on a resource is not implemented or supported.</td>
+          <td class="checked"></td>
+          <td></td>
+          <td></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+        </tr>
+        <tr>
+          <td class="slds-p-vertical_small slds-p-horizontal_large">503</td>
+          <td><strong>Service Unavailable</strong> – Returned when a request cannot be completed because the resource is temporarily unavailable.</td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+          <td class="checked"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<h3 class="subtext-m">MUST not expose <a href="https://opensource.zalando.com/restful-api-guidelines/#177" target="_blank">stack traces</a></h3>
+
+<h3 class="subtext-m">SHOULD document <a href="https://opensource.zalando.com/restful-api-guidelines/#227">cacheable GET endpoints</a></h3>
+<h3 class="subtext-m">SHOULD reduce <a href="https://opensource.zalando.com/restful-api-guidelines/#155">bandwidth needs and improve responsiveness</a></h3>
+<h3 class="subtext-m">SHOULD use <a href="https://opensource.zalando.com/restful-api-guidelines/#156">gzip compression</a></h3>
+<h3 class="subtext-m">MUST use Rate Limiting to avoid DDOS </h3>
+
+
+<div class="wrapper">
+  <div class="table-header">
+    Use query parameters to enable pagination, sorting and filtering to avoid returning huge data set
+  </div>
+  <div class="table">
+
+      <div class="row header bolder">
+        <div class="cell">
+          Parameter Usage
+        </div>
+        <div class="cell">
+          Description
+        </div>
+        <div class="cell">
+          Example
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="Parameter Usage">
+          Filtering
+        </div>
+        <div class="cell" data-title="Description"> 	
+          The API consumer may only need a subset of a collection of resources. The ability to filter the data can be accomplished by using query parameters. For example, to get the list of all shipped orders, the API consumer could use. In the example, status is query parameter used to implement order filtering
+        </div>
+        <div class="cell" data-title="Example">
+          /orders?status=shipped
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="">
+          
+        </div>
+        <div class="cell" data-title="Description"> 	
+          To get the list of all shipped orders to a given country, the API consumer would specify:
+        </div>
+        <div class="cell" data-title="Example">
+          /orders?status=shipped&country=ZA
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="Parameter Usage">
+          Sorting
+        </div>
+        <div class="cell" data-title="Description"> 	
+          Similar to filtering, a generic query parameter (sort) could be used to describe sorting rules. The example returns all of the orders sorted by ID:
+        </div>
+        <div class="cell" data-title="Example">
+          /orders?sort=orderId
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="">
+          
+        </div>
+        <div class="cell" data-title="Description">
+          To allow sorting on multiple fields, the query parameter could be designed to take a list of fields instead of a single value. The sort query parameter provides orders that have been sorted first by ID and then by date.
+        </div>
+        <div class="cell" data-title="Example">
+          /orders?sort=orderId,date
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="">
+          
+        </div>
+        <div class="cell" data-title="Description"> 	
+          To support ascending/descending sort order, each field of the query parameter can be prefixed with a plus (‘+’) to denote an ascending sort order or a minus (‘-’) to denote a descending sort order. For example, the request returns all orders sorted by date (descending) and then by product (ascending).
+        </div>
+        <div class="cell" data-title="Example">
+          /orders?sort=-date,+product
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="">
+          
+        </div>
+        <div class="cell" data-title="Description"> 	
+          Another alternative is to use the ‘_asc’ or ‘_desc’ suffix to denote the sort order. Using the same parameters above, the request would be:
+        </div>
+        <div class="cell" data-title="Example">
+          /orders?sort=date_desc,product_asc
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="Parameter Usage">
+          Searching
+        </div>
+        <div class="cell" data-title="Description"> 	
+          The API consumer may wish to search across the resource data. The ability to search can be accomplished by using a search query parameter. For example, to get all employees with ‘Mokwena’ in their name, the request would look like:
+        </div>
+        <div class="cell" data-title="Example">
+          /employees?search=Mokwena
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="Parameter Usage">
+          Pagination
+        </div>
+        <div class="cell" data-title="Description"> 	
+          For the GET method that returns a large collection of data, pagination is necessary to ensure good performance and user experience. <br>
+          <br>
+          Without pagination in place, a GET method may return hundreds or thousands of records causing heavy network traffic and eventually the session may timeout, rendering the API unusable. <br>
+          <br>
+          The pagination is implemented using a technique called Offset Pagination. This technique originates from the SQL world which already have LIMIT and OFFSET as part of the SQL SELECT Syntax.
+        </div>
+        <div class="cell" data-title="Example">
+          An example of the Offset Paging would look like: <br>
+          <br>
+
+          GET /orders?limit=20&offset=10 <br>
+          <br>
+          In this example, the GET method would return 20 rows starting from the 10th row <br>
+          <br>
+          <ul>
+            <li>Client requests for 20 most recent items: </li>
+            GET /orders?limit=20 <br>
+            <br>
+            <li>To go to the next page, the client makes the second request:</li>
+            GET /orders?limit=20&offset=20 <br>
+            <br>
+            <li>To go to the next page, the client makes the third request </li>
+            GET /orders?limit=20&offset=40
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="Parameter Usage">
+          Partial Resources
+        </div>
+        <div class="cell" data-title="Description"> 	
+          The consumer might only need specific fields within a given resource. To obtain a partial resource the API URL could be designed to take a list of fields as a query parameter and return only the fields included in that list.
+          <br>
+          For example, the following request will return only the date and the total of the purchase order:
+        </div>
+        <div class="cell" data-title="Example">
+          GET /orders/12345?fields=date,total
+        </div>
+      </div>
+
+
+    </div>
+</div>
+
+<h3 class="subtext-m">API SHOULD include a header parameter that accepts a correlation id. The correlation id MUST be passed through the layers to be used as an end-to-end transaction correlation. x-fapi-interaction-id header parameter MUST be used to carry the correlation id</h3>
+<h3 class="subtext-m">HTTP Status code 500 or 503 MUST be treated as critical failure and must be given immediate attention</h3>
+<h3 class="subtext-m">Error message SHOULD be descriptive and grammatically correct</h3>
+<h3 class="subtext-m">Error response MUST NOT expose API Implementation details</h3>
+<h3 class="subtext-m">In addition to the standard error handling provided by HTTP statuses, error schema can be used to significantly improve the user's understanding of the error and how to resolve it.</h3>
+
+<div class="wrapper">
+  <div class="table-header">
+    To achieve this, we recommend utilising the following error schema:
+  </div>
+  <div class="table">
+
+      <div class="row header bolder">
+        <div class="cell">
+          Object Name
+        </div>
+        <div class="cell">
+          Field
+        </div>
+        <div class="cell">
+          Description
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="Object Name">
+          Error Response
+        </div>
+        <div class="cell" data-title="Field"> 	
+          errorCode
+        </div>
+        <div class="cell" data-title="Description">
+          A unique identifier of the error. Avoid using the same code as HTTP status code. This should be unique to the backend application code
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="">
+          
+        </div>
+        <div class="cell" data-title="Field"> 	
+          message
+        </div>
+        <div class="cell" data-title="Description">
+          Summary message. This should be able to be safely displayed to the end user.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="cell" data-title="">
+          
+        </div>
+        <div class="cell" data-title="Field"> 	
+          detail
+        </div>
+        <div class="cell" data-title="Description">
+          Detailed description of the message. This should be intended for the developer of consuming application
+        </div>
+      </div>
+
+
+    </div>
+</div>
+
+<h3 class="subtext-m">All APIs MUST be versioned</h3>
+<p>A version MUST follow <a href="https://semver.org/">Sematic Versioning 2.0.0</a>.</p>
+<p>Semantic versioning - <strong>&lt;MAJOR>.&lt;MINOR>.&lt;PATCH></strong></p>
+  <ul>
+    <li>Increment <strong>MAJOR</strong> when you make backward-incompatible changes. Align changes with consumers to minimize disruptions.</li>
+    <li>Increment <strong>MINOR</strong> when you add backward-compatible new features.</li>
+    <li>Increment <strong>PATCH</strong> when you make backward-compatible bug fixes or changes that do not affect functionality.</li>
+  </ul>
+
+  <h3 class="subtext-m">SHOULD NOT have more than 3 versions of the API running at the same time</h3>
+  <h3 class="subtext-m">API resource paths MUST NOT include versioning. Versions SHOULD instead be in the server URL or basePath</h3>
+  <p>URL versioning, in addition to Sematic versioning, CAN be used. URL versioning MUST only include the MAJOR version in the format v&lcub;MAJOR&rcub;:</p>
+  <p>For example, if the API version is 3.2.0, URL versioning can be stated as follows: <br>
+  /vaf/<strong>v2</strong>/customers</p>
+    
+  <h3 class="subtext-m">Always refer to <a href="https://aws-tools.standardbank.co.za/confluence/download/attachments/351121460/API%20Security%20Functional%20Standard%20v2.pdf?version=1&modificationDate=1666345765899&api=v2">Group IT Security - Group IT Security - API Security Standard.pdf</a> for Standard Bank’s security standards</h3>  
+  <h3 class="subtext-m">API MUST be protected against OAWS Top 10 Vulnerabilities</h3>  
+  <p>See the following <a href="https://owasp.org/www-project-api-security/">link</a> for more information. The 2019 version can be found <a href="https://aws-tools.standardbank.co.za/confluence/download/attachments/351121460/owasp-api-security-top-10.pdf?version=1&modificationDate=1684435590552&api=v2">here</a>.</p>  
+  <h3 class="subtext-m">MUST use HTTPS scheme to secure communication</h3>  
+  <h3 class="subtext-m">MUST use OAuth2 for External facing APIs. Internal facing APIs CAN use OAuth2 but if API Keys are used, both Client Id and Client Secret MUST be used.</h3>  
+  <h3 class="subtext-m">If OAuth2 is used, <a href="https://opensource.zalando.com/restful-api-guidelines/#105">MUST define and assign permissions (scopes)</a> to protect resources</h3>  
+  <h3 class="subtext-m">The API MUST use <a href="https://www.ibm.com/docs/en/api-connect/10.0.x?topic=connect-understanding-rate-limits-apis-plans">rate limiting</a> to prevent abuse of the API. Rate limiting limits the number of requests that can be made in a certain period.</h3>  
+    <ul>
+      <li>When the rate limit is exceeded, the system MUST generate an appropriate response using the HTTP status code 429. Additionally, a custom error message can be included to provide more detailed information to the user.</li>
+      <li>API Gateway capability SHOULD be used to implement rate limiting</li>
+      <li>Rate limiting functionality MUST be tested to ensure that it is working as expected and providing the desired level of protection and control over API usage</li>
+    </ul>
+
+    <h3 class="subtext-m">External facing APIs MUST be pen-tested before publishing into production external API Gateway</h3>
+  <!-- End of new -->
+</template>

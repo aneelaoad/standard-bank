@@ -1,0 +1,237 @@
+<!--
+  @description       : This is used for Tax Jurisdiction Screen
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 10-10-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+
+    <div class="aob_form_title">
+      <h2>Tax Jurisdiction</h2>
+    </div>
+
+    <article class="slds-card aob_todo-card">
+      <div class="aob_info-text aob_todo-card-content">
+        <img src={helpIcon} alt="check" />
+        <p>
+          Please indicate the entity's place of tax residence. If resident in
+          more than one jurisdiction, you must detail all jurisdictions and
+          provide an associated tax identification number (TIN) for each
+          jurisdiction.
+        </p>
+      </div>
+    </article>
+
+    <div class="aob_card-container slds-m-top_x-large">
+      <div class="slds-form-element">
+        <lightning-radio-group
+          name="TaxJurisdiction"
+          label="Do you have a TIN number?"
+          options={options}
+          onchange={onchange}
+          value={TINNumberValue}
+        >
+        </lightning-radio-group>
+      </div>
+    </div>
+    <template lwc:if={isAvailableTIN}>
+      <div class="aob_card-container">
+        <label class="aob_title-sm" for="form-element-05">
+          <span class="slds-required" title="required">* </span>
+          Jurisdiction of tax residence & TIN number</label
+        >
+        <template for:each={lineItems} for:item="item" for:index="index">
+          <div
+            key={item.CIB_Sequence__c}
+            class="slds-grid aob_col-gutter slds-wrap mt_20"
+          >
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-01">
+                  <abbr class="slds-required" title="required">* </abbr
+                  >Jurisdiction of tax residence</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    class="input-field"
+                    data-line-item-sequence={item.CIB_Sequence__c}
+                    data-fieldname="CIB_TaxResidenceJuristiction__c"
+                    variant="label-hidden"
+                    id="form-element-01"
+                    placeholder="Tax Jurisdiction"
+                    required=""
+                    aria-describedby="form-error-06"
+                    aria-invalid="true"
+                    pattern="[a-zA-Z ]+"
+                    name="taxJurisdiction"
+                    data-name="taxJurisdiction"
+                    value={item.CIB_TaxResidenceJuristiction__c}
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-02">
+                  <abbr class="slds-required" title="required">* </abbr>TIN
+                  number</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    class="input-field"
+                    data-line-item-sequence={item.CIB_Sequence__c}
+                    data-fieldname="CIB_TIN_Number__c"
+                    variant="label-hidden"
+                    id="form-element-03"
+                    placeholder="Enter TIN Number "
+                    required=""
+                    aria-describedby="form-error-06"
+                    aria-invalid="true"
+                    pattern="[0-9]+"
+                    name="tinNumber"
+                    data-name="tinNumber"
+                    value={item.CIB_TIN_Number__c}
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+            <template lwc:if={index}>
+              <div class="slds-p-top_medium" key={item.CIB_Sequence__c}>
+                <img
+                  class="slds-p-top_large slds-p-left_large"
+                  src={delete_row_icon}
+                  alt="delete-row-icon"
+                  data-line-item-sequence={item.CIB_Sequence__c}
+                  alternative-text="Delete Row"
+                  size="small"
+                  title="Delete Row"
+                  onclick={deleteLineItem}
+                />
+              </div>
+            </template>
+          </div>
+        </template>
+        <div
+          key={item.CIB_Sequence__c}
+          class="slds-grid aob_col-gutter slds-wrap mt_20"
+        >
+          <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+            <lightning-button
+              variant="brand-outline"
+              icon-name="utility:new"
+              label="ADD ADDITIONAL"
+              title="Primary action with lighter look"
+              onclick={addLineItem}
+              class="slds-m-left_x-small space-padding"
+            >
+            </lightning-button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template lwc:if={isUnavailableTIN}>
+      <div class="aob_card-container">
+        <label class="aob_title-sm" for="form-element-05">
+          <span class="slds-required" title="required">* </span>
+          Since no TIN is available for the applicant, please specify in which
+          country(ies) the shareholder/intermediary/UBO is taxable
+        </label>
+        <template for:each={lineItems} for:item="item" for:index="index">
+          <div
+            key={item.CIB_Sequence__c}
+            class="slds-grid aob_col-gutter slds-wrap mt_20"
+          >
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-01">
+                  <abbr class="slds-required" title="required">* </abbr>Name of
+                  entity</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    class="input-field"
+                    data-line-item-sequence={item.CIB_Sequence__c}
+                    data-fieldname="CIB_EntityName__c"
+                    value={item.CIB_EntityName__c}
+                    variant="label-hidden"
+                    id="form-element-05"
+                    placeholder="Enter Name here"
+                    required=""
+                    aria-describedby="form-error-06"
+                    aria-invalid="true"
+                    pattern="[a-zA-Z ]+"                    
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <div class="slds-form-element">
+                <label class="slds-form-element__label" for="form-element-02">
+                  <abbr class="slds-required" title="required">* </abbr
+                  >Jurisdiction</label
+                >
+                <div class="slds-form-element__control">
+                  <lightning-input
+                    class="input-field"
+                    data-line-item-sequence={item.CIB_Sequence__c}
+                    data-fieldname="CIB_TaxResidenceJuristiction__c"
+                    value={item.CIB_TaxResidenceJuristiction__c}
+                    variant="label-hidden"
+                    id="form-element-0"
+                    placeholder="Jurisdiction "
+                    required=""
+                    aria-describedby="form-error-06"
+                    aria-invalid="true"
+                    pattern="[a-zA-Z ]+"
+                    name="jurisdiction"
+                    data-name="jurisdiction"
+                  ></lightning-input>
+                </div>
+              </div>
+            </div>
+            <template lwc:if={index}>
+              <div class="slds-p-top_medium" key={item.CIB_Sequence__c}>
+                <img
+                  class="slds-p-top_large slds-p-left_large"
+                  src={delete_row_icon}
+                  alt="delete-row-icon"
+                  data-line-item-sequence={item.CIB_Sequence__c}
+                  alternative-text="Delete Row"
+                  size="small"
+                  title="Delete Row"
+                  onclick={deleteLineItem}
+                />
+              </div>
+            </template>
+          </div>
+        </template>
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+            <lightning-button
+              variant="brand-outline"
+              icon-name="utility:new"
+              label="ADD ADDITIONAL"
+              title="Primary action with lighter look"
+              onclick={addLineItem}
+              class="slds-m-left_x-small space-padding"
+            >
+            </lightning-button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

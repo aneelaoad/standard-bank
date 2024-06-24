@@ -1,0 +1,57 @@
+.loading {
+  position: relative;
+}
+
+.loading__overlay {
+  background: linear-gradient(135deg, #0a2240 0%, #054b82 100%);
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  display: block;
+  z-index: 99999;
+  margin-left: 40px;
+}
+
+.loading__content {
+  text-align: center;
+  color: rgb(204, 204, 204);
+  top: 50%;
+  left: 50%;
+  margin-left: -86px;
+  margin-top: -50px;
+  position: fixed;
+  z-index: 99999;
+  display: block;
+  font-size: 20px;
+  border-radius: 0.5rem;
+  padding-top: 3rem;
+  transition: all 0.3s ease-in-out 0s;
+  width: 11.0625rem;
+  height: 11.0625rem;
+  background: rgba(2, 7, 13, 0.64);
+}
+
+.loading__circle {
+  border: 0.25rem solid #0089ff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  animation-name: spin;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  margin: auto;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

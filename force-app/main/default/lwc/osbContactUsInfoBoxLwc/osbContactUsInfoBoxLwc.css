@@ -1,0 +1,65 @@
+.ContactHolder{
+    height: auto;
+    width: 100% !important;
+    background-color: #FFFFFF;
+    box-shadow: 0 0.25rem 0.25rem 0 rgba(0,0,0,0.2);
+    
+}
+
+.InfoHolder{
+    min-height: 18.5rem;
+    height: auto;
+    width: 100% !important;
+    padding: 3rem 2rem 3.18rem 2rem;
+    color: #3C4B6C;
+    font-family: var(--FONT-FAMILY);
+    line-height: 1.56rem;
+    letter-spacing: 0;
+    font-size: 1rem;
+    font-weight: 300;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.TitleHolder{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.OperatingHours{
+    padding-top: 1.5rem;
+}
+
+.DescriptionHolder{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.EmailHolder{
+    padding-top: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.EmailText{
+    color: #212529;
+}
+
+.EmailValue{
+    color: #0089FF;
+}
+
+@media only screen and (max-width:800px){ 
+
+    .InfoHolder{
+        padding: 2rem 2rem 1.5rem 2rem;
+    }
+
+    .EmailHolder{
+        grid-template-columns: repeat(1, 1fr);
+        align-content: center;
+    }
+
+}

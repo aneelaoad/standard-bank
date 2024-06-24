@@ -1,0 +1,247 @@
+<!--
+/***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 12-04-2024
+@ Name of the Class : Cib_comp_welcomeScreen
+@ Description       : This class is used to manage the welcome screen of the application. 
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 12-04-2024
+@ Modification Description : SFP-36750
+***************************************************************************************/
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt_40">
+    <article class="aob_page-titles">
+      <h2>Welcome</h2>
+      <p class="aob_page-title-caption">
+        Get started on your client on boarding journey
+      </p>
+    </article>
+
+    <div class="aob_card-container aob_card-check-list">
+      <div class="aob_card-check-list-left">
+        <img src={ideaIcon} class="idea1" />
+      </div>
+      <div>
+        <div class="aob_check-list">
+          <h5>You’ll need a few things</h5>
+          <p>If all goes well, this should take 3 - 10 business days</p>
+          <ul class="aob_check-list-ul">
+            <li>
+              <img src={checkIcon} class="checkIcon" /><span
+                >A comprehensive list of mandatory documents can be accessed
+                from your dashboard. Ensure you gather them all before as soon
+                as possible.</span
+              >
+            </li>
+            <li>
+              <img src={checkIcon} class="checkIcon" /><span
+                >Your personal identification (like a government-issued ID) will
+                be crucial. It will be verified to ensure your security and
+                prevent fraud.</span
+              >
+            </li>
+            <li>
+              <img src={checkIcon} class="checkIcon" /><span
+                >Ensure your email address and phone number are correct. We'll
+                use them for notifications, updates, and any needed two-factor
+                authentication.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="aob_card-container aob_card-check-list">
+      <div class="aob_card-check-list-left">
+        <img src={peopleIcon} class="idea1" />
+      </div>
+      <div>
+        <div class="aob_check-list">
+          <h5>What to expect</h5>
+          <p>We are here to help you along the way</p>
+          <ul class="aob_check-list-ul">
+            <li>
+              <img src={checkIcon} class="checkIcon" /><span
+                >Check back frequently to view any new notifications with
+                feedback about your documents.</span
+              >
+            </li>
+            <li>
+              <img src={checkIcon} class="checkIcon" /><span
+                >Every step has document guidelines. We may reject a document if
+                it does not meet <br />
+                our guidelines.</span
+              >
+            </li>
+            <li>
+              <img src={checkIcon} class="checkIcon" /><span
+                >These documents do not need to be uploaded in sequence.</span
+              >
+            </li>
+            <li>
+              <img src={checkIcon} class="checkIcon" /><span
+                >Reach out to your relationship manager, from your dashboard, if
+                you get stuck.</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <template if:true={displayModal}>
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open"
+      >
+        <div class="slds-modal__container">
+          <header class="slds-modal__header header-background">
+            <button
+              class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+              title="Close"
+              onclick={onReject}
+            >
+              <img src={closeIcon} class="survey_closed" />
+              <span class="slds-assistive-text">
+                <label>Close</label>
+              </span>
+            </button>
+            <h2 id="modal-heading-01" class="header-text">Manage Consents.</h2>
+          </header>
+          <div
+            class="slds-modal__content"
+            id="modal-content-id-1"
+            style="border-radius: 0px 0px 8px 8px"
+          >
+            <div class="modal-content-container">
+              <img
+                src={avatarAlert}
+                alt="consent question"
+                class="question-icon"
+              />
+              <p
+                class="slds-p-around--large slds-text-align_left slds-text-heading_label"
+              >
+                Consent Confirmation.
+              </p>
+
+              <div class="slds-scoped-notification slds-media slds-media_center slds-theme_error" role="status" if:true={isErrorConsent}>
+                <div class="slds-media__figure">
+                  <span class="slds-icon_container slds-icon-utility-error" title="error">
+                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                      <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+                    </svg>
+                    <span class="slds-assistive-text">error</span>
+                  </span>
+                </div>
+                <div class="slds-media__body">
+                  <p>Cannot Proceed without accepting the terms and conditions.</p>                  
+                </div>
+              </div>
+
+              <br />
+              <div class="slds-grid slds-grid_align-start slds-grid--vertical">
+                <div class="slds-form-element">
+                  <div class="slds-form-element__control">
+                    <div class="slds-checkbox">
+                      <input
+                        type="checkbox"
+                        name="marketingConsent"
+                        id="marketingConsent"
+                        value="checkbox-unique-id-81"
+                      />
+                      <label
+                        class="slds-checkbox__label"
+                        for="marketingConsent"
+                      >
+                        <span class="slds-checkbox_faux"></span>
+                        <span class="slds-form-element__label"
+                          >I would like to receive marketing emails from
+                          Standard Bank Mauritius.</span
+                        >
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="slds-form-element">
+                  <div class="slds-form-element__control">
+                    <div class="slds-checkbox">
+                      <input
+                        type="checkbox"
+                        name="termsAndConditions"
+                        id="termsAndConditions"
+                        value="checkbox-unique-id-82"
+                        required
+                      />
+                      <label
+                        class="slds-checkbox__label"
+                        for="termsAndConditions"
+                      >
+                        <span class="slds-checkbox_faux"></span>
+                        <span class="slds-form-element__label"
+                          >I hereby agree to the &nbsp;
+                          <a
+                            href={termsAndConditionsUrl}
+                            target="_blank"
+                            onclick={enableSaveButton}
+                          >
+                            <span class="slds-text-link">
+                              Terms and Conditions
+                            </span>
+                          </a>
+                          &nbsp; set forth by Standard Bank (Mauritius)
+                          Limited.</span
+                        >
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <p
+                  class="slds-p-horizontal--large slds-text-align_left slds-m-top--large"
+                >
+                  <img
+                    src={helpIcon}
+                    alt="consent warning"
+                    class="slds-m-right--small slds-p-left_small"
+                  />
+                  I you'll have to agree to the terms and conditions in order to proceed.
+                </p>
+              </div>
+            </div>
+            <div class="slds-modal__footer">
+              <button
+                class="slds-button"
+                onclick={onAccept}
+                disabled={isSavingNotActive}
+              >
+                Save
+              </button>
+              <button
+                class="slds-button"
+                onclick={onReject}                
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      is-first-screen={firstScreen}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

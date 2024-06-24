@@ -1,0 +1,101 @@
+@import 'c/eapCssLibrary';
+
+.v1_file_div{
+    padding-top: 1em;
+    padding-right: 2em;
+    padding-left: 2em;
+    background-color: var(--background-grey);
+    min-height: 60vh;
+}
+.v1_div_empty {
+    background-color: var(--background-grey);
+    min-height: 80vh;
+}
+
+.v1_div_buttonContainer {
+    padding: 0em 2em;
+}
+
+.v1_div_buttonContainer button{
+    margin-top: 0em;
+}
+
+.v1_div_containerListView {
+    background-color: #fff;
+}
+
+.v1_div_prettyNumber {
+    display: inline-block;
+    background-color: var(--background-grey);
+    width: 1.5em;
+    text-align: center;
+    margin-left: .5em;
+    font-size: 1.5em;
+    font-weight: 300;
+}
+
+.v1_div_summary {
+    padding: 0 1.5em 1.5em 4em;
+}
+
+.v1_p_summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.light_titles {
+    margin-bottom: 1em;
+}
+
+.custom-full-button, .custom-full-button:focus {
+    width: 100%;
+    margin-top: 2em;
+    margin-bottom: 6em;
+}
+
+.v1_img_filter {
+    max-width:18px;
+    filter: var(--filter-light-blue);
+}
+
+/* Mapa */
+.v1_div_mapa {
+    width:100%;
+    height: 235px; /*190px sin Google Maps*/
+    overflow:hidden;
+    position:relative;
+}
+
+iframe {
+    border-width: 0px;
+    position: absolute;
+    z-index: 0;
+    top: 0px;
+}
+
+/*.slds-has-coordinates {
+    max-height: 262px;
+    overflow: hidden;
+}
+*/
+
+iframe .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
+    /*right: 60px !important;*/
+    display: none !important;
+}
+
+iframe .gm-style .directions-card {
+    background-color: rgba(255, 255, 255, .7) !important;
+}
+
+iframe div[style*="position: absolute; left: 0px; top: 0px;"] > div {
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.v1_div_prettyList_plane {
+    display: grid; /*display: inline-block;*/
+    padding-left: 0.6em;
+}

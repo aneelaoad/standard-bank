@@ -1,0 +1,9 @@
+.sub-header {
+  padding: 20px 143px 25px 20px;
+}
+.checkbox_text {
+  flex-flow: nowrap;
+}
+.checkbox_top {
+  padding-right: 16px;
+}

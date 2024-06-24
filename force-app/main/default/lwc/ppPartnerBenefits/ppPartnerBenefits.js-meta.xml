@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>52.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="mainheading" label="Main Heading" type="String" default="PARTNERSHIP BENEFITS"/>
+            <property name="headingOne" label="Heading 1" type="String" default="Collaborative"/>
+            <property name="textOne" label="Text 1" type="String" default="Lorem Ipsum is simply dummy text of the printing and typesetting industry"/>
+            <property name="iconOne" label="Icon 1" type="String" default="/heart-icon.png"/>
+            <property name="headingTwo" label="Heading 2" type="String" default="Invest in You"/>
+            <property name="textTwo" label="Text 2" type="String" default="Lorem Ipsum is simply dummy text of the printing and typesetting industry"/>
+            <property name="iconTwo" label="Icon 2" type="String" default="/invest-icon.png'"/>
+            <property name="headingThree" label="Heading 3" type="String" default="Digital First"/>
+            <property name="textThree" label="Text 3" type="String" default="Lorem Ipsum is simply dummy text of the printing and typesetting industry"/>
+            <property name="iconThree" label="Icon 3" type="String" default="/digital-icon.png"/>
+            <property name="headingFour" label="Heading 4" type="String" default="Digital First"/>
+            <property name="textFour" label="Text 4" type="String" default="Lorem Ipsum is simply dummy text of the printing and typesetting industry"/>
+            <property name="iconFour" label="Icon 4" type="String" default="/digital-icon.png"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

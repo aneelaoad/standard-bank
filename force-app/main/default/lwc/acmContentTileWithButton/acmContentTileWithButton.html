@@ -1,0 +1,36 @@
+<template>
+    <div class="row">
+        <div class="col col-12 d-md-flex justify-content-center">
+
+            <div class="horizontal-buttons-item">
+                <div class="horizontal-buttons-item__inner">
+                    <div class="horizontal-buttons-item__icon">
+                        <img src={sectionImage}>   
+                    </div>
+
+                     <div class="horizontal-buttons-item__detail">
+                        <div class="title title--module-sub-title horizontal-buttons-item__title">
+                           {useSupportText}    
+                        </div>
+
+                        <p class="horizontal-buttons-item__copy">
+                            {useSubHeaderText}
+                           <a
+                            href="mailto:SBAPIMarketplace@standardbank.co.za" class="textfont-size" data-intent="informational" data-scope="ContentTilewButton" data-id="link_content" data-text={useEmailId}>{useEmailId}</a>    
+                        </p>
+
+                        <p class="horizontal-spacing">
+                           <b>Trading hours &emsp;</b> <span style="white-space: nowrap;">Weekdays: {useWeekdayHours}</span> &ensp; 
+                           <template if:true={useWeekendHours}>
+                              <span style="white-space: nowrap;">Weekends Holidays: {useWeekendHours}</span>
+                           </template>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="horizontal-button-container">
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

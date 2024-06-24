@@ -1,0 +1,47 @@
+<!--
+  @description       : LWC to show archive detail content
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   06-21-2021   TCK   Initial Version
+-->
+<template>
+    <!--Nav Bar-->
+    <div class="v1_div_tabs v1_div_heading">
+        <nav role="navigation">
+            <template for:each={tabs} for:item="tab">
+                <template if:true={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab active">
+                        <a title={tab.Name} onclick={handleChangeTemplate} id={tab.Id}>
+                            <span class="slds-assistive-text">{labels.CurrentPage}:</span>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+
+                <template if:false={tab.Active}>
+                    <div key={tab.Id} class="v1_div_tab">
+                        <a href="#" title={tab.Name} onclick={handleChangeTemplate} id={tab.Id}>
+                            <span class="slds-truncate v1_tab_name" title={tab.Name}>{tab.Name}</span>
+                        </a>
+                    </div>
+                </template>
+            </template>
+        </nav>
+    </div>
+
+    <div ontouchstart={handleTouchStart} ontouchmove={handleTouchMove}>
+        <!--Overview Tab-->
+        <template if:true={isOverview}>
+            <c-eap-archive-detail-overview event-id={eventId} oneventnamechange={handleEventNameChange} onloaded={componentsLoaded}></c-eap-archive-detail-overview>
+        </template>
+
+        <!--Information Tab-->
+        <template if:false={isOverview}>
+            <c-eap-archive-detail-documents event-id={eventId} onloaded={componentsLoaded}></c-eap-archive-detail-documents>
+        </template>
+    </div>
+</template>

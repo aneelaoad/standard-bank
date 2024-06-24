@@ -1,0 +1,82 @@
+.aob_estimation_block_container{
+    /* width: 480px;
+    height: 360px; */
+    /*Newly added tag for entire image moved to left.*/
+    /* margin-left: -170px; */
+  
+    /* width: 381px; */
+    /* margin-right: 0px; */
+    height: 337px;
+}
+/* .images-spread{
+  margin-left: -69px;
+} */
+.aob_bundle_block h4{
+    padding-top: 15px; 
+    text-align:left;
+}
+.Receive-payments-in-store{
+  width: 206px;
+  height: 25px;
+  margin: 0 0 0 32px;
+  font-family: BentonSans;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: normal;
+  color: #fff;
+
+}
+
+.Receive-payments-online{
+  width: 193px;
+  height: 25px;
+  margin: 0 0 0 32px;
+  font-family: BentonSans;
+  font-size: 15px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.67;
+  letter-spacing: normal;
+  color: #fff;
+
+}
+.aob_estimation_block_content{
+  height: 337px;
+}
+
+.aob_add_bundle{
+    font-family: 'bentonsans-regular-webfont', "BentonSans Regular", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    /* color: #fff; */
+}
+@media (min-width: 426px) and (max-width: 768px){
+  .aob_estimation_block_container{
+    /* top: 96px;
+    position: relative; */
+    height: 465px;
+  }
+  .aob_add_bundle{
+    margin-top: 40px;
+  }
+}
+@media (min-width: 320px) and (max-width: 425px){
+  .aob_estimation_block_container{
+    height: 270px;
+        /* top: 96px;
+    position: relative;
+    height: 480px; */
+  }
+  .error-message {
+    color: red;
+    font-size: 12px;
+}
+}

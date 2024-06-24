@@ -1,0 +1,76 @@
+<template>
+    <div class="slider_container">
+        <div class="container sec_title">
+            <h2>{ label.trendsinsights}</h2>
+        </div>
+        <div class="container">
+            <div class="mySlider">
+                <div class="bs_carousel owl-theme owl-carousel offering-owl">
+                    <div>
+                        <div class="slider_card">
+                            <h2 class="card_heading">{label.starting}</h2>
+                            <p class="card_para">{label.getpractical}</p>
+                            <ul>
+                                <li class="link">
+                                    <a class="card_para" href={yourguideurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopestarting} data-text={adobePageTag.yourguidelink} onclick={callingadobeevent}>{label.yourguide}<span>
+                                            ></span></a>
+                                    <a class="card_para" href={importanceurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopestarting} data-text={adobePageTag.importancelink} onclick={callingadobeevent}>{label.importance}<span>
+                                            ></span></a>
+                                    <a class="card_para pb-10 succesful" href={succesfulurl}
+                                    target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopestarting} data-text={adobePageTag.succesfullink} onclick={callingadobeevent}>{label.succesful}<span> ></span></a>
+                                </li>
+                            </ul>
+                            <a href={startmybusinessurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopestarting} data-text={adobePageTag.seemorelink} onclick={callingadobeevent}><button class="button">SEE MORE</button></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slider_card">
+                            <h2 class="card_heading">{label.managing}</h2>
+                            <p class="card_para">{label.getexpert}</p>
+                            <ul>
+                                <li class="link">
+                                    <a class="card_para" href={greatleadershipurl}
+                                    target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopemanaging} data-text={adobePageTag.greatleadershiplink} onclick={callingadobeevent}>{label.greatleadership}<span> ></span></a>
+                                    <a class="card_para" href={marketingtipsurl}
+                                    target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopemanaging} data-text={adobePageTag.marketingtipslink} onclick={callingadobeevent}>{label.marketingtips}<span> ></span></a>
+                                    <a class="card_para pb-20" href={smalltipsurl}
+                                    target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopemanaging} data-text={adobePageTag.smalltipslink} onclick={callingadobeevent}>{label.smalltips}<span> ></span></a>
+                                </li>
+                            </ul>
+                            <a href={managemybusinessurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopemanaging} data-text={adobePageTag.seemorelink} onclick={callingadobeevent}><button class="button">SEE MORE</button></a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="slider_card">
+                            <h2 class="card_heading">{label.growing}</h2>
+                            <p class="card_para">{label.gettips}</p>
+                            <ul>
+                                <li class="link">
+                                    <a class="card_para" href={howtoprepareurl}
+                                    target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopegrowing} data-text={adobePageTag.howtopreparelink} onclick={callingadobeevent}>{label.howtoprepare}<span> ></span></a>
+                                    <a class="card_para" href={wayswhyurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopegrowing} data-text={adobePageTag.wayswhylink} onclick={callingadobeevent}>{label.wayswhy}<span>
+                                            ></span></a>
+                                    <a class="card_para pb-30" href={keepyourbusinessurl}
+                                    target={label.standardbankurl} data-id={adobePageTag.dataId}
+                                    data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopegrowing} data-text={adobePageTag.keepyourbusinesslink} onclick={callingadobeevent}>{label.keepyourbusiness}<span> ></span></a>
+                                </li>
+                            </ul>
+                            <a href={growmybusinessurl} target={label.standardbankurl} data-id={adobePageTag.dataId}
+                            data-intent={adobePageTag.dataIntent} data-scope={adobePageTag.dataScopegrowing} data-text={adobePageTag.seemorelink} onclick={callingadobeevent}><button class="button">SEE MORE</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

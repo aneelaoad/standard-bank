@@ -1,0 +1,66 @@
+<template>
+    <div class="main-div">
+        <div if:false={signUp}>
+            <div class="popUp-container">
+                <div if:true={displayPopUp}>
+                    <div class="popUp-box" data-id="popUpBox">
+                        <div class="popUp-title-container">
+                            <div if:true={icon}>
+                                <i class="ms-icn_questionmark_circle"></i>
+                            </div>
+                            <div if:false={icon}>
+                                <i class=" ms-icn_warning_solid popUp-icon"></i>
+                            </div>
+                            <div class="popUp-title mb_8">{title}</div>
+                        </div>
+                        <div class="popUp-content mb_16">{content}</div>
+                        <div class="slds-grid popUp-options-holder">
+                            <div if:true={infoPopup}>
+                                <div class="popUp-options slds-col slds-size_1-of-3" data-tab-name="OK" onclick={handleClose} data-id="uitlink_link_Ok" data-text="Marketgram popup | OK" data-intent="confirmational">OK</div>                        
+                            </div>
+                            <div if:false={infoPopup}>
+                                <div class="popUp-options slds-col slds-size_1-of-3" data-tab-name="No" onclick={handleClose} data-id="uitlink_link_No" data-text="Marketgram popup | No" data-intent="confirmational" >NO</div>
+                                <div class="popUp-options slds-col slds-size_1-of-3" data-tab-name="Yes" onclick={handleClose} data-id="uitlink_link_yes" data-text="Marketgram popup | Yes" data-intent="confirmational" >YES</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popUp-overlay popUp-visible" data-id="visibleOverlay"></div>
+                    <div class="popUp-overlay popUp-invisible"></div>
+                </div>
+            </div>
+	    </div>
+        <div if:true={signUp}>
+            <div if:true={showLoading}>
+                <c-osb-Loading-Screenlwc></c-osb-Loading-Screenlwc>
+            </div>
+            <div class="popUp-container-signup">
+                <div if:true={displayPopUp}>
+                    <div class="popUp-box signup" data-id="popUpBox">
+                        <div class="popUp-title-container">
+                            <i class="ms-icn_questionmark_circle"></i>
+                                <div class="popUp-title mb_8">{title}</div>
+                        </div>
+                        <div class="popUp-content mb_16">
+                            <div>{content}</div>
+                            <div class="popUp-subTitle">{subTitle}</div>
+                            <div>
+                            <lightning-radio-group name="radioGroup"
+                                                        data-id="queryType"
+                                                        options={QueryTypes}
+                                                        value={DefaultType}
+                                                        type="radio"
+                                                        class="customRadioCls"></lightning-radio-group>
+                            </div>
+                        </div>
+                        <div class="slds-grid popUp-options-holder adjustFooter">
+                            <div class="popUp-options slds-col slds-size_1-of-3" data-tab-name="No" data-id="uitlink_link_No" onclick={handleClose}>NO</div>
+                            <div class="popUp-options slds-col slds-size_1-of-3" data-tab-name="Yes" data-id="uitlink_link_yes" onclick={handleSign}>YES</div>
+                        </div>
+                    </div>
+                    <div class="popUp-overlay popUp-visible" data-id="visibleOverlay"></div>
+                    <div class="popUp-overlay popUp-invisible"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

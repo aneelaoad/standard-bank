@@ -1,0 +1,9 @@
+.container {
+    padding: 1px 0 1px 0;
+}
+.datatable-container {
+    height: 300px;
+}
+.modal-content {
+    overflow: initial !important;
+}

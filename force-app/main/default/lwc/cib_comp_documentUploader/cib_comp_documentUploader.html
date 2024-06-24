@@ -1,0 +1,241 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-10-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <template lwc:if={isParticipantDocument}>
+    <div class="slds-col slds-size_1-of-1">
+      <div class="aob_slds-list_title">Guidelines:</div>
+      <ul class="slds-list_dotted slds-large-size_9-of-12 slds-m-bottom_large">
+        <template
+          for:each={displayGuidelines}
+          for:item="item"
+          for:index="index"
+        >
+          <li key={item}>{item}</li>
+        </template>
+      </ul>
+      <div>
+        <div class="slds-form-element slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <span
+              class="slds-form-element__label"
+              id="file-selector-primary-label-12"
+              >{label}</span
+            >
+            <div class="slds-form-element__control">
+              <div class="slds-file-selector slds-file-selector_files">
+                <div class={filesClass}>
+                  <input
+                    type="file"
+                    onclick={fileInputClick}
+                    onchange={handleFileChange}
+                    class="slds-file-selector__input slds-assistive-text"
+                    accept={acceptedFormats}
+                    id="file-upload-input-12"
+                    aria-labelledby="file-selector-primary-label file-selector-secondary-label"
+                  />
+                  <label
+                    class="slds-file-selector__body"
+                    for="file-upload-input-12"
+                    id="file-selector-secondary-label-12"
+                  >
+                    <img
+                      src={fileIcon}
+                      class="upload-icon"
+                      lwc:if={fileExists}
+                      onclick={openPreview}
+                    />
+                    <lightning-progress-bar
+                      lwc:if={isUploading}
+                      value={progress}
+                    ></lightning-progress-bar>
+                    <span
+                      lwc:else
+                      class="slds-file-selector__button slds-button slds-button_neutral"
+                    >
+                      <c-cmn_comp_stencil
+                        style="width: 100%; height: 100%"
+                        lwc:if={isInitializing}
+                      ></c-cmn_comp_stencil>
+                      <template lwc:else>{filename}</template>
+                    </span>
+                    <img
+                      onclick={onDeleteFile}
+                      src={deleteIcon}
+                      class="upload-icon"
+                      lwc:if={fileExists}
+                    />
+                    <img
+                      src={uploadIcon}
+                      class="upload-icon"
+                      if:false={fileExists}
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="slds-form-element__help errorMessage"
+              lwc:if={validationMessage}
+            >
+              {validationMessage}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template lwc:else>
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span lwc:if={required} class="slds-required" title="required">*</span>
+        {label}
+      </div>
+      <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+          <div class="slds-form-element">
+            <ul class="aob_slds-ul-list">
+              <li>
+                <div class="aob_slds-list_title">Document type:</div>
+                <ul class="slds-list_dotted">
+                  <li>{documentType}</li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="aob_slds-ul-list">
+              <li>
+                <div class="aob_slds-list_title">Guidelines:</div>
+                <ul class="slds-list_dotted">
+                  <template
+                    for:each={displayGuidelines}
+                    for:item="item"
+                    for:index="index"
+                  >
+                    <li key={item}>{item}</li>
+                  </template>
+                </ul>
+              </li>
+            </ul>
+            <div class="slds-form-element">
+              <span
+                class="slds-form-element__label"
+                id="file-selector-primary-label-13"
+                >File upload:</span
+              >
+              <div class="slds-form-element__control">
+                <div class="slds-file-selector slds-file-selector_files">
+                  <div class={filesClass}>
+                    <input
+                      type="file"
+                      onclick={fileInputClick}
+                      onchange={handleFileChange}
+                      class="slds-file-selector__input slds-assistive-text"
+                      accept={acceptedFormats}
+                      id="file-upload-input-13"
+                      aria-labelledby="file-selector-primary-label file-selector-secondary-label"
+                    />
+                    <label
+                      class="slds-file-selector__body"
+                      for="file-upload-input-13"
+                      id="file-selector-secondary-label-13"
+                    >
+                      <img
+                        src={fileIcon}
+                        class="upload-icon"
+                        lwc:if={fileExists}
+                        onclick={openPreview}
+                      />
+                      <lightning-progress-bar
+                        lwc:if={isUploading}
+                        value={progress}
+                      ></lightning-progress-bar>
+                      <span
+                        lwc:else
+                        class="slds-file-selector__button slds-button slds-button_neutral"
+                      >
+                        <c-cmn_comp_stencil
+                          style="width: 100%; height: 100%"
+                          lwc:if={isInitializing}
+                        ></c-cmn_comp_stencil>
+                        <template lwc:else>{filename}</template>
+                      </span>
+                      <button class="slds-button" onclick={onDeleteFile}>
+                        <img
+                          src={deleteIcon}
+                          class="upload-icon"
+                          lwc:if={fileExists}
+                        />
+                      </button>
+                      <img
+                        src={uploadIcon}
+                        class="upload-icon"
+                        if:false={fileExists}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="slds-form-element__help errorMessage"
+                style="position: relative"
+                lwc:if={validationMessage}
+              >
+                {validationMessage}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <template lwc:if={isPreviewOpenned}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <header class="slds-modal__header header-background">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick={closePreview}
+          >
+            <img src={closeIcon} class="survey_closed" />
+            <span class="slds-assistive-text">
+              <label>Close</label>
+            </span>
+          </button>
+          <h2 id="modal-heading-01" class="header-text">Document Preview</h2>
+        </header>
+        <div
+          class="slds-modal__content"
+          id="modal-content-id-1"
+          style="border-radius: 0px 0px 8px 8px"
+        >
+          <iframe
+            lwc:if={isPdf}
+            id="previewFrame"
+            frame-src="self"
+            src={previewURI}
+            style="width: 100%; height: 100%; border: none"
+            allow="fullscreen"
+          ></iframe>
+          <img
+            lwc:else
+            src={_url}
+            style="width: 100%; height: 100%; border: none"
+          />
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" onclick={closePreview}></div>
+  </template>
+</template>

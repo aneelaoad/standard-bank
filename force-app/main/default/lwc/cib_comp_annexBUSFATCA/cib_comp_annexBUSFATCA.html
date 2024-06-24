@@ -1,0 +1,472 @@
+<!--
+  @description       : This is used for Annexure B: US Fatca screen 
+  @author            : ridhima.saxena@standardbank.co.za
+  @last modified on  : 10-16-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container mt-2">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <div class="aob_form_title mb_48">
+      <h2>
+        Annexure B: US persons, inclusive of US entities / US FATCA
+        classification for all non US entities
+      </h2>
+    </div>
+    <div>
+      <h1 class="us-font">{headerLabel}</h1>
+    </div>
+    <div class="aob_card-container sub-header">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span>Select one of the
+        options below
+      </div>
+      <div class="aob_info-text mt_40">
+        <img src={helpicon} alt="check" />
+        <p>
+          The selection below will determine the information required in section
+          1
+        </p>
+      </div>
+      <div class="radio-container">
+        <input
+          class="radio-input"
+          id="Yes"
+          type="radio"
+          data-name="fatchaType"
+          checked={isUsEntity}
+          value="US persons, inclusive of US entities"
+          name="checkbox"
+          data-id="US persons, inclusive of US entities"
+          onchange={handleEntitySelection}
+        />
+        <label class="radio" for="US persons, inclusive of US entities"
+          >US persons, inclusive of US entities</label
+        >
+        <input
+          class="radio-input"
+          id="No"
+          type="radio"
+          data-name="fatchaType"
+          checked={isNotUsEntity}
+          value="US FATCA classification for all non US entites"
+          onchange={handleEntitySelection}
+          name="checkbox"
+          data-id="US FATCA classification for all non US entites"
+        />
+        <label
+          class="radio"
+          for="US FATCA classification for all non US entites"
+          >US FATCA classification for all non US entites</label
+        >
+      </div>
+    </div>
+    <template lwc:if={isUsEntitySelected}>
+      <div class="aob_card-container sub-header">
+        <div class="aob_title-sm">
+          <span class="slds-required" title="required">* </span>US persons,
+          inclusive of US entities
+        </div>
+        <template for:each={itemList} for:item="item" for:index="index">
+          <div key={item.id} class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_5-of-12">
+              <div class="mt_20">
+                <lightning-input
+                  data-index={index}
+                  data-id={item.id}
+                  type="text"
+                  aria-describedby="form-error-02"
+                  data-name="usPersonEntityDetails"
+                  onchange={genericFieldChange}
+                  placeholder="Please enter US entities"
+                  name="usPersonEntityDetails"
+                  value={item.usPersonEntityDetails}
+                  aria-invalid="true"
+                >
+                </lightning-input>
+              </div>
+            </div>
+            <template lwc:if={index}>
+              <div class="slds-p-top_medium deleteicontopleft" key={item.id}>
+                <img
+                  class="slds-p-top_large slds-p-left_large"
+                  src={delete_row_icon}
+                  alt="delete-row-icon"
+                  access-key={item.id}
+                  id={index}
+                  data-id={index}
+                  data-index={index}
+                  alternative-text="Delete Row"
+                  size="small"
+                  title="Delete Row"
+                  onclick={removeRow}
+                />
+              </div>
+            </template>
+          </div>
+        </template>
+        <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <lightning-button
+              variant="brand-outline"
+              icon-name="utility:new"
+              label="ADD ADDITIONAL"
+              title="Primary action with lighter look"
+              onclick={addRow}
+              class="slds-m-left_x-small space-padding"
+            >
+            </lightning-button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <template lwc:if={isNonUsEntitySelected}>
+      <div class="aob_card-container sub-header">
+        <div class="aob_title-sm">
+          <span class="slds-required" title="required">* </span>If the entity is
+          a registered financial institution, please fill in one of the
+          categories below, and provide the entity’s global intermediary
+          identification number (GIIN) (19 character number)
+        </div>
+        <div class="aob_info-text mt_20">
+          <img src={helpicon} alt="check" />
+          <p>Only one may be selected</p>
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            type="radio"
+            name="yesd"
+            checked={isPartnerFinancialInstitution}
+            data-name="registeredType"
+            value="IGA partner jurisdiction financial institution"
+            onchange={handleCheckboxChanged}
+          />
+          <label
+            class="radio"
+            for="IGA partner jurisdiction financial institution"
+            >IGA partner jurisdiction financial institution</label
+          >
+        </div>
+        <template lwc:if={isIGAFinalInstitution}>
+          <label class="slds-form-element__label mt_20" for="form-element-05">
+            <span class="slds-required" title="required">* </span>GIIN number
+            (19 characters)</label
+          >
+          <div class="slds-col slds-size_5-of-12">
+            <lightning-input
+              type="text"
+              id="form-element-03"
+              data-name="registeredGIIN"
+              value={registeredGIIN}
+              placeholder="789675. 44132. 79. 806"
+              onchange={genericInputChange}
+              aria-describedby="form-error-02"
+              aria-invalid="true"
+            >
+            </lightning-input>
+          </div>
+        </template>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            id="Yes1"
+            type="radio"
+            name="yesd"
+            checked={isRegisteredFinancialInstitution}
+            data-name="registeredType"
+            value="Registered deemed complaint foreign financial institution"
+            onchange={handleCheckboxChanged}
+          />
+          <label
+            class="radio"
+            for="Registered deemed complaint foreign financial institution"
+            >Registered deemed complaint foreign financial institution</label
+          >
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            id="No1"
+            type="radio"
+            name="yesd"
+            checked={isForeignFinancialInstitution}
+            data-name="registeredType"
+            value="Participating foreign financial institution"
+            onchange={handleCheckboxChanged}
+          />
+          <label class="radio" for="Participating foreign financial institution"
+            >Participating foreign financial institution</label
+          >
+        </div>
+      </div>
+      <div class="aob_card-container sub-header">
+        <div class="aob_title-sm">
+          If the entity is a financial institution but unable to provide a GIIN,
+          please tick one of the reasons below.
+        </div>
+        <div class="aob_info-text mt_20">
+          <img src={helpicon} alt="check" />
+          <p>Only one may be selected</p>
+        </div>
+        <div class="radio-container checkbox_text">
+          <input
+            class="radio-input checkbox_top"
+            id="No2"
+            type="radio"
+            name="entity2"
+            checked={trusteeGiin}
+            data-name="nonGIINType"
+            value="The entity is a sponsored financial institution (including a sponsored investment entity or sponsored closely held investment vehicle) and has not yet obtained a GIIN but is sponsored by another entity that has registered as a sponsoring entity"
+            onchange={handleCheckboxChangedForTrustee}
+          />
+          <label
+            class="radio"
+            for="The entity is a sponsored financial institution (including a sponsored investment entity or sponsored closely held investment
+                vehicle) and has not yet obtained a GIIN but is sponsored by another entity that has registered as a sponsoring entity"
+            >The entity is a sponsored financial institution (including a
+            sponsored investment entity or sponsored closely held investment
+            vehicle) and has not yet obtained a GIIN but is sponsored by another
+            entity that has registered as a sponsoring entity</label
+          >
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            type="radio"
+            name="entity2"
+            checked={trusteeEntity}
+            data-name="nonGIINType"
+            value="Entity is a trustee documented trust"
+            onchange={handleCheckboxChangedForTrustee}
+          />
+          <label class="radio" for="Entity is a trustee documented trust"
+            >Entity is a trustee documented trust</label
+          >
+        </div>
+        <template lwc:if={showTrusteeDetails}>
+          <div class="slds-grid aob_col-gutter slds-wrap">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <label
+                class="slds-form-element__label mt_20"
+                for="form-element-05"
+              >
+                <span class="slds-required" title="required">* </span>Please
+                provide your trustee’s name</label
+              >
+              <lightning-input
+                required
+                variant="label-hidden"
+                type="text"
+                id="form-element-04"
+                data-name="trustName"
+                value={trusteeName}
+                onchange={genericInputChange}
+                placeholder="Org. ABC"
+                aria-describedby="form-error-02"
+                aria-invalid="true"
+              >
+              </lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+              <label
+                class="slds-form-element__label mt_20"
+                for="form-element-05"
+              >
+                <span class="slds-required" title="required">* </span>Please
+                provide your trustee’s GIIIN</label
+              >
+              <lightning-input
+                required
+                variant="label-hidden"
+                type="text"
+                id="form-element-05"
+                data-name="trustGIIN"
+                value={trustGIIN}
+                onchange={genericInputChange}
+                placeholder="799900. 44132. 79. 806"
+                aria-describedby="form-error-02"
+                aria-invalid="true"
+              ></lightning-input>
+            </div>
+          </div>
+        </template>
+        <div class="radio-container checkbox_text">
+          <input
+            class="radio-input checkbox_top"
+            id="No4"
+            type="radio"
+            checked={trusteeannex}
+            name="entity2"
+            data-name="nonGIINType"
+            value="The entity is a certified deemed compliant, or other non-reporting foreign financial institution(including a foreign financial institution deemed compliant under annex II of an IGA)"
+            onchange={handleCheckboxChangedForTrustee}
+          />
+          <label
+            class="radio"
+            for="The entity is a certified deemed compliant, or other non-reporting foreign financial institution
+            (including a foreign financial institution deemed compliant under annex II of an IGA)"
+            >The entity is a certified deemed compliant, or other non-reporting
+            foreign financial institution (including a foreign financial
+            institution deemed compliant under annex II of an IGA)</label
+          >
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            id="No5"
+            type="radio"
+            checked={trusteeOwner}
+            name="entity2"
+            data-name="nonGIINType"
+            value="Entity is an owner documented financial institution"
+            onchange={handleCheckboxChangedForTrustee}
+          />
+          <label
+            class="radio"
+            for="Entity is an owner documented financial institution"
+            >Entity is an owner documented financial institution</label
+          >
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            id="No6"
+            type="radio"
+            checked={trusteeNonParticipant}
+            name="entity1"
+            data-name="nonGIINType"
+            value="Entity is a non-participating financial institution"
+            onchange={handleCheckboxChangedForTrustee}
+          />
+          <label
+            class="radio"
+            for="Entity is a non-participating financial institution "
+            >Entity is a non-participating financial institution
+          </label>
+        </div>
+      </div>
+
+      <div class="aob_card-container sub-header">
+        <div class="aob_title-sm">
+          If the entity is NOT a financial institution please confirm the
+          entities FATCA status below
+        </div>
+        <div class="aob_info-text mt_20">
+          <img src={helpicon} alt="check" />
+          <p>Only one may be selected</p>
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            type="radio"
+            name="checkbox4"
+            checked={statusOwner}
+            data-name="fatchStatus"
+            value="The entity is an exempt beneficial owner"
+            onchange={handleCheckboxChangedForStatus}
+          />
+          <label class="radio" for="The entity is an exempt beneficial owner"
+            >The entity is an exempt beneficial owner</label
+          >
+        </div>
+
+        <template lwc:if={showStatusType}>
+          <label class="slds-form-element__label mt_20" for="form-element-05">
+            <span class="slds-required" title="required">* </span>Indicate type
+            here</label
+          >
+          <div class="slds-col slds-size_5-of-12">
+            <lightning-input
+              required
+              variant="label-hidden"
+              type="text"
+              id="form-element-06"
+              data-name="fatchaStatusType"
+              value={fatchaStatusType}
+              onchange={genericInputChange}
+              placeholder="Active non-financial foreign entity"
+              aria-describedby="form-error-02"
+              aria-invalid="true"
+            ></lightning-input>
+          </div>
+        </template>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            id="No8"
+            type="radio"
+            name="checkbox4"
+            checked={statusExpected}
+            data-name="fatchStatus"
+            value="The entity is an active non-financial foreign entity (including an expected NFFE)"
+            onchange={handleCheckboxChangedForStatus}
+          />
+          <label
+            class="radio"
+            for="The entity is an active non-financial foreign entity (including an expected NFFE)"
+            >The entity is an active non-financial foreign entity (including an
+            expected NFFE)</label
+          >
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            id="No9"
+            type="radio"
+            name="checkbox4"
+            checked={statusEntity}
+            data-name="fatchStatus"
+            value="The entity is a passive non-financial foreign entity"
+            onchange={handleCheckboxChangedForStatus}
+          />
+          <label
+            class="radio"
+            for="The entity is a passive non-financial foreign entity"
+            >The entity is a passive non-financial foreign entity
+          </label>
+        </div>
+        <div class="radio-container">
+          <input
+            class="radio-input"
+            id="No10"
+            type="radio"
+            name="checkbox4"
+            checked={statusFinancial}
+            data-name="fatchStatus"
+            value="The entity is a direct reporting non-financial foreign entity"
+            onchange={handleCheckboxChangedForStatus}
+          />
+          <label
+            class="radio"
+            for="The entity is a direct reporting non-financial foreign entity"
+            >The entity is a direct reporting non-financial foreign
+            entity</label
+          >
+        </div>
+
+        <label class="slds-form-element__label mt_20" for="form-element-05">
+          <span class="slds-required"> </span
+        ></label>
+
+        <div class="aob_info-text mt_20">
+          <img src={helpicon} alt="check" />
+          <p>
+            If you have confirmed that the entity is a passive non-financial
+            foreign entity you must now provide details of the controlling
+            persons in section 5
+          </p>
+        </div>
+      </div>
+    </template>
+    <c-cib_comp_flow-navigation
+    onsave={saveRecord}
+    onsubmit={submitRecord}
+    onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

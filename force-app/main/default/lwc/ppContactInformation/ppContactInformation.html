@@ -1,0 +1,67 @@
+<!-- **
+* @description  : Partner Portal Contact Us Page Sub Component
+* User Story : SFP-5296
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date July 2021
+*/ -->
+<template>
+    
+    <div class="slds-col contact-Information">
+        <div class="slds-grid slds-grid_vertical">
+
+            <div class="slds-col">
+
+                <div class="slds-grid slds-grid_align-spread">
+                    <div class="slds-col slds-align-top slds-p-top_small">
+                        <p class="heading-small contact-info-heading">Contact Information</p>
+                    </div>
+
+                    <div class="slds-col">
+                        <div class="slds-grid">
+                            <div class="slds-col">
+                                <img class="countryFlag" src={countryFlag} />
+                            </div>
+                            <div class="slds-col">
+                                <lightning-combobox name="Country" class="Country" label=""
+                                    value={defaultCounty} options={countryOptions}>
+                                </lightning-combobox>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="slds-col text-normal con-us-sub-heading">
+                <p>Our operating hours are:</p>
+                <p>Monday-Friday: 9:00 to 16:00</p>
+            </div>
+
+            <div class="slds-col">
+                <div class="slds-grid con-us-details-container">
+                    <div class="slds-col">
+                        <img class="con-us-icon" src={emailIcon}>
+                    </div>
+                    <div class="slds-col">
+                        <p class="text-normal contact-us-email">support@standardbank.co.za</p>
+                    </div>
+                </div>
+
+                <div class="slds-grid con-us-details-container">
+                    <div class="slds-col">
+                        <img class="con-us-icon" src={phoneIcon}>
+
+                    </div>
+                    <div class="slds-col">
+                        <p class="text-normal contact-us-phone">+27 973829920283</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+</template>

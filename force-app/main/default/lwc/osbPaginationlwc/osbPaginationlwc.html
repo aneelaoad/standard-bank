@@ -1,0 +1,104 @@
+<template>
+    <div class="PaginationMain">
+        <template lwc:if={showapplication}>
+            <template lwc:if={displayedList}>
+                <div class="ListSection">
+                    <div class="TileHolderWrapper">
+                        <template for:each={displayedList} for:item="dataItem">
+                            <div class="TileHolder" key={dataItem}>
+                                <c-osb-application-gallery-item solutionid={dataItem.Id} title={dataItem.Title}
+                                    content={dataItem.Introduction__c} logo={dataItem.Medium_Solution_Logo__c}
+                                    largelogo={dataItem.Large_Solution_Logo__c} link={dataItem.Sign_Up_URL__c}
+                                    solutionsiteurl={dataItem.Solution_URL__c} urlname={dataItem.UrlName}
+                                    providerid={dataItem.Provider_Knowledge_Article__c}
+                                    applicationowner={dataItem.Application_Owner__c} link-label="Visit Website"
+                                    is-on-showcase="true">
+                                </c-osb-application-gallery-item>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </template>
+        <template lwc:if={shownotification}>
+            <div class="notifications__container" data-id="notifcations-container">
+                <div class="notifications__list">
+                    <template for:each={displayedList} for:item="dataItem">
+                        <div style="border-bottom: 1px solid #EDEDED;" key={dataItem.Id}>
+                            <c-osb-notifications-item-lwc id={dataItem.Id} title={dataItem.Title__c}
+                                subtitle={dataItem.Subtitle__c} date={dataItem.CreatedDate}
+                                content={dataItem.Content__c} isunread={dataItem.Is_Unread__c}>
+                            </c-osb-notifications-item-lwc>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+        <template lwc:if={pageTotalGreaterThanOne}>
+            <div class="PaginationHolder">
+                <div class="PaginationContainer">
+                    <template lwc:if={DisableLeft}>
+                        <div class="ChevronHolder StartArrowHolder ButtonDisabled" data-type="left" data-disabled="true"
+                            data-text="Pagination | First Page" data-id="navButton">
+                            <img class="Chevron" src={FirstPageChevronDisabled}>
+                        </div>
+                        <div class="ChevronHolder PreviousLeftArrowHolder ButtonDisabled" data-type="left"
+                            data-disabled="true" data-text="Pagination | Previous Page" data-id="navButton">
+                            <img class="Chevron" src={PreviousPageChevronDisabled}>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <div class="ChevronHolder StartArrowHolder ActiveLeft" onclick={onFirstPage} data-type="left"
+                            data-disabled="true" data-text="Pagination | First Page" data-id="navButton">
+                            <img class="Chevron" src={FirstPageChevronActive}>
+                        </div>
+                        <div class="ChevronHolder PreviousLeftArrowHolder ActiveLeft" onclick={onPrevPage}
+                            data-type="left" data-disabled="true" data-text="Pagination | Previous Page"
+                            data-id="navButton">
+                            <img class="Chevron" src={PreviousPageChevronActive}>
+                        </div>
+                    </template>
+
+                    <div class="PageNumbersHolder">
+                        <template for:each={pages} for:item="pageItem">
+                            <template lwc:if={pageItem.pgCurr}>
+                                <div class="NumberCircle SelectedNumber" key={pageItem.pgNum}
+                                    onclick={onPageButtonClick} data-id={pageItem.pgNum}>
+                                    {pageItem.pgNum}
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <div class="NumberCircle" key={pageItem.pgNum} onclick={onPageButtonClick}
+                                    data-id={pageItem.pgNum}>
+                                    {pageItem.pgNum}
+                                </div>
+                            </template>
+                        </template>
+                    </div>
+
+                    <template lwc:if={DisableRight}>
+                        <div class="ChevronHolder NextRightArrowHolder DisabledRight ButtonDisabled" data-type="right"
+                            data-disabled="false" data-text="Pagination | Next Page" data-id="navButton">
+                            <img class="Chevron" src={NextPageChevronDisabled}>
+                        </div>
+                        <div class="ChevronHolder EndArrowHolder DisabledRight ButtonDisabled" onclick={onLastPage}
+                            data-type="right" data-disabled="false" data-text="Pagination | Last Page"
+                            data-id="navButton">
+                            <img class="Chevron" src={LastPageChevronDisabled}>
+                        </div>
+                    </template>
+                    <template lwc:else>
+                        <div class="ChevronHolder NextRightArrowHolder Active" onclick={onNextPage} data-type="right"
+                            data-disabled="false" data-text="Pagination | Next Page" data-id="navButton">
+                            <img class="Chevron" src={NextPageChevronActive}>
+                        </div>
+                        <div class="ChevronHolder EndArrowHolder Active" onclick={onLastPage} data-type="right"
+                            data-disabled="false" data-text="Pagination | Last Page" data-id="navButton">
+                            <img class="Chevron" src={LastPageChevronActive}>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </div>
+</template>

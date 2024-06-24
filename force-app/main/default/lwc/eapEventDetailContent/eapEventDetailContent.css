@@ -1,0 +1,6 @@
+@import 'c/eapCssLibrary';
+
+.relleno {
+    background-color: var(--background-grey);
+    min-height: 53px;
+}

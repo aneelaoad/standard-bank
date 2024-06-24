@@ -1,0 +1,514 @@
+*,
+html {
+    overflow: initial;
+    margin-top: 5px;
+}
+
+.background {
+    background-color: #fff !important;
+    padding-bottom: 3px;
+
+}
+
+/* Banner Start */
+
+/* Banner End */
+
+
+.primary-bg {
+    background-color: #0033a1 !important;
+    color: #fff !important;
+}
+
+.benifits-container {
+    background-color: #f2f3f4;
+    padding: 12px 20px 32px;
+    margin-bottom: 40px;
+}
+
+.benifits-container h2 {
+    font-size: 20px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.33px;
+    color: #353637;
+    margin-bottom: 59px;
+    font-family: "BentonSans";
+}
+
+.benifit-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: center;
+}
+
+.benifits-card {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    padding: 64px 26px 43px 25px;
+    margin-top: 0;
+    border-radius: 2px;
+    background-color: #fff;
+    border: 0;
+    box-shadow: none;
+
+}
+
+.benifits-card .card-img-sm {
+    position: absolute;
+    left: 50%;
+    top: -40px;
+    transform: translateX(-50%);
+}
+
+.benifits-card h3 {
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3c4b6c;
+    margin-bottom: 20px;
+    font-family: "bentonsans-extra-light-webfont";
+}
+.hov:hover{
+    color: #0069c4!important;
+    text-decoration: none;
+    transition: .5s;
+}
+
+.benifits-card p {
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    text-align: center;
+    color: #0a2240;
+}
+
+.benifits-card.primary-bg h3,
+.benifits-card.primary-bg p {
+    color: #fff !important;
+    font-weight: 400;
+}
+
+a:link:not(.slds-button, .slds-dropdown__item>a) {
+    color: #0089ff;
+    text-decoration: none;
+    line-height: 0.27px;
+}
+
+.slds-tabs_default__item.slds-is-active:after {
+    background-color: #0089ff;
+}
+
+.slds-tabs_default__nav {
+    border-bottom-color: rgba(133, 141, 157, .3);
+}
+
+@media screen and (max-width:1200px) {
+    .benifits-card {
+        width: 100%;
+        padding: 65px 30px 30px 30px;
+        height: 88%;
+
+
+    }
+}
+
+@media screen and (max-width:980px) {
+    .benifit-grid {
+        grid-template-columns: auto auto;
+        justify-content: space-between;
+        row-gap: 30px;
+    }
+
+}
+
+@media screen and (max-width:426px) {
+    .benifits-container h2 {
+        font-size: 14px;
+        margin-bottom: 69px;
+    }
+
+    .benifits-card {
+        background-color: transparent !important;
+        padding: 64px 5px 0 5px;
+    }
+
+    .benifits-card.primary-bg h3,
+    .benifits-card h3 {
+        font-size: 16px;
+        text-align: center;
+        color: #858d9d !important;
+        margin-bottom: 10px;
+    }
+
+    .benifits-card.primary-bg p,
+    .benifits-card p {
+        font-size: 13px;
+        line-height: 1.69;
+        text-align: center;
+        color: #0a2240 !important;
+    }
+}
+
+/* mymoBiz tabbed info start */
+.What-you-get-text p {
+    color: black;
+    line-height: 1.5;
+}
+
+.accordions {
+    padding: 5px 10px 5px 10px;
+}
+
+.accordion {
+    width: 100%;
+    background-color: #fff;
+    overflow: hidden;
+
+}
+
+.acc_label {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    font-size: 18px;
+    color: #858d9d;
+    cursor: pointer;
+    border-bottom: 1px solid #e3e7ea;
+}
+
+.acc_label::after {
+    content: "\276F";
+    width: 16px;
+    text-align: center;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    color: blue;
+    /* height: auto; */
+}
+
+.What-You {
+    max-height: 0;
+    padding: 0 1em;
+    color: #3c4b6c;
+    transition: all 0.4s ease;
+}
+
+input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+input:checked+.acc_label::after {
+    transform: rotate(-90deg);
+}
+
+input:checked~.What-You {
+    max-height: 800px;
+    padding: 1em;
+    background-color: white;
+    color: #3c4b6c;
+
+}
+
+/* mymoBiz tabbed info end */
+
+
+/* ///////////////////////////////// MyMoBiz Business Account ////////////////////////////// */
+
+.breadcrumb_arrows {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    color: #3889ff;
+}
+
+.changecolor {
+    color: #0a2240 !important;
+
+}
+
+.breadcrumb_arrows a {
+
+    display: flex;
+    justify-content: center;
+    font-family:  bentonsans-regular-webfont !important;
+    font-size: 13px !important;
+    font-weight: 700;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3889ff;
+
+}
+
+.slds-breadcrumb .slds-breadcrumb__item {
+    font-family:  bentonsans-regular-webfont !important;
+    font-size: 13px !important;
+    font-weight: 700;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3889ff;
+}
+.slds-breadcrumb .slds-breadcrumb__item:before{
+    position: absolute;
+    left: -0.25rem;
+    top: -7px;
+}
+
+.my-mobiz_account_card {
+    margin-bottom: 100px;
+}
+
+.banner_title {
+    text-align: center;
+    margin: 30px 0 60px;
+}
+
+.banner_title h1 {
+    font-family: 'bentonsans-extra-light-webfont';
+    font-size: 47px;
+    font-weight: 200;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    color: #3c4b6c;
+}
+
+
+.product_fee_content {
+    padding: 60px 27px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.product_fee_content p {
+    font-family: 'bentonsans-regular-webfont';
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+    color: #858d9d;
+    margin-bottom: 47px;
+}
+
+.product_fee_content .fee {
+    margin-bottom: 30px;
+}
+
+.product_fee_content .fee .fee_num {
+    display: flex;
+    align-items: flex-start;
+}
+
+.product_fee_content .fee .fee_num span {
+    font-family: 'BentonSans';
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1.54px;
+    color: #353637;
+    margin-right: 5px;
+}
+
+.product_fee_content .fee .fee_num h3 {
+    font-family: 'bentonsans-light-webfont';
+    font-size: 42px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    color: #0a2240;
+    margin: 0;
+}
+
+.product_fee_content .fee .fee_text {
+    font-family: 'bentonsans-medium-webfont';
+    font-size: 11px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.64;
+    letter-spacing: 1px;
+    color: #858d9d;
+    margin-top: 5px;
+}
+
+.btn_pair {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.btn__large {
+    font-family: 'bentonsans-bold-webfont';
+    font-size: 14px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.43;
+    letter-spacing: 1.08px;
+    text-align: center;
+    border-radius: 2px;
+    border: solid 1px #0089ff;
+    min-height: 74px;
+    padding: 4px 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    color: #0089ff !important;
+}
+
+.btn_fill_large {
+    color: #ffffff !important;
+    background-color: #0089ff !important;
+}
+
+.btn_outline_large {
+    color: #0089ff !important;
+    background-color: #fff !important;
+}
+
+
+@media screen and (max-width:1440px) {
+    .banner_title {
+        margin: 30px 0 50px;
+    }
+
+    .banner_title h1 {
+        font-size: 38px;
+    }
+
+    .product_fee_content {
+        padding: 50px 27px 30px;
+    }
+
+    .product_fee_content p {
+        font-size: 26px;
+        text-align: justify;
+    }
+
+    .product_fee_content .fee .fee_num span {
+        font-size: 16px;
+    }
+
+    .product_fee_content .fee .fee_num h3 {
+        font-size: 36px;
+    }
+
+    .btn__large {
+        min-height: 64px;
+    }
+
+    .btn_fill_large:hover {
+        background-color: #0069c4 !important;
+    }
+
+    .btn__large.btn_fill_large_c:hover {
+        background-color: #f0eeed;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .banner_title {
+        margin: 20px 0 32px;
+    }
+
+    .banner_title h1 {
+        font-size: 28px;
+    }
+
+    .product_fee_content {
+        padding: 20px 60px 30px;
+    }
+
+    .product_fee_content p {
+        font-size: 20px;
+        line-height: 1.25;
+        margin-bottom: 38px;
+    }
+
+    .product_fee_content .fee .fee_num span {
+        font-size: 13px;
+    }
+
+    .product_fee_content .fee .fee_num h3 {
+        font-size: 26px;
+    }
+
+    .btn__large {
+        min-height: 50px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width:640px) {
+    .banner_title {
+        margin: 20px 0;
+    }
+
+    .product_fee_content {
+        padding: 28px 16px;
+    }
+
+    .btn_pair {
+        flex-wrap: wrap;
+    }
+
+    .btn__large {
+        width: 70%;
+        margin-left: 55px;
+    }
+}
+
+@media screen and (max-width:360px) {
+    .banner_title {
+        text-align: left;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .slds-breadcrumb__item{
+        display: none;
+    }
+    .breadcrumb_arrows{
+        display: flex;
+        justify-content: flex-start;
+    }
+    .breadcrumb_arrows nav ol li:nth-child(3){
+        display: block!important;
+        font-weight: 700!important;
+
+    }
+    .breadcrumb_arrows nav ol li:nth-child(3)::before{
+        rotate: 180deg!important;
+    }
+}

@@ -1,0 +1,23 @@
+<!-- **
+* @description  : Partner Portal Partnership Experience Component
+* User Story : SFP-4962
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date June 2021
+*/ -->
+<template>
+
+    <div class="container">
+        <div class="slds-align_absolute-center">
+        <div class="video-container">
+            <div class="slds-grid slds-grid_vertical">
+                <div class="slds-col slds-align-top slds-p-bottom_medium slds-p-top_small heading-normal">
+                    <p>{heading}</p>
+                </div>
+            </div> 
+            <iframe src={youtubeVideoLink}  class="iframe" title={heading} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    </div>
+
+</template>

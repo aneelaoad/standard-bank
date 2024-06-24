@@ -1,0 +1,26 @@
+.tabDescriptionCssClass {
+    font-family: BentonSans;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.8;
+    letter-spacing: normal;
+    color: #3c4b6c; 
+    text-align: left;
+    float: left;
+    margin-bottom: 1em;
+}
+@media screen and (min-width: 980px) {
+    .tabDescriptionCssClass {
+        max-width: 60%;
+        float: left;
+    }
+}
+
+@media screen and (min-width: 1166px) {
+    .tabDescriptionCssClass {
+        max-width: 64%;
+        float: left;
+    }
+}

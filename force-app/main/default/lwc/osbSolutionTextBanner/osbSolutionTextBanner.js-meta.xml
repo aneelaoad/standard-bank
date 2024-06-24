@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="leftContent" label="Content on the left" type="String" default="" />
+            <property name="rightContent" label="Content on the Right" type="String" default="" />
+            <property name="swapTextSides" label="Swap Content" type="Boolean" default="false" />
+            <property name="alignItemsVertically" label="Align content vertically" type="Boolean" default="true" />
+            <property name="alignItemsHorizontally" label="Align content horizontally" type="Boolean" default="false" />
+            <property name="backgroundColor" type="String" default="" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

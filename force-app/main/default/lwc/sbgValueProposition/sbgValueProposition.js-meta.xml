@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>SBG Value Proposition</masterLabel>
+    <description>A collection of 4 readonly blocks comprising of an icon with a title and some text</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property type="String" name="headerText" label="Main Heading"  default="WHY CHOOSE OUR API MARKETPLACE"/>
+            <property type="Boolean" name="ShieldType" label="Shield Type" default="false"/>
+            <property type="String" name="ShieldBackingicon1svg" label="Section image when shieldType is True" default="/sbg-shield-backing.svg" />
+            <!-- Section 1 -->
+            <property type="String" name="ACMHomepageicon1svg" label="Section 1 image URL" default="/sbg-shield.svg" />
+            <property type="String" name="section1subtext1" label="Section 1-sub text 1" default="The reach of our network delivered through APIs" />
+            <property type="String" name="section1subtext2" label="Section 1-sub text 2" default="Leverage our banking data, components and expertise to easily find, compare and consume APIs." />
+        
+            <!-- Section 2 -->
+            <property type="String" name="ACMHomepageicon2svg" label="Section 2 image URL" default="/sbg-anchor.svg" />
+            <property type="String" name="section2subtext1" label="Section 2-sub text 1" default="Better customer experiences"/>
+            <property type="String" name="section2subtext2" label="Section 2-sub text 2" default="Build and deliver innovative digital experiences quickly with access to the latest products and functionalities." />
+
+            <!-- Section 3 -->
+            <property type="String" name="ACMHomepageicon3svg" label="Section 3 image URL" default="/sbg-user.svg" />
+            <property type="String" name="section3subtext1" label="Section 3-sub text 1" default="An API-first strategy" />
+            <property type="String" name="section3subtext2" label="Section 3-sub text 2" default="Enjoy efficient use of resources with APIs that are consistent and reusable and eliminate redundant processes." />
+
+            <!-- Section 4 -->
+            <property type="String" name="ACMHomepageicon4svg" label="Section 4 image URL" default="/sbg-trophy.svg" />
+            <property type="String" name="section4subtext1" label="Section 4-sub text 1" default="Community involvement and support" />
+            <property type="String" name="section4subtext2" label="Section 4-sub text 2" default="Connect, get help and learn from other developers and experts to create innovative solutions and API products." />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,110 @@
+@import 'c/eapCssLibrary';
+
+.v1_div_background {
+    background-color: var(--background-grey);
+    height: 17.5em;
+    position: relative;
+    top: 8em;
+}
+
+.meetingsBackground {
+    height: 13.3em;
+}
+
+.formBackground {
+    height: 9.5em;
+}
+
+.v1_div_secondCard {
+    position:absolute;
+    width: 90%;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    top: 1em;
+}
+
+.v1_p_supTitle {
+    text-transform: uppercase;
+    font-size: .85em;
+    color: grey;
+    letter-spacing: 1px;
+    margin-bottom: 1em;
+}
+
+.v1_div_today {
+    top: -0.5em;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    line-height: 80%;
+    padding-top: 1.8em;
+    width: 10.5em;
+    height: 6em;
+    display: grid;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    margin-left: 1em;
+    position: relative;
+}
+
+.v1_div_today span {
+    position: relative;
+    right: 1.25em;
+}
+
+.v1_div_today_dark {
+    position: absolute;
+    top: 4em;
+    left: 2.5em;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    line-height: 80%;
+    padding-top: 1.8em;
+    width: 10.5em;
+    height: 7em;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+}
+
+.v1_h1_date {
+    font-size: 22px;
+    font-weight: lighter;
+}
+
+.v1_div_otherMeetings {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 8.25em;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+    position: relative;
+    float: right;
+    top: -7.5em;
+}
+
+.v1_p_firstMeeting {
+    font-weight: bold;
+}
+
+.v1_a_viewFullSchedule {
+    font-weight: bold;
+}
+
+.v1_div_container {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.v1_p_supTitle {
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+.v1_div_otherMeetings {
+    padding-bottom: 20px;
+    padding-right: 20px;
+}

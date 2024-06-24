@@ -1,0 +1,68 @@
+<template>
+    <div class="slds-box">
+        <lightning-card>
+            <lightning-breadcrumbs if:true={displayFullView}>
+                <lightning-breadcrumb label="Clients" href={listViewLink}>
+                </lightning-breadcrumb>
+                <lightning-breadcrumb if:true={account} label={account.Name} href={accountLink}>
+                </lightning-breadcrumb>
+            </lightning-breadcrumbs>
+            <div class="slds-media__figure">
+                <span if:false={displayFullView} class="slds-icon_container slds-icon-standard-custom"
+                      title="Account Information">
+                    <lightning-icon icon-name="standard:custom" size="small"
+                                    alternative-text="List Account Information">
+                    </lightning-icon>
+                </span>
+                <span class="slds-text-heading_small">
+                    <a
+                            if:false={displayFullView}
+                            href={auraLink}
+                            class="slds-card__header-link slds-truncate"
+                            title="Account Information">
+                        Account Information ({count})
+                    </a>
+                    <lightning-formatted-text
+                            if:true={displayFullView}
+                            class="slds-card__header-link slds-truncate"
+                            value="Account Information"
+                            title="Account Information">
+                        Account Information
+                    </lightning-formatted-text>
+                </span>
+            </div>
+            <div if:true={noItems}>
+                <lightning-formatted-text
+                        value='No items to display'
+                        title='No items to display'
+                        class="slds-align_absolute-center slds-text-align_center slds-grid_align-center">
+                    No items to display
+                </lightning-formatted-text>
+            </div>
+            <div if:false={noItems}>
+                <lightning-datatable
+                        key-field="id"
+                        data={accountData}
+                        columns={columns}
+                        is-loading={tableLoadingState}
+                        show-row-number-column
+                        hide-checkbox-column
+                        default-sort-direction={defaultSortDirection}
+                        sorted-direction={sortDirection}
+                        sorted-by={sortedBy}
+                        min-column-width=100
+                        onsort={onHandleSort}>
+                </lightning-datatable>
+                <div if:false={displayFullView}>
+                    <lightning-button
+                            class="slds-align_absolute-center slds-text-align_center slds-grid_align-center slds-m-top--small"
+                            label="View All"
+                            title="Non-primary action"
+                            onclick={navigateToFullView}>
+                    </lightning-button>
+                </div>
+            </div>
+        </lightning-card>
+    </div>
+
+</template>

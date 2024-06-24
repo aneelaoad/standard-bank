@@ -1,0 +1,256 @@
+<template>
+  <c-mall-toast-notifcation auto-close-time="10000"></c-mall-toast-notifcation>
+  <div class="wrapper">
+    <div class="contact_us_section">
+      <div class="contact_us_inner">
+        <div class="highlighted_prod">
+          <h4 class="pb-4">{contactUsTitle}</h4>
+        </div>
+
+        <div class="contact_us_detail">
+          <div class="contact_us_info">
+            <div class="contact_text">
+              <p>
+                {appreciationMessageLabel}
+                <a
+                  href="/mall/s/faq"
+                  data-intent="navigational"
+                  data-scope="contact us"
+                  data-id="link_content"
+                  data-type="click"
+                  data-text="FAQs."
+                  data-text-after="link"
+                  >FAQs.</a
+                >
+              </p>
+            </div>
+
+            <form action={webToCaseUrl} method="POST">
+              <input type="hidden" name="orgid" value={organizationId} />
+              <input type="hidden" name="retURL" value={returnUrl} />
+              <template if:false={isFieldRequired}>
+                <input type="hidden" name="name" value={contactName} />
+                <input type="hidden" name="email" value={contactEmail} />
+              </template>
+
+              <div class="type_msg">
+                <label for="messageType" class="form-label-type"
+                  >{messageTypeTitleLabel}</label
+                >
+                <fieldset id="messageType" class="responsive-container">
+                  <template for:each={options} for:item="option">
+                    <div class="radio-button-wrapper" key={option.value}>
+                      <input
+                        type="radio"
+                        name="Case_Type__c"
+                        id={option.value}
+                        value={option.value}
+                        checked={option.selected}
+                        data-label={option.label}
+                        data-id="link_content"
+                        data-intent="transactional"
+                        data-type="click"
+                        data-scope="contact us"
+                        data-text={option.label}
+                        data-text-after="radio button"
+                      />
+                      <label for={option.value} class="radio-button-label"
+                        >{option.translatedLabel}</label
+                      >
+                    </div>
+                  </template>
+                </fieldset>
+              </div>
+
+              <div class="contactus_form">
+                <div class="slds-grid slds-wrap slds-gutters">
+                  <template if:true={isFieldRequired}>
+                    <div class="slds-col slds-size_1-of-1">
+                      <div class="formInput">
+                        <label for="name" class="form-label"
+                          >{fullNameLabel}<abbr
+                            title="required"
+                            class="slds-required"
+                            >*</abbr
+                          ></label
+                        >
+
+                        <div class="formInput_field">
+                          <input
+                            type="text"
+                            class="form-control"
+                            value={name}
+                            id="name"
+                            maxlength="80"
+                            name="name"
+                            size="20"
+                            placeholder={fullNamePlaceholder}
+                            required={isFieldRequired}
+                            pattern="^[a-z A-Z]+$"
+                            onchange={setName}
+                            disabled={isFieldDisabled}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="slds-col slds-size_1-of-1 slds-large-size_5-of-12"
+                    >
+                      <div class="formInput">
+                        <label for="email" class="form-label"
+                          >{emailAddressLabel}<abbr
+                            title="required"
+                            class="slds-required"
+                            >*</abbr
+                          ></label
+                        >
+
+                        <div class="formInput_field">
+                          <input
+                            id="email"
+                            required={isFieldRequired}
+                            value={email}
+                            maxlength="80"
+                            name="email"
+                            size="20"
+                            type="email"
+                            class="form-control"
+                            placeholder={emailAddressPlaceholder}
+                            onchange={setEmail}
+                            disabled={isFieldDisabled}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="slds-col slds-size_1-of-1 slds-large-size_7-of-12"
+                    >
+                      <label for="phone" class="form-label"
+                        >{mobileNumberLabel}</label
+                      >
+                      <div class="mobileNumber">
+                        <div class="country-code">
+                          <div class="formInput-mobile">
+                            <div class="formInput_field">
+                              <select class="form-select">
+                                <option selected>{codeLabel}</option>
+                                <template
+                                  for:each={countryCodesList}
+                                  for:item="code"
+                                >
+                                  <option key={code.label} value={code.value}>
+                                    {code.label}
+                                  </option>
+                                </template>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="mobile-input-container">
+                          <div class="formInput-mobile">
+                            <div class="formInput_field">
+                              <input
+                                id="phone"
+                                maxlength="40"
+                                name="phone"
+                                size="20"
+                                type="text"
+                                class="form-control form-mobile"
+                                placeholder={mobileNumberPlaceholder}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="formInput">
+                      <label class="form-label"
+                        >{messageSubjectLabel}<abbr
+                          title="required"
+                          class="slds-required"
+                          >*</abbr
+                        ></label
+                      >
+
+                      <div class="formInput_field">
+                        <input
+                          id="subject"
+                          required
+                          maxlength="80"
+                          name="subject"
+                          size="20"
+                          type="text"
+                          class="form-control"
+                          placeholder={messageSubjectPlaceholder}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="formInput">
+                      <label class="form-label" for="description"
+                        >{yourMessageLabel}<abbr
+                          title="required"
+                          class="slds-required"
+                          >*</abbr
+                        ></label
+                      >
+
+                      <div class="formInput_field">
+                        <textarea
+                          class="form-control_textarea"
+                          required
+                          name="description"
+                          placeholder={yourMessagePlaceholder}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="form_submit">
+                      <c-mall-cmn-button
+                        interaction-intent={buttonInteractionIntent}
+                        interaction-scope={buttonInteractionScope}
+                        interaction-type={buttonInteractionType}
+                        interaction-text={buttonInteractionText}
+                        interaction-text-before={buttonInteractionTextBefore}
+                        variant="mall"
+                        label={sendButtonLabel}
+                        title={sendButtonLabel}
+                        button-type="submit"
+                        action="null"
+                        w-class="auto"
+                      ></c-mall-cmn-button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="contact_fr">
+              <label>{sendEmailMessageLabel}</label>
+              <template if:true={mailToCountryContactUsEmail}>
+                <a
+                  href={mailToCountryContactUsEmail}
+                  data-intent="transactional"
+                  data-scope="contact us"
+                  data-id="link_content"
+                  data-type="click"
+                  data-text={countryContactUsEmail}
+                  data-text-after="link"
+                  >{countryContactUsEmail}</a
+                >
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,646 @@
+<template>
+  <header class="header" id="menu-navigation">
+    <h3 class="mobile_nav_title">{menuLabel}</h3>
+    <button
+      class="close"
+      onclick={toggleMobileMenu}
+      aria-controls="menu-navigation"
+      aria-expanded="false"
+      data-intent="informational"
+      data-scope="header"
+      data-id="link_content"
+      data-type="click"
+      data-text="nav menu"
+      data-text-after="button"
+    ></button>
+    <div class="logo" onclick={handleNavItemClick} data-link="/mall/s">
+      <a
+        href="/mall/s/"
+        class=""
+        data-intent="navigational"
+        data-scope="header"
+        data-id="link_content"
+        data-type="click"
+        data-text="Logo"
+        data-text-after="link"
+      >
+        <template if:true={sbgLogoImage}>
+          <img src={sbgLogoImage} />
+        </template>
+      </a>
+    </div>
+    <template if:false={isStoreProfileEdit}>
+      <div class="search-container">
+        <template if:true={enableCategory}>
+          <c-mall-category-selection
+            enable={enableCategory}
+          ></c-mall-category-selection>
+        </template>
+        <c-mall-search></c-mall-search>
+      </div>
+    </template>
+    <div class="grid-row-3">
+      <ul class="nav-primary" role="navigation" aria-label={menuLabel}>
+        <!--Bottom left nav items Primary nav children-->
+
+        <template for:each={bottomLeftNavItems} for:item="navItem">
+          <li
+            key={navItem.MasterLabel}
+            onclick={handleNavItemClick}
+            data-value={navItem.MasterLabel}
+            data-link={navItem.URL_Link__c}
+          >
+            <a
+              href={navItem.URL_Link__c}
+              class="nav-item"
+              target=""
+              data-intent="navigational"
+              data-scope="header"
+              data-id="link_content"
+              data-type="click"
+              data-text={navItem.MasterLabel}
+              data-text-after="link"
+              >{navItem.translatedLabel}</a
+            >
+          </li>
+        </template>
+        <li class="dropdown mobile-country--dropdown">
+          <button
+            class="nav-item"
+            onclick={toggleDropdown}
+            aria-controls="country-selection"
+            aria-expanded="false"
+            data-intent="transactional"
+            data-scope="header"
+            data-id="link_content"
+            data-type="click"
+            data-text="Country selector"
+            data-text-after="drop-down"
+          >
+            <div class="country-icon">
+              <img src={selectedCountryFlag} />
+            </div>
+            <div class="nav-text">{selectedCountry}</div>
+            <template if:true={hasMultipleCountries}>
+              <div class="chevron"></div>
+            </template>
+          </button>
+          <div class="dropdown-panel" id="country-selection-mobile">
+            <c-mall-header-dropdown
+              navigation-heading={countryHeading}
+              helper-text={countrySelectorHelperText}
+              nav-back={triggerCloseDropdowns}
+            >
+              <template for:each={visibleCountriesList} for:item="continent">
+                <ul class="" key={continent.name} data-section={continent.name}>
+                  <template for:each={continent.countries} for:item="country">
+                    <li key={country.countryName}>
+                      <label class="radio-button-wrapper">
+                        <input
+                          type="radio"
+                          name="country"
+                          id={country.countryName}
+                          onchange={setCountry}
+                          value={country.countryName}
+                          checked={country.isActive}
+                          class="country-radio"
+                          data-id="link_content"
+                          data-intent="transactional"
+                          data-type="click"
+                          data-flag={country.flagImage}
+                          data-country={country.countryName}
+                          data-text={country.countryName}
+                          data-text-after="radio button"
+                        />
+                        <img src={country.flagImage} />
+                        <span>{country.countryName}</span>
+                        <div class="check-indicator"></div>
+                      </label>
+                    </li>
+                  </template>
+                </ul>
+              </template>
+            </c-mall-header-dropdown>
+          </div>
+        </li>
+        <template if:true={hasMultipleLangugages}>
+          <li class="dropdown mobile-language--dropdown">
+            <button
+              class="nav-item"
+              onclick={toggleDropdown}
+              aria-controls="language-selection"
+              aria-expanded="false"
+              data-intent="transactional"
+              data-scope="header"
+              data-id="link_content"
+              data-type="click"
+              data-text="language selector"
+              data-text-after="drop-down"
+            >
+              <div class="nav-text">{selectedLanguage}</div>
+              <div class="chevron"></div>
+            </button>
+            <div class="dropdown-panel" id="language-selection-mobile">
+              <c-mall-header-dropdown
+                navigation-heading={languageHeading}
+                helper-text={languageSelectorHelperText}
+                nav-back={triggerCloseDropdowns}
+              >
+                <ul class="">
+                  <!--Languages list-->
+                  <template for:each={languages} for:item="language">
+                    <li key={language.languageName}>
+                      <label class="radio-button-wrapper">
+                        <input
+                          type="radio"
+                          name="language"
+                          id={language.languageName}
+                          value={language.languageName}
+                          checked={language.activeLanguageRadio}
+                          onchange={setSelectedLanguage}
+                          class="language-radio"
+                          data-id="link_content"
+                          data-intent="transactional"
+                          data-type="click"
+                          data-language={language.languageName}
+                          data-text={language.languageName}
+                          data-text-after="radio button"
+                        />
+                        <span class="language"> {language.languageName} </span>
+                        <div class="check-indicator"></div>
+                      </label>
+                    </li>
+                  </template>
+                </ul>
+              </c-mall-header-dropdown>
+            </div>
+          </li>
+        </template>
+        <li class="dropdown mobile-help--dropdown">
+          <button
+            class="nav-item"
+            onclick={toggleDropdown}
+            aria-controls="help-navigation"
+            aria-expanded="false"
+            data-intent="transactional"
+            data-scope="header"
+            data-id="link_content"
+            data-type="click"
+            data-text="help selector"
+            data-text-after="drop-down"
+          >
+            <!-- <div class="help-icon">?</div> -->
+            <div class="nav-text">{helpLabel}</div>
+            <div class="chevron"></div>
+          </button>
+          <div
+            class="dropdown-panel mobile-help-dropdown-panel"
+            id="help-navigation-mobile"
+            role="navigation"
+            aria-label={helpLabel}
+          >
+            <c-mall-header-dropdown
+              navigation-heading={helpHeading}
+              nav-back={triggerCloseDropdowns}
+            >
+              <ul>
+                <template for:each={topRightNavItems} for:item="menuItem">
+                  <li key={menuItem.MasterLabel} class={activeHeaderMenuTab}>
+                    <a
+                      href={menuItem.URL_Link__c}
+                      class="nav-item"
+                      data-intent="navigational"
+                      data-scope="header"
+                      data-id="link_content"
+                      data-type="click"
+                      data-text={menuItem.MasterLabel}
+                      data-text-after="link"
+                    >
+                      {menuItem.translatedLabel}
+                      <div class="resp-show chevron"></div>
+                    </a>
+                  </li>
+                </template>
+              </ul>
+            </c-mall-header-dropdown>
+          </div>
+        </li>
+      </ul>
+      <ul class="nav-secondary" role="navigation" aria-label={menuLabel}>
+        <!--Bottom right nav items Primary nav children-->
+
+        <template for:each={bottomRightNavItems} for:item="navItem">
+          <li
+            key={navItem.MasterLabel}
+            onclick={handleNavItemClick}
+            data-value={navItem.MasterLabel}
+            data-link={navItem.URL_Link__c}
+          >
+            <a
+              href={navItem.URL_Link__c}
+              class="nav-item"
+              target=""
+              data-intent="navigational"
+              data-scope="header"
+              data-id="link_content"
+              data-type="click"
+              data-text={navItem.MasterLabel}
+              data-text-after="link"
+              >{navItem.translatedLabel}</a
+            >
+          </li>
+        </template>
+      </ul>
+    </div>
+
+    <!--Top right nav Help?-->
+
+    <div class="grid-row-1">
+      <template if:false={isStoreProfileEdit}>
+        <div class="platform-name">
+          <span class="platform-name-bold">BCB</span>
+          <span class="platform-name-normal">Platform</span>
+        </div>
+        <div class="top-right-navigation">
+          <ul class="nav-top-right">
+            <li class="dropdown">
+              <button
+                class="nav-item"
+                onclick={toggleDropdown}
+                aria-controls="country-selection"
+                aria-expanded="false"
+                data-intent="transactional"
+                data-scope="header"
+                data-id="link_content"
+                data-type="click"
+                data-text="Country selector"
+                data-text-after="drop-down"
+              >
+                <div class="country-icon">
+                  <img src={selectedCountryFlag} />
+                </div>
+                <div class="nav-text">{selectedCountry}</div>
+                <template if:true={hasMultipleCountries}>
+                  <div class="chevron"></div>
+                </template>
+              </button>
+              <div class="dropdown-panel" id="country-selection">
+                <c-mall-header-dropdown
+                  navigation-heading={countryHeading}
+                  helper-text={countrySelectorHelperText}
+                  nav-back={triggerCloseDropdowns}
+                >
+                  <template
+                    for:each={visibleCountriesList}
+                    for:item="continent"
+                  >
+                    <ul
+                      class=""
+                      key={continent.name}
+                      data-section={continent.name}
+                    >
+                      <template
+                        for:each={continent.countries}
+                        for:item="country"
+                      >
+                        <li key={country.countryName}>
+                          <label class={country.countryRadioWrapper}>
+                            <input
+                              type="radio"
+                              name="country-desktop"
+                              id={country.countryName}
+                              onchange={setCountry}
+                              value={country.countryName}
+                              checked={country.isActive}
+                              class="country-radio"
+                              data-id="link_content"
+                              data-intent="transactional"
+                              data-type="click"
+                              data-flag={country.flagImage}
+                              data-country={country.countryName}
+                              data-text={country.countryName}
+                              data-text-after="radio button"
+                            />
+                            <img src={country.flagImage} />
+                            <span>{country.countryName}</span>
+                            <div class="check-indicator"></div>
+                          </label>
+                        </li>
+                      </template>
+                    </ul>
+                  </template>
+                </c-mall-header-dropdown>
+              </div>
+            </li>
+            <template if:true={hasMultipleLangugages}>
+              <li class="dropdown">
+                <button
+                  class="nav-item"
+                  onclick={toggleDropdown}
+                  aria-controls="language-selection"
+                  aria-expanded="false"
+                  data-intent="transactional"
+                  data-scope="header"
+                  data-id="link_content"
+                  data-type="click"
+                  data-text="language selector"
+                  data-text-after="drop-down"
+                >
+                  <div class="nav-text">{selectedLanguage}</div>
+                  <div class="chevron"></div>
+                </button>
+                <div class="dropdown-panel" id="language-selection">
+                  <c-mall-header-dropdown
+                    navigation-heading={languageHeading}
+                    helper-text={languageSelectorHelperText}
+                    nav-back={triggerCloseDropdowns}
+                  >
+                    <ul class="">
+                      <!--Languages list-->
+                      <template for:each={languages} for:item="language">
+                        <li key={language.languageName}>
+                          <label class="radio-button-wrapper">
+                            <input
+                              type="radio"
+                              name="language-desktop"
+                              id={language.languageName}
+                              value={language.languageName}
+                              checked={language.activeLanguageRadio}
+                              onchange={setSelectedLanguage}
+                              class="language-radio"
+                              data-id="link_content"
+                              data-intent="transactional"
+                              data-type="click"
+                              data-language={language.languageName}
+                              data-text={language.languageName}
+                              data-text-after="radio button"
+                            />
+                            <span class="language">
+                              {language.languageName}
+                            </span>
+                            <div class="check-indicator"></div>
+                          </label>
+                        </li>
+                      </template>
+                    </ul>
+                  </c-mall-header-dropdown>
+                </div>
+              </li>
+            </template>
+            <li class="dropdown">
+              <button
+                class="nav-item"
+                onclick={toggleDropdown}
+                aria-controls="help-navigation"
+                aria-expanded="false"
+                data-intent="transactional"
+                data-scope="header"
+                data-id="link_content"
+                data-type="click"
+                data-text="help selector"
+                data-text-after="drop-down"
+              >
+                <!-- <div class="help-icon">?</div> -->
+                <div class="nav-text">{helpLabel}</div>
+                <div class="chevron"></div>
+              </button>
+              <div
+                class="dropdown-panel"
+                id="help-navigation"
+                role="navigation"
+                aria-label={helpLabel}
+              >
+                <c-mall-header-dropdown
+                  navigation-heading={helpHeading}
+                  nav-back={triggerCloseDropdowns}
+                >
+                  <ul>
+                    <template for:each={topRightNavItems} for:item="menuItem">
+                      <li
+                        key={menuItem.MasterLabel}
+                        class={activeHeaderMenuTab}
+                      >
+                        <a
+                          href={menuItem.URL_Link__c}
+                          class="nav-item"
+                          data-intent="navigational"
+                          data-scope="header"
+                          data-id="link_content"
+                          data-type="click"
+                          data-text={menuItem.MasterLabel}
+                          data-text-after="link"
+                        >
+                          {menuItem.translatedLabel}
+                          <div class="resp-show chevron"></div>
+                        </a>
+                      </li>
+                    </template>
+                  </ul>
+                </c-mall-header-dropdown>
+              </div>
+            </li>
+          </ul>
+          <template if:false={isGuestUser}>
+            <ul class="nav-notifications">
+              <li>
+                <c-mall-notifications></c-mall-notifications>
+              </li>
+            </ul>
+          </template>
+        </div>
+      </template>
+    </div>
+
+    <ul class="nav-actions">
+      <li class="responsive-menu-toggle">
+        <button
+          class="menu-button"
+          onclick={toggleMobileMenu}
+          aria-controls="menu-navigation"
+          aria-expanded="false"
+          data-intent="informational"
+          data-scope="header"
+          data-id="link_content"
+          data-type="click"
+          data-text="nav menu"
+          data-text-after="button"
+        >
+          <span></span> <span></span> <span></span>
+        </button>
+      </li>
+      <li class="logo-mobile">
+        <a
+          href="/mall/s/"
+          class=""
+          data-intent="navigational"
+          data-scope="header"
+          data-id="link_content"
+          data-type="click"
+          data-text="Logo"
+          data-text-after="link"
+        >
+          <span>
+            <img src={mobileLogo} />
+          </span>
+        </a>
+      </li>
+      <li class="dropdown">
+        <button
+          class="profile-info"
+          onclick={toggleDropdown}
+          aria-controls="profile-navigation"
+          aria-expanded="false"
+        >
+          <img src={userImage} />
+          <div class="sign_in_text">
+            <span>
+              <template if:true={contactName}> {contactName} </template>
+              <template if:false={contactName}> {signUpOrSignInText} </template>
+            </span>
+          </div>
+        </button>
+
+        <div
+          class="dropdown-panel profile-info-dropdown"
+          id="profile-navigation"
+        >
+          <c-mall-header-dropdown>
+            <template if:false={contactName}>
+              <ul>
+                <li class="sign_in_item">
+                  <a
+                    tabindex="0"
+                    onclick={handleSignUp}
+                    data-intent="transactional"
+                    data-scope="header"
+                    data-id="link_content"
+                    data-text="Sign Up"
+                    data-text-after="link"
+                  >
+                    <span class="language"> {signUpText} </span>
+                  </a>
+                </li>
+                <li class="sign_in_item">
+                  <a
+                    tabindex="0"
+                    onclick={handleSignIn}
+                    data-intent="transactional"
+                    data-scope="header"
+                    data-id="link_content"
+                    data-text="Sign In"
+                    data-text-after="link"
+                  >
+                    <span class="language"> {signInText} </span>
+                  </a>
+                </li>
+              </ul>
+            </template>
+            <template if:true={contactName}>
+              <ul>
+                <li class="sign_in_item">
+                  <a
+                    tabindex="0"
+                    onclick={handleMyProfile}
+                    data-intent="transactional"
+                    data-scope="header"
+                    data-id="link_content"
+                    data-text="My profile"
+                    data-text-after="link"
+                  >
+                    <span class="language"> {myProfileText} </span>
+                  </a>
+                </li>
+                <template if:true={isStoreProfile}>
+                  <template if:true={isStoreProfileView}>
+                    <li class="sign_in_item">
+                      <a
+                        tabindex="0"
+                        onclick={handleGotoStore}
+                        data-intent="transactional"
+                        data-scope="header"
+                        data-id="link_content"
+                        data-text={goToShopText}
+                        data-text-after="link"
+                      >
+                        <span class="language">{goToShopText}</span>
+                      </a>
+                    </li>
+                  </template>
+                  <template if:true={isStoreProfileEdit}>
+                    <li class="sign_in_item">
+                      <a
+                        tabindex="0"
+                        onclick={handleGotoMall}
+                        data-intent="transactional"
+                        data-scope="header"
+                        data-id="link_content"
+                        data-text={goToMallText}
+                        data-text-after="link"
+                      >
+                        <span class="language">{goToMallText}</span>
+                      </a>
+                    </li>
+                  </template>
+                </template>
+              </ul>
+            </template>
+          </c-mall-header-dropdown>
+        </div>
+      </li>
+      <template if:false={isGuestUser}>
+        <li class="sign-out-item">
+          <a
+            tabindex="0"
+            onclick={handleSignOut}
+            data-intent="transactional"
+            data-scope="header"
+            data-id="link_content"
+            data-text="Sign out"
+            data-text-after="link"
+          >
+            <span class="language"> {signOutText} </span>
+          </a>
+        </li>
+      </template>
+    </ul>
+    <template if:true={isGuestUser}>
+      <div class="mobile-registerBtn--container">
+        <c-mall-cmn-button
+          class="registerBtn"
+          variant="mall"
+          onclick={handleSignUp}
+          label="Register"
+          title="Register"
+          w-class="wAuto"
+        ></c-mall-cmn-button>
+      </div>
+
+      <div class="mobile-signinBtn--container">
+        <button
+          onclick={handleSignIn}
+          class="mobile-headerBtn mobile-header-signinBtn"
+        >
+          {signInText}
+        </button>
+      </div>
+    </template>
+    <template if:false={isGuestUser}>
+      <div class="mobile-registerBtn--container"></div>
+
+      <div class="mobile-signinBtn--container">
+        <button
+          onclick={handleSignOut}
+          class="mobile-headerBtn mobile-header-signinBtn"
+        >
+          {signOutText}
+        </button>
+      </div>
+    </template>
+  </header>
+  <template if:true={showSignupInstructions}>
+    <c-mall-signup-instructions-screen
+      onclosemodal={handleCloseSignupInstructions}
+    >
+    </c-mall-signup-instructions-screen>
+  </template>
+</template>

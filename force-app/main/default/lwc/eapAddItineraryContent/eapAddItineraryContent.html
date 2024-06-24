@@ -1,0 +1,332 @@
+<!--
+  @description       : LWC with the form to add itinerary steps
+  @author            : TCK
+  @group             : 
+  @last modified on  : 04-11-2022
+  @last modified by  : TCK
+  Modifications Log 
+  Ver   Date         Author   Modification
+  1.0   07-14-2021   TCK   Initial Version
+-->
+<template>
+    <!--Path Bar-->
+    <div class="v1_div_path">
+        <div class="v1_div_titleStep">{thisStep.Title}</div>
+        <template for:each={stepList} for:item="step">
+            <template if:true={step.TemplateActive}>
+                <div key={step.Id} class="customSquare passed"></div>
+            </template>
+            <template if:false={step.TemplateActive}>
+                <div key={step.Id} class="customSquare"></div>
+            </template>
+        </template>
+    </div>
+
+    <!-- Type -->
+    <template if:true={showType}>
+        <div class="v1_div_typeContainer">
+            <div class="v1_div_selectFlightContainer">
+                <c-eap-shield-message icon={iconFlight} message={labels.SelectType} is-over-two-buttons="true"></c-eap-shield-message>
+                <button class="custom-empty-button" onclick={selectType} name="flight">{labels.Flight}</button>
+                <button class="custom-empty-button" onclick={selectType} name="transport">{labels.Transport}</button>
+            </div>
+        </div>
+    </template>
+    
+    <!--Flight-->
+    <template if:true={showFlight}>
+        <div class="v1_div_container">
+            <div>
+                <label class="label">{labels.TravelName}</label>
+                <br>
+                <template if:true={hasError.TravelName}>
+                    <lightning-input class="error" type="text" name="travelName" variant="label-hidden" onblur={handleInputChange} value={travel.TravelName}></lightning-input>
+                </template>
+                <template if:false={hasError.TravelName}>
+                    <lightning-input type="text" name="travelName" variant="label-hidden" onblur={handleInputChange} value={travel.TravelName}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <label class="label">{labels.Airline}</label>
+                <br>
+                <template if:true={hasError.Airline}>
+                    <lightning-input class="error" type="text" name="airline" variant="label-hidden" onblur={handleInputChange} value={travel.Airline}></lightning-input>
+                </template>
+                <template if:false={hasError.Airline}>
+                    <lightning-input type="text" name="airline" variant="label-hidden" onblur={handleInputChange} value={travel.Airline}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <label class="label">{labels.FlightNumber}</label>
+                <br>
+                <template if:true={hasError.FlightNumber}>
+                    <lightning-input class="error" type="text" name="flightNumber" variant="label-hidden" onblur={handleInputChange} value={travel.FlightNumber}></lightning-input>
+                </template>
+                <template if:false={hasError.FlightNumber}>
+                    <lightning-input type="text" name="flightNumber" variant="label-hidden" onblur={handleInputChange} value={travel.FlightNumber}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <fieldset>
+                    <legend class="label">{labels.Origin}</legend>
+                    <label class="label">{labels.Name}</label>
+                    <br>
+                    <template if:true={hasError.Origin}>
+                        <lightning-input class="error" type="text" name="origin" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                    </template>
+                    <template if:false={hasError.Origin}>
+                        <lightning-input type="text" name="origin" variant="label-hidden" onblur={handleInputChange} value={travel.Origin}></lightning-input>
+                    </template>
+                    <div class="v1_div_double">
+                        <label class="label">{labels.Country}</label>
+                        <label class="label">{labels.City}</label>
+                        <select name="originCountry" onblur={handleInputChange}>
+                            <template for:each={countryOptions} for:item="option">
+                                <option value={option.value} key={option.id}>{option.label}</option>
+                            </template>
+                        </select>
+                        <template if:true={hasError.OriginCity}>
+                            <lightning-input class="error" type="text" name="originCity" variant="label-hidden" onblur={handleInputChange} value={travel.OriginCity}></lightning-input>
+                        </template>
+                        <template if:false={hasError.OriginCity}>
+                            <lightning-input type="text" name="originCity" variant="label-hidden" onblur={handleInputChange} value={travel.OriginCity}></lightning-input>
+                        </template>
+                    </div>
+                    <label class="label">{labels.Address}</label>
+                    <br>
+                    <template if:true={hasError.OriginAddress}>
+                        <lightning-input class="error" type="text" name="originAddress" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                    </template>
+                    <template if:false={hasError.OriginAddress}>
+                        <lightning-input type="text" name="originAddress" variant="label-hidden" onblur={handleInputChange} value={travel.OriginAddress}></lightning-input>
+                    </template>
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <legend class="label">{labels.Destination}</legend>
+                    <label class="label">{labels.Name}</label>
+                    <br>
+                    <template if:true={hasError.Destination}>
+                        <lightning-input class="error" type="text" name="destination" variant="label-hidden" onblur={handleInputChange} value={travel.Destination}></lightning-input>
+                    </template>
+                    <template if:false={hasError.Destination}>
+                        <lightning-input type="text" name="destination" variant="label-hidden" onblur={handleInputChange} value={travel.Destination}></lightning-input>
+                    </template>
+                    <div class="v1_div_double">
+                        <label class="label">{labels.Country}</label>
+                        <label class="label">{labels.City}</label>
+                        <select name="country" onblur={handleInputChange}>
+                            <template for:each={countryOptions} for:item="option">
+                                <option value={option.value} key={option.id}>{option.label}</option>
+                            </template>
+                        </select>
+                        <template if:true={hasError.City}>
+                            <lightning-input class="error" type="text" name="city" variant="label-hidden" onblur={handleInputChange} value={travel.City}></lightning-input>
+                        </template>
+                        <template if:false={hasError.City}>
+                            <lightning-input type="text" name="city" variant="label-hidden" onblur={handleInputChange} value={travel.City}></lightning-input>
+                        </template>
+                    </div>
+                    <label class="label">{labels.Address}</label>
+                    <br>
+                    <template if:true={hasError.Address}>
+                        <lightning-input class="error" type="text" name="address" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                    </template>
+                    <template if:false={hasError.Address}>
+                        <lightning-input type="text" name="address" variant="label-hidden" onblur={handleInputChange} value={travel.Address}></lightning-input>
+                    </template>
+                </fieldset>
+            </div>
+            <div class="v1_div_double">
+                <label class="label">{labels.Departure}</label>
+                <label class="label"></label>
+                <template if:true={hasError.StartDate}>
+                    <input class="error" type="date" name="startDate" onblur={handleInputChange} value={travel.StartDate}></input>
+                </template>
+                <template if:false={hasError.StartDate}>
+                    <input type="date" name="startDate" onblur={handleInputChange} value={travel.StartDate}></input>
+                </template>
+                <template if:true={hasError.Departure}>
+                    <input class="error" type="time" name="departure" onblur={handleInputChange} value={travel.Departure}></input>
+                </template>
+                <template if:false={hasError.Departure}>
+                    <input type="time" name="departure" onblur={handleInputChange} value={travel.Departure}></input>
+                </template>
+            </div>
+            <div class="v1_div_double">
+                <label class="label">{labels.Arrival}</label>
+                <label class="label"></label>
+                <template if:true={hasError.EndDate}>
+                    <input class="error" type="date" name="endDate" onblur={handleInputChange} value={travel.EndDate}></input>
+                </template>
+                <template if:false={hasError.EndDate}>
+                    <input type="date" name="endDate" onblur={handleInputChange} value={travel.EndDate}></input>
+                </template>
+                <template if:true={hasError.Arrival}>
+                    <input class="error" type="time" name="arrival" onblur={handleInputChange} value={travel.Arrival}></input>
+                </template>
+                <template if:false={hasError.Arrival}>
+                    <input type="time" name="arrival" onblur={handleInputChange} value={travel.Arrival}></input>
+                </template>
+            </div>
+            <div class="v1_div_double">
+                <label class="label">{labels.Class}</label>
+                <label class="label">{labels.SeatNumber}</label>
+                <select name="class" onblur={handleInputChange}>
+                    <template for:each={classOptions} for:item="option">
+                        <option value={option.value} key={option.id}>{option.label}</option>
+                    </template>
+                </select>
+                <lightning-input type="text" name="seatNumber" date-style="long" variant="label-hidden" onblur={handleInputChange} value={travel.SeatNumber}></lightning-input>
+            </div>
+        </div>
+    </template>
+
+    <!--Transport-->
+    <template if:true={showTransport}>
+        <div class="v1_div_container">
+            <div>
+                <label class="label">{labels.TravelName}</label>
+                <br>
+                <template if:true={hasError.TravelName}>
+                    <lightning-input class="error" type="text" name="travelName" variant="label-hidden" onblur={handleInputChange} value={travel.TravelName}></lightning-input>
+                </template>
+                <template if:false={hasError.TravelName}>
+                    <lightning-input type="text" name="travelName" variant="label-hidden" onblur={handleInputChange} value={travel.TravelName}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <fieldset>
+                    <legend class="label">{labels.Origin}</legend>
+                    <label class="label">{labels.Name}</label>
+                    <br>
+                    <template if:true={hasError.Origin}>
+                        <lightning-input class="error" type="text" name="origin" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                    </template>
+                    <template if:false={hasError.Origin}>
+                        <lightning-input type="text" name="origin" variant="label-hidden" onblur={handleInputChange} value={travel.Origin}></lightning-input>
+                    </template>
+                    <div class="v1_div_double">
+                        <label class="label">{labels.Country}</label>
+                        <label class="label">{labels.City}</label>
+                        <select name="originCountry" onblur={handleInputChange}>
+                            <template for:each={countryOptions} for:item="option">
+                                <option value={option.value} key={option.id}>{option.label}</option>
+                            </template>
+                        </select>
+                        <template if:true={hasError.OriginCity}>
+                            <lightning-input class="error" type="text" name="originCity" variant="label-hidden" onblur={handleInputChange} value={travel.OriginCity}></lightning-input>
+                        </template>
+                        <template if:false={hasError.OriginCity}>
+                            <lightning-input type="text" name="originCity" variant="label-hidden" onblur={handleInputChange} value={travel.OriginCity}></lightning-input>
+                        </template>
+                    </div>
+                    <label class="label">{labels.Address}</label>
+                    <br>
+                    <template if:true={hasError.OriginAddress}>
+                        <lightning-input class="error" type="text" name="originAddress" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                    </template>
+                    <template if:false={hasError.OriginAddress}>
+                        <lightning-input type="text" name="originAddress" variant="label-hidden" onblur={handleInputChange} value={travel.OriginAddress}></lightning-input>
+                    </template>
+                </fieldset>
+            </div>
+            <div>
+                <fieldset>
+                    <legend class="label">{labels.Destination}</legend>
+                    <label class="label">{labels.Name}</label>
+                    <br>
+                    <template if:true={hasError.Destination}>
+                        <lightning-input class="error" type="text" name="destination" variant="label-hidden" onblur={handleInputChange} value={travel.Destination}></lightning-input>
+                    </template>
+                    <template if:false={hasError.Destination}>
+                        <lightning-input type="text" name="destination" variant="label-hidden" onblur={handleInputChange} value={travel.Destination}></lightning-input>
+                    </template>
+                    <div class="v1_div_double">
+                        <label class="label">{labels.Country}</label>
+                        <label class="label">{labels.City}</label>
+                        <select name="country" onblur={handleInputChange}>
+                            <template for:each={countryOptions} for:item="option">
+                                <option value={option.value} key={option.id}>{option.label}</option>
+                            </template>
+                        </select>
+                        <template if:true={hasError.City}>
+                            <lightning-input class="error" type="text" name="city" variant="label-hidden" onblur={handleInputChange} value={travel.City}></lightning-input>
+                        </template>
+                        <template if:false={hasError.City}>
+                            <lightning-input type="text" name="city" variant="label-hidden" onblur={handleInputChange} value={travel.City}></lightning-input>
+                        </template>
+                    </div>
+                    <label class="label">{labels.Address}</label>
+                    <br>
+                    <template if:true={hasError.Address}>
+                        <lightning-input class="error" type="text" name="address" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                    </template>
+                    <template if:false={hasError.Address}>
+                        <lightning-input type="text" name="address" variant="label-hidden" onblur={handleInputChange} value={travel.Address}></lightning-input>
+                    </template>
+                </fieldset>
+            </div>
+            <div>
+                <label class="label">{labels.Company}</label>
+                <br>
+                <template if:true={hasError.Company}>
+                    <lightning-input class="error" type="text" name="company" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                </template>
+                <template if:false={hasError.Company}>
+                    <lightning-input type="text" name="company" variant="label-hidden" onblur={handleInputChange} value={travel.Company}></lightning-input>
+                </template>
+            </div>
+            <div>
+                <label class="label">{labels.Service}</label>
+                <br>
+                <template if:true={hasError.Service}>
+                    <lightning-input class="error" type="text" name="service" variant="label-hidden" onblur={handleInputChange}></lightning-input>
+                </template>
+                <template if:false={hasError.Service}>
+                    <lightning-input type="text" name="service" variant="label-hidden" onblur={handleInputChange} value={travel.Service}></lightning-input>
+                </template>
+            </div>
+            <div class="v1_div_double">
+                <label class="label">{labels.StartDate}</label>
+                <label class="label"></label>
+                <template if:true={hasError.StartDate}>
+                    <input class="error" type="date" name="startDate" onblur={handleInputChange} value={travel.StartDate}></input>
+                </template>
+                <template if:false={hasError.StartDate}>
+                    <input type="date" name="startDate" onblur={handleInputChange} value={travel.StartDate}></input>
+                </template>
+                <template if:true={hasError.Departure}>
+                    <input class="error" type="time" name="departure" onblur={handleInputChange} value={travel.Departure}></input>
+                </template>
+                <template if:false={hasError.Departure}>
+                    <input type="time" name="departure" onblur={handleInputChange} value={travel.Departure}></input>
+                </template>
+            </div>
+            <div class="v1_div_double">
+                <label class="label">{labels.EndDate}</label>
+                <label class="label"></label>
+                <template if:true={hasError.EndDate}>
+                    <input class="error" type="date" name="endDate" onblur={handleInputChange} value={travel.EndDate}></input>
+                </template>
+                <template if:false={hasError.EndDate}>
+                    <input type="date" name="endDate" onblur={handleInputChange} value={travel.EndDate}></input>
+                </template>
+                <template if:true={hasError.Arrival}>
+                    <input class="error" type="time" name="arrival" onblur={handleInputChange} value={travel.Arrival}></input>
+                </template>
+                <template if:false={hasError.Arrival}>
+                    <input type="time" name="arrival" onblur={handleInputChange} value={travel.Arrival}></input>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <template if:false={showType}>
+        <div class="bottom_button">
+            <button class="custom-full-button" onclick={saveTravel}>{labels.Save}</button>
+        </div>
+        <div class="relleno"></div>
+    </template>
+</template>

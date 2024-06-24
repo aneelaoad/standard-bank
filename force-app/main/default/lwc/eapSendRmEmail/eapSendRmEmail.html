@@ -1,0 +1,51 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 08-30-2022
+  @last modified by  : TCK
+-->
+<template>
+  <lightning-quick-action-panel record-id={recordId} object-api-name="EAP_AppEvent__c" header="Email to Relationship Manager">
+    <template if:false={hasLoaded}>
+      <div class="with-spinner">
+        <div class="slds-spinner">
+          <lightning-spinner variant="brand" alternative-text="Loading" size="medium"></lightning-spinner>
+        </div>
+      </div>
+    </template>
+
+    <template if:true={hasLoaded}>
+
+      <div if:false={hasClicked}>
+        <div if:false={hasSent} style="display: flex; flex-direction:column;">
+          <h1 class="slds-text-heading_small" style="margin-bottom: 1%;">Send email to Relationship Manager</h1>
+          <lightning-input type="email" label="CC:" name="emailCC" value="" multiple onchange={handleInputChange}></lightning-input>
+          <lightning-input type="email" label="BCC:" name="emailBCC" value="" multiple onchange={handleInputChange}></lightning-input>
+          <lightning-textarea id="emailBody" label="Email body:" rows="8" cols="100" value={body}>{body}</lightning-textarea>
+        </div>
+
+        <div if:true={hasSent}>
+          <h1 class="slds-text-heading_small">Emails sent succesfully</h1>
+        </div>
+      </div>
+
+      <div if:true={hasClicked}>
+        <div class="with-spinner">
+          <div class="slds-spinner">
+            <lightning-spinner variant="brand" alternative-text="Loading" size="medium"></lightning-spinner>
+          </div>
+        </div>
+      </div>
+
+      <div if:true={isError}>
+        <h1 class="slds-text-heading_small">Something went wrong sending the email. Try again.</h1>
+      </div>
+      
+      <div slot="footer">
+        <lightning-button if:true={hasntClickedAndSent} variant="brand" label="Send" onclick={updateBody} style="margin-top: 2%;"></lightning-button>
+      </div>
+    </template>
+
+  </lightning-quick-action-panel>    
+</template>

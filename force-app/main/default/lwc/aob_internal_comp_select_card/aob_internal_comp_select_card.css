@@ -1,0 +1,126 @@
+/* @import 'c/pbp_comp_productPagesCssLibrary'; */
+
+/* :host{
+    --lwc-spacingXxLarge: 5rem;
+} */
+
+.screen-container{
+    margin-bottom: 100px;
+}
+
+.account-card{
+    position: relative;  padding: 20px 35px 30px 35px;
+    border-radius: 2px;border: 0;
+    box-shadow: 0 12px 20px 0 rgba(47, 50, 51, 0.3);
+    background-color: #fff;
+    width:100%;
+
+}
+.accountcss{
+    padding-bottom: 28px;
+}
+.account-card .card-img-sm{
+    position: absolute; top: -31px;border-radius: 12px;  width: 139px; height: 86px;right: 9px;
+
+}
+.tag-img{
+    position: absolute;
+    top: -7px;
+    width: 141px;
+    left: 0px;
+}
+.card-title{
+    position: relative;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.29;
+    color: #3c4b6c;
+    margin-bottom: 30px;
+    padding: 15px 0;
+}
+/* .account-card-body  h2::before{
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    height: 2px;
+    width: 70px;
+    background:  linear-gradient(to left, #ffb94f, #ffa538, #ff8f22, #ff770e, #ff5a00);
+} */
+.account-card ul li{
+    position: relative;
+    padding-left: 23px;  
+    font-size: 15px;
+    line-height: 1.67;
+    color: #0a2240;
+}
+.account-card ul li:not(:last-child){
+    margin-bottom: 13px;
+}
+.account-card ul li::before{
+    content: ''; display: block; position: absolute; 
+    width: 0; height: 0; border-left: 7px solid transparent;
+     border-right: 7px solid transparent;  
+    border-top: 8px solid #f86700;top: 7px;
+    left: 0;transform: rotate(-180deg)
+}
+.fee-info{
+    margin-top: 25px;
+}
+.fee-info h3{
+    font-size: 42px;
+    font-weight: 200;
+    line-height: 1.36;
+    color: #0a2240;
+    display:flex; align-items: flex-start;
+}
+.fee-info h3 span{
+    font-size: 20px;
+    letter-spacing: 1.54px;
+    color: #353637;
+    margin: 6px 6px 0 0;
+}
+.fee-info p{
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.64;
+    letter-spacing: 1px;
+    color: #858d9d;
+}
+
+.left-end{
+    justify-content:flex-end;
+}
+
+.button-container{
+    /* position: fixed;
+    bottom: 0px; */
+    width: 100%;
+    text-align: center;
+    padding: 20px 50px;
+}
+
+
+@media (max-width: 575px){
+    .account-card .card-img-sm{
+    display: none;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .card-padding{
+        padding-left:4rem;
+        padding-right:3rem;
+    }
+}
+@media only screen and (max-width: 1399px) {
+.accountcss{
+    padding-bottom: 0px;
+}
+}
+@media only screen and (max-width: 1199px) {
+    .accountcss{
+        padding-bottom: 23px;
+    }
+    }

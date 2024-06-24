@@ -1,0 +1,67 @@
+.profile-update-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 4rem;
+}
+
+.a_tittle {
+    font-size: 28px;
+    line-height: 32px;
+    text-align: center;
+    color: #0034A7;
+    font-weight: 500;
+    font-family: var(--lwc-fontFamilyMedium, "bentonsans-medium-webfont");
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.a_tittle img {
+    margin-right: 10px;
+}
+
+.section {
+    background-color: white;
+    padding: 1rem 2rem;
+    margin: 2rem 0;
+    border-radius: 1rem;
+    box-shadow: var(--THEME-COLOUR) 0 0 0 1px;
+    overflow: hidden;
+}
+
+.iframe-wrapper{
+    min-height: 680px;
+    width: calc(100% + 48px);
+    border: none;
+    margin: -48px -24px -32px;
+    overflow: hidden;
+}
+
+c-cmn-button {
+    --sds-c-button-color-background: var(--THEME-ACCENT-DARK);
+    --slds-c-button-color-border: transparent;
+    --border-radius-button: 1.65rem;
+    --slds-c-button-brand-spacing-inline-start: 1.5rem;
+    --slds-c-button-brand-spacing-inline-end: 1.5rem;
+
+    --slds-c-button-sizing-border: 0px;
+
+    --lwc-brandDisabled: #AA005020;
+    --lwc-colorTextButtonBrandDisabled: #fff;
+
+    margin: 0 auto;
+}
+
+@media all and (max-width: 767px) {
+
+    .a_tittle {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 16px;
+        color: #0034A7;
+        font-family: var(--lwc-fontFamilyMedium);
+        padding: 0.5rem 0;
+        margin: 0;
+    }
+}

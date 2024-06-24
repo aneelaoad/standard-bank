@@ -1,0 +1,66 @@
+<template>
+  <article class="slds-card">
+    <div class="slds-card__header slds-grid slds-page-header">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure slds-m-right_none">
+          <lightning-icon icon-name="standard:performance"></lightning-icon>
+        </div>
+        <div class="slds-media__body">
+          <h2 title={label.bookOfBusiness} class="slds-card__header-title slds-p-left_small">
+            <b>{label.bookOfBusiness}</b>
+          </h2>
+        </div>
+        <div>
+          <div class="slds-col slds-align-bottom slds-modal__content " style="overflow: initial;">
+            <lightning-combobox class="slds-listbox__option-header"
+                                options={timeFilterItems}
+                                variant="label-hidden"
+                                value={selectedTimeFilter}
+                                title="Select a time period"
+                                onchange={handleChangedFilter}>
+            </lightning-combobox>
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="slds-card__body" if:false={error}>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-size_1-of-5 slds-col slds-wrap slds-p-left_medium">
+          <h4 class="slds-wrap">{label.premOfPoliciesIncepted}</h4>
+          <span class="slds-text-title_bold slds-truncate">
+                        <lightning-formatted-number value={actualPremOfPoliciesIncepted} format-style="currency"
+                                                    currency-code={userCurrency} currency-display-as="code"></lightning-formatted-number>
+                        </span>
+        </div>
+        <div class="slds-size_1-of-5 slds-col slds-wrap slds-p-left_medium">
+          <h4 class="slds-wrap">{label.policiesIncepted}</h4>
+          <span class="slds-text-title_bold slds-truncate">{actualPoliciesIncepted}</span>
+        </div>
+        <div class="slds-size_1-of-5 slds-col slds-wrap slds-p-left_medium">
+          <h4 class="slds-wrap">{label.premiumOfPoliciesRenewed}</h4>
+          <span class="slds-text-title_bold slds-truncate">
+                        <lightning-formatted-number value={actualPremOfPoliciesRenewed} format-style="currency"
+                                                    currency-code={userCurrency} currency-display-as="code"></lightning-formatted-number>
+                    </span>
+        </div>
+        <div class="slds-size_1-of-5 slds-col slds-wrap slds-p-left_medium">
+          <h4 class="slds-wrap">{label.policiesRenewed}</h4>
+          <span class="slds-text-title_bold slds-truncate">{actualPoliciesRenewed}</span>
+        </div>
+        <div class="slds-size_1-of-5 slds-col slds-wrap slds-p-left_medium">
+          <h4 class="slds-wrap">{label.opportunityConversionRatio}</h4>
+          <span class="slds-text-title_bold slds-truncate">{oppConversionRatio}%</span>
+        </div>
+      </div>
+      <template if:true={showSpinner} class="slds-is-relative slds-align_absolute-center">
+        <lightning-spinner variant="brand" size="medium" alternative-text="Loading..."></lightning-spinner>
+      </template>
+    </div>
+    <lightning-card if:true={error}>
+      <h3 slot="title">
+        {error.statusText}
+      </h3>
+      <p class="slds-p-horizontal_small" style="color: red">{error.body.message}</p>
+    </lightning-card>
+  </article>
+</template>

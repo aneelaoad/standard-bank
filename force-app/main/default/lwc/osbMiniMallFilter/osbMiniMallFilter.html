@@ -1,0 +1,139 @@
+<template>  
+    <div class="MarketplaceHolderOne">
+        <div class="AppGalleryMain">
+            <div class="AppGalleryBreadCrumb">
+                <c-osb-inline-bread-crumb base-label="Application marketplace" base-link="/mini-mall"
+                provider-link={providerTitle} link-label="Application gallery"></c-osb-inline-bread-crumb>
+            </div>
+            <template lwc:if={showProvider}>
+                <c-osb-provider-solutions-page providerid={providerId} providertitle={providerTitle}></c-osb-provider-solutions-page>
+            </template>
+            <template lwc:else>
+            <div class="AppGalleryHolder">
+                <div class="AppGalleryeHeadingHolder">
+                    <p>Application Gallery</p>
+                </div>
+                <div class="AppGallerySearch">
+                    <div class="SearchSection slds-form-element">
+                        <div class="SearchAlignnment">
+                          <div class="SearchInput slds-form-element__control slds-input-has-icon slds-input-has-icon_left">
+                              <lightning-icon size="x-small" class="slds-icon slds-float_right slds-input__icon slds-input__icon_left slds-icon-text-default" icon-name="utility:search"></lightning-icon>
+                              <input type="text" id="searchInput" data-id="searchInput" data-text="Application Gallery | Search for Application" onkeyup={searchForSolutions} placeholder="Search" class="slds-input"/> 
+                          </div>
+                          <p class="helpText">Please enter minimum of 2 characters.</p>
+                        </div>
+                    </div>  
+                </div>
+                <div class="AppGalleryWrapper">
+                    <div class="AppGalleryFilterHolder" >
+                        <div class="FilterMainView">
+                            <div class="FilterSection" style={dynamicHeight}>
+                                <div class="FilterWrapper">
+                                    <div class="FilterTitleHolder">
+                                        <div class="FilterTitleIcon">
+                                            <img src={filterLogo} />
+                                        </div>
+                                        <div class="FilterTitleText">
+                                            <p>Filter</p>
+                                        </div>
+                                    </div>
+                                    <div class="FilterCategoriesSection">
+                                        <div class="FilterCategoryHolder">
+                                            <div class="MainCategoryHolder WithChevron">
+                                                <label class="form-control">
+                                                    <input type="checkbox" data-value="All Applications" name="options"
+                                                    data-id="checkboxCategory" data-name="checkboxCategory" data-intent="transactional" data-text="Application Gallery | filter" 
+                                                    onchange={handleCheckAll}>
+                                                </label>
+                                                <p>All Categories</p>
+                                                <i class="msClass ms-icn_chevron_up addButtonIcon open" data-id="CategoriesChevron" onclick={AllCategoriesSpinner}></i>
+                                            </div>
+    
+                                        </div>
+                                    </div>
+                                    <div class="FilterCategoryOptionWrapper open" data-id="FilterCategoryOptionWrapper">  
+                                        <template for:each={categoryRecords} for:item="categories">
+                                            <div class="FilterCategoriesSection OptionCategoriesBorder" key={categories.Id}>
+                                                <div class="FilterCategoryHolder">
+                                                    <div class="MainCategoryHolder">
+                                                        <label class="form-control">
+                                                            <input type="checkbox" name="options"
+                                                            data-name="categories" value={categories.MasterLabel} data-id={categories.MasterLabel}
+                                                            onchange={handleCheckbox}  data-intent="transactional">
+                                                        </label>
+                                                        <p>{categories.MasterLabel}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="FilterShadow" style={boxShadowStyling}></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="FilterMobileView"> 
+                            <div class="FilterSection" style={dynamicHeightMobile}>
+                                <div class="FilterWrapper">
+                                    <div class="FilterTitleHolderMobile">
+                                        <div class="FilterTitleIcon">
+                                            <img src={filterLogo} />
+                                        </div>
+                                        <div class="FilterTitleText">
+                                            <p>Filter</p>
+                                        </div>
+                                        <div class="FilterDropDownChevron">
+                                            <i class="msClass ms-icn_chevron_up addButtonIcon open" data-id="CategoriesChevronMobile" onclick={AllCategoriesSpinner}></i>
+                                        </div>
+                                    </div>
+                                    <div class="FilterCategoryOptionWrapper open" data-id="FilterCategoryOptionWrapperMobile">
+                                        <div class="FilterCategoriesSection OptionCategoriesBorder">
+                                            <div class="FilterCategoryHolderMobile ">
+                                                <div class="MainCategoryHolder">
+                                                    <label class="form-control">
+                                                        <input type="checkbox" data-value="All Applications" name="options"
+                                                        data-id="checkboxCategory" data-name="checkboxCategory" data-intent="transactional" data-text="Application Gallery | filter" 
+                                                        onchange={handleCheckAll}>
+                                                    </label>
+                                                    <p>All Categories</p>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <template for:each={categoryRecords} for:item="categories">
+                                            <div class="FilterCategoriesSection OptionCategoriesBorder" key={categories.Id}>
+                                                <div class="FilterCategoryHolder">
+                                                    <div class="MainCategoryHolder">
+                                                        <label class="form-control">
+                                                            <input type="checkbox" name="options"
+                                                            data-name="categories" value={categories.MasterLabel} data-id={categories.MasterLabel}
+                                                            onchange={handleCheckbox}  data-intent="transactional">
+                                                        </label>
+                                                        <p>{categories.MasterLabel}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="FilterShadow" style={boxShadowStylingMobile}></div>
+                                </div>
+                            </div>
+                            
+                        </div> 
+                    </div>
+                    <div class="AppGallerySolutionHolder">
+                        <template lwc:if={showGallery}>
+                            <c-osb-application-gallerylwc
+                            search-input-value={searchValue} 
+                            category-value={selectedCategoriesAsString}
+                            ></c-osb-application-gallerylwc>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+       
+    </div>
+       
+    </div>
+   
+</template>

@@ -1,0 +1,64 @@
+<template>
+  <div class="bank-container">
+    <!-- <div class="logo-wrapper">
+            <img src="/sfsites/c/resource/mallIcons/StandardBankLogo.svg" alt="Standard bank logo" />
+        </div> -->
+    <div class="bank-heading-wrapper">
+      <c-mall-widget-actions></c-mall-widget-actions>
+    </div>
+    <div class="bank-details-wrapper">
+      <div class="card-container">
+        <div class="chart-container">
+          <c-mall-chart-container></c-mall-chart-container>
+        </div>
+        <div class="card-info">
+          <div class="card-title">Total Current Balance</div>
+          <div class="card-value">
+            <lightning-formatted-number
+              value={currentBalance}
+              format-style="currency"
+              currency-code="USD"
+            ></lightning-formatted-number>
+          </div>
+          <div class="card-title">Total Active Balance</div>
+          <div class="card-value">
+            <lightning-formatted-number
+              value={activeBalance}
+              format-style="currency"
+              currency-code="USD"
+            ></lightning-formatted-number>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="transaction-container">
+    <div class="transaction-header-wrapper">
+      <label class="transaction-title">Transaction History</label>
+      <div class="actions">
+        <button class="slds-button slds-button_neutral" disabled="disabled">
+          Cards
+        </button>
+        <button class="slds-button slds-button_brand">Pay</button>
+      </div>
+    </div>
+    <ul class="transaction-list">
+      <li class="transaction-item">
+        <div class="transaction-name">Personal loan payment</div>
+        <div class="transaction-date slds-col">May 1, 2023</div>
+        <div class="transaction-amount slds-col">$80,00</div>
+      </li>
+      <li class="transaction-item">
+        <div class="transaction-name">Electricity bill payment</div>
+        <div class="transaction-date slds-col">May 2, 2023</div>
+        <div class="transaction-amount slds-col">$30,00</div>
+      </li>
+      <li class="transaction-item">
+        <div class="transaction-name">Food order bill payment</div>
+        <div class="transaction-date slds-col">May 3, 2023</div>
+        <div class="transaction-amount slds-col">$500</div>
+      </li>
+    </ul>
+  </div>
+</template>

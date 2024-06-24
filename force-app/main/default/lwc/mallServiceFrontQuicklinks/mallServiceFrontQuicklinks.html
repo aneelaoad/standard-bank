@@ -1,0 +1,114 @@
+<template>
+    <div class="section links-section">
+        <lightning-card  variant="Narrow" title="Quick links" icon-name="action:web_link">
+            <lightning-button label="Add" variant="brand-outline" slot="actions" onclick={handleCreateNewLink}></lightning-button>
+            <lightning-datatable 
+               key-field="Id" 
+               data={links} 
+               columns={columnLinks}
+               onrowselection={handleRowSelection}
+               >
+            </lightning-datatable>
+         </lightning-card>
+    </div>
+
+    <div class="slds-text-align_left">
+        <lightning-button variant="brand" label="Publish" title="Publish"
+           onclick={handlePublish}></lightning-button>
+     </div>
+
+     <div class="section history-section">
+        <lightning-card  variant="Narrow" title="Quick links approval history" icon-name="standard:call_history">
+            <div class="data-table">
+                <lightning-datatable 
+                    key-field="Id" 
+                    data={linksHistory} 
+                    columns={columnLinksHistory}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </div>
+        </lightning-card>
+    </div>
+
+    <template if:true={showModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+           aria-describedby="modal-content-id-1"
+           class="preference-modal slds-modal slds-fade-in-open slds-modal_medium">
+           <div class="slds-modal__container">
+              <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                 title="Close" onclick={closeModal}>
+                 <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                    size="small"></lightning-icon>
+                 <span class="slds-assistive-text">Close</span>
+              </button>
+              <header class="slds-modal__header">
+                 <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                    {formTitle}
+                 </h2>
+              </header>
+              <!-- modal body start -->
+              <div class="slds-modal__content slds-p-around_medium fade-right" id="modal-content-id-1">
+                 
+                 <div class="c-container grid-container modal-section form">
+                       
+                    <div class="grid-item">
+                       <lightning-input type="text" label="Quick link name" onchange={handleNameChange} required></lightning-input>
+                    </div>
+  
+                    <div class="grid-item">
+                       <lightning-input type="text" label="Quick link url" onchange={handleUrlChange} required></lightning-input>
+                    </div>
+  
+                    <div class="grid-item grid-row">
+                        <div class="dropdown">
+                            <div class="dropdown-element selection-box" onclick={toggleDropdown}>
+                                <div class="selected-icon">
+                                    <lightning-icon
+                                        icon-name={selectedIcon}
+                                        size="small"
+                                        alternative-text="Selected Icon"
+                                    ></lightning-icon>
+                                </div>
+                                <span class="selected-label">{selectedLabel}</span>
+                                <lightning-icon
+                                    icon-name="utility:down"
+                                    size="x-small"
+                                    alternative-text="Dropdown"
+                                    class="dropdown-icon"
+                                ></lightning-icon>
+                            </div>
+                            <ul class={dropdownClass} onclick={handleSelection}>
+                                <template for:each={iconList} for:item="icon">
+                                    <li key={icon.value}>
+                                        <lightning-icon
+                                            key={icon.value}
+                                            icon-name={icon.value}
+                                            alternative-text={icon.label}
+                                        ></lightning-icon>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </div>
+  
+                 </div>
+              </div>
+              <footer class="slds-modal__footer modal-hidden">
+                 <div class="slds-grid slds-wrap slds-gutters buttons">
+                    <div class="slds-text-align_left">
+                       <lightning-button variant="brand-outline" label="Cancel" title="Cancel"
+                          onclick={handleCancel}></lightning-button>
+                    </div>
+                    <lightning-button variant="brand-outline" label="Save" title="Save" onclick={handleSave}
+                       class="slds-m-left_x-small"></lightning-button>
+                    <lightning-button variant="Brand" label="Submit For Approval"
+                       title="Submit For Approval" onclick={handleSubmitForApproval}
+                       class="slds-m-left_x-small slds-m-right_x-large"></lightning-button>
+                 </div>
+              </footer>
+           </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>

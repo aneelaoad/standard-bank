@@ -1,0 +1,121 @@
+<!--
+  @description       : This is used for Source of Funds screen
+  @author            : ramya.gurram@standardbank.co.za
+  @last modified on  : 10-10-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+
+<template>
+  <c-cmn_comp_spinner if:false={isLoaded}></c-cmn_comp_spinner>
+  <div class="container">
+    <c-cmn_comp_review-comment
+      section={sectionRecord}
+    ></c-cmn_comp_review-comment>
+    <article class="aob_page-titles">
+      <h2>Source of funds</h2>
+    </article>
+    <div class="aob_card-container">
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div class="slds-form-element">
+            <label class="slds-form-element__label" for="date-input-id-default2"
+              ><abbr class="slds-required" title="required">* </abbr>Country for
+              initial source of funds for opening account</label
+            >
+            <c-cmn_comp_acpicklist
+              s-object-name="Application__c"
+              s-object-field-name="CIB_SOF_InitialFundsSourceCountry__c"
+              data-type="application"
+              required
+              data-fieldname="CIB_SOF_InitialFundsSourceCountry__c"
+              value={applicationRecord.CIB_SOF_InitialFundsSourceCountry__c}
+              is-country-picklist
+            ></c-cmn_comp_acpicklist>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span> Expected initial
+        source of funds
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1">
+          <lightning-checkbox-group
+            required
+            class="half-width"
+            name="CIB_SOF_ExpectedInitialFundsSource__c"
+            variant="label-hidden"
+            data-fieldname="CIB_SOF_ExpectedInitialFundsSource__c"
+            data-type="application"
+            options={fundsOptions}
+            onchange={onchange}
+            value={CIB_SOF_ExpectedInitialFundsSource__c}
+          >
+          </lightning-checkbox-group>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1">
+          <template lwc:if={isOtherInitialFund}>
+            <lightning-input
+              required
+              label="Other Details"
+              data-type="application"
+              data-fieldname="CIB_SOF_OtherFundsDetails__c"
+              value={applicationRecord.CIB_SOF_OtherFundsDetails__c}
+            ></lightning-input>
+          </template>
+        </div>
+      </div>
+    </div>
+    <div class="aob_card-container">
+      <div class="aob_title-sm">
+        <span class="slds-required" title="required">* </span> Expected initial
+        source of wealth
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1">
+          <lightning-checkbox-group
+            required
+            class="half-width"
+            name="CIB_SOF_ExpectedInitialWealthSource__c"
+            variant="label-hidden"
+            data-fieldname="CIB_SOF_ExpectedInitialWealthSource__c"
+            data-type="application"
+            options={wealthOptions}
+            onchange={onchange}
+            value={CIB_SOF_ExpectedInitialWealthSource__c}
+          >
+          </lightning-checkbox-group>
+        </div>
+      </div>
+      <div class="slds-grid aob_col-gutter slds-wrap mt_20">
+        <div class="slds-col slds-size_1-of-1">
+          <template lwc:if={isOtherInitialWealth}>
+            <lightning-input
+              required
+              data-type="application"
+              label="Other Details"
+              data-fieldname="CIB_SOF_OtherWealthDetails__c"
+              value={applicationRecord.CIB_SOF_OtherWealthDetails__c}
+            ></lightning-input>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <c-cib_comp_documents-container
+      application-id={recordId}
+      section-id={sectionId}
+    ></c-cib_comp_documents-container>
+
+    <c-cib_comp_flow-navigation
+      onsave={saveRecord}
+      onsubmit={submitRecord}
+      onprevious={navigateToPreviousScreen}
+    >
+    </c-cib_comp_flow-navigation>
+  </div>
+</template>

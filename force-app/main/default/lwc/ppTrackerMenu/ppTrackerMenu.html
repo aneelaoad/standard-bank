@@ -1,0 +1,172 @@
+<!-- **
+* @description  : Partner Portal Tracker Menu
+* User Story : SFP-4873
+*
+* @author Syed Ovais Ali (syed.ali@standardbank.co.za)
+* @date Aug 2021
+*/ -->
+<template>
+
+    <template if:true={hasError}>
+        <p>There was a problem loading this page.</p>
+    </template>
+    <div class="container">
+        <div class="slds-grid slds-grid_vertical">
+            <div class="slds-col">
+                <p class="text-normal-sfProDisplay heading">{heading}</p>
+            </div>
+            <template if:false={hasError}>
+                <template if:true={tasks}>
+                    <ul>
+                        <template for:each={menuItems} for:item="phase">
+                            <li key={phase.label} class="accordion">
+                                <div class="slds-grid">
+                                    <div class="slds-col" style="flex: none;">
+                                        <template if:true={phase.completed}>
+                                            <div class="phase-icon-container" style="background-color: #03a;">
+                                                <img class="phase-icon" src={phaseCompletedIcon}>
+                                            </div>
+                                        </template>
+                                        <template if:false={phase.completed}>
+                                            <template if:true={phase.status}>
+                                                <div class="phase-icon-container" style="background-color: #ffa101;">
+                                                    <p class="heading-normal-sfProDisplay item-sequence">
+                                                        {phase.sequence}
+                                                    </p>
+                                                </div>
+                                            </template>
+                                        </template>
+                                        <template if:false={phase.completed}>
+                                            <template if:false={phase.status}>
+                                                <div class="phase-icon-container" style="background-color: #bcc4d3;">
+                                                    <p class="heading-normal-sfProDisplay item-sequence">
+                                                        {phase.sequence}</p>
+                                                </div>
+                                            </template>
+                                        </template>
+                                    </div>
+                                    <div class="slds-col">
+                                        <template if:true={phase.status}>
+                                            <p class="heading-normal-sfProDisplay phase" data-id={phase.label}
+                                                onclick={handleAccordionClick}>{phase.label}</p>
+                                            <p class="text-normal-sfProDisplay status">{phase.status}</p>
+                                        </template>
+                                        <template if:false={phase.status}>
+                                            <p class="heading-normal-sfProDisplay phase" data-id={phase.label}
+                                                onclick={handleAccordionClick} style="margin: 8px 0px 8px 0px;">
+                                                {phase.label}</p>
+                                            <p class="text-normal-sfProDisplay status">{phase.status}</p>
+                                        </template>
+                                    </div>
+
+                                    <img class="acc-arrow" src={accordionArrow} onclick={handleAccordionClick}
+                                        data-id={phase.label}>
+
+                                </div>
+
+                                <ul class="panel" data-id={phase.label} key={phase.steps}
+                                    style="margin-top: 16px; cursor: default;">
+                                    <template for:each={phase.steps} for:item="step">
+                                        <li key={step.key}>
+                                            <div class="slds-grid">
+                                                <template if:true={step.completed}>
+                                                    <div class="slds-col" style="flex: none;">
+                                                        <img data-menuitem={step.key} class="sub-item-icon"
+                                                            src={stepCompletedIcon}>
+                                                    </div>
+                                                </template>
+                                                <template if:true={step.default}>
+                                                    <div data-menuitem={step.key} class="sub-step-circle"
+                                                        style="flex: none; border: solid 2px #f3a43b;"></div>
+                                                </template>
+                                                <template if:false={step.default}>
+                                                    <template if:false={step.completed}>
+                                                        <div data-menuitem={step.key} class="sub-step-circle"
+                                                            style="flex: none; border: solid 2px #bcc4d3;"></div>
+                                                    </template>
+                                                </template>
+                                                <div class="slds-col">
+                                                    <template if:true={step.completed}>
+                                                        <p data-menuitem={step.key}
+                                                            class="text-normal-sfProDisplay sub-item">{step.label}</p>
+                                                    </template>
+                                                    <template if:false={step.completed}>
+                                                        <p data-menuitem={step.key}
+                                                            class="text-normal-sfProDisplay sub-item"
+                                                            style="color:#6A7286">{step.label}</p>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                            <span data-menuitem={step.key}
+                                                style="margin-left: 10px; color:#BCC4D3">|</span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+            </template>
+        </div>
+
+        <div class="slds-col">
+            <div class="line"></div>
+        </div>
+
+        <div class="slds-col">
+            <p class="text-normal-sfProDisplay heading" style="margin-top: 23.5px;">RELATIONSHIP MANAGER</p>
+        </div>
+
+        <div class="slds-col">
+            <div class="slds-col contact-Information">
+                <div class="slds-grid slds-grid_vertical">
+
+                    <div class="slds-col">
+
+                        <div class="slds-grid">
+                            <div class="slds-col">
+                                <div class="slds-grid">
+                                    <div class="slds-col" style="flex: none; margin-right: 7px;">
+                                        <img class="user-img" src={userImgUrl} />
+                                    </div>
+                                    <div class="slds-col">
+                                        <p class="heading-normal-sfProDisplay name">{user.FirstName} {user.LastName}</p>
+                                        <p class="text-normal-sfProDisplay" style="color: #6a7286;">{user.Title}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="slds-col" style="margin-top: 24px;">
+                        <div class="slds-grid con-us-details-container">
+                            <template if:true={user.Phone}>
+                                <div class="slds-col">
+                                    <img class="con-us-icon" src={phoneIcon}>
+
+                                </div>
+                            </template>
+                            <div class="slds-col">
+                                <p class="text-normal-sfProDisplay contact-us-phone">{user.Phone}</p>
+                            </div>
+                        </div>
+
+                        <div class="slds-grid con-us-details-container">
+                            <div class="slds-col">
+                                <img class="con-us-icon" src={emailIcon}>
+                            </div>
+                            <div class="slds-col">
+                                <p class="text-normal-sfProDisplay contact-us-email">{user.Email}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</template>

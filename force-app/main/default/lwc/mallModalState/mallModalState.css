@@ -1,0 +1,54 @@
+:host {
+  --_validation-color: var(--negative-color);
+  --_validation-offset-color: #f7c4c4;
+}
+
+.modal-state {
+  width: 100%;
+  max-width: 21.5rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+  position: relative;
+}
+
+.state-graphic-wrapper {
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  box-shadow: var(--_validation-color) 0 0 0 2px,
+    var(--_validation-offset-color) 0 0 0 10px;
+  border-radius: 50%;
+  margin: 1rem auto;
+  position: relative;
+}
+
+.state-graphic {
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+  filter: invert(18%) sepia(28%) saturate(7425%) hue-rotate(346deg)
+    brightness(107%) contrast(123%);
+  position: relative;
+}
+
+.state-title {
+  color: var(--sbds-medium-gray-text-body, #00164e);
+  text-align: center;
+  font-family: Benton Sans;
+  font-size: var(--font-size-body-m, 1rem);
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.state-description {
+  color: var(--secondary-text-dark-grey, #0b0f14);
+  text-align: center;
+  font-family: Benton Sans;
+  font-size: var(--font-size-body-m, 1rem);
+  font-weight: 400;
+  line-height: 1.25rem;
+}

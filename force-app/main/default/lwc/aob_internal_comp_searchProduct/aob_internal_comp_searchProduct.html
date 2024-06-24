@@ -1,0 +1,88 @@
+<!--
+  @description       : 
+  @author            : Sibonelo Ngcobo
+  @group             : 
+  @last modified on  : 07-20-2023
+  @last modified by  : Sibonelo Ngcobo
+  Modifications Log
+  Ver   Date         Author            Modification
+  1.0   07-20-2023   Sibonelo Ngcobo   SFP-25089
+-->
+
+<template>
+    <template if:true={showProductSearch}>
+        <lightning-card >
+            <div class="slds-p-horizontal_large">
+                <template if:false={isLoaded}>
+                    <c-aob_internal_comp_spinner></c-aob_internal_comp_spinner>
+                </template>
+                <template if:true={isLoaded}>
+                    <template if:false={showAccounts}>
+                        <div class="slds-p-around_medium lgc-bg ">
+                            <lightning-tile >
+                                <h2><p class="slds-truncate slds-text-heading_medium title" title="7 Members">{accountName}</p></h2>
+                            </lightning-tile>
+                        </div>
+                        <div class="slds-text-align_center product">
+                            <c-aob_internal_comp_select-Product onbuttonclick={handleEvent} label="Account Search" placeholder="search Account" required>
+                                <lightning-icon icon-name="utility:search" slot="prefix"></lightning-icon>
+                            </c-aob_internal_comp_select-Product>
+                            <template if:true={showExistingProduct}>
+                                <p class="slds-m-top_large">This product already exists for the client, please view in this application: <a onclick={navigateToRecordPage}>{productName}</a></p>
+                            </template>
+                        </div>    
+                    </template>
+                    <template if:true={showAccounts}>
+                        <lightning-card class="slds-card">
+                            <div class="slds-p-around_medium slds-m-around_medium">
+                                <label class="slds-text-heading_medium slds-m-top_medium">Account Results</label>
+                                <template if:true={accounts}>
+                                    <lightning-datatable
+                                        key-field="id"
+                                        hide-checkbox-column="true"
+                                        data={accounts}
+                                        columns={cols}
+                                        onrowaction={handleRowAction}>
+                                    </lightning-datatable>
+                                </template>
+                            </div>
+                        </lightning-card>
+                    </template>
+                </template>
+                <div>
+                    <template if:true={showProduct}>
+                        <div class="slds-m-around_medium slds-text-align_center">
+                            <c-search_product onbuttonclick={handleEvent} variant="label-hidden" label="Account Search" placeholder="search Account" required>
+                                <lightning-icon icon-name="utility:search" slot="prefix"></lightning-icon>
+                            </c-search_product>
+                        </div>   
+                    </template>
+                    <template if:true={showProductMessage}>
+                        <label>Client does not Exist</label>
+                    </template>
+                </div>
+            </div>
+            <div class="slds-p-horizontal_large">
+                <div class="slds-theme--shade button-container slds-m-top_xx-large slds-m-bottom_large">
+                    <lightning-button
+                        variant="neutral"
+                        label="Cancel"
+                        onclick={handleCancel}
+                    ></lightning-button>
+                    <lightning-button
+                        variant="brand"
+                        label="Apply"
+                        onclick={handleButtonClick}
+                        class="slds-m-left_x-small"
+                    ></lightning-button> 
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+    <template if:true={showPreApplication}>
+        <c-aob_internal_comp_pre-application product-id={product} account-id={accountId} registration-number={registrationNumber} ></c-aob_internal_comp_pre-application>
+    </template>
+    <template if:true={showSearch}>
+        <c-aob_internal_comp_client-search></c-aob_internal_comp_client-search>
+        </template>
+</template>

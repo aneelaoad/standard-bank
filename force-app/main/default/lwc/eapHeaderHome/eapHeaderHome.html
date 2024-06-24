@@ -1,0 +1,31 @@
+<!--
+    @description       : Header showed in the landind page of the Events App
+    @author            : TCK
+    @group             : 
+    @last modified on  : 05-25-2022
+    @last modified by  : TCK
+    Modifications Log 
+    Ver   Date         Author   Modification
+    1.0   06-02-2021   TCK   Initial Version
+-->
+<template>
+    <div class="v1_div_heading">
+        <div class="v1_div_start">
+            <img src={iconStart}>
+        </div>
+        <div class="v1_div_title"><span class="v1_span_title">{title}</span></div>
+        <template if:true={iconsEnd}>
+            <div class="v1_div_end">
+                <template for:each={iconsEnd} for:item="icon">
+                    <div key={icon.Id} onclick={icon.Click} class="v1_div_icon">
+                        <img class="logo-img" src={icon.Url}>  
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+
+    <!-- <template if:true={hiddenMenuIsOpen}>
+        <c-eap-hidden-menu onclose={closeHiddenMenu}></c-eap-hidden-menu>
+    </template> -->
+</template>
