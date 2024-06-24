@@ -38,7 +38,7 @@ public with sharing class MallStatementsCtrl {
                     System.debug('@@@ Result Set ' + resultSet);
                     
                     // Add a new Statement object to the statements list
-                    statements.add(new Statement(resultSet.description, resultSet.label, 'e566003f-9dc2-4a89-8636-af69e8bdcb0f'));
+                    statements.add(new Statement(resultSet.description, resultSet.label, resultSet.uid));
                 }
 
              }   catch(Exception e) {

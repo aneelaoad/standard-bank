@@ -633,21 +633,21 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
     return offeringCollectionObject;
   }
 
-  // handleSignup() {
-  //   putCookie("userDesiredPage", getBaseUrl() + "/mall/s/");
-  //   putCookie("redirectToUserDesiredPage", "true");
-  //   putCookie("redirectToExternalShopPage", "true");
-  //   //TODO :: GH :: SHould use the navigation mixin here
-  //   let signUpUrl = getBaseUrl() + "/mall/s/sign-up";
-  //   this[NavigationMixin.GenerateUrl]({
-  //     type: "standard__webPage",
-  //     attributes: {
-  //       url: signUpUrl
-  //     }
-  //   }).then((generatedUrl) => {
-  //     window.open(generatedUrl, "_self");
-  //   });
-  // }
+  handleSignup() {
+    putCookie("userDesiredPage", getBaseUrl() + "/mall/s/");
+    putCookie("redirectToUserDesiredPage", "true");
+    putCookie("redirectToExternalShopPage", "true");
+    //TODO :: GH :: SHould use the navigation mixin here
+    let signUpUrl = getBaseUrl() + "/mall/s/sign-up";
+    this[NavigationMixin.GenerateUrl]({
+      type: "standard__webPage",
+      attributes: {
+        url: signUpUrl
+      }
+    }).then((generatedUrl) => {
+      window.open(generatedUrl, "_self");
+    });
+  }
 
   processPromotionCollection(promotions, selectedCategoryName) {
     let promotionCollectionObject = JSON.parse(

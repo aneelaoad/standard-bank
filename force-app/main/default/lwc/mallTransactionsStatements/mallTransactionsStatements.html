@@ -7,13 +7,13 @@
             </div>
             <div class="documentSection_list">
                 <ul>
-                    <template for:each={statements.data} for:item="statement">
+                    <template for:each={statements} for:item="statement">
                         <li key={statement.title}>
                             <div class="documentSection_listInfo">
                                 <div class="documentSection_listInfo_fl">
                                     <span><img src={icn_document_statement}></span>
                                     <div class="documentSection_list_flText">
-                                        <strong>{statement.title}</strong>
+                                        <strong data-documentuuid={statement.uid} onclick={showContextMenu}>{statement.title}</strong>
                                         <small>{statement.strDate}</small>
                                     </div>
                                 </div>
@@ -21,6 +21,13 @@
                                     <button data-documentuuid={statement.uid} onclick={handleUnstampedDocumentDownload}><img src={icn_download_statement}></button>
                                 </div>
                             </div>
+                            <template if:true={statement.showMenu}>
+                                <div class="context-menu">
+                                    <button data-documentuuid={statement.uid} onclick={viewStatement}>View</button>
+                                    <button data-documentuuid={statement.uid} onclick={deleteStatement}>Delete</button>
+                                    <button data-documentuuid={statement.uid} onclick={handleUnstampedDocumentDownload}>Download</button>
+                                </div>
+                            </template>
                         </li>
                     </template>
                 </ul>

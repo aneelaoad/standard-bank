@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, track } from 'lwc';
 import sbgIcons from '@salesforce/resourceUrl/sbgIcons';
 import getStatements from '@salesforce/apex/MallStatementsCtrl.getStatements';
 import getCustomerDocumentByUUID from "@salesforce/apex/CTRL_MallDocumentManagement.getCustomerDocumentByUUID";
@@ -6,36 +6,66 @@ import getCustomerDocumentByUUID from "@salesforce/apex/CTRL_MallDocumentManagem
 export default class MallTransactionsStatements extends LightningElement {
     icn_document_statement = sbgIcons + '/OTHER/icn_document_statement.svg';
     icn_download_statement = sbgIcons + '/OTHER/icn_download_statement.svg';
+    showSpinner = false;
+    error;
 
-    showSpinner;
-    
+    @track statements = [];
+
     @wire(getStatements)
-    statements;
-    
+    wiredStatements({ error, data }) {
+        if (data) {
+            this.statements = data.map(statement => ({
+                ...statement,
+                showMenu: false
+            }));
+
+            console.log(' this.statements : ',JSON.stringify( this.statements));
+        } else if (error) {
+            this.error = error;
+        }
+    }
+
     redirectionAction() {
         console.log('redirectionAction Called@@');
         window.location.href = '/mall/s/my-statements';
     }
 
     async handleUnstampedDocumentDownload(event) {
-        let documentUUID = event.target.dataset.documentuuid;
-        let selectedBtn = event.target;
+    let documentUUID = event.target.dataset.documentuid;
+
+        const selectedBtn = event.currentTarget;
 
         try {
-          this.showSpinner = true;
-          const link = await getCustomerDocumentByUUID({
-            documentUUID: documentUUID
-          });
-          this.showSpinner = false;
-          window.open(link, "_blank");
-          //this.handlePostDocumentDownloadCleanUp(link);
+            this.showSpinner = true;
+            const link = await getCustomerDocumentByUUID({ documentUUID });
+            this.showSpinner = false;
+            window.open(link, "_blank");
         } catch (error) {
-          this.showSpinner = false;
-          this.error = error;
+            this.showSpinner = false;
+            this.error = error;
+            console.error('Error downloading document: ', error);
         } finally {
-          selectedBtn.classList.toggle("hidden");
-          selectedCard.classList.toggle("active");
+            selectedBtn.classList.toggle("hidden");
         }
-      }    
-   
+    }
+
+    showContextMenu(event) {
+        const documentUUID = event.currentTarget.dataset.documentuuid;
+        this.statements = this.statements.map(statement => ({
+            ...statement,
+            showMenu: statement.uid === documentUUID ? !statement.showMenu : false
+        }));
+    }
+
+    viewStatement(event) {
+        const documentUUID = event.currentTarget.dataset.documentuuid;
+        console.log('View statement:', documentUUID);
+        // Implement view functionality
+    }
+
+    deleteStatement(event) {
+        const documentUUID = event.currentTarget.dataset.documentuuid;
+        console.log('Delete statement:', documentUUID);
+        // Implement delete functionality
+    }
 }
