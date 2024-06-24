@@ -34,7 +34,7 @@
 
 .documentSection_list_flText { width: calc(100% - 33px); padding-left: 10px;}
 
-.documentSection_list_flText strong { display: block; font-size: 12px; color: #1A314D; line-height: 15px;}
+.documentSection_list_flText strong { display: block; font-size: 12px; color: #1A314D; line-height: 15px; cursor: pointer;}
 .documentSection_list_flText small { display: block; font-size: 10px; color: #5C6C80;}
 
 .documentSection_listInfo_fr { width: 20%; display: flex; justify-content: flex-end;}
