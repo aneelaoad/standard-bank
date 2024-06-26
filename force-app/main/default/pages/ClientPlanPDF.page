@@ -1,0 +1,1558 @@
+<apex:page sidebar="false" showheader="false" standardcontroller="Account" extensions="ClientPlanClass,ClientContactController,ProductPotentialController,PublicFinancialAnalysisController,ClientWalletController,CAMGlobalClientRevenue_comp,ClientOpCountryComponentController"
+standardstylesheets="false"  action="{!checkClientPlan}" renderAs="pdf">
+<head> 
+<style type="text/css" >
+              @page {
+                size:A4;
+                <!--margin-top:1.75cm;-->
+                margin-top:2.40cm;
+                margin-left:0.1cm;
+                margin-right:0.1cm;
+                margin-bottom:1cm;
+               
+                @bottom-right {
+                    content:"Page " counter(page);
+                    color:#02377A;
+                    font-size:8pt;
+                    font-family:Arial;
+                    font-weight:bold;
+                    left:0px;
+                }
+                
+                @bottom-left {
+                    content: element(footer);
+                }
+                @top-left{
+                   content: element(header);
+                }
+             }
+            
+            html, body1 {
+                margin:0;
+                padding:0;
+                height:100%;
+            }
+            table {
+                border-color: solid black;
+            }
+            #container {
+                min-height:100%;
+                position:relative;
+            }
+            #header {
+                top:0px;
+                padding:0px;
+               }
+            #footer {
+                top:0px;
+                padding:0px;
+               }
+            #body {
+                padding:10px;
+                padding-bottom:60px;
+                
+            }
+            div.footer {
+                position: running(footer);
+            }
+            div.header {
+                position: running(header);
+            }
+            .wrap {
+                -ms-word-break: break-all;
+                 word-break: break-all;
+            
+
+            
+               -webkit-hyphens: auto;
+               -moz-hyphens: auto;
+                    hyphens: auto;
+            }
+            
+            .footerRow {
+                background-color: #F5CB55;
+                color:black;
+                border: 1px solid black;
+                font-size:10pt;
+                text-align:center;
+                font-family: Arial;
+            }
+            .footerFix{
+                text-align:center;
+            }
+            
+            table {page-break-inside: avoid;}
+            
+            tr {page-break-inside: avoid;}
+            
+            th {page-break-inside: avoid;}
+            
+            td {page-break-inside: avoid;}
+
+            <!-- PART FOR CSI -->
+
+            td.red, div.red {
+                background-color: #FF3800;
+            }
+            td.amber, div.amber {
+                background-color: rgb(245, 203, 85);
+            }
+
+            td.green, div.green{
+                background-color: #90EE90;
+            }
+
+            td.green, td.amber, td.red,
+            div.green, div.amber, div.red
+            {
+                font-weight: bold;
+                text-align: left;
+                font-size: 10pt;
+            }
+
+            td.leftAligned, div.leftAligned {
+                text-align: left;
+                border: 1px solid black;
+                font-size: 10pt;
+            }
+
+
+
+            
+        </style>
+   </head>
+    <div class="footer" align="center">
+        <table border="0" width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td
+                    style="font-weight: bold; color: #02377A; font-size: 10pt; font-family: Arial; text-align: left">Confidential:
+                    For Internal Use Only</td>
+                <td>
+                    <table border="0">
+                        <tr>
+                            <td
+                                style="font-weight: bold; color: #02377A; font-size: 7pt; font-family: Arial; text-align: center">
+                                <apex:outputtext value="{0,date,d MMM yyyy}">Print Date:&nbsp;
+                                    <apex:param value="{!today()}" />
+                                </apex:outputtext>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="header" align="center">
+        <table style="margin-left: 0px;" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="22%" style="font-family: Arial; text-align: left"><Strong>
+                <apex:OutputText style="font-family:Arial;font-size:10px;color: #02377A;"
+                            value="Individually Budgeted Client (IBC):Yes" rendered="{!Account.CIB_Target_Client__c}"/>
+                          <apex:OutputText style="font-family:Arial;font-size:10px;color: #02377A;"
+                            value="Individually Budgeted Client (IBC):No" rendered="{!NOT(Account.CIB_Target_Client__c)}"/>
+                            </Strong>
+                            <br/>
+                            <!-- EN-0632-->
+                          <apex:outputPanel rendered="{!showApprFields}">
+                          <apex:OutputText value="Status:" style="font-family:Arial;font-size:10px;color: #02377A;" rendered="{!showApprFields}"/>
+                                   <apex:OutputText value="{!sObjClientPlan.Client_Plan_Status__c}" style="font-family:Arial;font-size:10px;color: #02377A;" rendered="{!showApprFields}"/>
+                               <br />
+                          </apex:outputPanel>
+                          <apex:outputPanel rendered="{!showApprFields}">
+                               <apex:OutputText value="Approved By:" style="font-family:Arial;font-size:10px;color: #02377A;" rendered="{!showApprFields}"/>
+                                    <apex:repeat value="{!lstProInstance}" var="prInc">
+                                        <apex:repeat value="{!prInc.Steps}" var="stp">
+                                            <apex:OutputText value="{!Stp.OriginalActor.Name}" style="font-family:Arial;font-size:10px;color: #02377A;" rendered="{!showApprFields}" />
+                                        </apex:repeat>
+                                    </apex:repeat>
+                                    <br/>
+                           </apex:outputPanel>          
+                            <!-- end -->
+                   <!-- EN-0690 -->
+                   <apex:outputpanel rendered="{!IF(NOT(ISBLANK(overallRating)) && !hideProspect, true, false)}">
+                         <apex:outputText value="Overall CIB CSI Rating:" style="font-family:Arial;font-size:10px;color: #02377A;"/>
+                         <apex:OutputText value="{!overallRating}" style="font-family:Arial;font-size:10px;color: #02377A;"/>
+                         <br/>
+                         <apex:outputText value="Latest CSI Rating Year:" style="font-family:Arial;font-size:10px;color: #02377A;"/>
+                         <apex:OutputText value="{!surveyYear}" style="font-family:Arial;font-size:10px;color: #02377A;"/>
+                   </apex:outputpanel>
+                   <apex:outputPanel rendered="{!IF(ISBLANK(overallRating) && !hideProspect, true, false)}">
+                        <apex:outputText value="Overall CIB CSI Rating:" style="font-family:Arial;font-size:10px;color: #02377A;"/>
+                        <apex:OutputText value="Not Rated" style="font-family:Arial;font-size:10px;color: #02377A;"/>
+                        <br/>
+                         <apex:outputText value="Latest CSI Rating Year:" style="font-family:Arial;font-size:10px;color: #02377A;"/>
+                   </apex:outputPanel>
+                     <!-- EN-0690 -->
+                           </td>
+                <td width="46%" style="font-family: Arial;text-align: center;"><Strong>
+                        <font size="4"> <Strong><apex:outputText style="font-family:Arial;font-size:20px;font-weight:normal;font-style:normal;text-decoration:none;color:#333333;color: #02377A;text-align: center;"
+                                value="{!ClientPlanName}" /></Strong>&nbsp; 
+                    </font>
+                </Strong></td>
+                <td width="22%" align="right">
+                   <apex:image url="{!URLFOR($Resource.CamProducts,'StandardBankTrans.png')}"
+                       width="160" height="50" />
+                        
+                        </td>
+
+            </tr>
+        </table>
+    </div> 
+    <!--<br/>-->
+    <table  style="border-collapse: collapse ;page-break-inside: avoid; border: 1px solid black;"
+        align="center" width="100%" cellpadding="1" cellspacing="1" border="1">
+        <tr>
+            <th align="left" bgcolor="#02367A" valign="top"
+                style="color: #FFFFFF; font-size: 13pt; text-align: center;border: 1px solid black;"
+                width="100%" height="30" nowrap="nowrap">Client</th>
+        </tr>
+        <tr>
+            <th align="left" bgcolor="#B1C3E1" valign="top" width="100%"
+                style="color: #FFFFFF; font-size: 13pt;border: 1px solid black;" height="10" nowrap="nowrap">Client
+                Description</th>
+        </tr>
+        <tr>
+            <td align="left" bgcolor="white" width="100%" height="10"
+                style="font-size: 10pt; color: black; overflow: hidden; font-family: Arial;padding-top:1px;border: 1px solid black;">
+                <apex:outputField value="{!Account.Description}"/></td>
+        </tr>
+        
+        <tr>
+            <th align="left" bgcolor="#B1C3E1" valign="top" width="100%"
+                style="color: #FFFFFF; font-size: 13pt;border: 1px solid black;" height="10" nowrap="nowrap">Client
+                Strategy</th>
+        </tr>
+         
+        <tr>
+            <th align="left" bgcolor="#C0C0C0" valign="top" width="100%"
+                style="color: #FFFFFF; font-size: 11pt;border: 1px solid black;" height="10" nowrap="nowrap">Long
+                Term Strategy</th>
+        </tr>
+        <tr>
+            <td align="left" bgcolor="white" width="100%" height="10"
+                style="font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                <apex:outputField value="{!Account.Long_Term_Strategy__c}" /></td>
+        </tr>
+         
+        <tr>
+            <th align="left" bgcolor="#C0C0C0" valign="top" width="100%"
+                style="color: #FFFFFF; font-size: 11pt;border: 1px solid black;" height="10" nowrap="nowrap">Short
+                Term Objectives</th>
+        </tr>
+        <tr>
+            <td align="left" bgcolor="white" width="100%" height="10"
+                style="font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                <apex:outputField value="{!Account.Short_Term_Objectives__c}" /></td>
+        </tr>
+      </table>
+                <table cellpadding="0"
+                    style="margin-left: 0px; margin-top: 0px; margin-right: 0px; border-collapse: collapse; width: 100%;border: 1px solid black;"
+                    border="1">
+                    <tr>
+                        <th class="wrapword"
+                            style="text-align: left; width: 100%; font-size: 13pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#B1C3E1" height="10" colspan="10">Key Client Contacts</th>
+                    </tr>
+                    <tr>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>Contact Name</b></td>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>Job Title</b></td>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>Influence</b></td>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>Relationship Type</b></td>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>CCoverage</b></td>    <!-- EN-0838-->
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>TPS</b></td>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>IB</b></td>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>GM</b></td>
+                        <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>RE</b></td>
+                         <td class="wrapword"
+                            style="text-align: center; width: 10%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#C0C0C0" height="20"><b>Other</b></td>
+                    </tr>
+
+                    <apex:repeat value="{!cctList}" var="cct">
+                        <tr>
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;"><apex:outputText value="{!cct.Name}" /></td>
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%;; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">{!cct.Title}</td>
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">{!cct.Influence__c}</td>
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">{!cct.Relationship_Type__c}</td>
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">
+                                 <apex:variable var="CB" value="{!0}"/>
+                                 <apex:repeat value="{!cct.Contact_Team_Members__r}" var="k">
+                                 <apex:outputPanel rendered="{!IF(k.User_Division__c == 'Client Coverage',true,false)}"> <!-- EN-0838-->
+                                   <apex:outputText value="{!CBmap[k.SA_Contact__c]}" rendered="{!if(CB=0,true,false)}" escape="false"/>
+                                   <apex:variable var="CB" value="{!1}"/>
+                                 </apex:outputpanel>
+                            </apex:repeat>    
+                            </td>
+                           
+                           
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">
+                                 <apex:variable var="TPS" value="{!0}"/>
+                             <apex:repeat value="{!cct.Contact_Team_Members__r}" var="k">
+                                 <apex:outputpanel rendered="{!IF(k.User_Division__c == 'Transactional Products and Services',true,false)}">
+                                     <apex:outputtext value="{!TPSmap[k.SA_Contact__c]}" rendered="{!if(TPS=0,true,false)}" escape="false"/>
+                                     <apex:variable var="TPS" value="{!1}"/>
+                                 </apex:outputpanel>
+                             </apex:repeat>    
+                            </td>
+                           
+                           
+                           
+                           
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">
+                               <apex:variable var="IB" value="{!0}"/>
+                             <apex:repeat value="{!cct.Contact_Team_Members__r}" var="k">
+                                 <apex:outputpanel rendered="{!IF(k.User_Division__c == 'Investment Banking',true,false)}">
+                                     <apex:outputtext value="{!IBmap[k.SA_Contact__c]}" rendered="{!if(IB=0,true,false)}" escape="false"/>
+                                     <apex:variable var="IB" value="{!1}"/>
+                                 </apex:outputpanel>
+                             </apex:repeat>    
+                            </td>
+                           
+                            
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">
+                                <apex:variable var="GM" value="{!0}"/>
+                             <apex:repeat value="{!cct.Contact_Team_Members__r}" var="k">
+                                 <apex:outputpanel rendered="{!IF(k.User_Division__c == 'Global Markets',true,false)}">
+                                     <apex:outputtext value="{!GMmap[k.SA_Contact__c]}" rendered="{!if(GM=0,true,false)}" escape="false"/>
+                                     <apex:variable var="GM" value="{!1}"/>
+                                 </apex:outputpanel>
+                             </apex:repeat>    
+                            </td>
+                            <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">
+                                <apex:variable var="RE" value="{!0}"/>
+                             <apex:repeat value="{!cct.Contact_Team_Members__r}" var="k">
+                                 <apex:outputpanel rendered="{!IF(k.User_Division__c == 'Real Estate',true,false)}">
+                                     <apex:outputtext value="{!REmap[k.SA_Contact__c]}" rendered="{!if(RE == 0,true,false)}" escape="false"/>
+                                      <apex:variable var="RE" value="{!1}"/>
+                                 </apex:outputpanel>
+                             </apex:repeat> 
+                            </td>
+                           <td class="wrapword" align="left" height="20"
+                                style="width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial; text-align: left;border: 1px solid black;">
+                                <apex:variable var="Other" value="{!0}"/>
+                             <apex:repeat value="{!cct.Contact_Team_Members__r}" var="k">
+                                <apex:outputpanel rendered="{!IF(OR(k.User_Division__c == 'General Management',k.User_Division__c == 'Business Enablers') ,true,false)}">
+                                     <apex:outputtext value="{!Othermap[k.SA_Contact__c]}" rendered="{!if(Other == 0,true,false)}" escape="false"/>
+                                      <apex:variable var="Other" value="{!1}"/>
+                                 </apex:outputpanel>
+                             </apex:repeat> 
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+             <table  style="border-collapse: collapse ;page-break-inside: avoid; border: 1px solid black;"
+                          align="center" width="100%" cellpadding="1" cellspacing="1" border="1">
+        <tr>
+            <th align="left" bgcolor="#B1C3E1" valign="top" width="100%"
+                style="color: #FFFFFF; font-size: 13pt;border: 1px solid black;" height="10" nowrap="nowrap">Client Current Relationship</th>
+        </tr>
+         
+        <tr>
+            <th align="left" bgcolor="#C0C0C0" valign="top" width="100%"
+                style="color: #FFFFFF; font-size: 11pt;border: 1px solid black;" height="10" nowrap="nowrap">Nature
+                of Relationship</th>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="white" width="100%" height="30" style="font-size: 10pt; color: black; font-family: Arial; border: 1px solid black;">
+                <apex:repeat value="{!Relationship}" var="pv">
+                    <apex:image url="{!URLFOR($Resource.Checkbox,'Unchecked.png')}"
+                        rendered="{!if(Account.Nature_of_Relationship__c != pv,true,false)}" />
+                    <apex:image url="{!URLFOR($Resource.Checkbox,'Checked.png')}"
+                        rendered="{!if(Account.Nature_of_Relationship__c == pv,true,false)}" />
+                        <apex:outPutText value="{!pv}" style="padding-right:57px;"/>
+                    </apex:repeat>
+            </td>
+        </tr>
+         
+        <tr>
+            <th align="left" bgcolor="#C0C0C0" valign="top" width="100%"
+                style="color: #FFFFFF; font-size: 11pt;border: 1px solid black;" height="10" nowrap="nowrap">Comments</th>
+        </tr>
+        <tr style="page-break-inside: avoid;">
+            <td align="left" bgcolor="white" width="100%" height="10"
+                style="font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                <apex:outputField value="{!Account.Client_Current_Relationship__c}" /></td>
+        </tr>
+        </table>
+        
+        <table border="1" cellpadding="0" style="margin-left:20px;margin-top:0px;margin-left:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+             <tr>
+                 <th style="text-align: left; width: 100%; font-size: 13pt; color:white; border-style:solid;" bgcolor="#b1c3e1" height="20" colspan="2">
+                     Client Financial Analysis ('000)&nbsp;(<apex:outputText value="{!CurrencyIsoCode}"/>)
+                     <apex:outputText style="float:right;" value="As of&nbsp;" escape="false">
+                         <apex:outputText style="float:right;" value="{0,date, d MMM yyyy}">
+                             <apex:param value="{!fin.pubFinAnalysis.Statement_Date__c}" />
+                         </apex:outputText>
+                     </apex:outputText>
+                 </th> 
+                 
+             </tr>
+             <tr>
+                 <td width="50%" style="text-align: left; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"> Total Revenue</td>
+                 <td width="50%" style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                     <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                         <apex:param value="{!fin.totalRev}"/>
+                     </apex:outputText> 
+                 </td>
+             </tr> 
+             <tr >
+                 <td width="50%" style="text-align: left; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">EBITDA</td>
+                 <td width="50%" style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                     <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                         <apex:param value="{!fin.revEBITDA}"/>
+                     </apex:outputText>
+                 </td>
+             </tr>
+             <tr >
+                 <td width="50%" style="text-align: left; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">Debt to EBITDA Ratio(%)</td>
+                 <td width="50%" style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                     <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                         <apex:param value="{!fin.pubFinAnalysis.Debt_Ratio__c}"/>
+                     </apex:outputText>
+                 </td>
+             </tr>
+             </table>
+             <table border="1" cellpadding="0" style="margin-left:20px;margin-top:0px;margin-left:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+                 <tr>
+                     <th style="text-align: left;width: 50%;color:white;font-size: 13pt;border-style:solid;" bgcolor="#b1c3e1" height="20" colspan="2">
+                         <font color="#FFFFFF" face="Arial" SIZE="2">Additional Company Information</font></th>
+                 </tr>
+                 <tr>
+                     <td width="50%" style="text-align: left; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">Number of Employees</td>
+                     <td width="50%" style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                         <apex:outputText value="{0, number, ###,###,###,##0}" >
+                             <apex:param value="{!Employees}"/>
+                         </apex:outputText>
+                     </td> 
+                 </tr>
+                 <tr>
+                     <td width="50%" style="text-align: left; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">Market Capitalisation ('000) ({!CurrencyIsoCode})</td>
+                     <td width="50%" style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                         <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                             <apex:param value="{!marketCapitalisation}"/>
+                         </apex:outputText>
+                      </td>
+                    </tr>
+                    <tr >
+                      <td width="50%" style="text-align: left; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">Share Price Over Last 3 Years</td>
+                      <td width="50%" style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                      <apex:outputtext value="{!sharePriceLastYears}" />
+                      </td>
+                    </tr>
+                    
+                  </table>
+                
+        <!-- Client Operating COuntries Module - START -->
+        
+        <table  border="1" cellpadding="0" style="margin-left:20px;margin-top:0px;margin-left:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+          <tr>
+            <th style="text-align: left;width: 50%;color:white;font-size: 13pt; overflow: hidden; font-family: Arial;border: 1px solid black;" bgcolor="#b1c3e1" height="20" colspan="2">
+                Client Operating Countries &nbsp; 
+            </th>
+          </tr>
+       
+          <tr>       
+            <td class="wrapword" bgcolor="#C0C0C0" style="text-align: left;width:50%;border:none;font-size: 11pt;color:white; 
+                                                                      overflow: hidden; font-family: Arial;border: 1px solid black;" colspan="2"><b>Operating Countries with CIB Presence</b></td>
+          </tr>
+          <tr>
+            <td width="30%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">Existing Business</td>
+            <td width="70%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">{!mapCIBPresentCountries['Existing Business']}</td>
+          </tr>
+                    
+          <tr>
+            <td width="30%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">Prospective Business</td>
+            <td width="70%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">{!mapCIBPresentCountries['Prospective Business']}</td>
+          </tr>
+                    
+          <tr>       
+            <td bgcolor="#C0C0C0" style="text-align: left;width:50%;border:none;font-size: 11pt; color:white; overflow: hidden; font-family: Arial;border: 1px solid black;" colspan="2"><b>Operating Countries without CIB Presence</b></td>
+          </tr>
+          <tr>
+            <td width="30%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">Existing Business</td>
+            <td width="70%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">{!mapNotCIBPresentCountries['Existing Business']}</td>
+          </tr>
+                    
+          <tr>
+            <td width="30%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">Prospective Business</td>
+            <td width="70%" align="center" style="text-align: left;width:50%;border:none;font-size: 10pt; overflow: hidden; font-family: Arial;border: 1px solid black;">{!mapNotCIBPresentCountries['Prospective Business']}</td>
+          </tr>
+            
+        </table>
+
+        <!-- Client Satisfaction Index Section  -->
+        <apex:outputPanel id="CSI_HEADER" rendered="{!IF(OR(renderSelectedUGP,renderImP,renderChild),'true','false')}">
+            <table border="1" cellpadding="0" style="margin-left:20px;margin-top:0px;margin-left:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+                <tr>
+                    <th style="text-align: left;color:white;font-size: 13pt; overflow: hidden; font-family: Arial;border: 1px solid black;" bgcolor="#b1c3e1" height="20" colspan="6">
+                        Client Satisfaction Index &nbsp;
+                    </th>
+                </tr>
+            </table>
+        </apex:outputPanel>
+        <apex:outputPanel id="ULTIMATE_GROUP_PARENT" rendered="{!IF(renderSelectedUGP,'true','false')}">
+       <table border="1" cellpadding="0" style="margin-left:20px;margin-top:0px;margin-left:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+
+            <tr>
+                <td style="width: 20%; background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Client Name</td>
+                <td colspan="3" style="border: 1px solid black; font-weight: bold;font-size: 10pt;">{!cwUGP.csi_client_name}</td>
+                <td style="width: 20%; background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Project Country</td>
+                <td style="width: 25%; text-align: left; border: 1px solid black;font-size: 10pt;">{!cwUGP.csi_project_country}</td>
+            </tr>
+            <tr>
+                <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Survey Contact</td>
+                <td colspan="3" style=" border: 1px solid black;font-size: 10pt;">{!cwUGP.csi_survey_contact}</td>
+                <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Survey Year</td>
+                <td style="text-align: left; border: 1px solid black;font-size: 10pt;">{!cwUGP.survey_Year}</td>
+            </tr>
+            <tr>
+                <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">CSI Ratings</td>
+                <td colspan="4" style="border: 1px solid black;">
+                    <div style="display: table; table-layout: fixed; width:100%;">
+                        <div style="display: table-cell; border-right: 1px solid black;" class="{!cwUGP.overallRatingCssClass}">Overall CIB: {!cwUGP.overall_CIB_CSI_Rating}</div>
+                        <div style="display: table-cell; border-right: 1px solid black;" class="{!cwUGP.gmRatingCssClass}">GM: {!cwUGP.gm_csi_rating}</div>
+                        <div style="display: table-cell; border-right: 1px solid black;" class="{!cwUGP.ibRatingCssClass}">IB: {!cwUGP.ib_csi_rating}</div>
+                        <div style="display: table-cell; border-right: 1px solid black;" class="{!cwUGP.tpsRatingCssClass}">TPS: {!cwUGP.tps_csi_rating}</div>
+                    </div>
+                </td>
+                <td style="border: 1px solid black" class="{!cwUGP.creditRatingCssClass}">Credit Turnaround: {!cwUGP.csi_credit}</td>
+            </tr>
+            <tr>
+                <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top;font-size: 10pt;">Wallet Share Opportunity</td>
+                <td colspan="5" style="vertical-align: text-top;border: 1px solid black;font-size: 10pt;">
+                    <div>{!cwUGP.csi_wallet_share_opportunity}</div>
+
+                </td>
+            </tr>
+           <tr>
+                <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">TPS Comment</td>
+                <td colspan="5" style="vertical-align: text-top; border: 1px solid black; font-size: 10pt;">
+                    <div>{!cwUGP.csi_tps_comment}</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">GM Comment</td>
+                <td colspan="5" style="vertical-align: text-top; border: 1px solid black; font-size: 10pt;">
+                    <div>{!cwUGP.csi_gm_comment}</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">IB Comment</td>
+                <td colspan="5" style="vertical-align: text-top;border: 1px solid black; font-size: 10pt;">
+                    <div>{!cwUGP.csi_ib_comment}</div>
+
+                </td>
+            </tr>
+        </table>
+        </apex:outputPanel>
+        <apex:outputPanel id="IMMEDIATE_PARENT" layout="block" rendered="{!IF(renderImP,'true','false')}" style="{!IF(renderselectedUGP, 'border-top: 3px double black','')}">
+
+            <apex:variable value="{!0}" var="imPRowNum"/>
+            <apex:repeat value="{!cwsImPMap}" var="imp" rendered="{!renderImP}">
+                <table border="1" cellpadding="0" style="margin-left:20px;margin-top:0px;margin-left:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+                    <tr class="{!IF(imPRowNum > 0, 'csiDivider', '')}">
+                        <td style="width: 20%; background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Client Name</td>
+                        <td colspan="3" style=" border: 1px solid black; font-weight: bold;font-size: 10pt;">{!cwsImPMap[imp].csi_client_name}</td>
+                        <td style="width: 20%; background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Project Country</td>
+                        <td style="width: 25%; text-align: left; border: 1px solid black;font-size: 10pt;">{!cwsImPMap[imp].csi_project_country}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Survey Contact</td>
+                        <td colspan="3" style=" border: 1px solid black;font-size: 10pt;">{!cwsImPMap[imp].csi_survey_contact}</td>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Survey Year</td>
+                        <td style="text-align: left; border: 1px solid black;font-size: 10pt;">{!cwsImPMap[imp].survey_Year}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">CSI Ratings</td>
+                        <td colspan="4" style="border: 1px solid black;">
+                            <div style="display: table; table-layout: fixed; width:100%;">
+                                <div style="display: table-cell; border-right: 1px solid black;" class="{!cwsImPMap[imp].overallRatingCssClass}">Overall CIB: {!cwsImPMap[imp].overall_CIB_CSI_Rating}</div>
+                                <div style="display: table-cell; border-right: 1px solid black;" class="{!cwsImPMap[imp].gmRatingCssClass}">GM: {!cwsImPMap[imp].gm_csi_rating}</div>
+                                <div style="display: table-cell; border-right: 1px solid black;" class="{!cwsImPMap[imp].ibRatingCssClass}">IB: {!cwsImPMap[imp].ib_csi_rating}</div>
+                                <div style="display: table-cell; border-right: 1px solid black;" class="{!cwsImPMap[imp].tpsRatingCssClass}">TPS: {!cwsImPMap[imp].tps_csi_rating}</div>
+                            </div>
+                        </td>
+                        <td style="border: 1px solid black" class="{!cwsImPMap[imp].creditRatingCssClass}">Credit Turnaround: {!cwsImPMap[imp].csi_credit}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top;font-size: 10pt;">Wallet Share Opportunity</td>
+                        <td colspan="5" style="vertical-align: text-top;border: 1px solid black;font-size: 10pt;">
+                            <div>{!cwsImPMap[imp].csi_wallet_share_opportunity}</div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">TPS Comment</td>
+                        <td colspan="5" style="vertical-align: text-top; border: 1px solid black; font-size: 10pt;">
+                            <div>{!cwsImPMap[imp].csi_tps_comment}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">GM Comment</td>
+                        <td colspan="5" style="vertical-align: text-top; border: 1px solid black; font-size: 10pt;">
+                            <div>{!cwsImPMap[imp].csi_gm_comment}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">IB Comment</td>
+                        <td colspan="5" style="vertical-align: text-top;border: 1px solid black; font-size: 10pt;">
+                            <div>{!cwsImPMap[imp].csi_ib_comment}</div>
+
+                        </td>
+                    </tr>
+                </table>
+                <apex:variable var="imPRowNum" value="{!imPRowNum + 1}"/>
+            </apex:repeat>
+
+        </apex:outputPanel>
+        <apex:outputPanel id="CHILD" layout="block" rendered="{!IF(renderChild,'true','false')}"  style="{!IF(OR(renderselectedUGP, renderImP), 'border-top: 3px double black','')}">
+            <apex:variable value="{!0}" var="childRowNum"/>
+            <apex:repeat value="{!cwsChildMap}" var="cld" rendered="{!renderChild}">
+                <table border="1" cellpadding="0" style="margin-left:20px;margin-top:0px;margin-left:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+                    <tr class="{!IF(childRowNum > 0, 'csiDivider', '')}">
+                        <td style="width: 20%; background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Client Name</td>
+                        <td colspan="3" style=" border: 1px solid black; font-weight: bold;font-size: 10pt;">{!cwsChildMap[cld].csi_client_name}</td>
+                        <td style="width: 20%; background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Project Country</td>
+                        <td style="width: 25%; text-align: left; border: 1px solid black;font-size: 10pt;">{!cwsChildMap[cld].csi_project_country}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Survey Contact</td>
+                        <td colspan="3" style=" border: 1px solid black;font-size: 10pt;">{!cwsChildMap[cld].csi_survey_contact}</td>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">Survey Year</td>
+                        <td style="text-align: left ; border: 1px solid black;font-size: 10pt;">{!cwsChildMap[cld].survey_Year}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;font-size: 10pt;">CSI Ratings</td>
+                        <td colspan="4" style="border: 1px solid black;">
+                            <div style="display: table; table-layout: fixed; width:100%;">
+                                <div style="display: table-cell; border-right: 1px solid black;" class="{!cwsChildMap[cld].overallRatingCssClass}">Overall CIB: {!cwsChildMap[cld].overall_CIB_CSI_Rating}</div>
+                                <div style="display: table-cell; border-right: 1px solid black;" class="{!cwsChildMap[cld].gmRatingCssClass}">GM: {!cwsChildMap[cld].gm_csi_rating}</div>
+                                <div style="display: table-cell; border-right: 1px solid black;" class="{!cwsChildMap[cld].ibRatingCssClass}">IB: {!cwsChildMap[cld].ib_csi_rating}</div>
+                                <div style="display: table-cell;" class="{!cwsChildMap[cld].tpsRatingCssClass}">TPS: {!cwsChildMap[cld].tps_csi_rating}</div>
+                            </div>
+                        </td>
+                        <td style="border: 1px solid black" class="{!cwsChildMap[cld].creditRatingCssClass}">Credit Turnaround: {!cwsChildMap[cld].csi_credit}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top;font-size: 10pt;">Wallet Share Opportunity</td>
+                        <td colspan="5" style="vertical-align: text-top;border: 1px solid black;font-size: 10pt;">
+                            <div>{!cwsChildMap[cld].csi_wallet_share_opportunity}</div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">TPS Comment</td>
+                        <td colspan="5" style="vertical-align: text-top; border: 1px solid black; font-size: 10pt;">
+                            <div>{!cwsChildMap[cld].csi_tps_comment}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">GM Comment</td>
+                        <td colspan="5" style="vertical-align: text-top; border: 1px solid black; font-size: 10pt;">
+                            <div>{!cwsChildMap[cld].csi_gm_comment}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: #C0C0C0; font-weight: bold; color: white; border: 1px solid black;vertical-align: text-top; font-size: 10pt;">IB Comment</td>
+                        <td colspan="5" style="vertical-align: text-top;border: 1px solid black; font-size: 10pt;">
+                            <div>{!cwsChildMap[cld].csi_ib_comment}</div>
+
+                        </td>
+                    </tr>
+                </table>
+                <apex:variable var="childRowNum" value="{!childRowNum + 1}"/>
+            </apex:repeat>
+        </apex:outputPanel>
+
+        
+       <!-- Client Operating Countries Module - END -->
+          
+          <div id="pagebreak" style="page-break-before:always;"></div> 
+          <!--<br/>-->
+          <!--<br/>-->
+          <table style="margin: left:0px auto;border-collapse:collapse;border: 1px solid black;" align="center"  width="100%" cellpadding="0" cellspacing="0" border="1" >
+          <tr >
+            <th align="left" bgcolor="#02367A" valign="top" style="color:#FFFFFF;font-size:13pt;text-align:center;border: 1px solid black;" width="100%" height="30" nowrap="nowrap">Bank</th>
+          </tr>
+          </table>
+    <table border="1" cellpadding="1" cellspacing="1" style="margin-left:0px;margin-right:0px;margin-top:5px;border-collapse:collapse;border: 1px solid black;width:100%;"> 
+        <tr>
+            <th class="wrapword" style="text-align:left;width:33.66%;color: white;font-size: 13pt;border: 1px solid black;" bgcolor="#b1c3e1" colspan="6" >
+                Product Potential
+                <apex:image url="{!URLFOR($Resource.CamProducts,'red-small.png')}" style="padding-left:110px;"/><span style="font-size: 11pt;padding-left:10px;">Not on Track</span>
+                <apex:image url="{!URLFOR($Resource.CamProducts,'yellow-small.png')}" style="padding-left:20px;"/><span style="font-size: 11pt;padding-left:10px;">Medium on Track</span>
+                <apex:image url="{!URLFOR($Resource.CamProducts,'green-small.png')}" style="padding-left:20px;"/><span style="font-size: 11pt;padding-left:10px;">On Track</span>
+                <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}" style="padding-left:20px;"/><span style="font-size: 11pt;padding-left:10px;">Not Applicable</span>
+            </th>
+        </tr>
+        <tr>
+            <td class="wrapword" style="text-align:center;border: 1px solid black;color: white;width:33.33%;" bgcolor= "#c0c0c0" colspan="2">
+                <b>Global Markets</b>
+            </td>
+            <td class="wrapword" style="text-align:center;border: 1px solid black;color: white; width:33.33%;" bgcolor= "#c0c0c0" colspan="2">
+                <b>Investment Banking</b>
+            </td>
+            <td class="wrapword" style="text-align:center;border: 1px solid black;color: white;width:33.33%;" bgcolor= "#c0c0c0" colspan="2">
+                <b>Transactional Products and Services</b>
+            </td>
+            
+        </tr></table>
+        <table  cellpadding="1" cellspacing="1" border="1" style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+                     <tr>
+                           <td style="padding-bottom:5px;font-size: 10pt; font-family: Arial;border: 1px solid black;padding-top:5px;" width="33.33%"  colspan="2" valign="top"> 
+                            <apex:repeat value="{!PP_RecordsGM}" var="ppl">
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'green-small.png')}" style="padding-left:10px;"  rendered="{!IF(AND(ppl.Product_Potential__c == 'On Track',ppl.Product_Division__c == 'Global Markets'), 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'red-small.png')}"  style="padding-left:10px;"  rendered="{!IF(AND(ppl.Product_Potential__c == 'Not on Track',ppl.Product_Division__c == 'Global Markets') , 'True','False')}"/>
+                             <apex:image url="{!URLFOR($Resource.CamProducts,'yellow-small.png')}" style="padding-left:10px;" rendered="{!IF(AND(ppl.Product_Potential__c == 'Medium on Track',ppl.Product_Division__c == 'Global Markets'), 'True','False')}"/>
+                             <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}" style="padding-left:10px;" rendered="{!IF(AND(ppl.Product_Potential__c == 'Not Applicable',ppl.Product_Division__c == 'Global Markets'), 'True','False')}"/>
+                             <apex:outputtext style="padding-bottom:5px;font-size: 10pt; overflow: hidden; font-family: Arial;padding-left:10px;" value="{!ppl.Product_Subset__c}" rendered="{!IF(ppl.Product_Division__c == 'Global Markets',true,false)}"/>
+                              <br/>
+                             </apex:repeat>
+                    </td>
+                    <td style="padding-bottom:5px;font-size: 10pt; font-family: Arial;border: 1px solid black;padding-top:5px;" width="33.33%"  colspan="2" valign="top"> 
+                            <apex:repeat value="{!PP_RecordsIB}" var="pib">
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'green-small.png')}" style="padding-left:10px;" rendered="{!IF(pib.Product_Potential__c == 'On Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'red-small.png')}"   style="padding-left:10px;" rendered="{!IF(pib.Product_Potential__c == 'Not on Track' , 'True','False')}"/>
+                             <apex:image url="{!URLFOR($Resource.CamProducts,'yellow-small.png')}" style="padding-left:10px;" rendered="{!IF(pib.Product_Potential__c == 'Medium on Track', 'True','False')}"/>
+                             <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}" style="padding-left:10px;" rendered="{!IF(pib.Product_Potential__c == 'Not Applicable', 'True','False')}"/>
+                             <apex:outputtext style="padding-bottom:5px;font-size: 10pt; overflow: hidden; font-family: Arial;padding-left:10px;" value="{!pib.Product_Subset__c}" rendered="{!IF(pib.Product_Division__c == 'Investment Banking',true,false)}"/>
+                              <br/>
+                             </apex:repeat>
+                    </td>
+                           <td style="padding-bottom:5px;font-size: 10pt; font-family: Arial;border: 1px solid black;padding-top:5px;" width="33.33%"  colspan="2" valign="top"> 
+                            <apex:repeat value="{!PP_RecordsTPS}" var="ptps">
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'green-small.png')}" style="padding-left:10px;" rendered="{!IF(ptps.Product_Potential__c == 'On Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'red-small.png')}" style="padding-left:10px;"   rendered="{!IF(ptps.Product_Potential__c == 'Not on Track', 'True','False')}"/>
+                             <apex:image url="{!URLFOR($Resource.CamProducts,'yellow-small.png')}" style="padding-left:10px;" rendered="{!IF(ptps.Product_Potential__c == 'Medium on Track', 'True','False')}"/>
+                             <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}" style="padding-left:10px;" rendered="{!IF(ptps.Product_Potential__c == 'Not Applicable', 'True','False')}"/>
+                             <apex:outputtext style="padding-bottom:5px;font-size: 10pt; overflow: hidden; font-family: Arial;padding-left:10px;" value="{!ptps.Product_Subset__c}" rendered="{!IF(ptps.Product_Division__c == 'Transactional Products and Services',true,false)}"/>
+                              <br/>
+                             </apex:repeat>
+                    </td>
+                     
+                    </tr>
+                    <tr>
+                    <td class="wrapword" style="text-align:center;border: 1px solid black;color: white; width:33.33%;" bgcolor= "#c0c0c0" colspan="2">
+                        <b>Real Estate</b>
+                    </td>
+                    <td class="wrapword" style="text-align:center;border: 1px solid black;color: white; width:33.33%;" bgcolor= "#c0c0c0" colspan="2">
+                        <b>Business Banking</b>
+                    </td>
+                    <td class="wrapword" style="text-align:center;border: 1px solid black;color: white; width:33.33%;" bgcolor= "#c0c0c0" colspan="2">
+                        <b>Wealth</b>
+                    </td>
+                 </tr>
+                   <tr>
+                           <td style="padding-bottom:5px;font-size: 10pt; font-family: Arial;border: 1px solid black;padding-top:5px;" width="33.33%"  colspan="2" valign="top"> 
+                            <apex:repeat value="{!PP_RecordsRE}" var="pre">
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'green-small.png')}" style="padding-left:10px;" rendered="{!IF(pre.Product_Potential__c == 'On Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'red-small.png')}"   style="padding-left:10px;" rendered="{!IF(pre.Product_Potential__c == 'Not on Track' , 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'yellow-small.png')}" style="padding-left:10px;" rendered="{!IF(pre.Product_Potential__c == 'Medium on Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}" style="padding-left:10px;" rendered="{!IF(pre.Product_Potential__c == 'Not Applicable', 'True','False')}"/>
+                            <apex:outputtext style="padding-bottom:5px;font-size: 10pt; overflow: hidden; font-family: Arial;padding-left:10px;" value="{!pre.Product_Subset__c}" rendered="{!IF(pre.Product_Division__c == 'Real Estate',true,false)}"/>
+                            <br/>
+                            </apex:repeat>
+                    </td>
+                           <td style="padding-bottom:5px;font-size: 10pt; font-family: Arial;border: 1px solid black;padding-top:5px;" width="33.33%"  colspan="2" valign="top"> 
+                            <apex:repeat value="{!PP_RecordsBB}" var="pbb">
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'green-small.png')}" style="padding-left:10px;" rendered="{!IF(pbb.Product_Potential__c == 'On Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'red-small.png')}"  style="padding-left:10px;"  rendered="{!IF(pbb.Product_Potential__c == 'Not on Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'yellow-small.png')}" style="padding-left:10px;" rendered="{!IF(pbb.Product_Potential__c == 'Medium on Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}" style="padding-left:10px;" rendered="{!IF(pbb.Product_Potential__c == 'Not Applicable', 'True','False')}"/>
+                            <apex:outputtext style="padding-bottom:5px;font-size: 10pt; overflow: hidden; font-family: Arial;padding-left:10px;" value="{!pbb.Product_Subset__c}" rendered="{!IF(pbb.Product_Division__c == 'Business Banking',true,false)}"/>
+                            <br/>
+                             </apex:repeat>
+                    </td>
+                     <td style="padding-bottom:5px;font-size: 10pt; font-family: Arial;border: 1px solid black;padding-top:5px;" width="33.33%"  colspan="2" valign="top"> 
+                            <apex:repeat value="{!PP_RecordsW}" var="pw">
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'green-small.png')}" style="padding-left:10px;" rendered="{!IF(pw.Product_Potential__c == 'On Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'red-small.png')}"   style="padding-left:10px;" rendered="{!IF(pw.Product_Potential__c == 'Not on Track' , 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'yellow-small.png')}" style="padding-left:10px;" rendered="{!IF(pw.Product_Potential__c == 'Medium on Track', 'True','False')}"/>
+                            <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}" style="padding-left:10px;" rendered="{!IF(pw.Product_Potential__c == 'Not Applicable', 'True','False')}"/>
+                            <apex:outputtext style="padding-bottom:5px;font-size: 10pt; overflow: hidden; font-family: Arial;padding-left:10px;" value="{!pw.Product_Subset__c}" rendered="{!IF(pw.Product_Division__c == 'Wealth',true,false)}"/>
+                             <br/>
+                             </apex:repeat>
+                    </td>
+                    </tr>
+            </table>
+           
+    <table border="1" cellpadding="1" cellspacing="1" style="margin-left:0px;margin-top:5px;margin-bottom:10px;margin-right:0px;border-collapse:collapse;border: 1px solid black;width:100%;">
+      <tr>
+            <th class="wrapword" style="text-align:left;width:100%;font-size: 13pt; font-family: Arial;color: white;border: 1px solid black;" bgcolor="#b1c3e1" height="10" colspan="8">Share of Wallet ('000) ({!CurrencyIsoCode})</th>
+        </tr>    
+            <tr align="center">
+                <td  class="wrapword" style="text-align:center;width:10%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Division</b></td>
+                <td  class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Product Subset</b></td>
+                <td  class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Est. SB Revenue</b></td>
+                <td  class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Est. Tot. Wallet</b></td>
+                <td  class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Est. SoW(%)</b></td>
+                <td  class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Target Share(%)</b></td>
+                <td  class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Budget</b></td>
+                <td  class="wrapword" style="text-align:center;width:15%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: white;"  bgcolor="#c0c0c0"  height="20"><b>Competitors</b></td>
+            </tr>
+          <apex:repeat value="{!DivisionLst}" var="div" > 
+          <apex:repeat value="{!sowp_map[div]}" var="swGM" rows="1"  rendered="{!If(RenderMapSOWP[div]==true,true,false)}">
+            
+                 <tr >
+                      <td class="wrapword" style="text-align:center;width:10%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20"><b>
+                      {!DivisionMap[swGM.Share_of_Wallet__r.Division__c]}
+                      </b></td>   
+                       <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;" bgcolor="#c0c0c0"  height="20">
+                        &nbsp;
+                       </td>
+                        <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                        <apex:outputtext value="{0, number, ###,###,###,##0}"   rendered="{!If(mapTotalRevenue[swGM.Share_of_Wallet__r.Id] != 0,true,false)}" style="font-weight:bold;">
+                        <apex:param value="{!ROUND(mapTotalRevenue[swGM.Share_of_Wallet__r.Id]/1000,0)}" /></apex:outputtext>
+                        </td>
+                        <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                        <apex:outputtext value="{0, number, ###,###,###,##0}"  rendered="{!If(mapTotalWallet[swGM.Share_of_Wallet__r.Id] != 0,true,false)}" style="font-weight:bold;">  
+                         <apex:param value="{!ROUND(mapTotalWallet[swGM.Share_of_Wallet__r.Id]/1000,0)}" />
+                         </apex:outputtext> 
+                          </td>
+                        <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                        <b>{!ROUND(swGM.Share_of_Wallet__r.Share_of_Wallet__c,0)}</b>
+                        </td>
+                        <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                        <b>{!ROUND(swGM.Share_of_Wallet__r.Target_Share__c,0)}</b>
+                        </td>
+                        <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                         <apex:outputtext value="{0, number, ###,###,###,##0}"  rendered="{!If(mapTotalBudget[swGM.Share_of_Wallet__r.Id] != 0,true,false)}" style="font-weight:bold;">
+                         <apex:param value="{!ROUND(mapTotalBudget[swGM.Share_of_Wallet__r.Id]/1000,0)}" /></apex:outputtext>
+                        </td>
+                        <td class="wrapword" style="text-align:center;width:15%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;" bgcolor="#c0c0c0"  height="20">
+                        &nbsp;
+                        </td>
+                    </tr>
+              
+               </apex:repeat>
+               <apex:repeat value="{!sowp_map[div]}" var="swGM"  rendered="{!If(RenderMapSOWP[div]==true,true,false)}">
+                            
+                       <tr>
+                            <td class="wrapword" style="text-align:center;width:10%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;"  height="20">
+                            &nbsp;
+                            </td>
+                            <td class="wrapword" style="text-align:left;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" height="20">
+                            {!swGM.Product_Subset__c}
+                            </td> 
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;"  height="20">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" > 
+                                <apex:param value="{!ROUND(swGM.Estimated_Standard_Bank_Revenue__c/1000,0)}"/>
+                            </apex:outputText>
+                            </td>
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;"  height="20">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" > 
+                                <apex:param value="{!ROUND(swGM.Estimated_Total_Wallet_Size__c/1000,0)}"/>
+                            </apex:outputText>
+                            </td>
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;"  height="20">
+                            {!ROUND(swGM.Estimated_Share_of_Wallet__c,0)}
+                            </td> 
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;"  height="20">
+                            {!ROUND(swGM.Target_Share__c,0)}
+                            </td> 
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;"  height="20">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" > 
+                                <apex:param value="{!ROUND(swGM.Budget__c/1000,0)}"/>
+                            </apex:outputText>
+                            </td>
+                            <td class="wrapword" style="text-align:left;width:15%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" height="20">
+                            {!swGM.Competitors__c}
+                            </td> 
+                          </tr>
+                       </apex:repeat>
+            
+          <apex:repeat value="{!sowp_map_NoProd[div]}" var="swnp" rendered="{!If(RenderMapSOW[div]==true,true,false)}" >
+          
+                    <tr>
+                       <td class="wrapword" style="text-align:center;width:10%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20"><b>
+                          {!DivisionMap[swnp.Division__c]}
+                           </b></td>
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;" bgcolor="#c0c0c0"  height="20">
+                            &nbsp;
+                            </td>
+                           <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" style="font-weight:bold;"> 
+                                <apex:param value="{!ROUND(swnp.Revenue__c/1000,0)}"/>
+                            </apex:outputText>
+                            </td>
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" style="font-weight:bold;"> 
+                                <apex:param value="{!ROUND(swnp.Total_Wallet_Size__c/1000,0)}"/>
+                            </apex:outputText>
+                            </td>
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                            <b>{!ROUND(swnp.Share_of_Wallet__c,0)}</b>
+                            </td>
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                            <b>{!ROUND(swnp.Target_Share__c,0)}</b>
+                            </td>
+                            <td class="wrapword" style="text-align:center;width:12.5%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;"  bgcolor="#c0c0c0"  height="20">
+                             <apex:outputText value="{0, number, ###,###,###,##0}" style="font-weight:bold;"> 
+                                <apex:param value="{!ROUND(swnp.Budget__c/1000,0)}"/>
+                            </apex:outputText>
+                             </td>
+                            <td class="wrapword" style="text-align:center;width:15%;border: 1px solid black;font-size: 11pt; font-family: Arial;color: black;" bgcolor="#c0c0c0"  height="20">
+                            &nbsp;
+                            </td>
+                    </tr>
+               </apex:repeat></apex:repeat>
+       <tr>
+            <td  style="text-align:center;width:10%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55"  height="20"><b>Total</b></td>
+            <td  style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55" height="20">&nbsp;</td>
+            <td  style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55"  height="20">
+            <b><apex:outputText value="{0, number, ###,###,###,##0}" > 
+                                <apex:param value="{!ROUND(total_CIB_Revenue/1000,0)}"/>
+                            </apex:outputText></b>
+            </td>
+            <td  style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55"  height="20">
+            <b><apex:outputText value="{0, number, ###,###,###,##0}" > 
+                                <apex:param value="{!ROUND(total_client_wallet/1000,0)}"/>
+                            </apex:outputText></b>
+            </td>
+            <td  style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55"  height="20"><b>{!ROUND(total_sow_ytd,0)}</b></td>
+            <td  style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55"  height="20">&nbsp;</td>
+            <td  style="text-align:center;width:12.5%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55"  height="20">
+            <b><apex:outputText value="{0, number, ###,###,###,##0}" > 
+                                <apex:param value="{!ROUND(total_Budget/1000,0)}"/>
+                            </apex:outputText></b>
+            </td>
+            <td  style="text-align:center;width:15%;border: 1px solid black; font-size: 10pt; font-family: Arial;color: black;" bgcolor="#F5CB55" height="20">&nbsp;</td>
+       
+         </tr>         
+         </table>
+                        
+          <table border="1" cellpadding="0" cellspacing="0" style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;border: 1px solid black;width:100%;">
+                        <tr>
+         <th  align="left" bgcolor="#B1C3E1" width="100%" height="10" colspan="14" style="font-size: 13pt;color: white;border: 1px solid black;">
+            Global Client Revenue ('000) ({!ISO})
+           <apex:outputText style="float:right;" value="As of &nbsp;" escape="false">
+           <apex:outputText style="float:right;" value="{0,date, d MMM yyyy}">
+                                    <apex:param value="{!snapshotDate}" />
+                                </apex:outputText></apex:outputText>
+             </th>
+          </tr>
+          <tr>
+                <td   style="text-align:center;font-size: 11pt; font-family: Arial;color: white;border: 1px solid black;" colspan="2" rowspan="2" align="left" bgcolor="#C0C0C0"  width="12.5%" height="20"><b>Countries</b></td>
+                 <td  style="text-align:center;font-size: 11pt; font-family: Arial;color: white;border: 1px solid black;" colspan="5" align="left" bgcolor="#C0C0C0"  width="37.5%" height="20"><b>Previous Year</b></td>
+                 <td  style="text-align:center;font-size: 11pt; font-family: Arial;color: white;border: 1px solid black;" colspan="5" align="left" bgcolor="#C0C0C0"  width="37.5%" height="20"><b>Current Year (YTD)</b></td>
+                 <td  style="text-align:center;font-size: 11pt; font-family: Arial;color: white;border: 1px solid black;"  colspan="2" rowspan="2" align="left" bgcolor="#C0C0C0"  width="12.5%" height="20"><b>Budget</b></td>
+               </tr>
+               <tr>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>GM</b></td> 
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>TPS</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>IB</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>Other</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>Total</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>GM</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>TPS</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>IB</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>Other</b></td>
+                 <td  style="text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" align="center" bgcolor="#D1D0CE"  width="7.5%" height="15"><b>Total</b></td>
+                </tr>
+              <tr>
+               <td colspan="14">
+               <!-- ZAR Value -->
+               <apex:dataTable cellpadding="0" cellspacing="0" style="border-collapse:collapse;text-align:center;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" width="100%" footerClass="footerRow" rendered="{!IF(ISO =='ZAR',true,false)}" value="{!globalClientRevenue}" var="gCRKey" border="1">
+               
+                <apex:column style="text-align:left;font-size: 10pt; font-family: Arial;color: black;width:12.5%;border: 1px solid black;"  value="{!RIGHT(gCRKey,LEN(gCRKey)-2)}" footerClass="footerFix" >
+                <apex:facet name="footer">
+                            <b>  Total </b> 
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalGMPreviousYearZAR!=0,true,false)}"> 
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalGMPreviousYearZAR}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;left" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalGMPreviousYearZAR!=0,true,false)}"> 
+                                    <apex:param value="{!totalGMPreviousYearZAR}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalTPSPreviousYearZAR!=0,true,false)}"> 
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalTPSPreviousYearZAR}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalTPSPreviousYearZAR!=0,true,false)}"> 
+                                    <apex:param value="{!totalTPSPreviousYearZAR}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>                       
+                         <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalIBPreviousYearZAR!=0,true,false)}"> 
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalIBPreviousYearZAR}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalIBPreviousYearZAR!=0,true,false)}"> 
+                                    <apex:param value="{!totalIBPreviousYearZAR}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalOtherPreviousYearZAR!=0,true,false)}"> 
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalOtherPreviousYearZAR}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalOtherPreviousYearZAR!=0,true,false)}">
+                                    <apex:param value="{!totalOtherPreviousYearZAR}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalCountryPreviousYearZAR!=0,true,false)}"> 
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalCountryPreviousYearZAR}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalCountryPreviousYearZAR!=0,true,false)}">
+                                    <apex:param value="{!totalCountryPreviousYearZAR}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalGMCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalGMCurrentYearZAR}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalGMCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!totalGMCurrentYearZAR}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalTPSCurrentYearZAR!=0,true,false)}"> 
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalTPSCurrentYearZAR}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalTPSCurrentYearZAR!=0,true,false)}">
+                                    <apex:param value="{!totalTPSCurrentYearZAR}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalIBCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalIBCurrentYearZAR}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalIBCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!totalIBCurrentYearZAR}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalOtherCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalOtherCurrentYearZAR}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalOtherCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!totalOtherCurrentYearZAR}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalCountryCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalCountryCurrentYearZAR}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalCountryCurrentYearZAR!=0,true,false)}">
+                        <apex:param value="{!totalCountryCurrentYearZAR}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column> 
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:12.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalBudgetZAR!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalBudgetZAR}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalBudgetZAR!=0,true,false)}">
+                        <apex:param value="{!totalBudgetZAR}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column>
+                       </apex:dataTable>
+                       
+                        <!-- USD Value -->
+                       <apex:dataTable style="border-collapse:collapse;font-size: 10pt; font-family: Arial;color: black;border: 1px solid black;" width="100%" footerClass="footerRow" rendered="{!IF(ISO =='USD',true,false)}" value="{!globalClientRevenue}" var="gCRKey"  border="1" >
+                        <apex:column style="text-align:left;font-size: 10pt; font-family: Arial;color: black;width:12.5%;border: 1px solid black;" value="{!RIGHT(gCRKey,LEN(gCRKey)-2)}" footerClass="footerFix">
+                            <apex:facet name="footer">
+                                <b>Total</b>
+                            </apex:facet>
+                        </apex:column>
+                         <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalGMPreviousYearUSD!=0,true,false)}">
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalGMPreviousYearUSD}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalGMPreviousYearUSD!=0,true,false)}">
+                                    <apex:param value="{!totalGMPreviousYearUSD}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalTPSPreviousYearUSD!=0,true,false)}">
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalTPSPreviousYearUSD}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalTPSPreviousYearUSD!=0,true,false)}">
+                                    <apex:param value="{!totalTPSPreviousYearUSD}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalIBPreviousYearUSD!=0,true,false)}">
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalIBPreviousYearUSD}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalIBPreviousYearUSD!=0,true,false)}">
+                                    <apex:param value="{!totalIBPreviousYearUSD}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalOtherPreviousYearUSD!=0,true,false)}">
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalOtherPreviousYearUSD}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalOtherPreviousYearUSD!=0,true,false)}">
+                                    <apex:param value="{!totalOtherPreviousYearUSD}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;">
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalCountryPreviousYearUSD!=0,true,false)}">
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalCountryPreviousYearUSD}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalCountryPreviousYearUSD!=0,true,false)}">
+                                    <apex:param value="{!totalCountryPreviousYearUSD}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalGMCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalGMCurrentYearUSD}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalGMCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!totalGMCurrentYearUSD}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                            <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalTPSCurrentYearUSD!=0,true,false)}">
+                                <apex:param value="{!globalClientRevenue[gCRKey].totalTPSCurrentYearUSD}"/>
+                            </apex:outputText>
+                            <apex:facet name="footer">
+                                <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalTPSCurrentYearUSD!=0,true,false)}">
+                                    <apex:param value="{!totalTPSCurrentYearUSD}"/>
+                                </apex:outputText>
+                            </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalIBCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalIBCurrentYearUSD}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalIBCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!totalIBCurrentYearUSD}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalOtherCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalOtherCurrentYearUSD}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalOtherCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!totalOtherCurrentYearUSD}"/>
+                        </apex:outputText>
+                        </apex:facet>
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:7.5%;border: 1px solid black;" >
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalCountryCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalCountryCurrentYearUSD}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalCountryCurrentYearUSD!=0,true,false)}">
+                        <apex:param value="{!totalCountryCurrentYearUSD}"/>
+                        </apex:outputText>
+                        </apex:facet> 
+                        </apex:column>
+                        <apex:column style="text-align:center;font-size: 10pt; font-family: Arial;color: black;width:12.5%;border: 1px solid black;">
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!IF(globalClientRevenue[gCRKey].totalBudgetUSD!=0,true,false)}">
+                        <apex:param value="{!globalClientRevenue[gCRKey].totalBudgetUSD}"/>
+                        </apex:outputText>
+                        <apex:facet name="footer">
+                        <apex:outputText style="font-weight:bold;" value="{0, number, ###,###,###,##0}" rendered="{!IF(totalBudgetUSD!=0,true,false)}">
+                        <apex:param value="{!totalBudgetUSD}"/>
+                        </apex:outputText>
+                        </apex:facet> 
+                        </apex:column>
+                    </apex:dataTable></td></tr>
+                   </table>
+                        
+            
+         <table  cellpadding="1" cellspacing="1" style="margin-left:0px;margin-right:0px;margin-top:5px;width:100%;border: 1px solid black;border-collapse:collapse;" border="1">
+              <tr>
+               <th class="wrapword" style="text-align: left; width: 100%; font-size: 13pt; color: white; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#B1C3E1" height="20" colspan="4">Key Indicators </th>
+             </tr>
+               <tr >
+                     <td width="25%" style="text-align: left; font-size: 11pt; color: white;  font-family: Arial;border: 1px solid black;" bgcolor="#C0C0C0" >CROC (%)</td>
+                      <td width="25%" style="text-align: center; font-size: 10pt; color: black;  font-family: Arial;border: 1px solid black;" >
+                       <apex:outputText value="{0, number, ###,###,###,###.##} %" rendered="{!NOT(ISNULL(CROCZAR))}">
+                          <apex:param value="{!CROCZAR}"/>
+                          </apex:outputText>
+                      </td>
+                      <td width="25%" style="text-align: left; font-size: 11pt; color: white;  font-family: Arial;border: 1px solid black;" bgcolor="#C0C0C0" >Capital Utilisation</td>
+                      <td width="25%" style="text-align: center; font-size: 10pt; color: black;  font-family: Arial;border: 1px solid black;" >
+                       <apex:outputText value="{0, number, ###,###,###,###.##}" rendered="{!NOT(ISNULL(capUtilization))}">
+                          <apex:param value="{!capUtilization}"/>
+                          </apex:outputText>
+                      </td>
+                    </tr>
+                    <tr >
+                      <td width="25%" style="text-align: left; font-size: 11pt; color: white;  font-family: Arial;border: 1px solid black;" bgcolor="#C0C0C0" >Client Sector</td>
+                      <td width="25%" style="text-align: left; font-size: 11pt; color: black;  font-family: Arial;border: 1px solid black;" >{!globalSector}</td>
+                      <td  width="25%" style="text-align: left; font-size: 11pt; color: white;  font-family: Arial;border: 1px solid black;" bgcolor="#C0C0C0" >Client Risk Rating</td>
+                      <td  width="25%" style="text-align: left; font-size: 10pt; color: black;  font-family: Arial;border: 1px solid black;" >{!RIskRating}</td>
+                    </tr>
+                    </table>
+                   <table  cellpadding="1" cellspacing="1" style="margin-left:0px;margin-right:0px;margin-top:5px;width:100%;border: 1px solid black;border-collapse:collapse;" border="1">       
+                   <tr>
+                    <td style="text-align: left; font-size: 11pt; color: white;width: 100%; overflow: hidden; font-family: Arial;border: 1px solid black;" bgcolor="#C0C0C0" colspan="3"><b>{!IF(accountObj.isEconomicGroupParent,$Label.Economic_Group,'')} {!$Label.Client_Plan_Credit_Lines} ({!CurrencyIsoCode})</b>
+                                 <apex:outputText style="float:right; font-family: Arial; font-size: 11pt;" value="As of &nbsp;" escape="false">
+                                     <apex:outputtext style="float:right; font-family: Arial; font-size: 11pt;" value="{0,date, d MMM yyyy}">
+                                    <apex:param value="{!creditLineSnapshotDate}" />
+                                </apex:outputtext>
+                                </apex:outputText>
+                      </td>
+                   </tr>
+                   <tr>
+                    <td style="text-align: center;font-size: 10pt; color: black; overflow: hidden;width: 33%; font-family: Arial;border: 1px solid black;" bgcolor="#D1D0CE" ><b>Product</b></td>
+                    <td style="text-align: center; font-size: 10pt; color: black; overflow: hidden;width: 33%; font-family: Arial;border: 1px solid black;" bgcolor="#D1D0CE" ><b>Credit Limit</b></td>
+                    <td style="text-align: center;  font-size: 10pt; color: black; overflow: hidden;width: 33%; font-family: Arial;border: 1px solid black;" bgcolor="#D1D0CE" ><b>Total Utilisation</b></td>
+                   </tr>
+                    <apex:repeat value="{!cl}" var="cll">  
+                   <tr >       
+                   <td  style="text-align: left; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;" >{!cll.productName}</td>
+                     <td style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;">
+                      <apex:outputText value="{0, number, ###,###,###,##0}" >
+                          <apex:param value="{!cll.creditLimit}"/>
+                          </apex:outputText>
+                     </td>
+                      <td  style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;" >
+                      <apex:outputText value="{0, number, ###,###,###,##0}" >
+                          <apex:param value="{!cll.totalUtilisation}"/>
+                          </apex:outputText>
+                      </td> 
+                    </tr> 
+                   </apex:repeat>
+                   <!-- Add the row to display the total of Credit Limit and Utilisation -->
+                    <tr>
+                        <td align="center" class="labelCol" bgcolor="#F5CB55" style="border:solid 1px;font-size: 10pt;"><FONT face="Arial" COLOR="black"><b>Total</b></FONT></td>
+                        <td align="center" class="labelCol" bgcolor="#F5CB55" style="border:solid 1px;font-size: 10pt;"><FONT face="Arial" COLOR="black">
+                            <b><apex:outputText value="{0, number, ###,###,###,##0}" >
+                                <apex:param value="{!sumTotalCreditLimit}"/>
+                            </apex:outputText></b>
+                        </FONT></td>
+                        <td align="center" class="labelCol" bgcolor="#F5CB55" style="border:solid 1px;font-size: 10pt;"><FONT face="Arial" COLOR="black">
+                            <b><apex:outputText value="{0, number, ###,###,###,##0}" >
+                                <apex:param value="{!sumTotalUtilitsation}"/>
+                            </apex:outputText></b>
+                        </FONT></td>
+                    </tr>
+                  </table>   
+             
+             <table border="1" cellpadding="1" cellspacing="1" style="margin-left:0px;margin-top:5px;margin-right:0px;border-collapse:collapse;width:100%;border: 1px solid black;border-collapse:collapse;">
+                 <tr>
+                        <th class="wrapword"
+                            style="text-align: left; width: 100%; font-size: 13pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#B1C3E1" height="10" colspan="9">Client Team</th>
+                            </tr>
+                            <tr>
+                                <td class="wrapword"
+                                style="text-align: center; width: 25%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20"><b>Team Member</b></td>
+                                <td class="wrapword"
+                                style="text-align: center; width: 25%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20"><b>Team Role</b></td>
+                                <td class="wrapword"
+                                style="text-align: center; width: 25%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20"><b>User Division</b></td>
+                                <td class="wrapword"
+                                    style="text-align: center; width: 25%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20"><b>User Country</b></td>
+                            </tr>
+                                 <apex:repeat value="{!ClientTeamCC}" var="cc" >
+                            <tr>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF"  height="10"><b>{!cc.Team_Member__r.Name}</b></td>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF"  height="10"><b>{!cc.Client_Role__c}</b></td>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF"  height="10"><b>{!cc.User_Division__c}</b></td>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF"  height="10"><b>{!cc.User_Country__c}</b></td>
+                            </tr>
+                            </apex:repeat>
+                            <apex:repeat value="{!ClientTeamNotCC}" var="cst" >
+                            <tr>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF"  height="10">{!cst.Team_Member__r.Name}</td>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF"  height="10">{!cst.Client_Role__c}</td>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF"  height="10">{!cst.User_Division__c}</td>
+                              <td align="left" style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10">{!cst.User_Country__c}</td>
+                            </tr>
+                            </apex:repeat>
+                            </table> 
+                       <table border="1" cellpadding="1" cellspacing="1" style="margin-left:0px;margin-top:5px;margin-right:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+                            <tr>
+                        <th class="wrapword"
+                            style="text-align: left; width: 100%; font-size: 13pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                            bgcolor="#B1C3E1" height="10" colspan="9"><apex:outputText value="Client & Subsidiary Key Tasks" /></th>
+                            </tr>
+                            <tr>
+                                <td class="wrapword"
+                                style="text-align: center; width: 40%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20"><b>Subject</b></td>
+                                <td class="wrapword"
+                                style="text-align: center; width: 30%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20"><b>Assigned To</b></td>
+                                <td class="wrapword"
+                                style="text-align: center; width: 30%; font-size: 11pt; color: white; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20"><b>Due Date</b></td>
+                                </tr>
+                                <apex:repeat value="{!SelectedTasks}" var="tsk">
+                                <tr>
+                                  <td class="wrapword"
+                                        style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="20">{!tsk.Subject}</td>
+                                 <td class="wrapword"
+                                        style="text-align: left; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="20">{!tsk.Owner.Name}</td>
+                                <td class="wrapword"
+                                        style="text-align: center; width: 25%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="20"><apex:outputtext value="{0,date,d MMM yyyy}">
+                                                <apex:param value="{!tsk.ActivityDate}" />
+                                            </apex:outputtext></td>
+                                </tr></apex:repeat>
+                                </table>
+                                <table border="1" cellpadding="1" cellspacing="1" style="margin-left:0px;margin-top:5px;margin-right:0px;border-collapse:collapse;width:100%;border: 1px solid black;">
+                                 <tr>
+                                <th align="left" bgcolor="#B1C3E1" valign="top" width="100%"
+                                    style="color: #FFFFFF; font-size: 13pt;border: 1px solid black;" height="10" nowrap="nowrap">Client Marketing Strategy</th>
+                                </tr>
+                                <tr>
+                                <td align="left" bgcolor="white" width="100%" height="10"
+                                    style="font-size: 10pt; color: black; overflow: hidden; font-family: Arial;padding-top:1px;border: 1px solid black;">
+                                    <apex:outputField value="{!Account.Client_Marketing_Strategy__c}" /></td>
+                                </tr>
+                                </table>
+                                
+                <div id="pagebreak" style="page-break-before:always;"></div> 
+                        <!--<br/>-->
+                        <!--<br/>-->
+                        <table style="margin: left:0px auto; border-collapse: collapse ;page-break-inside: avoid;border: 1px solid black;"
+                                align="center" width="100%" cellpadding="3" cellspacing="3" border="1">
+                                <tr>
+                                    <th align="left" bgcolor="#02367A" valign="top"
+                                        style="color: #FFFFFF; font-size: 13pt; text-align: center;border: 1px solid black;"
+                                        width="100%" height="30" nowrap="nowrap" colspan="9">Business</th>
+                                </tr> 
+                                <tr>
+                                    <th align="left" bgcolor="#B1C3E1" valign="top" width="100%"
+                                        style="color: #FFFFFF; font-size: 13pt;border: 1px solid black;" height="10" nowrap="nowrap" colspan="9">Our Strategy For This Client</th>
+                                </tr>
+                                <tr>
+                                    <td align="left" bgcolor="white" width="100%" height="10" 
+                                        style="font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;" colspan="9">
+                                        <apex:outputField value="{!Account.Client_Strategy__c}" /></td>
+                                </tr>
+                                <tr>
+                                    <th align="left" bgcolor="#B1C3E1" valign="top" width="100%"
+                                        style="color: #FFFFFF; font-size: 13pt; border: 1px solid black;" height="10" nowrap="nowrap" colspan="9">Client and Subsidiary Pipeline</th>
+                                </tr>
+                                <tr>
+                                    <th align="left" bgcolor="#C0C0C0" valign="top" width="100%"
+                                        style="color: #FFFFFF; font-size: 11pt;border: 1px solid black;" height="10" nowrap="nowrap" colspan="9">Open Opportunities ('000) ({!ISO})</th>
+                                </tr>
+                                <tr>
+                            <td 
+                                style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="10%"><b>Client Name</b></td>
+                            <td 
+                                style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="10%"><b>Opportunity Name</b></td>
+                            <td 
+                                style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="15%"><b>Grand Parent Product</b></td>
+                            <td 
+                                style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="10%"><b>Probability</b></td>
+                            <td 
+                                style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="10%"><b>Stage</b></td>
+                            <td 
+                                style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="10%"><b>Current Year Weighted Revenue</b></td>
+                            <td 
+                                style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="10%"><b>Total Weighted Revenue (Expected)</b></td>
+                            <td 
+                                style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="10%"><b>Estimated Close Date</b></td>
+                            <td 
+                                style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                bgcolor="#C0C0C0" height="20" nowrap="nowrap" width="15%"><b>Opportunity Owner</b></td>
+                             </tr>
+                             <apex:repeat value="{!SelectedOpportunitylst}" var="opps">
+                             <tr>
+                             <td 
+                                        style="text-align: left;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="10%">{!opps.opp.Account.Name}</td>
+                             <td 
+                                        style="text-align: left;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="10%">{!opps.opp.Name}</td>
+                            <td 
+                                        style="text-align: left;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="15%">{!OppGPPMap[opps.opp.Id]}</td>
+                            <td 
+                                        style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="10%">{!opps.opp.Probability}</td>
+                            <td 
+                                        style="text-align: left;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="10%">{!opps.opp.StageName}</td>
+                            <td 
+                                        style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="10%">
+                                          <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opps.currentRev}"/>
+                                              </apex:outputText>
+                                        </td>
+                            <td 
+                                        style="text-align: center; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="10%">
+                                        <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opps.totalRev}"/>
+                                              </apex:outputText>
+                                       </td>
+                            <td 
+                                        style="text-align: center;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="10%"><apex:outputtext value="{0,date,d MMM yyyy}">
+                                                <apex:param value="{!opps.opp.CloseDate}" />
+                                            </apex:outputtext></td>
+                            <td 
+                                        style="text-align: left;  font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                        bgcolor="#FFFFFF" height="10" width="15%">{!opps.opp.Opportunity_Owner_Lookup__r.Name}</td>
+                             </tr>
+                             </apex:repeat></table>
+                             <table style="margin: left:0px auto; border-collapse: collapse ;page-break-inside: avoid;border: 1px solid black;"
+                                align="center" width="100%" cellpadding="3" cellspacing="3" border="1">
+                             <tr>
+                                    <th align="left" bgcolor="#C0C0C0" valign="top" width="100%"
+                                        style="color: #FFFFFF; font-size: 11pt;border: 1px solid black;" height="10" nowrap="nowrap" colspan="9">Won / Lost Opportunities ('000) ({!ISO})
+                                        <Span style="float:right">
+                                         Over Last 6 Months
+                                          </Span>
+                                          </th>
+                                </tr>
+                            
+                            <tr>
+                                
+                                <td class="wrapword"
+                                    style="text-align: center; width:10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20"><b>Client Name</b></td>
+                                <td class="wrapword"
+                                    style="text-align: center; width:10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20"><b>Opportunity Name</b></td>
+                                <td class="wrapword"
+                                    style="text-align: center; width:20%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20" ><b>Grand Parent Product</b></td>
+                                 <td class="wrapword"
+                                    style="text-align: center; width:10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20" ><b>Stage</b></td>
+                                <td class="wrapword"
+                                    style="text-align: center; width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20"><b>Current Year Revenue</b></td>
+                                <td class="wrapword"
+                                    style="text-align: center; width:10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20"><b>Total Revenue (Amount)</b></td>
+                                <td class="wrapword"
+                                    style="text-align: center; width:10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20"><b>Actual Close Date</b></td>
+                                <td class="wrapword"
+                                    style="text-align: center; width:20%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                    bgcolor="#C0C0C0" height="20"><b>Reason Won / Lost</b></td>
+                                 </tr>
+                                 <apex:repeat value="{!SelectedWonLostOpportunitylst}" var="opp2">
+                                 <tr>
+                                 
+                                <td class="wrapword"
+                                            style="text-align: left; width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10">{!opp2.wonLostOpp.Account.Name}</td>
+                                <td class="wrapword"
+                                            style="text-align: left; width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10">{!opp2.wonLostOpp.Name}</td>
+                                <td class="wrapword"
+                                            style="text-align: left; width: 20%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10" >{!WonLostOppGPPMap[opp2.wonLostOpp.Id]}</td>
+                                  <td class="wrapword"
+                                            style="text-align: left; width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10">{!opp2.wonLostOpp.StageName}</td>
+                                <td class="wrapword"
+                                            style="text-align: center; width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10">
+                                            <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opp2.wonLostcurrrev}"/>
+                                              </apex:outputText>
+                                            </td>
+                                <td class="wrapword"
+                                            style="text-align: center; width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10">
+                                             <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opp2.wonLosttotalRev}"/>
+                                              </apex:outputText>
+                                            </td>
+                                <td class="wrapword"
+                                            style="text-align: center; width: 10%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10"><apex:outputtext value="{0,date,d MMM yyyy}">
+                                                <apex:param value="{!opp2.wonLostOpp.CloseDate}" />
+                                            </apex:outputtext></td>
+                                <td class="wrapword"
+                                            style="text-align: left; width: 20%; font-size: 10pt; color: black; overflow: hidden; font-family: Arial;border: 1px solid black;"
+                                            bgcolor="#FFFFFF" height="10">{!opp2.wonLostOpp.ReasonForWinLossPickList__c}</td>
+                                
+                                </tr></apex:repeat>
+                                </table>
+</apex:page>

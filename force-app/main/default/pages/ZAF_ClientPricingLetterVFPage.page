@@ -1,0 +1,151 @@
+<!-- Author: Pradeep Kota
+Description: SFP-33357 To show PDF of current user ID with Rates
+<Date>              <Authors Name>      <Brief Description of Change>
+Sep 27th 2023       Pradeep Kota         showing PDF
+-->
+<apex:page standardcontroller="Account" extensions="ZAF_CTRL_ClientPricingLetter" standardStylesheets="false" 
+           applyHtmlTag="false" showHeader="false" renderAs="PDF">
+    <head>
+        <style type="text/CSS">
+            body{
+            font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;         
+            }
+            .center{
+            text-align:right;
+            }
+            .table-bordered {
+            border: 1px solid #000;
+            border-collapse : collapse;
+            font-size : .7em;
+            }
+            thead>tr>th {
+            vertical-align: bottom;
+            border: 1px solid #000;
+            border-spacing: 0;
+            text-align:center;
+            border-collapse: collapse;
+            background : #202d79;
+            color:white;
+            }
+            td {
+            vertical-align: bottom;
+            border: 1px solid #000;
+            border-spacing: 0;
+            border-collapse: collapse;
+            text-align:center;
+            }
+            .header>td{
+            font-weight:bold;
+            background : #c4c4c4;               
+            }
+            .echoArea>td{
+            padding:10px;
+            }
+            #pageNum {
+            text-align: right;
+            }
+            .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
+            @page {
+            margin-top: 150px;padding:0px;margin-bottom: 91px;
+            counter-increment: Page;
+            @top-center {
+            content: element(header);
+            }
+            @bottom-left {
+            content: element(footer);
+            }
+            }
+            div.header {
+            position: running(header);
+            }
+            #pageNum:before{
+            content:counter(Page);
+            }
+            div.footer {
+            justify-content:center;
+            align-items:center;
+            width:100%; 
+            display:flex;
+            place-items:center;
+            position: running(footer);
+            }
+            .page-break {
+            display:block;
+            page-break-after:always;
+            }
+            .header{
+            margin:0;
+            }
+            .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            }
+            body {
+            font-family: Arial Unicode MS;
+            }
+        </style>
+    </head>
+    <div class="header">
+        <h2 class="header"><B>Standard Bank Transaction Banking 2024 Pricing Schedule </B> </h2> 
+        <p id="pageNum"> </p>         
+        <h3><B>2024 Pricing Schedule </B></h3>
+        <hr/>
+    </div>
+    <div class="footer">   
+        <div> 
+            <img src="{!$Resource.Standard_Bank_Lo}" class="center"/>
+        </div>
+    </div>
+    <div class="content">
+        <table width="100%" class="table-bordered">
+            <thead>
+                <tr>
+                    <th width="70%">Arrangement Name</th>    
+                    <th >Arrangement Type </th>
+                    <th >Arrangement ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!ZPAObj[0]}" var="supacc">
+                    <tr>
+                        <td>{!supacc.zafin_rrp__Agreement_Name__c}</td>
+                        <td>{!supacc.zafin_rrp__Arrangement_Type__c}</td>
+                        <td>{!supacc.zafin_rrp__Agreement_Id__c}</td>
+                    </tr> 
+                </apex:repeat>
+            </tbody>
+        </table>
+        <table width="100%" class="table-bordered">
+            <apex:repeat value="{!categoryFeeItem}" var="Entry">
+                <thead>
+                    <tr> <th style="width:70%">{!Entry}</th>
+                        <th>Previous rate (excl.VAT)</th>
+                        <th>New rate (excl.VAT)</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <apex:repeat value="{!categoryFeeItem[Entry]}" var="con">
+                        <tr> 
+                            <td> {!con.zafin_rrp__Fee_Item_Name__c} </td>
+                            <td>{!ROUND(Value(con.zafin_rrp__Standard_Price__c),2)}</td>
+                            <td>
+                                <apex:outputPanel rendered="{!ISBLANK(con.zafin_rrp__Proposed_Price__c)}">
+                                    {!ROUND(Value(con.zafin_rrp__Standard_Price__c),2)}
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!NOT(ISBLANK(con.zafin_rrp__Proposed_Price__c))}">
+                                    {!ROUND(Value(con.zafin_rrp__Proposed_Price__c),2)}
+                                </apex:outputPanel>
+                                
+                            </td>
+                        </tr>    
+                    </apex:repeat> 
+                </tbody>
+            </apex:repeat>
+        </table>
+    </div>
+</apex:page>

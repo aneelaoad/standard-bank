@@ -1,0 +1,56 @@
+<!--
+ * @description MallPingErrorHandler
+ * @author Ankit Kumar
+ * @since 
+ *-->
+<apex:page controller="MallPingErrorHandlerController" action="{!handleError}" showHeader="false" sidebar="false">
+    <Script>
+        window.onload=function(){
+            function createCookie(name, value, days){
+				var expires;
+				if (days) {
+					const date = new Date();
+					date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+					expires = "; expires=" + date.toGMTString();
+				}
+				else {
+					expires = "";
+				}
+				document.cookie = name + "=" + escape(value) + expires + "; path=/";
+			}
+
+			function getCookie(name){
+				let result;
+				let cookieString=document.cookie;
+				if(cookieString.includes('LSKey-c$'+name+'=')){
+					var parts = cookieString.split('LSKey-c$'+name+'=');
+				
+					if (parts.length === 2) {
+						result= parts.pop().split(";").shift();
+					}
+				}
+				return result;
+			}
+
+
+            let modalStatus = '{!JSENCODE(hideSignUpModal)}';
+            if(modalStatus === 'true'){
+                createCookie('hideSignUpModal','true',1);
+            }
+
+			let desiredPageValue = getCookie('userDesiredPage');
+			if(desiredPageValue){
+				let desiredPage= decodeURIComponent(desiredPageValue);
+				if(desiredPage!=undefined){
+					window.location.href=new URL(encodeURI(desiredPage));
+				}
+				else{
+					window.location.href='{!JSENCODE(targetUrl)}';
+				}
+			}else{
+            	window.location.href='{!JSENCODE(targetUrl)}';
+			}
+        }
+    
+    </Script>
+</apex:page>

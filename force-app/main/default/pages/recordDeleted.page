@@ -1,0 +1,16 @@
+<!-- Case 4983 - 12/03/2012 C Reinecke. This page mimics the standard message displayed to the user when he clicks on a link to a record that has been deleted -->
+<!-- EN 231 - 21/8/2013 Navin Rai. Changed the error message. Changed version from 24 to 28. -->
+<apex:page >
+  <table cellspacing="10">
+  <tbody><!--<tr>
+    <td><span style="font-weight: bold; font-size: 12pt;">Record deleted</span></td>
+  </tr>-->
+  <tr>
+    <td>
+<!--The record you attempted to access has been deleted. The user who deleted this record may be able to recover it from the Recycle Bin. Deleted data is stored in the Recycle Bin for 15 days.-->
+Event Report not found.Please Contact your Administrator.
+<br/><br/>
+   </td>
+  </tr>
+</tbody></table>
+</apex:page>

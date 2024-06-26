@@ -1,0 +1,31 @@
+<apex:page id="CommunityInMaintenance" standardStylesheets="false" sideBar="false" showHeader="false" applyHtmlTag="true" applyBodyTag="false" controller="OSB_Maintenance_CTRL">
+    <style type="text/css">
+        .centered{
+            min-width: 98%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-25%, -50%);
+        	z-index: -1;
+        }
+        
+        .header{
+        	padding: 16px 50px 10px;
+            background: #0033aa;
+        	margin: -10px -8px -5px;
+        }
+    </style>
+    
+    <apex:variable var="image" value="{!imageName}"/> 
+    <apex:variable var="imageLogo" value="{!imageLogo}"/> 
+    <div class="header">
+        <img src="data:image/png;base64,{!imageLogo}" width="150px"/>        
+    </div>
+    <div class="centered">
+        <div class="container-fluid">
+            <div class="bg-warning">
+                <img src="data:image/png;base64,{!image}" width="50%" height="50%"/>
+            </div>
+        </div>
+    </div>
+</apex:page>

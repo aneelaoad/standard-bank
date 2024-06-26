@@ -1,0 +1,19 @@
+<!--
+ - Created by mjaznicki on 26.06.2018.
+ -->
+
+<apex:page id="GoldtierSaForm" controller="GoldtierSaForm_CTRL">
+    <apex:form >
+        <apex:actionFunction action="{!saveAttach}" name="redirect"/>
+    </apex:form>
+    <script language="javascript">
+      window.open('/apex/GoldtierSaFormDoc?id='+'{!Account.Id}'+'&cif='+'{!cif}'+'&services='+'{!services}' + '&singleRevenue=' +'{!singleRevenue}'
+      + '&profClient=' +'{!profClient}'+ '&statusReason=' +'{!statusReason}'
+      + '&offshore=' +'{!offshore}'+ '&shell=' +'{!shell}'+ '&corespondent='
+      +'{!corespondent}'+ '&products=' +'{!products}' + '&entityType=' +'{!entityType}' + '&entityClassification=' +'{!entityClassification}'
+      + '&nature=' +'{!nature}' + '&sourceWealth=' +'{!sourceWealth}' + '&sourceFunds=' +'{!sourceFunds}'
+      + '&anticipatedLevel=' +'{!anticipatedLevel}' + '&natureBusiness=' +'{!natureBusiness}' + '&kycName='+'{!kycName}'+ '&kycTitle='+'{!kycTitle}' + '&kycPhone='+'{!kycPhone}'
+      + '&expectedIncome='+{!expectedIncome});
+      redirect();
+    </script>
+</apex:page>

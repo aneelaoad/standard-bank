@@ -1,0 +1,7 @@
+<apex:page standardController="Event" extensions="SA_EventReportNavigateController" action="{!navigateView}"> 
+<apex:messages />
+<apex:outputLink value="/{!$CurrentPage.parameters.id}">
+</apex:outputLink>
+<apex:outputLink value="/{!$CurrentPage.parameters.retURL}">
+</apex:outputLink>
+</apex:page>

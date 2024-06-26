@@ -1,0 +1,558 @@
+<!-- Case#141: Rudolf Niehaus -->
+<!-- This is the main draw down page where uses can add multiple draw down profile records -->
+<apex:page standardController="Draw_Down_Profile__c" recordSetVar="drawDowns" extensions="DrawDownProfile_Vf_Ext" standardStyleSheets="true">
+    <apex:includeScript value="{!URLFOR($Resource.jquery180, 'jquery/jquery-1.8.0.min.js')}"/>
+
+    <apex:outputPanel rendered="{!NOT(isLightning)}" >
+        <script>
+            $(document).ready(function() {
+                attachDatesValidation();
+            });
+
+            function attachDatesValidation() {
+
+                $('[id$=ddate]').change(function(){
+
+                    var $current = $(this);
+                    $('[id$=ddate]').each(function() {
+
+                        if ($(this).val() == $current.val() && $(this).attr('id') != $current.attr('id')){
+                            alert('You are trying to enter a duplicate Draw Date on this page. Please select a different date');
+                            $current.val('');
+                            return false;
+                        }
+
+                    });
+                });
+            }
+        </script>
+        <style>
+            .vfHelpText a {position:relative;}
+            .vfHelpText a span {display: none;}
+            .vfHelpText a:hover span {display: block;
+                position:absolute;
+                top:1.25em;
+                padding:2px 5px;
+                left:-15em; width:15em;
+                z-index:100;
+                border:1px solid orange;
+                background-color:#FEFDB9;
+                color:black;
+            }
+        </style>
+
+        <apex:sectionHeader title="Draw Down Profile"
+                            subtitle="Create Multiple Draw Down Profiles for Opportunity Product"
+                            description="Create multiple Draw Down Profiles for an Opportunity Product by entering the Draw Down Data. Then click 'Save' for just these records." />
+        <apex:form >
+            <apex:pageMessages escape="False" id="pMsg"/>
+            <apex:pageBlock rendered="{!renderBlock}">
+                <apex:pageBlockTable value="{!relatedOpportunity}" var="opp">
+                    <apex:column headervalue="Opportunity Estimated Close Date">
+                        <apex:inputField value="{!opp.CloseDate}" required="true"/><apex:commandButton value="Update" action="{!updateCloseDate}" />
+                        <a style="color: #1468B6;text-decoration: none" href="/{!opp.Id}">&laquo; Back to Opportunity</a>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+            <apex:pageBlock >
+                <table>
+                    <tr>
+                        <td>Product Information:</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a style="color: #1468B6;text-decoration: none" href="/{!prodID}">{!prodCode}&nbsp;-&nbsp;{!prodProfile}</a>
+                        </td>
+                    </tr>
+                </table>
+            </apex:pageBlock>
+            <apex:pageBlock >
+                <table>
+                    <tr>
+                        <td style="font-weight:bold;font-family: sans-serif;font-size: 11.5px">Residual Undrawn:</td>
+                        <td>
+            <span class="vfHelpText">
+                <apex:outputLink value="javascript:return false;">
+                <img src="/s.gif" alt="" class="helpOrb" />
+                <span>{!$ObjectType.Draw_Down_Profile__c.fields.Residual_Undrawn__c.inlineHelpText}</span>
+                </apex:outputLink>
+            </span>
+                        </td>
+                        <td style="font-family:sans-serif; font-size:11.5px;">{!currencyIsoCode}&nbsp;{!residualUndrawn}</td>
+                    </tr>
+                </table>
+            </apex:pageBlock>
+
+            <h2 class="slds-section__title slds-theme_shade slds-m-bottom_medium">
+                <span class="slds-truncate slds-p-horizontal_small" title="Populate Draw Dates">
+                    Populate Draw Dates
+                </span>
+            </h2>
+            <apex:pageBlock >
+                <apex:pageBlockTable value="{!drawDowns}" var="dw" id="ddTable">
+                    <apex:column headervalue="Draw Down Number" width="50px">
+                        <apex:outputfield value="{!dw.Draw_Down_Number__c}" />
+                    </apex:column>
+                    <apex:column headervalue="Draw Date" width="100px">
+                        <apex:inputfield id="ddate" value="{!dw.Draw_Date__c}" required="{!dw.IsRequiredRecord__c}" />
+                    </apex:column>
+                    <apex:column headervalue="Funding Required" width="100px">
+                        <apex:inputfield value="{!dw.Funding_Required__c}" required="{!dw.IsRequiredRecord__c}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+                <div class="slds-theme_shade slds-align_absolute-center">Your Product Currency is &nbsp;<strong>{!currencyIsoCode}</strong></div>
+                <apex:pageBlockButtons lang="en" location="both">
+                    <apex:commandButton value="Save" action="{!saveAll}" />
+                    <apex:commandButton value="Cancel" action="{!cancel}" />
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+
+    <apex:outputPanel styleClass="slds" rendered="{!isLightning}" >
+        <style>
+            .vfHelpText a {position:relative;}
+            .vfHelpText a span {display: none;}
+            .vfHelpText a:hover span {display: block;
+                position:absolute;
+                top:1.25em;
+                padding:2px 5px;
+                left:-15em;
+                z-index:100;
+                border:1px solid orange;
+                background-color:#FEFDB9;
+                color:black;
+            }
+            .msgIcon {
+                display: none!important
+            }
+            .customMessage * {
+                color: #fff!important
+            }
+            .customMessage {
+                margin: 5px 0!important;
+                max-width: 1280px;
+                opacity: 1!important;
+                width: 100%;
+                font-size: 12px;
+                border: 0px;
+                padding-left: 10px;
+            }
+            .message {
+                opacity: .1
+            }
+
+            .dateOnlyInput input {
+                width: 30em !important;
+            }
+
+            .dateFormat{
+                visibility:hidden;
+            }
+
+            .blueFill {
+                fill: rgb(94,113,147) !important;
+            }
+
+            .greyFill {
+                fill: rgb(176,173,171) !important;
+            }
+
+            .slds-nubbin_bottom::before {
+                left: 57px !important;
+            }
+
+            .slds-nubbin_bottom::after {
+                left: 57px !important;
+            }
+
+            .bPageBlock .requiredInput .requiredBlock {
+                left: 0px;
+            }
+
+            input.btn {
+                left: 15%;
+            }
+        </style>
+        <script>
+
+            $(document).ready(function(){
+                overridePageMessages();
+                attachDatesValidation();
+
+                let locale = {
+                    'ar':'dd/MM/yyyy',
+                    'ar_AE':'dd/MM/yyyy',
+                    'ar_BH':'dd/MM/yyyy',
+                    'ar_JO':'dd/MM/yyyy',
+                    'ar_KW':'dd/MM/yyyy',
+                    'ar_LB':'dd/MM/yyyy',
+                    'ar_SA':'dd/MM/yyyy',
+                    'bg_BG':'yyyy-M-d',
+                    'ca':'dd/MM/yyyy',
+                    'ca_ES':'dd/MM/yyyy',
+                    'ca_ES_EURO':'dd/MM/yyyy',
+                    'cs':'d.M.yyyy',
+                    'cs_CZ':'d.M.yyyy',
+                    'da':'dd-MM-yyyy',
+                    'da_DK':'dd-MM-yyyy',
+                    'de':'dd.MM.yyyy',
+                    'de_AT':'dd.MM.yyyy',
+                    'de_AT_EURO':'dd.MM.yyyy',
+                    'de_CH':'dd.MM.yyyy',
+                    'de_DE':'dd.MM.yyyy',
+                    'de_DE_EURO':'dd.MM.yyyy',
+                    'de_LU':'dd.MM.yyyy',
+                    'de_LU_EURO':'dd.MM.yyyy',
+                    'el_GR':'d/M/yyyy',
+                    'en_AU':'d/MM/yyyy',
+                    'en_B':'M/d/yyyy',
+                    'en_BM':'M/d/yyyy',
+                    'en_CA':'dd/MM/yyyy',
+                    'en_GB':'dd/MM/yyyy',
+                    'en_GH':'M/d/yyyy',
+                    'en_ID':'M/d/yyyy',
+                    'en_IE':'dd/MM/yyyy',
+                    'en_IE_EURO':'dd/MM/yyyy',
+                    'en_NZ':'d/MM/yyyy',
+                    'en_SG':'M/d/yyyy',
+                    'en_US':'M/d/yyyy',
+                    'en_ZA':'yyyy/MM/dd',
+                    'es':'d/MM/yyyy',
+                    'es_AR':'dd/MM/yyyy',
+                    'es_BO':'dd-MM-yyyy',
+                    'es_CL':'dd-MM-yyyy',
+                    'es_CO':'d/MM/yyyy',
+                    'es_CR':'dd/MM/yyyy',
+                    'es_EC':'dd/MM/yyyy',
+                    'es_ES':'d/MM/yyyy',
+                    'es_ES_EURO':'d/MM/yyyy',
+                    'es_GT':'d/MM/yyyy',
+                    'es_HN':'MM-dd-yyyy',
+                    'es_MX':'d/MM/yyyy',
+                    'es_PE':'dd/MM/yyyy',
+                    'es_PR':'MM-dd-yyyy',
+                    'es_PY':'dd/MM/yyyy',
+                    'es_SV':'MM-dd-yyyy',
+                    'es_UY':'dd/MM/yyyy',
+                    'es_VE':'dd/MM/yyyy',
+                    'et_EE':'d.MM.yyyy',
+                    'fi':'d.M.yyyy',
+                    'fi_FI':'d.M.yyyy',
+                    'fi_FI_EURO':'d.M.yyyy',
+                    'fr':'dd/MM/yyyy',
+                    'fr_BE':'d/MM/yyyy',
+                    'fr_CA':'yyyy-MM-dd',
+                    'fr_CH':'dd.MM.yyyy',
+                    'fr_FR':'dd/MM/yyyy',
+                    'fr_FR_EURO':'dd/MM/yyyy',
+                    'fr_LU':'dd/MM/yyyy',
+                    'fr_MC':'dd/MM/yyyy',
+                    'hr_HR':'yyyy.MM.dd',
+                    'hu':'yyyy.MM.dd.',
+                    'hy_AM':'M/d/yyyy',
+                    'is_IS':'d.M.yyyy',
+                    'it':'dd/MM/yyyy',
+                    'it_CH':'dd.MM.yyyy',
+                    'it_IT':'dd/MM/yyyy',
+                    'iw':'dd/MM/yyyy',
+                    'iw_IL':'dd/MM/yyyy',
+                    'ja':'yyyy/MM/dd',
+                    'ja_JP':'yyyy/MM/dd',
+                    'kk_KZ':'M/d/yyyy',
+                    'km_KH':'M/d/yyyy',
+                    'ko':'yyyy. M. d',
+                    'ko_KR':'yyyy. M. d',
+                    'lt_LT':'yyyy.M.d',
+                    'lv_LV':'yyyy.d.M',
+                    'ms_MY':'dd/MM/yyyy',
+                    'nl':'d-M-yyyy',
+                    'nl_BE':'d/MM/yyyy',
+                    'nl_NL':'d-M-yyyy',
+                    'nl_SR':'d-M-yyyy',
+                    'no':'dd.MM.yyyy',
+                    'no_NO':'dd.MM.yyyy',
+                    'pl':'yyyy-MM-dd',
+                    'pt':'dd-MM-yyyy',
+                    'pt_AO':'dd-MM-yyyy',
+                    'pt_BR':'dd/MM/yyyy',
+                    'pt_PT':'dd-MM-yyyy',
+                    'ro_RO':'dd.MM.yyyy',
+                    'ru':'dd.MM.yyyy',
+                    'sk_SK':'d.M.yyyy',
+                    'sl_SI':'d.M.y',
+                    'sv':'yyyy-MM-dd',
+                    'sv_SE':'yyyy-MM-dd',
+                    'th':'M/d/yyyy',
+                    'th_TH':'d/M/yyyy,',
+                    'tr':'dd.MM.yyyy',
+                    'ur_PK':'M/d/yyyy',
+                    'vi_VN':'dd/MM/yyyy',
+                    'zh':'yyyy-M-d',
+                    'zh_CN':'yyyy-M-d',
+                    'zh_HK':'yyyy-M-d',
+                    'zh_TW':'yyyy/M/d'
+                };
+                $('[id$=locale]').text(locale['{!userLocale}']);
+                $('[id$=editableDiv]').bind({paste: function(e) {
+                        if (window.clipboardData) {
+                            window.setTimeout(function () {
+                                let doc = new DOMParser().parseFromString($('[id$=editableDiv]').html(), "text/html");
+                                $('[id$=editableDiv]').html('Paste draw down spreadsheet<br/>data here.');
+                                parsePastedData(doc);
+                            }, 0, true);
+                        } else if (e.clipboardData || e.originalEvent.clipboardData) {
+                            let clipboardData = e.clipboardData || e.originalEvent.clipboardData;
+                            parsePastedData(new DOMParser().parseFromString(clipboardData.getData('text/html'), "text/html"));
+                            e.preventDefault();
+                        }
+                    }});
+                $('[id$=editableDiv]').bind('keydown', function(e){ e.preventDefault(); });
+                $('[id$=editableDiv]').removeClass('slds-hide');
+
+                let clr;
+                $('[id$=showinstr]').bind('click', function(e){
+                    if($('[id$=showinstr]').html() == 'Show brief copy instructions'){
+                        $('[id$=ddxlsinstructions]').removeClass('slds-hide');
+                        $('[id$=showinstr]').html('Hide brief copy instructions');
+                        clr = setTimeout(function(){
+                            $('[id$=ddxlsinstructions]').addClass('slds-hide');
+                            $('[id$=showinstr]').html('Show brief copy instructions');
+                        }, 60000);
+                    }else{
+                        clearTimeout(clr);
+                        $('[id$=ddxlsinstructions]').addClass('slds-hide');
+                        $('[id$=showinstr]').html('Show brief copy instructions');
+                    }
+                    e.preventDefault();
+                });
+            });
+            function setFocusOnLoad(){}
+            function parsePastedData(doc) {
+                let drawdowns = [], trs = doc.getElementsByTagName("tr");
+                for (let i = 0; i < trs.length; i++) {
+                    let Draw_Date = '', Funding_Required = '', tds = trs[i].getElementsByTagName("td");
+                    for (let i = 0; i < tds.length; i++) {
+                        switch (i) {
+                            case 0:
+                                try {
+                                    Draw_Date = tds[i].innerText.trim();
+                                    Draw_Date = Draw_Date.split("-").join("/");
+                                    Draw_Date = Draw_Date.split(" ").join("/");
+                                } catch (e) {
+                                }
+                                break;
+                            case 1:
+                                Funding_Required = tds[i].innerText.trim();
+                                Funding_Required = Funding_Required.split(" ").join("");
+                                break;
+                            default:
+                        }
+                    }
+                    drawdowns.push({'sObjectType': 'Draw_Down_Profile__c','Draw_Date__c': Draw_Date,'Funding_Required__c': Funding_Required});
+                }
+                if (drawdowns.length > 0) {
+                    $('[id$=editableDiv]').html('Data seems valid!<br/>Please review your data.');
+                    parsePastedDrawdowns(JSON.stringify(drawdowns));
+                } else {
+                    $('[id$=editableDiv]').html('Data invalid!<br/>Please try again.');
+                }
+            }
+
+            function overridePageMessages(){
+                var textureEffect = '';
+                //Uncomment below line for texture effect on page messages
+                textureEffect = 'slds-theme_alert-texture';
+
+                $('.warningM3').addClass('slds-notify slds-notify_toast slds-theme_warning customMessage '+textureEffect);
+                $('.confirmM3').addClass('slds-notify slds-notify_alert slds-theme_success  customMessage '+textureEffect);
+                $('.errorM3').addClass('slds-notify slds-notify_alert slds-theme_error customMessage '+textureEffect);
+                $('.infoM3').addClass('slds-notify slds-notify_toast customMessage '+textureEffect);
+
+                $('.errorM3').removeClass('errorM3');
+                $('.confirmM3').removeClass('confirmM3');
+                $('.infoM3').removeClass('infoM3');
+                $('.warningM3').removeClass('warningM3');
+            }
+            function attachDatesValidation() {
+                $('[id$=ddate]').change(function(){
+
+                    var $current = $(this);
+                    $('[id$=ddate]').each(function() {
+
+                        if ($(this).val() == $current.val() && $(this).attr('id') != $current.attr('id')){
+                            alert('You are trying to enter a duplicate Draw Date on this page. Please select a different date');
+                            $current.val('');
+                            return false;
+                        }
+
+                    });
+                });
+
+            }
+            function onHelptextMouseOver(helptextPanel) {
+                var helptextSvg = helptextPanel.querySelector("#helptextSvg");
+                helptextSvg.classList.replace("greyFill", "blueFill");
+
+                var popover = helptextPanel.querySelector("#popover");
+                popover.classList.replace('slds-fall-into-ground', 'slds-rise-from-ground');
+
+            }
+
+            function onHelptextMouseOut(helptextPanel) {
+                var popover = helptextPanel.querySelector("#popover");
+                popover.classList.replace('slds-rise-from-ground', 'slds-fall-into-ground');
+
+                var helptextSvg = helptextPanel.querySelector('#helptextSvg');
+                helptextSvg.classList.replace('blueFill', 'greyFill');
+
+            }
+        </script>
+        <apex:slds />
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <p class="slds-text-heading_label">Draw Down Profile</p>
+                    <div class="slds-grid">
+                        <div class="slds-grid slds-type-focus slds-no-space">
+                            <h1 class="slds-text-heading_medium slds-truncate">Create Multiple Draw Down Profiles for Opportunity Product</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-grid">
+                <div class="slds-col slds-align-bottom">
+                </div>
+            </div>
+        </div>
+
+        <apex:form >
+            <apex:pageMessages escape="False" id="pMsg"/>
+            <apex:actionRegion >
+            <apex:actionFunction name="parsePastedDrawdowns" action="{!parsePastedDrawdowns}" reRender="table">
+                <apex:param name="jsonPastedDrawdowns" assignTo="{!jsonPastedDrawdowns}" value="" />
+            </apex:actionFunction>
+            </apex:actionRegion>
+            <!-- PB1 -->
+            <apex:outputPanel rendered="{!renderBlock}">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col">
+                            <div class="slds-truncate" title="Opportunity Estimated Close Date">Opportunity Estimated Close Date</div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <apex:repeat value="{!relatedOpportunity}" var="opp">
+                        <tr>
+                            <td>
+                                <apex:inputField value="{!opp.CloseDate}" required="true"/>
+                                <apex:commandButton styleClass="slds-button slds-button_brand" value="Update" action="{!updateCloseDate}" />
+                                <a style="color: #1468B6;text-decoration: none" href="/{!opp.Id}">&laquo; Back to Opportunity</a>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                    </tbody>
+                </table>
+            </apex:outputPanel>
+
+            <!-- PB2 DONE -->
+            <div class="slds-section slds-is-open">
+                <h1 class="slds-section__title slds-theme_shade">
+                    <span class="slds-truncate slds-p-horizontal_small" title="Product Information">Product Information</span>
+                </h1>
+                <div aria-hidden="false" class="slds-section__content">
+                    <a class="slds-m-left_medium" href="/{!prodID}">{!prodCode}&nbsp;-&nbsp;{!prodProfile}</a>
+                </div>
+            </div>
+
+            <!-- PB3 DONE -->
+            <div class="slds-section slds-is-open">
+                <h2 class="slds-section__title slds-theme_shade" style="display: block;">
+                    <span class="slds-truncate slds-p-horizontal_small" title="Residual Undrawn">
+                        Residual Undrawn
+                        <span class="slds-button slds-button_icon-bare slds-m-right_xx-small slds-text-body_regular"
+                              style="left: 50%;">
+                            <apex:outputPanel onMouseOver="onHelptextMouseOver(this);" onMouseOut="onHelptextMouseOut(this);">
+                                <svg aria-hidden="true" class="slds-button__icon greyFill" id="helptextSvg">
+                                    <use href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                                </svg>
+                                <div id="popover" class="slds-popover slds-popover_tooltip slds-nubbin_bottom slds-fall-into-ground" role="tooltip" style="position: absolute; top: -90px; left: -50px;">
+                                    <div class="slds-popover__body">{!$ObjectType.Draw_Down_Profile__c.fields.Residual_Undrawn__c.inlineHelpText}</div>
+                                </div>
+                            </apex:outputPanel>
+                            {!currencyIsoCode + ' ' + residualUndrawn}
+                        </span>
+                    </span>
+                </h2>
+                <div aria-hidden="false" class="slds-section__content">
+                </div>
+            </div>
+
+            <h2 class="slds-section__title slds-theme_shade slds-m-bottom_medium">
+                <span class="slds-truncate slds-p-horizontal_small" title="Populate Draw Dates">
+                    Populate Draw Dates
+                </span>
+            </h2>
+            <div id="editableDiv" class="slds-hide" contenteditable="true" style="margin:0px 100px;margin-bottom:30px;border-style:dotted;width:200px;height:100px;text-align:center;padding-top:30px;color:#D3D3D3;float:left;">Paste draw down spreadsheet<br/>data here.</div>
+            <div style="font-weight: bold;">
+                <h1 style="text-decoration: underline;">Copy Paste Instructions</h1>
+                <ul class="slds-list_dotted" style="color:darkred;">
+                    <li>Ensure the data format in your source file (i.e. excel) is correct. i.e. <span id="locale"></span></li>
+                    <li>Ensure the funding required value in your source file is in a number format.</li>
+                    <li>Check that funding required is in the correct currency.</li>
+                    <li>Ensure that the Draw Date and Funding Required columns are adjacent in your source document.</li>
+                    <li>Copy from your source file and right-click to paste into the area on the left.</li>
+                    <li><a id="showinstr" href="">Show brief copy instructions</a></li>
+                </ul>
+            </div>
+            <div style="margin:30px 30px 0px 30px;">
+                <div id="ddxlsinstructions" class="slds-hide" ><apex:image url="{!$Resource.ddxlsinstructions}" height="200" style="margin-bottom:30px;"/></div>
+            </div>
+            <div class="slds-theme_shade slds-align_absolute-center">Your Product Currency is &nbsp;<strong>{!currencyIsoCode}</strong></div>
+            <apex:pageBlock id="table" mode="maindetail">
+                <apex:pageBlockButtons >
+                    <apex:commandButton styleClass="slds-button slds-button_brand" value="Save" action="{!saveAll}" />
+                    <apex:commandButton styleClass="slds-button slds-button_neutral " value="Cancel" action="{!cancel}" />
+                </apex:pageBlockButtons>
+
+                <table class="slds-table slds-table_bordered slds-table_fixed-layout">
+                    <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col" style="width:50px">
+                            <div class="slds-truncate" title="Draw Down Number">Draw Down Number</div>
+                        </th>
+                        <th scope="col" style="width:100px">
+                            <div class="slds-truncate" title="Draw Date">Draw Date</div>
+                        </th>
+                        <th scope="col" style="width:100px">
+                            <div class="slds-truncate" title="Funding Required">Funding Required</div>
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <apex:repeat value="{!drawDowns}" var="dw" id="repeat">
+                        <tr>
+                            <td data-label="Draw Down Number">
+                                <div class="slds-truncate" title="Draw Down Number"><apex:outputfield value="{!dw.Draw_Down_Number__c}" /></div>
+                            </td>
+                            <td data-label="Draw Date">
+                                <div class="slds-truncate" title="Draw Date">
+                                    <apex:inputfield id="ddate" value="{!dw.Draw_Date__c}" styleClass="slds-input" required="{!dw.IsRequiredRecord__c}"/>
+                                </div>
+                            </td>
+                            <td data-label="Funding Required">
+                                <div class="slds-truncate" title="Funding Required">
+                                    <apex:inputfield id="fundingReqId" value="{!dw.Funding_Required__c}" styleClass="slds-input" required="{!dw.IsRequiredRecord__c}"/>
+                                </div>
+                            </td>
+                        </tr>
+                    </apex:repeat>
+                    </tbody>
+                </table>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

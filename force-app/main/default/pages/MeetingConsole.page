@@ -1,0 +1,1131 @@
+<apex:page standardcontroller="Call_Report__c" extensions="NBACMeetingController,MeetingConsoleLookupsSupport" showHeader="true" standardStylesheets="false" sidebar="false" applyBodyTag="false" docType="html-5.0">
+    
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">    
+        
+        <head>
+            <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>Meeting Console</title>
+            
+            <apex:includeScript value="{!$Resource.Jquery1122}" />
+            <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+            
+            <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <apex:stylesheet value="{!$Resource.SLDS_Overrides}" />
+            
+            <apex:includeScript value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.full.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.css')}" />
+            
+            <script>
+            
+                var SEARCH = false;
+                
+                function checkMeetingDetail(){
+                    
+                    
+                    var error = false;
+                    
+                    var subject = $('[id$=SubjectName]').val();
+                    if(subject === ''){
+                        $('#SubjectElement').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelp').removeClass('hide');
+                        error = true;
+                    }else{
+                        $('#SubjectElement').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelp').addClass('hide');
+                    }
+                    
+                    var nbacMeeting = $('[id$=selectNBACMeeting]').val();
+                    if(nbacMeeting === '--None--'){
+                        $('#selectNBACMeetingContainer').addClass('is-required slds-has-error');
+                        $('#selectNBACMeetingHelp').removeClass('hide');
+                        error = true;
+                    }else{
+                        $('#selectNBACMeetingContainer').removeClass('is-required slds-has-error');
+                        $('#selectNBACMeetingHelp').addClass('hide');        
+                    }
+                    
+                    var startDate = $('[id$=startDate]').val();
+                    if(startDate === ''){
+                        $('#startDateElement').addClass('is-required slds-has-error');
+                        $('#startDateHelp').removeClass('hide');        
+                        error = true;
+                    }else{
+                        $('#startDateElement').removeClass('is-required slds-has-error');
+                        $('#startDateHelp').addClass('hide');
+                    }
+                    
+                    var endDate = $('[id$=endDate]').val();
+                    if(endDate === ''){
+                        $('#endDateElement').addClass('is-required slds-has-error');
+                        $('#endDateHelp').removeClass('hide');
+                        error = true;
+                    }else{
+                        $('#endDateElement').removeClass('is-required slds-has-error');
+                        $('#endDateHelp').addClass('hide');
+                    }
+                    
+                    var location = $('[id$=location]').val();
+                    
+                    if(error){
+                        $('#errorAlert').removeClass('hide');
+                    }else{
+                        $('#errorAlert').addClass('hide');
+                        loading();
+                        saveData(subject, nbacMeeting, location);
+                    }
+                }
+                
+                function loading(){
+                    
+                    if($('#spinnerContainer').hasClass('hide')){
+                        $('#spinnerContainer').removeClass('hide');
+                    }else{
+                        $('#spinnerContainer').addClass('hide');
+                    }
+                    
+                }
+                
+                function confirmationscreen(){
+                    
+                    if($('#confdelete').hasClass('hide')){
+                        $('#confdelete').removeClass('hide');
+                    }else{
+                        $('#confdelete').addClass('hide');
+                    }
+                }
+                
+                function convertTimestampToDateTime(timestamp){
+                    if(timestamp === ''|| isNaN(timestamp)){
+                        return '';
+                    }
+                    var d = new Date(timestamp);
+                    var dd = d.getDate() < 10 ? '0'+ d.getDate() : d.getDate();
+                    var mm = (d.getMonth()+1) < 10 ? '0'+ (d.getMonth()+1) : (d.getMonth()+1);
+                    var HH = d.getHours() < 10 ? '0'+ d.getHours() : d.getHours();
+                    var MM = d.getMinutes() < 10 ? '0'+ d.getMinutes() : d.getMinutes();
+                    return dd + '/' + mm + '/' + d.getFullYear() + ' ' + HH + ':' + MM;
+                }
+                
+                function convertDateTimeToTimestamp(datetimeString) {
+                    if (datetimeString === '') {
+                        return 0;
+                    }
+                    
+                    var datetimeSplit = datetimeString.split(' ');
+                    if(datetimeSplit.length != 2){
+                        return 0;
+                    }
+                    
+                    var dateSplit = datetimeSplit[0].split('/');
+                    if (dateSplit.length != 3) {
+                        return 0;
+                    }
+                    
+                    var timeSplit = datetimeSplit[1].split(':');
+                    if (timeSplit.length != 2) {
+                        return 0;
+                    }           
+                    
+                    var month = parseInt(dateSplit[1]) - 1;
+                    
+                    var timestamp = new Date(dateSplit[2], month, dateSplit[0], timeSplit[0], timeSplit[1]).getTime();
+                    if (isNaN(timestamp)) {
+                        return 0;
+                    }
+                    
+                    return timestamp;
+                }
+                function showSuccessMsg(){
+                    if($('.errorAlertShown').length == 0) {
+                        alert('Agenda was sent successfully.');
+                        
+                    }
+                }
+                
+                function toggleDisabled(elemId) {
+                    var dis = $('[id$=' + elemId + ']').attr('disabled');
+                    if(typeof dis == typeof undefined) {
+                        $('[id$=' + elemId + ']').attr('disabled', true);
+                    } else {
+                        $('[id$=' + elemId + ']').removeAttr('disabled');
+                    }
+                }
+                
+                function toggleAgendaRow(aObj) {
+                    var currTrObj = $(aObj).closest('tr.agendaTR');
+                    var tbodyObj = $(aObj).closest('div#agendaTBody');
+                    var trObjs = tbodyObj.find('tr.agendaTR.highlighted');
+                    
+                    trObjs.removeClass('highlighted');        
+                    currTrObj.addClass('highlighted');
+                }
+
+        </script>
+
+        <style>
+                
+                
+                .datepicker-dropdown {
+                    position: absolute;
+                    top: 4.25em;
+                    background-color: white;
+                    border: 1px solid #d8dde6;
+                    z-index: 10000;
+                }
+                .hide{
+                  display: none!important;
+                }
+                
+                /* DEF-2013 */
+                @media (min-width: 769px) {
+                    .slds .slds-table--bordered tr:not(:hover) td {
+                      border-bottom: 1px solid #a2adc3;
+                    }
+                  
+                    .slds .slds-table--bordered tr:last-child td {
+                      border-bottom-color: #d8dde6;
+                    }
+            
+                    .smaller {
+                        font-size: 90%;
+                    }
+                    .addremoveadjust{
+                        width :15%!important;
+                    }
+                    
+                    .addremoveadjustpad {
+                        padding-left: 5px!important;
+                    }
+                }
+                
+                @media (max-width: 768px) {
+                    .slds .slds-table--bordered tr:not(:hover) td {
+                      border-bottom-color: #d8dde6;
+                    }
+                    
+                    .slds .slds-table--bordered tr {
+                      border-top: 0;
+                    }
+                    
+                    .slds .slds-table--bordered tr td:last-child {
+                      border-bottom: 2px solid #a2adc3;
+                    }
+                    
+                    .slds .slds-table--bordered tr:last-child td {
+                      border-bottom-color: #d8dde6;
+                    }
+                
+                }
+                
+                .highlighted {
+                  background-color: rgba(54, 160, 254, 0.31);
+                }
+                
+                .aroundTable {
+                  display: block;
+                  width: 100%;
+                  max-width: 740px;
+                }
+        
+                .slds .slds-box{
+                  border: 1px solid rgb(84, 105, 141);
+                }
+                
+                .slds .slds-text-heading--medium {
+                  font-weight: 400;
+                }
+                
+                .mw {
+                  max-width: 752px;
+                }
+
+                .richText {
+                    border-style: solid;
+                    border-width: 1px;
+                    background-color: #e0e5ee;
+                    border-color: #a8b7c7;
+                    border-radius: 4px;
+                    transition: border 0.1s linear, background-color 0.1s linear;
+                    padding: 12px;
+                }
+    </style>
+    </head>    
+    
+    <body>    
+        <!-- REQUIRED SLDS WRAPPER -->
+        <div class="slds" style="max-width: 1540px;">    
+            
+            <!-- MASTHEAD -->
+            <p class="slds-text-heading--label slds-m-bottom--small">&nbsp;</p>
+            <!-- / MASTHEAD -->    
+            
+            <!-- PAGE HEADER -->
+            <div class="slds-page-header slds-box" role="banner">
+                
+                <!-- LAYOUT GRID -->
+                <div class="slds-grid slds-wrap">
+                    
+                    <!-- GRID COL -->
+                    <div class="slds-col">
+                        
+                        <!-- HEADING AREA -->
+                        <h1 class="slds-text-heading--medium">Meeting Console</h1>
+                        <!-- /HEADING AREA -->
+                        
+                    </div>
+                    
+                    <!-- GRID COL -->
+                    <div class="slds-col slds-no-flex slds-align-middle">
+                        
+                        <div class="slds-button-group" role="group">
+                            <apex:outputPanel id="sendAgendabtn">
+                                <apex:outputPanel rendered="{!(hasAccess || !(isSubmission || isCommittee)) && (agendalst.size > 0)}">
+                                    <button id="sendAgendaButton" class="slds-button slds-button--neutral" onClick ="loading(); sendagenda(); return false;">
+                                        Send Agenda
+                                    </button>
+                                    
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!((!hasAccess) && (isSubmission || isCommittee)) || (agendalst.size < 1)}">
+                                    <button class="slds-button slds-button--neutral" disabled="disabled">
+                                        Send Agenda
+                                    </button>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            
+                            <apex:outputPanel id="deletesection">
+                                <apex:outputPanel rendered="{!ERID != null && hasdelete}">
+                                    <button class="slds-button slds-button--neutral" onClick="confirmationscreen();return false;">Delete</button>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!ERID == null || !hasdelete}">
+                                    <button class="slds-button slds-button--neutral" disabled="disabled">Delete</button>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            
+                            <button class="slds-button slds-button--neutral" onClick="goHome()">
+                                <apex:image url="{!$Resource.SVGBackArrowImage}" width="15" height="15"/>
+                                <span class="slds-assistive-text">Back</span>
+                            </button>
+                        </div>
+                        
+                    </div>
+                    <!-- / GRID COL -->
+                    
+                </div>
+                <!-- / LAYOUT GRID -->
+                
+            </div>
+            <!-- / PAGE HEADER -->    
+            
+            <!-- PRIMARY CONTENT WRAPPER -->
+            <div class="myApp">
+                
+                <!-- ERROR MESSAGE -->
+                <apex:outputPanel id="thePanel" layout="block" rendered="{!(!hasAccess) && (!isSubmission) && (!isCommittee)}">
+                    <div>
+                        <div aria-hidden="true" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                            <div class="slds-modal__container slds-modal--prompt" style="max-height: 500px; overflow-y: hidden;">
+                                <div class="slds-modal__header slds-theme--error slds-theme--alert-texture">
+                                    <button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                        <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                            <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                        </svg>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                    <h2 class="slds-text-heading--medium">Insufficient Privileges</h2>
+                                </div>
+                                <div class="slds-modal__content slds-p-around--medium">
+                                    <div>
+                                        <p>You do not have the level of access necessary to perform the operation you requested.</p>
+                                    </div>
+                                </div>
+                                <div class="slds-modal__footer slds-theme--default">
+                                    <button class="slds-button slds-button--neutral" onclick="goHome()">Okay</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-backdrop slds-backdrop--open"></div>
+                    </div>
+                </apex:outputPanel>
+                
+                <!-- Delete Screen-->
+                <div id="confdelete" class="hide">
+                    <div aria-hidden="true" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                        <div class="slds-modal__container slds-modal--prompt" style="max-height: 500px; overflow-y: hidden;">
+                            <div class="slds-modal__header slds-theme--error slds-theme--alert-texture">
+                                <h2 class="slds-text-heading--medium">Confirm Delete</h2>
+                            </div>
+                            <div class="slds-modal__content slds-p-around--medium">
+                                <div>
+                                    <p>{!$Label.Delete_Confirmation_MeetingConsole}</p>
+                                </div>
+                            </div>
+                            <div class="slds-modal__footer slds-theme--default">
+                                <button id="okDeleteBtn" class="slds-button slds-button--neutral" onClick="deleteeventreport();return false;">OK</button>
+                                <button class="slds-button slds-button--neutral" onclick="confirmationscreen();return false;">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-backdrop slds-backdrop--open"></div>
+                </div>
+                
+                <div id="spinnerContainer" class="slds-spinner_container hide" style="z-index: 9002">
+                    <div aria-hidden="true" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                        <div class="slds-modal__container slds-modal--prompt" style="margin-top: 25%; height: 100px; overflow-y: hidden;">
+                            <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-backdrop slds-backdrop--open"></div>
+                </div>
+                
+                <div class="slds-notify_container">
+                    <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                        <span class="slds-assistive-text">Info</span>
+                        <h2>{!$Label.Console_Event_fields_missing}</h2>
+                    </div>
+                </div>
+                
+                <fieldset class="slds-box slds-theme--default slds-container--extra_large">
+                    <apex:form id="formId" styleClass="slds-form--stacked slds-grid slds-wrap slds-grid--pull-padded-large slds-m-top--large">
+                        
+                        <apex:actionFunction action="{!goHome}" name="goHome" oncomplete="goback('{!goURL}','{!goURLSF1}');">
+                        </apex:actionFunction>
+                       
+                        <apex:actionFunction action="{!saveDataMeetingDetails}" name="saveData" rerender="sendAgendabtn,deletesection,idMeetingDetail,refreshAgendaOP,idAgenda,idCommittee,errorMsginsub" oncomplete="loading(); bindPrompts();" status="saveDataStatus">
+                            <apex:param name="Param1" value="" assignTo="{!subjetName}"/>
+                            <apex:param name="Param2" value="" assignTo="{!nbacCommittee}"/>
+                            <apex:param name="Param3" value="" assignTo="{!location}"/>
+                        </apex:actionFunction>
+                        <apex:actionStatus id="saveDataStatus" onstart="toggleDisabled('saveDetailsBtn');" /> <!--onstop="toggleDisabled('saveDetailsBtn');" -->
+                        
+                        <apex:actionFunction action="{!removeagenda}" name="rmvagenda" rerender="sendAgendabtn,idAgenda,idSubmission,idNBACCaption,mct,mcattach,errorMsginsub" oncomplete="loading();" status="rmvAgendaStatus">
+                            <apex:param name="Param6" value="" assignTo="{!agendaIdtormv}"/>
+                            <apex:param name="Param7" value="" assignTo="{!mnpi}"/>
+                            <apex:param name="Param8" value="" assignTo="{!milestone}"/>
+                            <apex:param name="Param9" value="" assignTo="{!nbacName}"/>
+                            <apex:param name="Param10" value="" assignTo="{!nbacID}"/>
+                            <apex:param name="Param11" value="" assignTo="{!opptyownername}"/>
+                            <apex:param name="Param12" value="" assignTo="{!nbacClientName}"/>
+                        </apex:actionFunction>
+                        <apex:actionStatus id="rmvAgendaStatus" onstart="toggleDisabled('removeBtn');" onstop="toggleDisabled('removeBtn');" />
+                        
+                        <apex:actionFunction action="{!sendAgenda}" name="sendagenda" rerender="idAgenda,idSubmission,errorMsginsub" oncomplete="loading();showSuccessMsg();" status="sendAgendaStatus">
+                        </apex:actionFunction>
+                        <apex:actionStatus id="sendAgendaStatus" onstart="toggleDisabled('sendAgendaButton');" onstop="toggleDisabled('sendAgendaButton');" />
+                        
+                        <apex:actionFunction action="{!deleteER}" name="deleteeventreport" rerender="errorMsginsub" oncomplete="confirmationscreen();goback('{!goURL}','{!goURLSF1}');" status="deleteRventReportStatus">
+                        </apex:actionFunction>
+                        <apex:actionStatus id="deleteRventReportStatus" onstart="toggleDisabled('okDeleteBtn');" onstop="toggleDisabled('okDeleteBtn');" />
+                        
+                        <apex:actionFunction action="{!insertsubattendees}" name="inssubatt" rerender="idSubmission,idNBACCaption,mct,mcattach,errorMsginsub" oncomplete="loading();">
+                            <apex:param name="Param7" value="" assignTo="{!agendaId}"/>
+                            <apex:param name="Param8" value="" assignTo="{!nbacID}"/>
+                            <apex:param name="Param9" value="" assignTo="{!nbacName}"/>
+                            <apex:param name="Param10" value="" assignTo="{!submissionType}"/>
+                            <apex:param name="Param11" value="" assignTo="{!gpClientName}"/>
+                        </apex:actionFunction>
+                        
+                        <apex:actionFunction action="{!createagendarecords}" name="rfrshagenda" rerender="sendAgendabtn,idAgenda,idSubmission,idNBACCaption,mct,mcattach,errorMsginsub" oncomplete="loading();" status="rfrshAgendaStatus">
+                            <apex:param name="Param1" value="" assignTo="{!mnpi}"/>
+                            <apex:param name="Param2" value="" assignTo="{!milestone}"/>
+                            <apex:param name="Param3" value="" assignTo="{!nbacName}"/>
+                            <apex:param name="Param4" value="" assignTo="{!nbacID}"/>
+                            <apex:param name="Param5" value="" assignTo="{!opptyownername}"/>
+                            <apex:param name="Param6" value="" assignTo="{!nbacClientName}"/>
+                        </apex:actionFunction>
+                        <apex:actionStatus id="rfrshAgendaStatus" onstart="toggleDisabled('refreshAgendaBtn');" onstop="toggleDisabled('refreshAgendaBtn');" />
+
+                        <apex:actionFunction action="{!goToRecord}" name="goToRec" rerender="errorMsginsub" oncomplete="loading();">
+                            <apex:param name="recordId" value=""/>
+                        </apex:actionFunction>
+
+                        <apex:outputPanel id="errorMsginsub">
+                            <apex:outputPanel layout="block" rendered="{!IF(errorMsginssub == '', false, true)}">
+                                <div class="slds-notify_container">
+                                    <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture errorAlertShown" role="alert">
+                                        <span class="slds-assistive-text">Info</span>
+                                        <h2><apex:outputText escape="false" value="{!errorMsginssub}"/></h2>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        
+                        
+                        <fieldset class="slds-col--padded slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2"><!--slds-size--1-of-2 slds-small-size--1-of-1-->
+                            <!-- MEETING DETAILS -->
+                            
+                            <fieldset class="slds-box slds-theme--shade mw">
+                                <apex:outputPanel id="idMeetingDetail" layout="block">
+                                    <script>
+                                        $('document').ready(function() {
+                                            
+                                            $('[id$=startDate]').datetimepicker({
+                                                format:'d/m/Y H:i',
+                                                lang:'en'
+                                            });    
+                                            $('[id$=endDate]').datetimepicker({
+                                                format:'d/m/Y H:i',
+                                                lang:'en'
+                                            });
+                                            
+                                        });
+                                    </script>
+                                    <apex:outputPanel layout="block" id="errorMsg" rendered="{!IF(errorMsg == '', false, true)}">
+                                        <div class="slds-notify_container">
+                                            <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+                                                <span class="slds-assistive-text">Info</span>
+                                                <h2>{!errorMsg}</h2>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <div class="slds-grid">
+                                        <div class="slds-col">
+                                            <h1 class="slds-text-heading--medium">Meeting Details</h1>
+                                        </div>
+                                        <div class="slds-col slds-no-flex slds-align-middle">
+                                            <div class="slds-button-group" role="group">
+                                                <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                    <button id="saveDetailsBtn" class="slds-button slds-button--neutral" onClick="checkMeetingDetail(); return false;">Save Details</button>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                    <button class="slds-button slds-button--neutral" disabled="disabled">Save Details</button>
+                                                </apex:outputPanel>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <br/>
+                                    <div id="SubjectElement" class="slds-form-element">
+                                        <label class="slds-form-element__label" for="Subject-Name"><abbr class="slds-required" title="required">*</abbr>Subject</label>
+                                        <div id="SubjectElementControl" class="slds-form-element__control">
+                                            <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                <apex:inputText id="SubjectName" styleclass="slds-input" value="{!subjetName}"/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                <input id="SubjectName" class="slds-input" type="text" placeholder="" value="{!subjetName}" disabled="disabled"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                        <div id="SubjectElementHelp" class="slds-form-element__help hide">This field is required</div>
+                                    </div>
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label" for="Meeting-Type"><abbr class="slds-required" title="required">*</abbr>NBAC Committee</label>
+                                        <div class="slds-form-element__control" id='selectNBACMeetingContainer'>
+                                            <div class="slds-select_container">
+                                                <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                    <apex:selectList id="selectNBACMeeting" styleClass="slds-select" value="{!nbacCommittee}" multiselect="false" size="1" >
+                                                        <apex:selectOptions value="{!NBACMeetingOptions}"/>
+                                                    </apex:selectList>
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                    <select id="selectNBACMeeting1" class="slds-select" disabled="disabled">
+                                                        <apex:repeat value="{!NBACMeetingOptions}" var="o">
+                                                            <apex:outputPanel rendered="{!IF(o.value == nbacCommittee, true, false)}" >
+                                                                <option selected="selected" disabled="disabled">{!o.value}</option>
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel rendered="{!IF(o.value == nbacCommittee, false, true)}">
+                                                                <option disabled="disabled">{!o.value}</option>
+                                                            </apex:outputPanel>
+                                                        </apex:repeat>
+                                                    </select>
+                                                </apex:outputPanel>
+                                            </div>
+                                            <div id="selectNBACMeetingHelp" class="slds-form-element__help hide">This field is required</div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div id="startDateElement" class="slds-form-element">
+                                        <label class="slds-form-element__label" for="Date" id="idDate"><abbr class="slds-required" title="required">*</abbr>Start</label>
+                                        <div id="startDateElementControl" class="slds-form-element__control">
+                                            <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                <apex:inputText id="startDate" styleClass="slds-input" value="{!startDate}" onchange="autopopenddate();"/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                <input id="startDate1" Class="slds-input" type="text" value="{!startDate}" disabled="disabled"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                        <div id="startDateHelp" class="slds-form-element__help hide">This field is required</div>
+                                    </div>
+                                    <div id="endDateElement" class="slds-form-element">
+                                        <label class="slds-form-element__label" for="Time"><abbr class="slds-required" title="required">*</abbr>End</label>
+                                        <div class="slds-form-element__control">
+                                            <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                <apex:inputText id="endDate" styleClass="slds-input" value="{!endDate}"/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                <input id="endDate1" Class="slds-input" type="text" value="{!endDate}" disabled="disabled"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                        <div id="endDateHelp" class="slds-form-element__help hide">This field is required</div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element common-root">
+                                        <label class="slds-form-element__label">Chairperson</label>
+                                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                                            <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                <apex:inputField id="lookupchairperson" styleclass="slds-input lookup-prompt-user" value="{!selectUser.Chairperson__c}" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant=""/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                <input class="slds-input" type="text" value="{!chairperson}" disabled="disabled"/>
+                                            </apex:outputPanel>
+                                            <script>
+                                                var lkInput = document.getElementById("{!$Component.lookupchairperson}");
+                                                lkInput.style.visibility = "";
+                                                var lkSpan = lkInput.parentElement;
+                                                var lkLink = lkSpan.querySelector("a");
+                                                lkLink.style.visibility = "";
+                                                lkLink.style = "pointer-events: none";
+                                                lkLink.className = "";
+                                                lkLink.innerHTML = "";
+                                            </script>
+                                        </div>
+                                        
+                                        <div class="slds-lookup__menu results" role="listbox" style="display: none; width: auto;">
+                                            <div class="slds-lookup__item">
+                                                <button class="slds-button">
+                                                    <img class="slds-input__icon" src="{!$Resource.SVGLookupImage}" width="23" height="23" />&quot;<span class="results-keyword"></span>&quot; in Users
+                                                </button>
+                                            </div>
+                                            <ul class="slds-lookup__list results-ul" role="presentation">
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="slds-form-element common-root">
+                                        <label class="slds-form-element__label">NBAC Secretary</label>
+                                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                                            <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                <apex:inputField id="lookupNBACSecretary" styleclass="slds-input lookup-prompt-user" value="{!selectUser.NBAC_Secretary__c}" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant="" />
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                <input class="slds-input" type="text" value="{!nbacSecretary}" disabled="disabled"/>
+                                            </apex:outputPanel>
+                                            
+                                            <script>
+                                                var lkInput = document.getElementById("{!$Component.lookupNBACSecretary}");
+                                                lkInput.style.visibility = "";
+                                                var lkSpan = lkInput.parentElement;
+                                                var lkLink = lkSpan.querySelector("a");
+                                                lkLink.style.visibility = "";
+                                                lkLink.style = "pointer-events: none";
+                                                lkLink.className = "";
+                                                lkLink.innerHTML = "";
+                                            </script>
+                                        </div>
+                                        
+                                        <div class="slds-lookup__menu results" role="listbox" style="display: none; width: auto;">
+                                            <div class="slds-lookup__item">
+                                                <button class="slds-button">
+                                                    <img class="slds-input__icon" src="{!$Resource.SVGLookupImage}" width="23" height="23" />&quot;<span class="results-keyword"></span>&quot; in Users
+                                                </button>
+                                            </div>
+                                            <ul class="slds-lookup__list results-ul" role="presentation">
+                                            </ul>                           
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label" for="Time">Location</label>
+                                        <div class="slds-form-element__control">
+                                            <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                <apex:inputText id="location" styleclass="slds-input" value="{!location}"/>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                                <input id="location" class="slds-input" type="text" value="{!location}" disabled="disabled"/>
+                                            </apex:outputPanel>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </apex:outputPanel>
+
+                                <div class="slds-form-element" style="margin-top: 8px;">
+                                    <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                        <c:LDS_InputField sObject="{!selectUser}" field="Meeting_Notes__c" />
+                                    </apex:outputPanel>
+                                    <apex:outputPanel rendered="{!(!hasAccess) && (isSubmission || isCommittee)}">
+                                        <label class="slds-form-element__label">Meeting Notes</label>
+                                        <div class="richText">
+                                            <apex:outputText value="{!meetingNotes}" escape="false" />
+                                        </div>
+                                    </apex:outputPanel>
+                                </div>
+
+                            </fieldset>
+                            <!-- / MEETENG DETAILS -->
+                            <br/>
+                            <!-- AGENDA BUILDER -->
+                            <fieldset class="slds-box slds-theme--shade mw">
+                                
+                                <div class="slds-grid">
+                                    <div class="slds-col">
+                                        <h1 class="slds-text-heading--medium">Agenda</h1>
+                                    </div>
+                                    
+                                    <div class="slds-col slds-no-flex slds-align-middle">
+                                        <div class="slds-button-group" role="group">
+                                            <apex:outputPanel id="refreshAgendaOP">
+                                                <apex:commandButton styleClass="slds-button slds-button--neutral" value="Refresh Agenda" rendered="{!((!hasAccess) && (isSubmission || isCommittee)) || ERID == null}" disabled="true" />
+                                                <apex:commandButton styleClass="slds-button slds-button--neutral" style="border-radius: 4px; border-left: 1px solid #d8dde6;" 
+                                                                    value="Refresh Agenda" id="refreshAgendaBtn"
+                                                                    onclick="loading(); rfrshagenda('', '', '','','',''); return false;"
+                                                                    rendered="{!(hasAccess || !(isSubmission || isCommittee)) && ERID != null}" />
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <apex:outputPanel id="idAgenda" layout="block">
+                                    
+                                    <apex:outputPanel layout="block" id="errorMsgrmvAgd" rendered="{!IF(errorMsgrmvag == '', false, true)}">
+                                        <div class="slds-notify_container">
+                                            <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+                                                <span class="slds-assistive-text">Info</span>
+                                                <h2>{!errorMsgrmvag}</h2>
+                                            </div>
+                                        </div>
+                                    </apex:outputPanel>
+                                    <div id="agendaTBody">
+                                        <apex:outputPanel rendered="{!nbacsForNoting.size>0}">
+                                            <div class="aroundTable">
+                                                <div class="slds-col">
+                                                    <h1 class="slds-text-heading--small">NBACs for Noting</h1>
+                                                </div>
+                                                <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-table--fixed-layout smaller">
+                                                    <thead>
+                                                        <tr class="slds-text-heading--label" style="font-size: 90%;">
+                                                            <th scope="col" class="slds-truncate" style="width: 12%; padding-left: 12px;">
+                                                                <strong>Remove</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 8%;">
+                                                                <strong>Order</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 16%;">
+                                                                <strong>NBAC Name</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 21%;">
+                                                                <strong>Client<br/>Coordinator</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 10%;">
+                                                                <strong>MNPI</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 18%;">
+                                                                <strong>Milestone</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 15%; padding-right: 12px;">
+                                                                <strong>Action</strong>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        <apex:variable value="{!1}" var="rowNum"/>
+                                                        <apex:repeat value="{!nbacsForNoting}" var="aglst" rendered="{!nbacsForNoting.size>0}" >
+                                                            <tr id="{!aglst.Related_NBAC__c}" class="slds-hint-parent agendaTR">
+                                                                <td class="slds-truncate" data-label="Remove" style="padding-left: 8px;">
+                                                                    <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                                        <button id="removeBtn" class="slds-button slds-button--icon-small" onClick="loading();rmvagenda('{!JSINHTMLENCODE(aglst.ID)}', '', '', '','','','');return false;">
+                                                                            <apex:image url="{!$Resource.SVGCloseImage}" width="15" height="15"/>
+                                                                        </button>
+                                                                    </apex:outputPanel>
+                                                                </td>
+
+                                                                <td data-label="ORDER" class="slds-truncate">
+                                                                    {!FLOOR(rowNum)}
+                                                                </td>
+                                                                <td data-label="NBAC Name" class="slds-truncate">
+                                                                    <a id="viewRec" onclick="loading();goToRec('{!JSINHTMLENCODE(aglst.Related_NBAC__r.Id)}');return false;">{!aglst.Related_NBAC__r.Name}</a>
+                                                                </td>
+                                                                <td data-label="Client Coordinator" class="slds-truncate">{!aglst.Related_NBAC__r.Group_Parent_Client_Coordinator__c}</td>
+
+                                                                <td data-label="MNPI" class="slds-truncate">
+                                                                    <div class="slds-form-element">
+                                                                        <div class="slds-form-element__control">
+                                                                            <label class="slds-checkbox" >
+                                                                                <apex:inputCheckbox value="{!aglst.Related_NBAC__r.MNPI__c}" disabled="True" />
+                                                                                <span class="slds-checkbox--faux"></span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td data-label="Milestone" class="slds-truncate">{!aglst.NBAC_Status__c}</td>
+
+                                                                <td data-label="Action" class="slds-truncate">
+                                                                    <a id="viewagendaId" onclick="loading();toggleAgendaRow(this);inssubatt('{!JSINHTMLENCODE(aglst.ID)}','{!JSINHTMLENCODE(aglst.Related_NBAC__r.Id)}','{!JSINHTMLENCODE(aglst.Related_NBAC__r.Name)}','{!JSINHTMLENCODE(aglst.Related_NBAC__r.Submission_Type__c)}', '{!JSINHTMLENCODE(aglst.Related_NBAC__r.Group_Parent_Client_Name__c)}');return false;">View</a>
+                                                                </td>
+                                                            </tr>
+                                                            <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                                                        </apex:repeat>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!nbacsForNoting.size<1}" >
+                                            <style>
+                                                .slds-hint-parent:hover {
+                                                    background-color: yellow;
+                                                }
+                                            </style>
+
+                                            <div class="aroundTable">
+                                                <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-table--fixed-layout smaller fixHover">
+                                                    <thead>
+                                                        <tr class="slds-text-heading--label" style="font-size: 90%;">
+                                                            <th scope="col" class="slds-truncate" style="width: 12%; padding-left: 12px;">
+                                                                <strong>Remove</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 8%;">
+                                                                <strong>Order</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 16%;">
+                                                                <strong>NBAC Name</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 21%;">
+                                                                <strong>Client<br/>Coordinator</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 10%;">
+                                                                <strong>MNPI</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 18%;">
+                                                                <strong>Milestone</strong>
+                                                            </th>
+                                                            <th scope="col" class="slds-truncate" style="width: 15%; padding-right: 12px;">
+                                                                <strong>Action</strong>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody >
+                                                        <tr class="slds-hint-parent">
+                                                            <td data-label="Remove" >No records to display</td>
+                                                            <td data-label="Order"></td>
+                                                            <td data-label="NBAC Name"></td>
+                                                            <td data-label="Client Coordinator"></td>
+                                                            <td data-label="MNPI"></td>
+                                                            <td data-label="Milestone"></td>
+                                                            <td data-label="Action"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </apex:outputPanel>
+                                        <br/>
+                                        <apex:outputPanel rendered="{!nbacsForApproval.size>0}">
+                                        <div class="aroundTable">
+                                                <div class="slds-col">
+                                                    <h1 class="slds-text-heading--small">NBACs for Approval</h1>
+                                                </div>
+                                            <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-table--fixed-layout smaller">
+                                                <thead>
+                                                    <tr class="slds-text-heading--label" style="font-size: 90%;">
+                                                        <th scope="col" class="slds-truncate" style="width: 12%; padding-left: 12px;">
+                                                            <strong>Remove</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 8%;">
+                                                            <strong>Order</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 16%;">
+                                                            <strong>NBAC Name</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 21%;">
+                                                            <strong>Client<br/>Coordinator</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 10%;">
+                                                            <strong>MNPI</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 18%;">
+                                                            <strong>Milestone</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 15%; padding-right: 12px;">
+                                                            <strong>Action</strong>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                    <tbody>
+                                                    
+                                                    <apex:variable value="{!1}" var="rowNum"/>
+                                                    <apex:repeat value="{!nbacsForApproval}" var="aglst" rendered="{!nbacsForApproval.size>0}" >
+                                                        <tr id="{!aglst.Related_NBAC__c}" class="slds-hint-parent agendaTR">
+                                                            <td class="slds-truncate" data-label="Remove" style="padding-left: 8px;">
+                                                                <apex:outputPanel rendered="{!hasAccess || !(isSubmission || isCommittee)}">
+                                                                    <button id="removeBtn" class="slds-button slds-button--icon-small" onClick="loading();rmvagenda('{!JSINHTMLENCODE(aglst.ID)}', '', '', '','','','');return false;">
+                                                                        <apex:image url="{!$Resource.SVGCloseImage}" width="15" height="15"/>
+                                                                    </button>
+                                                                </apex:outputPanel>
+                                                            </td>
+                                                            
+                                                            <td data-label="ORDER" class="slds-truncate">
+                                                                {!FLOOR(rowNum)}
+                                                            </td>
+                                                            <td data-label="NBAC Name" class="slds-truncate">
+                                                                <a id="viewRec" onclick="loading();goToRec('{!JSINHTMLENCODE(aglst.Related_NBAC__r.Id)}');return false;">{!aglst.Related_NBAC__r.Name}</a>
+                                                            </td>
+                                                            <td data-label="Client Coordinator" class="slds-truncate">{!aglst.Related_NBAC__r.Group_Parent_Client_Coordinator__c}</td>
+                                                            
+                                                            <td data-label="MNPI" class="slds-truncate">
+                                                                <div class="slds-form-element">
+                                                                    <div class="slds-form-element__control">
+                                                                        <label class="slds-checkbox" >
+                                                                            <apex:inputCheckbox value="{!aglst.Related_NBAC__r.MNPI__c}" disabled="True" />
+                                                                            <span class="slds-checkbox--faux"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            
+                                                            <td data-label="Milestone" class="slds-truncate">{!aglst.NBAC_Status__c}</td>
+                                                            
+                                                            <td data-label="Action" class="slds-truncate">
+                                                                <a id="viewagendaId" onclick="loading();toggleAgendaRow(this);inssubatt('{!JSINHTMLENCODE(aglst.ID)}','{!JSINHTMLENCODE(aglst.Related_NBAC__r.Id)}','{!JSINHTMLENCODE(aglst.Related_NBAC__r.Name)}','{!JSINHTMLENCODE(aglst.Related_NBAC__r.Submission_Type__c)}', '{!JSINHTMLENCODE(aglst.Related_NBAC__r.Group_Parent_Client_Name__c)}');return false;">View</a>
+                                                            </td>
+                                                        </tr>
+                                                        <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                                                    </apex:repeat>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!nbacsForApproval.size<1}" >
+                                        <style>
+                                            .slds-hint-parent:hover {
+                                                background-color: yellow;
+                                            }
+                                        </style>
+                                    
+                                        <div class="aroundTable">
+                                            <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-table--fixed-layout smaller fixHover">
+                                                <thead>
+                                                    <tr class="slds-text-heading--label" style="font-size: 90%;">
+                                                        <th scope="col" class="slds-truncate" style="width: 12%; padding-left: 12px;">
+                                                            <strong>Remove</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 8%;">
+                                                            <strong>Order</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 16%;">
+                                                            <strong>NBAC Name</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 21%;">
+                                                            <strong>Client<br/>Coordinator</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 10%;">
+                                                            <strong>MNPI</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 18%;">
+                                                            <strong>Milestone</strong>
+                                                        </th>
+                                                        <th scope="col" class="slds-truncate" style="width: 15%; padding-right: 12px;">
+                                                            <strong>Action</strong>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tbody >
+                                                    <tr class="slds-hint-parent">
+                                                        <td data-label="Remove" >No records to display</td>
+                                                        <td data-label="Order"></td>
+                                                        <td data-label="NBAC Name"></td>
+                                                        <td data-label="Client Coordinator"></td>
+                                                        <td data-label="MNPI"></td> 
+                                                        <td data-label="Milestone"></td>
+                                                        <td data-label="Action"></td> 
+                                                    </tr> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </apex:outputPanel>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                
+                            </fieldset>
+                            <!-- / AGENDA BUILDER -->
+                            
+                            <br/>
+                            <apex:outputPanel id="idCommittee" layout="block">
+                                <c:MeetingConsole_CommitteeAttendees currentID="{!ERID}" hasallAccess="{!hasAccess}" issubattendee="{!isSubmission}" iscommattendee="{!isCommittee}"/>
+                            </apex:outputPanel>
+                        </fieldset>
+                        
+                        <fieldset class="slds-col--padded slds-small-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2"> <!--slds-small-size--1-of-1-->
+                            
+                            <fieldset class="slds-box slds-theme--shade mw">
+                                
+                                <apex:outputPanel id="idNBACCaption" layout="block">
+                                    <apex:outputPanel rendered="{!nbacName != null}">
+                                        <div class="slds-grid">
+                                            <div class="slds-col"><h1 class="slds-text-heading--medium">{!nbacName}</h1></div>
+                                        </div>
+                                        <div class="slds-grid" style="margin-top:2px">
+                                            <div class="slds-col"><h1 class="slds-text-heading--medium" style="font-size:18px"><apex:outputText value="{!gpClientName}" escape="false"/></h1></div>
+                                        </div>
+                                        <div class="slds-grid" style="margin-top:4px">
+                                            <div class="slds-col"><h1 class="slds-text-heading--medium" style="font-size:16px"><apex:outputText value="{!submissionType}" escape="false"/>&nbsp;</h1></div>
+                                        </div>
+                                    </apex:outputPanel>
+                                </apex:outputPanel>
+                                
+                                <br/>
+                                
+                                <!-- ACTION ITEMS -->
+                                <c:MeetingConsole_Tasks id="mct" currentOpptyId="{!nbacID}" currentOpptyName="{!nbacName}" currentGPClientName="{!gpClientName}"/>
+                                <!-- / ACTION ITEMS -->
+                                
+                                <br/>
+                                
+                                <!-- Attachments -->
+                                <c:MeetingConsole_Attachment id="mcattach" currentnbacId="{!nbacID}" hasedittoNBAC="{!hasNBACEdit}" />
+                                <!-- / Attachments -->
+                                
+                                <br/>
+                                
+                                <!-- SUBMISSION ATTENDEES -->
+                                <apex:outputPanel id="idSubmission" layout="block">
+                                    <c:MeetingConsole_SubmissionAttendees currenter="{!ERID}" currentag="{!agendaId}"  hasAccsub="{!hasAccess}" iscommitteesubpar="{!isCommittee}" issubmissionsubpar="{!isSubmission}"/>
+                                </apex:outputPanel>
+                                <!-- SUBMISSION ATTENDEES -->
+
+                            </fieldset>
+                            
+                        </fieldset>
+                    </apex:form>
+                
+                </fieldset>
+                
+            </div>
+            <!-- / PRIMARY CONTENT WRAPPER -->    
+            
+            <!-- FOOTER -->
+            <!-- / FOOTER -->    
+            
+        </div>
+        <!-- / REQUIRED SLDS WRAPPER -->    
+        <script>
+            function viewrec(URLtogo,recID) {
+                
+                if ( (typeof sforce != 'undefined') && (sforce!=null) ) {
+                    sforce.one.navigateToSObject(recID);
+                } else {
+                    window.open(URLtogo,'_blank');
+                }
+            }
+        
+            function goback(backURL,backURLSF1) {
+                if ( (typeof sforce != 'undefined') && (sforce!=null) ) {
+                    if(backURL != 'noback'){
+                        sforce.one.navigateToURL(backURLSF1);
+                    }
+                } else {
+                    if(backURL != 'noback'){
+                        window.location.href = backURL;
+                    }
+                }
+            }
+        
+            function promptResults(objectName, inputLookupObj, resultsObj, keywordObj, resultsUlObj) {
+                if(inputLookupObj.val().length < 3){
+                    resultsObj.css("display", "none");
+                }else{
+                    resultsObj.css("display", "block");
+                }
+                inputLookupObj.attr('aria-expanded', 'true');
+                keywordObj.html(inputLookupObj.val());
+                
+                var elRemoteMethod;
+                if (objectName == 'Contact') {
+                    elRemoteMethod = '{!$RemoteAction.MeetingConsoleLookupsSupport.queryContacts}';
+                } else if (objectName == 'User') {
+                    elRemoteMethod = '{!$RemoteAction.MeetingConsoleLookupsSupport.queryUsers}';
+                }
+                
+                // make it run only for longer inputs
+                if (inputLookupObj.val().length < 3) {
+                    return false;
+                }
+                
+                Visualforce.remoting.Manager.invokeAction(
+                    elRemoteMethod,
+                    inputLookupObj.val(),
+                    function(result, event) {
+                        if (event.status) {
+                            resultsUlObj.empty();
+                            
+                            if (result) {
+                                $(result).each(function() {
+                                    //console.log(this);
+                                    resultsUlObj.append('<li class="slds-lookup__item">' + 
+                                                        '<a id="' + this.id + '" href="javascript:void(0)" role="option">' + 
+                                                        '<img class="slds-input__icon" src="{!$Resource.SVGLookupImage}" width="23" height="23" />' +
+                                                        this.FirstName+ ' ' + this.LastName +'</a>' + 
+                                                        '</li>');
+                                });
+                                
+                                $('ul.slds-lookup__list a').click(function(e) {
+                                    inputLookupObj.val($(this)[0].innerText);
+                                    inputLookupObj.attr('aria-activedescendant', $(this)[0].id);
+                                    inputLookupObj.attr('aria-expanded', 'false');
+                                    resultsObj.css("display", "none");
+                                });
+                            }
+                            
+                        } else if (event.type === 'exception') {
+                            inputLookupObj = 'ERROR: ' + event.message;
+                        } else {
+                            inputLookupObj = 'ERROR: ' + event.message;
+                        }
+                    },
+                    {escape: true}
+                );
+            }
+            
+            function bindPrompts() {
+                $('input.lookup-prompt-user').each(function() {
+                    var inputLookupObj = $(this);
+                    var commonRootObj = inputLookupObj.parents('.common-root');
+                    var resultsObj = commonRootObj.find('.results');
+                    var keywordObj = resultsObj.find('.results-keyword');
+                    var resultsUlObj = resultsObj.find('.results-ul');
+                    
+                    inputLookupObj.keyup(function(e) {
+                        promptResults('User', inputLookupObj, resultsObj, keywordObj, resultsUlObj);
+                    });
+                });
+                
+                return false;
+            }
+            
+            $('document').ready(function() {
+                bindPrompts();
+                var viewlinkstr = $('.agendaTR');
+                console.log('+++++size'+viewlinkstr.length);
+                for(var i=0;i<viewlinkstr.length;i++){
+                    console.log(viewlinkstr[i]);
+                    console.log(viewlinkstr[i].id);
+                    var trid = viewlinkstr[i].id;
+                    console.log(trid);
+                    console.log('{!nbacID}');
+                    if(trid == '{!nbacID}'){
+                        viewlinkstr[i].className = 'slds-hint-parent agendaTR highlighted';
+                    }
+                }
+            });
+            
+            function autopopenddate(){
+                    var end = document.getElementById('{!$Component.formId.endDate}');
+                    end.value = $('[id$=startDate]').val();
+            }
+        </script>
+    </body>    
+    
+    <!-- JAVASCRIPT -->
+    
+    <!-- / JAVASCRIPT -->    
+    
+    </html>
+</apex:page>

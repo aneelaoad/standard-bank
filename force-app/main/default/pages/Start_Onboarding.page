@@ -1,0 +1,135 @@
+<!--    @ Author        :     Abhishek Vaideeswaran                                                                     -->
+<!--    @ Date          :     August 2015                                                                               -->
+<!--    @ Description   :     Page used to change KYC Location, Relationship Roles and update the corresponding Account -->
+<!--    @Last Modified By      :   Petr Svestka -->
+<!--    @Last Modified On      :   September 2015   -->
+<!--    @Last Modified Reason  :   EN-0842 - Added heading to the page -->
+
+<!--    @Last Modified By      :   Petr Svestka -->
+<!--    @Last Modified On      :   January 2016   -->
+<!--    @Last Modified Reason  :   EN-0961 - ading hidden primary_relationship_holder__c -->
+
+<!--    @Last Modified By      :   Olteanu Andrei -->
+<!--    @Last Modified On      :   October 2016 -->
+<!--    @Last Modified Reason  :   EN-0892 DEF-002170 - add LEX styling -->
+
+<!--    @Last Modified By      :   Manoj Gupta -->
+<!--    @Last Modified On      :   February 2016 -->
+<!--    @Last Modified Reason  :   EN-0892 DEF-002362 -- commented out 'js/jquery-2.2.4.min.js' -->
+
+<apex:page standardController="Account" sidebar="true" showHeader="true" standardStylesheets="false" extensions="Start_Onboarding" tabStyle="Account" id="Page">
+    <apex:stylesheet value="{!$Resource.OnboardingCSS}"/>
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.LightningTransformer, 'css/lt.css')}"></apex:stylesheet> 
+    <!-- apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/jquery-2.2.4.min.js')}"></apex:includeScript --> 
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/lt.js')}"></apex:includeScript> 
+    <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+    
+    <apex:outputPanel rendered="{!NOT(isLightning)}" >
+        <apex:form id="theForm">
+            <apex:pageblock mode="MainDetail">
+                 <h1 class="heading">Start Onboarding</h1>
+                 <p><apex:outputText styleClass="instructions" value="Please select a KYC location and Relationship Roles for {!Account.Name}:"/></p>
+                 <br/>
+                 
+                 <apex:pagemessages />
+                 
+                 <apex:pageBlockSection title="Select values" columns="1">
+                     <apex:inputField value="{!Account.KYC_Location__c}" required="True"/>
+                     <apex:inputField value="{!Account.Relationship_Roles__c}" required="true"/>
+                 </apex:pageBlockSection>
+                 
+                 <apex:pageBlockButtons location="Bottom">
+                     <apex:commandButton value="Cancel" action="{!cancel}"/>
+                     <apex:commandButton value="Select" action="{!selectconfirm}"/>
+                 </apex:pageBlockButtons>
+     
+                 <!--workaround for tests-->
+                 <apex:outputField value="{!Account.Primary_Relationship_Holder__c}" rendered="false"/>
+            </apex:pageblock>
+        </apex:form>
+    </apex:outputPanel>
+        
+    <apex:outputPanel styleClass="slds" rendered="{!isLightning}" id="theSlds">
+        <script>
+        function navigate(urltogo,isnbacrt,RTID){
+
+
+            if( document.getElementsByClassName("msgIcon").length == 0
+                && (typeof sforce != 'undefined') 
+                && (sforce != null) ) {  
+                   sforce.one.navigateToURL("/{!Account.ID}");
+                   sforce.one.editRecord("{!Account.ID}");   
+            }
+         }  
+        </script>
+    
+        <style>
+           .customFix {
+               text-align: center;
+               margin: auto;
+           }
+           .fa-search {
+               display: none !important;
+            }
+            .fa-asterisk {
+                display: none !important;
+            }
+            .multiSelectPicklistRow > td{
+                width:50%;
+            }
+            .multiSelectPicklistRow > td ~ td {
+                width:0;
+            }
+            .multiSelectPicklistCell {
+                width: 20px !important;
+            }
+        </style>
+        <apex:form id="theFormSlds">
+            <div class="slds-page-header">
+              <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                  <p class="slds-text-heading--label">Start Onboarding</p>
+                  <div class="slds-grid">
+                    <div class="slds-grid slds-type-focus slds-no-space">
+                      <h1 class="slds-text-heading--medium slds-truncate">Please select a KYC location and Relationship Roles for {!Account.Name}:</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <apex:pagemessages id="msgLds" />
+
+            
+            <div class="slds-button-group slds-text-align--center slds-show slds-m-vertical--medium" role="group" >
+                <apex:commandButton styleClass="slds-button slds-button--neutral buttonFix leftRadius" value="Cancel" action="{!cancel}" />
+                <apex:commandButton styleClass="slds-button slds-button--neutral buttonFix" value="Select" action="{!selectconfirmLDS}" reRender="msgLds" oncomplete="navigate();"/>
+            </div>
+            
+            <div class="slds-box slds-col--padded">
+               <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                  <div class="slds-p-horizontal--small slds-size--1-of-1">
+                    <div class="slds-grid slds-wrap" collapsible="False" id="pgblock0" title="Select values">
+                      <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Select values</span> </div>
+                    </div>
+                  </div>
+                  
+                  <div class="customFix">
+                      <div class="slds-p-horizontal--small slds-size--1-of-1">
+                                <label class="slds-text-heading" for="kycLocationId"><abbr class="slds-required" title="required">*</abbr>KYC Location</label> <br />
+                                <apex:inputField id="kycLocationId" value="{!Account.KYC_Location__c}" required="true" styleClass="slds-input" />
+                      </div>
+              
+                      <div class="slds-form-element slds-p-around--small">
+                        <label class="slds-text-heading"><abbr class="slds-required" title="required">*</abbr>Relationship Roles</label>
+                        <div class="slds-form-element__control">
+                          <apex:inputField value="{!Account.Relationship_Roles__c}" required="true" styleClass="slds-input" ></apex:inputField>
+                        </div>
+                      </div>
+                  </div>
+               </div>
+            </div>
+        </apex:form>
+    </apex:outputPanel>
+</apex:page>

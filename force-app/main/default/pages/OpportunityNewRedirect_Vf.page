@@ -1,0 +1,33 @@
+<!-- EN-#386 -  Shubham Khilauria 26/05/2014
+    Description: The VF Page runs the method "redirect" in the controller class on load
+    The method which redirects the user to the Lead Opportunity edit page for Lead Recordtype and ensures that the user
+    always land on this page while creating any opportunity.
+    Opportunity Stage is reduced to -
+    1 - Lead
+    2 - Develop
+    3 - Closed Won
+    4 - Closed Lost
+-->
+<apex:page standardController="Opportunity" extensions="OpportunityNewRedirect_Vf_Ext" action="{!redirect}">
+
+<apex:messages />
+
+<div id="waitdsp" >
+    <center>
+        <br/><br/>
+        <apex:outputtext style="font-family: Salesforce Sans, Arial, sans-serif;font-size: 14px;" value="Loading..."/>
+        <br/><br/>
+        <img src="{!$Resource.SF1_Loading_GIF}" alt="" title="Redirecting..." width="196"/>
+    </center>
+</div>
+    
+<script>
+        if( (typeof sforce != 'undefined') && (sforce != null) ) { 
+             sforce.one.navigateToURL("{!urlStrSF1}");
+         }else{   
+             window.location.href = "{!urlStr}";
+         }   
+             
+</script>
+  
+</apex:page>

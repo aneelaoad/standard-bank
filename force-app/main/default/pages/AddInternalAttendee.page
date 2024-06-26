@@ -1,0 +1,39 @@
+<apex:page controller="AddInternalAttendeesCtrl">
+    <apex:form >
+        <apex:sectionheader title="Event Report Attendees" subtitle="Add Event Report Attendees to {!sobjEventReport.Name}" ></apex:sectionheader> 
+        <apex:pagemessages />
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!lstAttendees}" var="att">
+                <apex:column width="5%" headerValue="Add/Remove">
+                    <apex:inputcheckbox value="{!att.bChecked}" disabled="{!att.bReportOwner}"/>
+                </apex:column>
+                <apex:column width="15%" headerValue="Attendee Name">
+                    <apex:outputField value="{!att.sobjAttendee.Contact_id__c}" />
+                    <apex:inputField value="{!att.sobjAttendee.Contact_id__c}" rendered="{!IF(att.sobjAttendee.Contact_id__c=null,True,False)}"/>
+                </apex:column>
+                <apex:column width="15%" headerValue="Client Team Role">
+                    <apex:outputText value="{!att.teamRole}" />
+                </apex:column>
+                <apex:column width="15%" headerValue="Status">
+                    <apex:inputField value="{!att.sobjAttendee.Status__c}"/>
+                </apex:column>
+             <!--   <apex:column width="15%" headerValue="Currency">
+                    <apex:outputText value="{!att.sobjAttendee.CurrencyIsoCode}" />
+                </apex:column> 
+                <apex:column width="15%" headerValue="Cost Per Attendee">
+                    <apex:inputField value="{!att.sobjAttendee.Costs_Per_Attendee__c}" />
+                </apex:column> -->
+                <apex:column width="15%" headerValue="Distribution">
+                    <apex:inputField value="{!att.sobjAttendee.Send_Email__c}" />
+                </apex:column>
+            </apex:pageBlockTable>
+            <br/>
+            <apex:commandLink value="Add Rows" action="{!addRow}"/>
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

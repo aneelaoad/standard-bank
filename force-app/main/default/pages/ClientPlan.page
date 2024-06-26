@@ -1,0 +1,1081 @@
+<apex:page showHeader="false" sidebar="false" name="Client Plan" title="Client Plan"  standardStyleSheets="true" standardController="Account"  extensions="ClientPlanClass" action="{!checkClientPlan}">
+  <head>
+  <apex:stylesheet value="{!$Resource.ClientPlanCSS}" />
+  <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+  <apex:stylesheet value="{!$Resource.SLDS_Overrides}" />
+  <apex:includeScript value="{!$Resource.Jquery1122}" />
+  <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+    
+  <apex:includeScript value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.full.min.js')}" />
+  <apex:stylesheet value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.css')}" />
+  <apex:includeScript value="{!URLFOR($Resource.CamJQuery, 'jquery-1.8.3.min.js')}"/>
+    <script >       
+         var  $j = jQuery.noConflict();
+           $j(document).ready(function() {
+                   $j(".floatingHeader" + " tr th div")
+                            .addClass("floatingStyle");
+            });
+            
+            function changeFloatingHeaderPosition(container, headerId) {
+          
+                         $j(".floatingHeader" + " tr th div")
+                            .addClass("floatingStyle");
+                          $j("#"+headerId + " tr th div")
+                            .animate({top:container.scrollTop},"fast");
+            }
+            
+            function editstdtask(ltng,urltogo){
+                if(ltng == 'false' || ltng == false){
+                    window.open(urltogo,'EditTask','height=700,width=1000,resizable=yes,scrollbars=1');
+                }
+            }
+            
+            
+             
+     </script>
+     <style>
+            .floatingStyle
+            {
+                position:relative;
+                background-color:#C0C0C0;
+                top:0px;
+            }
+     </style>
+     <script type="text/javascript">
+           var j$ = jQuery.noConflict();
+            j$(document).ready(function() {
+                j$('.fixme').fixheadertable({
+                     height  : 100
+                });
+           });
+     </script>
+     <style type="text/css">
+        html,
+        body {
+           margin:0;
+           padding:0;
+           height:100%;
+        }
+      
+        th {
+        white-space: normal;
+        }
+        
+        .hide{
+          display: none!important;
+        }
+       
+        div.fixedHeightFlow2 {
+        max-height: 90px;
+        font-family: Arial;
+         overflow-y: auto;
+        overflow-x: hidden;
+        }
+        div.fixedHeightFlow3 {
+        max-height: 80px;
+        font-family: Arial;
+        overflow: auto
+        }
+        div.fixedHeightFlowKT {
+        max-height: 120px;
+        font-family: Arial;
+         overflow-y: auto;
+        overflow-x: hidden;
+        }
+        div.fixedHeightFlowCST {
+        max-height: 120px;
+        font-family: Arial;
+        overflow-y: auto;
+        overflow-x: hidden;
+        }
+         div.fixedHeightFlowGCR {
+        max-height: 120px;
+        font-family: Arial;
+        overflow-y: auto;
+        overflow-x: hidden;
+        }
+        
+        div.fixedHeightFlowKI {
+        max-height: 200px;
+        font-family: Arial;
+        overflow-y: auto;
+        overflow-x: hidden;
+        }
+        
+        div.fixedHeightFlowTO {
+        max-height: 300px;
+        font-family: Arial;
+        overflow-y: auto;
+        overflow-x: hidden;
+        }
+        
+        div.fixedHeightFlowWL {
+        max-height: 300px;
+        font-family: Arial;
+        overflow-y: auto;
+        overflow-x: hidden;
+        }
+        .wrapNoBreak {
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        hyphens: auto;
+        }
+        .footerRow {
+        background-color: #F5CB55;
+        font-size:13px;
+        text-align:center;
+        color:black;
+        }
+        .footerFix{
+        text-align:center;
+        font-size:13px;
+        }
+      </style>
+      <style type="text/css">
+        @page {
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin-top: 0.5cm;
+        margin-left: 0.5cm;
+        margin-right: 0.5cm;
+        font-family: 'Arial';
+        @
+        bottom-left
+        {
+        content
+        :
+        "Page "
+        counter(
+        page
+        );}
+        .wrapword {
+        white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        white-space: pre-wrap; /* css-3 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+        word-break: break-all;
+        white-space: normal;
+    
+        }
+        @
+        top-center {
+        content: element(header);
+        }
+        }
+        div.header {
+        position: running(header);
+        }
+      </style>
+      <style type="text/css">
+         table.exceptionText td {
+                 font-style:normal;
+                 font-size:16px;
+                 font-weight:bold;
+                 text-align:center;
+                 color:red;}
+    </style>
+    </head>
+    <body>
+        <apex:form id="noAccessForm" rendered="{!If((OR(NOT(checkPermission), showError)), true,false)}">
+         
+           <table width="100%" align="center" Style="border:none;">
+                <tr>
+                    <td style="color:black;border:none;">
+                        <font size="3"><b><apex:outputText >Insufficient Privileges</apex:outputText></b></font>
+                    </td>
+                </tr>
+                <tr>
+                    <td Style="border:none;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="color:black;border:none;">You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.</td>
+                </tr>
+                <tr>
+                    <td Style="border:none;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="color:black;border:none;">
+                        Click <apex:commandlink value="here" onclick="window.close();return false;"/> to close this window.
+                    </td>
+                </tr>
+            </table>
+        </apex:form>
+        <apex:form id="headerform" rendered="{!checkPermission && NOT(showError)}" >
+            <apex:messages />
+            <apex:pagemessages id="pgmsgcp"/>
+            <table align="center"  width="100%" style="border:none;">
+              <tr>
+                <td align="left" width="30%" style="border:none;">
+                <table style="table-layout: fixed;">
+                      <tr>
+                        <td>
+                      <apex:OutputText value="Individually Budgeted Client (IBC) :" />
+                        </td>
+                        <td/>
+                        <td style="float:left">
+                       <Strong>
+                        <apex:OutputText value="Yes" rendered="{!Account.CIB_Target_Client__c}" />
+                        <apex:OutputText value="No" rendered="{!NOT(Account.CIB_Target_Client__c)}" />
+                      </Strong>
+                      </td>
+                      </tr>
+                      <tr>
+                      <td> 
+                      <apex:OutputText value="Last Modified Date :" />
+                      </td>
+                      <td/>
+                      <td style="float:left">
+                      <Strong>
+                        <apex:outputtext value="{0,date, d MMM yyyy}">
+                          <apex:param value="{!lastModifiedDate}" />
+                        </apex:outputtext>
+                      </Strong>
+                      </td>
+                      </tr>
+                      <apex:outputpanel rendered="{!showApprFields}">
+                          <tr>
+                          <td>
+                          <!-- EN-0632 -->
+                          <apex:OutputText value="Status:" rendered="{!showApprFields}" />
+                          </td>
+                          <td/>
+                          <td style="float:left">
+                           <Strong>
+                               <apex:OutputText value="{!sObjClientPlan.Client_Plan_Status__c}" rendered="{!showApprFields}" />
+                           </Strong>
+                           </td>
+                           </tr>
+                           <tr>
+                           <td>
+                           <apex:OutputText value="Approved By:" rendered="{!showApprFields}" /></td>
+                           <td/>
+                            <td style="float:left">
+                           <Strong>
+                                <apex:repeat value="{!lstProInstance}" var="prInc">
+                                    <apex:repeat value="{!prInc.Steps}" var="stp">
+                                     <apex:OutputText value="{!Stp.Actor.Name}" rendered="{!showApprStatus}" />
+                                    </apex:repeat>
+                                </apex:repeat>
+                           </Strong>
+                           </td>
+                           </tr>
+                       </apex:outputpanel>
+                       <!-- EN-0632 -->
+                       <!-- EN-0690 -->
+                        <apex:outputPanel rendered="{!IF(NOT(ISBLANK(overallRating)) && !hideProspect, true, false)}">
+                            <tr>
+                                <td>
+                                    <apex:outputText value="Overall CIB CSI Rating:"/></td>
+                                <td style="padding:0px">
+                                    <apex:image url="{!URLFOR($Resource.CamProducts, overallRatingIndicator)}" alt="status color"/>
+                                </td>
+                                <td style="float:left">
+                                    <Strong>
+                                        <apex:OutputText value="{!overallRating}"/>
+                                    </Strong></td>
+                                <td/>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputText value="Latest CSI Rating Year:"/>
+                                </td>
+                                <td/>
+                                <td  style="float:left">
+                                    <Strong>
+                                        <apex:OutputText value="{!surveyYear}"/>
+                                    </Strong>
+                                </td>
+                            </tr>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(ISBLANK(overallRating) && !hideProspect, true, false)}">
+                            <tr>
+                                <td>
+                                    <apex:outputText value="Overall CIB CSI Rating:"/></td>
+                                <td style="padding:0px">
+                                    <apex:image url="{!URLFOR($Resource.CamProducts,'grey-small.png')}"/>
+                                </td>
+                                <td style="float:left">
+                                    <Strong>
+                                        <apex:OutputText value="Not Rated"/>
+                                    </Strong></td>
+                                <td/>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <apex:outputText value="Latest CSI Rating Year:"/>
+                                </td>
+                            </tr>
+                        </apex:outputPanel>
+                       <!-- EN-0690 -->
+                       </table>
+                    </td>
+                
+                <!-- Display the Account Name -->
+                <td align="center" width="40%" style="border:none;">
+                  <Strong>
+                    <p style="text-align: center;">
+                      <font size="4">
+                        <apex:outputtext style="font-family:Arial;font-size:28px;font-weight:normal;font-style:normal;text-align: center;text-decoration:none;color:#333333;"
+                          Value="{!ClientPlanName}"></apex:outputtext>
+                      </font>
+                    </p>
+                  </Strong>
+                </td>
+                <td align="right" width="30%" style="border:none;" >
+                  <apex:image url="{!URLFOR($Resource.CamProducts,'StandardBankTrans.png')}"
+                    width="250" height="60" />
+                </td>
+              </tr>
+            </table>
+            <table  style="border:none;" align="center" cellspacing="0" cellpadding="0">
+              <tr>
+                <td  style="border:none;" valign="middle" align="center"> 
+                  <span>
+                    <apex:image url="{!URLFOR($Resource.CamProducts,'USDZAR2.png')}" height="60"/>
+                  </span>
+                </td>
+                <td  style="border:none;" valign="middle"  align="left"> 
+                 <apex:selectList value="{!cPlanCurrencyTop}"
+                    multiselect="false" size="1">
+                    <apex:selectOptions value="{!currencies}" />
+                  </apex:selectList>
+                  <apex:commandButton value="Save & Refresh" action="{!refreshPage1}"
+                    id="acctheButton2" disabled="{!disableEdit}"></apex:commandButton>
+                  <apex:commandButton value="Print PDF" onclick="x=window.open('{!urlfor($Page.ClientPlanPDF,null,[id=Account.id])}','ClientPlanPDF','height=600,width=800,resizable=1');return false;" />
+                  <apex:commandButton action="{!attachClientPlan}" onclick="alert('A new PDF version was added to the Client Plan History related list for this Client');" value="Attach to Client Page" id="attversion2" disabled="{!disableEdit}"/>
+                  <apex:commandButton id="notesAtt1" disabled="{!disableEdit}"
+                    onclick="x=window.open('{!urlfor($Page.SB_Client_Attachment,null,[id=clientPlanId,core.apexpages.devmode.url=1])}','SB_Client_Attachment','height=1000,width=800,screenX=1000,left=500,screenY=150,top=150,toolbar=0,menubar=0,titlebar=0');return false;"
+                    value="Show Files" />
+                  
+                </td>
+              </tr>
+            </table>
+    <!-- Start of the Clients perspective and the Banks perpective table -->
+    <table style="margin: 0px auto;border:none;" align="center" cellpadding="2" cellspacing="2" width="100%">
+      <tr>
+        <th  align="left" bgcolor="#02367A" valign="top" width="50%" height="25" style="border:none;"> 
+          <p style="text-align: center;">
+            <FONT COLOR="white" SIZE="2">Client</FONT>
+          </p>
+        </th>
+        <th  align="left" bgcolor="#02367A" valign="top" width="50%" height="25" style="border:none;">
+          <p style="text-align: center;">
+            <FONT COLOR="white" SIZE="2">Bank</FONT>
+          </p>
+        </th>
+      </tr>
+      <tr>
+        <td width="50%" valign="top">
+                    <table border="1" cellpadding="0" style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;width:100%;">
+                        <tr>
+                            <th  align="left" bgcolor="#B1C3E1"  height="20" style="border:solid 1px;">
+                                <FONT COLOR="white" SIZE="2" > Client Description </FONT>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td  align="left" bgcolor="white"
+                              height="10" style="border:solid 1px;">
+                              <FONT COLOR="Black" SIZE="2" >
+                                <div class="fixedHeightFlow2  wrapNoBreak">
+                                 <apex:outputField value="{!Account.Description}" />
+                                </div>
+                              </FONT>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th  align="left" valign="top" bgcolor="#B1C3E1" 
+                              height="10" style="border:solid 1px;"><FONT COLOR="white" SIZE="2">Client Strategy</FONT>
+                            </th>
+                          </tr>
+                          <tr>
+                            <th  align="left" bgcolor="#C0C0C0" 
+                              height="10" style="border:solid 1px;"><FONT COLOR="white" SIZE="2">Long Term Strategy</FONT>
+                            </th>
+                          </tr>
+                          <tr>
+                            <td  align="left" bgcolor="white" width="50%" height="10" style="border:solid 1px;">
+                              <FONT COLOR="Black" SIZE="2">
+                                <div class="fixedHeightFlow2  wrapNoBreak">
+                                  <apex:outputField value="{!Account.Long_Term_Strategy__c}" />
+                                </div>
+                              </FONT>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th align="left" bgcolor="#C0C0C0" height="10" style="border:solid 1px;">
+                                <FONT COLOR="white" SIZE="2">Short Term Objectives</FONT>
+                            </th>
+                          </tr>
+                          <tr>
+                            <td align="left" bgcolor="white" height="10" style="border:solid 1px;">
+                              <FONT COLOR="Black" SIZE="2">
+                                <div class="fixedHeightFlow3  wrapNoBreak">
+                                  <apex:outputField value="{!Account.Short_Term_Objectives__c}" />
+                                </div>
+                              </FONT>
+                            </td>
+                          </tr>
+                     </table>
+        </td>
+        <th  width="50%" style="border:none;" valign="top">
+          <c:ProductPotentialCP ClientID="{!Account.id}" DisableEdit="{!disableEdit}" ClientPrimaryRelationshipHolder="{!Account.Primary_Relationship_Holder__c}" isltng="{!islightning}"/>
+        </th>
+      </tr>
+      <!-- Key Client Contacts -->
+      <tr>
+        <td width="50%" valign="top">
+            <table border="0" cellpadding="0" style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;width:100%;">
+            <tr>
+            <td width="50%" style="margin-top: 0px;border:none;" valign="top">
+              <c:ClientContactCP ClientID="{!Account.id}" DisableEdit="{!disableEdit}" isltng="{!islightning}"/>
+            </td>
+            </tr>
+            <!-- Current Relationships -->
+            <tr>
+                <th align="left" bgcolor="#B1C3E1" width="50%" style="border:solid 1px;"
+                      height="10"><FONT COLOR="white" SIZE="2">Client Current Relationship</FONT>
+                </th>
+            </tr>
+            <tr>
+                <th  align="left" bgcolor="#C0C0C0" width="50%" style="border:solid 1px;"
+                      height="10"><FONT COLOR="white" SIZE="2">Nature of Relationship</FONT>
+                </th>
+            </tr>
+            <tr>
+                    <td  align="center" bgcolor="white" width="50%" height="30" style="border:solid 1px;">
+                      <FONT COLOR="Black" SIZE="2">
+                        <apex:repeat value="{!Relationship}" var="pv">
+                                <apex:image url="{!URLFOR($Resource.Checkbox,'Unchecked.png')}" 
+                                    rendered="{!if(Account.Nature_of_Relationship__c != pv,true,false)}" />
+                                <apex:image url="{!URLFOR($Resource.Checkbox,'Checked.png')}" 
+                                    rendered="{!if(Account.Nature_of_Relationship__c == pv,true,false)}" />  
+                                   <apex:outPutText value="{!pv}" style="padding-right:7.5%;" />
+                        </apex:repeat>
+                      </FONT>
+                    </td>
+             </tr>
+             <tr>
+                    <th  align="left" bgcolor="#C0C0C0" width="50%" style="border:solid 1px;"
+                      height="10"><FONT COLOR="white" SIZE="2">Comments</FONT></th>
+             </tr>
+             <tr>
+                    <td align="left" bgcolor="white" width="50%"
+                      height="50" style="border:solid 1px;">
+                      <FONT COLOR="Black" SIZE="2">
+                        <div class="fixedHeightFlow2  wrapNoBreak">
+                         <apex:outputField value="{!Account.Client_Current_Relationship__c}" />
+                        </div>
+                      </FONT>
+                    </td>
+              </tr>     
+            </table>
+        </td>
+        <!-- Insert Client Wallet Table -->       
+        <td   style="margin-top: 0px;border:none;" width="50%" valign="top">
+          <c:Client_WalletCP rendered="true" ClientId="{!Account.Id}"  Currency="{!ISO}"/>
+        </td>
+      </tr>
+      <tr>
+        <!-- Insert the Public Financial Analysis VF Component -->
+        <td align="left" width="45%" style="border:none;" valign="top">
+          <c:PublicFinancialAnalysis_CP FDID="{!Account.id}" />
+        </td>
+         <td align="right" width="50%" style="border:none;" valign="top">
+          <!-- Insert the Global Client Revenue VF Component -->      
+            <c:CPGlobalClientRevenue rendered="true" ClientId="{!Account.Id}" Currency="{!ISO}" />
+        </td>
+       </tr>
+       <tr>
+        <!-- Insert the Client Operating Countries Component Section (VF Component) -->
+        <td align="left" width="45%" style="border:none;" valign="top">
+            <c:ClientOperatingCountriesComponent ClientId="{!Account.Id}" />
+        </td>
+        <!-- Insert the Key Indicators VF Component -->
+        <td width="50%" style="border:none;" valign="top"> 
+          <div class="fixedHeightFlowKI  wrapNoBreak" >
+            <c:KeyIndicators_CP KIID="{!Account.id}" />
+          </div>
+        </td> 
+      </tr>
+      <!-- Insert the Client Service Team  -->              
+      <tr>
+        <td align="left" width="45%" style="border:none;" valign="top">
+            <apex:outputPanel layout="block" style="overflow: auto; height: 260px">
+                <c:CsiComponent pageControllerAttr="{!clientPlan}" clientid="{!Account.id}"/>
+            </apex:outputPanel>
+        </td>
+          <td valign="top" style="border: none;">
+
+            <table align="left" width="100%" style="border: none; margin-top: 0px;">
+                <tr>
+                    <td><!--client team begin-->
+                        <table style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;border-bottom:none;"
+                                width="100%" cellspacing="0" cellpadding="0" border="1">
+                            <tr>
+                                <th align="left" bgcolor="#B1C3E1" width="100%" height="25" style="border:none;" >
+                                    <FONT COLOR="white" SIZE="2">Client Team</FONT>
+                                </th>
+                            </tr>
+                        </table>
+                        <div class="floatingContainer" onscroll="changeFloatingHeaderPosition(this, 'idHeader' );" style="max-height: 100px;font-family: Arial;overflow-y: auto;overflow-x: hidden;">
+                            <table  style="border-collapse: collapse; margin-top: 0px;border-top:none;"
+                                    border="1" width="100%" cellspacing="0" cellpadding="0" >
+                                <thead  class="floatingHeader" id="idHeader" >
+                                <tr>
+                                    <th align="center" bgcolor="#C0C0C0" width="5%" height="10" valign="top" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;border-left:none;">
+                                            <FONT COLOR="white" SIZE="2">&nbsp;</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" width="30%" height="10" valign="top" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2">Team Member</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" width="25%%" height="10" valign="top" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2">Team Role</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" width="20%" height="10" valign="top" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2">User Division</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" width="20%" height="10" valign="top" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2">User Country</FONT>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <apex:repeat value="{!ClientTeam}" var="cst" >
+                                    <apex:outputpanel rendered="{!If(cst.team.Client_Coordinator__c == true,true,false)}" layout="block">
+                                        <tr>
+                                            <td align="left" bgcolor="#FFFFFF" height="10"   width="5%" Style="border:1px  solid;border-top:none;">
+                                                <apex:inputCheckBox value="{!cst.checked}"/>
+                                            </td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="30%" Style="border:1px  solid;border-top:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">
+                                                    <a href="/{!cst.team.Team_Member__r.Id}" target="_blank">
+                                                        <b>{!cst.team.Team_Member__r.Name}</b>
+                                                    </a>
+                                                </FONT>
+                                            </td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="25%" Style="border:1px  solid;border-top:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">
+                                                    <b>{!cst.team.Client_Role__c}</b>
+                                                </FONT>
+                                            </td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="20%" Style="border:1px  solid;border-top:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">
+                                                    <b>{!cst.team.User_Division__c}</b>
+                                                </FONT>
+                                            </td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="20%" Style="border:1px  solid;border-top:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">
+                                                    <b>{!cst.team.User_Country__c}</b>
+                                                </FONT>
+                                            </td>
+                                        </tr>
+                                    </apex:outputpanel>
+
+                                    <apex:outputpanel rendered="{!If(cst.team.Client_Coordinator__c == false,true,false)}" layout="block">
+                                        <tr>
+                                            <td align="left" bgcolor="#FFFFFF" height="10"   width="5%" Style="border:1px  solid;border-top:none;"><apex:inputCheckBox value="{!cst.checked}"/></td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="30%" Style="border:1px  solid;border-top:none;"><FONT
+                                                    face="Arial" COLOR="black" SIZE="2"><a
+                                                    href="/{!cst.team.Team_Member__r.Id}" target="_blank">{!cst.team.Team_Member__r.Name}</a></FONT></td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="25%" Style="border:1px  solid;border-top:none;"><FONT
+                                                    face="Arial" COLOR="black" SIZE="2">{!cst.team.Client_Role__c}</FONT></td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="20%" Style="border:1px  solid;border-top:none;"><FONT
+                                                    face="Arial" COLOR="black" SIZE="2">{!cst.team.User_Division__c}</FONT></td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" width="20%" Style="border:1px  solid;border-top:none;"><FONT
+                                                    face="Arial" COLOR="black" SIZE="2">{!cst.team.User_Country__c}</FONT></td>
+                                        </tr>
+                                    </apex:outputpanel>
+                                </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td><!--client team end-->
+                </tr>
+                <tr>
+                    <!--client subsidiary beginning-->
+                    <td>
+                            <apex:outputPanel id="ldstaskpanel">
+                                <c:LDS_Taskcomponent currentOpptyId="{!Account.Id}" currentOpptyName="{!Account.Name}" currentTaskId="{!ldstaskId}" disablenew="{!disableEdit}" isltng="{!islightning}"/>
+                            </apex:outputPanel>
+                            <div class="floatingContainer" onscroll="changeFloatingHeaderPosition(this, 'idHeaderKT' );" style="max-height: 100px;font-family: Arial;overflow-y: auto;overflow-x: hidden;"> 
+                            <table cellspacing="0" cellpadding="0" style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;width:100%;border-top:none;" border="1">
+                                <thead class="floatingHeader" id="idHeaderKT" >
+                                <tr>
+                                    <th align="left" bgcolor="#C0C0C0" height="10" width="5%" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;border-left:none;">
+                                            <FONT COLOR="white" SIZE="2">&nbsp;</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" height="10" width="15%" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2">Action</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" height="10" width="25%" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2" >Subject</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" height="10" width="25%" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2" >Assigned To</FONT>
+                                        </div>
+                                    </th>
+                                    <th align="center" bgcolor="#C0C0C0" height="10" width="30%" Style="border:none;">
+                                        <div Style="border:1px  solid; border-right:none;text-align:center;">
+                                            <FONT COLOR="white" SIZE="2">Due Date</FONT>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                    <apex:repeat value="{!Tasks}" var="task">
+                                        <tr>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" Style="border:1px  solid;border-top:none;">
+                                                <apex:inputCheckBox value="{!task.checked}"/>
+                                            </td>
+                                            <td align="left" bgcolor="#FFFFFF" height="10" Style="border:1px  solid;border-top:none;border-right:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">
+                                                    <apex:commandlink value="Edit" id="editTasklds" rendered="{!islightning}"
+                                                                    rerender="ldstaskpanel">
+                                                        <apex:param name="sendTaskId" value="{!task.tsk.Id}" assignTo="{!ldstaskId}"/>
+                                                    </apex:commandlink>
+                                                    <apex:commandlink value="Edit" id="editTaskclassic"
+                                                                          onclick="window.open('{!urlfor($Action.Task.Edit,task.tsk.Id,[retURL=urlfor($Page.windowClose,null)])}','EditTask','height=700,width=1000,resizable=yes,scrollbars=1');return false;" rendered="{!!islightning}" />
+                                                </FONT>
+                                            </td>
+                                            <!--  Changed the Output Text to Output Link for Redirecting to Task Detail Page -->
+                                            <td align="left" bgcolor="#FFFFFF" height="10" Style="border:1px  solid;border-top:none;border-right:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">
+                                                    <apex:outputLink onclick="window.open('{!urlfor($Action.Task.View,task.tsk.Id)}','ViewTask','height=700,width=1000,resizable=yes,scrollbars=1');return false;">
+                                                            {!task.tsk.Subject}
+                                                    </apex:outputLink>
+                                                </FONT>
+                                            </td >
+                                            <!--  Changes End -->
+                                            <td align="left" bgcolor="#FFFFFF" height="10" Style="border:1px  solid;border-top:none;border-right:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">{!task.tsk.Owner.Name}</FONT>
+                                            </td >
+                                            <td align="center" bgcolor="#FFFFFF" height="10" Style="border:1px  solid;border-top:none;">
+                                                <FONT face="Arial" COLOR="black" SIZE="2">
+                                                    <apex:outputfield value="{!task.tsk.ActivityDate}"/>
+                                                </FONT>
+                                            </td >
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                            </div>
+                            <table style="border-collapse: collapse; margin-top: 5px;"
+                                   border="1" width="100%">
+                                <tr>
+                                    <th align="left"  bgcolor="#B1C3E1" width="100%" height="10" >
+                                        <FONT COLOR="white" SIZE="2">Client Marketing Strategy</FONT>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td align="left" bgcolor="white" width="100%" height="10" style="border:none;" >
+                                        <FONT COLOR="Black" SIZE="2">
+                                            <div class="fixedHeightFlow2  wrapNoBreak">
+                                                <apex:outputField value="{!Account.Client_Marketing_Strategy__c}" />
+                                            </div>
+                                        </FONT>
+                                    </td>
+                                </tr>
+                            </table>
+                    </td>
+                    <!--client subsidiary end-->
+                </tr>
+
+            </table>
+
+          </td><!--end of the line with CSI-->
+
+      </tr>
+
+      <!-- Business Perspective -->     
+      <tr>
+        <th colspan="2"  align="left" bgcolor="#02367A"
+          valign="top" width="100%" height="25" style="text-align: center;"><FONT
+          COLOR="white" SIZE="2">Business</FONT></th>
+      </tr>
+      <!-- CIB Strategy -->             
+      <tr>
+          <td colspan="2">
+              <table style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;border-bottom:none;"
+              border="1" width="100%" >
+                  <tr>
+                    <th align="left" bgcolor="#B1C3E1"
+                      valign="top" width="100%" height="10" style="border:solid 1px;"><FONT COLOR="white"
+                      SIZE="2">Our Strategy For This Client</FONT></th>
+                  </tr>
+                  <tr>
+                    <td align="left" bgcolor="white"
+                      width="100%" height="10" valign="top" style="border:solid 1px;">
+                      <FONT COLOR="Black"
+                        SIZE="2">
+                        <div class="fixedHeightFlow2">
+                          <apex:outputField value="{!Account.Client_Strategy__c}" />
+                        </div>
+                      </FONT>
+                    </td>
+                  </tr>
+              </table>
+          </td>
+      </tr>
+      <!-- Client and Subsidiary Pipelines  -->     
+      <tr>
+      <td colspan="2">
+      <table style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;"
+              border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <th align="left" bgcolor="#B1C3E1"
+          valign="top" width="100%" height="10" style="border:solid 1px;"><FONT COLOR="white"
+          SIZE="2">Client and Subsidiary Pipeline</FONT></th>
+      </tr>
+      <tr>
+        <th align="left" bgcolor="#C0C0C0"
+          valign="top" width="100%" height="10" style="border:solid 1px;border-bottom:none;">
+          <FONT COLOR="white"
+            SIZE="2">Open Opportunities ('000) ({!ISO}) </FONT>
+          <apex:commandButton rendered="{! !isLightning}" value="New Opportunity" Style="float:right;" id="newOpp" disabled="{!disableEdit}"
+            onclick="window.open('{!urlfor($Action.Opportunity.New,null,[opp4=Account.Name,retURL=urlfor($Page.windowClose,null)])}','NewOpportunity','height=700,width=1000,resizable=yes,scrollbars=1');return false;" />
+          <apex:commandButton rendered="{! isLightning}" value="New Opportunity" Style="float:right;" id="newOppLtng" disabled="{!disableEdit}"
+            onclick="window.open('{!urlfor(ltngNewOppAddress)}','NewOpportunity','height=700,width=1000,resizable=yes,scrollbars=1');return false;" />
+        </th>
+      </tr>
+      <!-- Top Opportunities Table -->     
+      <tr>
+        <td width="100%" style="border:none;">
+        <div onscroll="changeFloatingHeaderPosition(this, 'idHeaderTO' );" style="max-height: 300px;font-family: Arial;overflow-y: auto;overflow-x: hidden;">
+          <table style="border-collapse: collapse; margin-top: 0px;border-top:none;"
+            border="1" width="100%" cellspacing="0" cellpadding="0" >
+            <thead class="floatingHeader" id="idHeaderTO" style="border:none;">
+            <tr>
+             <th bgcolor="#C0C0C0" valign="top" width="2%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none;border-left:none;"><FONT COLOR="black" SIZE="2">&nbsp;</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="5%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Action</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Client Name</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Opportunity Name</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="13%"
+                height="25" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Grand
+                Parent Product</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Probability</FONT></div></th>
+               <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Stage</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Current Year Weighted Revenue</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Total Weighted Revenue (Expected)</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Estimated Close Date</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Opportunity
+                Owner</FONT></div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!Opportunitylst}" var="opps">
+              <tr>
+               <td align="left" bgcolor="white" valign="top" width="2%"
+                  height="20" style="border-top:none;">
+                   <apex:inputCheckBox value="{!opps.checked}"/>
+                  </td>
+                <td align="left" bgcolor="white" valign="top" width="5%"
+                  height="20" style="border-top:none;">
+                  <FONT COLOR="black" SIZE="2">
+                    <apex:commandlink value="Edit" id="editOpp"
+                      onclick="window.open('{!urlfor($Action.Opportunity.Edit,opps.opp.Id,[retURL=urlfor($Page.windowClose,null)])}','EditOpportunity','height=700,width=1000,resizable=yes,scrollbars=1');return false;" />
+                    &nbsp;
+                  </FONT>
+                </td >
+                <td align="left" bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;"><FONT COLOR="black" SIZE="2"><a
+                  href="/{!opps.opp.AccountId}" target="_blank">{!opps.opp.Account.name}</a></FONT></td >
+                <td align="left" bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;"><FONT COLOR="black" SIZE="2"><a
+                  href="/{!opps.opp.Id}" target="_blank">{!opps.opp.Name}</a></FONT></td >
+                <td align="left" bgcolor="white" valign="top" width="13%"
+                  height="20" style="border-top:none;"><FONT COLOR="black" SIZE="2" >{!OppGPPMap[opps.opp.Id]}</FONT></td >
+                <td  bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;text-align:center;"><FONT COLOR="black" SIZE="2" >{!opps.opp.Probability}</FONT></td >
+                 <td align="left" bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;"><FONT COLOR="black" SIZE="2" >{!opps.opp.StageName}</FONT></td >
+                <td  bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;text-align:center;"><FONT COLOR="black" SIZE="2" >
+                   <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opps.currentRev}"/>
+                                              </apex:outputText></FONT></td >
+                <td  bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;text-align:center;"><FONT COLOR="black" SIZE="2" >
+                   <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opps.totalRev}"/>
+                                              </apex:outputText>
+                 </FONT></td >
+                <td bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;text-align:center;">
+                  <FONT COLOR="black" SIZE="2">
+                    <apex:outputfield value="{!opps.opp.CloseDate}" />
+                  </FONT>
+                </td >
+                <td align="left" bgcolor="white" valign="top" width="10%"
+                  height="20" style="border-top:none;"><FONT COLOR="black" SIZE="2" ><a
+                  href="/{!opps.opp.OwnerId}" target="_blank">{!opps.opp.Opportunity_Owner_Lookup__r.Name}</a></FONT></td >
+              </tr>
+            </apex:repeat></tbody>
+          </table></div>
+        </td>
+      </tr>
+      
+      </table>
+      </td>
+      </tr>
+      <!-- Won /Lost Deals -->
+      <tr>
+      <td colspan="2">
+      <table style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;"
+              border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <th align="left" bgcolor="#C0C0C0"
+          valign="top" width="100%" height="10" style="border:1px solid; border-bottom:none;"><FONT COLOR="white"
+          SIZE="2">Won / Lost Opportunities ('000) ({!ISO})</FONT>
+          <Span style="float:right">
+          <FONT COLOR="white"
+          SIZE="2">Over Last 6 Months</FONT>
+          </Span>
+          </th>
+      </tr>
+      <tr>
+        <td width="100%" style="border:none;">
+        <div onscroll="changeFloatingHeaderPosition(this, 'idHeaderWL' );" style="max-height: 250px;font-family: Arial;overflow-y: auto;overflow-x: hidden;">
+          <table style="border-collapse: collapse; margin-top: 0px;border-top:none;"
+            border="1" width="100%" cellspacing="0" cellpadding="0" >
+           <thead class="floatingHeader" id="idHeaderWL" style="border:none;"> 
+            
+            <tr>
+              
+              <th bgcolor="#C0C0C0" valign="top" width="2%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-left:none;border-right:none;"><FONT COLOR="black" SIZE="2"></FONT></div></th>
+               <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Client Name</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Opportunity Name</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="15%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Grand
+                Parent Product</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Stage</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Current
+                Year Revenue</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Total Revenue (Amount) </FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Actual Close Date</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="18%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Reason Won / Lost</FONT></div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!WonLostOpportunitylst}" var="opp2">
+              <tr>
+               <td text-align="left" bgcolor="#FFFFFF" valign="top" width="2%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;"><FONT COLOR="black" SIZE="2" >
+                   <apex:inputCheckBox value="{!opp2.checked}"/>
+                  </FONT></td >
+                 <td align="left" bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;"><FONT COLOR="black" SIZE="2"><a
+                  href="/{!opp2.wonLostOpp.AccountId}" target="_blank">{!opp2.wonLostOpp.Account.Name}</a></FONT></td >
+                <td align="left" bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;"><FONT COLOR="black" SIZE="2"><a
+                  href="/{!opp2.wonLostOpp.Id}" target="_blank">{!opp2.wonLostOpp.Name}</a></FONT></td >
+                <td align="left" bgcolor="#FFFFFF" valign="top" width="15%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;"><FONT COLOR="black" SIZE="2">{!WonLostOppGPPMap[opp2.wonLostOpp.Id]}</FONT></td >
+                 <td align="left" bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;"><FONT COLOR="black" SIZE="2">{!opp2.wonLostOpp.StageName}</FONT></td >
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:center;"><FONT COLOR="black" SIZE="2">
+                   <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opp2.wonLostcurrrev}"/>
+                                              </apex:outputText>
+                  </FONT></td >
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:center;"><FONT COLOR="black" SIZE="2">
+                  <apex:outputText value="{0, number, ###,###,###,###.##}" >
+                                              <apex:param value="{!opp2.wonLosttotalRev}"/>
+                                              </apex:outputText>
+                  </FONT></td >
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:center;">
+                  <FONT COLOR="black" SIZE="2">
+                    <apex:outputfield value="{!opp2.wonLostOpp.CloseDate}" />
+                  </FONT>
+                </td >
+                <td align="left" bgcolor="#FFFFFF" valign="top" width="18%"
+                  height="20" style="border:1px  solid; border-top:none;"><FONT COLOR="black" SIZE="2">{!opp2.wonLostOpp.ReasonForWinLossPickList__c}</FONT></td >
+                
+              </tr>
+            </apex:repeat></tbody>
+          </table></div>
+        </td>
+      </tr></table></td></tr>
+      <tr></tr>
+      <tr></tr>
+      <!-- EN-0632 Approval History Section-->
+      <apex:outputPanel rendered="{!showApprBtn}">
+       <tr>
+        <th colspan="2"  align="left" bgcolor="#02367A"
+          valign="top" width="100%" height="25" style="text-align: center;"><FONT
+          COLOR="white" SIZE="2">Approval History</FONT></th>
+      </tr>
+      <tr>
+      <td colspan="2">
+      <table style="margin-left:0px;margin-top:0px;margin-right:0px;border-collapse:collapse;"
+              border="0" width="100%" cellspacing="0" cellpadding="0">
+      <tr>
+        <th align="left" bgcolor="#B1C3E1"
+          valign="top" width="100%" height="10" style="border:1px solid; border-bottom:none;"><FONT COLOR="white"
+          SIZE="2">Client Plan Approval History</FONT>
+          <apex:commandButton value="Submit For Approval" action="{!submitForApproval}" rendered="{!showApprBtn}" disabled="{!enableApprButton}" Style="float:right;"/>
+          </th>
+      </tr>
+      <tr>
+        <td width="100%" style="border:none;">
+        <div onscroll="changeFloatingHeaderPosition(this, 'idHeaderWL' );" style="max-height: 250px;font-family: Arial;overflow-y: auto;overflow-x: hidden;">
+          <table style="border-collapse: collapse; margin-top: 0px;border-top:none;"
+            border="1" width="100%" cellspacing="0" cellpadding="0" >
+           <thead class="floatingHeader" id="idHeaderWL" style="border:none;"> 
+            
+            <tr>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Status</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="10%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Date</FONT></div></th>
+               <th bgcolor="#C0C0C0" valign="top" width="15%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Assigned To</FONT></div></th>
+              <th bgcolor="#C0C0C0" valign="top" width="15%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Actual Approver</FONT></div>
+              </th>
+              <th bgcolor="#C0C0C0" valign="top" width="15%"
+                height="20" Style="border:none;"><div style="height:32px;border:1px  solid; border-right:none; text-align:center;"><FONT COLOR="black" SIZE="2">Comment</FONT></div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!AllApprovalStep}" var="approvalStep">
+             <apex:repeat value="{!approvalStep.Steps}" var="step">
+              <tr>
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:left;"><FONT COLOR="black" SIZE="2">
+                   <apex:outputText value="{!step.StepStatus}"/>
+                   </FONT></td >
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:center;"><FONT COLOR="black" SIZE="2">
+                  <apex:outputField value="{!step.CreatedDate}" />
+                  </FONT></td >
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:left;">
+                  <FONT COLOR="black" SIZE="2">
+                    <apex:outputText value="{!step.OriginalActor.Name}"/>
+                  </FONT>
+                </td >
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:left;">
+                  <FONT COLOR="black" SIZE="2">
+                    <apex:outputText value="{!step.Actor.Name}" rendered="{!IF(step.StepStatus='Started', false, true)}"/>
+                  </FONT>
+                </td >
+                <td bgcolor="#FFFFFF" valign="top" width="10%"
+                  height="20" style="border:1px  solid; border-right:none;border-top:none;text-align:left;">
+                  <FONT COLOR="black" SIZE="2">
+                    <apex:outputField value="{!step.Comments}"/>
+                  </FONT>
+                </td >
+              </tr>
+             </apex:repeat>
+            </apex:repeat>
+            </tbody>
+          </table></div>
+        </td>
+      </tr></table></td></tr>
+      <tr></tr>
+      <tr></tr>
+      </apex:outputPanel>
+      <!-- Button Section -->
+    </table>
+    <br/><br/>
+    <table style="width:100%; font-family:Arial;text-align:center;"  border="0" cellpadding="0">
+      <tr>
+        <td style="width:100%; font-family:Arial;text-align:center;border:none;">
+          <apex:outputLabel STYLE="color:Red ;font-size:11px ; font-family:Arial;text-align:center; "  value="This system / document is only available to authorised users and is governed by Standard Bank’s information management and compliance policies. As it may contain confidential and price sensitive information, take appropriate care before distributing. Consult compliance if you are in any doubt." />
+        </td>
+      </tr>
+      <tr>
+        <td style="width:100%; font-family:Arial;text-align:center;border:none;">
+          <apex:outputLabel STYLE="color:Red ;font-size:11px ; font-family:Arial;text-align:center; "  value="{!$Label.Help_Text_EGP_Credit_Lines_Warning}" />
+        </td>
+      </tr>
+    </table>
+    <br/><br/>
+    <table style="border:none;" align="center" cellspacing="0" cellpadding="0">
+      <tr>
+        <td style="border:none;" valign="middle" align="center">
+          <span>
+            <apex:image url="{!URLFOR($Resource.CamProducts,'USDZAR2.png')}" height="60" />
+          </span>
+        </td>
+        <td style="border:none;" valign="middle"  align="left">
+          <apex:selectList value="{!cPlanCurrency}"
+            multiselect="false" size="1">
+            <apex:selectOptions value="{!currencies}" />
+          </apex:selectList>
+          <apex:commandButton value="Save & Refresh" action="{!refreshPage}" disabled="{!disableEdit}"
+            id="acctheButton"></apex:commandButton>
+          <apex:commandButton value="Print PDF" onclick="x=window.open('{!urlfor($Page.ClientPlanPDF,null,[id=Account.id])}','ClientPlanPDF','height=600,width=800,resizable=1');return false;" />
+          <apex:commandButton action="{!attachClientPlan}" onclick="alert('A new PDF version was added to the Client Plan History related list for this Client');" value="Attach to Client Page" id="attversion" disabled="{!disableEdit}"/>
+          <apex:commandButton id="notesAtt" disabled="{!disableEdit}"
+            onclick="x=window.open('{!urlfor($Page.SB_Client_Attachment,null,[id=clientPlanId,core.apexpages.devmode.url=1])}','SB_Client_Attachment','height=1000,width=800,screenX=1000,left=500,screenY=150,top=150,toolbar=0,menubar=0,titlebar=0');return false;"
+            value="Show Files" />
+        </td>
+      </tr>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+  </apex:form>
+      <!-- Approval history Section 
+      <tr>
+          <apex:include pageName="CP_ApprovalHistory"/>
+      </tr> -->
+  </body>
+
+  </apex:page>

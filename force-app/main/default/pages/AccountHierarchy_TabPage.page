@@ -1,0 +1,438 @@
+<apex:page standardController="Account" extensions="AccountHierarchyTabController" id="tabPage">
+<div id="waitdsp">
+<center>
+<br/><br/>
+Please wait ... 
+<br/><br/>
+<img src="/img/waiting_dots.gif" alt="" title="Please wait..." height="20" width="196"/>
+</center>
+</div>
+<script> 
+    var SEARCH = false;   
+    function display(){  
+         if(!(window.onload)){
+            var v = document.getElementById('waitdsp').style;
+            v.display = "block";
+           display();
+         }  
+         else{ 
+           var v = document.getElementById('waitdsp').style;
+           v.display = "none";
+         }        
+   }
+   
+    document.onload = display();
+    
+    function keypressedcon(event){
+      if(event.keyCode=='13'){
+        searchfunc2();
+        return false;
+      }
+    }
+    
+    function keypressedopp(event){
+      if(event.keyCode=='13'){
+        searchfuncopp2();
+        return false;
+      }
+    }
+    
+    function searchfunc2(){
+      SEARCH=true;
+      var e = document.getElementById("selectconroleatclient");
+      var selconrol = e.options[e.selectedIndex].text;
+      if(selconrol == '--None--')
+          searchfunc('');
+      else
+          searchfunc(selconrol);
+      SEARCH=false;
+    }
+    
+    function searchfuncopp2(){
+      SEARCH=true;
+      var e = document.getElementById("selectstage");
+      var selstage = e.options[e.selectedIndex].text;
+      if(selstage == '--None--')
+          searchfuncopp('');
+      else
+          searchfuncopp(selstage);
+          
+               
+                        
+      SEARCH=false;
+    }
+    
+</script> 
+<style>
+        .activeTab {background-color: #236FBD; color:white; background-image:none;}
+        .inactiveTab { background-color: lightgrey; color:black; background-image:none;}  
+        .rich-tabpanel-content{font-size:12px !important;}
+        .rich-tab-header{font-size:12px !important;}
+        .dataRow  {font-weight: normal !important;width: 81px;height: 15px;}
+    </style>
+<apex:actionStatus id="waitingStatus">                   
+                        <apex:facet name="start">
+                        <div class="waitingSearchDiv waitingSearchDivOpacity" style="width: 100%; height: 100%; display: block;"/>
+                        <div id="00B80000007AEEH_loading" class="waitingSearchDiv" style="width: 100%; height: 100%; display: block;">
+                        <div class="waitingHolder" style="top: 12%; width: 100px; ">
+                        <img class="waitingImage" src="/img/loading.gif" width="27px" height="27px"/>
+                
+                        <span class="waitingDescription"><font size="3">Processing...</font></span>
+                        </div>
+                        </div>                
+                        </apex:facet>
+                        <apex:facet name="stop"></apex:facet>
+                        
+          </apex:actionStatus>
+
+ <apex:tabPanel tabClass="activeTab" inactiveTabClass="inactiveTab" switchType="client" rendered="{!NOT(showComponent)}" id="panel">
+    
+    <apex:tab label="Clients" name="Accounts"> 
+   <apex:form id="frm" onsubmit="return SEARCH;">
+       
+       <p align="right">
+        <apex:outputPanel rendered="{!$Profile.Name=='System Administrator'}">
+          <apex:commandLink value="Customize Columns" action="{!showComponent}"/>&nbsp;&nbsp;&nbsp;       
+        </apex:outputPanel>   
+        <apex:outputlink value="/apex/Hierarchy_OrgChart?Id={!Account.id}&name={!Account.Name}" target="_blank">Tree View</apex:outputLink><br/>
+       </p> 
+      </apex:form>
+     
+       <c:AccountHierarchy currentId="{!Account.id}"/>
+     </apex:tab>
+     
+     <apex:tab label="Contacts" name="Contacts" id="ConsTable">
+      <apex:form id="contactForm">
+        <p align="right">
+        <apex:outputPanel rendered="{!$Profile.Name=='System Administrator'}">
+          <apex:commandLink value="Customize Columns" action="{!showComponent}"/><br/>          
+        </apex:outputPanel>   
+       </p> 
+      <apex:pageBlock >
+         <b>Contact Role(s) at Client:</b>
+            <select id="selectconroleatclient">
+                <apex:repeat value="{!Items}" var="o">
+                        <option>{!o.value}</option>
+                </apex:repeat>
+            </select>
+            
+            <!--apex:inputField id="txtSearch" value="{!wrpConLst[0].con.Contact_Role_s_at_Client__c}"/>-->
+         
+         <input type="button" class="btn" id="btnSearch" Value="Search" onclick="searchfunc2()"/>
+         <apex:actionFunction name="searchfunc" action="{!retfiltcontact}" rerender="filtcon" status="waitingStatus">
+             <apex:param name="param" assignTo="{!searchTextcon}" value=""/>
+         </apex:actionFunction>
+         
+         <apex:outputPanel id="filtcon">
+         <apex:pageBlockTable value="{!wrpConLst}" var="c" id="table">
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Contact Name{!IF(sortExpression=='name',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus" > 
+               <apex:param name="sortField" value="name"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+               <apex:outputlink value="/{!c.con.Id}" target="_blank">{!c.con.Name}</apex:outputLink>
+     
+          </apex:column>
+          
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Client Name{!IF(sortExpression=='account.name',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus"> 
+               <apex:param name="sortField" value="account.name"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+                  <apex:outputlink value="/{!c.con.AccountId}" target="_blank">{!c.con.Account.Name}</apex:outputLink>   
+          </apex:column>
+
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Phone{!IF(sortExpression=='Phone',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus"> 
+               <apex:param name="sortField" value="Phone"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+                  <apex:outputText value="{!c.con.Phone}" escape="false"/> 
+          </apex:column>
+          
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Email{!IF(sortExpression=='Email',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus"> 
+               <apex:param name="sortField" value="Email"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+                  <apex:outputText value="{!c.con.Email}" escape="false"/> 
+          </apex:column>
+          
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Contact Role(s) at Client{!IF(sortExpression=='Contact_Role_s_at_Client__c',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus"> 
+               <apex:param name="sortField" value="Contact_Role_s_at_Client__c"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+                  <apex:outputText value="{!c.con.Contact_Role_s_at_Client__c}" escape="false"/> 
+          </apex:column>
+          
+          <apex:column rendered="{!IF((conLb1==''||conLb1==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb1}{!IF(conLb1==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb1}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f1}" escape="false" rendered="{!NOT(c.f1=='True' || c.f1=='False')}"/><apex:inputCheckbox value="{!c.f1}" disabled="true" rendered="{!(c.f1=='True' || c.f1=='False')}"/>     
+          </apex:column>
+          <apex:column rendered="{!IF((conLb2==''||conLb2==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb2}{!IF(conLb2==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus" >
+                            <apex:param name="sortField" value="{!conLb2}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f2}" escape="false" rendered="{!NOT(c.f2=='True' || c.f2=='False')}"/><apex:inputCheckbox value="{!c.f2}" disabled="true" rendered="{!(c.f2=='True' || c.f2=='False')}"/>         
+          </apex:column>
+          <apex:column rendered="{!IF((conLb3==''||conLb3==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb3}{!IF(conLb3==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb3}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f3}" escape="false" rendered="{!NOT(c.f3=='True' || c.f3=='False')}"/><apex:inputCheckbox value="{!c.f3}" disabled="true" rendered="{!(c.f3=='True' || c.f3=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((conLb4==''||conLb4==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb4}{!IF(conLb4==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus" >
+                            <apex:param name="sortField" value="{!conLb4}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f4}" escape="false" rendered="{!NOT(c.f4=='True' || c.f4=='False')}"/><apex:inputCheckbox value="{!c.f4}" disabled="true" rendered="{!(c.f4=='True' || c.f4=='False')}"/>             
+          </apex:column>
+          <apex:column rendered="{!IF((conLb5==''||conLb5==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb5}{!IF(conLb5==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb5}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f5}" escape="false" rendered="{!NOT(c.f5=='True' || c.f5=='False')}"/><apex:inputCheckbox value="{!c.f5}" disabled="true" rendered="{!(c.f5=='True' || c.f5=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((conLb6==''||conLb6==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb6}{!IF(conLb6==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb6}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f6}" escape="false" rendered="{!NOT(c.f6=='True' || c.f6=='False')}"/><apex:inputCheckbox value="{!c.f6}" disabled="true" rendered="{!(c.f6=='True' || c.f6=='False')}"/>             
+          </apex:column>
+          <apex:column rendered="{!IF((conLb7==''||conLb7==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb7}{!IF(conLb7==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb7}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f7}" escape="false" rendered="{!NOT(c.f7=='True' || c.f7=='False')}"/><apex:inputCheckbox value="{!c.f7}" disabled="true" rendered="{!(c.f7=='True' || c.f7=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((conLb8==''||conLb8==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb8}{!IF(conLb8==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb8}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f8}" escape="false" rendered="{!NOT(c.f8=='True' || c.f8=='False')}"/><apex:inputCheckbox value="{!c.f8}" disabled="true" rendered="{!(c.f8=='True' || c.f8=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((conLb9==''||conLb9==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb9}{!IF(conLb9==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb9}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f9}" escape="false" rendered="{!NOT(c.f9=='True' || c.f9=='False')}"/><apex:inputCheckbox value="{!c.f9}" disabled="true" rendered="{!(c.f9=='True' || c.f9=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((conLb10==''||conLb10==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!conLb10}{!IF(conLb10==$CurrentPage.Parameters.sortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus">
+                            <apex:param name="sortField" value="{!conLb10}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!c.f10}" escape="false" rendered="{!NOT(c.f10=='True' || c.f10=='False')}"/><apex:inputCheckbox value="{!c.f10}" disabled="true" rendered="{!(c.f10=='True' || c.f10=='False')}"/>             
+          </apex:column>       
+                   <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Owner Name {!IF(sortExpression=='owner.name',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortTable}" rerender="table" status="waitingStatus"> 
+               <apex:param name="sortField" value="owner.name"/>
+                        </apex:commandLink>
+           </apex:facet>  
+           <apex:outputLink value="/{!c.con.owner.id}" target="_blank">{!c.con.owner.name}</apex:outputLink>             
+          </apex:column>   
+         </apex:pageBlockTable>
+         </apex:outputPanel>
+         <apex:outputPanel style="float:right;">
+            <apex:commandButton value="<<Prev" action="{!setcon.previous}" disabled="{!!setcon.HasPrevious}" rerender="contactForm"/>
+            <apex:outputLabel value=" | "/>
+            <apex:commandButton value="Next>>" action="{!setcon.next}" disabled="{!!setcon.HasNext}" rerender="contactForm"/>
+         </apex:outputPanel> 
+      </apex:pageBlock> 
+       </apex:form>
+    </apex:tab>
+     <apex:tab label="Opportunities" name="Opportunities" id="OppsTable">
+      <apex:form id="Opportunityform">
+      <p align="right">
+        <apex:outputPanel rendered="{!$Profile.Name=='System Administrator'}">
+          <apex:commandLink value="Customize Columns" action="{!showComponent}"/><br/>          
+        </apex:outputPanel>   
+       </p> 
+      <apex:pageBlock >
+         <b>Stage:</b> 
+         <select id="selectstage">
+                <apex:repeat value="{!Itemsopp}" var="o">
+                        <option>{!o.value}</option>
+                </apex:repeat>
+         </select>
+         <input type="button" class="btn" id="btnSearchopp" Value="Search" onclick="searchfuncopp2()"/>
+         <apex:actionFunction name="searchfuncopp" action="{!retfiltopp}" rerender="filtopp" status="waitingStatus">
+             <apex:param name="param" assignTo="{!searchTextopp}" value=""/>
+             
+         </apex:actionFunction>
+         
+         <apex:outputPanel id="filtopp">
+         
+         <apex:pageBlockTable value="{!wrpOppLst}" var="o" id="oppTable">
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Opportunity Name {!IF(sortExpression=='name',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus"> 
+               <apex:param name="oppSortField" value="name"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+               <apex:outputlink value="/{!o.opp.Id}" target="_blank">{!o.opp.Name}</apex:outputLink>   
+          </apex:column>
+          
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Client Name{!IF(sortExpression=='account.name',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus"> 
+               <apex:param name="oppSortField" value="account.name"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+               <apex:outputlink value="/{!o.opp.AccountId}" target="_blank">{!o.opp.Account.Name}</apex:outputLink>   
+          </apex:column>
+          
+              
+           <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Owner Name {!IF(sortExpression=='owner.name',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus"> 
+               <apex:param name="oppSortField" value="owner.name"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+                      <apex:outputLink value="/{!o.opp.owner.id}" target="_blank">{!o.opp.owner.name}</apex:outputLink>             
+          </apex:column>
+          
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Stage{!IF(sortExpression=='StageName',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus"> 
+               <apex:param name="oppsortField" value="StageName"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+                  <apex:outputText value="{!o.opp.StageName}" escape="false"/> 
+          </apex:column>
+          
+          <apex:column >
+           <apex:facet name="header">
+            <apex:CommandLink value="Estimated Close Date{!IF(sortExpression=='CloseDate',IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus"> 
+               <apex:param name="oppsortField" value="CloseDate"/>
+                        </apex:commandLink>
+                      </apex:facet>  
+                  <apex:outputText value="{0, date, dd/MM/yyyy}">
+                           <apex:param value="{!o.opp.CloseDate}" />
+                   </apex:outputText>
+          </apex:column>
+          
+          <apex:column rendered="{!IF((oppLb1==''||oppLb1==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb1}{!IF(oppLb1==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb1}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f1}" escape="false" rendered="{!NOT(o.f1=='True' || o.f1=='False')}"/><apex:inputCheckbox value="{!o.f1}" disabled="true" rendered="{!(o.f1=='True' || o.f1=='False')}"/>           
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb2==''||oppLb2==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb2}{!IF(OppLb2==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb2}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f2}" escape="false" rendered="{!NOT(o.f2=='True' || o.f2=='False')}"/><apex:inputCheckbox value="{!o.f2}" disabled="true" rendered="{!(o.f2=='True' || o.f2=='False')}"/>
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb3==''||oppLb3==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb3}{!IF(OppLb3==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb3}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f3}" escape="false" rendered="{!NOT(o.f3=='True' || o.f3=='False')}"/><apex:inputCheckbox value="{!o.f3}" disabled="true" rendered="{!(o.f3=='True' || o.f3=='False')}"/>             
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb4==''||oppLb4==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb4}{!IF(OppLb4==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb4}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f4}" escape="false" rendered="{!NOT(o.f4=='True' || o.f4=='False')}"/><apex:inputCheckbox value="{!o.f4}" disabled="true" rendered="{!(o.f4=='True' || o.f4=='False')}"/>        
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb5==''||oppLb5==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb5}{!IF(OppLb5==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb5}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f5}" escape="false" rendered="{!NOT(o.f5=='True' || o.f5=='False')}"/><apex:inputCheckbox value="{!o.f5}" disabled="true" rendered="{!(o.f5=='True' || o.f5=='False')}"/>             
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb6==''||oppLb6==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb6}{!IF(OppLb6==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb6}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f6}" escape="false" rendered="{!NOT(o.f6=='True' || o.f6=='False')}"/><apex:inputCheckbox value="{!o.f6}" disabled="true" rendered="{!(o.f6=='True' || o.f6=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb7==''||oppLb7==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb7}{!IF(OppLb7==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb7}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f7}" escape="false" rendered="{!NOT(o.f7=='True' || o.f7=='False')}"/><apex:inputCheckbox value="{!o.f7}" disabled="true" rendered="{!(o.f7=='True' || o.f7=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb8==''||oppLb8==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb8}{!IF(OppLb8==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb8}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f8}" escape="false" rendered="{!NOT(o.f8=='True' || o.f8=='False')}"/><apex:inputCheckbox value="{!o.f8}" disabled="true" rendered="{!(o.f8=='True' || o.f8=='False')}"/>            
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb9==''||oppLb9==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb9}{!IF(OppLb9==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb9}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f9}" escape="false" rendered="{!NOT(o.f9=='True' || o.f9=='False')}"/><apex:inputCheckbox value="{!o.f9}" disabled="true" rendered="{!(o.f9=='True' || o.f9=='False')}"/>           
+          </apex:column>
+          <apex:column rendered="{!IF((oppLb10==''||oppLb10==null),false,true)}"> 
+              <apex:facet name="header">
+                        <apex:CommandLink value="{!oppLb10}{!IF(OppLb10==$CurrentPage.Parameters.oppSortField,IF(sortDirection='asc','▲','▼'),'')}" action="{!sortOppTable}" rerender="oppTable" status="waitingStatus">
+                            <apex:param name="oppSortField" value="{!oppLb10}"/>
+                        </apex:commandLink>
+                    </apex:facet>
+              <apex:outputText value="{!o.f10}" escape="false" rendered="{!NOT(o.f10=='True' || o.f10=='False')}"/><apex:inputCheckbox value="{!o.f10}" disabled="true" rendered="{!(o.f10=='True' || o.f10=='False')}"/>             
+          </apex:column>          
+         </apex:pageBlockTable>
+         </apex:outputPanel>
+          <apex:outputPanel style="float:right;">
+            <apex:commandButton value="<<Prev" action="{!setopp.previous}" disabled="{!!setopp.HasPrevious}" rerender="Opportunityform"/>
+            <apex:outputLabel value=" | "/>
+            <apex:commandButton value="Next>>" action="{!setopp.next}" disabled="{!!setopp.HasNext}" rerender="Opportunityform"/>
+         </apex:outputPanel> 
+      </apex:pageBlock> 
+      
+       </apex:form>
+    </apex:tab>  
+ </apex:tabpanel>   
+ <apex:pageBlock >
+ <c:MultiSelectPickList rendered="{!showComponent}"></c:MultiSelectPickList>
+ </apex:pageBlock>
+</apex:page>

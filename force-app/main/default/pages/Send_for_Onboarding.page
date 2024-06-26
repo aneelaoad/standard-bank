@@ -1,0 +1,1013 @@
+<!--    @ Author        :     Prabhanshu Agrawal                                                -->
+<!--    @ Date          :     June 2015                                                         -->
+<!--    @ Description   :     Page to display onboarding information to user on Prospect Client -->
+<!--    @Last Modified By      :   Sandeep Dharwar --->
+<!--    @Last Modified On      :   July 2015   -->
+<!--    @Last Modified Reason  :   DEF-1348- added contact information to the Visualforce Page-->
+<!--    @Last Modified By      :   Abhishek Vaideeswaran --->
+<!--    @Last Modified On      :   July 2015   -->
+<!--    @Last Modified Reason  :   DEF-1352- Removed Parent_Client_Ultimate_Holding_Company__c and Does_the_entity_have_a_Parent_Company__c from the page as the field is deleted-->
+<!--    @Last Modified By      :   Abhishek Vaideeswaran --->
+<!--    @Last Modified On      :   July 2015   -->
+<!--    @Last Modified Reason  :   EN - 787 - Removed Primary_Relationship__c and Account_Executive__c from the page as the field is deleted and removed shouldrenderPBB from PBB section and Contact Information section as PBB ROA functionality is removed-->
+<!--    @Last Modified On      :   Aug 2015   -->
+<!--    @Last Modified Reason  :   Def -1412 -->
+<!--    @Last Modified By      :   Abhishek Vaideeswaran --->
+<!--    @Last Modified On      :   August 2015   -->
+<!--    @Last Modified Reason  :   DEF - 1405 : Removal of Parent_Client_Registration_Number__c and Country_of_Registration__c field reference. --->
+<!--    @Last Modified By      :   Petr Svestka -->
+<!--    @Last Modified On      :   September 16 2015   -->
+<!--    @Last Modified Reason  :   EN-0842 - Added heading to the page -->
+<!--    @Last Modified By      :   Petr Svestka -->
+<!--    @Last Modified On      :   September 17 2015   -->
+<!--    @Last Modified Reason  :   EN-0793 - Added new fields -->
+<!--    @Last Modified Reason  :   EN-0867 - Source of Funds Amount rename to Expected Income -->
+<!--    @Last Modified By      :   Manoj Gupta -->
+<!--    @Last Modified On      :   October 15 2015   -->
+<!--    @Last Modified By      :   Petr Svestka -->
+<!--    @Last Modified On      :   January 26 2016   -->
+<!--    @Last Modified Reason  :   EN-0793 - Removed -->
+<!--    @Last Modified By      :   Andrei Olteanu -->
+<!--    @Last Modified On      :   January 2017   -->
+<!--    @Last Modified Reason  :   DEF-2342 - Added SLDS style for page -->
+<!--    @Last Modified By      :   Jakub Oracki -->
+<!--    @Last Modified On      :   February 2017   -->
+<!--    @Last Modified Reason  :   US-1322 - Customer Contact Phone Country Added -->
+<!--    @Last Modified By      :   Bartosz Sliwinski -->
+<!--    @Last Modified On      :   October 2017   -->
+<!--    @Last Modified Reason  :   US-2348 - Defect concerning text color and width of page messages -->
+
+<apex:page standardController="Account" sidebar="true" showHeader="true" extensions="Send_for_Onboarding_Controller"  standardStylesheets="false" tabStyle="Account">
+    <style type="text/css">
+        .msgIcon {
+            display: none!important
+        }
+        .customMessage * {
+            color: #fff!important
+        }
+        .customMessage {
+            margin: 5px 0!important;
+            opacity: 1!important;
+            width: 100%;
+            font-size: 12px;
+            border: 0px;
+            padding-left: 10px;
+        }
+        .message {
+            opacity: .1
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            if ('{!isLightning}') {
+                overridePageMessages();
+            }
+        });
+             
+        function overridePageMessages(){    
+            var textureEffect = '';
+            //Uncomment below line for texture effect on page messages
+            //textureEffect = 'slds-theme_alert-texture';
+                          
+            $('.warningM3').addClass('slds-notify slds-notify_toast slds-theme_warning customMessage '+textureEffect);          
+            $('.confirmM3').addClass('slds-notify slds-notify_alert slds-theme_success  customMessage '+textureEffect);    
+            $('.errorM3').addClass('slds-notify slds-notify_alert slds-theme_error customMessage '+textureEffect);                  
+            $('.infoM3').addClass('slds-notify slds-notify_toast customMessage '+textureEffect);    
+                              
+            $('.errorM3').removeClass('errorM3'); 
+            $('.confirmM3').removeClass('confirmM3'); 
+            $('.infoM3').removeClass('infoM3');   
+            $('.warningM3').removeClass('warningM3');  
+        }
+    </script>
+    <apex:stylesheet value="{!$Resource.OnboardingCSS}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jquery180, 'jquery/jquery-1.8.0.min.js')}"/>
+    <img id="LoaderImg" src="/img/loading.gif" style="display:none"/>
+    <apex:form >
+        <apex:outputPanel rendered="{!NOT(isLightning)}" id="classicPanel">
+            <apex:pageBlock mode="maindetail">
+                <h1 class="heading">Submit for Onboarding</h1>
+                <p><apex:outputText styleClass="instructions" value="Please review the details for {!Account.Name} before submitting:"/></p>
+                <br/>
+
+                <apex:pagemessages />
+
+                <apex:pageBlockSection title="Client Information" rendered="{!shouldrenderCIBROA}" columns="2">
+
+                    <apex:outputField value="{!account.Name}"/>
+                    <apex:outputField value="{!account.Status__c}"/>
+                    <apex:outputField value="{!account.Description}"/>
+                    <apex:outputField value="{!account.Registration_Number__c}"/>
+                    <apex:outputField value="{!account.BillingStreet}" />
+                    <apex:outputField value="{!account.BillingCity}" />
+                    <apex:outputField value="{!account.BillingState}" />
+                    <apex:outputField value="{!account.BillingCountry}" />
+                    <apex:outputField value="{!account.BillingPostalCode}" />
+                    <apex:outputField value="{!account.Phone}"/>
+                    <apex:outputField value="{!account.Country_of_Operation__c}"/>
+                    <apex:outputField value="{!account.Website}"/>
+                    <apex:outputField value="{!account.SWIFT_Code__c}"/>
+                    <apex:outputField value="{!account.Primary_Relationship_Holder__c}"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="CRM Information" rendered="{!shouldrenderCIBROA}" columns="2">
+
+                    <apex:outputField value="{!account.Client_Co_ordinator__c}"/>
+                    <apex:outputField value="{!account.Client_Relationship_Hierarchy__c}"/>
+                    <apex:outputField value="{!account.Client_Coordinator_Division__c}"/>
+                    <apex:outputField value="{!account.ParentId}"/>
+                    <apex:outputField value="{!account.Client_Sector__c}"/>
+                    <br/>
+                    <apex:outputField value="{!account.Client_Sub_Sector__c}"/>
+                    <apex:outputField value="{!account.Proposed_Group_Parent__c}"/>
+                    <apex:outputField value="{!account.Market_Segments__c}"/>
+                    <apex:outputField value="{!account.Proposed_Immediate_Parent__c}"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Due Diligence Information" rendered="{!shouldrenderCIBROA}" columns="2">
+                    <apex:outputField value="{!account.KYC_Location__c}"/>
+                    <apex:outputField value="{!account.Source_System__c}" rendered="{!if(account.Source_System__c=='', 'false', 'true')}"/>
+                    <apex:outputField value="{!account.Regulatory_Code__c}"/>
+                    <apex:outputField value="{!account.Source_System_Customer_Number__c}" rendered="{!if(account.Source_System_Customer_Number__c=='', 'false', 'true')}"/>
+                    <apex:outputField value="{!account.Relationship_Roles__c}"/>
+                    <apex:outputField value="{!account.KYC_Complete__c}"/>
+                    <apex:outputField value="{!account.KYC_Complete_Date__c}"/>
+                    <apex:outputField value="{!account.Name_of_person_confirming_KYC_complete__c}"/>
+                </apex:pageBlockSection>
+
+
+                <apex:pageBlockSection title="Client Information" rendered="{!shouldrenderCIBSA}" columns="2">
+
+                    <apex:outputField value="{!account.Name}"/>
+                    <apex:outputField value="{!account.Status__c}"/>
+                    <apex:outputField value="{!account.Description}"/>
+                    <apex:outputField value="{!account.Registration_Number__c}"/>
+                    <apex:outputField value="{!account.BillingStreet}" />
+                    <apex:inputField value="{!account.Registered_Suburb__c}" required="true"/>
+                    <apex:outputField value="{!account.BillingCity}" />
+                    <apex:outputField value="{!account.BillingState}" />
+                    <apex:outputField value="{!account.BillingCountry}" />
+                    <apex:outputField value="{!account.BillingPostalCode}" />
+                    <apex:outputField value="{!account.Phone}"/>
+                    <apex:outputField value="{!account.Website}"/>
+                    <apex:outputField value="{!account.Primary_Relationship_Holder__c}"/>
+
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="CRM Information" rendered="{!shouldrenderCIBSA}" columns="2">
+
+                    <apex:outputField value="{!account.Client_Co_ordinator__c}"/>
+                    <apex:outputField value="{!account.Client_Relationship_Hierarchy__c}"/>
+                    <apex:outputField value="{!account.Client_Coordinator_Division__c}"/>
+                    <apex:outputField value="{!account.ParentId}"/>
+                    <apex:outputField value="{!account.Client_Sector__c}"/>
+                    <apex:outputField value="{!account.ISIC_C_ode__c}"/>
+                    <apex:outputField value="{!account.Client_Sub_Sector__c}"/>
+                    <apex:outputField value="{!account.Proposed_Group_Parent__c}"/>
+                    <apex:outputField value="{!account.Market_Segments__c}"/>
+                    <apex:outputField value="{!account.Proposed_Immediate_Parent__c}"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Due Diligence Information" rendered="{!shouldrenderCIBSA}" columns="2">
+                    <apex:outputField value="{!account.KYC_Location__c}"/>
+                    <apex:outputField value="{!account.Source_of_Wealth__c}"/>
+                    <apex:outputField value="{!account.Regulatory_Code__c}"/>
+                    <apex:outputField value="{!account.Source_of_Funds__c}"/>
+                    <apex:outputField value="{!account.Relationship_Roles__c}"/>
+                    <apex:outputField value="{!account.Expected_Income__c}"/>
+                    <apex:outputField value="{!account.Client_Type_OnBoard__c}"/>
+                    <apex:outputField value="{!account.Nature_of_Relationship__c}"/>
+                    <apex:outputField value="{!account.Business_Classification__c}"/>
+                    <apex:outputField value="{!account.Nature_of_business_activity__c}"/>
+                    <apex:outputField value="{!account.SCC_Type__c}" rendered="{!SCCTypeItems.size==1}"/>
+                    <apex:selectList value="{!account.SCC_Type__c}" size="1" rendered="{!SCCTypeItems.size!=1}">
+                        <apex:selectOptions value="{!SCCTypeItems}"/>
+                    </apex:selectList>
+                    <apex:outputField value="{!account.Business_Relationship_Inconsistent__c}"/>
+                    <apex:outputField value="{!account.Relevant_Regulator_or_Approved_Regulated__c}"/>
+                    <apex:outputField value="{!account.Services_Products_Expected_or_currently__c}"/>
+                    <apex:outputField value="{!account.Professional_or_Non_Professional_Client__c}"/>
+                    <apex:outputField value="{!account.Anticipated_Level_Volume_of_Activity__c}"/>
+                </apex:pageBlockSection>
+
+                <apex:pageBlockSection title="Contact Information" rendered="{!shouldrenderCIBSA}">
+                    <apex:outputText >Client Coordintator
+                        <apex:pageBlockTable title="Bank Contacts" var="cc" value="{!cclist}" style="width:100%">
+                            <apex:column headerValue="Name" value="{!cc.Name}" rendered="{!$ObjectType.User.fields.Name.accessible}"/>
+                            <apex:column headerValue="Phone" value="{!cc.Phone}" rendered="{!$ObjectType.User.fields.Phone.accessible}"/>
+                            <apex:column headerValue="Email" value="{!cc.Email}" rendered="{!$ObjectType.User.fields.Email.accessible}"/>
+                        </apex:pageBlockTable>
+                    </apex:outputText>  <br> </br>
+
+
+                    <apex:outputText >KYC Contact
+                        <apex:pageBlockTable title="client Contacts" var="client" value="{!clientContactList}">
+                            <apex:column headerValue="Name" value="{!client.Name}" rendered="{!$ObjectType.Contact.fields.Name.accessible}"/>
+                            <apex:column headerValue="Phone" value="{!client.Phone}" rendered="{!$ObjectType.Contact.fields.Phone.accessible}"/>
+                            <apex:column headerValue="Phone Country" rendered="{!$ObjectType.Contact.fields.Phone_Country__c.accessible}">
+                                <apex:inputField value="{!client.Phone_Country__c}"/>
+                            </apex:column>
+                            <apex:column headerValue="Email" value="{!client.Email}" rendered="{!$ObjectType.Contact.fields.Email.accessible}"/>
+                        </apex:pageBlockTable>
+                    </apex:outputText>
+
+                </apex:pageBlockSection>
+
+                <apex:pageBlockButtons location="bottom">
+                    <h1>Please confirm that you would like to submit these details for onboarding</h1><br/>
+                    <apex:commandButton value="Cancel" action="{!cancel}"/>
+                    <apex:commandButton value="Confirm" action="{!confirm}"/>
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+        </apex:outputPanel>
+
+        <apex:outputPanel styleClass="slds" rendered="{!isLightning}" id="lightningPanel">
+            <script>
+            $(document).ready(function(){
+               overridePageMessages();    
+            });
+                
+            function overridePageMessages(){    
+                var textureEffect = '';
+                //Uncomment below line for texture effect on page messages
+                textureEffect = 'slds-theme--alert-texture';
+                             
+                $('.warningM3').addClass('slds-notify slds-notify--toast slds-theme--warning customMessage '+textureEffect);          
+                $('.confirmM3').addClass('slds-notify slds-notify--alert slds-theme--success  customMessage '+textureEffect);    
+                $('.errorM3').addClass('slds-notify slds-notify--alert slds-theme--error customMessage '+textureEffect);                  
+                $('.infoM3').addClass('slds-notify slds-notify--toast customMessage '+textureEffect);    
+                                 
+                $('.errorM3').removeClass('errorM3'); 
+                $('.confirmM3').removeClass('confirmM3'); 
+                $('.infoM3').removeClass('infoM3');   
+                $('.warningM3').removeClass('warningM3');  
+            }
+        </script>
+        
+        <div class="slds-page-header">
+          <div class="slds-grid">
+            <div class="slds-col slds-has-flexi-truncate">
+              <p class="slds-text-heading--label">Submit for Onboarding</p>
+              <div class="slds-grid">
+                <div class="slds-grid slds-type-focus slds-no-space">
+                  <h1 class="slds-text-heading--medium slds-truncate">Please review the details for {!Account.Name} before submitting:</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+            <apex:pagemessages />
+
+            <!-- RENDER CIBROA -->
+            <apex:outputPanel rendered="{!shouldrenderCIBROA}">
+                <div title="Client Information" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Client Information</span> </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Name.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Name.label}
+                        </label>
+                            <apex:outputField value="{!account.Name}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Status__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Status__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Status__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Description.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Description.label}
+                        </label>
+                            <apex:outputField value="{!account.Description}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Registration_Number__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Registration_Number__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Registration_Number__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingStreet.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingStreet.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingStreet}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingCity.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingCity.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingCity}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingState.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingState.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingState}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingCountry.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingCountry.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingCountry}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingPostalCode.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingPostalCode.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingPostalCode}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Phone.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Phone.label}
+                        </label>
+                            <apex:outputField value="{!account.Phone}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Country_of_Operation__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Country_of_Operation__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Country_of_Operation__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Website.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Website.label}
+                        </label>
+                            <apex:outputField value="{!account.Website}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.SWIFT_Code__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.SWIFT_Code__c.label}
+                        </label>
+                            <apex:outputField value="{!account.SWIFT_Code__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Primary_Relationship_Holder__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Primary_Relationship_Holder__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Primary_Relationship_Holder__c}" />
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!shouldrenderCIBROA}">
+                <div title="CRM Information" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>CRM Information</span> </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Co_ordinator__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Client_Co_ordinator__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Co_ordinator__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Relationship_Hierarchy__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Client_Relationship_Hierarchy__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Relationship_Hierarchy__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Coordinator_Division__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Client_Coordinator_Division__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Coordinator_Division__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.ParentId.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.ParentId.label}
+                        </label>
+                            <apex:outputField value="{!account.ParentId}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Sector__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Client_Sector__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Sector__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.ISIC_C_ode__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.ISIC_C_ode__c.label}
+                        </label>
+                            <apex:outputField value="{!account.ISIC_C_ode__c}" />
+                        </div>
+                    </div>
+
+<!--                    <div class="slds-col slds-size&#45;&#45;1-of-1 slds-medium-size&#45;&#45;1-of-2" ></div>-->
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Sub_Sector__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Client_Sub_Sector__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Sub_Sector__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Proposed_Group_Parent__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Proposed_Group_Parent__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Proposed_Group_Parent__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Market_Segments__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Market_Segments__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Market_Segments__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Proposed_Immediate_Parent__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Proposed_Immediate_Parent__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Proposed_Immediate_Parent__c}" />
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!shouldrenderCIBROA}">
+                <div title="Due Diligence Information" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Due Diligence Information</span> </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.KYC_Location__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.KYC_Location__c.label}
+                        </label>
+                            <apex:outputField value="{!account.KYC_Location__c}" />
+                        </div>
+                    </div>
+                    <apex:outputPanel rendered="{!if(account.Source_System__c=='', 'false', 'true')}">
+                        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Source_System__c.accessible,'display: none','') }">
+                            <div class="slds-form-element slds-p-around--small">
+                                <label class="slds-form-element__label" >
+                          {!$ObjectType.Account.fields.Source_System__c.label}
+                          </label>
+                                <apex:outputField value="{!account.Source_System__c}" />
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Regulatory_Code__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Regulatory_Code__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Regulatory_Code__c}" />
+                        </div>
+                    </div>
+                    <apex:outputPanel rendered="{!if(account.Source_System_Customer_Number__c=='', 'false', 'true')}">
+                        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Source_System_Customer_Number__c.accessible,'display: none','') }">
+                            <div class="slds-form-element slds-p-around--small">
+                                <label class="slds-form-element__label" >
+                          {!$ObjectType.Account.fields.Source_System_Customer_Number__c.label}
+                          </label>
+                                <apex:outputField value="{!account.Source_System_Customer_Number__c}" />
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Relationship_Roles__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Relationship_Roles__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Relationship_Roles__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.KYC_Complete__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.KYC_Complete__c.label}
+                        </label>
+                            <apex:outputField value="{!account.KYC_Complete__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.KYC_Complete_Date__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.KYC_Complete_Date__c.label}
+                        </label>
+                            <apex:outputField value="{!account.KYC_Complete_Date__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Name_of_person_confirming_KYC_complete__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Name_of_person_confirming_KYC_complete__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Name_of_person_confirming_KYC_complete__c}" />
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <!-- RENDER CIBSA -->
+            <apex:outputPanel rendered="{!shouldrenderCIBSA}">
+                <div title="Client Information" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Client Information</span> </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Name.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Name.label}
+                        </label>
+                            <apex:outputField value="{!account.Name}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Status__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Status__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Status__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Description.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Description.label}
+                        </label>
+                            <apex:outputField value="{!account.Description}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Registration_Number__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Registration_Number__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Registration_Number__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingStreet.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingStreet.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingStreet}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Registered_Suburb__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small" >
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Registered_Suburb__c.label}
+                        </label>
+                            <apex:inputField value="{!account.Registered_Suburb__c}" required="true"/>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingCity.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingCity.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingCity}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingState.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingState.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingState}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingCountry.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingCountry.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingCountry}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.BillingPostalCode.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.BillingPostalCode.label}
+                        </label>
+                            <apex:outputField value="{!account.BillingPostalCode}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Phone.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Phone.label}
+                        </label>
+                            <apex:outputField value="{!account.Phone}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Country_of_Operation__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Country_of_Operation__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Country_of_Operation__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Website.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Website.label}
+                        </label>
+                            <apex:outputField value="{!account.Website}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Primary_Relationship_Holder__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Primary_Relationship_Holder__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Primary_Relationship_Holder__c}" />
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!shouldrenderCIBSA}">
+                <div title="CRM Information" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>CRM Information</span> </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Co_ordinator__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Client_Co_ordinator__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Co_ordinator__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Relationship_Hierarchy__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Client_Relationship_Hierarchy__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Relationship_Hierarchy__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Coordinator_Division__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Client_Coordinator_Division__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Coordinator_Division__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.ParentId.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.ParentId.label}
+                        </label>
+                            <apex:outputField value="{!account.ParentId}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Sector__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Client_Sector__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Sector__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" ></div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Sub_Sector__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Client_Sub_Sector__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Sub_Sector__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Proposed_Group_Parent__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Proposed_Group_Parent__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Proposed_Group_Parent__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Market_Segments__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Market_Segments__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Market_Segments__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Proposed_Immediate_Parent__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Proposed_Immediate_Parent__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Proposed_Immediate_Parent__c}" />
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!shouldrenderCIBSA}" >
+                <div title="Due Diligence Information" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Due Diligence Information</span> </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.KYC_Location__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.KYC_Location__c.label}
+                        </label>
+                            <apex:outputField value="{!account.KYC_Location__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Source_of_Wealth__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Source_of_Wealth__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Source_of_Wealth__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Regulatory_Code__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Regulatory_Code__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Regulatory_Code__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Source_of_Funds__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label">
+                        {!$ObjectType.Account.fields.Source_of_Funds__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Source_of_Funds__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Relationship_Roles__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Relationship_Roles__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Relationship_Roles__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Expected_Income__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Expected_Income__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Expected_Income__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Client_Type_OnBoard__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Client_Type_OnBoard__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Client_Type_OnBoard__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Nature_of_Relationship__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Nature_of_Relationship__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Nature_of_Relationship__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Business_Classification__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Business_Classification__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Business_Classification__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Nature_of_business_activity__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Nature_of_business_activity__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Nature_of_business_activity__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.SCC_Type__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.SCC_Type__c.label}
+                        </label>
+                            <apex:outputField value="{!account.SCC_Type__c}" rendered="{!SCCTypeItems.size==1}"/>
+                            <apex:selectList value="{!account.SCC_Type__c}" size="1" rendered="{!SCCTypeItems.size!=1}">
+                                <apex:selectOptions value="{!SCCTypeItems}"/>
+                            </apex:selectList>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Business_Relationship_Inconsistent__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Business_Relationship_Inconsistent__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Business_Relationship_Inconsistent__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Relevant_Regulator_or_Approved_Regulated__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Relevant_Regulator_or_Approved_Regulated__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Relevant_Regulator_or_Approved_Regulated__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Services_Products_Expected_or_currently__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Services_Products_Expected_or_currently__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Services_Products_Expected_or_currently__c}" />
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Professional_or_Non_Professional_Client__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Professional_or_Non_Professional_Client__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Professional_or_Non_Professional_Client__c}" />
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="{!IF(!$ObjectType.Account.fields.Anticipated_Level_Volume_of_Activity__c.accessible,'display: none','') }">
+                        <div class="slds-form-element slds-p-around--small">
+                            <label class="slds-form-element__label" >
+                        {!$ObjectType.Account.fields.Anticipated_Level_Volume_of_Activity__c.label}
+                        </label>
+                            <apex:outputField value="{!account.Anticipated_Level_Volume_of_Activity__c}" />
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!shouldrenderCIBSA}">
+                <div title="Contact Information" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-top: 10px;">
+                    <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Contact Information</span> </div>
+
+                    <!-- CLIENT COORDINATOR TABLE -->
+                    <div style="margin-top: 5px;">
+                        <h1>Client Coordintator</h1>
+                    </div>
+                    <table class="slds-table slds-table--bordered slds-table--cell-buffer" style="margin-top:5px;">
+                        <thead>
+                        <tr class="slds-text-title--caps">
+                            <th scope="col" style="{!IF(!$ObjectType.User.fields.Name.accessible,'display: none','') }">
+                                <div class="slds-truncate" title="Name">Name</div>
+                            </th>
+                            <th scope="col" style="{!IF(!$ObjectType.User.fields.Phone.accessible,'display: none','') }">
+                                <div class="slds-truncate" title="Phone">Phone</div>
+                            </th>
+                            <th scope="col" style="{!IF(!$ObjectType.User.fields.Email.accessible,'display: none','') }">
+                                <div class="slds-truncate" title="Email">Email</div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <apex:repeat value="{!cclist}" var="cc">
+                            <tr>
+                                <td style="{!IF(!$ObjectType.User.fields.Name.accessible,'display: none','') }"><apex:outputField value="{!cc.Name}"/></td>
+                                <td style="{!IF(!$ObjectType.User.fields.Phone.accessible,'display: none','') }"><apex:outputField value="{!cc.Phone}"/></td>
+                                <td style="{!IF(!$ObjectType.User.fields.Email.accessible,'display: none','') }"><apex:outputField value="{!cc.Email}"/></td>
+                            </tr>
+                        </apex:repeat>
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <!-- KYC CONTACT TABLE -->
+                    <div style="margin-top: 5px;">
+                        <h1>KYC Contact</h1>
+                    </div>
+                    <table class="slds-table slds-table--bordered slds-table--cell-buffer" style="margin-top:5px;">
+                        <thead>
+                        <tr class="slds-text-title--caps">
+                            <th scope="col" style="{!IF(!$ObjectType.Contact.fields.Name.accessible,'display: none','') }">
+                                <div class="slds-truncate" title="Name" >Name</div>
+                            </th>
+                            <th scope="col" style="{!IF(!$ObjectType.Contact.fields.Phone.accessible,'display: none','') }">
+                                <div class="slds-truncate" title="Phone">Phone</div>
+                            </th>
+                            <th scope="col" style="{!IF(!$ObjectType.Contact.fields.Phone_Country__c.accessible,'display: none','') }">
+                                <div class="slds-truncate" title="Phone Country">Phone Country</div>
+                            </th>
+                            <th scope="col" style="{!IF(!$ObjectType.Contact.fields.Email.accessible,'display: none','') }">
+                                <div class="slds-truncate" title="Email">Email</div>
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <apex:repeat value="{!clientContactList}" var="client">
+                            <tr>
+                                <td style="{!IF(!$ObjectType.Contact.fields.Name.accessible,'display: none','') }"><apex:outputField value="{!client.Name}"/></td>
+                                <td style="{!IF(!$ObjectType.Contact.fields.Phone.accessible,'display: none','') }"><apex:outputField value="{!client.Phone}"/></td>
+                                <td style="{!IF(!$ObjectType.Contact.fields.Phone_Country__c.accessible,'display: none','') }"><apex:inputField value="{!client.Phone_Country__c}" /></td>
+                                <td style="{!IF(!$ObjectType.Contact.fields.Email.accessible,'display: none','') }"><apex:outputField value="{!client.Email}"/></td>
+                            </tr>
+                        </apex:repeat>
+                        </tbody>
+                    </table>
+                </div>
+            </apex:outputPanel>
+
+            <!-- BUTTONS -->
+            <div class="slds-button-group slds-text-align--center slds-show slds-m-vertical--medium" role="group" >
+                <h1>Please confirm that you would like to submit these details for onboarding</h1><br/>
+                <apex:commandButton styleClass="slds-button slds-button--neutral " value="Cancel" action="{!cancel}" style="border-radius: 0.25rem 0 0 0.25rem;"/>
+                <apex:commandButton styleClass="slds-button slds-button--neutral " value="Confirm" action="{!confirm}"/>
+            </div>
+        </apex:outputPanel>
+        <apex:actionFunction name="doOnAfterConfirm" action="{!onAfterConfirm}"/>
+    </apex:form>
+
+    <apex:outputPanel >
+        <script>
+    if({!confirmed}){
+        document.getElementById('LoaderImg').style.display = "";
+        doOnAfterConfirm();
+     }
+    </script>
+    </apex:outputPanel>
+
+</apex:page>

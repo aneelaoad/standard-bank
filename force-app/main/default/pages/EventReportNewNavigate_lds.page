@@ -1,0 +1,431 @@
+<apex:page standardcontroller="Call_Report__c" extensions="EventReport_Navigate_Lightning" sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+  <html>
+  <head>
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.LightningTransformer, 'css/lt.css')}"></apex:stylesheet>
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/jquery-2.2.4.min.js')}"></apex:includeScript>
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/lt.js')}"></apex:includeScript>
+    <apex:includeScript value="/support/console/32.0/integration.js"></apex:includeScript>
+    <apex:includeScript value="{!URLFOR($Resource.jquery180, 'jquery/jquery-1.8.0.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.full.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system.min.css')}"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <style>
+        .msgIcon {
+            display: none!important
+        }
+        .customMessage * {
+            color: #fff!important
+        }
+        .customMessage {
+            margin: 5px 5px 5px 5px;
+            opacity: 1!important;
+            width: 100%;
+            font-size: 12px;
+            border: 0px;
+            padding-left: 10px;
+        }
+        .message {
+            opacity: .1
+        }
+        .fa-search {
+           display: none !important;
+        }
+        .multiSelectPicklistRow > td{
+            width:50%;
+        }
+        .multiSelectPicklistRow > td ~ td {
+            width:0;
+        }
+        
+    </style>
+    <script>
+        $(document).ready(function() {
+            overridePageMessages();
+            $('.end-date').datetimepicker({
+                format: 'd/m/Y H:i',
+                lang: 'en'
+            });
+        });
+            
+        function overridePageMessages() {    
+            var textureEffect = '';
+            //Uncomment below line for texture effect on page messages
+            textureEffect = 'slds-box slds-theme--error';//'slds-theme--alert-texture';
+                         
+            $('.warningM3').addClass('slds-notify slds-notify--toast slds-theme--warning customMessage '+textureEffect);          
+            $('.confirmM3').addClass('slds-notify slds-notify--alert slds-theme--success  customMessage '+textureEffect);    
+            $('.errorM3').addClass('slds-notify slds-notify--alert slds-theme--error customMessage '+textureEffect);                  
+            $('.infoM3').addClass('slds-notify slds-notify--toast customMessage '+textureEffect);    
+                             
+            $('.errorM3').removeClass('errorM3'); 
+            $('.confirmM3').removeClass('confirmM3'); 
+            $('.infoM3').removeClass('infoM3');   
+            $('.warningM3').removeClass('warningM3');  
+        }
+    </script>
+    
+  </head>
+  <body>
+    <apex:outputPanel styleClass="slds" id="msgId">
+        <apex:pageMessages />
+    </apex:outputPanel>
+  
+    <div class="slds-page-header">
+      <div class="slds-grid">
+        <div class="slds-col slds-has-flexi-truncate">
+          <p class="slds-text-heading--label">{!$ObjectType.Call_Report__c.label} Edit</p>
+          <div class="slds-grid">
+            <div class="slds-grid slds-type-focus slds-no-space">
+              <h1 class="slds-text-heading--medium slds-truncate">{!IF(ISNULL(Call_Report__c.Name), 'New Event Report',Call_Report__c.Name)}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <apex:form id="theForm">
+        <apex:outputPanel styleClass="slds" id="mainPanelId" > <!-- rendered="{!Call_Report__c.RecordTypeId != null}" -->
+        
+        <apex:actionStatus id="loaderStatus">
+            <apex:facet name="start">
+            <div class="slds-spinner_container">
+              <div class="slds-spinner--brand slds-spinner slds-spinner--medium" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+              </div>
+            </div>
+            </apex:facet>
+        </apex:actionStatus>
+    
+      <apex:pageBlock mode="edit" title="{!$ObjectType.Call_Report__c.label} Edit">
+        <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+          <apex:commandButton value="Save" action="{!Save}" status="loaderStatus" oncomplete="overridePageMessages();" styleClass="slds-button slds-button--neutral" reRender="loaderStatus, msgId"/>
+          <apex:commandButton value="Save & New" action="{!SaveAndNew}" oncomplete="overridePageMessages();" status="loaderStatus" styleClass="slds-button slds-button--neutral" style="margin-left: 0;" reRender="loaderStatus, msgId"/>
+          <apex:commandButton value="Cancel" action="{!cancelRequest}" immediate="true" styleClass="slds-button slds-button--neutral" style="margin-left: 0;"/>
+        </div>
+        <apex:outputPanel >
+          <div title="Report Information" showheader="true" columns="1" class="slds-grid slds-wrap">
+            <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Report Information</span> </div>
+            <div class="slds-col slds-size--1-of-1" style="display : {!IF($ObjectType.call_report__c.fields.Topics__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.call_report__c.fields.Topics__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Topics__c}" required="false" styleClass="slds-input" ></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1" style="display : {!IF($ObjectType.Call_Report__c.fields.Description__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Description__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Description__c}" required="true" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1" style="display : {!IF($ObjectType.Call_Report__c.fields.Outcomes__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Outcomes__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Outcomes__c}" required="false" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1" style="display : {!IF($ObjectType.Call_Report__c.fields.Issues_Risks__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Issues_Risks__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!Call_Report__c.Issues_Risks__c}" required="false" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1" style="display : {!IF($ObjectType.Call_Report__c.fields.Competitor_Information__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Competitor_Information__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Competitor_Information__c}" required="false" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div title="Event Report Detail" showheader="true" columns="2" class="slds-grid slds-wrap">
+            <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Event Report Detail</span> </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.call_report__c.fields.Name.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.call_report__c.fields.Name.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputText value="{!eventReportValues}" required="true" styleClass="slds-input"></apex:inputText>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.OwnerId.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.OwnerId.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:outputField value="{!eventReportRecord.OwnerId}"></apex:outputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Subject__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Subject__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Subject__c}" required="true" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Assigned_To__c.Accessible=true,'block','none')}">
+            <apex:outputPanel layout="block" styleClass="slds-lookup" id="divLookup" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+                <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-form-element__label" for="lookup">
+                    {!$ObjectType.Call_Report__c.fields.Assigned_To__c.label}
+                    <sup><i class="fa fa-asterisk" aria-hidden="true" style="color:#ff0000; font-size:7px;"></i></sup>
+                    </label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                        <apex:inputField id="lookup" value="{!eventReportRecord.Assigned_To__c}" styleclass="slds-input" />
+                    </div>
+                </div>
+                <script>
+                    var lkInput = document.getElementById("{!$Component.lookup}");
+                    lkInput.style.visibility = "";
+                    var lkSpan = lkInput.parentElement;
+                    var lkLink = lkSpan.querySelector("a");
+                    lkLink.style.visibility = "";
+                    lkLink.className = "";
+                    lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                </script>
+            </apex:outputPanel>
+            </div>
+            
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Event_Priority__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Event_Priority__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Event_Priority__c}" required="false" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Location__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Location__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Location__c}" required="false" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Meeting_Audience__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Meeting_Audience__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Meeting_Audience__c}" required="true" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Start__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Start__c.label} <sup><i aria-hidden="true" class="fa fa-asterisk" style="color:#ff0000; font-size:7px;"></i></sup></span> </label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                  <svg aria-hidden="true" class="slds-input__icon slds-icon-text-default">
+                    <use href="{!URLFOR($Resource.SLDS0120, '/assets/icons/utility-sprite/svg/symbols.svg#event')}"></use>
+                  </svg>
+                  <div class="slds-hide">
+                    <apex:inputField value="{!eventReportRecord.Start__c}" styleClass="slds-input end-date"/>
+                  </div>
+                  <apex:inputText value="{!startDate}" styleClass="slds-input end-date"/>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Meeting_Purpose__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Meeting_Purpose__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Meeting_Purpose__c}" required="true" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.End__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.End__c.label} <sup><i aria-hidden="true" class="fa fa-asterisk" style="color:#ff0000; font-size:7px;"></i></sup></span> </label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                  <svg aria-hidden="true" class="slds-input__icon slds-icon-text-default">
+                    <use href="{!URLFOR($Resource.SLDS0120, '/assets/icons/utility-sprite/svg/symbols.svg#event')}"></use>
+                  </svg>
+                  <div class="slds-hide">
+                    <apex:inputField value="{!eventReportRecord.End__c}" styleClass="slds-input end-date"/>
+                  </div>
+                  <apex:inputText value="{!endDate}" styleClass="slds-input end-date"/>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Visible_to_Internal_Attendees_only__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <div class="slds-form-element__row">
+                   <div class="slds-form-element">
+                      <label class="slds-checkbox">
+                            <apex:inputcheckbox id="isinstance" styleclass="slds-input" value="{!eventReportRecord.Visible_to_Internal_Attendees_only__c}" />
+                               <span class="slds-checkbox--faux"></span>
+                               <span class="slds-form-element__label">{!$ObjectType.Call_Report__c.fields.Visible_to_Internal_Attendees_only__c.label}</span>
+                      </label>
+                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Instigated_By__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>{!$ObjectType.Call_Report__c.fields.Instigated_By__c.label}</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.Instigated_By__c}" required="false" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" ></div>
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.call_report__c.fields.CurrencyIsoCode.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <label class="slds-text-heading"><span>Currency</span> </label>
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!eventReportRecord.CurrencyIsoCode}" required="false" styleClass="slds-input"></apex:inputField>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div title="Related To Information" showheader="true" columns="2" class="slds-grid slds-wrap">
+            <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Related To Information</span> </div>
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.call_report__c.fields.Report_Client_Contact__c.Accessible=true,'block','none')}">
+                <apex:outputPanel layout="block" styleClass="slds-lookup" id="clientCtcLookup" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+                <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-form-element__label" for="lookupClientContact">
+                    {!$ObjectType.Call_Report__c.fields.Report_Client_Contact__c.label}
+                    </label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                        <apex:inputField id="lookupClientContact" value="{!eventReportRecord.Report_Client_Contact__c}" styleclass="slds-input" />
+                    </div>
+                </div>
+                <script>
+                    var lkInput = document.getElementById("{!$Component.lookupClientContact}");
+                    lkInput.style.visibility = "";
+                    var lkSpan = lkInput.parentElement;
+                    var lkLink = lkSpan.querySelector("a");
+                    lkLink.style.visibility = "";
+                    lkLink.className = "";
+                    lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                </script>
+                </apex:outputPanel>
+            </div>
+
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Related_to_Campaign__c.Accessible=true,'block','none')}">
+              <apex:outputPanel layout="block" styleClass="slds-lookup" id="relatedCampaignId" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+                <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-form-element__label" for="lookupRelatedCampaign">
+                    {!$ObjectType.Call_Report__c.fields.Related_to_Campaign__c.label}
+                    </label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                        <apex:inputField id="lookupRelatedCampaign" value="{!eventReportRecord.Related_to_Campaign__c}" styleclass="slds-input" />
+                    </div>
+                </div>
+                <script>
+                    var lkInput = document.getElementById("{!$Component.lookupRelatedCampaign}");
+                    lkInput.style.visibility = "";
+                    var lkSpan = lkInput.parentElement;
+                    var lkLink = lkSpan.querySelector("a");
+                    lkLink.style.visibility = "";
+                    lkLink.className = "";
+                    lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                </script>
+                </apex:outputPanel>
+            </div>
+
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Relate_to_Client__c.Accessible=true,'block','none')}">
+              <apex:outputPanel layout="block" styleClass="slds-lookup" id="relateToClientId" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+                <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-form-element__label" for="lookupRelateToClient">
+                    {!$ObjectType.Call_Report__c.fields.Relate_to_Client__c.label}
+                    </label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                        <apex:inputField id="lookupRelateToClient" value="{!eventReportRecord.Relate_to_Client__c}" styleclass="slds-input" />
+                    </div>
+                </div>
+                <script>
+                    var lkInput = document.getElementById("{!$Component.lookupRelateToClient}");
+                    lkInput.style.visibility = "";
+                    var lkSpan = lkInput.parentElement;
+                    var lkLink = lkSpan.querySelector("a");
+                    lkLink.style.visibility = "";
+                    lkLink.className = "";
+                    lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                </script>
+                </apex:outputPanel>
+            </div>
+
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Related_To_Case__c.Accessible=true,'block','none')}">
+              <apex:outputPanel layout="block" styleClass="slds-lookup" id="relateToCaseLookup" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+                <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-form-element__label" for="lookupRelateToCase">
+                    {!$ObjectType.Call_Report__c.fields.Related_To_Case__c.label}
+                    </label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                        <apex:inputField id="lookupRelateToCase" value="{!eventReportRecord.Related_To_Case__c}" styleclass="slds-input" />
+                    </div>
+                </div>
+                <script>
+                    var lkInput = document.getElementById("{!$Component.lookupRelateToCase}");
+                    lkInput.style.visibility = "";
+                    var lkSpan = lkInput.parentElement;
+                    var lkLink = lkSpan.querySelector("a");
+                    lkLink.style.visibility = "";
+                    lkLink.className = "";
+                    lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                </script>
+                </apex:outputPanel>
+            </div>
+
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2" style="display : {!IF($ObjectType.Call_Report__c.fields.Relate_to_Opp__c.Accessible=true,'block','none')}">
+              <apex:outputPanel layout="block" styleClass="slds-lookup" id="relateToOppLookup" html-data-select="single" html-data-scope="single" html-data-typeahead="true">
+                <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-form-element__label" for="lookupRelateOpp">
+                    {!$ObjectType.Call_Report__c.fields.Relate_to_Opp__c.label}
+                    </label>
+                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                        <apex:inputField id="lookupRelateOpp" value="{!eventReportRecord.Relate_to_Opp__c}" styleclass="slds-input" />
+                    </div>
+                </div>
+                <script>
+                    var lkInput = document.getElementById("{!$Component.lookupRelateOpp}");
+                    lkInput.style.visibility = "";
+                    var lkSpan = lkInput.parentElement;
+                    var lkLink = lkSpan.querySelector("a");
+                    lkLink.style.visibility = "";
+                    lkLink.className = "";
+                    lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                </script>
+                </apex:outputPanel>
+            </div>
+
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2"></div>
+
+          </div>
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2"></div>
+        </apex:outputPanel>
+        <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+          <apex:commandButton value="Save" action="{!Save}" status="loaderStatus" oncomplete="overridePageMessages();" styleClass="slds-button slds-button--neutral" style="margin-top: 10px;" reRender="loaderStatus, msgId"/>
+          <apex:commandButton value="Save & New" action="{!SaveAndNew}" oncomplete="overridePageMessages();" status="loaderStatus" styleClass="slds-button slds-button--neutral" style="margin-top: 10px; margin-left: 0;" reRender="loaderStatus, msgId" />
+          <apex:commandButton value="Cancel" action="{!cancelRequest}" immediate="true" styleClass="slds-button slds-button--neutral" style="margin-top: 10px; margin-left: 0;"/>
+        </div>
+      </apex:pageBlock>
+      </apex:outputPanel>
+    </apex:form>
+  </body>
+  </html>
+
+</apex:page>

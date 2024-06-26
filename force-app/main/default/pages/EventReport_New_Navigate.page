@@ -1,0 +1,283 @@
+<!-- Created by: Abhishek V-->
+<!-- Created on: 06/07/2016-->
+<!-- Description: US - 1379 - VF to navigate on creating Event Report record -->
+
+<apex:page standardController="Call_Report__c" extensions="EventReport_Navigate" action="{!navigateNew}" applyBodyTag="false"> 
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+      <title>Create New Event Report</title>
+      <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+      <apex:includeScript value="{!$Resource.Jquery1122}" />       
+            
+      <apex:includeScript value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.full.min.js')}" />
+      <apex:stylesheet value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.css')}" />
+      <style>
+.hide { display: none!important; }
+ 
+.slds .slds-text-heading--medium {
+    font-weight: 300;
+    color: rgb(22, 50, 92); }
+ 
+.slds .slds-theme--shade {
+    background-color: #f8f8f8; }
+ 
+.slds h3 {
+    background-color: inherit;
+    color: rgb(22, 50, 92);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1;
+    margin: 0;
+    text-transform: none;
+    padding: 2rem 0rem 1rem; }
+ 
+.slds .slds-form-element__label { color: rgb(84, 105, 141); }
+ 
+.slds .slds-spinner_container {
+    position: fixed;
+    background-color: inherit; }
+
+.slds .slds-backdrop {
+    background: rgba(126, 140, 153, 0.67); }
+
+.slds .slds-modal--prompt .slds-modal__footer {
+    text-align: right;
+    border-top: 2px solid #d8dde6; }
+
+.changeRecordTypeRow {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0; }
+
+.changeRecordTypeLeftColumn {
+    float: left;
+    text-align: right;
+    padding-right: 1.5rem;
+    width: 35%;
+    font-size: .8125rem;
+    color: rgb(84, 105, 141); }
+
+.changeRecordTypeRightColumn {
+    float: right;
+    text-align: left;
+    width: 65%; }
+
+.legend {
+    display: inline-block;
+    color: rgb(84, 105, 141);
+    font-size: .80rem;
+    line-height: 1.5;
+    margin-right: .75rem;
+    margin-bottom: .25rem;
+    width: 100%;
+    text-align: right;
+    -webkit-padding-start: 2px;
+    -webkit-padding-end: 2px; }
+
+.changeRecordTypeLabel {
+    font-size: .8125rem;
+    color: rgb(84, 105, 141); }
+
+.changeRecordTypeItemDescription {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: .75rem;
+    padding-left: 3rem;
+    word-wrap: break-word; }
+       </style>
+    </head>
+  <apex:messages />
+  <script>
+    if("{!newURLRTID}" != '') {
+        navigate("{!newURLnew}","{!isNBAC}", "{!newURLRTID}");   
+    }
+
+    var recordTypeName = '';
+    
+    function setrtval(selectedRecordType) {
+      recordTypeName = selectedRecordType;
+    }
+
+    function navigate(urltogo, isnbacrt, RTID ) {
+        if ((typeof sforce != 'undefined') && (sforce != null)) {  
+            
+            if (isnbacrt != "false") {
+                console.log('=Enter=');
+                sforce.one.navigateToURL(urltogo);
+            }
+            else {
+                console.log('=Exit=');
+                //sforce.one.navigateToURL("#/sObject/Call_Report__c/home");
+                //debugger;
+                // TEST BEGIN
+//                sforce.one.navigateToURL("/apex/EventReportNewNavigate_lds");
+                sforce.one.navigateToURL("/lightning/cmp/c__EventReport");
+                //sforce.one.createRecord("Call_Report__c", RTID);
+                // sforce.one.back();
+                // TEST END
+                // sforce.one.createRecord("Call_Report__c", RTID);
+                debugger;
+            }
+        }
+        else {       
+            window.location.href = urltogo;
+        }
+    }  
+     
+    function alertradio() {
+        var all_answered = true;
+        $("input:radio").each(function() {
+            var name = $(this).attr("name");
+            if($("input:radio[name="+name+"]:checked").length == 0)
+            {
+                all_answered = false;
+            }
+        });
+        if(all_answered) {
+            $('#errorAlert').addClass('hide');
+            continueAFlds(recordTypeName);
+        }
+        else {
+            $('#errorAlert').removeClass('hide');
+        }
+    } 
+     
+    function passRTval() {
+        var e = document.getElementById("selectRT");
+        var selconrol = e.options[e.selectedIndex].text;
+        continueAF(selconrol);
+    } 
+     
+    function gohome() {
+        sforce.one.navigateToURL("#/sObject/Call_Report__c/home");
+    }   
+  </script>
+  
+  <apex:outputPanel rendered="{!newURLRTID != null}">
+    <div id="waitdsp" >
+      <center>
+        <br/><br/>
+        <apex:outputtext style="font-family: Salesforce Sans, Arial, sans-serif;font-size: 14px;" value="Loading..."/>
+        <br/><br/>
+        <img src="{!$Resource.SF1_Loading_GIF}" alt="" title="Redirecting..." width="196"/>
+      </center>
+    </div>
+  </apex:outputPanel>
+  
+  <apex:outputPanel rendered="{!newURLRTID == null && IsClassic}">
+    <apex:sectionHeader title="New Event Report" subtitle="Select Event Report Record Type" /> 
+    <p>{!$Label.Record_Type_Selection_Msg}</p>
+    <apex:form >
+      <apex:pageBlock title="Select Event Report Record Type">
+        <apex:pageBlockSection collapsible="false" columns="1">
+        
+          <apex:outputPanel >
+            <div style="margin-left:5%"><apex:outputLabel value="Record Type of New Record"/>
+              <apex:selectList value="{!selectedRT}" multiselect="false" size="1" style="margin-left:2%">
+                <apex:selectOptions value="{!recordtypevalues}"/>
+              </apex:selectList>
+            </div>
+          </apex:outputPanel>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+          <apex:commandButton value="Continue" action="{!continuemethod}" oncomplete="navigate('{!newURLnew}','{!isNBAC}','{!newURLRTID}');"/>
+          <apex:commandButton value="Cancel" action="{!Cancel}"/>
+        </apex:pageBlockButtons>
+        
+      </apex:pageBlock>
+      <apex:pageBlock >
+        <apex:pageBlockTable border="1" columns="2" value="{!rtlstdetails}" var="rt">
+          <apex:column headerValue="Name" value="{!rt.Name}"/>
+          <apex:column headerValue="Description" value="{!rt.Description}"/>
+        </apex:pageBlockTable>
+      </apex:pageBlock>
+    </apex:form>
+  </apex:outputPanel>  
+  <apex:outputPanel rendered="{!newURLRTID == null && IsLightning}">
+    <apex:form >
+      <!--
+      <apex:actionFunction name="setrtval" rerender="">
+        <apex:param name="param1" value="" assignTo="{!selectedRT}"/>
+      </apex:actionFunction>
+      -->
+      <apex:actionFunction name="continueAFlds" action="{!continuemethod}" oncomplete="navigate('{!newURLnew}','{!isNBAC}','{!newURLRTID}');" rerender="">
+        <apex:param name="param1" value="" assignTo="{!selectedRT}"/>
+      </apex:actionFunction>
+      <div class="slds" style="max-width: 1540px;">   
+        <!-- PAGE HEADER -->
+        <div class="myApp">                
+          <div id="spinnerContainer" class="slds-spinner_container hide" style="z-index: 9002">
+            <div>
+              <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+              </div>
+            </div>
+          </div>
+          <div class="slds-notify_container">
+            <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+              <span class="slds-assistive-text">Info</span>
+              <h2>{!$Label.Event_Report_RT_missing}</h2>
+            </div>
+          </div>
+          <div>
+            <div aria-hidden="true" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+              <div class="slds-modal__container slds-modal--prompt" style="overflow-y: hidden;overflow-x: hidden;">
+                <div class="slds-modal__header" style="border-bottom: 2px solid #d8dde6;">
+                  <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="gohome();return false;">
+                    <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                      <use xlink:href="{!URLFOR($Resource.slds_standalone, '/assets/icons/action-sprite/svg/symbols.svg#close')}"></use>
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                  </button>
+                  <h2 class="slds-text-heading--medium">New Event Report</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                  <div>
+                    <apex:pagemessages id="idpgmsg"/>
+                    <!--<fieldset class="slds-box slds-container--extra_large slds-theme--default">-->
+                      <div Class="slds-form--stacked slds-grid slds-wrap slds-m-top--large">
+                        <div class="changeRecordTypeRow">
+                        <fieldset class="slds-form-element">
+                          <div class="changeRecordTypeLeftColumn">
+                            <legend class="legend slds-radio__label slds-form-element__control">Select a record type</legend>
+                          </div>
+                          <div class="changeRecordTypeRightColumn slds-form-element__control">
+                          <apex:repeat value="{!rtlstdetails}" var="o">
+                            <label class="slds-radio">
+                                <input type="radio" name="options" onclick="setrtval('{!o.Name}');"/>
+                                <span class="slds-radio--faux"></span>
+                                <label class="slds-radio__label" for="radio-309">
+                                   <span>{!o.Name}</span><br/>
+                                   <div class="changeRecordTypeItemDescription changeRecordTypeLabel">{!o.Description}</div>
+                                </label>
+                            </label>
+                          </apex:repeat>
+                          </div>
+                        </fieldset>
+                        </div>
+                      </div>
+                     <!-- </fieldset>-->
+                  </div>
+                  <div class="changeRecordTypeRow"/>
+                  <div class="changeRecordTypeRow"/>
+                </div>
+                <div class="slds-modal__footer">
+                  
+                  <apex:commandButton styleClass="slds-button slds-button--neutral" value="Cancel" action="{!Cancel}" immediate="true"/>
+                  <Button Class="slds-button slds-button--brand" onclick="alertradio();return false;">Next</button>
+                </div>
+              </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+          </div>
+          
+  
+        </div>
+      </div>
+  
+    </apex:form>
+  </apex:outputPanel>
+  </html>
+</apex:page>

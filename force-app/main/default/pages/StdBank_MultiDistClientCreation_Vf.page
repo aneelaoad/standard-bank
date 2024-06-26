@@ -1,0 +1,37 @@
+<apex:page standardController="Distribution_Client__c"
+            recordSetVar="distClients"
+            extensions="StdBank_MultiDistClientCreation_Vf_Ext">
+    <apex:sectionHeader title="Distribution Client"
+            subtitle="Create Multiple Distribution Clients for Opportunity Product"
+            description="Create multiple distribution clients for an Opportunity Product by entering the Distribution Client, Margin Points and Amount. Then click 'Save' for just these records or 'Save & More' if you wish to enter further records." />
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!distClients}" var="dc">
+                <apex:column headervalue="Client">
+                    <apex:outputfield value="{!dc.Client__c}" />
+                </apex:column>
+                <apex:column headervalue="Opportunity">
+                    <apex:outputfield value="{!dc.Opportunity__c}" />
+                </apex:column>
+                <apex:column headervalue="Product">
+                    <apex:outputfield value="{!dc.Product__c}" />
+                </apex:column>
+                <apex:column headervalue="Distribution Client">
+                    <apex:inputfield value="{!dc.Distribution_Client__c}" />
+                </apex:column>
+                <apex:column headervalue="Margin Points">
+                    <apex:inputfield value="{!dc.Margin_Points__c}"/>
+                </apex:column>
+                <apex:column headervalue="Amount">
+                    <apex:inputfield value="{!dc.Amount__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons lang="en" location="bottom">
+                <apex:commandButton value="Save" action="{!saveAll}" />
+                <apex:commandButton value="Save & More" action="{!saveAndMore}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

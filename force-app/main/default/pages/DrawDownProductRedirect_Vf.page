@@ -1,0 +1,6 @@
+<!-- Case#141: Rudolf Niehaus -->
+<!-- redirect user to draw down vf page from the product page -->
+<apex:page standardController="SB_Product__c"
+    extensions="DrawDownProductRedirect_Vf_Ext"
+    action="{!redirect}">
+</apex:page>

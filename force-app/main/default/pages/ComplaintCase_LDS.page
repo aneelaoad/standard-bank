@@ -1,0 +1,428 @@
+<!-- US:1794:SF1/LEX: Enable new complaint functions for contacts -->
+<!-- Developer: Manoj Gupta 10/04/2017 -->
+
+<apex:page standardController="Case" extensions="ComplaintCase_LDS_ctrl" sidebar="false" showChat="false" showHeader="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">  
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>Create New Opportunity</title>
+            <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+            <apex:includeScript value="{!$Resource.Jquery1122}" />       
+                        
+            <apex:includeScript value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.full.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.css')}" />
+            <script>
+
+                var SEARCH = false;
+
+                function loading(){
+
+                    if($('#spinnerContainer').hasClass('hide')){
+                        $('#spinnerContainer').removeClass('hide');
+                    }else{
+                        $('#spinnerContainer').addClass('hide');
+                    }
+
+                }
+
+                function checkreqfields(){
+
+                    var error = false;
+
+                    var corigin = $('[id$=caseOrigin]').val();
+                    if (corigin === '') {
+                        $('[id$=Origindiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpOrigin').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=Origindiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpOrigin').addClass('hide');
+                    }
+
+                    var cstatus = $('[id$=status]').val();
+                    if (cstatus === '') {
+                        $('[id$=statusdiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpStatus').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=statusdiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpStatus').addClass('hide');
+                    }
+
+                    var clientname = $('[id$=lookupclientname]').val();
+                    if (clientname === '') {
+                        $('[id$=ClientNamediv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpClient').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=ClientNamediv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpClient').addClass('hide');
+                    }
+
+                    var sub = $('[id$=subject]').val();
+                    if (sub === '') {
+                        $('[id$=subdiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpSubject').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=subdiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpSubject').addClass('hide');
+                    }
+
+                    if (error) {
+                        $('#errorAlert').removeClass('hide');
+                    } else {
+                        $('#errorAlert').addClass('hide');
+                        loading();
+                        saveaf();
+                    }
+
+
+                    return false;
+                }
+
+
+                $('document').ready(function() {
+
+                  
+                    if("{!$User.UIThemeDisplayed }" == "Theme4t"){                       
+                        $('#modalContainer').addClass('stretch');
+                    }
+                });
+            </script>
+            <style>
+                 
+                 .hide{
+                    display: none!important;
+                 }
+                 
+                 .slds .slds-text-heading--medium {
+                    font-weight: 300;
+                    color: rgb(22, 50, 92);
+                 }
+                 
+                 .slds .slds-theme--shade{
+                     background-color: #f8f8f8;
+                 }
+                 .slds .slds-section-title--divider{
+                     color: #f4f6f9;
+                     background: #8199af;
+                 }
+                 
+                 .slds h3 {
+                    background-color: inherit;
+                    color: rgb(22, 50, 92);
+                    font-weight: 400;
+                    font-size: 1rem;
+                    line-height: 1;
+                    margin: 0;
+                    text-transform: none;
+                    padding: 2rem 0rem 1rem;
+                 }
+                 
+                 .slds .slds-form-element__label{
+                     color: rgb(84, 105, 141)
+                 }
+                 
+                 .slds .slds-spinner_container {
+                    position: fixed;
+                    background-color: inherit;
+                }
+                
+                .slds .slds-backdrop {
+                    background: rgba(126, 140, 153, 0.67);
+                }
+                
+                .slds .slds-modal--prompt .slds-modal__footer{
+                    text-align: right;
+                }
+
+                .slds .stretch {
+                    max-width:none;
+                    max-height:none;
+                    width: 100%;
+                    height: 100%;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0;
+
+                }
+             </style>
+        </head>
+        
+         <!-- MASTHEAD -->
+        <p class="slds-text-heading--label slds-m-bottom--small">&nbsp;</p>
+        <body>      
+        <apex:form >
+            
+            <apex:actionFunction name="saveaf" action="{!savecase}" oncomplete="navigate('{!navigateurl}');" rerender="idpgmsg,errorMsginsertpanel,idCaseDetail"/>
+            <apex:actionFunction name="cancelaf" action="{!cancelcase}" oncomplete="loading();navigate('{!navigateurl}');"/>
+            <div class="slds" style="max-width: 1540px;">   
+            <!-- PAGE HEADER -->
+            <div class="myApp">                
+                <div id="spinnerContainer" class="slds-spinner_container hide" style="z-index: 9002">
+                    <div>
+                        <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slds-notify_container">
+                    <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                        <span class="slds-assistive-text">Info</span>
+                        <h2>{!$Label.New_Opportunity_LDS_Req_fields}</h2>
+                    </div>
+                </div>
+                
+                
+                <apex:outputPanel id="errorMsginsertpanel">
+                    <apex:outputPanel layout="block" rendered="{!IF(errorMsginsert == '', false, true)}">
+                        <div class="slds-notify_container">
+                            <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture errorAlertShown" role="alert">
+                                <span class="slds-assistive-text">Info</span>
+                                <h2><apex:outputText escape="false" value="{!errorMsginsert}"/></h2>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:outputPanel>   
+                
+                <div>
+                    <div aria-hidden="true" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                        <div id="modalContainer" class="slds-modal__container slds-modal--prompt" style="overflow-y: hidden;overflow-x: hidden;">
+                            <div class="slds-modal__header" style="border-bottom: 2px solid #d8dde6;">
+                                <!--<button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                    <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                        <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>-->
+                                <h2 class="slds-text-heading--medium">New Case</h2>
+                            </div>
+                            <div class="slds-modal__content slds-p-around--medium">
+                                <div>
+                                    <apex:pagemessages id="idpgmsg"/>
+                                    <!--<fieldset class="slds-box slds-container--extra_large slds-theme--default">-->
+                                        <div styleClass="slds-form--stacked slds-grid slds-wrap slds-grid--pull-padded-large slds-m-top--large">
+                                            <fieldset class="slds-col--padded ">
+                                                <h3>Case Information</h3>
+                                                <apex:outputPanel id="idCaseInfo" layout="block">
+                                                    <br/>
+                                                    <fieldset class="slds-form--compound">
+                                                        <div class="form-element__group">
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                <div id="Origindiv" class="slds-form-element common-root slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="caseOrigin"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Case.fields.Origin.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                       
+                                                                     <apex:inputField id="caseOrigin" styleclass="slds-select" value="{!caserec.Origin}"/>
+                                                                        
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpOrigin" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                
+                                                                <div id="ownerdiv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                 <label class="slds-form-element__label" for="owner">Case Owner</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:outputText id="owner" value="{!$User.FirstName} {!$User.LastName}" styleClass="slds-input" />
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                
+                                                                
+                                                                <div class="slds-form-element__row">
+                                                                <div id="typediv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                 <label class="slds-form-element__label" for="type">{!$ObjectType.Case.fields.Type.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputField id="type" value="{!caserec.Type}" styleClass="slds-select"/>
+                                                                    </div>
+                                                                  </div>
+                                                                
+                                                                <div id="statusdiv" class="slds-form-element common-root slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="status"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Case.fields.Status.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                       
+                                                                     <apex:inputField id="status" styleclass="slds-select" value="{!caserec.Status}"/>
+                                                                        
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpStatus" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                </div>
+                                                                
+                                                
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                <div id="ClientNamediv" class="slds-form-element common-root slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="lookupclientname"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Case.fields.AccountID.Label}</label>
+                                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                                                                        <apex:inputField id="lookupclientname" styleclass="slds-input lookup-prompt-client" value="{!caserec.AccountID}" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant="" />
+                                                                        <script>
+                                                                            var lkInput = document.getElementById("{!$Component.lookupclientname}");
+                                                                            lkInput.style.visibility = "";
+                                                                            var lkSpan = lkInput.parentElement;
+                                                                            var lkLink = lkSpan.querySelector("a");
+                                                                            lkLink.style.visibility = "";
+                                                                            lkLink.className = "";
+                                                                            lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                                                                        </script>
+                                                                    </div>
+                                                                    <div class="slds-lookup__menu results" role="listbox" style="display: none; width: auto;">
+                                                                        <div class="slds-lookup__item">
+                                                                            <button class="slds-button">
+                                                                                &quot;<span class="results-keyword"></span>&quot; in Clients
+                                                                            </button>
+                                                                        </div>
+                                                                        <ul class="slds-lookup__list results-ul" role="presentation">
+                                                                        </ul>                           
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpClient" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                
+                                                                <div id="priorityDiv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                 <label class="slds-form-element__label" for="priority">{!$ObjectType.Case.fields.Priority.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputField id="priority" value="{!caserec.Priority}" styleClass="slds-select"/>
+                                                                    </div>
+                                                                  </div>
+                                                                     
+                                                            </div>
+                                                                <div class="slds-form-element__row">
+                                                                <div id="lookupcontactDiv" class="slds-form-element common-root slds-size--1-of-2">
+                                                               <label class="slds-form-element__label" for="lookupcontact">Contact Name</label>
+                                                               <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                                                                 <apex:inputField id="lookupcontact" styleClass="slds-input lookup-prompt-client" value="{!caserec.ContactId}"  html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant=""/>
+                                                                         <script>
+                                                                            var lkInput = document.getElementById("{!$Component.lookupcontact}");
+                                                                            lkInput.style.visibility = "";
+                                                                            var lkSpan = lkInput.parentElement;
+                                                                            var lkLink = lkSpan.querySelector("a");
+                                                                            lkLink.style.visibility = "";
+                                                                            lkLink.className = "";
+                                                                            lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                                                                        </script>
+                                                                    </div>
+                                                                   </div> 
+                                                                  </div> 
+                                                         
+                                                         </div>
+
+                                                       
+                                                    </fieldset>
+                                                </apex:outputPanel>
+                                            <br/>
+                          
+
+                                                <h3>Case Details</h3>
+                                                <apex:outputPanel id="idCaseDetail" layout="block">
+                                                    <br/>
+                                                    <fieldset class="slds-form--compound">
+                                                        <div class="form-element__group">
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                 <div id="subdiv" class="slds-form-element slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="subject"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Case.fields.Subject.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputText id="subject" value="{!caserec.Subject}" styleClass="slds-select"/>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpSubject" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                               </div> 
+                                                               </div>
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                <div id="desdiv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                    <label class="slds-form-element__label" for="desc">{!$ObjectType.Case.fields.Description.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                    <apex:outputPanel >
+                                                                        <apex:inputTextarea id="desc" value="{!caserec.Description}" styleClass="slds-input"/>
+                                                                    </apex:outputPanel> 
+                                                                    </div>
+                                                                   </div>
+                                                                   </div>
+                                                                
+                                                          
+                                                            <div id="relatedtodiv" class="slds-form-element__row">
+                                                                <div class="slds-form-element slds-size--1-of-2">
+                                                               <label class="slds-form-element__label" for="relatedto">{!$ObjectType.Case.fields.Related_To__c.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputField id="relatedto" value="{!caserec.Related_To__c}" styleClass="slds-input"/>
+                                                                    </div>
+                                                                    <div class="slds-form-element slds-size--1-of-2">
+                                                                    <div class="hide">
+                                                                    
+                                                                    </div>
+                                                                </div>
+                                                                   </div>
+                                                                   </div>
+                                                                    
+                                                                <div  class="slds-form-element__row">
+                                                                  <div id="nextstepsdiv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                    <label class="slds-form-element__label" for="nextsteps">{!$ObjectType.Case.fields.Next_Steps__c.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                    <apex:outputPanel >
+                                                                        <apex:inputTextarea id="nextsteps" value="{!caserec.Next_Steps__c}" styleClass="slds-input "/>
+                                                                    </apex:outputPanel>                                                                    
+                                                                   </div>
+                                                                   </div>
+                                                                   </div>
+                                                             <div class="slds-form-element__row">
+                                                               <div id="resolvedby" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                               <label class="slds-form-element__label" for="lookupresolvedby">{!$ObjectType.Case.fields.Resolved_By__c.Label}</label>
+                                                               <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                                                                 <apex:inputField id="lookupresolvedby" styleClass="slds-input lookup-prompt-client" value="{!caserec.Resolved_By__c}"  html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant=""/>
+                                                                         <script>
+                                                                            var lkInput = document.getElementById("{!$Component.lookupresolvedby}");
+                                                                            lkInput.style.visibility = "";
+                                                                            var lkSpan = lkInput.parentElement;
+                                                                            var lkLink = lkSpan.querySelector("a");
+                                                                            lkLink.style.visibility = "";
+                                                                            lkLink.className = "";
+                                                                            lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                                                                        </script>
+                                                                    </div>
+                                                                   </div>     
+                                                                  </div>                                                                   
+                                                       
+                                                    </fieldset>
+                                                </apex:outputPanel>
+                            
+                                          </fieldset>
+
+                                        </div>
+                                   <!-- </fieldset>-->
+                                </div>
+                            </div>
+                            <div class="slds-modal__footer">
+                                
+                                <apex:commandButton styleClass="slds-button slds-button--neutral" value="Cancel" action="{!cancelcase}" immediate="true"/>
+                                <button class="slds-button slds-button--brand" onclick="checkreqfields();return false;">Save
+                                    <span class="slds-assistive-text">Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-backdrop slds-backdrop--open"></div>
+                </div>
+                
+            
+            </div>
+            </div>
+                        <script>
+                function navigate(URLtogo) {
+                    if(URLtogo != null && URLtogo != '' && URLtogo != 'undefined'){
+                            if ( (typeof sforce != 'undefined') && (sforce!=null) ) {
+                                sforce.one.navigateToURL(URLtogo);
+                            } else {
+                                window.open(URLtogo);
+                            }
+                        }
+                        loading()
+                    
+                }
+                </script>
+             </apex:form>
+        </body>
+        <!-- / MASTHEAD --> 
+        
+    </html>
+</apex:page>

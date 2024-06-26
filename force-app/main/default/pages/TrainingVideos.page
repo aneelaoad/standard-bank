@@ -1,0 +1,125 @@
+<apex:page showHeader="true" standardStyleSheets="true">
+<html>
+    <head>
+
+    </head>
+<body>
+
+    <head>
+    <script type="text/javascript">
+        function open_window(sURL) {
+             var width  = 960;
+             var height = 710;
+             var left   = (screen.width  - width)/2;
+             var top    = (screen.height - height)/2;
+             var params = 'width='+width+', height='+height;
+             params += ', top='+top+', left='+left;
+             params += ', directories=no';
+             params += ', location=no';
+             params += ', menubar=no';
+             params += ', resizable=yes';
+             params += ', scrollbars=no';
+             params += ', status=no';
+             params += ', toolbar=no';
+    
+             myWindow=window.open(sURL,'',params);                  
+             return false;             
+         }         
+    </script>
+    </head>
+    
+   <apex:form id="theForm">
+ 
+    <apex:pageBlock title="Standard Bank Online Help" >
+        <dl>   
+        <ul>
+        
+        <dt><li>Orientation</li></dt>
+            <dd>     
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/creating_a_new_view/creating_a_new_view.htm')" id="Creating_new_view_on_tab">Creating a new view on a tab</apex:outputLink><br />
+            </dd>
+        
+        
+        <dt><li>Login</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/log_in/log_in.htm')" id="log_in">Reduced Sign on Login</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/intl_non_rso_log_in/intl_non_rso_log_in.htm')" id="intl_non_rso_log_in">Login to Salesforce via the web</apex:outputLink><br />
+            </dd>
+        
+        
+        <dt><li>Clients</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/how_to_load_a_prospect_client/how_to_load_a_prospect_client.htm')" id="how_to_load_a_prospect_client">How to load a prospect client</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/how_to_find_a_client/how_to_find_a_client.htm')" id="how_to_find_a_client">How to find a client</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/how_to_edit_a_client/how_to_edit_a_client.htm')" id="how_to_edit_a_client">How to edit a client</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/how_to_edit_a_client_using_inline_editing/how_to_edit_a_client_using_inline_editing.htm')" id="how_to_edit_a_client_using_inline_editing">How to edit a client using inline editing</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/creating_a_new_view/creating_a_new_view.htm')" id="creating_a_new_view">Creating a new view</apex:outputLink><br />
+            </dd>
+        
+        
+        <dt><li>Contacts</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/how_to_create_a_contact/how_to_create_a_contact.htm')" id="how_to_create_a_contact">How to create a contact</apex:outputLink><br />
+            </dd>
+        
+        
+        <dt><li>Activities</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/finding_your_syncd_meeting_in_salesforce/011_finding_your_syncd_meeting_in_salesforce.htm')" id="finding_your_syncd_meeting_in_salesforce">Finding your synced meeting in Salesforce</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/adding_your_event_detail_or_call_report/012_adding_your_event_detail_or_call_report.htm')" id="adding_your_event_detail_or_call_report">Adding your event detail or call report</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/creating_a_follow_up_task_from_an_event/013_creating a follow-up task from an event.htm')" id="creating_a_follow_up_task_from_an_event">Creating a follow up task from an event</apex:outputLink><br />   
+            </dd>
+        
+        
+        <dt><li>Outlook</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/password_reset_in_outlook/password_reset_in_outlook.htm')" id="password_reset_in_outlook">Password reset in outlook</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/opening_salesforce_from_outlook/opening_salesforce_from_outlook.htm')" id="opening_salesforce_from_outlook">Opening salesforce from outlook</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/adding_an_email_form_from_outlook/adding_an_email_form_from_outlook.htm')" id="adding_an_email_form_from_outlook">Adding an email form from outlook</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/finding_an_email_added_from_outlook_in_salesforce/015_finding_an_email_added_from_outlook_in_salesforce.htm')" id="finding_an_email_added_from_outlook_in_salesforce">Finding an email added from Outlook in Salesforce</apex:outputLink><br />
+            </dd>
+        
+        
+        <dt><li>Opportunities</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/loading_an_opportunity/016_Loading an opportunity.htm')" id="Loading_an_opportunity">Loading an opportunity</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/editing_an_opportunity/018_editing_an_opportunity.htm')" id="editing_an_opportunity">Editing an opportunity</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/adding_a_sales_team_to_the_opportunity/021_adding_a_sales_team_to_the_opportunity.htm')" id="adding_a_sales_team_to_the_opportunity">Adding a Opportunity Team to the opportunity</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/adding_a_contact_sales_team_to_the_opportunity/022_adding a contact sales team to the opportunity.htm')" id="adding_a_contact_sales_team_to_the_opportunity">Adding a contact team to the opportunity</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/overview_of_an_opportunity_with_related_objects/023_overview of an opportunity with related objects.htm')" id="overview_of_an_opportunity_with_related_objects">Overview of the opportunity with completed related lists</apex:outputLink><br />
+            </dd>
+        
+        
+        <dt><li>Reports</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/finding_the_report_you_need/finding_the_report_you_need.htm')" id="finding_the_report_you_need">Finding the report you need</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/reordering_report_folders/reordering_report_folders.htm')" id="reordering_report_folders">Reordering report folders</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/printing_the_report/printing_the_report.htm')" id="printing_the_report">Printing the report</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/exporting_the_report/exporting_the_report.htm')" id="exporting_the_report">Exporting the report</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/changing_view_sorting_alphabetically/changing_view_sorting_alphabetically.htm')" id="changing_view_sorting_alphabetically">Changing my report view</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/report_fields_parameters/report_fields_parameters.htm')" id="report_fields_parameters">Report fields parameters</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/sorting_alphabetically/sorting_alphabetically.htm')" id="sorting_alphabetically">Sorting columns alphabetically within the report</apex:outputLink><br />            
+            </dd>
+        
+        
+        <dt><li>Dashboards</li></dt>
+            <dd>
+            
+            </dd>
+        
+        
+        <dt><li>Tips and Tricks</li></dt>
+            <dd>
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/creating_a_new_note/creating_new_note.htm')" id="creating_new_note">Creating new note</apex:outputLink><br />
+            <apex:outputLink onclick="return open_window('{!$Setup.Environment_Variable__c.urlTrainingSnippets__c}/salesforce/searching_tips/searching_tips.htm')" id="searching_tips">Searching tips</apex:outputLink><br />
+            </dd>
+            
+        </ul>
+        </dl>
+           
+    </apex:pageBlock>
+    
+ </apex:form>    
+</body>
+</html>
+</apex:page>

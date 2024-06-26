@@ -1,0 +1,137 @@
+<!-- @ Last Modified By  : Caro Reinecke                                                          -->
+<!-- @ Last Modified On  : 12/04/2012                                                             -->
+<!-- @ Modified Reason   : Case 4296 Event Report Enhancements Allow or Attendee Status to be set -->
+
+<!-- @ Last Modified By  : Nikhita Reddy                                                         -->
+<!-- @ Last Modified On  : 08/03/2013                                                             -->
+<!-- @ Modified Reason   : Added search optimization(user friendly messages) and pagination: 100 records per page-->
+
+<apex:page controller="SA_EventReportContactSearchController">
+
+<style type="text/css">
+.errorMsgDiv li {
+ margin-left: 0;!important
+  padding: 0;!important
+ margin:0;!important
+}
+.errorMsgDiv ul {
+ padding: 0;!important
+ margin:0;!important
+}
+</style>
+<script type="text/javascript">
+    function clickclear(thisfield){
+    
+        thisfield.value = "";
+     
+    }
+    
+    function enterSearch(e){
+    
+        var key; 
+            
+        if(window.event){
+            key = window.event.keyCode; //IE
+        }else{
+            key = e.which; //firefox     
+        }
+        if(key == '13'){
+            actionSearchScript();
+            e.keyCode = null;   
+        }
+    }
+    
+     function showPanel() {
+            document.getElementById('AttendeePanel').style.display ="block";
+        }
+      function hidePanel() {
+            document.getElementById('AttendeePanel').style.display ="none";   
+        }
+</script>
+
+    <apex:form >
+        <apex:actionFunction action="{!search}" name="actionSearchScript"/>
+        <apex:pageBlock mode="edit" id="block">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!addcon}" value="Add Selected Contacts" disabled="{!ISNULL(searchResults)}"/>
+                <apex:commandButton action="{!done}" value="Done"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="searchText" value="{!conType}"></apex:outputLabel>
+                    <apex:panelGroup >
+                    <apex:inputText id="searchText" value="{!searchText}" onclick="clickclear(this)" onkeypress="enterSearch(event);"/>
+                    <apex:commandButton id="searchBtn" value="Search" action="{!search}" rerender="block" status="status"/>
+                    </apex:panelGroup>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <div style="padding-left:10px;" class="errorMsgDiv">
+            <apex:messages layout="table" style="{!styletodisplay}"/>
+             
+            </div><!--  
+            <apex:actionStatus id="status" >
+                <apex:facet name="start">
+                <p align="left"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Searching Contacts... please wait...</b></p>
+                </apex:facet>
+            </apex:actionStatus> 
+            --> 
+            <apex:pageBlockSection title="Existing Report Attendees" columns="1">
+                <apex:pageBlockTable value="{!Attendees}" var="att">
+                    <apex:column headerValue="Attendee Name">
+                        <c:SA_EmailTemplateController noTagValue="{!att.Attendee_Name__c}"/>
+                    </apex:column>
+                    <apex:column value="{!att.Title__c}" headerValue="Title"/>
+                    <apex:column headerValue="Client Name">
+                        <c:SA_EmailTemplateController noTagValue="{!att.Client_Name__c}"/>
+                    </apex:column>
+                    <apex:column value="{!att.Email__c}" headerValue="Email Address"/>
+                    <apex:column value="{!att.Contact_Type__c}" headerValue="Contact Type"/>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>  
+            <br/><br/>
+            <apex:actionStatus id="status"  onStart="hidePanel();" onStop="showPanel();" >
+               <apex:facet name="start">
+                    Searching Contacts... please wait...
+                  <img src="/img/loading32.gif"></img>
+                </apex:facet>
+               </apex:actionStatus>
+            <div id = "AttendeePanel">     
+            <apex:outputPanel id="linksBlock" layout="block" rendered="{!NOT(ISNULL(paginatedResults))}">
+            
+                <font size="2.0pt">&nbsp;<apex:outputText value="{!recordFrom}"/>&nbsp;-&nbsp;<apex:outputText value="{!recordTo}"/>&nbsp;of&nbsp;<apex:outputText value="{!TotalRecords}"/>&nbsp;&nbsp;&nbsp;&nbsp;</font>
+                <apex:commandLink action="{!firstPage}" style="text-decoration: none" value="<< First" reRender="resultsBlock,linksBlock" status="status" rendered="{!PreviousLinkStatus}"/> 
+                <apex:outputLabel style="color: gray" value="<< First" rendered="{!NOT(PreviousLinkStatus)}"> </apex:outputLabel> &nbsp;
+                <apex:commandLink action="{!PreviousLink}" style="text-decoration: none" value="< Previous" reRender="resultsBlock,linksBlock" status="status" rendered="{!PreviousLinkStatus}"/> 
+                <apex:outputLabel style="color: gray" value=" < Previous" rendered="{!NOT(PreviousLinkStatus)}"> </apex:outputLabel>&nbsp;&nbsp;&nbsp;
+                <apex:commandLink action="{!NextLink}" style="text-decoration: none" value="Next >" reRender="resultsBlock,linksBlock" status="status" rendered="{!NextLinkStatus}"/> 
+                <apex:outputLabel style="color: gray" value="Next >" rendered="{!NOT(NextLinkStatus)}"> </apex:outputLabel> &nbsp;
+                <apex:commandLink action="{!lastPage}" style="text-decoration: none" value="Last >>" reRender="resultsBlock,linksBlock" status="status" rendered = "{!NOT(LastStatus)}"/> 
+                <apex:outputLabel style="color: gray" value="Last >>" rendered="{!LastStatus}"> </apex:outputLabel>
+             
+            <apex:pageBlockSection title="Search Results" id="resultsBlock" columns="1">
+                <apex:pageBlockTable value="{!paginatedResults}" var="c" rendered="{!NOT(ISNULL(searchResults))}" width="100%" >
+                    <apex:column width="25px">
+                        <apex:inputCheckbox value="{!c.checked}"/>
+                    </apex:column>
+                    <apex:column width="100%" value="{!c.con.Name}" headerValue="Contact Name"/>
+                    <apex:column width="100%" value="{!c.con.Title}" headerValue="Title"/>
+                    <apex:column width="100%" value="{!c.con.Account.Name}" headerValue="Client Name"/>
+                    <apex:column width="100%" value="{!c.con.Email}" headerValue="Email Address"/>
+                    <apex:column width="100%" headerValue="Status">
+                        <apex:selectList value="{!c.status}" size="1">
+                            <apex:selectOptions value="{!StatusOptions}"/>
+                        </apex:selectList>
+                    </apex:column>
+                    <apex:column width="100%" headerValue="Distribution" rendered="{!IF(conType = 'Search for Internal Attendees',true,false)}">
+                        <apex:selectList value="{!c.sendMail}" size="1">
+                            <apex:selectOptions value="{!YesNoOptions}"/>
+                        </apex:selectList>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            </apex:outputPanel>
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

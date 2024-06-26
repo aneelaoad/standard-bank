@@ -1,0 +1,11 @@
+<apex:page controller="SharedCalendarUtils_page" contentType="text/plain" readOnly="true">
+<apex:variable value="{!0}" var="cnt"/>
+<apex:variable value="{!allDynamicRecords.size}" var="max"/>
+[<apex:repeat value="{!allDynamicRecords}" var="ev" >
+{   "id": "{!ev.id}",
+    "label": "{!ev['name']},{!ev['CIF__C']}-{!ev['RecordType.Name']}",
+    "value": "{!ev['name']}"
+}<apex:variable value="{!cnt+1}" var="cnt"/>
+<apex:variable value="sdf" var="sdf" rendered="{! cnt != max}" >,</apex:variable>
+</apex:repeat>]
+</apex:page>

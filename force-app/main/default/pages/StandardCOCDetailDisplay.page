@@ -1,0 +1,65 @@
+<apex:page standardController="Account" tabstyle="Account" extensions="ClientOpCountryComponentController"> 
+<apex:form >
+<apex:pageblock mode="maindetail">
+	<apex:pageblockSection title="Operating Countries with Standard Bank Presence" columns="2" collapsible="false">
+	<apex:facet name="header">
+		<apex:outputpanel >
+			<apex:outputText style="font-size: 9pt; font-family: Arial;" value="Operating Countries with Standard Bank Presence"/>
+			<apex:commandLink style="Float:right;margin-right:40%;color:black;" action="{!editCOCRecord}" value="[Change]" rendered="{!canChangeCOC}">
+				<apex:param name="presence" value="true" />
+			</apex:commandLink>
+		</apex:outputpanel>
+	</apex:facet>
+		<apex:pageBlockSectionItem id="ExistingCIB" >
+              <apex:outputLabel value="Existing Business" />                              
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+              <apex:outputText value="{!mapCIBPresentCountries['Existing Business']}" />                              
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Prospective Business" />                              
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+              <apex:outputLabel value="{!mapCIBPresentCountries['Prospective Business']}" />                              
+        </apex:pageBlockSectionItem>
+    </apex:pageblockSection>
+    <apex:outputPanel id="redirectPanel" >
+            <apex:outputText rendered="{!redirect}">
+                <script type="text/javascript">
+                	window.top.location.href = '{!redirectUrl}';
+                </script>
+            </apex:outputText>
+    </apex:outputPanel>
+    <apex:pageblockSection title="Operating Countries without Standard Bank Presence" columns="2" collapsible="false">
+    <apex:facet name="header">
+		<apex:outputpanel >
+			<apex:outputText style="font-size: 9pt; font-family: Arial;" value="Operating Countries without Standard Bank Presence"/>
+			<apex:commandLink style="Float:right;margin-right:40%;color:black;" action="{!editCOCRecord}" value="[Change]" rendered="{!canChangeCOC}">
+				<apex:param name="presence" value="false" />
+			</apex:commandLink>
+		</apex:outputpanel>
+	</apex:facet>
+		<apex:pageBlockSectionItem >
+              <apex:outputLabel value="Existing Business" />                              
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+              <apex:outputLabel value="{!mapNotCIBPresentCountries['Existing Business']}" />                              
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+              <apex:outputLabel value="Prospective Business" />                              
+        </apex:pageBlockSectionItem>
+        <apex:pageBlockSectionItem >
+              <apex:outputLabel value="{!mapNotCIBPresentCountries['Prospective Business']}" />                              
+        </apex:pageBlockSectionItem>
+    </apex:pageblockSection>
+        
+ </apex:pageblock> 
+ <apex:outputPanel id="redirectPanel" >
+            <apex:outputText rendered="{!redirect}">
+                <script type="text/javascript">
+                    window.top.location.href = '{!redirectUrl}';
+                </script>
+            </apex:outputText>
+    </apex:outputPanel> 
+</apex:form>
+</apex:page>

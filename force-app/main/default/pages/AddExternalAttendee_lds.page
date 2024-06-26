@@ -1,0 +1,272 @@
+<apex:page controller="AddExternalAttendeesController" extensions="NewOppLookupsSupport" sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+  <html>
+  <head>
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"></apex:stylesheet>
+    <!--<apex:stylesheet value="{!URLFOR($Resource.LightningTransformer, 'css/lt.css')}"></apex:stylesheet>
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/jquery-2.2.4.min.js')}"></apex:includeScript>
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/lt.js')}"></apex:includeScript>-->
+    <apex:includeScript value="/support/console/32.0/integration.js"></apex:includeScript>
+    <apex:includeScript value="{!$Resource.Jquery1122}" />
+    <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system.min.css')}"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"></apex:stylesheet>
+    <style>
+        .slds-p-around--small {
+            padding: .25rem .25rem .25rem 0rem;
+        }
+        .errorMsg{
+            color: rgb(194, 57, 52);
+        }
+        .error{
+            background-color: white;
+            border-color: #c23934;
+            box-shadow: #c23934 0 0 0 1px inset;
+            background-clip: padding-box;
+            box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2;
+        }
+        .message.errorM3{
+            background-color: #c23934;
+            border-color: #c23934;
+            box-shadow: #c23934 0 0 0 1px inset;
+            background-clip: padding-box;
+            box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2;
+            color:white;
+        }
+        h4{
+            color: white;
+        }
+        .slds-required {
+    
+            font-size: 1rem;
+        }
+        .slds-lookup__menu {
+            position: inherit;
+        }
+        .slds-spinner_container {
+            position: fixed;
+            background-color: rgba(255, 255, 255, 0);
+            
+        }
+        .highlighted {
+          background-color: rgba(54, 160, 254, 0.31);
+        }
+    </style>
+  </head>
+  <body>
+    <script>
+      window.onload = function() {
+        jQuery('[id$=save]').focus();
+      };
+      
+      function toggleclass(theId){
+          if (!theId.checked) {
+            var currTrObj = $(theId).closest('tr.dataRow');
+            currTrObj.removeClass('highlighted');
+          }else{
+                var currTrObj = $(theId).closest('tr.dataRow');
+                currTrObj.addClass('highlighted');
+          }
+      }
+    </script>
+    <div id="spinnerContainer" class="slds-spinner_container hide" style="z-index: 9002">
+        <div>
+            <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+    <apex:form >
+         
+      <div class="slds-page-header">
+        <div class="slds-grid">
+          <div class="slds-col slds-has-flexi-truncate">
+            <p class="slds-text-heading--label">Event Report Attendees</p>
+            <div class="slds-grid">
+              <div class="slds-grid slds-type-focus slds-no-space">
+                <h1 class="slds-text-heading--medium slds-truncate">Add Event Report Attendees to {!sobjEventReport.Name}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <apex:pageMessages ></apex:pageMessages>
+      <div class="slds-box slds-col--padded">
+      <apex:pageBlock >
+        <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+          <apex:commandButton value="Save" action="{!save}" id="save" onclick="loading();" styleClass="slds-button slds-button--brand"></apex:commandButton>
+          <apex:commandButton value="Cancel" immediate="true" action="{!cancel}" onclick="loading();" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+        </div>
+        <apex:pageBlockTable value="{!lstAttendees}" var="att" rendered="{!IF(lstAttendees != null, True, False)}" styleClass="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal">
+          <apex:column width="5%" html-data-label="Add/Remove" headerValue="Add/Remove">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="">
+              <div class="slds-form-element slds-p-around--small">
+                <div class="slds-form-element__control">
+                  <label class="slds-checkbox">
+                      <apex:inputcheckbox id="addrmv" onclick="toggleclass(this);" value="{!att.bChecked}" disabled="{!att.bReportOwner}"/>
+                      <span class="slds-checkbox--faux"></span>
+                      <script>
+                        if(document.getElementById("{!$Component.addrmv}").checked){
+                            $(document.getElementById("{!$Component.addrmv}")).closest('tr').addClass('highlighted'); 
+                        }
+                      </script>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </apex:column>
+          <apex:column width="15%" html-data-label="Attendee Name" headerValue="Attendee Name">
+           <apex:outputPanel rendered="{!IF(att.sobjAttendee.Id = null, False, True)}">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.Call_Report_Attendees__c.fields.Contact_id__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <div class="slds-form-element__control">
+                  <apex:outputField value="{!att.sobjAttendee.Contact_id__c}"></apex:outputField>
+                </div>
+              </div>
+            </div>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!IF(att.sobjAttendee.Id = null, True, False)}">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.Call_Report_Attendees__c.fields.Contact_id__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small common-root">
+                <div class="slds-form-element__control">
+                 <div class="slds-input-has-icon slds-input-has-icon--right" >
+                  <apex:inputField id="lookupcontact" value="{!att.sobjAttendee.Contact_id__c}"  styleClass="slds-input lookup-prompt-user" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant=""></apex:inputField>
+                  <script>
+                        var lkInput = document.getElementById("{!$Component.lookupcontact}");
+                        lkInput.style.visibility = "";
+                        var lkSpan = lkInput.parentElement;
+                        var lkLink = lkSpan.querySelector("a");
+                        lkLink.style.visibility = "";
+                        lkLink.style = "pointer-events: none";
+                        lkLink.className = "";
+                        lkLink.innerHTML = "";
+                    </script>
+                  </div>  
+                  <div class="slds-lookup__menu results" role="listbox" style="display: none;">
+                        <div class="slds-lookup__item">
+                            <button class="slds-button">
+                                &quot;<span class="results-keyword"></span>&quot; in Contacts
+                            </button>
+                        </div>
+                        <ul class="slds-lookup__list results-ul" role="presentation">
+                        </ul>                           
+                  </div>
+                </div>
+              </div>
+            </div>
+            </apex:outputPanel>
+          </apex:column>
+          <apex:column width="15%" html-data-label="Title" headerValue="Title">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1">
+              <div class="slds-form-element slds-p-around--small">
+                <div class="slds-form-element__control">
+                  <apex:outputText value="{!att.Title}"></apex:outputText>
+                </div>
+              </div>
+            </div>
+          </apex:column>
+          <apex:column width="15%" html-data-label="Status" headerValue="Status">
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.Call_Report_Attendees__c.fields.Status__c.Accessible=true,'block','none')}">
+              <div class="slds-form-element slds-p-around--small">
+                <div class="slds-form-element__control">
+                  <apex:inputField value="{!att.sobjAttendee.Status__c}" styleClass="slds-select"></apex:inputField>
+                </div>
+              </div>
+            </div>
+          </apex:column>
+        </apex:pageBlockTable>
+        <br></br>
+        <apex:commandLink immediate="true" value="Add Rows" action="{!addRow}"></apex:commandLink>
+      </apex:pageBlock>
+      </div>
+    </apex:form>
+    <script>
+                
+        function promptResults(objectName, inputLookupObj, resultsObj, keywordObj, resultsUlObj) {
+            if(inputLookupObj.val().length < 3){
+                resultsObj.css("display", "none");
+            }else{
+                resultsObj.css("display", "block");
+            }
+            inputLookupObj.attr('aria-expanded', 'true');
+            keywordObj.html(inputLookupObj.val());
+            // make it run only for longer inputs
+            if (inputLookupObj.val().length < 3) {
+                return false;
+            }
+            
+            var elRemoteMethod;
+            if (objectName == 'Contact') {
+                elRemoteMethod = '{!$RemoteAction.NewOppLookupsSupport.queryextcontact}';
+            }
+            
+            
+            
+            Visualforce.remoting.Manager.invokeAction(
+                elRemoteMethod,
+                inputLookupObj.val(),
+                function(result, event) {
+                    if (event.status) {
+                        resultsUlObj.empty();
+                        
+                        if (result) {
+                            $(result).each(function() {
+                                //console.log(this);
+                                resultsUlObj.append('<li class="slds-lookup__item">' + 
+                                                    '<a id="' + this.id + '" href="javascript:void(0)" role="option">' + 
+                                                    this.Name +'</a>' + 
+                                                    '</li>');
+                            });
+                            
+                            $('ul.slds-lookup__list a').click(function(e) {
+                                inputLookupObj.val($(this)[0].innerText);
+                                inputLookupObj.attr('aria-activedescendant', $(this)[0].id);
+                                inputLookupObj.attr('aria-expanded', 'false');
+                                resultsObj.css("display", "none");
+                            });
+                        }
+                        
+                    } else if (event.type === 'exception') {
+                        inputLookupObj = 'ERROR: ' + event.message;
+                    } else {
+                        inputLookupObj = 'ERROR: ' + event.message;
+                    }
+                },
+                {escape: true}
+            );
+        }
+        
+        function bindPrompts() {
+            $('input.lookup-prompt-user').each(function() {
+                var inputLookupObj = $(this);
+                var commonRootObj = inputLookupObj.parents('.common-root');
+                var resultsObj = commonRootObj.find('.results');
+                var keywordObj = resultsObj.find('.results-keyword');
+                var resultsUlObj = resultsObj.find('.results-ul');
+                
+                inputLookupObj.keyup(function(e) {
+                    promptResults('Contact', inputLookupObj, resultsObj, keywordObj, resultsUlObj);
+                });
+            });
+            
+            return false;
+        }
+        
+        $('document').ready(function() {
+            bindPrompts();
+        });
+        
+        function loading(){
+            
+            if($('#spinnerContainer').hasClass('hide')){
+                $('#spinnerContainer').removeClass('hide');
+            }else{
+                $('#spinnerContainer').addClass('hide');
+            }
+            
+        }
+    </script>
+
+  </body>
+  </html>
+</apex:page>

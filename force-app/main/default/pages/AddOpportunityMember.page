@@ -1,0 +1,125 @@
+<apex:page title="Add Team Member" standardController="Opportunity" extensions="oppTeamCreationControllerSF1"  >
+
+    <html lang="en">
+      <head>
+            <meta charset="utf-8"></meta>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"></meta>
+            <link href="{!URLFOR($Resource.Bootstrap, 'css/bootstrap.min.css')}" rel="stylesheet" />
+            <link href="{!URLFOR($Resource.Bootstrap, '/normalize.css')}" rel="stylesheet" />
+            <script src="{!URLFOR($Resource.AngularJS, 'angular.min.js')}" />
+            <script src="{!URLFOR($Resource.AngularJS, 'ui-bootstrap-tpls-0.11.0.min.js')}" />
+            <script type='text/javascript' src='/canvas/sdk/js/publisher.js'/>
+            <script>
+            
+                var jsonTM = {!jsonTM};
+                var ngscope;
+            
+                Sfdc.canvas.publisher.subscribe({ name: "publisher.post",
+                    onData: function(e) {
+                        Submit();
+                }});
+                
+                function getUserListR(callback, val){
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.oppTeamCreationControllerSF1.getUserList}',
+                        val,
+                        callback,  
+                        {escape: false}  
+                    );        
+                }
+                
+                function Submit(){
+                    Visualforce.remoting.Manager.invokeAction(  
+                        '{!$RemoteAction.oppTeamCreationControllerSF1.save}',
+                        jsonTM,
+                        function(result, event){
+                            if(result=="Success") {
+                                Sfdc.canvas.publisher.publish({ name: "publisher.close",payload:{ refresh:"true" }});
+                            } else {
+                                ngscope.dialogAlerts = [{type: 'danger', msg: result}];
+                                ngscope.$apply();
+                            }
+                        },
+                        {escape: false}  
+                    );        
+                }
+                
+                angular.module('addMember', ['ui.bootstrap'])
+                .controller('addMemberCtrl',function($scope, $q){
+                    ngscope = $scope;
+                    $scope.getUsers = function(val) {
+                        $scope.userCheck = false;
+                        Sfdc.canvas.publisher.publish({name:"publisher.setValidForSubmit", payload:"false"});
+                        var deferred = $q.defer();  
+                        getUserListR(function(result){  
+                            $scope.$apply(function(){  
+                                deferred.resolve(result);
+                            });   
+                        },val);
+                        return deferred.promise; 
+                    };
+                    $scope.onSelect = function ($item, $model, $label) {
+                        $scope.userItem = $item;
+                        $scope.userModel = $model;
+                        $scope.userCheck = true;
+                        $scope.validate();
+                    };
+                    $scope.allRoles = {!allRoles};
+                    $scope.allAccess = {!allAccess};
+                    $scope.roles = $scope.allRoles[0];
+                    $scope.access = $scope.allAccess[0];
+                    $scope.validate = function() {
+                        Sfdc.canvas.publisher.publish({name:"publisher.setValidForSubmit", payload:"false"});
+                        if($scope.roles.key=="")
+                            $scope.roleCheck = false;
+                        else
+                            $scope.roleCheck = true;
+                        if($scope.userCheck && $scope.roleCheck){
+                            Sfdc.canvas.publisher.publish({name:"publisher.setValidForSubmit", payload:"true"});
+                            jsonTM.oppAccess = $scope.access.key;
+                            jsonTM.userId = $scope.userItem.key;
+                            jsonTM.memberRole= $scope.roles.key;
+                        }
+                    };
+                });
+            </script>
+            <style>
+                ul li, ol li {
+                    margin-left: 0px;
+                    padding-left: 0px;
+                }
+            </style>
+        </head>
+        <body>
+            <div style="padding:15px" ng-app="addMember" >
+                <div ng-controller="addMemberCtrl" class="bs" >
+                    <h4>Add Opportunity Team Member for {!Opportunity.Name}</h4><br/><br/>
+                    <alert class="alert-dismissible" ng-repeat="alert in dialogAlerts" type="{{alert.type}}" >{{alert.msg}}</alert>
+                    <form role="form">
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12 form-group-lg" ng-class="{'has-success' : userCheck,'has-error' : !userCheck}">
+                                <label class="control-label">User</label>
+                                <input type="text" ng-model="userModel" typeahead="option.value as option.value for option in getUsers($viewValue)" 
+                                        typeahead-wait-ms="400" typeahead-on-select='onSelect($item, $model, $label)' class="form-control" id="userxx" 
+                                        placeholder="Search by name" autocomplete="off" ></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12 form-group-lg" ng-class="{'has-success' : roleCheck,'has-error' : !roleCheck}">
+                                <label class="control-label">Team Role</label>
+                                <select class="form-control" id="roles" ng-model="roles" ng-options="roles.value for roles in allRoles" ng-change="validate()"></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12 form-group-lg" >
+                                <label class="control-label">Opportunity Access</label>
+                                <select class="form-control" id="access" ng-model="access" ng-options="access.value for access in allAccess" ng-change="validate()"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

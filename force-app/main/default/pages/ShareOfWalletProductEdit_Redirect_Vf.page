@@ -1,0 +1,4 @@
+<apex:page standardController="Share_of_Wallet_Product__c"
+	extensions="ShareOfWalletProductEditRedirect_Vf_Ext" action="{!redirect}">
+	<apex:detail />
+</apex:page>

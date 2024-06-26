@@ -1,0 +1,25 @@
+<!-- Modified by: Balint Gyokeres-->
+<!-- Modified on: 07/07/2021-->
+<!-- Description: SFP-4617 - delted out canvas line, to eliminate popup error -->
+<apex:page standardController="Call_Report__c" showHeader="false">
+<script type='text/javascript' src='/canvas/sdk/js/publisher.js'/>
+<script>
+         
+         if ( (typeof sforce != 'undefined') && (sforce!=null) ) {
+              sforce.one.editRecord("{!Call_Report__c.Id}");
+         } else {
+              alert('Not in SF1 :(');
+         }           
+     
+</script>
+
+<div id="waitdspSf1" >
+    <center>
+        <br/><br/>
+        <apex:outputtext style="font-family: Salesforce Sans, Arial, sans-serif;font-size: 14px;" value="Loading..."/>
+        <br/><br/>
+        <img src="{!$Resource.SF1_Loading_GIF}" alt="" title="Redirecting..." width="196"/>
+    </center>
+</div>
+
+</apex:page>

@@ -1,0 +1,16 @@
+<apex:page contentType="text/cache-manifest" applyHtmlTag="false" standardStylesheets="false" showHeader="false">CACHE MANIFEST
+# v0.0.6
+
+{!URLFOR($Resource.OMDashboardResources, 'resources/css/bootstrap.min.css')}
+{!URLFOR($Resource.OMDashboardResources, 'resources/js/dashboard.min.js')}
+{!URLFOR($Resource.OMDashboardResources, 'resources/img/arrow-left.png')}
+{!URLFOR($Resource.OMDashboardResources, 'resources/img/arrow-right.png')}
+{!URLFOR($Resource.OMDashboardResources, 'resources/img/cog.png')}
+{!URLFOR($Resource.OMDashboardResources, 'resources/img/map.png')}
+{!URLFOR($Resource.OMDashboardResources, 'resources/img/minus.png')}
+{!URLFOR($Resource.OMDashboardResources, 'resources/img/plus.png')}
+
+NETWORK:
+*
+http://*
+https://*</apex:page>

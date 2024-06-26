@@ -1,0 +1,3 @@
+<apex:page standardController="Call_Report__c" extensions="RedirectToAddAttendeesExtension" action="{!redirect}">
+    
+</apex:page>

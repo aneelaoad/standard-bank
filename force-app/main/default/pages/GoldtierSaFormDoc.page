@@ -1,0 +1,378 @@
+<!--
+ - Created by mjaznicki on 26.06.2018.
+ -->
+
+<apex:page id="GoldtierSaFormDoc" standardController="Account" renderAs="pdf"
+           showHeader="false" applyHtmlTag="false" sideBar="false"
+           contentType="application/x-pdf#Goldtier SBSA Origination For_{!Account.Name}.pdf"
+           standardStylesheets="false">
+
+    <head>
+        <style type="text/css">
+            @page {
+                size: 210mm 297mm;
+                margin: 15mm 12mm 5mm 14mm;
+                mso-page-orientation: portrait;
+            }
+
+            html, body {
+                height: 297mm;
+                width: 210mm;
+            }
+
+            table {
+                width: 86%;
+                border: 1px solid #526FA9;
+                border-collapse: collapse;
+                /*border-radius: 4px;
+                border-spacing: 0px;*/
+
+                font-size: 0.65em;
+                font-family: "Arial", "Verdana", sans-serif;
+            }
+
+            table.firstTable td.highlight1 {
+                width: 28%;
+                vertical-align: bottom;
+                background-color: #AAB4D6;
+                color: #435098;
+                font-weight: bold;
+            }
+
+            table th,td {
+                border: 1px solid #185098;
+            }
+
+            td {
+                padding: 5px 5px 2px 5px;
+            }
+
+            td.heading, th {
+                padding-left: 5px;
+                text-align: left;
+                background-color: #185098;
+                color: white;
+                font-weight: bold;
+            }
+
+            table.logoTable {
+                margin-bottom: 10mm;
+                padding: 0;
+                border: 0;
+            }
+
+            table.logoTable td {
+                width: 50%;
+                border: 0;
+                vertical-align: top;
+            }
+
+            img.sbLogo {
+                float: left;
+                width: 205px;
+                height: 43px;
+            }
+
+            hr {
+                display: block;
+                margin-top: 10mm;
+                margin-bottom: 0;
+                padding: 0;
+                border: 1px solid black;
+            }
+
+            table.footer {
+                border: 0;
+                border-collapse: collapse;
+                margin-bottom: 0;
+            }
+
+            table.footer td {
+                padding: 0;
+                border: 0;
+                border-collapse: collapse;
+                vertical-align: bottom;
+                margin-bottom: 0;
+            }
+
+            div.emailDiv {
+                font-size: 0.65em;
+                font-family: "Arial", "Verdana", sans-serif;
+            }
+
+
+        </style>
+    </head>
+
+    <body lang="en" style="tab-interval: .5in">
+
+
+    <div id="page1">
+        <table class="logoTable">
+            <tr>
+                <td>
+                    <apex:image value="{!URLFOR($Resource.StandardBankLogoBlue)}" alt="Standard Bank" width="205"
+                                height="43" styleClass="sbLogo"/>
+                </td>
+                <td style="text-align: right; color: #185098;">
+                        <span style="font-size: 16px; font-style: bold;">
+                            Internal Group
+                        </span>
+                    <br/>
+                    <span style="font-size: 14px; font-style: bold;">
+                            Goldtier SBSA Origination Form
+                        </span>
+                </td>
+            </tr>
+        </table>
+        <div style="page-break-after:always;">
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">1. Details of Customer</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Full name of client</td>
+                    <td colspan="4">{!Account.Name}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">CIF number</td>
+                    <td colspan="4">{!Account.cif__c}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Entity Type</td>
+                    <td colspan="4">{!$CurrentPage.parameters.entityType}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Entity Classification</td>
+                    <td colspan="4">{!$CurrentPage.parameters.entityClassification}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">2. SA Details</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Client Coordinator</td>
+                    <td colspan="4">{!Account.Owner.Name}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Client Coordinator Division</td>
+                    <td colspan="4">{!Account.Owner.User_Division__c}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">3. CIF Top Parent Details</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Does the Entity have a CIF Top Parent ?</td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.cif}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">4. Entity Details</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Is More than 50% of the Customers revenue generated out of a single Country ?
+                    </td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.singleRevenue}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Who holds the Primary Relationship?</td>
+                    <td colspan="4">
+                        {!Account.Primary_Relationship_Holder__c}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">5. FAIS Classification Details</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Professional Client</td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.profClient}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Reason for Professional Status</td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.statusReason}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">6. Entity Classification Details</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">ISIC Code</td>
+                    <td colspan="4">{!Account.Industry_Code__c} - {!Account.SA_Industry_Description__c}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">7. Correspondent Banking Details</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Bank Services</td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.services}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Is this an offshore bank that is limited to conducting business with
+                        Non-Residents in Non-Local currency?
+                    </td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.offshore}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Does the entity provide corresponding bank services, directly or indirectly,
+                        to
+                        shell banks?
+                    </td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.shell}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Does the entity provide downstream correspondent clearing?</td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.corespondent}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">8. Other Details</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Source of Wealth</td>
+                    <td colspan="4">{!$CurrentPage.parameters.sourceWealth}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Source of Funds</td>
+                    <td colspan="4">{!$CurrentPage.parameters.sourceFunds}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Nature of Relationship</td>
+                    <td colspan="4">{!$CurrentPage.parameters.nature}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Services/Products to be expected</td>
+                    <td colspan="4">
+                        {!$CurrentPage.parameters.products}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Anticipated level/volume of activity</td>
+                    <td colspan="4">{!$CurrentPage.parameters.anticipatedLevel}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Nature of Business Activity</td>
+                    <td colspan="4">{!$CurrentPage.parameters.natureBusiness}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Source of Funds Amount (ZAR)</td>
+                    <td colspan="4">{!$CurrentPage.parameters.expectedIncome}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">9. Registered Address</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Street Address</td>
+                    <td colspan="4">{!Account.BillingStreet}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">City</td>
+                    <td colspan="4">{!Account.BillingCity}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Province/State</td>
+                    <td colspan="4">{!Account.BillingState}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Postal Code</td>
+                    <td colspan="4">{!Account.BillingPostalCode}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Country</td>
+                    <td colspan="4">{!Account.BillingCountry}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">10. Customer Contact (KYC Contact)</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Name</td>
+                    <td colspan="4">{!$CurrentPage.parameters.kycName}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Designation</td>
+                    <td colspan="4">{!$CurrentPage.parameters.kycTitle}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Telephone</td>
+                    <td colspan="4">{!$CurrentPage.parameters.kycPhone}</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">11. Internal Contact</th>
+                </tr>
+                <tbody>
+                <tr>
+                    <td class="highlight1">Name</td>
+                    <td colspan="4">{!Account.Owner.Name}</td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Designation</td>
+                    <td colspan="4">{!Account.Owner.Title} </td>
+                </tr>
+                <tr>
+                    <td class="highlight1">Telephone</td>
+                    <td colspan="4">{!Account.Owner.Phone}</td> 
+                </tr>
+                </tbody>
+            </table>
+
+            <br/>
+            <div style="padding-left: 20%" class="emailDiv">
+                Once completed please send document to SAKYCOn-boarding@standardbank.co.za
+            </div>
+    </div>
+
+    </body>
+
+</apex:page>

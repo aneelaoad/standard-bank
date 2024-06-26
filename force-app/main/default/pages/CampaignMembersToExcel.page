@@ -1,0 +1,109 @@
+<!-- Case #1168 Rudolf Niehaus 11/2011 -->
+<!-- Case #3926 Stephen Moore 11 May 2012 SA Preferred Lang -->
+<!-- Case #6374 Rudolf Niehaus 25 May 2012 Hosts per Member -->
+<!-- Description: VF Page that renders an Excel file containing all the campaign members and their relevant hosts -->
+<apex:page controller="CampaignExportController"  readOnly="true"  standardStyleSheets="false" showHeader="false" cache="true" action="{!LoadExl}" contentType="application/vnd.ms-excel#{!camName}-{!exportSize}-members-File-{!fileNo}.xls">{!bom}
+<head>
+<style type="text/css">
+table {
+    border-color: black;
+    border: thin;
+}
+td {
+    border-color: black;
+    border: thin;
+}
+
+</style>
+</head> 
+<apex:form >
+<table style="font-size:11px;font-family:Arial;font-weight:bold;">
+    <tr>
+        <td></td>
+        <td>Master List</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>{!camName}</td>
+    </tr>
+    <tr>
+    </tr>
+</table>
+<table border="1">
+    <tr style="font-size:11px;font-family:Arial;font-weight:bold;">
+        <td>SALESFORCE CAMPAIGN MEMBER ID (DO NOT DELETE)</td>
+        <td>SALESFORCE MEMBER CONTACT ID (DO NOT DELETE)</td>
+        <td>FIRST NAME</td>
+        <td>LAST NAME</td>
+        <td>COMPANY NAME</td>
+        <td>EMAIL</td>
+        <td>STATUS</td>
+        <td>CAMPAIGN WAVE</td>
+        <td>CONTACT CATEGORY</td>
+        <td>JOB TITLE</td>
+        <td>FAIS REPRESENTATIVE</td>
+        <td>PHONE</td>
+        <td>MOBILE</td>
+        <td>GOLF HANDICAP</td>
+        <td>SHIRT SIZE</td>
+        <td>ALLERGIES</td>
+        <td>DIETARY REQUIREMENTS</td>
+        <td>DISABILITIES</td>
+        <td>RELIGION</td>
+        <td>PREFERRED LANGUAGE</td>
+        <td>NUMBER OF CHILDREN</td>
+        <td>ATTENDED STATUS</td>
+        <td>CLIENT SECTOR</td>
+        <td>CIF NUMBER</td>
+        <td>GROUP PARENT CLIENT NAME</td>
+        <td>GROUP PARENT CLIENT NAME CIF NUMBER</td>
+        <td>INDIVIDUALLY BUDGETED CLIENT(IBC)</td>
+        <td>GROUP PARENT CLIENT CY ACTUAL REVENUE</td>
+        <td>CLIENT COORDINATOR</td>
+        <td>CLIENT COORDINATOR EMAIL ID</td>
+        <td>CLIENT COORDINATOR USER ID</td>
+        <apex:repeat value="{!hostColumnHeaders}" var="header">
+            <td>{!header}</td>
+        </apex:repeat>
+    </tr>
+<apex:repeat value="{!memberResultsExl}" var="mem">
+<tr style="font-size:11px;font-family:Arial;font-weight:normal;">
+<td>{!mem.memhost.Member_Id__c}</td>
+<td>{!mem.memhost.Member__r.Id}</td>
+<td>{!mem.memhost.Member__r.FirstName}</td>
+<td>{!mem.memhost.Member__r.LastName}</td>
+<td>{!mem.memhost.Member__r.Account.Name}</td>
+<td>{!mem.memhost.Member__r.Email}</td>
+<td>{!mem.memhost.Member_Status__c}</td>
+<td>{!mem.memhost.Campaign_Wave__c}</td>
+<td>{!mem.memhost.Member__r.Contact_Category__c}</td>
+<td>{!mem.memhost.Member__r.Title}</td>
+<td>{!mem.memhost.Member__r.FAIS_Representative__c}</td>
+<td>{!mem.memhost.Member__r.Phone}</td>
+<td>{!mem.memhost.Member__r.MobilePhone}</td>
+<td>{!mem.memhost.Member__r.Golf_Handicap__c}</td>
+<td>{!mem.memhost.Member__r.Shirt_Size__c}</td>
+<td>{!mem.memhost.Member__r.Allergies__c}</td>
+<td>{!mem.memhost.Member__r.Dietary_Requirements__c}</td>
+<td>{!mem.memhost.Member__r.Disabilities__c}</td>
+<td>{!mem.memhost.Member__r.Religion__c}</td>
+<td>{!mem.memhost.Member__r.SA_Preferred_Language__c}</td>
+<td>{!mem.memhost.Member__r.Number_of_Children__c}</td>
+<td>{!mem.memhost.Attendance_Status__c}</td>
+<td>{!mem.memhost.Member__r.Account.Client_Sector__c}</td>
+<td>{!mem.memhost.Member__r.CIF_Number__c}</td>
+<td>{!mem.memhost.Member__r.Client_Group_Parent__c}</td>
+<td>{!mem.memhost.Member__r.Group_Parent_CIF_Number__c}</td>
+<td>{!mem.memhost.Member__r.Account.CIB_Target_Client__c}</td>
+<td>{!mem.memhost.Member__r.Account.Actual_CY_Revenue__c}</td>
+<td>{!mem.memhost.Member__r.Account.Account_Owner__c}</td>
+<td>{!mem.memhost.Member__r.Account.Owner.Email}</td>
+<td>{!mem.memhost.Member__r.Account.OwnerId}</td>
+    <apex:repeat value="{!mem.hostsPerMember}" var="h" id="theRepeat">
+    {!h}
+    </apex:repeat>    
+</tr>
+</apex:repeat>
+</table>       
+</apex:form>
+</apex:page>

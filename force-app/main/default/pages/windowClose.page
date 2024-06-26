@@ -1,0 +1,2 @@
+<apex:page action="javascript:window.opener.location.href = window.opener.location.href;window.close();">
+</apex:page>

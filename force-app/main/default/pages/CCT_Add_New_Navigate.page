@@ -1,0 +1,24 @@
+<!-- Created by: Abhishek V-->
+<!-- Created on: 06/07/2016-->
+<!-- Description: US - 1528 - VF to navigate on creating Client Team Member on Add new -->
+
+<apex:page controller="CCT_Navigate"> 
+<apex:messages />
+<div id="waitdsp" >
+    <center>
+        <br/><br/>
+        <apex:outputtext style="font-family: Salesforce Sans, Arial, sans-serif;font-size: 14px;" value="Loading..."/>
+        <br/><br/>
+        <img src="{!$Resource.SF1_Loading_GIF}" alt="" title="Redirecting..." width="196"/>
+    </center>
+</div>
+<script>
+        
+         if( (typeof sforce != 'undefined') && sforce && sforce.one ) {
+             sforce.one.navigateToURL("{!navigateViewURL}")
+         }else{
+             window.location.href = "{!navigateViewURL}";
+         }      
+             
+</script>
+</apex:page>

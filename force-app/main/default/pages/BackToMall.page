@@ -1,0 +1,7 @@
+<apex:page controller="BackToMallController"  showHeader="false" sidebar="false">
+	<script>
+	    window.onload=function(){
+			window.location.href='{!JSENCODE(targetUrl)}';
+        }
+	</script>
+</apex:page>

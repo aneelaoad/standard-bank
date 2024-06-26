@@ -1,0 +1,147 @@
+<!--    @ Date          :     June 2015                                                                         -->
+<!--    @ Description   :     Page to display pdf version of onboarding information to user on Prospect Client  -->
+<!--    @Last Modified By      :   Sandeep Dharwar --->
+<!--    @Last Modified On      :   July 2015   -->
+<!--    @Last Modified Reason  :   DEF-1348- added contact information to the Visualforce Page-->
+<!--    @Last Modified By      :   Abhishek Vaideeswaran --->
+<!--    @Last Modified On      :   July 2015   -->
+<!--    @Last Modified Reason  :   DEF-1352- Removed Parent_Client_Ultimate_Holding_Company__c and Does_the_entity_have_a_Parent_Company__c from the page as the field is deleted-->
+<!--    @Last Modified By      :   Abhishek Vaideeswaran --->
+<!--    @Last Modified On      :   July 2015   -->
+<!--    @Last Modified Reason  :   EN - 787 - Removed Primary_Relationship__c and Account_Executive__c from the page as the field is deleted and removed shouldrenderPBB from PBB section and Contact Information section as PBB ROA functionality is removed-->
+<!--    @Last Modified By      :   Sandeep Dharwar --->
+<!--    @Last Modified On      :   Aug 2015   -->
+<!--    @Last Modified Reason  :   DEF-1406 - Re-ordering the fields-->
+<!--    @Last Modified By      :   Abhishek Vaideeswaran --->
+<!--    @Last Modified On      :   Sept 2015   -->
+<!--    @Last Modified Reason  :   Removing SWIFT Code field from Goldtier PDF as it is not prompted to be filled out in button validation -->
+<!--    @Last Modified By      :   Petr Svestka -->
+<!--    @Last Modified On      :   September 17 2015   -->
+<!--    @Last Modified Reason  :   EN-0793 - Added new fields -->
+<!--    @Last Modified Reason  :   EN-0867 - Source of Funds Amount rename to Expected Income -->
+<!--    @Last Modified By      :   Manoj Gupta -->
+<!--    @Last Modified On      :   October 15 2015   -->
+<!--    @Last Modified By      :   Petr Svestka -->
+<!--    @Last Modified On      :   January 2016   -->
+<!--    @Last Modified Reason  :   EN-0691 - Added new fields -->
+<!--    @Last Modified Reason  :   EN-0793 - Removed -->
+<!--    @Last Modified Reason  :   US:1390 - OB: Addition of Asia and China KYC Location; Modified By: Manoj Gupta; August 2016 -->
+<!--    @Last Modified By      :   Jakub Oracki -->
+<!--    @Last Modified On      :   February 2017   -->
+<!--    @Last Modified Reason  :   US-1322 - Customer Contact Phone Country Added -->
+
+<apex:page standardController="Account" extensions="Send_for_Onboarding_Controller" renderAs="PDF">
+    <apex:form >        
+        <apex:pageBlock >
+            
+            <apex:pageBlockSection title="Client Detail" rendered="{!shouldrenderCIBROA}">   
+                <table border="1" style="width:100%">
+                    <tr><apex:outputText label="Salesforce System ID" value="{!account.Id}"/></tr>
+                    <tr><apex:outputText label="Map to Source System = SFDC and Source Customer Number in CIF"  /></tr>
+                    <tr><apex:outputField value="{!account.KYC_Location__c}" rendered="{!if( account.KYC_Location__c <>'NONE - Asia (for Asia User Only)','true','false')}"/></tr> 
+                   <tr><apex:outputText label="KYC Location" value="Entity Created for Hierarchy Grouping Only" rendered="{!if(account.KYC_Location__c=='NONE - Asia (for Asia User Only)','true','false')}" /></tr>
+                    <tr><apex:outputField value="{!account.Regulatory_Code__c}" rendered="{!if(account.KYC_Location__c <>'NONE - Asia (for Asia User Only)','true','false')}"/></tr>
+                    <tr><apex:outputText label="Regulatory Code" value="None"  rendered="{!if(account.KYC_Location__c =='NONE - Asia (for Asia User Only)','true','false')}"/></tr>
+                    <tr><apex:outputText label="Relationship Roles" value="None"  rendered="{!if(account.KYC_Location__c =='NONE - Asia (for Asia User Only)','true','false')}"/></tr>                   
+                    <tr><apex:outputField value="{!account.Relationship_Roles__c}"  rendered="{!if(account.KYC_Location__c <>'NONE - Asia (for Asia User Only)','true','false')}"/></tr>
+                    <tr><apex:outputField value="{!account.Name}"/></tr>
+                    <tr><apex:outputField value="{!account.Primary_Relationship_Holder__c}"/></tr>
+                    <tr><apex:outputText label="Proposed Client Coordinator" value="{!account.Client_Co_ordinator__r.name}"/></tr>
+                    <tr><apex:outputField value="{!account.Client_Coordinator_Division__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Proposed_Group_Parent__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Percentage_Holding_Onboarding__c}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingStreet}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingCity}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingState}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingPostalCode}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingCountry}"/></tr>
+                    <tr><apex:outputField value="{!account.Country_of_Operation__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Registration_Number__c}"/></tr>
+                    <tr><apex:outputField label="Swift Address" value="{!account.SWIFT_Code__c}"/></tr>
+                    <tr><apex:outputField value="{!account.KYC_Complete__c}"/></tr>
+                    <tr><apex:outputField value="{!account.KYC_Complete_Date__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Name_of_person_confirming_KYC_complete__c}"/></tr>
+                    <tr><apex:outputText value="{!account.Industry_Code__c}" label="ISIC Code"/></tr>
+                    <tr><apex:outputText value="{!account.SA_Industry_Description__c}" label="CIF ISIC Description"/></tr>
+                    <tr><apex:outputField value="{!account.Source_System__c}" rendered="{!if(account.Source_System__c=='', 'false', 'true')}"/></tr>
+                    <tr><apex:outputField value="{!account.Source_System_Customer_Number__c}" rendered="{!if(account.Source_System_Customer_Number__c=='', 'false', 'true')}"/></tr>
+                    <tr><apex:outputField value="{!account.Market_Segments__c}"/></tr>
+                   </table>
+            </apex:pageBlockSection>    
+            
+            <apex:pageBlockSection title="Client Detail" rendered="{!shouldrenderCIBSA}">            
+                <table border="1" style="width:100%">
+                    
+                    <tr><apex:outputText label="Salesforce System ID" value="{!account.Id}"/></tr>
+                    <tr><apex:outputText label="Salesforce System ID to be captured into notes"  /></tr>
+                    <tr><apex:outputField value="{!account.KYC_Location__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Regulatory_Code__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Relationship_Roles__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Name}"/></tr>
+                    <tr><apex:outputField value="{!account.Client_Type_OnBoard__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Business_Classification__c}"/></tr>
+                    <tr><apex:outputField value="{!account.SCC_Type__c}"/></tr>
+                    <tr><apex:outputText label="Proposed Client Coordinator" value="{!account.Client_Co_ordinator__r.name}"/></tr>
+                    <tr><apex:outputField value="{!account.Client_Coordinator_Division__c}"/></tr>
+                    <tr><apex:outputField label="Group Parent"  value="{!account.Proposed_Group_Parent__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Registration_Number__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Primary_Relationship_Holder__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Professional_or_Non_Professional_Client__c}"/></tr>
+                    <tr><apex:outputText value="{!account.Industry_Code__c}" label="ISIC Code"/></tr>
+                    <tr><apex:outputText value="{!account.SA_Industry_Description__c}" label="CIF ISIC Description"/></tr>
+                    <tr><apex:outputField value="{!account.Client_Sector__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Client_Sub_Sector__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Source_of_Wealth__c}"/></tr>        
+                    <tr><apex:outputField value="{!account.Source_of_Funds_Type__c}"/></tr> 
+                    <tr><apex:outputField value="{!account.Source_of_Funds__c}"/></tr> 
+                    <tr><apex:outputField value="{!account.Expected_Income__c}"/></tr> 
+                    <tr><apex:outputField value="{!account.Nature_of_Relationship__c}"/></tr> 
+                    <tr><apex:outputField value="{!account.Services_Products_Expected_or_currently__c}"/></tr>            
+                    <tr><apex:outputField value="{!account.Anticipated_Level_Volume_of_Activity__c}"/></tr>
+                    <tr><apex:outputField value="{!account.Nature_of_business_activity__c}"/></tr>
+                    
+                    <tr><apex:outputField value="{!account.BillingStreet}"/></tr>
+                    <tr><apex:outputField value="{!account.Registered_Suburb__c}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingCity}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingState}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingPostalCode}"/></tr>
+                    <tr><apex:outputField value="{!account.BillingCountry}"/></tr>
+
+                    <tr><apex:outputField value="{!account.Market_Segments__c}"/></tr>
+                </table>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Due Diligence Information" rendered="{!shouldrenderCIBSA}">
+                <table border="1" style="width:100%">
+                   <tr><apex:outputField value="{!account.Business_Support_and_Recovery__c}"/></tr>
+                   <tr><apex:outputField value="{!account.Client_contacted_in_person__c}"/></tr>
+                   <tr><apex:outputField value="{!account.Entity_Actively_Trade__c}"/></tr>
+                   <tr><apex:outputField value="{!account.High_Risk_Business__c }"/></tr>
+                   <tr><apex:outputField value="{!account.Country_of_Revenue__c }"/></tr>
+               </table>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Contact Information" rendered="{!shouldrenderCIBSA}">
+                
+              <apex:outputText >Client Coordintator
+                    <apex:pageBlockTable title="Bank Contacts" var="cc" value="{!cclist}" border="1" style="width:100%">
+                        <apex:column headerValue="Name" value="{!cc.Name}"/>
+                        <apex:column headerValue="Phone" value="{!cc.Phone}"/>  
+                        <apex:column headerValue="Email" value="{!cc.Email}"/>
+                    </apex:pageBlockTable>
+                </apex:outputText> <br></br>
+              
+               <apex:outputText >KYC Contact
+                    <apex:pageBlockTable title="Client Contacts" var="client" value="{!clientContactList}" border="1" style="width:100%">
+                        <tr> <apex:column headerValue="Name" value="{!client.Name}"/>
+                            <apex:column headerValue="Phone" value="{!client.Phone}"/>
+                            <apex:column headerValue="Phone Country" value="{!client.Phone_Country__c}"/>  
+                            <apex:column headerValue="Email" value="{!client.Email}"/></tr>
+                    </apex:pageBlockTable>
+                </apex:outputText>  
+                
+            </apex:pageBlockSection> 
+           
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

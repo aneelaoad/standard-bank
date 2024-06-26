@@ -1,0 +1,122 @@
+<apex:page controller="StdBank_Ltn_RevBdgtPipelnChartController" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false">
+<apex:includeScript value="{!$Resource.Chart}"/>
+<apex:slds />
+<div class="slds-scope" id="content">
+	<apex:form >
+		<div align="right">
+			<button class="slds-button slds-button_neutral">{!$Label.Refresh}</button>
+		</div>
+		<div class="slds-grid">
+			<div class="slds-col">
+				<canvas id="statsChart" height="90px"/>
+			</div>
+		</div>
+	</apex:form>
+</div>
+<script>
+	window.onresize = function(){
+		var chart = document.getElementById('statsChart');
+		if(chart){
+			chart.style.height = "0";
+			chart.style.width= "0";
+		}
+	}
+	var labs = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	   
+
+	var revenueByMonth = {!revenueByMonth};
+	var budgetByMonth = {!budgetByMonth};
+	var wonOppByMonth = {!wonOppRevenueByMonth};
+	var totalPipeline = {!totalPipeline};
+	var isoCode = '{!userIsoCode}';
+	
+	var maxIndex = Math.max(revenueByMonth.length,budgetByMonth.length, wonOppByMonth.length);
+	var pipelineByMonth = new Array(maxIndex);	
+	var totalBudget = new Array(maxIndex);			
+	var axisLabels = [];
+
+	for (var i = 0; i < maxIndex; i++) 
+	{ 
+		axisLabels.push(labs[i]);
+	}
+	pipelineByMonth[maxIndex-1] = totalPipeline;
+	totalBudget[budgetByMonth.length-1] = budgetByMonth[budgetByMonth.length-1];
+
+	var config = {
+			type: 'bar',
+	    	data: {
+	        labels: axisLabels,
+	        datasets: [
+			{
+	        	label: "{!$Label.Won_Opportunities_YTD}",
+	        	type: 'line',
+				borderWidth: 3,
+				hoverBorderWidth: 5,
+				backgroundColor:'rgba(255, 183, 93, 0)',
+				hoverBackgroundColor : 'rgba(255, 183, 93, 0)',
+				borderColor:'rgba(255, 183, 93, 0.95)',
+				hoverBorderColor: 'rgba(255, 183, 93, 1)',
+	            data: wonOppByMonth
+	        },
+	        {
+	        	label: "{!$Label.Revenue_YTD}",
+	        	type: 'bar',
+				borderWidth: 3,
+				hoverBorderWidth: 5,
+				backgroundColor:'rgba(52, 152, 219, 0.8)',
+				hoverBackgroundColor : 'rgba(52, 152, 219, 1)',
+				borderColor:'rgba(52, 152, 219, 0.95)',
+				hoverBorderColor: 'rgba(52, 152, 219, 1)',
+	            data: revenueByMonth
+	        },
+	        {
+	        	label: "{!$Label.Budget_YTD}",
+	        	type: 'bar',
+				borderWidth: 3,
+				hoverBorderWidth: 5,
+				backgroundColor:'rgba(126, 140, 153, 0.8)',
+				hoverBackgroundColor : 'rgba(126, 140, 153, 1)',
+				borderColor:'rgba(126, 140, 153, 0.95)',
+				hoverBorderColor: 'rgba(126, 140, 153, 1)',
+	            data: totalBudget
+	        },									        
+	        {
+	        	label: "{!$Label.CY_Pipeline}",
+	        	type: 'bar',
+				borderWidth: 3,
+				hoverBorderWidth: 5,
+				backgroundColor:'rgba(26, 187, 156, 0.8)',
+				hoverBackgroundColor : 'rgba(26, 187, 156, 1)',
+				borderColor:'rgba(26, 187, 156, 0.95)',
+				hoverBorderColor: 'rgba(26, 187, 156, 1)',
+	            data: pipelineByMonth
+	        }]
+	    },
+
+	    options: {
+		    scales: {
+		        yAxes: [
+		            {
+		                ticks: {
+		                	beginAtZero: true,
+		                	maxTicksLimit: 10,
+		                    callback: function(label, index, labels) {
+		                        return Number(label/1000000).toFixed(0);
+		                    }
+		                },
+		                scaleLabel: {
+		                    display: true,
+		                    labelString: '[Million '+isoCode+']'
+		                }
+		            }
+		        ]
+		    }
+		}
+	};
+		
+    var el = document.getElementById('statsChart');
+    var ctx = el.getContext("2d");
+    var myLineChart = new Chart(ctx, config);
+
+</script>
+</apex:page>

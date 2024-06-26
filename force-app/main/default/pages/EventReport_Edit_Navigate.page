@@ -1,0 +1,26 @@
+<!-- Created by: Abhishek V-->
+<!-- Created on: 06/07/2016-->
+<!-- Description: US - 1379 - VF to navigate on editing Event Report record -->
+
+<apex:page standardController="Call_Report__c" extensions="EventReport_Navigate" action="{!navigateEdit}"> 
+    <div id="waitdsp" >
+        <center>
+            <br/><br/>
+            <apex:outputtext style="font-family: Salesforce Sans, Arial, sans-serif;font-size: 14px;" value="Loading..."/>
+            <br/><br/>
+            <img src="{!$Resource.SF1_Loading_GIF}" alt="" title="Redirecting..." width="196"/>
+        </center>
+    </div>
+    <script>
+          if( (typeof sforce != 'undefined') && (sforce != null) ) {
+            if({!isMeeting} == false) {
+                sforce.one.navigateToURL("/apex/MeetingConsole?id={!Call_Report__c.Id}");
+            } else {
+                sforce.one.navigateToURL("/lightning/cmp/c__EventReport?c__recordId={!Call_Report__c.Id}");
+            }
+          }else{
+              window.location.href = "{!newURLedit}";  
+          }        
+    </script>
+
+</apex:page>

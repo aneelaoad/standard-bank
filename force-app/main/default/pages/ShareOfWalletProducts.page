@@ -1,0 +1,530 @@
+<!-- @LastModifiedBy: Manoj Gupta,Desc:DEF-002367,IUI - Manage Share of Wallet -->
+
+
+<apex:page standardController="Share_Wallet__c" extensions="ShareOfWalletProductsVFPController" sidebar="true" showHeader="true">
+<apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+
+<apex:outputPanel rendered="{!NOT(isLightning)}" >
+<apex:form >
+ <style>
+.vfHelpText a {
+    position: relative;
+}
+
+.vfHelpText a span {
+    display: none;
+}
+
+.vfHelpText a:hover span {
+    display: block;
+    position: absolute;
+    top: 1.25em;
+    padding: 2px 5px;
+    left: -15em;
+    width: 15em;
+    z-index: 100;
+    border: 1px solid orange;
+    background-color: #FEFDB9;
+    color: black;
+}
+
+ .Total td{
+    font-weight: bold;
+    font-variant: normal; 
+    margin-top: 5px;
+    vertical-align: bottom;
+  }
+  
+</style>
+
+<html>
+ <!-- Share of Wallet information table -->    
+<div class="bPageBlock secondaryPalette">
+<div class="pbBody">
+<div class="pbSubsection"> 
+ <table>
+ <tr> 
+    <th class="pbTitle" ><h2 class="mainTitle">Share of Wallet Detail</h2></th>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="labelCol" >  </td>
+    <td class="wrapword" >  </td> 
+  </tr>
+ 
+  <tr> 
+  <td class="wrapword" >  </td>
+    <td class="labelCol" >Share of Wallet</td>
+    <td class="wrapword" ><a href="/{!Share_Wallet__c.Id}" >{!Share_Wallet__c.Name}</a></td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="labelCol" >Estimated Standard Bank Revenue </td>
+    <td class="wrapword" width="25%"><apex:outputfield value="{!Share_Wallet__c.Revenue__c}"/></td>
+    
+  </tr>
+  <tr>
+    <td class="wrapword" >  </td>
+    <td class="labelCol" >Financial Year</td>
+    <td class="wrapword" escape="false">{!Share_Wallet__c.Financial_Year__c}</td>
+     <td class="labelCol" >  </td>
+    <td class="labelCol" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="labelCol" >Estimated Total Wallet Size </td>
+    <td class="wrapword" escape="false">
+    &nbsp;<apex:outputfield value="{!Share_Wallet__c.Total_Wallet_Size__c}" /> </td> 
+   
+  </tr>
+  <tr>
+  <td class="wrapword" >  </td>
+    <td class="labelCol" >Division</td>
+    <td class="wrapword" escape="false">{!Share_Wallet__c.Division__c}</td>
+     <td class="labelCol" >  </td>
+    <td class="labelCol" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+     <td class="labelCol" >Estimated Share of Wallet (%)</td>
+    <td class="wrapword" escape="false"><apex:outputfield value="{!Share_Wallet__c.Share_of_Wallet__c}" /> </td>
+   
+  </tr>
+  <tr>
+    <td class="wrapword" >  </td>
+     <td class="labelCol" >Budget</td>
+    <td class="wrapword"><apex:outputfield value="{!Share_Wallet__c.Budget__c}"/></td>
+    <td class="labelCol" >  </td>
+    <td class="labelCol" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+    <td class="wrapword" >  </td>
+     <td class="labelCol" >Target Share of Wallet (%)</td>
+    <td class="wrapword" escape="false">{!Share_Wallet__c.Target_Share__c}%</td>
+    
+  </tr>
+</table>
+</div>
+</div>
+</div>
+
+<br></br>
+ <apex:pagemessage summary="Please note that all information captured on Share of Wallet Products will not aggregate nor automatically roll up to the overall Share of Wallet" severity="info" strength="3"><Strong></Strong></apex:pagemessage>
+ <apex:Pagemessages escape="False" />
+<br></br>
+<!-- Share of wallet products -->
+ <apex:pageBlock title="Manage Share of Wallet Products">   
+  <apex:pageblockTable value="{!shareWalletProductLst}" var="dw" width="100%" >                         
+    
+    <apex:column headervalue="Product Subset" width="10%">
+      <apex:outputText value="{!dw.product}" />
+      </apex:column>
+      
+         <apex:column headervalue="Estimated Standard Bank Revenue ({!Share_Wallet__c.CurrencyIsoCode})"  width="17%">
+          <apex:inputfield value="{!dw.sowProd.Estimated_Standard_Bank_Revenue__c}"  />
+            <span class="vfHelpText"> <apex:outputLink value="javascript:return false;">
+               <img src="/s.gif" alt="" class="helpOrb" />
+               <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Estimated_Standard_Bank_Revenue__c.inlineHelpText}</span>
+                  </apex:outputLink></span>
+         </apex:column>
+     
+     <apex:column headervalue="Estimated Total Wallet Size ({!Share_Wallet__c.CurrencyIsoCode})" width="14%">
+      <apex:inputfield value="{!dw.sowProd.Estimated_Total_Wallet_Size__c}" />
+         <span class="vfHelpText"> <apex:outputLink value="javascript:return false;">
+           <img src="/s.gif" alt="" class="helpOrb" />
+           <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Estimated_Total_Wallet_Size__c.inlineHelpText}</span>
+              </apex:outputLink></span>
+     </apex:column> 
+     <apex:column width="14%" headervalue="Estimated Share of Wallet (%)"  >
+      <apex:outputText value="{!dw.sowProd.Estimated_Share_of_Wallet__c}" />
+        <span class="vfHelpText"> <apex:outputLink value="javascript:return false;">
+           <img src="/s.gif" alt="" class="helpOrb" />
+           <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Estimated_Share_of_Wallet__c.inlineHelpText}</span>
+              </apex:outputLink></span>
+     </apex:column>
+     <apex:column width="14%" headervalue="Target Share of Wallet (%)"  >
+      <apex:inputfield value="{!dw.sowProd.Target_Share__c}" />
+        <span class="vfHelpText"> <apex:outputLink value="javascript:return false;">
+           <img src="/s.gif" alt="" class="helpOrb" />
+           <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Target_Share__c.inlineHelpText}</span>
+              </apex:outputLink></span>
+     </apex:column>
+     <apex:column headervalue="Budget ({!Share_Wallet__c.CurrencyIsoCode})" width="15%" >
+      <apex:inputfield value="{!dw.sowProd.Budget__c}" />
+        <span class="vfHelpText"> <apex:outputLink value="javascript:return false;">
+           <img src="/s.gif" alt="" class="helpOrb" />
+           <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Budget__c.inlineHelpText}</span>
+              </apex:outputLink></span>
+     </apex:column>
+     <apex:column headervalue="Competitors"  width="15%">
+       <apex:inputfield value="{!dw.sowProd.Competitors__c}"  /> 
+        <span class="vfHelpText"> <apex:outputLink value="javascript:return false;">
+           <img src="/s.gif" alt="" class="helpOrb" />
+            <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Competitors__c.inlineHelpText}</span>  
+              </apex:outputLink></span>
+     </apex:column>
+  </apex:pageblockTable> 
+        <table  cellspacing="0" cellpadding="0" border="0" width="100%" style = "margin-top:5px;">
+          <tr class = "Total">
+                <td width = "11%" style = "padding-left:7px;"> TOTAL </td> 
+                <td width = "17%"> 
+                  <apex:outputText value="{0, number, ###,###}" rendered="{!If(Sum_ESBR !=0,true,false)}">
+                        <apex:param value="{!Sum_ESBR}"/>
+                    </apex:outputText>
+                </td>
+                <td width = "14%" >
+                    <apex:outputText value="{0, number, ###,###}" rendered="{!If(Sum_ETWS !=0,true,false)}">
+                        <apex:param value="{!Sum_ETWS}"/>
+                    </apex:outputText> 
+                </td>
+                <td width = "14%"></td> 
+                <td width = "14%">
+                </td>
+                <td width = "15%"> 
+                   <apex:outputText value="{0, number, ###,###}" rendered="{!If(Sum_Budget !=0,true,false)}">
+                        <apex:param value="{!Sum_Budget}"/>
+                    </apex:outputText>
+                </td>
+                <td width = "15%"></td>          
+           </tr>  
+         </table>
+     <apex:pageBlockButtons lang="en" location="both">
+          <apex:commandButton value="Save & Close" action="{!SaveSowProdClose}"  />
+          <apex:commandButton value="Cancel" immediate="true" action="{!Cancel}"/>
+        </apex:pageBlockButtons>
+ </apex:pageBlock>
+
+</html>
+</apex:form>
+</apex:outputPanel>
+
+<apex:outputPanel styleClass="slds" rendered="{!isLightning}" >
+<apex:form >
+<style>
+    .customMessage * {
+        color: #fff!important
+    }
+    .customMessage {
+        margin: 5px 0!important;
+        max-width: 1280px;
+        opacity: 1!important;
+        width: 100%;
+        font-size: 12px;
+        border: 0px;
+        padding-left: 10px;
+    }
+    .vfHelpText a {position:relative;}
+    .vfHelpText a span {display: none;}
+    .vfHelpText a:hover span {    
+        display: block;
+        position: absolute;
+        top: 1.25em;
+        padding: 2px 5px;
+        left: -15em;
+        width: 0!;
+        z-index: 100;
+        border: 1px solid orange;
+        background-color: #FEFDB9;
+        color: black;
+    }
+    .vfHelpText2 a {position:relative;}
+    .vfHelpText2 a span {display: none;}
+    .vfHelpText2 a:hover span {    
+        display: block;
+        position: absolute;
+        top: 1.25em;
+        padding: 2px 5px;
+        left: -33em;
+        width: 0!;
+        z-index: 100;
+        border: 1px solid orange;
+        background-color: #FEFDB9;
+        color: black;
+    }
+    .totalStyle {
+        font-weight: bold;
+        font-variant: normal; 
+        margin-top: 5px;
+        vertical-align: bottom;
+        background-color: #d8dde6 !important;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+       overridePageMessages();    
+    });
+        
+    function overridePageMessages(){    
+        var textureEffect = '';
+        //Uncomment below line for texture effect on page messages
+        textureEffect = 'slds-theme--alert-texture';
+                     
+        $('.warningM3').addClass('slds-notify slds-notify--toast slds-theme--warning customMessage '+textureEffect);          
+        $('.confirmM3').addClass('slds-notify slds-notify--alert slds-theme--success  customMessage '+textureEffect);    
+        $('.errorM3').addClass('slds-notify slds-notify--alert slds-theme--error customMessage '+textureEffect);                  
+        $('.infoM3').addClass('slds-notify slds-notify--toast customMessage '+textureEffect);
+        $('.infoM2').addClass('slds-notify slds-notify--toast customMessage '+textureEffect); 
+                         
+        $('.errorM3').removeClass('errorM3'); 
+        $('.confirmM3').removeClass('confirmM3'); 
+        $('.infoM3').removeClass('infoM3');
+        $('.infoM2').removeClass('infoM2');
+        $('.warningM3').removeClass('warningM3');  
+    }
+</script>
+
+    <apex:actionStatus id="loaderStatus">
+        <apex:facet name="start">
+        <div class="slds-spinner_container" style="position: fixed !important;">
+          <div class="slds-spinner--brand slds-spinner slds-spinner--medium" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+          </div>
+        </div>
+        </apex:facet>
+    </apex:actionStatus>
+
+    <!-- Details Panel -->
+    <div title="Share of Wallet Detail" showheader="true" columns="2" class="slds-grid slds-wrap">
+        <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Share of Wallet Detail</span> </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Name.label}
+                </label>
+                <a href="/{!Share_Wallet__c.Id}" >
+                    <apex:outputField value="{!Share_Wallet__c.Name}" />
+                </a>
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Revenue__c.label}
+                </label>
+                <apex:outputField value="{!Share_Wallet__c.Revenue__c}" />
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Financial_Year__c.label}
+                </label>
+                <apex:outputField value="{!Share_Wallet__c.Financial_Year__c}" />
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Total_Wallet_Size__c.label}
+                </label>
+                <apex:outputField value="{!Share_Wallet__c.Total_Wallet_Size__c}" />
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Division__c.label}
+                </label>
+                <apex:outputField value="{!Share_Wallet__c.Division__c}" />
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Share_of_Wallet__c.label}
+                </label>
+                <apex:outputField value="{!Share_Wallet__c.Share_of_Wallet__c}" />
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Budget__c.label}
+                </label>
+                <apex:outputField value="{!Share_Wallet__c.Budget__c}" />
+            </div>
+        </div>
+        
+        <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+            <div class="slds-form-element slds-p-around--small">
+                <label class="slds-form-element__label" for="lookupRelateOpp">
+                {!$ObjectType.Share_Wallet__c.fields.Target_Share__c.label}
+                </label>
+                <apex:outputField value="{!Share_Wallet__c.Target_Share__c}" />
+            </div>
+        </div>
+    </div>
+    
+    <br/>
+    <apex:outputPanel styleClass="slds" id="msgId">
+        <apex:pagemessage summary="Please note that all information captured on Share of Wallet Products will not aggregate nor automatically roll up to the overall Share of Wallet" severity="info" strength="3"><Strong></Strong></apex:pagemessage>
+        <apex:Pagemessages escape="False" />
+    </apex:outputPanel>
+    <br/>
+    
+    <!-- Manage Share of Wallet Product Panel -->
+    <div title="Manage Share of Wallet Products" showheader="true" columns="2" class="slds-grid slds-wrap">
+        <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1">
+            <span>Manage Share of Wallet Products</span>
+        </div>
+        <div class="slds-size--1-of-1" style="margin-top:5px;">
+            <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+                <apex:commandButton value="Save & Close" action="{!SaveSowProdClose}" status="loaderStatus" oncomplete="overridePageMessages();" styleClass="slds-button slds-button--neutral" reRender="loaderStatus, msgId"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true" status="loaderStatus" styleClass="slds-button slds-button--neutral" reRender="loaderStatus, msgId" />
+            </div>
+        </div>
+    </div>
+    
+    <table class="slds-table slds-table--bordered slds-table--cell-buffer" >
+       
+        <thead>
+            <tr class="slds-text-title--caps">
+                <th scope="col" >
+                    <div class="slds-truncate" title="Product Subset">Product Subset</div>
+                </th>
+                <th scope="col" >
+                    <div class="slds-truncate" title="Estimated Standard Bank Revenue ({!Share_Wallet__c.CurrencyIsoCode})">Estimated Standard Bank Revenue ({!Share_Wallet__c.CurrencyIsoCode})</div>
+                </th>
+                <th scope="col" >
+                    <div class="slds-truncate" title="Estimated Total Wallet Size ({!Share_Wallet__c.CurrencyIsoCode})">Estimated Total Wallet Size ({!Share_Wallet__c.CurrencyIsoCode})</div>
+                </th>
+                <th scope="col" >
+                    <div class="slds-truncate" title="Estimated Share of Wallet (%)">Estimated Share of Wallet (%)</div>
+                </th>
+                <th scope="col" >
+                    <div class="slds-truncate" title="Target Share of Wallet (%)">Target Share of Wallet (%)</div>
+                </th>
+                <th scope="col" >
+                    <div class="slds-truncate" title="Budget ({!Share_Wallet__c.CurrencyIsoCode})">Budget ({!Share_Wallet__c.CurrencyIsoCode})</div>
+                </th>
+                <th scope="col" >
+                    <div class="slds-truncate" title="Competitors">Competitors</div>
+                </th>
+            </tr>
+        </thead>
+        <apex:repeat value="{!shareWalletProductLst}" var="dw"> 
+        <tbody>
+         
+                <tr>
+                    <td>
+                        <apex:outputText value="{!dw.product}" />
+                    </td>
+                    <td>
+                        <div class="slds-truncate" style="display: inline;">
+                            <apex:inputfield value="{!dw.sowProd.Estimated_Standard_Bank_Revenue__c}"/>
+                        </div>
+                        <span class="vfHelpText" >
+                            <apex:outputLink value="javascript:return false;">
+                                <img src="/s.gif" alt="" class="helpOrb" />
+                                <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Estimated_Standard_Bank_Revenue__c.inlineHelpText}</span>
+                            </apex:outputLink>
+                        </span>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" style="display: inline;" >
+                            <apex:inputfield value="{!dw.sowProd.Estimated_Total_Wallet_Size__c}"/>
+                        </div>
+                        <span class="vfHelpText" >
+                            <apex:outputLink value="javascript:return false;">
+                                <img src="/s.gif" alt="" class="helpOrb" />
+                                <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Estimated_Total_Wallet_Size__c.inlineHelpText}</span>
+                            </apex:outputLink>
+                        </span>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" style="display: inline;" >
+                            <apex:outputText value="{!dw.sowProd.Estimated_Share_of_Wallet__c}" />
+                        </div>
+                        <span class="vfHelpText" >
+                            <apex:outputLink value="javascript:return false;">
+                                <img src="/s.gif" alt="" class="helpOrb" />
+                                <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Estimated_Share_of_Wallet__c.inlineHelpText}</span>
+                            </apex:outputLink>
+                        </span>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" style="display: inline;" >
+                            <apex:inputfield value="{!dw.sowProd.Target_Share__c}" />
+                        </div>
+                        <span class="vfHelpText" >
+                            <apex:outputLink value="javascript:return false;">
+                                <img src="/s.gif" alt="" class="helpOrb" />
+                                <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Target_Share__c.inlineHelpText}</span>
+                            </apex:outputLink>
+                        </span>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" style="display: inline;" >
+                            <apex:inputfield value="{!dw.sowProd.Budget__c}" />
+                        </div>
+                        <span class="vfHelpText" >
+                            <apex:outputLink value="javascript:return false;">
+                                <img src="/s.gif" alt="" class="helpOrb" />
+                                <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Budget__c.inlineHelpText}</span>
+                            </apex:outputLink>
+                        </span>
+                    </td>
+                    <td>
+                        <div class="slds-truncate" style="display: inline;" >
+                            <apex:inputfield value="{!dw.sowProd.Competitors__c}" />
+                        </div>
+                        <span class="vfHelpText2" >
+                            <apex:outputLink value="javascript:return false;">
+                                <img src="/s.gif" alt="" class="helpOrb" />
+                                <span>{!$ObjectType.Share_of_Wallet_Product__c.fields.Competitors__c.inlineHelpText}</span>
+                            </apex:outputLink>
+                        </span>
+                    </td>
+                </tr>
+        </tbody>
+        </apex:repeat>
+        
+        
+        <tr class="slds-text-title--caps totalStyle" >
+            <td style="background-color: #d8dde6;"> <apex:outputText value="TOTAL" /> </td> 
+            <td style="background-color: #d8dde6;"> 
+              <apex:outputText value="{0, number, ###,###}" rendered="{!If(Sum_ESBR !=0,true,false)}">
+                    <apex:param value="{!Sum_ESBR}"/>
+                </apex:outputText>
+            </td>
+            <td style="background-color: #d8dde6;">
+                <apex:outputText value="{0, number, ###,###}" rendered="{!If(Sum_ETWS !=0,true,false)}">
+                    <apex:param value="{!Sum_ETWS}"/>
+                </apex:outputText> 
+            </td>
+            <td style="background-color: #d8dde6;"></td> 
+            <td style="background-color: #d8dde6;"></td>
+            <td style="background-color: #d8dde6;"> 
+               <apex:outputText value="{0, number, ###,###}" rendered="{!If(Sum_Budget !=0,true,false)}">
+                    <apex:param value="{!Sum_Budget}"/>
+                </apex:outputText>
+            </td>
+            <td style="background-color: #d8dde6;"></td>          
+        </tr> 
+        
+        
+    </table>
+    
+    <div class="slds-size--1-of-1" style="margin-top:5px;">
+        <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+            <apex:commandButton value="Save & Close" action="{!SaveSowProdClose}" status="loaderStatus" oncomplete="overridePageMessages();" styleClass="slds-button slds-button--neutral" reRender="loaderStatus, msgId"/>
+            <apex:commandButton value="Cancel" action="{!Cancel}" immediate="true" status="loaderStatus" styleClass="slds-button slds-button--neutral" reRender="loaderStatus, msgId" />
+        </div>
+    </div>
+    
+</apex:form>
+</apex:outputPanel>
+
+</apex:page>

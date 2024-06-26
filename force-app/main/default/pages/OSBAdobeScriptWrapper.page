@@ -1,0 +1,67 @@
+<apex:page id="OSBAdobeScriptWrapper" standardStylesheets="false" showHeader="false" controller="OSB_AdobeScriptWrapper_CTRL">
+    <apex:form >
+        <script>
+            (function(){
+                let host = "{!JSINHTMLENCODE(LEFT($CurrentPage.URL,FIND('/',$CurrentPage.URL,9)))}";
+                let data = [];
+                let scriptLoaded = false;
+                let CDNscriptLoaded = false;
+                let initRequired = true;
+
+                window.addEventListener("message", function(event){
+                    if(event.origin + '/' !== host) {
+                        return;
+                    }
+                    window.dataLayer = event.data;
+                    if(!scriptLoaded && '{!scriptUrl}') {
+                        let script = document.createElement('script');
+                        script.onload = function () {
+                            scriptLoaded = true;
+                            _satellite.track('globalVirtualPageView');
+                        };
+                        script.src = '{!scriptUrl}';
+                        document.head.appendChild(script);
+                    } else {
+                        _satellite.track('globalVirtualPageView');
+                    }
+                    if(!CDNscriptLoaded && '{!scriptCdn}') {
+                        let scriptCDN = document.createElement('script');
+                        scriptCDN.onload = function () {
+                            CDNscriptLoaded = true;
+                        };
+                        scriptCDN.src = '{!scriptCdn}';
+                        document.head.appendChild(scriptCDN);
+                    }
+                });
+
+                // Send message to Lightning Component
+                function sendToLC(message) {
+                    if(typeof(host) !== 'undefined'){
+                        parent.postMessage(message, host);
+                    }
+                }
+
+                function initialize() {
+                    // Let LC know that VF page been loaded along with it's URL
+                    // LC will then send the data
+                    // This is done because LC has no way to know that VF page in iFrame has been loaded
+                    if(initRequired){
+                        initRequired = false;
+                        sendToLC({'state':'LOADED', 'vfHost': host,'action' : 'initial'});
+                    } else {
+                        return;
+                    }
+                }
+
+                    // When the DOM is ready, begin initializing the tag
+                    // in case the document is already rendered
+                    if (document.readyState === "complete"
+                                    || (document.readyState !== "loading" && !document.documentElement.doScroll)) {
+                        initialize();
+                    } else {
+                        document.addEventListener("DOMContentLoaded", initialize);
+                    }
+            })();
+        </script>
+    </apex:form>
+</apex:page>

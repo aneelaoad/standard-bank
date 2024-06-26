@@ -1,0 +1,123 @@
+<apex:page controller="Hierarchy_OrgChart" sidebar="false" showHeader="true" readOnly="true" docType="html-5.0" cache="true">
+  <html> 
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    </head>
+    <style>
+        a:link {text-decoration: none;}    /* unvisited link */
+        a:visited {text-decoration: none;} /* visited link */
+        a:hover {text-decoration: none;}   /* mouse over link */
+        a:active {text-decoration: none;}  /* selected link */
+        
+        .collapsebuttonStyle { 
+            position: fixed;
+            right: 3em;
+        }
+        
+        .expandbuttonStyle { 
+            position: fixed;
+            right: 11em;
+        }
+        
+        .dropdownStyle { 
+            margin-left: 10px;
+        }
+        .waitingSearchDivOpacity{
+            width: 100%; height: 100%; display: block;opacity:0.4;background-color:#787878;
+        }
+        
+        .waitingSearchDiv{
+            width: 100%; height: 100%; display: block;
+        }
+        
+        #processingDiv{
+            position: fixed; width: 1px;height: 1px;left: 50%;top: 50%;margin-top: -30px;margin-left: -100px;border-width:1px;background-color:#FBF5EF;padding:1em 1em 0 1em;border-radius: 5px;
+        }
+    </style>
+    
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <apex:actionStatus id="waitingStatusLoad">
+        <apex:facet name="start">
+            <div  class="waitingSearchDiv waitingSearchDivOpacity" />
+                <div  class="waitingSearchDiv" >
+                    <div class="waitingHolder" Id="processingDiv"  >
+                        <img class="waitingImage" src="/img/loading32.gif" width="32px" height="32px"/>
+                    <span class="waitingDescription"><font size="5" style="font-color:black;">Processing...</font></span>
+                </div>
+            </div>
+        </apex:facet>
+        <apex:facet name="stop"></apex:facet>
+    </apex:actionStatus>
+    <apex:form id="hierfrm">
+        <apex:pageMessages />
+        <apex:outputlabel style="font-weight:bold;font-size:14px;">Hierarchy for {!objectName} : </apex:outputlabel>
+       <apex:outputLink style="font-weight:bold;font-size:14px;" value="/{!recIdforpage}">{!recordName}</apex:outputLink>
+        <apex:commandButton value="Expand All" styleClass="expandbuttonStyle"  action="{!expandAll}" reRender="hierfrm,chartPanel" status="waitingStatusLoad" oncomplete="drawVisualization();"  rendered="{!renderchart}"/>
+        <apex:commandButton value="Collapse All" styleClass="collapsebuttonStyle" action="{!collapseall}" reRender="hierfrm,chartPanel" status="waitingStatusLoad" oncomplete="drawVisualization();"  rendered="{!renderchart}"/>
+        <apex:actionFunction name="loadmore" action="{!loadMore}" reRender="hierfrm,chartPanel" status="waitingStatusLoad" oncomplete="drawVisualization();">
+            <apex:param name="firstParam" value="" assignTo="{!selectedAccountId}"/>
+        </apex:actionFunction>
+        <apex:actionFunction name="collapseNode" action="{!collapseNode}" reRender="hierfrm,chartPanel" status="waitingStatusLoad" oncomplete="drawVisualization();">
+            <apex:param name="firstParam" value="" assignTo="{!selectedAccountId}"/>
+        </apex:actionFunction>
+    </apex:form>
+    <apex:outputPanel id="chartPanel" layout="block">
+    <apex:outputPanel rendered="{!renderchart}">
+        <script type="text/javascript"> 
+             var rectypechk = []; 
+        </script> 
+        <apex:repeat value="{!RTfinal}" var="rtval"> 
+            <script> 
+                rectypechk.push('{!rtval}');
+            </script> 
+        </apex:repeat>
+        <script type="text/javascript">
+            google.load('visualization', '1', {packages:['orgchart']});
+            google.setOnLoadCallback(drawVisualization);  
+            var chart ;
+            function drawVisualization() {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Name');
+                data.addColumn('string', 'Manager');
+                data.addColumn('string', 'ToolTip');
+                data.addRows([
+                {!if(right(hierarchyDataString,1)=',',Left(hierarchyDataString,LEN(hierarchyDataString)-1),hierarchyDataString)}
+                ]);
+                if('{!hasParent}'=='true'){
+                    data.setProperty(1,1, 'size', 'small');
+                }    
+                else{
+                    data.setProperty(0,0, 'size', 'small');
+                }
+                
+                for (i = 0; i < rectypechk.length; i++) {
+                    if(rectypechk[i] != "Neglect"){
+                        if(rectypechk[i] == "Child Record Type")
+                            data.setRowProperty(i, 'style', 'border: 4px solid blue;');
+                        else if(rectypechk[i] == "Immediate Parent Record Type")
+                            data.setRowProperty(i, 'style', 'border: 4px solid orange;');
+                        else if(rectypechk[i] == "Ultimate Group Parent Record Type")
+                            data.setRowProperty(i, 'style', 'border: 4px solid green;');
+                        else    
+                            data.setRowProperty(i, 'style', 'border: 4px solid red;');
+                    }
+                }
+                chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+                chart.draw(data, {allowHtml:true}); 
+                var elements = document.getElementsByClassName('google-visualization-orgchart-table');
+                // Add our over/out handlers.
+                google.visualization.events.addListener(chart, 'onmouseover', barMouseOver);
+                google.visualization.events.addListener(chart, 'onmouseout', barMouseOut);   
+            }
+            function barMouseOver(e) {
+                chart.setSelection([e]);
+            }
+            function barMouseOut(e) {
+                chart.setSelection([{'row': null, 'column': null}]);
+            }
+        </script>    
+        <div id='chart_div' style="font-size:18px;"></div>
+    </apex:outputPanel>
+    </apex:outputPanel>
+  </html> 
+</apex:page>

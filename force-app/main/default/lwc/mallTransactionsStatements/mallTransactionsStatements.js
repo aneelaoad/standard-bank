@@ -77,35 +77,25 @@ export default class MallTransactionsStatements extends LightningElement {
     }
 }
  
+    /**
+     * @method viewStatement
+     * @description Opens the PDF of the statement in a new window.
+     * @param {Event} event - The event object from the statement title click.
+     */
+    async viewStatement(event) {
+      const documentUUID = event.currentTarget.dataset.documentuuid;
+      console.log('View statement:', documentUUID);
 
- /**
-   * @method viewStatement
-   * @description Displays a toast with the statement details.
-   * @param {Event} event - The event object from the button click.
-   */
-  viewStatement(event) {
-    const documentUUID = event.currentTarget.dataset.documentuuid;
-    console.log('View statement:', documentUUID);
-
-    // Find the statement with the matching UUID
-    const selectedStatement = this.statements.find(statement => statement.uid === documentUUID);
-    selectedStatement.showMenu= false;
-    console.log('selectedStatement: ',JSON.stringify(selectedStatement));
-    // Prepare the message with statement details
-    const message = `Account Name: ${selectedStatement.title}
-                     Date From: ${selectedStatement.strDate}
-                     `
-
-    // Show a popup with the statement details
-    // window.confirm(message);
-    const toastEvent = new ShowToastEvent({
-      title: 'Statement Details',
-      message: message,
-      variant: 'Success'
-    });
-    this.dispatchEvent(toastEvent);
-    this.closeContextMenu(documentUUID);
-    
+      try {
+          this.showSpinner = true;
+          const link = await getCustomerDocumentByUUID({ documentUUID });
+          this.showSpinner = false;
+          window.open(link, "_blank");
+      } catch (error) {
+          this.showSpinner = false;
+          this.error = error;
+          console.error('Error viewing document: ', error);
+      }
   }
 
 

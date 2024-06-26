@@ -1,0 +1,25 @@
+<!-- Author: Likhitha Karusala
+     Description: SFP-33357 To show saved message when successfully saved pdf in documents
+<Date>              <Authors Name>      <Brief Description of Change>
+Sep 27th 2023       Likhitha Karusala    showing successfull message
+-->
+
+<apex:page standardcontroller="zafin_rrp__Negotiated_Pricing__c" extensions="ZAF_CTRL_SaveClientPricingLetter" action="{!downPdf}" >
+    <style>
+         Style for the modal popup
+        .pp {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color:red;
+        }
+    </style>
+    <apex:form >
+           <apex:outputLabel style="color:Green;font-size:25px;text-align:center;border:2px;"> Saved Successfully</apex:outputLabel>
+    </apex:form> 
+</apex:page>

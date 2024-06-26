@@ -1,0 +1,501 @@
+<!-- Case #1168 Rudolf Niehaus 11/2011 -->
+<!-- Description: VF Page that enable users to manage members and hosts. Users can view all the current members and their relevant hosts -->
+<!-- Case#5276: 03/2012 - Rudolf Niehaus: Update error message wording -->
+<!-- EN #15 Nitish Kumar 06/02/2013 -->
+<!-- Added User friendly messages -->
+<!-- Case#785 22/04/2013 -->
+<!-- Added User friendly message for no member selected -->
+<apex:page standardController="Campaign" extensions="CampaignMemberHostController" standardStyleSheets="true" action="{!Load}" tabStyle="Campaign" showHeader="true" sidebar="true">
+<head>
+<apex:includeScript value="{!URLFOR($Resource.CampaignScripts, 'jquery-1.3.2.js')}" />
+
+<apex:includeScript value="{!URLFOR($Resource.jquery180, 'jquery/jquery-1.8.0.min.js')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system.min.css')}"></apex:stylesheet>
+<apex:stylesheet value="{!URLFOR($Resource.SLDS0120, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"></apex:stylesheet>
+<apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+<apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"></apex:stylesheet>
+<apex:stylesheet value="{!URLFOR($Resource.LightningTransformer, 'css/lt.css')}"></apex:stylesheet>
+
+<script type="text/javascript">
+    function clickclear(thisfield){
+        thisfield.value = "";
+    }
+    
+    function enterSearch(e){
+    
+        var key; 
+            
+        if(window.event){
+            key = window.event.keyCode; //IE
+        }else{
+            key = e.which; //firefox     
+        }
+        if(key == '13'){
+            actionSearchScript();
+            e.keyCode = null;   
+        }
+    }
+    
+    function checkAll(cb){
+        var inputElem = document.getElementsByTagName("input");
+        
+        for(var i=0; i<inputElem.length; i++){
+            if(inputElem[i].id.indexOf("clickedOn")!=-1){
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    }
+    function ExportData() {
+        var iterate = '{!iteration}';
+        
+        alert('Please note each new window will allow you to download an Excel file containing up to 2500 members.\nYou can merge these files after download.')
+
+        for (i=1;i<=iterate;i++){
+    
+            window.open("{!$Page.CampaignExportPage}?campId={!currentId}&datablock="+i,"_blank");
+        }
+        
+        return false;
+   }
+
+    function showPanel() {
+        document.getElementById('recordsPanel').style.display ="block";
+       }
+    function hidePanel() {
+        document.getElementById('recordsPanel').style.display ="none";   
+       }
+
+</script>
+<style>
+    .breakWord {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+</head>
+<apex:outputPanel rendered="{!NOT(isLightning)}">
+    <apex:form >
+        <apex:actionFunction action="{!Load}" name="actionSearchScript"/>
+        <apex:pageBlock id="block">
+            <table>
+            <tr valign="bottom">
+            <td></td>
+            <td style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:11px;color:#4A4A56">Campaign</td>
+            </tr>
+            <tr>
+            <td width="1%"><img src="/s.gif" alt="Campaigns" class="pageTitleIcon" title="Campaigns"/></td>
+            <td width="99%" style="vertical-align:middle;font-weight:500;font-size: 21px;font-family: Arial, Helvetica, sans-serif;">Manage Member Hosts</td>
+            </tr>
+            <tr>
+            <td colspan="2" ><a style="color: #1468B6;text-decoration: none" href="/{!currentId}">&laquo; Back to Campaign: {!camName}</a></td>
+            <td></td>
+            </tr>
+            </table>
+            <apex:outputText rendered="{!camLocked}">
+                    <div class="message errorM3" id="save_error" style="display: block; ">
+                    <table class="messageTable" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
+                    <td><img src="/s.gif" alt="Error" class="msgIcon" title="Error"></img></td>
+                    <td class="messageCell">
+                    <div class="messageText">
+                    <h4>There was an error saving your changes.</h4>
+                    <span id="save_error_text">The campaign is currently locked by the campaign owner. You cannot add new members&#59; update or remove existing members&#59; OR edit campaign member detail at this stage.</span>
+                    </div>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </div>
+            </apex:outputText>
+            <br/>
+            <table width="100%">
+            <tr>
+            <td width="70%">
+            <apex:outputLabel value="Step 1: Search by Member or Client Name" style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:1em;background-color:#E2E3E5;"/>
+            <br/><br/>
+            <apex:outputLabel value="{!blankSearch}"  style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:12px;background-color:red;" rendered="{!isblankSearchTrue}"/>
+            <apex:outputLabel value="{!noSearchResults}"  style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:12px;background-color:red;" rendered="{!isnoSearchResultsTrue}"/>
+            <apex:outputLabel value="{!noMemberSelected }"  style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:12px;background-color:red;" rendered="{!isNoMemberSelectedTrue }"/>
+            </td>
+            <td width="45%" style="font-weight: bold" align="right">Campaign Wave:</td>
+            <td width="3%" align="right">
+            <apex:selectList value="{!wave}" size="1" id="wave">
+                <apex:selectOptions value="{!InviteWave}"></apex:selectOptions>
+            </apex:selectList>
+            </td>
+            <td width="6%" align="left" nowrap="nowrap" valign="middle">
+            <apex:commandButton action="{!filterWave}" value="Search" disabled="{!ISNULL(memberResults)}"/>&nbsp;
+            <apex:commandButton action="{!updateWave}" value="Apply" disabled="{!ISNULL(memberResults)}"/>
+            </td>
+            </tr>
+            </table>
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:panelGroup >
+                    <apex:inputText id="searchText" value="{!searchText}" onclick="clickclear(this)" onkeypress="enterSearch(event);"/>
+                    <apex:commandButton id="searchBtn" value="Search" action="{!Load}" rerender="block" status="status"/>
+                    <apex:commandButton action="{!RemoveMembers}" value="Remove Member(s)" disabled="{!ISNULL(memberResults)}"/>
+                    <apex:commandButton action="{!ManageHosts}" value="Add Host(s)" disabled="{!ISNULL(memberResults)}"/>
+                    <apex:commandButton action="{!RemoveHosts}" value="Remove Host(s)" disabled="{!ISNULL(memberResults)}"/>
+                    <button type="button" onclick="ExportData()" class="btn">Export To Excel</button>
+                    </apex:panelGroup>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+            <apex:actionStatus id="status" onStart="hidePanel();" onStop="showPanel();" >
+                <apex:facet name="start">
+                    Retrieving members... please wait...
+                 <img src="/img/loading32.gif"></img>
+                </apex:facet>
+               </apex:actionStatus>
+            </apex:pageBlockSection>
+             <div id="recordsPanel">
+                <apex:outputPanel id="thePanel" layout="block">
+                <apex:outputLabel value="{!userPageInfo}" style="font-family: Arial, Helvetica, sans-serif;font-size:1em;"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goBack}">&lt;&lt; First
+                    <apex:param name="button" value="first"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="<< First" rendered="{!NOT(goBack)}"></apex:outputLabel>
+                &nbsp;
+                <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goBack}">&lt; Previous
+                    <apex:param name="button" value="back"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="< Previous" rendered="{!NOT(goBack)}"></apex:outputLabel>
+                &nbsp;&nbsp;&nbsp;
+                <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goNext}">Next &gt;
+                    <apex:param name="button" value="next"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="Next >" rendered="{!NOT(goNext)}"></apex:outputLabel>
+                &nbsp;
+                <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goNext}">Last &gt;&gt;
+                    <apex:param name="button" value="last"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="Last >>" rendered="{!NOT(goNext)}"></apex:outputLabel>
+                <apex:pageBlockTable value="{!memberResults}" var="mem" rendered="{!NOT(ISNULL(memberResults))}" columns="9">
+                    <apex:column >
+                    <apex:facet name="header"> 
+                        <apex:inputCheckbox onclick="checkAll(this)"/>
+                    </apex:facet>
+                        <apex:inputCheckbox value="{!mem.checked}" id="clickedOn"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel" value="First Name {!IF(sortExpression=='Member__r.FirstName',IF(sortDirection='ASC','↓','↑'),'')}"  status="status">
+                            <apex:param value="Member__r.FirstName" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputLink value="{!$Setup.Environment_Variable__c.serverURL__c}/{!mem.memhost.Member_Id__c}">{!mem.memhost.Member__r.FirstName}</apex:outputLink>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel" value="Last Name {!IF(sortExpression=='Member__r.LastName',IF(sortDirection='ASC','↓','↑'),'')}"  status="status"> 
+                            <apex:param value="Member__r.LastName" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputLink value="{!$Setup.Environment_Variable__c.serverURL__c}/{!mem.memhost.Member_Id__c}">{!mem.memhost.Member__r.LastName}</apex:outputLink>
+                    </apex:column>
+                    <apex:column value="{!mem.memhost.Member__r.Title}" headerValue="Job Title"/>
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel" value="Client Name {!IF(sortExpression=='Member__r.Account.Name',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="Member__r.Account.Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputField value="{!mem.memhost.Member__r.Account.Name}"/>
+                    </apex:column>
+                    <apex:column >
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel" value="Status {!IF(sortExpression=='Member_Status__c',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="Member_Status__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputField value="{!mem.memhost.Member_Status__c}"/>
+                    </apex:column>
+                    <apex:column >
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel" value="Campaign Wave {!IF(sortExpression=='Campaign_Wave__c',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="Campaign_Wave__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputField value="{!mem.memhost.Campaign_Wave__c}"/>
+                    </apex:column>
+                    <apex:column value="{!mem.memhost.Member__r.Email}" headerValue="Email"/>
+                    <apex:column value="{!mem.hostNames}" headerValue="Current Host(s)"/>
+                </apex:pageBlockTable>
+               </apex:outputPanel>
+               </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:outputPanel>
+
+<!-- LIGHTNING STYLE -->
+<apex:outputPanel styleClass="slds" rendered="{!isLightning}">
+<script>
+    $(document).ready(function(){
+       overridePageMessages();
+    });
+        
+    function overridePageMessages(){    
+        var textureEffect = '';
+        //Uncomment below line for texture effect on page messages
+        textureEffect = 'slds-theme--alert-texture';
+                     
+        $('.warningM3').addClass('slds-notify slds-notify--toast slds-theme--warning customMessage '+textureEffect);          
+        $('.confirmM3').addClass('slds-notify slds-notify--alert slds-theme--success  customMessage '+textureEffect);    
+        $('.errorM3').addClass('slds-notify slds-notify--alert slds-theme--error customMessage '+textureEffect);                  
+        $('.infoM3').addClass('slds-notify slds-notify--toast customMessage '+textureEffect);    
+                         
+        $('.errorM3').removeClass('errorM3'); 
+        $('.confirmM3').removeClass('confirmM3'); 
+        $('.infoM3').removeClass('infoM3');   
+        $('.warningM3').removeClass('warningM3');  
+    }
+    
+</script>
+
+<style>
+    .msgIcon {
+        display: none!important
+    }
+    .customMessage {
+        margin: 5px 5px 5px 5px;
+        opacity: 1!important;
+        width: 100%;
+        font-size: 12px;
+        border: 0px;
+        padding-left: 10px;
+    }
+    .fa-search {
+       display: none !important;
+    }
+</style>
+
+    <div class="slds-page-header">
+        <div class="slds-grid">
+            <div class="slds-col slds-has-flexi-truncate">
+                <p class="slds-text-heading--label">Campaign</p>
+                <div class="slds-grid">
+                    <div class="slds-grid slds-type-focus slds-no-space">
+                        <h1 class="slds-text-heading--medium slds-truncate">Manage Member Hosts</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<apex:form id="theForm">
+    <apex:outputPanel id="msgId">
+        <apex:pageMessages />
+    </apex:outputPanel>
+        
+    <apex:actionStatus id="loaderStatus">
+        <apex:facet name="start">
+        <div class="slds-spinner_container">
+          <div class="slds-spinner--brand slds-spinner slds-spinner--medium" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+          </div>
+        </div>
+        </apex:facet>
+    </apex:actionStatus>
+    
+    <div role="group" style="text-align:center; margin-top:10px;">
+        <apex:commandButton value="Back to Campaign: {!camName}" action="{!backToRecordLightning}" status="loaderStatus" immediate="true" styleClass="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;" />
+    </div>
+
+    <apex:outputPanel id="block">
+            <apex:outputText rendered="{!camLocked}">
+                    <div class="message errorM3" id="save_error" style="display: block; ">
+                    <table class="messageTable" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
+                    <td><img src="/s.gif" alt="Error" class="msgIcon" title="Error"></img></td>
+                    <td class="messageCell">
+                    <div class="messageText">
+                    <h4>There was an error saving your changes.</h4>
+                    <span id="save_error_text">The campaign is currently locked by the campaign owner. You cannot add new members&#59; update or remove existing members&#59; OR edit campaign member detail at this stage.</span>
+                    </div>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </div>
+            </apex:outputText>
+            <br/>
+            <table width="100%">
+                <tr>
+                    <td width="90%" style="padding-left: 15px;">
+                        <label class="slds-form-element__label">Step 1: Search by Member or Client Name</label>
+                        <br/><br/>
+                        <apex:outputPanel rendered="{!isblankSearchTrue}">
+                            <label class="slds-notify slds-notify--alert slds-theme--error">{!blankSearch}</label>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!isnoSearchResultsTrue}">
+                            <label class="slds-notify slds-notify--alert slds-theme--error">{!noSearchResults}</label>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!isNoMemberSelectedTrue}">
+                            <label class="slds-notify slds-notify--alert slds-theme--error">{!noMemberSelected}</label>
+                        </apex:outputPanel>
+                    </td>
+                    <td width="45%" style="font-weight: bold" align="right">
+                       <label class="slds-form-element__label">Campaign Wave:</label>
+                    </td>
+                    <td width="3%" align="right">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <apex:selectList value="{!wave}" size="1" id="wave" styleClass="slds-select" style="width:70px;">
+                                        <apex:selectOptions value="{!InviteWave}" />
+                                    </apex:selectList>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="6%" align="left" nowrap="nowrap" valign="middle">
+                        <apex:commandButton action="{!filterWave}" value="Search" disabled="{!ISNULL(memberResults)}" styleClass="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;"/>&nbsp;
+                        <apex:commandButton action="{!updateWave}" value="Apply" disabled="{!ISNULL(memberResults)}" styleClass="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;"/>
+                    </td>
+                </tr>
+            </table>
+            
+            <div columns="2" class="slds-grid slds-wrap">
+                <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+                 <div class="slds-form-element slds-p-around--small">
+                    <apex:inputText id="searchText" value="{!searchText}" onclick="clickclear(this)" onkeypress="enterSearch(event);" styleClass="slds-input"/>
+                    </div>
+                </div>
+                
+                <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" >
+                    <div class="slds-form-element slds-p-around--small">
+                        <apex:commandButton id="searchBtn" value="Search" action="{!Load}" rerender="block" status="status" styleClass="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;"/>
+                        <apex:commandButton action="{!RemoveMembers}" value="Remove Member(s)" disabled="{!ISNULL(memberResults)}" styleClass="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;"/>
+                        <apex:commandButton action="{!ManageHosts}" value="Add Host(s)" disabled="{!ISNULL(memberResults)}" styleClass="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;"/>
+                        <apex:commandButton action="{!RemoveHosts}" value="Remove Host(s)" disabled="{!ISNULL(memberResults)}" styleClass="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;"/>
+                        <button type="button" onclick="ExportData()" class="slds-button slds-button--neutral" style="border-radius: 0.25rem 0.25rem 0.25rem 0.25rem;">Export To Excel</button>
+                    </div>
+                </div>
+            </div>
+            
+            <apex:outputPanel >
+            <apex:actionStatus id="status" onStart="hidePanel();" onStop="showPanel();" >
+                <apex:facet name="start">
+                    Retrieving members... please wait...
+                 <img src="/img/loading32.gif"></img>
+                </apex:facet>
+               </apex:actionStatus>
+            </apex:outputPanel>
+            
+             <div id="recordsPanel">
+                <apex:outputPanel id="thePanel" layout="block" style="padding-left: 15px;">
+                    <label class="slds-form-element__label">{!userPageInfo}</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goBack}">&lt;&lt; First
+                        <apex:param name="button" value="first"/>
+                    </apex:commandLink>
+                    <apex:outputLabel style="color: gray" value="<< First" rendered="{!NOT(goBack)}"></apex:outputLabel>
+                    &nbsp;
+                    <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goBack}">&lt; Previous
+                        <apex:param name="button" value="back"/>
+                    </apex:commandLink>
+                    <apex:outputLabel style="color: gray" value="< Previous" rendered="{!NOT(goBack)}"></apex:outputLabel>
+                    &nbsp;&nbsp;&nbsp;
+                    <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goNext}">Next &gt;
+                        <apex:param name="button" value="next"/>
+                    </apex:commandLink>
+                    <apex:outputLabel style="color: gray" value="Next >" rendered="{!NOT(goNext)}"></apex:outputLabel>
+                    &nbsp;
+                    <apex:commandLink action="{!Load}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!goNext}">Last &gt;&gt;
+                        <apex:param name="button" value="last"/>
+                    </apex:commandLink>
+                    <apex:outputLabel style="color: gray" value="Last >>" rendered="{!NOT(goNext)}"></apex:outputLabel>
+                
+                <apex:outputPanel rendered="{!NOT(ISNULL(memberResults))}">
+                    <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal slds-table--fixed-layout smaller">
+                        <thead>
+                            <tr class="slds-text-heading--label" style="font-size: 90%;">
+                                <th scope="col" class="slds-truncate">
+                                    <apex:inputCheckbox onclick="checkAll(this)"/>
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    <apex:commandLink action="{!Load}" reRender="thePanel" value="First Name {!IF(sortExpression=='Member__r.FirstName',IF(sortDirection='ASC','↓','↑'),'')}"  status="status">
+                                       <apex:param value="Member__r.FirstName" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                    </apex:commandLink>
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    <apex:commandLink action="{!Load}" reRender="thePanel" value="Last Name {!IF(sortExpression=='Member__r.LastName',IF(sortDirection='ASC','↓','↑'),'')}"  status="status"> 
+                                        <apex:param value="Member__r.LastName" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                    </apex:commandLink>
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    Job Title
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    <apex:commandLink action="{!Load}" reRender="thePanel" value="Client Name {!IF(sortExpression=='Member__r.Account.Name',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                                        <apex:param value="Member__r.Account.Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                    </apex:commandLink>
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    <apex:commandLink action="{!Load}" reRender="thePanel" value="Status {!IF(sortExpression=='Member_Status__c',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                                        <apex:param value="Member_Status__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                    </apex:commandLink>
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    <apex:commandLink action="{!Load}" reRender="thePanel" value="Campaign Wave {!IF(sortExpression=='Campaign_Wave__c',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                                        <apex:param value="Campaign_Wave__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                                    </apex:commandLink>
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    <strong>Email</strong>
+                                </th>
+                                <th scope="col" class="slds-truncate" >
+                                    <strong>Current Host(s)</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <apex:repeat value="{!memberResults}" var="mem">
+                               <tr>
+                                   <td class="breakWord">
+                                       <apex:inputCheckbox value="{!mem.checked}" id="clickedOn"/>
+                                   </td>
+                                   <td class="breakWord">
+                                       <apex:outputLink value="{!$Setup.Environment_Variable__c.serverURL__c}/{!mem.memhost.Member_Id__c}">{!mem.memhost.Member__r.FirstName}</apex:outputLink>
+                                   </td>
+                                   <td class="breakWord">
+                                       <apex:outputLink value="{!$Setup.Environment_Variable__c.serverURL__c}/{!mem.memhost.Member_Id__c}">{!mem.memhost.Member__r.LastName}</apex:outputLink>
+                                   </td>
+                                   <td class="breakWord">
+                                       {!mem.memhost.Member__r.Title}
+                                   </td>
+                                   <td class="breakWord">
+                                       <apex:outputField value="{!mem.memhost.Member__r.Account.Name}"/>
+                                   </td>
+                                   <td class="breakWord">
+                                       <apex:outputField value="{!mem.memhost.Member_Status__c}"/>
+                                   </td>
+                                   <td class="breakWord">
+                                       <apex:outputField value="{!mem.memhost.Campaign_Wave__c}"/>
+                                   </td>
+                                   <td class="breakWord">
+                                       {!mem.memhost.Member__r.Email}
+                                   </td>
+                                   <td class="breakWord">
+                                       {!mem.hostNames}
+                                   </td>
+                               </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                </apex:outputPanel>
+               </apex:outputPanel>
+               </div>
+        </apex:outputPanel>
+    
+</apex:form>
+</apex:outputPanel>
+</apex:page>

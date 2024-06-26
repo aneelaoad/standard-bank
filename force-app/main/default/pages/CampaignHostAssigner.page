@@ -1,0 +1,182 @@
+<!-- Case #1168 Rudolf Niehaus 11/2011 -->
+<!-- Description: VF Page that enable users to add hosts(bank contacts) to campaign members -->
+<!-- EN #15 Nitish Kumar 06/02/2013 -->
+<!-- Added User friendly messages -->
+<apex:page controller="CampaignHostsController" tabStyle="Campaign" standardStyleSheets="true" showHeader="true" sidebar="true">
+<style type="text/css">
+.infoTextA { font-weight:Bold;font-size:12px;background-color:yellow; }
+.infoTextB { font-weight:Bold;font-size:12px;background-color:#00FF33; }
+.infoTextC { font-weight:Bold;font-size:12px;background-color:#FF8000; }
+.infoTextD { font-weight:Bold;font-size:12px;background-color:red; }
+</style>
+<script type="text/javascript">
+    function clickclear(thisfield){
+    
+        thisfield.value = "";
+    
+    }
+    
+    function enterSearch(e){
+    
+        var key; 
+            
+        if(window.event){
+            key = window.event.keyCode; //IE
+        }else{
+            key = e.which; //firefox     
+        }
+        if(key == '13'){
+            actionSearchScript();
+            e.keyCode = null;   
+        }
+    }
+    
+    function reload(){
+        actionSearchScript();
+    }
+    
+    function showPanel() {
+            document.getElementById('contactPanel').style.display ="block";
+        }
+      function hidePanel() {
+            document.getElementById('contactPanel').style.display ="none";   
+        }
+        
+     function checkAll(cb){
+        var inputElem = document.getElementsByTagName("input");
+        
+        for(var i=0; i<inputElem.length; i++){
+            if(inputElem[i].id.indexOf("clickedOn")!=-1){
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    }
+    
+</script>
+    <apex:form >
+        <apex:actionFunction action="{!search}" name="actionSearchScript"/>
+        <apex:pageBlock id="block">
+            <table>
+            <tr valign="bottom">
+            <td></td>
+            <td style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:11px;color:#4A4A56">Campaign</td>
+            </tr>
+            <tr>
+            <td width="1%"><img src="/s.gif" alt="Campaigns" class="pageTitleIcon" title="Campaigns"/></td>
+            <td width="99%" style="vertical-align:middle;font-weight:500;font-size: 21px;font-family: Arial, Helvetica, sans-serif;">Adding Host(s)</td>
+            </tr>
+            <tr>
+            <td colspan="2" ><a style="color: #1468B6;text-decoration: none"><apex:commandlink style="color: #1468B6;text-decoration: none" action="{!returnToCampaign}">&laquo; Back to Campaign: {!campName}</apex:commandlink></a></td>
+            <td></td>
+            </tr> 
+            </table>
+            <br/>
+            <apex:pageBlockSection >
+            <apex:outputPanel id="messageBlock">
+            <apex:outputLabel value="{!nrSelectedMembers}" styleClass="infoTextA" rendered="{!styleSwapA}"/>
+            <apex:outputLabel value="{!hostsAdded}" styleClass="infoTextB" rendered="{!styleSwapB}"/>
+            <apex:outputLabel value="{!noMembersSelected}" styleClass="infoTextC" rendered="{!styleSwapC}"/>
+            <apex:outputLabel value="{!blankSearch}"  styleClass="infoTextD" rendered="{!isblankSearchTrue}"/>
+            <apex:outputLabel value="{!noSearchResults}"   styleClass="infoTextD" rendered="{!isnoSearchResultsTrue}"/>
+            <apex:outputLabel value="{!noHostsSelected}"   styleClass="infoTextD" rendered="{!isnoHostsSelectedTrue}"/>
+            </apex:outputPanel> 
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+            <apex:outputLabel value="Step 1: Search by Contact Name" style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:1em;background-color:#E2E3E5;"/>
+            </apex:pageBlockSection>  
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:panelGroup >
+                    <apex:inputText id="searchText" value="{!searchText}" onclick="clickclear(this)" onkeypress="enterSearch(event);"/>
+                    <apex:commandButton id="searchBtn" value="Search" action="{!search}" rerender="block,messageBlock" status="status"/>
+                    <apex:commandButton action="{!addHost}" value="Add Selected Host(s)" disabled="{!(NOT(memberAvailable))}" />
+                    <apex:commandButton action="{!Done}" value="Back To Members"/>
+                    </apex:panelGroup>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <br/>
+           <apex:pageBlockSection >
+            </apex:pageBlockSection> 
+              <apex:actionStatus id="status"  onStart="hidePanel();" onStop="showPanel();" >
+               <apex:facet name="start">
+                    Searching Contacts... please wait...
+                  <img src="/img/loading32.gif"></img>
+                </apex:facet>
+               </apex:actionStatus>
+               <div id="contactPanel"> 
+                 <apex:outputPanel id="thePanel" layout="block" rendered="{!memberAvailable}">
+                 <apex:outputLabel value="{!userPageInfo}" style="font-family: Arial, Helvetica, sans-serif;font-size:1em;"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <apex:commandLink action="{!first}" reRender="thePanel" style="text-decoration: none" rendered="{!NOT(isFirst)}" status="status" >&lt;&lt; First
+                    <apex:param name="button" value="first"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="<< First" rendered="{!isFirst}"></apex:outputLabel>
+                &nbsp;
+                <apex:commandLink action="{!previous}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!hasPrevious}">&lt; Previous
+                    <apex:param name="button" value="back"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="< Previous" rendered="{!NOT(hasPrevious)}"></apex:outputLabel>
+                &nbsp;&nbsp;&nbsp;
+                <apex:commandLink action="{!next}" reRender="thePanel" style="text-decoration: none" status="status" rendered="{!hasNext}">Next &gt;
+                    <apex:param name="button" value="next"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="Next >" rendered="{!NOT(hasNext)}"></apex:outputLabel>
+                &nbsp;
+                <apex:commandLink action="{!last}" reRender="thePanel" style="text-decoration: none" rendered="{!NOT(isLast)}" status="status">Last &gt;&gt;
+                    <apex:param name="button" value="last"/>
+                </apex:commandLink>
+                <apex:outputLabel style="color: gray" value="Last >>" rendered="{!isLast}"></apex:outputLabel>
+                <apex:pageBlockTable value="{!searchResults}" var="c" rendered="{!(memberAvailable)}" columns="7" >
+                   <apex:column >
+                    <apex:facet name="header"> 
+                        <apex:inputCheckbox onclick="checkAll(this)"/>
+                    </apex:facet>
+                        <apex:inputCheckbox value="{!c.checked}" id="clickedOn"/>
+                    </apex:column>
+                  <!--    <apex:column value="{!c.con.Name}" headerValue="Contact Name"/> -->
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel" value="Contact Name {!IF(sortExpression=='c.Name',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="c.Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet> 
+                        <apex:outputLink >{!c.con.Name}</apex:outputLink>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel"  value="Title {!IF(sortExpression=='c.Title',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="c.Title" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet> 
+                        <apex:outputLink >{!c.con.Title}</apex:outputLink>
+                    </apex:column>
+                   <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel"  value="Email Address {!IF(sortExpression=='c.Email',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="c.Email" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet> 
+                        <apex:outputLink >{!c.con.Email}</apex:outputLink>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel"  value="Division {!IF(sortExpression=='c.User_Division_Sync__c',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="c.User_Division_Sync__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet> 
+                        <apex:outputLink >{!c.con.User_Division_Sync__c}</apex:outputLink>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">
+                        <apex:commandLink action="{!Load}" reRender="thePanel"  value="Business Unit {!IF(sortExpression=='c.User_Business_Unit_Sync__c',IF(sortDirection='ASC','↓','↑'),'')}" status="status">
+                            <apex:param value="c.User_Business_Unit_Sync__c" name="column" assignTo="{!sortExpression}" ></apex:param>
+                            </apex:commandLink>
+                        </apex:facet> 
+                        <apex:outputLink >{!c.con.User_Business_Unit_Sync__c}</apex:outputLink>
+                    </apex:column>
+                </apex:pageBlockTable>
+               </apex:outputPanel>
+              </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

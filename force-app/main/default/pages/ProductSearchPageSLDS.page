@@ -1,0 +1,286 @@
+<apex:page standardController="SB_Product__c" extensions="ProductSearchPageSLDSExtension" sidebar="false" showChat="false" showHeader="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">  
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>Product Search and Select</title>
+            <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+            <apex:includeScript value="{!$Resource.Jquery1122}" />          
+            <apex:includeScript value="{!$Resource.Jquery213}" />
+        </head>
+        <style>
+                        .hide{
+                  display: none!important;
+                }
+        </style>        
+        <script>
+        var j$ = jQuery.noConflict();
+        var prods = []; 
+        $(document).ready(function() {
+            if({!isProductLimit}){
+                //alert('There is already product added - You can\'t add new one.');
+                //CallReturnToOpp();
+                $('#searchSection').addClass('hide'); 
+                $('#returnSection').removeClass('hide');
+                $('#errorAlert4').removeClass('hide');
+            }});
+        function listenForSelects(){
+            j$('input[type="checkbox"]').change(function(){
+                if(this.checked){
+                    j$(this).closest('tr').data()['checked'] = true;
+                } else {
+                    j$(this).closest('tr').data()['checked'] = false;
+                }
+            });
+        };
+        function renderProds(){
+            //Empty old table body
+            if (j$('#prodTbod').html() != '')
+            {
+                j$('#prodTbod').empty();
+            }   
+            j$('#prods').css("visibility","visible");
+            // Build the resultsData
+            j$.each(prods, function(){
+                var tRow = j$('<tr class="slds-hint-parent" id="'+this.productSearch.Id+'"></tr>');
+                var tSel = j$('<td class="slds-cell-shrink" data-label="Select Row"><label class="slds-checkbox"><input type="checkbox" name="select" /><span class="slds-checkbox--faux"></span><span class="slds-assistive-text">Select Product</span></label></td>');
+                var tGPProd = j$('<td data-label="grand-parent-product">' + (this.productSearch.Grand_Parent_Product__c ? this.productSearch.Grand_Parent_Product__c : 'None' ) + '</td>');
+                var tPProd = j$('<td data-label="parent-product">' + (this.productSearch.Parent_Product__c ? this.productSearch.Parent_Product__c : 'None' ) + '</td>');
+                var tProd = j$('<td data-label="product">' + (this.productSearch.Product__c ? this.productSearch.Product__c : 'None') + '</td>');                        
+                var tDiv = j$('<td data-label="product-division">' + (this.productSearch.Product_Division__c ? this.productSearch.Product_Division__c : 'None' ) + '</td>');                        
+                tRow.append(tSel);
+                tRow.append(tGPProd);
+                tRow.append(tPProd);
+                tRow.append(tProd);
+                tRow.append(tDiv);
+                tRow.data(this);
+                j$('#prodTbod').append(tRow);
+            });
+            listenForSelects();
+        };
+        function rSearch(){
+            
+            var prodString = $('#prodSearch').val();
+            var pString = prodString.toUpperCase();
+                       
+            if (prodString === '' || (prodString.length < 3 && pString!='FX')){
+                // renderProds();
+                j$('#prodTbod').empty();
+                $('#errorAlert1').removeClass('hide'); 
+                $('#errorAlert').addClass('hide');
+                $('#errorAlert3').addClass('hide');
+                $('#errorAlert2').addClass('hide');
+                
+            }
+            else if (prodString.length > 2 || pString === 'FX'){
+                $('#errorAlert1').addClass('hide');
+            ProductSearchPageSLDSExtension.remoteSearch(j$('#prodSearch')[0].value,
+                                                        function(result,event){
+                                                            if (event.status && result.length>0) {
+                                                              
+                                                                prods = result;
+                                                                renderProds();
+                                                                $('#errorAlert').addClass('hide');
+                                                                $('#errorAlert3').addClass('hide');
+                                                                $('#errorAlert2').addClass('hide');
+                                                            } else if (result.length==0) {  
+                                                                                                                           
+                                                                $('#errorAlert').removeClass('hide');
+                                                                $('#errorAlert3').addClass('hide');
+                                                                $('#errorAlert2').addClass('hide');
+                                                                prods = result;
+                                                                renderProds();
+                                                            }
+                                                        });
+            }
+        };
+        function validate()
+        {
+            
+            var err = false;
+            var prods = [];
+            var rt1 = [];
+            var gpp1 = [];
+            var pp1 = [];
+            var prod2 = [];
+            var pd1 = [];
+            j$('tr').each(function(){
+                if (j$(this).data().checked==true)
+                {
+                    prods.push(this);
+                    rt1 = j$(this).data().productSearch.Product_Record_Type__c;
+                    gpp1 = j$(this).data().productSearch.Grand_Parent_Product__c;
+                    pp1 = j$(this).data().productSearch.Parent_Product__c;
+                    prod2 = j$(this).data().productSearch.Product__c;
+                    pd1 = j$(this).data().productSearch.Product_Division__c;
+                }                
+            });
+            if (prods.length==0)
+            {
+                $('#errorAlert2').removeClass('hide');
+                $('#errorAlert3').addClass('hide');
+                err = true;
+              
+            } 
+            else if (prods.length>1)
+            { 
+                $('#errorAlert2').addClass('hide');
+                $('#errorAlert3').removeClass('hide');
+                err = true;
+               
+            }
+           <!-- alert(rt1+gpp1+pp1+prod2+pd1);-->
+           if (err == false)
+            CallRedirect(rt1,gpp1,pp1,prod2,pd1) ; 
+           
+        };
+        </script>
+        <p class="slds-text-heading--label slds-m-bottom--small">&nbsp;</p>
+        <body> 
+        <apex:form >
+        <apex:actionFunction name="CallRedirect" action="{!redirect}" rerender="" > 
+            <apex:param name="param1" value="" assignTo="{!rt}"/>
+            <apex:param name="param2" value="" assignTo="{!gpp}"/>
+            <apex:param name="param3" value="" assignTo="{!pp}"/>
+            <apex:param name="param4" value="" assignTo="{!prod1}"/>
+            <apex:param name="param5" value="" assignTo="{!pd}"/>
+        </apex:actionFunction>
+
+        <apex:actionFunction name="CallReturnToOpp" action="{!returnToOpp}" reRender="" />
+         
+             <!-- MASTHEAD -->
+            
+            <!-- / MASTHEAD --> 
+    
+
+   
+            <div class="slds" id="standardSection">
+
+                <!-- header -->
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-media slds-media--center">
+                        <div class="slds-media__figure">
+                            <svg aria-hidden="true" class="slds-icon slds-icon-standard-opportunity">                                
+                                <use xlink:href="{!URLFOR($Resource.slds_standalone, '/assets/icons/standard-sprite/svg/symbols.svg#opportunity')}"></use>
+                            </svg>
+                        </div>
+                        <div class="slds-media__body">
+                            <p class="slds-page-header__title slds-truncate slds-align-middle" title="Opportunity {!opp.name}">Opportunity {!opp.name}</p>
+                            <p class="slds-text-body--small page-header__info">{!opp.Account.Name}</p>
+                        </div>
+                    </div>
+                </div> 
+                                  <div class="slds-notify_container">
+                        <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                        <span class="slds-assistive-text">Info</span>
+                        <h2>{!$Label.EnterDifferentValue}</h2>
+                    </div>  
+                    </div>  
+
+                       <div class="slds-notify_container">
+                        <div id="errorAlert1" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                        <span class="slds-assistive-text">Info</span>
+                        <h2>{!$Label.Product_Search_Message}</h2>
+                    </div>  
+                    </div>  
+                       <div class="slds-notify_container">
+                        <div id="errorAlert2" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                        <span class="slds-assistive-text">Info</span>
+                        <h2>{!$Label.Atleast_One_Record}</h2>
+                    </div>  
+                    </div> 
+                    <div class="slds-notify_container">
+                        <div id="errorAlert3" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                                <span class="slds-assistive-text">Info</span>
+                                <h2>{!$Label.More_than_one_record_error}</h2>
+                            </div>  
+                    </div>  
+                    <div class="slds-notify_container">
+                        <div id="errorAlert4" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                                <span class="slds-assistive-text">Info</span>
+                                <h2>{!$Label.More_than_one_product_error}</h2>
+                            </div>  
+                    </div> 
+                              
+                <!-- end header -->
+                <!-- sub heading -->
+                <div id="searchSection">
+                    <div class="slds-section">
+                        <div class="slds-text-heading--medium slds-m-around--medium">Your Opportunity is currently in the {!opp.StageName} Stage.</div>
+                        <div class="slds-text-heading--medium slds-m-around--medium">Search for and add the Product to reflect the Estimated Opportunity Revenue.</div>
+                    </div>
+                    <h3 class="slds-section-title--divider">Find Products</h3>
+                    <div class="slds-section">
+                        <div class="slds-form--inline slds-align--absolute-center">
+                            <div class="slds-form-element">
+                                <label class="slds-form-element__label" for="prodSearch">By Keyword</label>
+                                <div class="slds-form-element__control">
+                                    <input id="prodSearch" class="slds-input" type="text" />
+                                </div>
+                            </div>
+                            <div class="slds-form-element">
+                                <button class="slds-button slds-button--brand" onclick="rSearch();return false;">Search</button>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="slds-section">
+                        <div id="prods" style="visibility:hidden;">
+                            <h3 class="slds-section-title--divider">Product List</h3><br/>
+                            <!-- data table with products --> 
+                            <div class="slds-form--inline slds-align--absolute-center">
+                                <div class="slds-form-element">
+                                    <button class="slds-button slds-button--brand" onclick="validate();return false;">Next</button>
+                                </div>
+                            </div>
+                            <div class="slds-section">
+                                <div class="slds-scrollable--x">
+                                    <table id="prodT" class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal">
+                                        <thead>
+                                            <tr class="slds-text-heading--label">
+                                                <th class="slds-cell-shrink">
+                                                    <!--<label class="slds-checkbox">
+                                                        <input type="checkbox" name="options" />
+                                                        <span class="slds-checkbox--faux"></span>
+                                                        <span class="slds-assistive-text">Select All</span>
+                                                    </label>-->
+                                                </th>
+                                                <th class="slds-is-sortable" scope="col">
+                                                    <span class="slds-truncate">Grand Parent Product</span>
+                                                </th>
+                                                <th scope="col">
+                                                    <span class="slds-truncate">Parent Product</span>
+                                                </th>      
+                                                <th class="slds-row-action" scope="col">
+                                                    <span class="slds-truncate">Product</span>
+                                                </th>
+                                                <th class="slds-row-action" scope="col">
+                                                    <span class="slds-truncate">Product Division</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="prodTbod">                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="slds-form--inline slds-align--absolute-center">
+                                <div class="slds-form-element">
+                                    <button class="slds-button slds-button--brand" onclick="validate();return false;">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="returnSection" class="hide"> 
+                    <div class="slds-form--inline slds-align--absolute-center">
+                        <br/>
+                        <div class="slds-form-element">
+                            <button class="slds-button slds-button--brand" onclick="CallReturnToOpp()"> Return </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- end product table -->
+            </div>
+            </apex:form>
+        </body>
+        
+    </html> 
+</apex:page>

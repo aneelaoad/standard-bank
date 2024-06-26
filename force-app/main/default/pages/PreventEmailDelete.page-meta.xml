@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>42.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>This page is used to inform a user they are not allowed to delete an email.  Is called via an override on the Delete button on the EmailMessage.object.
+US-3508</description>
+    <label>PreventEmailDelete</label>
+</ApexPage>

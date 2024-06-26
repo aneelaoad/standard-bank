@@ -1,0 +1,11 @@
+<apex:page Controller="createactivities" >
+
+    <apex:form >
+         <apex:pageBlock title="Choose a Non-CIB Activity Type" >
+           
+         <apex:commandLink action="{!logtask}" value="Log a Non-CIB Client Call " /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <apex:commandlink action="{!logevent}" value="Log a Non-CIB Client Meeting " />  
+         </apex:pageBlock>  
+                    
+      </apex:form>
+</apex:page>

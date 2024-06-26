@@ -1,0 +1,169 @@
+<apex:page >
+<html>
+<style>
+.highlightit img{
+border: 1px solid #ccc;
+}
+
+.highlightit:hover img{
+border: 3px solid orange;
+}
+
+.highlightit:hover{
+color: red; 
+}
+</style>
+
+    <head>
+        <title>Easy Drill</title>
+    </head>
+    <body>
+        <p>
+        <apex:image id="theImage" value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Logo.png')}" width="275" height="110" style="float:right;padding-left:30px;"/>            
+        </p>
+        <p>
+            </p>
+        
+         <p>
+            <span style="font-size: 18px"><span style="color: #ff8c00">What is Easy Drill?</span></span></p>
+         <p>
+            &ldquo;Easy Drill&rdquo; is Utility app that allows you visualise complex record hierarchies in a simplified way using org chart. All the Hierarchy details are calculated dynamically in realtime based on both standard and custom lookup fields.<br/>
+            Having a better overview of record Hierarchy and easy drill down options, users can navigate to specific record in super quick speed.<apex:image value="/img/icon/lightning32.png"/>&nbsp;</p>
+       
+        <p>
+            &nbsp;</p>
+            
+       <apex:panelGrid columns="4" cellspacing="20px">
+           <apex:outputLink value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr2.png')}" target="_blank" styleClass="highlightit"> 
+               <apex:image title="Click to Enlarge"  value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr2.png')}" width="250" height="150" />
+           </apex:outputLink>
+           <apex:outputLink value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr1.png')}" target="_blank" styleClass="highlightit">
+               <apex:image title="Click to Enlarge"  value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr1.png')}" width="250" height="150"/>
+           </apex:outputLink>
+           <apex:outputLink value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr4.png')}" target="_blank" styleClass="highlightit"> 
+               <apex:image title="Click to Enlarge"  value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr4.png')}" width="250" height="150" />
+           </apex:outputLink>
+           <apex:outputLink value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr3.png')}" target="_blank" styleClass="highlightit">
+               <apex:image title="Click to Enlarge"  value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_Scr3.png')}" width="250" height="150"/>
+           </apex:outputLink>
+       </apex:panelGrid>
+       
+        <p>
+            <span style="font-size: 18px"><span style="color: #ff8c00">Features</span></span></p>
+        <ul style="line-height:25px">
+            <li>
+                Visualise the Hierarchy for a record based on all the self-lookup fields (E.g Parent Case Hierarchy, Parent Account Hierarchy, etc..) - on both Standard and custom objects. </li>
+            <li>
+                Can drill down to almost unlimited levels of child records and with no restriction on number of child records displayed</li>
+            <li>
+                Works for any standard or custom objects and includes option to drill down to see the related child records.</li>
+            <li>
+                Also supports duplicates in both child and parent records and displayed in a simplified node structure. </li>
+            <li>
+                Hover functionality on each record to display the details of the record based on the mini pagelayout of the object.</li>
+            <li>
+                &ldquo;Expand All&ldquo; and &ldquo;Collapse All&ldquo; feature to quickly drill down/up all records in one click. </li>
+            <li>
+                &ldquo;Hierarchy filters&ldquo; provides easy option of displaying only required relationships and making your search more refined and easier.</li>
+            <li>
+                User Hierarchy has a special feature where the users picture is also displayed in addition to User details.</li>    
+        </ul>
+        <p>
+            &nbsp;</p>
+            
+            
+            
+        <p>
+            <span style="font-size: 18px"><span style="color: #ff8c00">How to Start?</span></span></p>
+        
+        <p> Since Easy Drill can be used to view hierarchy for almost any record, some of the standard objects already have the button created called &ldquo;View Hierarchy&ldquo;. If this button is not already present for any object, then we will need to create this button using the steps mentioned below </p>
+        <p> Below Steps explain the steps to be followed for Viewing Standard &amp; Custom Objects</p>
+        
+        <p>
+            <span style="font-size: 14px;border-bottom: 1px solid #ff8c00;"><span style="color: #ff8c00">For Standard Objects</span></span></p>
+        <p> For viewing the Hierarchy of the below standard objects:</p>
+        
+        <ul style="line-height:25px">
+            <li>
+                Account</li>
+            <li>
+                Campaign</li>
+            <li>
+                Opportunity</li>
+            <li>
+                Case</li>
+            <li>
+                Contact</li>
+            <li>
+                User</li> 
+                   
+        </ul>
+             
+        <p>
+            Just place the button &ldquo;View Hierarchy&ldquo; on the page layout of the object and click to open the Hierarchy Page. </p>
+        <p> For other standard objects like Lead,Products, etc... you will need to create a detail page button, follow the steps explained in custom objects for adding custom detail page button &ldquo;View Hierarchy&ldquo;: </p>
+
+        <p>
+            <span style="font-size: 14px;border-bottom: 1px solid #ff8c00;"><span style="color: #ff8c00">For Custom Objects</span></span></p>
+        
+        <p>
+            In order to view hierarchy of custom objects, you will need to create a detail page button. Below are the required steps for adding custom detail page button :</p>
+        <p>
+            Let&rsquo;s take an example of adding a button on custom object Address__c (same process can be followed to add button on other custom objects).
+        </p>
+        <ol style="line-height:25px">
+            <li>
+                Go To Setup <apex:image value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_RightArrow.png')}" width="30" height="10" style="padding-left:7px;padding-right:7px;"/> Create<apex:image value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_RightArrow.png')}" width="30" height="10" style="padding-left:7px;padding-right:7px;"/> Objects <apex:image value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_RightArrow.png')}" width="30" height="10" style="padding-left:7px;padding-right:7px;"/>  Address<apex:image value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_RightArrow.png')}" width="30" height="10" style="padding-left:7px;padding-right:7px;"/> Buttons and Links<apex:image value="{!URLFOR($Resource.EasyDrill, 'EasyDrill_StaticResource/EasyDrill__EasyDrill_RightArrow.png')}" width="30" height="10" style="padding-left:7px;padding-right:7px;"/>New</li>
+            <li>
+                Click on New Button and Enter details</li>
+            <li>
+                Provide following information in above screen :
+                <ul style="line-height:25px">
+                    <li>
+                        Label : View Hierarchy (you can change it, if required)</li>
+                    <li>
+                        Name : View_Hierarchy (you can change it, if required)</li>
+                    <li>
+                        Description : Optional</li>
+                    <li>
+                        Display Type : Detail Page Link or Detail Page Button</li>
+                    <li>
+                        Behavior : Display in existing window without sidebar or header</li>
+                    <li>
+                        Content Source : URL</li>
+                    <li>
+                        Formula Editor : /apex/EasyDrill__Hierarchy_OrgChart?Id=&#123;!Address__c.Id}</li>
+                </ul>
+            </li>
+        <li>
+            Finally add the button to required page layouts of Address object(or object for which this button was created) and it's ready for use.
+        </li>
+        </ol>           
+        <p>
+            <strong>Sample Formulas (Examples of button formula)</strong></p>
+       
+        <p>
+            For Custom Object: Job (API Name: Job__c)</p>
+        <p style="margin-left: 18pt">
+            /apex/EasyDrill__Hierarchy_OrgChart?Id=&#123;!Job__c.Id}</p>
+        <p>
+            For Custom Object: Appointment (API Name: Appointment__c)</p>
+        <p style="margin-left: 18pt">
+            /apex/EasyDrill__Hierarchy_OrgChart?Id=&#123;!Appointment__c.Id}</p>
+        <p>
+            &nbsp;</p>
+       
+       
+       
+       
+        <p>
+            <span style="color: #ff8c00"><span style="font-size: 18px">Support</span>&nbsp;</span></p>
+        <p>
+            If you are facing difficulty or need any assistance or wish to report a bug/issue, please mail me at <a href="mailto:ashivaraj@deloitte.com">ashivaraj@deloitte.com</a> and would be more than happy to respond to your questions .</p>
+        <p>
+            &nbsp;</p>            
+        
+    </body>
+</html>
+
+</apex:page>

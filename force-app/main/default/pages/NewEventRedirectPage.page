@@ -1,0 +1,8 @@
+<!-- EN-#707 - Vishnu Teja Vundavalli 25/05/2015
+    Description: The VF Page runs the method "redirect" in the controller class on load
+    The method which redirects the user to the new event report standard page
+   
+-->
+<apex:page standardController="Event" extensions="NewEventRedirectPageExt" action="{!redirect}">
+
+</apex:page>

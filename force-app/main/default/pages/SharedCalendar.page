@@ -1,0 +1,549 @@
+<apex:page Controller="SharedCalendarUtils_page" sidebar="true" tabStyle="Shared_Calendar__tab" id="sharedCalPage" action="{!updateRecentViewed}">
+
+    <apex:stylesheet value="{!URLFOR($Resource.fullcalendar_154, '/css/light-blue/jquery-ui-1.8.6.custom.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.fullcalendar_154, '/fullcalendar/fullcalendar.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.fullcalendar_154, '/qtip/dist/jquery.qtip.css')}" />
+
+    <script type='text/javascript' src="{!URLFOR($Resource.fullcalendar_154, '/jquery/jquery-1.8.1.min.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.fullcalendar_154, '/jquery/jquery-ui-1.8.23.custom.min.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.fullcalendar_154, '/jquery/jquery_ba_dotimeout.js')}"></script>
+    <script type='text/javascript' src="{!URLFOR($Resource.fullcalendar_154, '/fullcalendar/fullcalendar.min.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.fullcalendar_154, '/qtip/dist/jquery.qtip.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.fullcalendar_154, '/jquery/jquery.tmpl.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.fullcalendar_154, '/jquery/blockUI.js')}"></script>
+
+    <apex:include pageName="fullcalUtil_JS" />
+
+    <apex:form id="sharedCalForm">
+        
+            <div id="errors"><apex:pageMessages id="errorMsgs" /></div>
+        <table id='main_table'>
+            <tbody>
+                <tr>
+                    <td colspan="3">
+                        <Apex:sectionHeader title="Client Calendar" subtitle="{!selectedRecord['name']}"/>
+                         
+                        <div id="Filters" class="ui-user-header">Filters and Views</div>
+                        
+                            <apex:outputPanel id="filterSection">
+                            <apex:actionStatus id="update-filter-status" onstart="showLoadingDiv();" onstop="hideLoadingDiv();"/>
+                            <apex:toolbar style="border:0px; background-color:white;background-image:none;">
+                                
+                                <apex:outputLabel style="color:black;" value="View:" for="calendarViewName"></apex:outputLabel><apex:selectList style="vertical-align: middle;" id="calendarViewName" label="View" value="{!currentView}" multiselect="false" size="1" onchange="changeFilterView(this);"><apex:selectOptions value="{!viewNames}"/></apex:selectList>
+  <!--                              
+                                <apex:toolbarGroup style="padding-bottom: 0px;padding-top: 7px;" itemSeparator="none" id="viewActions" rendered="false">
+                                <apex:outputLink value="{!URLFOR($Action.Calendar_Filter_View__c.Edit, recentFilter.Id )}" rendered="{!isCustomView}">Edit</apex:outputLink>
+                                <apex:outputLink value="{!URLFOR($Action.Calendar_Filter_View__c.Delete, recentFilter.Id )}" rendered="{!isCustomView}" onclick="return window.confirm('Are you sure?');">Delete</apex:outputLink>
+                                <apex:outputLink value="{!URLFOR($Action.Calendar_Filter_View__c.New, $ObjectType.Calendar_Filter_View__c )}">Create New View</apex:outputLink>
+                                </apex:toolbarGroup>
+  -->                              
+                                <apex:toolbarGroup itemSeparator="line" id="SingleClientViews" rendered="{!singleClientView}">
+                                <label style="color:black" for="selectaRecord">Select Client: </label><input id="selectaRecord" value="{!selectedRecord['name']}"/>
+                                </apex:toolbarGroup>
+                                
+                                <apex:toolbarGroup itemSeparator="line" id="CalendarView">
+                                <input type="checkbox" id="toggleHierarchy" title="{!IF(hasHierarchy,'Display CRT Hierarchy','Client not in CRT Hierarchy')}" onchange="showHierarchy(this);"/><label style="color:black;" for="toggleHierarchy">Show Hierarchy</label>
+                                <input type="checkbox" id="includeChildren" title="{!IF(hasHierarchy,'Include all client child events down the CRT Hierarchy ','Client not in CRT Hierarchy')}" onchange="showChildren(this);"/><label style="color:black;" for="includeChildren">Child Events</label>
+                                <input type="checkbox" id="includeAll" onchange="includeContactOppyEventsJS(this);"/><label  style="color:black" for="includeAll">Contact &amp; Opportunity Events</label>
+                                <input type="checkbox" id="includeContacts" onchange="includeContactEventsJS(this);"/><label  style="color:black" for="includeContacts">Contact Events</label>
+                                <input type="checkbox" id="includeOppys" onchange="includeOppyEventsJS(this);"/><label  style="color:black" for="includeOppys">Opportunity Events</label>
+                                <input type="checkbox" id="showWeekends" onchange="showWeek(this);"/><label style="color:black" for="showWeekends">Weekends</label>
+                                </apex:toolbarGroup>
+
+                        </apex:toolbar>
+                       
+                        
+                        </apex:outputPanel> 
+                               
+                    </td>
+                    
+                </tr> 
+                <tr>
+                <td rowspan="2" nowrap="1">
+                    <div id="hierarchy" class="ui-widget ui-widget-content ui-corner-all" style="Display: none;">
+                    <c:HierarchyTree id="hierarchyComponent" currentId="{!$Setup.Shared_Calendar_Prefs__c.Recent_Record__c}" calendarType="Client" rendered="{!hasHierarchy}" objectName="Account" hierarchyField="ParentId" hierarchyClassifyField="CRT_Client_Types__c" pageController="{!this}" key="hierarchy" filterName="{!currentView}"/>
+                    </div>
+                </td>
+                 
+                <td id='calendar' style="width:100%;">
+
+                </td>
+                
+                <td rowspan="2" align="left">
+                    <div id='miniCalendar' style="position:relative; margin-left:5px"></div>       
+                    <div class="ui-widget">
+                        <apex:outputPanel id="eventLegend" rendered="{!renderLegend}" > 
+                        
+                         <c:Calendar_Legend id="ClientEventLegend" calendarType="Client" objectName="Account" eventObjectName="Event" legendLabel="Client Events" />   
+                         <c:Calendar_Legend id="ClientContactEventLegend" calendarType="Client" objectName="Contact" eventObjectName="Event" legendLabel="Client Contact Events" rendered="{!showClientContactEvents}"/>
+                         <c:Calendar_Legend id="ClientOppyEventLegend" calendarType="Client" objectName="Opportunity" eventObjectName="Event" legendLabel="Client Opportunity Events" rendered="{!showClientOppyEvents}"/>
+                        </apex:outputPanel>
+                    </div>
+                </td>
+                           
+                </tr>
+                <tr> 
+                </tr>
+          
+            </tbody>
+        </table>
+        
+        <apex:actionFunction name="changeFilterViewJS" action="{!changeFilterView}" status="update-filter-status"
+                onComplete="loadCalendarEvents();" 
+                rerender="errorMsgs, filterSection"> 
+            <apex:param name="filterName" value="" /> 
+            <apex:param name="filterId" value="" /> 
+        </apex:actionFunction>
+              
+        <apex:actionFunction name="selectedRecordJS" action="{!selectSearchedRecord}" status="update-filter-status" rerender="errorMsgs"> 
+            <apex:param name="seletedRecordId" value="" />
+            <apex:param name="filterId" value="" />
+        </apex:actionFunction>
+        
+        <apex:actionFunction name="updateIncludeChildren" action="{!includeChildren}" status="update-filter-status" onComplete="" reRender="calendarLegend,errorMsgs,userList,userListSelect,  hierarchyComponent">
+            <apex:param name="recordId" value="" /> 
+            <apex:param name="includeChildren" value="" />
+        </apex:actionFunction>
+        
+         <apex:actionFunction name="updateIncludeBoth" action="{!includeBoth}" status="update-filter-status" onComplete="" reRender="ClientContactEventLegend,errorMsgs,userList,userListSelect,  hierarchyComponent">
+            <apex:param name="recordId" value="" /> 
+            <apex:param name="includeBoth" value="" />
+        </apex:actionFunction>
+       
+        <apex:actionFunction name="updateIncludeContacts" action="{!includeContacts}" status="update-filter-status" onComplete="" reRender="ClientContactEventLegend,errorMsgs,userList,userListSelect,  hierarchyComponent">
+            <apex:param name="recordId" value="" /> 
+            <apex:param name="includeContacts" value="" />
+        </apex:actionFunction>
+        
+         <apex:actionFunction name="updateIncludeOppys" action="{!includeOppys}" status="update-filter-status"  onComplete="" reRender="ClientOppyEventLegend,errorMsgs,userList,userListSelect,  hierarchyComponent">
+            <apex:param name="recordId" value="" /> 
+            <apex:param name="includeOppys" value="" />
+        </apex:actionFunction>
+
+        <apex:actionFunction name="saveResize" action="{!updateEventResize}" onComplete="fadeOutErrors();" rerender="errorMsgs">
+            <apex:param name="eventId" value="" />
+            <apex:param name="dayDelta" value="" />
+            <apex:param name="minuteDelta" value="" />
+        </apex:actionFunction>
+
+     </apex:form> 
+
+<script type='text/javascript'>    jQuery.noConflict();
+
+    
+    
+    function changeFilterView(ele) {
+        jQuery('#calendar').fullCalendar('removeEvents');
+        changeFilterViewJS(ele.options[ele.selectedIndex].text,ele.options[ele.selectedIndex].value);
+        
+    }
+    //JN added for Store on load function
+ //   function show() {
+ //   CC = document.getElementById('currentCal');
+ //   CC.style.display = 'inline';
+ //   }
+        
+    function loadCalendarEvents() {
+        jQuery("#includeChildren").prop("disabled",true);
+        jQuery("#toggleHierarchy").prop("disabled",true);
+        if ({!hasHierarchy}) {
+            jQuery("#includeChildren").removeAttr("disabled");
+            jQuery("#includeChildren").prop("checked",{!IF($Setup.Shared_Calendar_Prefs__c.Recent_Children__c=="true",true,false)});
+            jQuery("#toggleHierarchy").removeAttr("disabled");
+        } 
+        jQuery("#includeContacts").prop("checked",{!IF($Setup.Shared_Calendar_Prefs__c.Recent_Contacts__c=="true",true,false)});
+        jQuery("#includeOppys").prop("checked",{!IF($Setup.Shared_Calendar_Prefs__c.Recent_Opportunities__c=="true",true,false)});
+        jQuery("#includeAll").prop("checked",{!IF($Setup.Shared_Calendar_Prefs__c.Recent_Opportunities__c=="true",IF($Setup.Shared_Calendar_Prefs__c.Recent_Contacts__c=="true",true,false),false)});
+        
+        
+        jQuery('.ui-user-item input').change();
+        
+        jQuery("#selectaRecord").autocomplete({ source: "SharedCalendarRecordSearch?calType=Client",     minLength: 3,
+            select: function( event, ui ) {
+                
+                if ( ui.item.id == null ) return;
+                
+                //clean up all event sources
+                jQuery('#calendar').fullCalendar('removeEvents');
+                selectedRecordJS(ui.item.id,'{!currentView}' );
+                
+            },
+            open: function(){
+                jQuery(this).autocomplete('widget').css('z-index', 100);
+                return false;
+                }
+
+        });
+    }
+    
+    // Update the Legend with the number of items for the month.
+    function updateLegendTitle() {
+        jQuery('.ui-user-item-body label').each( function (index,value) { 
+                    var legendValue = (jQuery(this).html()).trim();
+                    var noOfEvents = (jQuery('#calendar').fullCalendar('clientEvents',function(event) {
+                            if (event.type == legendValue) return true;
+                        }).length);
+                        
+                    var oldTitle = jQuery(this).attr('Title').trim();
+                    var newTitle = oldTitle;
+                    if ( oldTitle.indexOf(' (') > 0 ) {
+                        oldTitle = newTitle.substr(0,oldTitle.indexOf(' ('));
+                    }
+                    jQuery(this).attr('Title',oldTitle+' ('+noOfEvents+' displayed)');
+                });
+    }
+    
+    //JN: added to enable type filters included Object in URL
+    function eventTypeCheckBoxChange(ele,eventType,recordId,eventObject,objectName) { // filter in or out events with this Event Type
+
+        var action = ( jQuery(ele).attr('checked') ? 'addEventSource':  'removeEventSource');
+        jQuery('#calendar').fullCalendar( action,   
+        {
+            url: '/apex/SharedCalData?eventSourceId='+objectName+eventType,
+            type: 'POST',
+            data: {
+                legendFor: objectName,
+                object: eventObject,
+                recordId: recordId,
+                Type: eventType  
+            },
+            error: function() {
+                // Do not allow more events.
+                
+                if (canFetchMoreEvents){
+                    canFetchMoreEvents = false;
+                    alert('Your view returned too many records. Only partial results shown. Please use a custom filter to limit the number of records returned!');
+                }
+            }
+        })
+        
+    }
+    
+    function showHierarchy() {
+        jQuery('Div #hierarchy').toggle();
+        jQuery('#calendar').fullCalendar('render');
+    }
+    
+    function showWeek(ele) {
+        var toggleWeekends = ( jQuery(ele).attr('checked') ? true : false);
+        theCal.fullCalendar('destroy');
+        initCalendar(toggleWeekends);
+        loadCalendarEvents();
+        addCalButton("left", "New Event", "new_button");
+        jQuery("#new_button").click(function (){
+            var d = jQuery('#miniCalendar').datepicker( "getDate");
+            var new_date = jQuery.fullCalendar.formatDate(d,'{!newDateFormat}');
+            window.location.href = "/00U/e?evt4="+new_date+"&evt3={!selectedRecord['name']}&evt3_lkid={!recentRecord}&retURL=" + window.location.href;
+            return false;
+        });
+    }
+    
+    function showChildren (ele) {
+        updateIncludeChildren('{!$Setup.Shared_Calendar_Prefs__c.Recent_Record__c}',ele.checked);
+    }
+    function includeContactOppyEventsJS(ele){
+        updateIncludeBoth('{!$Setup.Shared_Calendar_Prefs__c.Recent_Record__c}',ele.checked)
+    }
+    function includeContactEventsJS(ele){
+        updateIncludeContacts('{!$Setup.Shared_Calendar_Prefs__c.Recent_Record__c}',ele.checked)
+    }
+    function includeOppyEventsJS(ele){
+        updateIncludeOppys('{!$Setup.Shared_Calendar_Prefs__c.Recent_Record__c}',ele.checked)
+    }
+    
+    function initCalendar(showWeekends) {
+        var theView = getSettingValue("{!recentView}","agendaDay"); // get default from custom settings
+        var theYear = "{!$Setup.Shared_Calendar_Prefs__c.Recent_Year__c}";
+        var theDay = "{!$Setup.Shared_Calendar_Prefs__c.Recent_Date__c}";
+        var theMonth = "{!BLANKVALUE($Setup.Shared_Calendar_Prefs__c.Recent_Month__c,'default')}";
+        if (theMonth == 'default') {
+            var defaultDate = new Date(); 
+            theMonth = defaultDate.getMonth();
+            theDay = defaultDate.getDate();
+            theYear = defaultDate.getFullYear();
+        }
+        
+        var theChildren = getSettingValue("{!recentChildren}","false");
+        var theContacts = getSettingValue("{!recentContacts}","false");
+        var theDetailRecord = "{!$Setup.Shared_Calendar_Prefs__c.Recent_Record__c}"; // get the RecordId that is set if calendar is invoked from detail button
+        theCal = jQuery('#calendar').fullCalendar({ 
+            
+            height: 700,
+            defaultEventMinutes: 15,
+            slotMinutes: 15,
+            month: theMonth,
+            year: theYear,   
+            date: theDay,      
+            defaultView: theView,  
+            firstHour: {!$User.Calendar_Day_Start__c},
+            firstDay: 1,
+            theme: true,
+            lazyFetching: true,
+            titleFormat: { 
+                month: 'MMMM yyyy', 
+                week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}", 
+                day: 'dddd, dd MMMM yyyy' 
+            },
+            timeFormat: {               
+                agenda: 'h:mm{ - h:mm}',                
+                '': 'h(:mm)tt'           
+            },
+            buttonText: {
+                today: 'Today',
+                month: 'Month',
+                week: 'Week',
+                day: 'Day'
+            },
+            allDaySlot: false,
+            header: {
+                left: 'prev,next today agendaDay,agendaWeek,month',
+                center: 'title',
+                right: ''
+            },
+            loading: function(bool,view) {
+                if (bool) {             
+                    showLoadingDiv();
+                } else {
+                    updateLegendTitle();
+                    hideLoadingDiv();
+                }
+            },
+            eventRender: eventRender,
+            eventDragStart: function( event, jsEvent, ui, view ) { 
+                ui.helper.qtip('hide');
+                ui.helper.qtip('disable');
+            },
+            eventDragStop: function( event, jsEvent, ui, view ) { 
+                ui.helper.qtip('enable');
+            },
+            eventDrop: function(event, dayDelta, minuteDelta,allDay,revertFunc) {
+                showErrors();
+                var theEventId = event.id;
+                var theDayDelta = dayDelta;
+                var theMinuteDelta = minuteDelta;
+                var errMessage = '<table cellspacing="10"><tbody><tr><td><span style="font-weight: bold; font-size: 12pt;">Insufficient Privileges</span></td></tr><tr><td>You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.</td></tr></tbody></table>';
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.SharedCalendarUtils_page.updateEventMove}',
+                    theEventId,
+                    theDayDelta,
+                    theMinuteDelta,
+                    function(result, event){
+                        if (event.status) {     
+                            // Do nothing
+                        } else if (event.type === 'exception') {
+                            document.getElementById("{!$Component.sharedCalPage.sharedCalForm.errorMsgs}").innerHTML = errMessage;
+                            fadeOutErrors();
+                            revertFunc();
+                            return;
+                        } else {
+                            document.getElementById("{!$Component.sharedCalPage.sharedCalForm.errorMsgs}").innerHTML = errMessage;
+                            fadeOutErrors();
+                            revertFunc();
+                            return;                      
+                        }
+                    },
+                    {escape: true}
+                );
+            },
+            eventResize: function(event,dayDelta,minuteDelta,revertFunc) {
+                saveResize(event.id,dayDelta,minuteDelta);  
+            },
+            weekends: showWeekends,
+            selectable: false,
+            selectHelper: false,
+            eventClick: function(event, view) {
+                // navigate to that url
+                window.location.href = event.url; 
+                return false;
+            },
+            viewDisplay:  function(view) { // The calendars date-range changes whenever the user switches to a new view 
+                if ( theView != view.name ) { 
+                    theView = view.name;
+                    jQuery.doTimeout( 'id', 200, function() { // debounce a few seconds
+                        updateViewDisplay(theView); // save out to custom settings
+                    }, true);
+                };
+                jQuery('#miniCalendar').datepicker( "setDate" , view.start);
+                storeCalendarDate(view.start);
+            },   
+            editable: true
+        
+        }); // end fullcalendar()    
+    } 
+    
+    jQuery(document).ready(function() {
+       // _Visualforce.Ajax.timeout=120000;
+       Visualforce.remoting.timeout = 120000;
+        jQuery("body").delegate(".pageDescription","click",function(){
+                window.location.href = "/{!$Setup.Shared_Calendar_Prefs__c.Recent_Record__c}"; 
+                return false;});
+        jQuery(".pageDescription").attr("title","click to view record");
+        jQuery(".bPageTitle").css("margin-bottom","0");
+        jQuery("#includeChildren").prop("checked",{!IF($Setup.Shared_Calendar_Prefs__c.Recent_Children__c=="true",true,false)});
+        jQuery("#includeContacts").prop("checked",{!IF($Setup.Shared_Calendar_Prefs__c.Recent_Contacts__c=="true",true,false)});
+        jQuery("#selectaRecord").autocomplete({ source: "SharedCalendarRecordSearch?calType=Client",     minLength: 3,
+            select: function( event, ui ) {
+                if ( ui.item.id == null ) return;
+                //clean up all event sources
+                jQuery('#calendar').fullCalendar('removeEvents');
+                selectedRecordJS(ui.item.id,'{!currentView}');
+            },
+            open: function(){
+                jQuery(this).autocomplete('widget').css('z-index', 100);
+                return false;
+                }
+        });
+        jQuery('#miniCalendar').datepicker({
+            firstDay: 1,    
+            dateFormat: 'DD, d MM, yy',
+            onSelect: function(dateText,dp){
+                jQuery('#calendar').fullCalendar('gotoDate',new Date(Date.parse(dateText)));
+                jQuery('#calendar').fullCalendar('changeView','agendaDay');
+            }
+        });
+        var canFetchMoreEvents = true;
+        var theDropTarget = null;
+        var showWeekends = false;
+        initCalendar(showWeekends);
+        appendUserStyles('.ui-user-list .ui-user-item-body label');  
+        loadCalendarEvents();   // starts the data loads, one per user 
+        
+        if (jQuery.browser.msie) {
+            // CR: Add String Trim function for IE browser
+            String.prototype.trim=function(){return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');};
+            // CR: Handle checkboxes in IE browser
+            jQuery(function() {   
+                jQuery("input[type='checkbox']").click(function() {
+                    jQuery(this).blur();
+                    jQuery(this).focus();
+                });
+             });
+        }
+         
+        addCalButton("left", "New Event", "new_button");
+        jQuery("#new_button").click(function (){
+            var d = jQuery('#miniCalendar').datepicker( "getDate");
+            var new_date = jQuery.fullCalendar.formatDate(d,'{!newDateFormat}');
+            window.location.href = "/00U/e?evt4="+new_date+"&evt3={!selectedRecord['name']}&evt3_lkid={!recentRecord}&retURL=" + window.location.href;
+            return false;
+        }); 
+        jQuery("label").click(function() {
+            // checkbox labels in IE 7 sucks. this should prevent them from being clickable
+           return false;
+        });
+    }); // end document ready
+    
+    
+    /* Helper functions
+     * -----------------------------------------------------------------------------
+     * 
+     */
+        
+    function eventRender(event, element, view) {      
+        // append who to the event title in the UI 
+        if (event.who != '' ) {
+            var j = jQuery(element).find('.fc-event-title');
+            j.text( j.text() + ' | ' + event.who  );
+        }
+        addToolTipToEvent(element,event); //CR: Adds QTip to calendar item 
+    }
+    
+    function showLoadingDiv() {
+        jQuery.blockUI({ 
+            theme:     true, 
+            title:    'Loading', 
+            message:  '<p><img src="/img/loading.gif"/> Loading calendar events.</p>'
+        });
+    }
+    
+    function hideLoadingDiv() {
+        jQuery.unblockUI();
+    }
+    
+    function updateViewDisplay(theView) {
+       showErrors();
+       Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.SharedCalendarUtils_page.viewDisplay}',
+            theView,
+            function(result, event){
+                if (event.status) {     
+                    // Do nothing
+                } else if (event.type === 'exception') {
+                    document.getElementById("{!$Component.sharedCalPage.sharedCalForm.errorMsgs}").innerHTML = event.message;
+                    fadeOutErrors();
+                } else {
+                    document.getElementById("{!$Component.sharedCalPage.sharedCalForm.errorMsgs}").innerHTML = event.message;
+                    fadeOutErrors();
+                }
+            },
+            {escape: true}
+        );
+    }
+    
+    function storeCalendarDate(d) {
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth(); 
+        var curr_year = d.getFullYear();
+        showErrors();
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.SharedCalendarUtils_page.updateDateChanged}',
+            curr_date,
+            curr_month,
+            curr_year,
+            function(result, event){
+                if (event.status) {     
+                    //Do Nothing
+                } else if (event.type === 'exception') {
+                    document.getElementById("{!$Component.sharedCalPage.sharedCalForm.errorMsgs}").innerHTML = event.message;
+                    fadeOutErrors();
+                } else {
+                    document.getElementById("{!$Component.sharedCalPage.sharedCalForm.errorMsgs}").innerHTML = event.message;
+                    fadeOutErrors();
+                }
+            },
+            {escape: true}
+        );
+    }
+    
+    function deleteEvent( inputElement,ownerid ) {
+        var r = window.confirm('Are you sure?');
+        if (r==true) {
+            showErrors();
+            var id = jQuery(inputElement).attr('alt');
+            var errMessage = '<table cellspacing="10"><tbody><tr><td><span style="font-weight: bold; font-size: 12pt;">Insufficient Privileges</span></td></tr><tr><td>You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.</td></tr></tbody></table>';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.SharedCalendarUtils_page.deleteEventById}',
+                id,
+                function(result, event){
+                    if (event.status) {     
+                        if (result) {
+                            jQuery('#calendar').fullCalendar('removeEvents',id);
+                        } else {
+                            jQuery( 'span[id$=errorMsgs]' ).append(errMessage);
+                            fadeOutErrors();
+                        }
+                    } else if (event.type === 'exception') {
+                        jQuery( 'span[id$=errorMsgs]' ).append(errMessage);
+                        fadeOutErrors();
+                    } else {
+                        jQuery( 'span[id$=errorMsgs]' ).append(errMessage);
+                        fadeOutErrors();
+                    }
+                },
+                {escape: true}
+            );
+        } 
+    }   
+    
+    function addCalButton(where, text, id) {
+    var custom_button = '<span class="fc-header-space"></span>' +
+                    '<span id="' + id + '" class="cal-button">' + '</span>';
+    jQuery("td.fc-header-" + where).append(custom_button);
+    jQuery("#" + id).button({ label: text });
+}
+
+</script>
+
+<apex:include pageName="fullcalStyle" />
+
+</apex:page>

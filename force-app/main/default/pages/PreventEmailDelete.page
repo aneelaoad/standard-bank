@@ -1,0 +1,47 @@
+<apex:page action="{!if($Profile.Name !='System Administrator', null, urlFor($Action.EmailMessage.Delete, Id, [retURL='/500/o'], true))}" standardController="EmailMessage" showHeader="false" standardStylesheets="false" sidebar="false" docType="html-5.0" applyBodyTag="False" applyHtmlTag="False" >
+    <head>
+  	<title>"Action not allowed"</title>
+  	<apex:slds /> 
+	</head>
+    
+    <body class="slds-scope">
+
+    <!-- PAGE HEADER -->
+    <div class="slds-page-header" role="banner">
+      <div class="slds-grid">
+        <div class="slds-col slds-has-flexi-truncate">
+          <!-- HEADING AREA -->
+            <p class="slds-text-title_caps slds-line-height_reset" style="font-weight: bold; font-size: 12pt;">Insufficient Privileges/Privilégios insuficientes</p>
+		  <!-- / HEADING AREA -->
+        </div>
+	  </div>
+    </div>
+    <!-- / PAGE HEADER -->
+                
+            <!-- BODY DETAIL CARD -->
+    <div class="slds-panel slds-grid slds-grid_vertical slds-nowrap">
+      <div class="slds-form_stacked slds-grow slds-scrollable_y">
+		<div class="slds-panel__section">
+            <br/>
+          <h3 class="slds-text-heading_small slds-m-bottom_medium">You do not have the level of access necessary to perform the operation you requested. Please contact your administrator if access is necessary.</h3>
+        	<br/>
+            <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+      		</div>
+            <br/>
+            <h3 class="slds-text-heading_small slds-m-bottom_medium">Não tem o nível de acesso necessário para executar a acção solicitada. Por favor entre em contacto com o administrador caso pretenda obter acesso.</h3>
+            <br/>
+            <div class="slds-form-element slds-hint-parent slds-has-divider_bottom">
+      		</div>
+     	</div>
+	  </div>
+    </div>
+ </body> 
+    
+	 <apex:form >
+		<table cellspacing="10">        
+            <tr>
+                <td><apex:commandButton style="text-align: left;border:10px; margin:15px; background:LightBlue;" action="{!cancel}" immediate="true" value="Go Back"/></td>
+            </tr>
+        </table>
+    </apex:form>
+</apex:page>

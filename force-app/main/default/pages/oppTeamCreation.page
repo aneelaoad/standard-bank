@@ -1,0 +1,60 @@
+<apex:page title="Opportunity Team Role" StandardController="Opportunity" extensions="oppTeamCreationController" >
+<apex:form >
+<apex:sectionheader title="" subtitle="Add Opportunity Team Members to {!oppName}" ></apex:sectionheader> 
+<apex:pagemessages /> <!-- To show any validation error messages. -->
+<!-- Block to show the page with the details -->
+<apex:pageBlock mode="Edit" >
+<apex:pageBlockButtons >
+<!-- Buttons for Save and Cancel -->
+  <apex:commandButton value="Save" action="{!Save}"/>
+ <apex:commandButton value="Cancel" action="{!cancel}"/>
+</apex:pageBlockButtons>
+
+<!-- Page Block Table to show the Opportunity Team Member records -->
+<apex:pageblockTable value="{!lstOppTeamRole}" var="s" style="width:65%;align:left;">
+         <apex:column width="5%" headerValue="Add/Remove" >
+         <apex:inputcheckbox value="{!s.checked}" disabled="{!IF(AND(opp.OwnerId==s.oppMember.UserId,s.existingRecord),true,false)}"/>
+        </apex:column>
+        
+         <apex:column headerValue="User" style="margin-left: 15%;" width="5%">
+         <apex:outputField value="{!s.oppMember.UserId}" rendered="{!s.existingRecord}"/>
+         <apex:inputfield value="{!s.oppMember.UserId}" required="false" rendered="{!!s.existingRecord}"/>
+         </apex:column>
+         
+         <apex:column headerValue="User Division" width="20%" >
+         <apex:outputText value="{!s.userDivision}"/>
+         </apex:column>
+         
+         <apex:column headerValue="Team Role" >
+		 <apex:outputField value="{!s.oppMember.TeamMemberRole}" rendered="{!IF(AND(opp.OwnerId==s.oppMember.UserId,s.existingRecord),true,false)}"/>
+         <apex:inputField value="{!s.oppMember.TeamMemberRole}"  rendered="{!IF(AND(opp.OwnerId==s.oppMember.UserId,s.existingRecord),false,true)}"/>
+         </apex:column>
+         
+         <apex:column headerValue="Opportunity Access" >
+         <apex:outputField value="{!s.oppMember.OpportunityAccessLevel}" rendered="{!IF(AND(opp.OwnerId==s.oppMember.UserId,s.existingRecord),true,false)}"/>
+         <apex:selectList multiselect="false" size="1" value="{!s.oppAccess}" rendered="{!IF(AND(opp.OwnerId==s.oppMember.UserId,s.existingRecord),false,true)}">
+           <apex:selectOption itemLabel="Read Only" itemValue="Read"></apex:selectOption>
+           <apex:selectOption itemLabel="Read/Write" itemValue="Edit"></apex:selectOption>
+           <!-- <apex:selectOption itemLabel="Full Access" itemValue="Owner" rendered="{!IF(opp.OwnerId==s.oppMember.UserId,true,false)}"></apex:selectOption> -->
+         </apex:selectList>
+         </apex:column>
+         
+</apex:pageblockTable>
+          
+</apex:pageBlock>
+<!-- the status symbol to show if required on the page -->
+<apex:actionStatus id="searching">                   
+    <apex:facet name="start">
+        <div class="waitingSearchDiv waitingSearchDivOpacity" style="width: 100%; height: 100%; display: block; opacity: 0.60" />        
+        <div id="searchingStatus" class="waitingSearchDiv" style="width: 100%; height: 100%; display: block;">
+            <div class="waitingHolder" style="top: 150px; width: 110px;">
+                <img class="waitingImage" src="/img/loading.gif"/>
+                <span class="waitingDescription">Processing...</span>
+            </div>
+        </div>
+    </apex:facet>
+    <apex:facet name="stop"/>
+  </apex:actionStatus>
+</apex:form>
+
+</apex:page>

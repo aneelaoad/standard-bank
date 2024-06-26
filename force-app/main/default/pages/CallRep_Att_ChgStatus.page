@@ -1,0 +1,59 @@
+<!-- C Reinecke Case 4252 Add check on record access using Javascript remoting -->
+<!-- C Reinecke Case 4823 Handle communication error correctly -->
+<!-- C Reinecke Case 4296 Rename Send eMail to Distribution and conditionally render the field only for internal contacts -->
+<apex:page standardController="Call_Report_Attendees__c" recordSetVar="Attendees" extensions="CheckPermissions_glbl" tabStyle="Call_Report_Attendees__c" sidebar="false">
+<script type="text/javascript">
+var recordId = "{!$CurrentPage.parameters.Id}";
+if ({!(ISNULL(selected))}){
+    alert('Please select at least one Attendee from the Event Report page to change the status.');
+    window.parent.location = "/"+recordId;
+} else {
+     // Check Permissions
+    var userId = "{!$User.Id}";
+    CheckPermissions_glbl.hasModifyRecordPermission(recordId,userId, function(result, event){
+        if (event.status && result) {
+              //has access
+        } else {
+            if (!event.status){
+            //error in communication
+            } else {
+            CheckPermissions_glbl.hasModifyAllProfilePermission(function(result, event){
+              if (result){
+                //Allow Sys Admins
+              } else {
+                  alert('You do not have the required permission to change Attendees status for this Event Report. Please request the Event Owner to change your Attended Status to Attended.');
+                  window.parent.location = "/"+recordId;
+              }
+            }, {escape:true}); 
+            }
+        }
+    }, {escape:true});
+}
+</script>
+    <apex:outputText style="font-weight:Bold;font-size:12px"  rendered="{!NOT(ISNULL(selected))}" value="Edit the Status and Send Email field for the Selected Attendees on Event Report."/>
+    <apex:outputText style="font-weight:Bold;font-size:12px"  rendered="{!(ISNULL(selected))}" value="Please select at least one Attendee from the Event Report page to change the status. Click on Cancel."/>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageMessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!Selected}" var="callrep">
+                <apex:column headerValue="Attendee Name">
+                    <c:SA_EmailTemplateController noTagValue="{!callrep.Attendee_Name__c}"/>
+                </apex:column>
+                <apex:column headerValue="Client Name">
+                    <c:SA_EmailTemplateController noTagValue="{!callrep.Client_Name__c}"/>
+                </apex:column>
+                <apex:column value="{!callrep.Contact_Type__c}"/>
+                <apex:column headerValue="Status">
+                    <apex:inputField value="{!callrep.Status__c}"/>
+                </apex:column>
+                <apex:column headerValue="Distribution">
+                    <apex:inputField value="{!callrep.Send_Email__c}" style="{!IF(callrep.Contact_Type__c = 'Internal','','Display: None')}"/>
+                </apex:column>               
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

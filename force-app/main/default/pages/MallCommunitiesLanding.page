@@ -1,0 +1,57 @@
+<apex:page id="mallCommunitiesLandingPage" controller="CTRL_MallCommunitiesLanding" title="{!$Label.site.site_login}" showHeader="false" sidebar="false">
+    <script type = 'text/javascript'>
+    window.onload=function(){
+        let cookieString=document.cookie;
+        let redirectToPage;
+        let userDesiredPage;
+        let approvalDetailPage;
+        if(cookieString.includes('LSKey-c$redirectToUserDesiredPage=')){
+            var parts = cookieString.split('LSKey-c$redirectToUserDesiredPage=');
+            if (parts.length === 2) {
+                redirectToPage= parts.pop().split(";").shift();
+            }
+        }
+        
+        if(cookieString.includes('LSKey-c$userDesiredPage=')){
+            var parts = cookieString.split('LSKey-c$userDesiredPage=');
+            if (parts.length === 2) {
+                userDesiredPage= parts.pop().split(";").shift();
+            }
+        }
+
+        if(cookieString.includes('LSKey-c$approvalRequestPage=')){
+            var parts = cookieString.split('LSKey-c$approvalRequestPage=');
+            if (parts.length === 2) {
+                approvalDetailPage= parts.pop().split(";").shift();
+            }
+        }
+        
+        let isPreferenceStored = '{!isPreferenceStored}';
+        let isTenant='{!isTenant}';
+        let showSignupPage='LSKey-c$redirectToSignupPage';
+        document.cookie = showSignupPage +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        if(redirectToPage=='true' && isTenant=='false'){
+            let name='LSKey-c$redirectToUserDesiredPage';
+            let externalStorePageCookie='LSKey-c$redirectToShopPage';
+            document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;secure';
+            document.cookie = externalStorePageCookie +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;secure';
+            window.location.href=new URL(encodeURI(decodeURIComponent(userDesiredPage)));
+        }
+        else if(isTenant=='true'){
+            if(approvalDetailPage!=null || approvalDetailPage!=undefined){
+                let name='LSKey-c$approvalRequestPage';
+                document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;secure';
+                window.location.href=new URL(encodeURI(decodeURIComponent(approvalDetailPage)));
+            }
+            else{
+                window.location.href='{!storeManagementPage}';
+            }
+        }
+        else{
+            let history = window.history;
+            window.location.href='{!mallHomePage}';
+        }
+    }
+    </script>
+    
+</apex:page>

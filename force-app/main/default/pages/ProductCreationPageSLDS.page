@@ -1,0 +1,1483 @@
+<!--
+  @description       : 
+  @author            : Syed Ovais Ali
+  @group             : 
+  @last modified on  : 11-03-2022
+  @last modified by  : Syed Ovais Ali
+-->
+<apex:page standardController="SB_Product__c" sidebar="false" showHeader="false" standardStylesheets="false"
+           extensions="ProductCreationPageSLDS" applyHtmlTag="true" applyBodyTag="true" >
+    
+    <style>
+        
+        .errorMsg { color: rgb(194, 57, 52); }
+        
+        .error {
+        background-color: white;
+        border-color: #c23934;
+        box-shadow: #c23934 0 0 0 1px inset;
+        background-clip: padding-box;
+        box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2; }
+        
+        .message.errorM3 {
+        background-color: #c23934;
+        border-color: #c23934;
+        box-shadow: #c23934 0 0 0 1px inset;
+        background-clip: padding-box;
+        box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2;
+        color:white; }
+        
+        h4 { color: white; }
+        
+    </style>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+             aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Product</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <apex:form >
+                    <apex:pageBlock mode="MainDetail">
+                        <apex:pageMessages />
+                        
+                        <apex:outputPanel rendered="{!rtDevName != 'Lending_Deposits' && rtDevName != 'Capital_Markets' && rtDevName != 'TPS_2022' && rtDevName != 'Trading_Flow' && rtDevName != 'Trading' && rtDevName != 'Transactional_New' && rtDevName != 'Advisory' && rtDevName != 'Primary_Arranging_Advisory' && rtDevName != 'Insurance' && rtDevName !='Partner'}">
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='Advisory'}">
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span></div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Target_Entity2__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Subsidiary_of_target_Client__c" required="false"/>
+                                </div>
+                                
+                                <!-- START US-3083 Add Mandated__c field for Advisory Tinashe M Shoko 20/07/2018-->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Mandated__c" required="true"/>
+                                </div>
+                                <!-- End US-3083 Tinashe M Shoko -->
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </div>
+                            
+                            <!-- START - US-3054 - Advisory: Addition of 'Estimated Revenue Details' section and fields to product page by Tinashe Shoko -->
+                            <div title="Estimated Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Estimated Revenue Details</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Billing_Start_Date__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Fee_Amount__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Fee_Frequency__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Risk_Weighted_Value__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Billing_End_Date__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                            </div>
+                            <!-- END - US-3054 - Advisory: Addition of 'Estimated Revenue Details' section and fields to product page by Tinashe Shoko -->
+                        </apex:outputPanel>
+                        
+                        
+                        <apex:outputPanel rendered="{!OR(rtDevName =='Capital_Markets',rtDevName =='TPS_2022')}">
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Target_Entity2__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-1">
+                                    <c:LDS_InputField sObject="{!prod}" field="Bank_Role__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Subsidiary_of_target_Client__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <!--SFP-10156: Adding Product Revenue type field for TPS Products-->
+                                    <apex:outputPanel rendered="{!IF(rtDevName =='TPS_2022',true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Product_Revenue_Type__c" required="false"/>
+                                    </apex:outputPanel>
+                                    <!--SFP-10156: End-->
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Capital Markets Product Fields" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Capital Markets Product Fields</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="NDA__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Security_Offered__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Lending_Distribution_Potential__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Margin_pct__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Facility_Size__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Liquids__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SB_Gross_Participation__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Reserving__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Sell_Down__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Expected Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenue</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Fees__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Margin__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Margin__c" required="false"/>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='CommB_Lending'}">
+                            <div title="Expected Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenue</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SB_Gross_Participation__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Revenue_Amount__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_CommB_Revenue__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Loan_Profile__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Margin__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Base_Rate__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Probability_of_Default_PD__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Facility_Size__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Loss_Given_Default_LGD__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Owner__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='Commercial_Banking'}">
+                            <div title="Expected Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenue</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SB_Gross_Participation__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Facility_Size__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_CommB_Revenue__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Revenue_Amount__c" required="false"/>
+                                </div>
+                                
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName == 'Transactional_New'}">
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span></div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Revenue_Type__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Transactional Product Fields" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Transactional Product Fields</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Nominal_Amount__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Sell_Down__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Expected Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenue</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Fees__c" required="false"/>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='Lending_Deposits'}">
+
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Refinance__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Existing_Facility_Maturity_Date__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+<!--                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">-->
+<!--                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>-->
+<!--                                </div>-->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                            </div>
+
+                            <div title="Facility Detail" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Facility Detail</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Transaction_Type__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Bank_Role__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Loan_Profile__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Distribution_Required__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Facility_Size__c" required="false"/>
+                                </div>
+                                <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Mandated__c" required="false"/>
+                                </div>-->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SB_Gross_Participation__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Weighted_SB_Gross_Participation__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SB_Hold__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SB_Sell_Down__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+
+
+                            </div>
+                            <div title="Pricing Detail" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Pricing Detail</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Base_Rate__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="ROE__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Calculation_Methodology__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Margin_pct__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Lookback_Period__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="CROC__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Liquids__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Reserving__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Clean_Credit_Margin__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Facility_Pricing_Lending__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Risk_Grade__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Loss_Given_Default_LGD__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+
+                            </div>
+                            <div title="Participation Guidance" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Participation Guidance (for Syndicated Loans only)</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Cap_Guidance_Facility_Price__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Set_Facility_Price__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Participation_Fee_Guidance__c" required="false"/>
+                                </div>-->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+
+                            </div>
+                            <div title="Upfront Fees" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Upfront Fees</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Underwrite_Fee_bps__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Participation_Fee_bps__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Structuring_Fee_bps__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Ancillary_Income__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Finance_Approved_Fee_Recognition__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+
+                            </div>
+
+                            <div title="Funding" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Funding</span></div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Drawn_Assumption__c" required="false"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Weighted_Average_Life_months__c" required="false"/>
+                                </div>
+
+
+                            </div>
+
+                            <div title="Expected Revenues" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenues</span></div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Fees__c" required="false"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Margin__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Margin__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Revenue_Currency__c" required="false"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Revenue_Currency__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Revenue__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+
+
+
+                            </div>
+
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='Trading_Flow'}">
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Trading Product Fields" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Trading Product Fields</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Nominal_Amount__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Sell_Down__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Expected Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenue</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Fees__c" required="false"/>
+                                </div>
+                                
+                            </div>
+                            
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName == 'Trading'}">
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Subsidiary_of_target_Client__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Trading Product Fields" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Trading Product Fields</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Deal_Id__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Internal__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Trading_Area__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_External__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Book__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Commencement_Date__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_PV01__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Trade_Date__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Points_Taken__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Maturity_Date__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Points_to_Hedge__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Maturity_Date_Reminder__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Units__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="OTC__c" required="false"/>
+                                </div>-->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Nominal_Amount__c" required="true"/>
+                                </div>
+                                
+                                <!--<div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="ETC__c" required="false"/>
+                                </div>-->
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Dividend_Funded__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Sell_Down__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Monetised__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Dividend_Protected__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Expected Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenue</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Fees__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Margin__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Margin__c" required="false"/>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='Transactional'}">
+                            <div title="Expected Revenue" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenue</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Margin__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Sell_Down__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Fee_Comm__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Volume_Transactional__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Value_fee__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Value__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Recurring_flat_fee__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Risk_Grade__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Flat_fee__c" required="false"/>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='Primary_Arranging_Advisory'}">
+                            
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="false"/>
+                                </div>
+                                
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!IF(OR(TEXT($User.User_Division__c) != 'Commercial Banking',TEXT($User.User_Division__c) != 'Business Banking',TEXT($User.User_Division__c) != 'Entrepreneur'),true,false)}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'BCC'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                            </div>
+                            
+                            <div title="Primary Debt Arranging Details"
+                                 class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Primary Debt Arranging Details</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Transaction_Type__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Bank_Role__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Loan_Profile__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Mandated__c" required="false"/>
+                                </div>
+                                
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Base_Rate__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Loss_Given_Default_LGD__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Calculation_Methodology__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Facility_Size__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Lookback_Period__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Risk_Grade__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="false"/>
+                                </div>
+
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Weighted_Average_Life_months__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Advisory_Arranging_Fees_bps__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            <div title="Primary Debt Arranging - Distribution Role"
+                                 class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Primary Debt Arranging - Distribution Role</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Launch_Date__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Distribution_Required__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Cap_Guidance_Facility_Price__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Set_Facility_Price__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Participation_Fee_Guidance__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                            </div>
+                            
+                            <div title="Expected Revenues" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenues</span></div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Fees__c" required="false"/>
+                                </div>
+                                
+                            </div>
+                            
+                        </apex:outputPanel>
+                        
+                        <apex:outputPanel rendered="{!rtDevName =='Insurance'}">
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Insurer__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Lead_Source__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Revenue_Type__c" required="true" />
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                            </div>
+                            
+                            <div title="Insurance Product fields" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Insurance Product fields</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Premium_Amount__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Inception_Date__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Commission_Amount__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Expiry_Date__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Commission_Frequency__c" required="true"/>
+                                </div>
+                                <div id="renewal" class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Renewal__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Fee_Amount__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Renewal_Date__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Fee_Frequency__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <!-- Partner Layout -->
+                        <apex:outputPanel rendered="{!rtDevName =='Partner'}">
+                            
+                            <div title="Product Information" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Product Information</span>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Grand_Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Opportunity__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Parent_Product__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Client__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Product__c" required="false"/>
+                                </div>
+                                
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Country_of_Underlying_Risk__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Division__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Balance_Sheet_of_Booking__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Product_Comments__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_Division__c) != 'Commercial Banking'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="Profit_Centre__c" required="false"/>
+                                    </apex:outputPanel>
+                                </div>
+                                
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <apex:outputPanel rendered="{!TEXT($User.User_CIB_Global_Area__c) != 'CommB'}">
+                                        <c:LDS_InputField sObject="{!prod}" field="CurrencyIsoCode" required="true" />
+                                    </apex:outputPanel>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                            </div>
+                            
+                            <div title="Primary Debt Arranging Details"
+                                 class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Primary Debt Arranging Details</span></div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Nominal_Amount__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Bank_Role__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Mandated__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="NDA__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Term_Tenor__c" required="true"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Launch_Date__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Expiry_Date__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                </div>
+                            </div>
+                            
+                            <div title="Expected Revenues" class="slds-grid slds-wrap slds-col_padded">
+                                <div class="slds-box slds-box_x-small slds-theme_shade slds-col slds-size_1-of-1">
+                                    <span>Expected Revenues</span></div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_CommB_Revenue__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Fees__c" required="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="ROE__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Revenue_Currency__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Revenue_Num__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Product_Revenue_Num_CommB__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Product_Revenue_Text__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Fees__c" required="false" readOnly="true"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Current_Year_Revenue__c" required="false"/>
+                                </div>
+                                
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="SA_Total_Fee__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Revenue_Currency__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Revenue_Num__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Product_Revenue_Text__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Revenue__c" required="false"/>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2">
+                                    <c:LDS_InputField sObject="{!prod}" field="Total_Weighted_Product_Revenue_Text__c" required="false"/>
+                                </div>
+                                
+                            </div>
+                            
+                        </apex:outputPanel>
+                        
+                        <div class="slds-button-group slds-text-align_center slds-show slds-m-bottom_x-small"
+                             role="group">
+                            <apex:commandButton value="Cancel" action="{!cancel}"
+                                                styleClass="slds-button slds-button_neutral"/>
+                            <apex:commandButton value="Save" action="{!save}"
+                                                styleClass="slds-button slds-button_brand"/>
+                        </div>
+                    </apex:pageBlock>
+                </apex:form>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</apex:page>

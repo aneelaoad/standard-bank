@@ -1,0 +1,158 @@
+<!-- Case #1168 Rudolf Niehaus 11/2011 -->
+<!-- Description: VF Page that enable users to add hosts(bank contacts) to campaign members from a Contact list view. -->
+<apex:page standardController="Contact" recordSetVar="contacts" extensions="CampaignMemberHostAssignerController" standardStyleSheets="true" tabStyle="Campaign" showHeader="true" sidebar="true" id="thePage">
+<head>
+<apex:includeScript value="{!URLFOR($Resource.CampaignScripts, 'jquery-1.3.2.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CampaignScripts, 'jquery.validate.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CampaignScripts, 'jquery.form.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CampaignScripts, 'jquery.bgiframe.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.CampaignScripts, 'jquery.bt.min.js')}" />
+
+<script>
+    function callonlookup(val){
+       buildLabels(val.value);
+    }
+    
+    $(document).ready(function(){
+        ignoreTitle:true,
+        $("#thePage\\:theForm").validate({
+            rules: {
+                "thePage:theForm:campName": "required",
+                "thePage:theForm:campStatus": "required"
+            }
+        });           
+    });
+</script>
+<style>
+label.error
+{
+    font-size: 10px;
+    color: #D50000;
+    margin: 0;
+    font-weight: normal;
+    padding-left:9px;
+}
+
+
+</style>
+</head>
+<table >
+<tr valign="bottom">
+<td></td>
+<td style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:11px;color:#4A4A56">Campaign</td>
+</tr>
+<tr>
+<td width="1%"><img src="/s.gif" alt="Campaigns" class="pageTitleIcon" title="Campaigns"/></td>
+<td width="99%" style="vertical-align:middle;font-weight:500;font-size: 21px;font-family: Arial, Helvetica, sans-serif;">Add Members</td>
+</tr>
+</table>
+<br></br>
+<apex:form id="theForm">
+    <table>
+    <tr>
+    <td><apex:outputLink value="{!retURL}" id="theLink" rendered="{!LockThis}" style="color: #1468B6;text-decoration: none">
+    &laquo; Back to Contact List</apex:outputLink></td>
+    </tr>
+    <tr>
+    <td><apex:messages style="font-size: 12px;color: black;font-weight: bold"/></td>
+    </tr>
+    </table>
+<p></p>
+<div class="bWizardBlock tertiaryPalette" style="display: {!IF(LockThis,'none','block')}">
+    <div class="pbWizardTitle tertiaryPalette">
+        <div class="ptRightTitle">
+            Step 1 of 2
+        </div>
+        <h2>
+            Step 1. Select a campaign and member status
+        </h2>
+    </div>
+    
+    <div class="pbBody">
+        <div class="pbDescription" >
+              Select a campaign, and a desired member status. To create a new campaign, you must exit this process.
+        </div>  
+        <div class="pbWizardBody" >
+            <div class="bPageBlock bEditBlock secondaryPalette" id="ep">
+                <div class="pbHeader pbHeaderEmpty"></div>
+                
+                <div class="pbBody">
+                    <div class="pbSubsection">
+                        <table width="100%">
+                        <tr>
+                        <td class="labelCol last" width="20%" align="right">Campaign:</td>
+                        <td class="data2Col" colspan="3" width="80%" align="left">
+                        <div class="requiredInput"><div class="requiredBlock"></div>
+                        <apex:inputField value="{!lookupCamp.ParentId}" id="campName" onchange="callonlookup(this)"/>
+                        <apex:actionFunction action="{!fetchLabels}" name="buildLabels" reRender="thelabels">
+                            <apex:param name="CampID" value="" assignTo="{!campId}"/>
+                        </apex:actionFunction>
+                        </div>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="labelCol last" width="20%" align="right">Status:</td>
+                        <td class="data2Col" colspan="3" width="80%" align="left">
+                        <div class="requiredInput"><div class="requiredBlock"></div>
+                            <apex:outputPanel id="thelabels">
+                            <apex:outputText rendered="{!camLocked}">
+                            	<div class="message errorM3" id="save_error" style="display: block; ">
+								<table class="messageTable" border="0" cellpadding="0" cellspacing="0">
+								<tbody>
+								<tr>
+								<td><img src="/s.gif" alt="Error" class="msgIcon" title="Error"></img></td>
+								<td class="messageCell">
+								<div class="messageText">
+								<h4>There was an error selecting this Campaign.</h4>
+								<span id="save_error_text">The campaign is currently locked by the campaign owner. You cannot add new members OR update existing members from this campaign at this stage</span>
+								</div>
+								</td>
+								</tr>
+								</tbody>
+								</table>
+								</div>
+                            </apex:outputText>
+                            <apex:selectList value="{!status}" size="1" id="campStatus" readonly="{!DisableThis}">
+                                <apex:selectOptions value="{!options}"></apex:selectOptions>
+                            </apex:selectList>
+                            </apex:outputPanel>
+                        </div>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="labelCol last" width="20%" align="right">Existing Members:</td>
+                        <td class="data2Col last" colspan="3" width="80%" align="left">
+                            <apex:selectRadio value="{!radio}" layout="pageDirection">
+                                <apex:selectOptions value="{!RadioSelect}"/>
+                            </apex:selectRadio>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="labelCol last" width="20%" align="right">Host:</td>
+                        <td class="data2Col last" colspan="3" width="80%" align="left">
+                            <apex:inputCheckbox value="{!userHost}"/>&nbsp;I am hosting these members
+                        </td>
+                        </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="pbFooter secondaryPalette"><div class="bg"></div></div>
+            </div>
+        </div>
+        
+        <div class="pbWizardFooter">
+            
+            <table>
+            <tr>
+            <td width="60%"></td>
+            <td width="40%" align="right" nowrap="nowrap" valign="middle"><apex:commandButton action="{!AddCamp}" value="Add to Campaign" id="addCamp"/>&nbsp;
+            <apex:commandButton action="{!AddCampPlusMember}" value="Add to Campaign and Add Additional Hosts" id="addCampPlusMem"/>&nbsp;
+            <apex:commandButton action="{!Cancel}" value="Cancel" id="cancel" styleClass="cancel" immediate="true"/></td>
+            </tr>
+            </table>
+            
+        </div> 
+    </div> 
+</div>  
+</apex:form>
+</apex:page>

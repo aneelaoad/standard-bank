@@ -1,0 +1,4 @@
+<!-- Case #1168 Rudolf Niehaus 02/2011 -->
+<!-- Description: VF Page that renders an Excel file for every 2500 members -->
+<apex:page Controller="CampaignExportDownloader" action="{!DownloadData}">
+</apex:page>

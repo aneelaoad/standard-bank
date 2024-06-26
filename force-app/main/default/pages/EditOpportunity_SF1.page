@@ -1,0 +1,18 @@
+<apex:page standardController="Opportunity" extensions="OpportunityEditRedirect_SF1_Ext">
+<script type='text/javascript' src='/canvas/sdk/js/publisher.js'/>
+<script>
+     
+     window.onload = function() {
+         
+         if ( (typeof window.sforce != 'undefined') && (window.sforce!=null) ) {
+              Sfdc.canvas.publisher.publish({ name: "publisher.close",payload:{ refresh:"true" }});
+              sforce.one.navigateToURL("{!editUrl}");
+              //Sfdc.canvas.publisher.publish({ name: "publisher.close",payload:{ refresh:"true" }});
+         } else {
+              alert('Not in SF1 :(');
+         }           
+     };
+     
+</script>
+ <h1> Redirecting please wait.... </h1>
+</apex:page>

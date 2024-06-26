@@ -1,0 +1,6 @@
+<!-- Case#141: Rudolf Niehaus -->
+<!-- redirect user to the draw down vf page from the std edit button of the Draw_Down_Profile__c obj -->
+<apex:page standardController="Draw_Down_Profile__c" 
+    extensions="DrawDownRedirect_Vf_Ext"
+    action="{!redirect}" >
+</apex:page>

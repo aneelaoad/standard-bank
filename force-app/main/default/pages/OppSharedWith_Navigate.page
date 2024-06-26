@@ -1,0 +1,3 @@
+<apex:page controller="OppSharedWith_Navigate_Controller" action="{!navigateToPage}">
+Redirecting...
+</apex:page>

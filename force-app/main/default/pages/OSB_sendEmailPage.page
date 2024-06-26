@@ -1,0 +1,5 @@
+<apex:page standardController="Contact" extensions="OSB_SendEmailPage_CTRL" action="{!sendApEmailInvite}">
+<apex:form >
+<apex:inputHidden value="{!Contact.Id}"/>
+</apex:form>
+</apex:page>

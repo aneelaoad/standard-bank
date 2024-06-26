@@ -1,0 +1,255 @@
+<apex:page standardController="Account" extensions="ClientOperatingCountryControllerClass" standardStylesheets="true" showheader="true" sidebar="true">
+<apex:sectionHeader title="Client Operating Countries With CIB Presence Edit" subtitle="{!Account.Name}" rendered="{!boolCIBPresence}"/>
+<apex:sectionHeader title="Client Operating Countries Without CIB Presence Edit" subtitle="{!Account.Name}" rendered="{!NOT(boolCIBPresence)}"/>
+
+<apex:outputText value="{!$Label.Drag_and_Drop_Info_Message}" />
+<br/><br/>
+        
+<head>
+        <apex:includeScript value="{!URLFOR($Resource.ClientOperatingCountry, 'js/jquery-1.3.2.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.ClientOperatingCountry, 'js/jquery-ui-1.7.2.custom.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.ClientOperatingCountry, 'styles.css')}" />
+        
+         <script>
+            function showPanel() {
+                document.getElementById('COCContainer').style.display ="block";
+            }
+        </script>
+        <script>
+            function hidePanel() {
+                document.getElementById('COCContainer').style.display ="none";   
+            }
+        </script>
+        
+        <style>
+            .column{
+                height:100px;
+                background:#fff;
+                border:Solid 1px #969696;
+                border-radius :5px;
+                -moz-border-radius:5px;
+                -webkit-border-radius:5px;
+                margin:10px 0 10px 0;
+                overflow-y:auto;
+            }
+            
+            .column .dragbox{
+                margin:2px;
+                background: #C0C0C0;
+                position:relative;
+                border:1px solid #ddd;
+                -moz-border-radius:5px;
+                -webkit-border-radius:5px;
+                width:120px;
+                float:left;
+                min-height:4px;
+                
+            }
+            
+            .dragbox-content{
+                background:#fff;
+                min-height:30px; margin:5px;
+                font-family:'Lucida Grande', Verdana; font-size:0.8em; line-height:1.5em;
+            }
+           
+            .dragbox-content-head{
+                
+                color: #000;
+                overflow: hidden;
+                width:75 px;
+                height: 50px;
+                cursor:move;
+                font-family:'Lucida Grande', Verdana; 
+                font-size:0.9em; 
+                line-height:1.2em;
+                margin: 1px;
+                border-radius :5px;
+                -moz-border-radius:5px;
+                -webkit-border-radius:5px;
+                text-align: center;
+            }
+            
+            .dragbox-content-head-content{
+                float:left;
+                min-width:30px;
+                height:100%;
+            }
+           
+            .color-sky    {}
+            
+        </style>
+        
+</head>
+
+<body>
+    <br/>
+        <apex:form id="formId">
+        <!-- <div style="width:100%; padding-top: 15px;padding-left:15px;">
+        <img src="/img/icon/custom51_100/globe32.png" />
+        <apex:outputtext value="{!Account.Name}" style="font-family:Arial;font-size:22px;font-weight:normal;font-style:normal;text-decoration:none;color:#333333;"/>
+        <br/><br/>
+        <apex:outputText value="This screen allows you to transfer client operating countries between the applicable statuses.Drag and drop countries according to the status required." />
+        </div>-->
+        <apex:actionFunction name="updateCOCPresenceFunction" action="{!updateClientOperatingCountry}" reRender="formId" status="refreshCounter">
+            <apex:param name="StatusPres" value="" />
+            <apex:param name="Country" value="" />            
+        </apex:actionFunction>
+        <!--  Action Status to be displayed when Save Button is clicked from the page -->
+        <apex:actionStatus id="refreshCounter">                   
+        	<apex:facet name="start">
+            	<div class="waitingSearchDiv waitingSearchDivOpacity" style="width: 100%; height: 100%; display: block; opacity: 0.60;"/>
+            
+            		<div id="searching" class="waitingSearchDiv" style="width: 100%; height: 100%; display: block;">
+            			<div class="waitingHolder">
+            				<img class="waitingImage" src="/img/loading.gif"/>
+            	            <span class="waitingDescription">Processing...</span>
+            			</div>
+            		</div>
+        	</apex:facet>
+        	<apex:facet name="stop"></apex:facet>
+    	</apex:actionStatus>
+        <apex:pageBlock title="Assign a Country">       
+
+        <!-- <apex:outputText ><span class="color-sky"><b><font face="Arial" SIZE="2">Select a Country</font></b></span></apex:outputText> -->
+        <apex:pageBlockButtons location="top">
+        <apex:commandbutton value="Save" action="{!saveRecords}" rerender="formId" style="width:50 px;margin-left:15%" status="refreshCounter"/>
+        <apex:commandbutton value="Cancel" action="{!cancel}" style="width:50 px;"/>
+		</apex:pageBlockButtons>
+		
+        <div id="COCDiv" style="width:100%; height: 100%; float: left; padding-top: 15px;">
+        <table width="55%" align="left">
+        	<tr>
+        		<td width="100%">
+        			<div class="column" id="NAPreCount" style="width:95%;margin-right:1%;margin-left:1%;height:500px;">
+                        <div style="width:100%">
+                            <span class="color-sky"><strong><font face="Arial" SIZE="2">Available Countries Not Assigned</font></strong></span>
+                            <br/>
+                        </div>
+                        <apex:repeat value="{!mapNAAssignedList[boolCIBPresence]}" var="cibNA">
+                           <div class="dragbox" id="{!cibNA.cocCountry}-NAPreCount">
+                            <div class="dragbox-content-head">
+                                    <p>{!cibNA.cocCountry}</p>
+                            </div>
+                            </div>
+                          </apex:repeat>
+                     </div>
+        		</td></tr>
+        		</table>
+        		<table width="40%" align="right">
+        		<tr>
+        		<td width="100%">
+        			<div class="column" id="EBPreCount" style="width:95%;margin-left:2%;height:100px;">
+                        <div style="width:100%;">
+                            <span class="color-sky"><strong><font face="Arial" SIZE="2">Existing Business</font></strong></span>
+                            <br/>
+                        </div>
+                        <apex:repeat value="{!CIBPresenceListEB}" var="cibEB">
+                           <div class="dragbox" id="{!cibEB.cocCountry}-EBPreCount">
+                             
+                           <div class="dragbox-content-head">
+                                  <p> {!cibEB.cocCountry}</p>
+                             </div>  
+                           </div>
+                          </apex:repeat>
+                     </div>
+        			
+        		</td>
+        	</tr>
+        	<tr>
+        		<td>
+        			<div class="column" id="PBPreCount" style="width:95%;margin-left:2%;">
+                        <div style="width:100%;">
+                            <span class="color-sky"><strong><font face="Arial" SIZE="2">Prospective Business</font></strong></span>
+                            <br/>
+                        </div>
+                        <apex:repeat value="{!CIBPresenceListPB}" var="cibPB">
+                           <div class="dragbox" id="{!cibPB.cocCountry}-PBPreCount" >
+                            <div class="dragbox-content-head">
+                                    <p>{!cibPB.cocCountry}</p>
+                            </div>
+                            </div>
+                        </apex:repeat>
+                     </div>
+        		</td>
+        	</tr>
+        </table>
+        <!-- Need to Re load the script Every time there is an Ajax Request -->
+                    <script type="text/javascript">
+                        var $j = jQuery.noConflict();
+                        $j(function() {
+                            $j( "#dialog-modal" ).dialog( "close" );
+                            $j('.dragbox').each(function() {
+                                $j(this).hover(function() {
+                                    // to add expand/collapse image when hovered over.
+                                    $j(this).find('.dragbox-content-head').addClass('collapse');
+                                }, function() {
+                                    $j(this).find('.dragbox-content-head').removeClass('collapse');
+                                }).find('.dragbox-content-head').hover(function() {
+                                    $j(this).find('.configure').css('visibility', 'visible');
+                                }, function() {
+                                    $j(this).find('.configure').css('visibility', 'hidden');
+                                }).end().find('.configure').css('visibility', 'hidden');
+                            });
+                            $j('.column').sortable({
+                                connectWith : '.column',
+                                handle : '.dragbox-content-head',
+                                cursor : 'move',
+                                placeholder : 'placeholder',
+                                forcePlaceholderSize : true,
+                                containment: 'document',
+                                opacity : 0.4,
+                                receive: function(event, ui) { 
+                                    var updateCoC = event.target.id + '=' + $j(ui.item).attr('id');
+                                    updateCOCPresenceFunction(event.target.id,$j(ui.item).attr('id'));
+                                }                                
+                                
+                            }).disableSelection();
+                        });
+                    </script>
+         <!-- <apex:outputpanel id="COCContainer" style="margin-top:12px;">
+                    <div class="column" id="EBPreCount" style="width:43%;margin-left:3%;">
+                        <div style="width:100%;">
+                            <span class="color-sky"><strong><font color="#FFFFFF" face="Arial" SIZE="2">Existing Business</font></strong></span>
+                        </div>
+                        <apex:repeat value="{!CIBPresenceListEB}" var="cibEB">
+                           <div class="dragbox" id="{!cibEB.cocCountry}-EBPreCount">
+                             
+                           <div class="dragbox-content-head">
+                                  <p> {!cibEB.cocCountry}</p>
+                             </div>  
+                           </div>
+                          </apex:repeat>
+                     </div>
+                     
+                     <div class="column" id="PBPreCount" style="width:43%;margin-left:3%;">
+                        <div style="width:100%;">
+                            <span class="color-sky"><strong><font color="#FFFFFF" face="Arial" SIZE="2">Prospective Business</font></strong></span>
+                        </div>
+                        <apex:repeat value="{!CIBPresenceListPB}" var="cibPB">
+                           <div class="dragbox" id="{!cibPB.cocCountry}-PBPreCount" >
+                            <div class="dragbox-content-head">
+                                    <p>{!cibPB.cocCountry}</p>
+                            </div>
+                            </div>
+                        </apex:repeat>
+                     </div>                      
+                     <div class="column" id="NAPreCount" style="width:90%;margin-top:3%;margin-left:3%">
+                        <div style="width:100%;">
+                            <span class="color-sky"><strong><font color="#FFFFFF" face="Arial" SIZE="2">Countries Not Assigned</font></strong></span>
+                        </div>
+                        <apex:repeat value="{!mapNAAssignedList[boolCIBPresence]}" var="cibNA">
+                           <div class="dragbox" id="{!cibNA.cocCountry}-NAPreCount">
+                            <div class="dragbox-content-head">
+                                    <p>{!cibNA.cocCountry}</p>
+                            </div>
+                            </div>
+                          </apex:repeat>
+                     </div>
+                   
+         </apex:outputpanel>-->
+        </div>
+
+        </apex:pageBlock>
+        </apex:form>
+</body>
+</apex:page>

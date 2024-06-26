@@ -1,0 +1,387 @@
+<apex:page sidebar="false" showHeader="false" standardController="Account" extensions="Account360_Vf_Ext" standardStyleSheets="false"  renderAs="PDF" lightningstylesheets="false" applyBodyTag="false" applyHtmlTag="false">
+    <html>
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'jquery-1.3.2.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'excanvas.compiled.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'jquery.bgiframe.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'jquery.bt.min.js')}"/> 
+        <style type="text/css" >
+            @page {
+            size:landscape;
+            margin-top:0cm;
+            margin-left:0.1cm;
+            margin-right:0.1cm; 
+            margin-bottom:0cm;
+            }
+            
+            .odd {
+            background: #ccc;
+            }
+            .even {
+            }
+
+            .InfoTextAlignment {
+                text-align: justify;
+            }
+            
+        </style>
+    </head>
+    <apex:form >
+        <table width="100%" style="font-size: 14px">
+            <tr style="background:#FFFFFF">
+                <td align="left" width="50%" style="font: bold;font-size: 14px;color: #02377A;font-style: font-family:sans-serif">
+                    <apex:outputText >{!Account.name}</apex:outputText>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <table width="100%" style="font-size: 12px">
+            <tr ><td width="40%">
+                <table width="90%">
+                    <tr>
+                        <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Business Strategic Plans</td>
+                    </tr>
+                    <tr rowspan="2">
+                        <td  height="30" style="text-align: justify;" >{!Account.Challenges_Opportunities__c}</td>
+                    </tr>
+                    <tr>
+                        <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Short Term Objectives</td>
+                    </tr>
+                    <tr >
+                        <td height="30" style="text-align: justify;">{!Account.Client_Strategy__c}</td>
+                    </tr>
+                    <tr>
+                        <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Medium to Long Term Objectives </td>
+                    </tr>
+                    <tr >
+                        <td height="30" style="text-align: justify;">{!Account.Long_Term_Strategy__c}</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Client Marketing Strategy</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" style="text-align: justify;">{!Account.Client_Marketing_Strategy__c}</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Top Client Indicator</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" cstyle="text-align: justify;"></td>
+                    </tr>
+                </table>
+                </td>
+                <td  width="90%" >
+                    <table width="90%">
+                        <tr>
+                            <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Description</td>
+                        </tr>
+                        <tr >
+                            <td  height="30" style="text-align: justify;">{!Account.Description}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Market Share</td>
+                        </tr>
+                        <tr >
+                            <td height="30" style="text-align: justify;">{!Account.Market_Share_Percentage__c}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Number of Employees </td>
+                        </tr>
+                        <tr >
+                            <td height="30" style="text-align: justify;">{!Account.Total_Number_of_Employees__c}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Transregional Presence</td>
+                        </tr>
+                        <tr >
+                            <td height="30" style="text-align: justify;">{!Account.Transregional__c}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Service Issue Summary</td>
+                        </tr>
+                        <tr >
+                            <td height="30" style="text-align: justify;">{!Account.Service_Issue_Summary__c}</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Sector</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" style="text-align: justify;">{!Account.Client_Sector__c}</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Sub Sector</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" style="text-align: justify;">{!Account.Client_Sub_Sector__c}</td>
+                        </tr>
+                        
+                    </table>
+                </td>
+            </tr>
+            <tr height="270" >
+                <td width="40%" valign="top" COLSPAN="1" style="font-style: font-family:sans-serif;font-size: 12px">
+                    <table width="90%" cellspacing="0" cellpadding="8" style="font-style: font-family:sans-serif;font-size: 12px">
+                        <tr style="background:#02377A">
+                            <td style="font-weight:bold;color:#ffffff" > {!Account.CurrencyIsoCode} Billions</td>
+                            <td style="font-weight:bold;color:#ffffff">Previous Year</td>
+                            <td style="font-weight:bold;color:#ffffff">Current Year</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;" >Turnover</td><td ></td><td>{!Account.AnnualRevenue}</td>
+                        </tr>
+                       
+                    </table>
+                    <br/>
+                    <table width="90%" cellspacing="0" cellpadding="8" style="font-size: 12px">
+                        <tr style="background:#02377A">
+                            <td style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Primary Owners</td>
+                            <td style="font-weight:bold;color:#ffffff">Limits</td>
+                        </tr>
+                        <apex:repeat value="{!SelectedFinancialAccount}" var="c">
+                            <tr>
+                                <td> <apex:outputText value="{!c.FinServ__FinancialAccountType__c}" />
+                                </td>
+                                <td> <apex:outputText value="{!c.CurrencyIsoCode} {!c.Sanctioned_Limit__c}" />
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table>    
+                </td>
+                <td valign="top" style="font-style: font-family:sans-serif;font-size: 12px">
+                    <table width="100%" cellspacing="0" cellpadding="8">
+                        <tr style="background:#02377A">
+                            <td style="font-weight:bold;color:#ffffff">Contact Name</td>
+                            <td style="font-weight:bold;color:#ffffff">Role</td>
+                            <td style="font-weight:bold;color:#ffffff">Status</td>
+                            <td style="font-weight:bold;color:#ffffff">Valid From</td>
+                            <td style="font-weight:bold;color:#ffffff">Valid To</td>
+                        </tr>
+                        <apex:repeat value="{!SelectedAccountContactRelationships}" var="accConRel">
+                            <tr>
+                                <td><apex:outputText value="{!accConRel.Contact__r.Name}"></apex:outputText></td>
+                                <td><apex:outputText value="{!accConRel.Role__c}"></apex:outputText></td>
+                                <td><apex:outputText value="{!accConRel.Status__c}"></apex:outputText></td>
+                                <td><apex:outputText value="{!accConRel.Valid_From__c}"></apex:outputText></td>
+                                <td><apex:outputText value="{!accConRel.Valid_To__c}"></apex:outputText></td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" style="font-size: 14px">
+            <tr style="background:#FFFFFF">
+                <td align="left" width="50%" style="font: bold;color: #02377A;font-style: font-family:sans-serif">
+                    <apex:outputText >Game Plan</apex:outputText>
+                </td> 
+            </tr>
+        </table>
+        <hr />
+        <table width="100%" style="font-size: 12px">
+            <tr>
+                <td width="100%" valign="top" style="font-style: font-family:sans-serif;font-size: 12px"> 
+                    <table width="100%" cellspacing="0" cellpadding="8" style="font-size: 12px">
+                        <tr style="background:#02377A">
+                            <td width="2%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Client Visit</td>
+                            <td width="2%" style="font-weight:bold;color:#ffffff">Name</td>
+                            <td width="2%" style="font-weight:bold;color:#ffffff">Due Date</td>
+                            <td width="2%" style="font-weight:bold;color:#ffffff">Objective of Engagement</td>
+                            <td width="2%" style="font-weight:bold;color:#ffffff">Expected Outcome</td>
+                            <td width="2%" style="font-weight:bold;color:#ffffff">Comments</td>
+                            <td width="2%" style="font-weight:bold;color:#ffffff">Assigned To</td>
+                        </tr>
+                        <apex:repeat value="{!SelectedTasks}" var="task">
+                            <tr>
+                                <td width="2%">
+                                    <apex:outputText value="{!task.Subject}" />
+                                </td>
+                                <td width="2%"> 
+                                    <apex:outputText value="{!task.What.Name}" />
+                                </td>
+                                <td width="2%"> 
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!task.ActivityDate}"/></apex:outputText>
+                                </td>
+                                <td width="2%"> 
+                                    <apex:outputText value="{!task.FinServ__Objectives__c}" />
+                                </td>
+                                <td width="2%"> 
+                                    <apex:outputText value="{!task.FinServ__Expectations__c}" />
+                                </td>
+                                <td width="2%"> 
+                                    <apex:outputText value="{!task.Description}" />
+                                </td>
+                                <td width="2%"> 
+                                    <apex:outputText value="{!task.Owner.Name}" />
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table> 
+                    <br/>
+                    <table width="100%" cellspacing="0" cellpadding="8">
+                        <tr style="background:#02377A;">
+                            <td width="17%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Cases</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Type</td>
+                            <td width="15%" style="font-weight:bold;color:#ffffff">Account Number</td>
+                            <td width="25%" style="font-weight:bold;color:#ffffff">Description</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Status</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Case Owner</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Created Date</td>
+                        </tr>
+                        <apex:repeat value="{!SelectedCases}" var="c">
+                            <tr>
+                                <td width="17%">
+                                    <apex:outputText value="{!c.Subject}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!c.Type}" />
+                                </td>
+                                <td width="15%"> 
+                                    <apex:outputText value="{!c.Account.Name}" />
+                                </td>
+                                <td width="25%"> 
+                                    <apex:outputText value="{!c.Description}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!c.Status}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!c.Owner.Name}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                        <apex:param value="{!c.CreatedDate}"/>
+                                    </apex:outputText>
+                                </td>
+                                
+                            </tr>
+                        </apex:repeat>
+                    </table> 
+                    <br/>
+                </td>
+            </tr>
+            </table>
+            
+        <br/><br/>
+        
+
+        <table width="100%" style="font-size: 14px">
+            <tr style="background:#FFFFFF">
+                <td align="left" width="50%" style="font: bold;color: #02377A;font-style: font-family:sans-serif">
+                    <apex:outputText >Open Opportunities</apex:outputText>
+                </td> 
+            </tr>
+        </table>
+        
+        <hr />
+        <table width="100%" style="font-size: 12px" >
+        <tr width="100%">
+            <td width="39%">
+                <table width="100%" cellspacing="0" cellpadding="8" style="font-size: 12px">
+                    <tr style="background:#02377A">
+                        <td width="30%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Opportunity Name</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Stage</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Total Revenue (Amount)</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Estimated Close Date</td>
+                        </tr>
+                </table>
+            </td>
+            </tr>
+            <tr>
+            <td width="39%">
+                <table width="100%" cellspacing="0" cellpadding="8" style="font-size: 12px">
+                    <apex:repeat value="{!SelectedOpportunities}" var="opportunity">
+                        <tr>
+                        <td width="30%">
+                            <apex:outputText value="{!opportunity.Name}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!opportunity.StageName}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!opportunity.Amount}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!opportunity.CloseDate}" />
+                        </td>
+                      
+                        </tr>
+                    </apex:repeat>
+                </table> 
+            </td>
+          
+        </tr>
+    </table>
+    <br/> <br/>
+    <table width="100%" style="font-size: 14px">
+        <tr style="background:#FFFFFF">
+            <td align="left" width="50%" style="font: bold;color: #02377A;font-style: font-family:sans-serif">
+                <apex:outputText >Account-Account Relationships</apex:outputText>
+            </td> 
+        </tr>
+    </table>
+        
+        <hr />
+        <table width="100%"  style="font-size: 12px">
+        <tr width="100%">
+            <td width="100%">
+                <table width="100%" cellspacing="0" cellpadding="8" style="font-size: 12px">
+                    <tr style="background:#02377A">
+                        <td width="30%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Related Account</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Active</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Association Type</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Related Role</td>
+                        
+                    </tr>
+                </table>
+            </td>
+            </tr>
+            <tr>
+            <td width="100%">
+                <table width="100%" cellspacing="0" cellpadding="8" style="font-size: 12px">
+                    <apex:repeat value="{!SelectedAccountRelationships}" var="accRel">
+                        <tr>
+                        <td width="30%">
+                            <apex:outputText value="{!accRel.FinServ__RelatedAccount__r.Name}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputField value="{!accRel.FinServ__Active__c}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!accRel.FinServ__AssociationType__c}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!accRel.FinServ__Role__r.Name}" />
+                        </td>
+                        
+                        </tr>
+                    </apex:repeat>
+                </table> 
+            </td>
+          
+        </tr>
+    </table>
+    <br/> <br/>
+        <table border="0" width="100%" >
+            <tr>
+                <td></td>
+                <td style="font-size:8pt;font-weight:normal;color: #F60A0A" align="center" valign="top">
+                    This document is only available to authorised users as it may contain confidential and price sensitive information, take appropriate care before distributing.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="left" style="font-size:10pt;font-weight:bold;color: #6E6D6D">
+                </td>
+                <td align="center" width="75%">
+                    <apex:commandButton action="{!save360}" value="Save Page" id="acctheButton"/>&nbsp;
+                    <apex:commandButton onclick="x=window.open('{!urlfor($Page.Account360PDF_vf,null,[id=account.id])}','Account360PDF_Vf','height=600,width=800,resizable=1');return false;" value="Print PDF"/>&nbsp;
+                    <apex:commandButton action="{!attach360PDF}" onclick="versionMessage()" value="Attach Version" id="attversion"/>
+                </td>
+                <td align="right">
+                    <apex:image url="/resource/1495458493000/Standard_Bank_Logo" width="150" height="30"/>
+                </td>
+            </tr>
+        </table>
+    </apex:form>
+    </html>
+</apex:page>

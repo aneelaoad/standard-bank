@@ -1,0 +1,47 @@
+<!-- Case #1168 Rudolf Niehaus 11/2011 -->
+<!-- Description: VF Page that displays information around the adding of hosts to the user after adding hosts to members -->
+<apex:page controller="CampaignMemberHostAssignerController" standardStyleSheets="true" tabStyle="Campaign" showHeader="true" sidebar="true">
+
+<table>
+<tr valign="bottom">
+<td></td>
+<td style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:11px;color:#4A4A56">Campaign</td>
+</tr>
+<tr>
+<td width="1%"><img src="/s.gif" alt="Campaigns" class="pageTitleIcon" title="Campaigns"/></td>
+<td width="99%" style="vertical-align:middle;font-weight:500;font-size: 21px;font-family: Arial, Helvetica, sans-serif;">Add Members</td>
+</tr>
+</table>
+<br></br>
+
+<apex:form >
+<div class="bWizardBlock tertiaryPalette">
+    <div class="pbWizardTitle tertiaryPalette">
+        <div class="ptRightTitle">
+            Step 2 of 2
+        </div>
+        <h2>
+            Step 2. Your members have been added / updated.
+        </h2>
+    </div>
+    <p></p>
+    <div class="pbBody">
+        <div class="pbDescription ">
+              {!$CurrentPage.parameters.ncount} new members have been added to the campaign {!$CurrentPage.parameters.campname} with a Status of "{!$CurrentPage.parameters.campstatus}".
+        <p></p>
+              {!$CurrentPage.parameters.ucount} existing members have been updated for the campaign {!$CurrentPage.parameters.campname} with a Status of "{!$CurrentPage.parameters.campstatus}".
+        </div>
+        <div class="pbWizardFooter">
+            <div class="pbBottomButtons">
+                <table>
+                <tr align="right">
+                <td width="70%"></td>
+                <td width="5%"><apex:commandButton action="{!Done}" value="Done" id="done"/></td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    </div> 
+</div>
+</apex:form>
+</apex:page>

@@ -1,0 +1,4 @@
+<apex:page standardController="Call_Report__c" extensions="SA_EventReportNewRepController" action="{!navigateNew}">
+<apex:outputLink value="/{!$CurrentPage.parameters.id}">
+</apex:outputLink>
+</apex:page>

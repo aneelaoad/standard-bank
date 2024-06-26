@@ -1,0 +1,680 @@
+<apex:page standardController="Opportunity" extensions="Opprtunity_New_LDS_ctrl,NewOppLookupsSupport" sidebar="false" showChat="false" showHeader="false" docType="html-5.0" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">  
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>Create New Opportunity</title>
+            <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+            <apex:includeScript value="{!$Resource.Jquery1122}" />       
+                        
+            <apex:includeScript value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.full.min.js')}" />
+            <apex:stylesheet value="{!URLFOR($Resource.DateTimePicker, 'jquery.datetimepicker.css')}" />
+            <script>
+
+                var SEARCH = false;
+
+                function loading(){
+
+                    if($('#spinnerContainer').hasClass('hide')){
+                        $('#spinnerContainer').removeClass('hide');
+                    }else{
+                        $('#spinnerContainer').addClass('hide');
+                    }
+
+                }
+
+                function checkreqfields(){
+
+                    var error = false;
+
+                    var oname = $('[id$=oppName]').val();
+                    if (oname === '') {
+                        $('[id$=Namediv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpName').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=Namediv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpName').addClass('hide');
+                    }
+
+                    var cname = $('[id$=lookupclientname]').val();
+                    if (cname === '') {
+                        $('[id$=ClientNamediv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpClient').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=ClientNamediv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpClient').addClass('hide');
+                    }
+
+                    var leadsrc = $('[id$=leadsource]').val();
+                    if (leadsrc === '') {
+                        $('[id$=leadsourcediv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpLS').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=leadsourcediv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpLS').addClass('hide');
+                    }
+
+                    var des = $('[id$=detdes]').val();
+                    if (des === '') {
+                        $('[id$=desdiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpDes').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=desdiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpDes').addClass('hide');
+                    }
+
+                    var stage = $('[id$=leadstage]').val();
+                    if (stage === '') {
+                        $('[id$=stagediv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpstage').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=stagediv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpstage').addClass('hide');
+                    }
+
+                    var start = $('[id$=startdate]').val();
+                    if (start === '') {
+                        $('[id$=startdiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpSD').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=startdiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpSD').addClass('hide');
+                    }
+
+                    var prob = $('[id$=prob]').val();
+                    if (prob === '') {
+                        $('[id$=probdiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpprob').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=probdiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpprob').addClass('hide');
+                    }
+
+                    var end = $('[id$=enddate]').val();
+                    if (end === '') {
+                        $('[id$=enddatediv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpend').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=enddatediv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpend').addClass('hide');
+                    }
+
+                    var currency = $('[id$=currency]').val();
+                    if (currency === '') {
+                        $('[id$=currencydiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpcur').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=currencydiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpcur').addClass('hide');
+                    }
+
+                    var inclInBdg = $('[id$=inclInBdg]').val();
+                    if (inclInBdg === '') {
+                        $('[id$=inclInBdgDiv]').addClass('is-required slds-has-error');
+                        $('#SubjectElementHelpcur').removeClass('hide');
+                        error = true;
+                    } else {
+                        $('[id$=inclInBdgDiv]').removeClass('is-required slds-has-error');
+                        $('#SubjectElementHelpcur').addClass('hide');
+                    }
+
+                    if (error) {
+                        $('#errorAlert').removeClass('hide');
+                    } else {
+                        $('#errorAlert').addClass('hide');
+                        loading();
+                        saveaf();
+                    }
+
+
+                    return false;
+                }
+
+
+                $('document').ready(function() {
+
+                    $('[id$=startdate]').datetimepicker({
+                        timepicker: false,
+                        format: 'd/m/Y',
+                        use24hours: true,
+                        lang: 'en'
+                    });
+
+                    $('[id$=enddate]').datetimepicker({
+                        timepicker: false,
+                        format: 'd/m/Y',
+                        use24hours: true,
+                        lang: 'en'
+                    });                    
+                    if("{!$User.UIThemeDisplayed }" == "Theme4t"){                       
+                        $('#modalContainer').addClass('stretch');
+                    }
+                });
+            </script>
+            <style>
+                .datepicker-dropdown {
+                    position: absolute;
+                    top: 4.25em;
+                    background-color: white;
+                    border: 1px solid #d8dde6;
+                    z-index: 10000;
+                 }
+                 
+                 .hide{
+                    display: none!important;
+                 }
+                 
+                 .slds .slds-text-heading--medium {
+                    font-weight: 300;
+                    color: rgb(22, 50, 92);
+                 }
+                 
+                 .slds .slds-checkbox .slds-checkbox--faux{
+                    margin-left: 7px;
+                    margin-top: 6px;
+                    width: 1.25rem;
+                    height: 1.25rem;
+                 }
+                 .slds .slds-theme--shade{
+                     background-color: #f8f8f8;
+                 }
+                 .slds .slds-section-title--divider{
+                     color: #f4f6f9;
+                     background: #8199af;
+                 }
+                 
+                 .slds h3 {
+                    background-color: inherit;
+                    color: rgb(22, 50, 92);
+                    font-weight: 400;
+                    font-size: 1rem;
+                    line-height: 1;
+                    margin: 0;
+                    text-transform: none;
+                    padding: 2rem 0rem 1rem;
+                 }
+                 
+                 .slds .slds-form-element__label{
+                     color: rgb(84, 105, 141)
+                 }
+                 
+                 .slds .slds-spinner_container {
+                    position: fixed;
+                    background-color: inherit;
+                }
+                
+                .slds .slds-backdrop {
+                    background: rgba(126, 140, 153, 0.67);
+                }
+                
+                .slds .slds-modal--prompt .slds-modal__footer{
+                    text-align: right;
+                }
+
+                .slds .stretch {
+                    max-width:none;
+                    max-height:none;
+                    width: 100%;
+                    height: 100%;
+                    margin: 0 0 0 0;
+                    padding: 0 0 0 0;
+
+                }
+             </style>
+        </head>
+        
+         <!-- MASTHEAD -->
+        <p class="slds-text-heading--label slds-m-bottom--small">&nbsp;</p>
+        <!-- / MASTHEAD --> 
+        <body>      
+        <apex:form >
+            
+            <apex:actionFunction name="saveaf" action="{!saveoppty}" oncomplete="bindPrompts();navigate('{!navigateurl}','{!errorMsgcrinsert}');" rerender="idpgmsg,errorMsginsertpanel,idOpptyDetail,crinserterrpanel"/>
+            <apex:actionFunction name="cancelaf" action="{!canceloppty}" oncomplete="loading();navigate('{!navigateurl}');"/>
+            <div class="slds" style="max-width: 1540px;">   
+            <!-- PAGE HEADER -->
+            <div class="myApp">                
+                <div id="spinnerContainer" class="slds-spinner_container hide" style="z-index: 9002">
+                    <div>
+                        <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slds-notify_container">
+                    <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture hide" role="alert">
+                        <span class="slds-assistive-text">Info</span>
+                        <h2>{!$Label.New_Opportunity_LDS_Req_fields}</h2>
+                    </div>
+                </div>
+                
+                <apex:outputPanel id="crinserterrpanel">
+                    <div class="slds-notify_container">
+                      <div id="contactrolealertdiv" class="slds-notify slds-notify--toast slds-theme--warning hide" role="alert">
+                        <span class="slds-assistive-text">Warning</span>
+                        <div class="slds-notify__content">
+                          <h2 class="slds-text-heading--small">{!$Label.Contact_Role_Error}<p class="slds-text-align--center slds-text-color--error"><b>{!errorMsgcrinsert}</b></p></h2>
+                        </div>
+                      </div>
+                    </div>
+                </apex:outputPanel>
+                
+                <apex:outputPanel id="errorMsginsertpanel">
+                    <apex:outputPanel layout="block" rendered="{!IF(errorMsginsert == '', false, true)}">
+                        <div class="slds-notify_container">
+                            <div id="errorAlert" class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture errorAlertShown" role="alert">
+                                <span class="slds-assistive-text">Info</span>
+                                <h2><apex:outputText escape="false" value="{!errorMsginsert}"/></h2>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:outputPanel>   
+                
+                <div>
+                    <div aria-hidden="true" role="dialog" class="slds-modal slds-modal--prompt slds-fade-in-open">
+                        <div id="modalContainer" class="slds-modal__container slds-modal--prompt" style="overflow-y: hidden;overflow-x: hidden;">
+                            <div class="slds-modal__header" style="border-bottom: 2px solid #d8dde6;">
+                                <!--<button class="slds-button slds-button--icon-inverse slds-modal__close">
+                                    <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                        <use xlink:href="/assets/icons/action-sprite/svg/symbols.svg#close"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>-->
+                                <h2 class="slds-text-heading--medium">New Opportunity</h2>
+                            </div>
+                            <div class="slds-modal__content slds-p-around--medium">
+                                <div>
+                                    <apex:pagemessages id="idpgmsg"/>
+                                    <!--<fieldset class="slds-box slds-container--extra_large slds-theme--default">-->
+                                        <div styleClass="slds-form--stacked slds-grid slds-wrap slds-grid--pull-padded-large slds-m-top--large">
+                                            <fieldset class="slds-col--padded ">
+                                                <h3>Opportunity Information</h3>
+                                                <apex:outputPanel id="idOpptyDetail" layout="block">
+                                                    <br/>
+                                                    <fieldset class="slds-form--compound">
+                                                        <div class="form-element__group">
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                <div id="Namediv" class="slds-form-element slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="oppName"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.Name.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:outputPanel >
+                                                                            <apex:inputtext id="oppName" styleclass="slds-input" value="{!opprec.Name}"/>
+                                                                        </apex:outputPanel>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpName" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                
+                                                                <div class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                <div id="ClientNamediv" class="slds-form-element common-root slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="lookupclientname"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.AccountID.Label}</label>
+                                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                                                                        <apex:inputField id="lookupclientname" styleclass="slds-input lookup-prompt-client" value="{!opprec.AccountID}" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant="" />
+                                                                        <script>
+                                                                            var lkInput = document.getElementById("{!$Component.lookupclientname}");
+                                                                            lkInput.style.visibility = "";
+                                                                            var lkSpan = lkInput.parentElement;
+                                                                            var lkLink = lkSpan.querySelector("a");
+                                                                            lkLink.style.visibility = "";
+                                                                            lkLink.className = "";
+                                                                            lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                                                                        </script>
+                                                                    </div>
+                                                                    <div class="slds-lookup__menu results" role="listbox" style="display: none; width: auto;">
+                                                                        <div class="slds-lookup__item">
+                                                                            <button class="slds-button">
+                                                                                &quot;<span class="results-keyword"></span>&quot; in Clients
+                                                                            </button>
+                                                                        </div>
+                                                                        <ul class="slds-lookup__list results-ul" role="presentation">
+                                                                        </ul>                           
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpClient" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                
+                                                                <div class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                    <label class="slds-form-element__label">{!$ObjectType.Opportunity.fields.Price_Sensitive__c.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:outputPanel >
+                                                                            <label class="slds-checkbox">
+                                                                                <apex:inputcheckbox value="{!opprec.Price_Sensitive__c}"/>
+                                                                                <span class="slds-checkbox--faux"></span>
+                                                                            </label>
+                                                                        </apex:outputPanel>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                <div id="leadsourcediv" class="slds-form-element slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="leadsource"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.Lead_Source__c.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputField id="leadsource" value="{!opprec.Lead_Source__c}" styleClass="slds-select"/>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpLS" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                
+                                                                <div id="inclInBdgDiv" class="slds-form-element slds-size--1-of-2">
+                                                                    <div class="{!IF(!$ObjectType.Opportunity.fields.Is_Opportunity_part_of_Client_Budget__c.accessible,'hide','') }">
+                                                                        <label class="slds-form-element__label" for="inclInBdg"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.Is_Opportunity_part_of_Client_Budget__c.Label}</label>
+                                                                        <div class="slds-form-element__control">
+                                                                            <apex:inputField id="inclInBdg" value="{!opprec.Is_Opportunity_part_of_Client_Budget__c}" styleClass="slds-select"/>
+                                                                        </div>
+                                                                        <div id="SubjectElementHelpcur" class="slds-form-element__help hide">This field is required</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-form-element__row">
+                                                                <div id="desdiv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                    <label class="slds-form-element__label" for="detdes"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.Description.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:outputPanel >
+                                                                            <apex:inputTextarea id="detdes" value="{!opprec.Description}" styleClass="slds-input"/>
+                                                                        </apex:outputPanel>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpDes" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </apex:outputPanel>
+                                            <br/>
+                                                
+                                                <h3>Stage Information</h3>
+                                                <apex:outputPanel id="idStageDetail" layout="block">
+                                                    <br/>
+                                                    <fieldset class="slds-form--compound">
+                                                        <div class="form-element__group">
+                                                            
+                                                            <div id="stagediv" class="slds-form-element__row">
+                                                                <div class="slds-form-element slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="leadstage"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.StageName.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputField id="leadstage" value="{!opprec.StageName}" styleClass="slds-select"/>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpstage" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                
+                                                                <div id="startdiv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                    <label class="slds-form-element__label" for="startdate"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.Start_Date__c.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputText id="startdate" value="{!StartDateString}" styleClass="slds-input"/>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpSD" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div id="probdiv" class="slds-form-element__row">
+                                                                <div class="slds-form-element slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="prob"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.Probability.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputField id="prob" value="{!opprec.Probability}" styleClass="slds-input"/>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpprob" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                                
+                                                                <div id="enddatediv" class="slds-form-element slds-size--1-of-2 common-root" style="margin-top: 0px;">
+                                                                    <label class="slds-form-element__label" for="enddate"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.CloseDate.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputText id="enddate" value="{!Enddatestring}" styleClass="slds-input"/>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpend" class="slds-form-element__help hide">This field is required</div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </fieldset>
+                                                </apex:outputPanel>
+                                                
+                                                <h3>Revenue Information</h3>
+                                                <apex:outputPanel id="idRevInfo" layout="block">
+                                                    <br/>
+                                                    <fieldset class="slds-form--compound">
+                                                        <div class="form-element__group">
+                                                            
+                                                            <div  class="slds-form-element__row">
+                                                                <div id="currencydiv" class="slds-form-element slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="currency"><abbr class="slds-required" title="required">*</abbr>{!$ObjectType.Opportunity.fields.CurrencyIsoCode.Label}</label>
+                                                                    <div class="slds-form-element__control">
+                                                                        <apex:inputField id="currency" value="{!opprec.CurrencyIsoCode}" styleClass="slds-select"/>
+                                                                    </div>
+                                                                    <div id="SubjectElementHelpcur" class="slds-form-element__help hide">This field is required</div>
+                                                                </div> 
+                                                                <div class="slds-form-element slds-size--1-of-2">
+                                                                    <div class="hide">
+                                                                    
+                                                                    </div>
+                                                                </div>
+                                                            </div>                           
+                                                        </div>
+                                                    </fieldset>
+                                                </apex:outputPanel>
+                                                
+                                                <h3>Additional Information</h3>
+                                                <apex:outputPanel id="idAddInfo" layout="block">
+                                                    <br/>
+                                                    <fieldset class="slds-form--compound">
+                                                        <div class="form-element__group">
+                                                            
+                                                            <div class="slds-form-element__row">
+                                                                <div class="slds-form-element common-root slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="paropp">{!$ObjectType.Opportunity.fields.Parent_Opportunity__c.Label}</label>
+                                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant="" >
+                                                                        <apex:inputField id="paropp" styleclass="slds-input lookup-prompt-oppty" value="{!opprec.Parent_Opportunity__c}"/>
+                                                                        <script>
+                                                                            var lkInput = document.getElementById("{!$Component.paropp}");
+                                                                            lkInput.style.visibility = "";
+                                                                            var lkSpan = lkInput.parentElement;
+                                                                            var lkLink = lkSpan.querySelector("a");
+                                                                            lkLink.style.visibility = "";
+                                                                            lkLink.className = "";
+                                                                            lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                                                                        </script>
+                                                                    </div>
+                                                                    <div class="slds-lookup__menu results" role="listbox" style="display: none; width: auto;">
+                                                                        <div class="slds-lookup__item">
+                                                                            <button class="slds-button">
+                                                                                &quot;<span class="results-keyword"></span>&quot; in Opportunity
+                                                                            </button>
+                                                                        </div>
+                                                                        <ul class="slds-lookup__list results-ul" role="presentation">
+                                                                        </ul>                           
+                                                                    </div>
+                                                                 </div>
+                                                                    
+                                                                
+                                                                <div class="slds-form-element common-root slds-size--1-of-2">
+                                                                    <label class="slds-form-element__label" for="paropp">Primary Campaign Source</label>
+                                                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant="" >
+                                                                        <apex:inputField id="oppcamp" styleclass="slds-input lookup-prompt-camp" value="{!opprec.CampaignId}"/>
+                                                                        <script>
+                                                                            var lkInput = document.getElementById("{!$Component.oppcamp}");
+                                                                            lkInput.style.visibility = "";
+                                                                            var lkSpan = lkInput.parentElement;
+                                                                            var lkLink = lkSpan.querySelector("a");
+                                                                            lkLink.style.visibility = "";
+                                                                            lkLink.className = "";
+                                                                            lkLink.innerHTML = "<svg aria-hidden=\"true\" class=\"slds-input__icon\"><use xlink:href=\"" + "{!URLFOR($Resource.slds_standalone, 'assets/icons/utility-sprite/svg/symbols.svg#search')}" + "\"></use></svg>";
+                                                                        </script>
+                                                                    </div>
+                                                                    <div class="slds-lookup__menu results" role="listbox" style="display: none; width: auto;">
+                                                                        <div class="slds-lookup__item">
+                                                                            <button class="slds-button">
+                                                                                &quot;<span class="results-keyword"></span>&quot; in Campaign
+                                                                            </button>
+                                                                        </div>
+                                                                        <ul class="slds-lookup__list results-ul" role="presentation">
+                                                                        </ul>                           
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>                                      
+                                                        </div>
+                                                    </fieldset>
+                                                </apex:outputPanel>
+                                            </fieldset>
+                                        </div>
+                                   <!-- </fieldset>-->
+                                </div>
+                            </div>
+                            <div class="slds-modal__footer">
+                                
+                                <apex:commandButton styleClass="slds-button slds-button--neutral" value="Cancel" action="{!canceloppty}" immediate="true"/>
+                                <button class="slds-button slds-button--brand" onclick="checkreqfields();return false;">Save
+                                    <span class="slds-assistive-text">Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-backdrop slds-backdrop--open"></div>
+                </div>
+                
+            
+            </div>
+            </div>
+            
+            <script>
+                function navigate(URLtogo,controleerr) {
+                    if(controleerr != null && controleerr != '' && controleerr != 'undefined'){
+                        $('#contactrolealertdiv').removeClass('hide');
+                        setTimeout(function () {
+                            if(URLtogo != null && URLtogo != '' && URLtogo != 'undefined'){
+                                if ( (typeof sforce != 'undefined') && (sforce!=null) ) {
+                                    sforce.one.navigateToURL(URLtogo);
+                                } else {
+                                    window.open(URLtogo);
+                                }
+                            }
+                            loading();
+                        }, 10000);
+                    }else{
+                        if(URLtogo != null && URLtogo != '' && URLtogo != 'undefined'){
+                            if ( (typeof sforce != 'undefined') && (sforce!=null) ) {
+                                sforce.one.navigateToURL(URLtogo);
+                            } else {
+                                window.open(URLtogo);
+                            }
+                        }
+                        loading();
+                    }
+                    
+                    
+                }
+                
+                function promptResults(objectName, inputLookupObj, resultsObj, keywordObj, resultsUlObj) {
+                    if (inputLookupObj.val().length < 3) {
+                        resultsObj.css("display", "none");
+                    }else{
+                        resultsObj.css("display", "block");
+                    }
+                    inputLookupObj.attr('aria-expanded', 'true');
+                    keywordObj.html(inputLookupObj.val());
+                    
+                    var elRemoteMethod;
+                    if (objectName == 'Account') {
+                        elRemoteMethod = '{!$RemoteAction.NewOppLookupsSupport.queryAccounts}';
+                    } else if (objectName == 'Opportunity') {
+                        elRemoteMethod = '{!$RemoteAction.NewOppLookupsSupport.queryOpps}';
+                    }else if (objectName == 'Campaign') {
+                        elRemoteMethod = '{!$RemoteAction.NewOppLookupsSupport.querycamp}';
+                    }
+                    
+                    // make it run only for longer inputs
+                    if (inputLookupObj.val().length < 3) {
+                        return false;
+                    }
+                    
+                    Visualforce.remoting.Manager.invokeAction(
+                        elRemoteMethod,
+                        inputLookupObj.val(),
+                        function(result, event) {
+                            if (event.status) {
+                                resultsUlObj.empty();
+                                
+                                if (result) {
+                                    $(result).each(function() {
+                                        console.log(this);
+                                        resultsUlObj.append('<li class="slds-lookup__item">' + 
+                                                            '<a id="' + this.id + '" href="javascript:void(0)" role="option">' + 
+                                                            this.Name +'</a>' + 
+                                                            '</li>');
+                                    });
+                                    
+                                    $('ul.slds-lookup__list a').click(function(e) {
+                                        inputLookupObj.val($(this)[0].innerText);
+                                        inputLookupObj.attr('aria-activedescendant', $(this)[0].id);
+                                        inputLookupObj.attr('aria-expanded', 'false');
+                                        resultsObj.css("display", "none");
+                                    });
+                                }
+                                
+                            } else if (event.type === 'exception') {
+                                inputLookupObj = 'ERROR: ' + event.message;
+                            } else {
+                                inputLookupObj = 'ERROR: ' + event.message;
+                            }
+                        },
+                        {escape: true}
+                    );
+                }
+                
+                function bindPrompts() {
+                    $('input.lookup-prompt-client').each(function() {
+                        var inputLookupObj = $(this);
+                        var commonRootObj = inputLookupObj.parents('.common-root');
+                        var resultsObj = commonRootObj.find('.results');
+                        var keywordObj = resultsObj.find('.results-keyword');
+                        var resultsUlObj = resultsObj.find('.results-ul');
+                        
+                        inputLookupObj.keyup(function(e) {
+                            promptResults('Account', inputLookupObj, resultsObj, keywordObj, resultsUlObj);
+                        });
+                    });
+                    $('input.lookup-prompt-oppty').each(function() {
+                        var inputLookupObj = $(this);
+                        var commonRootObj = inputLookupObj.parents('.common-root');
+                        var resultsObj = commonRootObj.find('.results');
+                        var keywordObj = resultsObj.find('.results-keyword');
+                        var resultsUlObj = resultsObj.find('.results-ul');
+                        
+                        inputLookupObj.keyup(function(e) {
+                            promptResults('Opportunity', inputLookupObj, resultsObj, keywordObj, resultsUlObj);
+                        });
+                    });
+                    $('input.lookup-prompt-camp').each(function() {
+                        var inputLookupObj = $(this);
+                        var commonRootObj = inputLookupObj.parents('.common-root');
+                        var resultsObj = commonRootObj.find('.results');
+                        var keywordObj = resultsObj.find('.results-keyword');
+                        var resultsUlObj = resultsObj.find('.results-ul');
+                        
+                        inputLookupObj.keyup(function(e) {
+                            promptResults('Campaign', inputLookupObj, resultsObj, keywordObj, resultsUlObj);
+                        });
+                    });
+                    
+                    return false;
+                }
+                
+                $('document').ready(function() {
+                    bindPrompts();
+                });
+            </script>
+            </apex:form>
+        </body>
+    </html>
+</apex:page>

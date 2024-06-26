@@ -1,0 +1,2 @@
+<apex:page controller="AccountCTIController" action="{!redirectToAccount}">
+</apex:page>

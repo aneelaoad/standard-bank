@@ -1,0 +1,345 @@
+<!-- Case#141: Rudolf Niehaus -->
+<!-- This page allows uses to mass edit draw down records -->
+<apex:page standardController="Draw_Down_Profile__c" recordSetVar="selectedRecords" extensions="DrawDownProfileMassActions_Vf_Ext" standardStyleSheets="true" docType="html-5.0">
+<apex:includeScript value="{!URLFOR($Resource.jquery180, 'jquery/jquery-1.8.0.min.js')}"/>
+    <script>
+        var recordId = "{!$CurrentPage.parameters.Id}";
+        if ({!(ISNULL(selected))}){
+            if ({!isLightning}) {
+                alert('You have been redirected. Please select Draw Down Profiles to be edited.');
+                if (sforce && sforce.one) {
+                    sforce.one.navigateToRelatedList('Draw_Down_Profiles__r', recordId);
+                }
+                else {
+                    window.parent.location = '/one/one.app#/sObject/' + recordId + '/rlName/Draw_Down_Profiles__r/view';
+                }
+            }
+            else {
+                alert('Please select at least one Draw Down Profile from the Product page for Mass Edit.');
+                window.parent.location = '/' + recordId;
+            }
+        }
+
+        $(document).ready(function() {
+            attachDrawDateValidation();
+        });
+
+        function attachDrawDateValidation() {
+            $('[id$=ddate]').change(function() {
+
+                var $current = $(this);
+
+                $('[id$=ddate]').each(function() {
+                    if ($(this).val() == $current.val() && $(this).attr('id') != $current.attr('id')){
+                        alert('You are trying to enter a duplicate Draw Date on this page. Please select a different date');
+                        $current.val($current[0].defaultValue);
+                        return false;
+                    }
+                });
+            });
+        }
+    </script>
+    <apex:form >
+        <apex:actionFunction name="doRemoveRow" action="{!removeRow}" reRender="table,ddTable" onComplete="attachDrawDateValidation();">
+            <apex:param name="rowToRemove" value=""/>
+        </apex:actionFunction>
+    </apex:form>
+    <apex:outputPanel rendered="{! !(isCibUser && isLightning)}">
+    <style>
+.vfHelpText a {position:relative;}
+.vfHelpText a span {display: none;}
+.vfHelpText a:hover span {display: block;
+                          position:absolute;
+                          top:1.25em;
+                          padding:2px 5px;
+                          left:-15em; width:15em;
+                          z-index:100;
+                          border:1px solid orange;
+                          background-color:#FEFDB9;
+                          color:black;
+                         }
+ </style>
+    <apex:sectionHeader title="Draw Down Profile"
+            subtitle="Edit Multiple Draw Down Profiles for Opportunity Product"
+            description="Edit Multiple Draw Down Profiles for an Opportunity Product by changing existing values. Then click the 'Save' button." />
+    <apex:form >
+        <apex:pageMessages escape="False" id="pMsg"/>
+        <apex:pageBlock rendered="{!renderBlock}">
+            <apex:pageBlockTable value="{!relatedOpportunity}" var="opp">
+                <apex:column headervalue="Opportunity Estimated Close Date">
+                    <apex:inputField value="{!opp.CloseDate}" required="true"/><apex:commandButton value="Update" action="{!updateCloseDate}" />
+                    <a style="color: #1468B6;text-decoration: none" href="/{!opp.Id}">&laquo; Back to Opportunity</a>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:pageBlock >
+        <table>
+        <tr>
+        <td>Product Information:</td>
+        </tr>
+        <tr>
+        <td>
+        <a style="color: #1468B6;text-decoration: none" href="/{!prodID}">{!prodCode}&nbsp;-&nbsp;{!prodProfile}</a>
+        </td>
+        </tr>
+        </table>
+        </apex:pageBlock>
+        <apex:pageBlock >
+            <table>
+            <tr>
+            <td style="font-weight:bold;font-family: sans-serif;font-size: 11.5px">Residual Undrawn:</td>
+            <td>
+            <span class="vfHelpText">
+                <apex:outputLink value="javascript:return false;">
+                <img src="/s.gif" alt="" class="helpOrb" />
+                <span>{!$ObjectType.Draw_Down_Profile__c.fields.Residual_Undrawn__c.inlineHelpText}</span>
+                </apex:outputLink>
+            </span>
+            </td>
+            <td style="font-family: sans-serif;font-size: 11.5px;">{!currencyIsoCode}&nbsp;{!residualUndrawn}</td>
+            </tr>
+            </table>
+        </apex:pageBlock>
+        <apex:outputPanel rendered="{!isCibUser}">
+            <c:DrawDownProfileDatePopulator drawDownProfiles="{!allRecords}" reRender="ddTable,pMsg" onComplete="attachDrawDateValidation();" productId="{!prodID}" productCurrencyCode="{!currencyIsoCode}"/>
+        </apex:outputPanel>
+        <apex:pageBlock >
+            <apex:variable var="count" value="{!-1-allRecords.size}"/>
+            <apex:pageBlockTable value="{!allRecords}" var="dw" id="ddTable">
+                <apex:column headervalue="{!$ObjectType.Draw_Down_Profile__c.fields.Draw_Down_Number__c.Label}">
+                    <apex:outputField value="{!dw.Draw_Down_Number__c}"/>
+                </apex:column>
+                <apex:column headervalue="Funding Required">
+                    <apex:inputField value="{!dw.Funding_Required__c}" required="{! !ISBLANK(dw.Id)}"/>
+                </apex:column>
+                <apex:column headervalue="Draw Date">
+                    <apex:inputField id="ddate" value="{!dw.Draw_Date__c}" required="true"/>
+                </apex:column>
+                <apex:column headervalue="Draw Down Maturity Date">
+                    <apex:inputField value="{!dw.Draw_Down_Maturity_Date__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:variable value="{!count+1}" var="count"/>
+                    <apex:outputPanel rendered="{!ISBLANK(dw.Id)}" style="cursor: pointer;" onClick="doRemoveRow({!count}); return false;">
+                        <img src="/img/s.gif" alt="Recycle Bin" class="recycleIcon" title="Recycle Bin"/>
+                    </apex:outputPanel>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons lang="en" location="both">
+                <apex:commandButton value="Save" action="{!saveAll}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+
+    </apex:outputPanel>
+
+    <apex:outputPanel rendered="{! isCibUser && isLightning}">
+        <apex:slds />
+
+        <style>
+
+            .dateOnlyInput input {
+                width: 22em !important;
+            }
+
+            .blueFill {
+                fill: rgb(94,113,147) !important;
+            }
+
+            .greyFill {
+                fill: rgb(176,173,171) !important;
+            }
+
+            .slds-nubbin_bottom::before {
+                left: 57px !important;
+            }
+
+            .slds-nubbin_bottom::after {
+                left: 57px !important;
+            }
+
+            .bPageBlock .requiredInput .requiredBlock {
+                left: 0px;
+            }
+
+            input.btn {
+                left: 15%;
+            }
+
+        </style>
+
+        <script>
+
+                function setFocusOnLoad() {}
+            $(document).ready(function() {
+                overridePageMessages();
+            });
+
+            function overridePageMessages(){
+                var textureEffect = '';
+                //Uncomment below line for texture effect on page messages
+                textureEffect = 'slds-theme_alert-texture';
+
+                $('.warningM3').addClass('slds-notify slds-notify_toast slds-theme_warning customMessage '+textureEffect);
+                $('.confirmM3').addClass('slds-notify slds-notify_alert slds-theme_success  customMessage '+textureEffect);
+                $('.errorM3').addClass('slds-notify slds-notify_alert slds-theme_error customMessage '+textureEffect);
+                $('.infoM3').addClass('slds-notify slds-notify_toast customMessage '+textureEffect);
+
+                $('.errorM3').removeClass('errorM3');
+                $('.confirmM3').removeClass('confirmM3');
+                $('.infoM3').removeClass('infoM3');
+                $('.warningM3').removeClass('warningM3');
+            }
+            function onHelptextMouseOver(helptextPanel) {
+                var helptextSvg = helptextPanel.querySelector("#helptextSvg");
+                helptextSvg.classList.replace("greyFill", "blueFill");
+
+                var popover = helptextPanel.querySelector("#popover");
+                popover.classList.replace('slds-fall-into-ground', 'slds-rise-from-ground');
+
+            }
+
+            function onHelptextMouseOut(helptextPanel) {
+                var popover = helptextPanel.querySelector("#popover");
+                popover.classList.replace('slds-rise-from-ground', 'slds-fall-into-ground');
+
+                var helptextSvg = helptextPanel.querySelector('#helptextSvg');
+                helptextSvg.classList.replace('blueFill', 'greyFill');
+
+            }
+        </script>
+
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <p class="slds-text-heading_label">Draw Down Profile</p>
+                    <div class="slds-grid">
+                        <div class="slds-grid slds-type-focus slds-no-space">
+                            <h1 class="slds-text-heading_medium slds-truncate">Edit Multiple Draw Down Profiles for Opportunity Product</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-grid">
+                <div class="slds-col slds-align-bottom">
+                    <p class="slds-text-body_small">Edit Multiple Draw Down Profiles for an Opportunity Product by changing existing values. Then click the 'Save' button.</p>
+                </div>
+            </div>
+        </div>
+
+        <apex:form >
+            <apex:pageMessages escape="False" id="pMsg"/>
+            <apex:pageBlock rendered="{!renderBlock}" mode="maindetail">
+                <apex:pageBlockTable value="{!relatedOpportunity}" var="opp">
+                    <apex:column headervalue="Opportunity Estimated Close Date">
+                        <apex:inputField value="{!opp.CloseDate}" required="true" styleClass="slds-input"/> <apex:commandButton id="btn" styleClass="slds-button slds-button_neutral" value="Update" action="{!updateCloseDate}" />
+                        <a class="slds-button slds-button_neutral" style="color: #1468B6;text-decoration: none" href="/{!opp.Id}">&laquo; Back to Opportunity</a>
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+            <div class="slds-section slds-is-open slds-p-top_small">
+                <h1 class="slds-section__title slds-theme_shade">
+                    <span class="slds-truncate slds-p-horizontal_small" title="Product Information">Product Information</span>
+                </h1>
+                <div aria-hidden="false" class="slds-section__content">
+                    <a class="slds-m-left_medium" href="/{!prodID}">{!prodCode}&nbsp;-&nbsp;{!prodProfile}</a>
+                </div>
+            </div>
+            <div class="slds-section slds-is-open">
+                <h2 class="slds-section__title slds-theme_shade" style="display: block;">
+                    <span class="slds-truncate slds-p-horizontal_small" title="Residual Undrawn">
+                        Residual Undrawn
+                        <span class="slds-button slds-button_icon-bare slds-m-right_xx-small slds-text-body_regular"
+                                style="left: 50%;">
+                            <apex:outputPanel onMouseOver="onHelptextMouseOver(this);" onMouseOut="onHelptextMouseOut(this);">
+                                <svg aria-hidden="true" class="slds-button__icon greyFill" id="helptextSvg">
+                                    <use href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                                </svg>
+                                <div id="popover" class="slds-popover slds-popover_tooltip slds-nubbin_bottom slds-fall-into-ground" role="tooltip" style="position: absolute; top: -90px; left: -50px;">
+                                    <div class="slds-popover__body">{!$ObjectType.Draw_Down_Profile__c.fields.Residual_Undrawn__c.inlineHelpText}</div>
+                                </div>
+                            </apex:outputPanel>
+                            {!currencyIsoCode + ' ' + residualUndrawn}
+                        </span>
+                    </span>
+                </h2>
+                <div aria-hidden="false" class="slds-section__content">
+                </div>
+            </div>
+            <c:DrawDownProfileDatePopulator drawDownProfiles="{!allRecords}" reRender="table,pMsg" onComplete="attachDrawDateValidation();" productId="{!prodID}" productCurrencyCode="{!currencyIsoCode}"/>
+            <apex:pageBlock id="table" mode="maindetail">
+                <div class="slds-section slds-is-open">
+                    <h2 class="slds-section__title slds-theme_shade">
+                    </h2>
+                    <div aria-hidden="false" class="slds-section__content">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                            <thead>
+                                <tr class="slds-text-title_caps">
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="{!$ObjectType.Draw_Down_Profile__c.fields.Draw_Down_Number__c.Label}">{!$ObjectType.Draw_Down_Profile__c.fields.Draw_Down_Number__c.Label}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Funding Required">Funding Required</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Draw Date">Draw Date</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div class="slds-truncate" title="Draw Down Maturity Date">Draw Down Maturity Date</div>
+                                    </th>
+                                    <th scope="col">
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <apex:variable var="count" value="{!-1}"/>
+                                <apex:repeat value="{!allRecords}" var="dw">
+                                    <apex:variable value="{!count+1}" var="count"/>
+                                    <tr>
+                                        <td data-label="{!$ObjectType.Draw_Down_Profile__c.fields.Draw_Down_Number__c.Label}">
+                                            <div class="slds-truncate" title="{!$ObjectType.Draw_Down_Profile__c.fields.Draw_Down_Number__c.Label}">
+                                                <apex:outputField id="ddNumber" value="{!dw.Draw_Down_Number__c}" />
+                                            </div>
+                                        </td>
+                                        <td data-label="Funding Required">
+                                            <apex:inputfield id="fundingReqId" value="{!dw.Funding_Required__c}" required="{! !ISBLANK(dw.Id)}" styleClass="slds-input" style="width: 80%;margin-right: 5rem;"/>
+                                        </td>
+                                        <td data-label="Draw Date">
+                                            <div class="slds-truncate" title="Draw Date">
+                                                <apex:inputfield id="ddate" value="{!dw.Draw_Date__c}" required="true" styleClass="slds-input"/>
+                                            </div>
+                                        </td>
+                                        <td data-label="Draw Down Maturity Date">
+                                            <div class="slds-truncate" title="Draw Down Maturity Date">
+                                                <apex:inputfield value="{!dw.Draw_Down_Maturity_Date__c}" styleClass="slds-input"/>
+                                            </div>
+                                        </td>
+                                        <td data-label="">
+                                            <apex:outputPanel rendered="{!ISBLANK(dw.Id)}">
+                                                <span class="slds-icon_container" onclick="doRemoveRow('{!count}'); return false;" style="color: rgb(194, 57, 52); cursor: pointer;">
+                                                    <svg aria-hidden="true" class="slds-button__icon">
+                                                        <use  xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/action-sprite/svg/symbols.svg#delete')}"></use>
+                                                    </svg>
+                                                    <span class="slds-assistive-text">Icon Assistive Text</span>
+                                                </span>
+                                            </apex:outputPanel>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <apex:pageBlockButtons lang="en" location="both">
+                    <apex:commandButton styleClass="slds-button slds-button_neutral" value="Cancel" action="{!cancel}" />
+                    <apex:commandButton styleClass="slds-button slds-button_neutral" value="Add Draw Down Profile" action="{!addRow}" reRender="table" onComplete="attachDrawDateValidation();"/>
+                    <apex:commandButton styleClass="slds-button slds-button_brand" value="Save" action="{!saveAll}" />
+                </apex:pageBlockButtons>
+            </apex:pageBlock>
+
+        </apex:form>
+
+    </apex:outputPanel>
+</apex:page>

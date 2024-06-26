@@ -1,0 +1,34 @@
+<apex:page standardController="Cashflow__c"
+            recordSetVar="cashflows"
+            extensions="StdBank_MultiCashflowCreation_Vf_Ext">
+    <apex:sectionHeader title="Cashflow"
+            subtitle="Create Multiple Cashflows for Opportunity Product"
+            description="Create multiple cashflows for an Opportunity Product by entering the Inflow/Outflow and the Date. Then click 'Save' for just these records or 'Save & More' if you wish to enter further records." />
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!cashflows}" var="cf">
+                <apex:column headervalue="Client">
+                    <apex:outputfield value="{!cf.Client__c}" />
+                </apex:column>
+                <apex:column headervalue="Opportunity">
+                    <apex:outputfield value="{!cf.Opportunity__c}" />
+                </apex:column>
+                <apex:column headervalue="Product">
+                    <apex:outputfield value="{!cf.Product__c}" />
+                </apex:column>
+                <apex:column headervalue="Cashflow">
+                    <apex:inputfield value="{!cf.Cashflow__c}" />
+                </apex:column>
+                <apex:column headervalue="Date">
+                    <apex:inputfield value="{!cf.Date__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons lang="en" location="bottom">
+                <apex:commandButton value="Save" action="{!saveAll}" />
+                <apex:commandButton value="Save & More" action="{!saveAndMore}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

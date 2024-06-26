@@ -1,0 +1,12 @@
+<apex:page doctype="html-5.0" manifest="/apex/OMDashboardCacheManifest" showheader="false" sidebar="false" standardstylesheets="false">
+    <script type="text/javascript">
+            var appCache = window.applicationCache;
+            appCache.addEventListener('updateready', function () {
+              if (appCache.status == appCache.UPDATEREADY) {
+                  appCache.swapCache();
+                  
+                  window.parent.updateCache();
+              }
+          }, false);
+    </script>
+</apex:page>

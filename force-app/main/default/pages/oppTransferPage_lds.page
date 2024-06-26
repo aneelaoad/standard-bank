@@ -1,0 +1,390 @@
+<apex:page StandardController="Opportunity" extensions="oppTeamCreationController,NewOppLookupsSupport" sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+  <html>
+  <head>
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"></apex:stylesheet>
+    <!--<apex:stylesheet value="{!URLFOR($Resource.LightningTransformer, 'css/lt.css')}"></apex:stylesheet>
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/jquery-2.2.4.min.js')}"></apex:includeScript>
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/lt.js')}"></apex:includeScript>-->
+    <apex:includeScript value="/support/console/32.0/integration.js"></apex:includeScript>
+    <apex:includeScript value="{!$Resource.Jquery1122}" />
+    <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system.min.css')}"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"></apex:stylesheet>
+    <style>
+        .slds-p-around--small {
+            padding: .75rem .75rem .75rem 0rem;
+        }
+        .hide{
+          display: none!important;
+        }
+        .errorMsg{
+            color: rgb(194, 57, 52);
+        }
+        .error{
+            background-color: white;
+            border-color: #c23934;
+            box-shadow: #c23934 0 0 0 1px inset;
+            background-clip: padding-box;
+            box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2;
+        }
+        .message.errorM3{
+            background-color: #c23934;
+            border-color: #c23934;
+            box-shadow: #c23934 0 0 0 1px inset;
+            background-clip: padding-box;
+            box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2;
+            color:white;
+        }
+        h4{
+            color: white;
+        }
+        .slds-required {
+    
+            font-size: 1rem;
+        }
+        .highlighted {
+          background-color: rgba(54, 160, 254, 0.31);
+        }
+        .aroundTable {
+          display: block;
+          width: 100%;
+          max-height:1000px;
+          overflow-y: hidden;
+        }
+        .slds-spinner_container {
+            position: fixed;
+            background-color: rgba(255, 255, 255, 0);
+            
+        }
+        .slds .slds-lookup__menu {
+            position: inherit;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="spinnerContainer" class="slds-spinner_container hide" style="z-index: 9002">
+        <div>
+            <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+      </div>
+    <apex:form >
+      <script type="text/javascript">
+        function ToggleInput(theId) {
+          if (!theId.checked) {
+            alert('Please note that this person will not be part of Opportunity Team.');
+            var currTrObj = $(theId).closest('tr.dataRow');
+            currTrObj.removeClass('highlighted');
+          }else{
+                var currTrObj = $(theId).closest('tr.dataRow');
+                currTrObj.addClass('highlighted');
+            }
+        }
+      </script>
+      <div class="slds slds-scrollable--y" style="max-height: 900px;"> 
+      <div class="slds-page-header">
+        <div class="slds-grid">
+          <div class="slds-col ">
+            <p class="slds-text-heading--label">Ownership Edit</p>
+            <div class="slds-grid">
+              <div class="slds-grid slds-type-focus slds-no-space">
+                <h1 class="slds-text-heading--medium slds-truncate">{!oppName}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <apex:pageMessages id="pgmsg1" ></apex:pageMessages>
+      <div id="maindiv" class="slds-box slds-col--padded" style="overflow-y: hidden;">
+      <div class="slds-box slds-col--padded slds-theme--shade">
+        <div class="slds-text-body--regular">
+        {!$Label.Transfer_Opportunity_Ownership_1}
+        <ul class="slds-list--dotted">
+            <li>{!$Label.Transfer_Opportunity_Ownership_2} {!ownerName}.</li>
+            <li>{!$Label.Transfer_Opportunity_Ownership_3} {!ownerName}. </li>
+        </ul>
+        {!$Label.Transfer_Opportunity_Ownership_4}
+        <br/>
+        <div class="slds-grid slds-notify slds-notify--alert slds-theme--alert-texture slds-size--1-of-1" style="margin-top: 6px;"><span>{!$Label.Transfer_Opportunity_Ownership_5}</span> </div>
+        </div>
+      </div>
+      <br/>
+      <div class="slds-theme--default slds-m-bottom--medium">
+        <div title="Select New Owner" columns="2" class="slds-grid slds-wrap">
+          <div class="slds-grid slds-section-title--divider slds-theme--shade slds-size--1-of-1"><span>Select New Owner</span> </div>
+          
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+            <apex:outputPanel >
+              <div class="slds-form-element slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                <label class="slds-text-heading"><span>Transfer this opportunity</span> </label>
+                <div class="slds-form-element__control">
+                  <a href="/{!oppId}">{!oppName}</a>
+                </div>
+              </div>
+            </apex:outputPanel>
+            <apex:outputPanel id="ownerbox">
+              <div class="slds-form-element slds-p-around--medium slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2 common-root">
+               <div style="display : {!IF($ObjectType.opportunity.fields.ownerId.Accessible=true,'block','none')}">
+                <label class="slds-text-heading"><span>{!$ObjectType.opportunity.fields.ownerId.label}</span> </label>
+                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                  <apex:inputField value="{!opp.ownerId}" id="Owner__name" styleClass="slds-input lookup-prompt-user" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant=""></apex:inputField>
+                  <script>
+                        var lkInput = document.getElementById("{!$Component.Owner__name}");
+                        lkInput.style.visibility = "";
+                        var lkSpan = lkInput.parentElement;
+                        var lkLink = lkSpan.querySelector("a");
+                        lkLink.style.visibility = "";
+                        lkLink.className = "";
+                        lkLink.innerHTML = "<img class=\"slds-input__icon\" src=\""+"{!$Resource.SVGLookupImage}"+"\" width=\"23\" height=\"23\"/>";
+                    </script>
+                </div>
+                <div class="slds-lookup__menu results" role="listbox" style="display: none; width: auto;">
+                    <div class="slds-lookup__item">
+                        <button class="slds-button">
+                            &quot;<span class="results-keyword"></span>&quot; in Users
+                        </button>
+                    </div>
+                    <ul class="slds-lookup__list results-ul" role="presentation">
+                    </ul>                           
+                </div>
+              </div>
+            </div>
+            </apex:outputPanel>
+          </div>
+        </div>
+        <br/>
+        <apex:outputPanel rendered="{!opp.isPrivate}">
+            <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+              <apex:commandButton value="Save" action="{!saveltng}" onclick="loading();" rerender="pgmsg1,ownerbox" oncomplete="bindPrompts();navigate('{!goURL}');loading();" styleClass="slds-button slds-button--brand"></apex:commandButton>
+              <apex:commandButton value="Cancel" action="{!cancelltng}" onclick="loading();" immediate="true" oncomplete="navigate('{!goURL}');loading();" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+            </div>
+        </apex:outputPanel>
+      </div>
+      <apex:outputPanel rendered="{!!opp.isPrivate}">
+          <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+              <apex:commandButton value="Save" action="{!saveltng}" onclick="loading();" rerender="pgmsg1,ownerbox,userbox" oncomplete="bindPrompts();navigate('{!goURL}');loading();" styleClass="slds-button slds-button--brand"></apex:commandButton>
+              <apex:commandButton value="Cancel" action="{!cancelltng}" onclick="loading();" immediate="true" oncomplete="navigate('{!goURL}');loading();" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+          </div>
+      </apex:outputPanel>
+      <apex:pageBlock mode="Edit" rendered="{!!opp.isPrivate}">
+        <div title="Current Opportunity Team - Add or remove Opportunity Team member before you transfer the Opportunity" class="slds-grid slds-wrap">
+          
+          <div class="slds-grid slds-section-title--divider slds-theme--shade slds-size--1-of-1"><span>Current Opportunity Team - Add or remove Opportunity Team member before you transfer the Opportunity</span> </div>
+          <br/><br/><br/>
+          <apex:pageBlockTable value="{!lstOppTeamRole}" var="s"  styleClass="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal">
+            <apex:column html-data-label="Add/Remove" headerValue="Add/Remove">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="">
+                <div class="slds-form-element slds-p-around--small">
+                  <div class="slds-form-element__control">
+                   <label class="slds-checkbox">
+                    <apex:inputCheckbox id="checkBox" value="{!s.checked}" disabled="{!IF(AND(oldOwnerId==s.oppMember.UserId,s.existingRecord),true,false)}" onclick="ToggleInput(this);"></apex:inputCheckbox>
+                    <span class="slds-checkbox--faux"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </apex:column>
+            <apex:column html-data-label="User" headerValue="User" >
+              <apex:outputPanel rendered="{!s.existingRecord}">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.opportunityteammember.fields.UserId.Accessible=true,'block','none')}">
+                <div class="slds-form-element slds-p-around--small">
+                  <div class="slds-form-element__control">
+                    <apex:outputField value="{!s.oppMember.UserId}"></apex:outputField>
+                  </div>
+                </div>
+              </div>
+              </apex:outputPanel>
+              <apex:outputPanel id="userbox" rendered="{!!s.existingRecord}">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.opportunityteammember.fields.UserId.Accessible=true,'block','none')}">
+                <div class="slds-form-element slds-p-around--small common-root">
+                   <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right" >
+                    <apex:inputField id="userlookup" value="{!s.oppMember.UserId}" required="false" styleClass="slds-input lookup-prompt-user" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant="" ></apex:inputField>
+                    <script>
+                        var lkInput = document.getElementById("{!$Component.userlookup}");
+                        lkInput.style.visibility = "";
+                        var lkSpan = lkInput.parentElement;
+                        var lkLink = lkSpan.querySelector("a");
+                        lkLink.style.visibility = "";
+                        lkLink.className = "";
+                        lkLink.innerHTML = "<img class=\"slds-input__icon\" src=\""+"{!$Resource.SVGLookupImage}"+"\" width=\"23\" height=\"23\"/>";
+                    </script>
+                  </div>
+                  <div class="slds-lookup__menu results" role="listbox" style="display: none;">
+                        <div class="slds-lookup__item">
+                            <button class="slds-button">
+                                &quot;<span class="results-keyword"></span>&quot; in Users
+                            </button>
+                        </div>
+                        <ul class="slds-lookup__list results-ul" role="presentation">
+                        </ul>                           
+                    </div>
+                </div>
+              </div>
+              </apex:outputPanel>
+            </apex:column>
+            <apex:column html-data-label="User Division" headerValue="User Division">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1">
+                <div class="slds-form-element slds-p-around--small">
+                  <div class="slds-form-element__control">
+                    <apex:outputText value="{!s.userDivision}"></apex:outputText>
+                  </div>
+                </div>
+              </div>
+            </apex:column>
+            <apex:column html-data-label="Team Role" headerValue="Team Role">
+             <apex:outputPanel rendered="{!IF(AND(oldOwnerId==s.oppMember.UserId,s.existingRecord),true,false)}">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.opportunityteammember.fields.TeamMemberRole.Accessible=true,'block','none')}">
+                <div class="slds-form-element slds-p-around--small">
+                  <div class="slds-form-element__control">
+                    <apex:outputField value="{!s.oppMember.TeamMemberRole}"></apex:outputField>
+                  </div>
+                </div>
+              </div>
+              </apex:outputPanel>
+              <apex:outputPanel rendered="{!IF(AND(oldOwnerId==s.oppMember.UserId,s.existingRecord),false,true)}">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.opportunityteammember.fields.TeamMemberRole.Accessible=true,'block','none')}">
+                <div class="slds-form-element slds-p-around--small">
+                  <div class="slds-form-element__control">
+                    <apex:inputField value="{!s.oppMember.TeamMemberRole}" styleClass="slds-input"></apex:inputField>
+                  </div>
+                </div>
+              </div>
+              </apex:outputPanel>
+            </apex:column>
+            <apex:column html-data-label="Opportunity Access" headerValue="Opportunity Access">
+             <apex:outputPanel rendered="{!IF(AND(oldOwnerId==s.oppMember.UserId,s.existingRecord),true,false)}">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="display : {!IF($ObjectType.opportunityteammember.fields.OpportunityAccessLevel.Accessible=true,'block','none')}">
+                <div class="slds-form-element slds-p-around--small">
+                  <div class="slds-form-element__control">
+                    <apex:outputField value="{!s.oppMember.OpportunityAccessLevel}"></apex:outputField>
+                  </div>
+                </div>
+              </div>
+              </apex:outputPanel>
+              <apex:outputPanel rendered="{!IF(AND(oldOwnerId==s.oppMember.UserId,s.existingRecord),false,true)}">
+              <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-1" style="">
+                <div class="slds-form-element slds-p-around--small">
+                  <div class="slds-form-element__control">
+                    <apex:selectList multiselect="false" size="1" value="{!s.oppMember.OpportunityAccessLevel}" styleClass="slds-select">
+                      <apex:selectOption itemLabel="Read Only" itemValue="Read"></apex:selectOption>
+                      <apex:selectOption itemLabel="Read/Write" itemValue="Edit"></apex:selectOption>
+                    </apex:selectList>
+                  </div>
+                </div>
+              </div>
+              </apex:outputPanel>
+            </apex:column>
+          </apex:pageBlockTable>
+        </div>
+        <br/><br/>
+        
+      </apex:pageBlock>
+      </div>
+      <apex:actionStatus id="searching">
+        <apex:facet name="start">
+          <div class="waitingSearchDiv waitingSearchDivOpacity" style="width: 100%; height: 100%; display: block; opacity: 0.60"></div>
+          <div id="searchingStatus" class="waitingSearchDiv" style="width: 100%; height: 100%; display: block;">
+            <div class="waitingHolder" style="top: 150px; width: 110px;">
+              <img class="waitingImage" src="/img/loading.gif"></img><span class="waitingDescription">Processing...</span> </div>
+          </div>
+        </apex:facet>
+        <apex:facet name="stop"></apex:facet>
+      </apex:actionStatus>
+      </div>
+    </apex:form>
+    <script>
+        function navigate(URLtogo) {
+            if(URLtogo != null && URLtogo != '' && URLtogo != 'undefined'){
+                sforce.one.navigateToURL(URLtogo);
+            }
+        }
+                
+        function promptResults(objectName, inputLookupObj, resultsObj, keywordObj, resultsUlObj) {
+            if(inputLookupObj.val().length < 3){
+                resultsObj.css("display", "none");
+            }else{
+                resultsObj.css("display", "block");
+            }
+            inputLookupObj.attr('aria-expanded', 'true');
+            keywordObj.html(inputLookupObj.val());
+            // make it run only for longer inputs
+            if (inputLookupObj.val().length < 3) {
+                return false;
+            }
+            
+            var elRemoteMethod;
+            if (objectName == 'User') {
+                elRemoteMethod = '{!$RemoteAction.NewOppLookupsSupport.queryUsers}';
+            }
+            
+            
+            
+            Visualforce.remoting.Manager.invokeAction(
+                elRemoteMethod,
+                inputLookupObj.val(),
+                function(result, event) {
+                    if (event.status) {
+                        resultsUlObj.empty();
+                        
+                        if (result) {
+                            $(result).each(function() {
+                                //console.log(this);
+                                resultsUlObj.append('<li class="slds-lookup__item">' + 
+                                                    '<a id="' + this.id + '" href="javascript:void(0)" role="option">' + 
+                                                    this.Name +'</a>' + 
+                                                    '</li>');
+                            });
+                            
+                            $('ul.slds-lookup__list a').click(function(e) {
+                                inputLookupObj.val($(this)[0].innerText);
+                                inputLookupObj.attr('aria-activedescendant', $(this)[0].id);
+                                inputLookupObj.attr('aria-expanded', 'false');
+                                resultsObj.css("display", "none");
+                            });
+                        }
+                        
+                    } else if (event.type === 'exception') {
+                        inputLookupObj = 'ERROR: ' + event.message;
+                    } else {
+                        inputLookupObj = 'ERROR: ' + event.message;
+                    }
+                },
+                {escape: true}
+            );
+        }
+        
+        function bindPrompts() {
+            $('input.lookup-prompt-user').each(function() {
+                var inputLookupObj = $(this);
+                var commonRootObj = inputLookupObj.parents('.common-root');
+                var resultsObj = commonRootObj.find('.results');
+                var keywordObj = resultsObj.find('.results-keyword');
+                var resultsUlObj = resultsObj.find('.results-ul');
+                
+                inputLookupObj.keyup(function(e) {
+                    promptResults('User', inputLookupObj, resultsObj, keywordObj, resultsUlObj);
+                });
+            });
+            
+            return false;
+        }
+        
+        $('document').ready(function() {
+            bindPrompts();
+        });
+        
+        function loading(){
+            
+            if($('#spinnerContainer').hasClass('hide')){
+                $('#spinnerContainer').removeClass('hide');
+            }else{
+                $('#spinnerContainer').addClass('hide');
+            }
+            
+        }
+    </script>
+  </body>
+  </html>
+</apex:page>

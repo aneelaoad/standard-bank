@@ -1,0 +1,49 @@
+<!--    @ Author        :     Prabhanshu Agrawal						-->
+<!--	@ Date          :     Apr 2015									-->
+<!--   	@ Description   :     Page to add and update External attendees	-->
+
+<apex:page controller="AddExternalAttendeesController">
+
+	<script>
+	    window.onload = function(){
+	        jQuery('[id$=save]').focus();
+	    };
+	</script>
+
+    <apex:form >
+        <apex:sectionheader title="Event Report Attendees" subtitle="Add Event Report Attendees to {!sobjEventReport.Name}" >
+        </apex:sectionheader> 
+        <apex:pagemessages />
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}" id="save"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!lstAttendees}" var="att" rendered="{!IF(lstAttendees != null, True, False)}">
+                <apex:column width="5%" headerValue="Add/Remove">
+                    <apex:inputcheckbox value="{!att.bChecked}" disabled="{!att.bReportOwner}"/>
+                </apex:column>
+                <apex:column width="15%" headerValue="Attendee Name">
+                    <apex:outputField value="{!att.sobjAttendee.Contact_id__c}" />
+                    <apex:inputField value="{!att.sobjAttendee.Contact_id__c}" rendered="{!IF(att.sobjAttendee.Contact_id__c = null, True, False)}"/>
+                </apex:column>
+                <apex:column width="15%" headerValue="Title">
+                    <apex:outputText value="{!att.Title}" />
+                </apex:column>
+                <apex:column width="15%" headerValue="Status">
+                    <apex:inputField value="{!att.sobjAttendee.Status__c}"/>
+                </apex:column>
+<!-- Removing Currency and Cost Per Attendee column as per improvement DEF-001188 on EN-0662
+                <apex:column width="15%" headerValue="Currency">
+                    <apex:outputText value="{!att.sobjAttendee.CurrencyIsoCode}" />
+                </apex:column> 
+                <apex:column width="15%" headerValue="Cost Per Attendee">
+                    <apex:inputField value="{!att.sobjAttendee.Costs_Per_Attendee__c}" />
+                </apex:column>
+-->
+            </apex:pageBlockTable>
+            <br/>
+            <apex:commandLink value="Add Rows" action="{!addRow}"/>
+        </apex:pageBlock>        
+    </apex:form>
+</apex:page>

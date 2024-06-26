@@ -1,0 +1,280 @@
+<apex:page controller="SA_AddCustomClientTeam" tabstyle="Account" id="thePage" sidebar="false" showHeader="false" applyHtmlTag="false" applyBodyTag="false" standardStylesheets="false">
+  <html>
+  
+  <head>
+    <apex:stylesheet value="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.LightningTransformer, 'css/lt.css')}"></apex:stylesheet>
+    <!--<apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/jquery-2.2.4.min.js')}"></apex:includeScript>
+    <apex:includeScript value="{!URLFOR($Resource.LightningTransformer, 'js/lt.js')}"></apex:includeScript>
+    <apex:includeScript value="/support/console/32.0/integration.js"></apex:includeScript>-->
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system.min.css')}"></apex:stylesheet>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS100, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"></apex:stylesheet>
+    <style>
+        .slds-checkbox .slds-checkbox--faux {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        .slds-form-element .slds-checkbox [type=checkbox]+.slds-checkbox--faux, .slds-form-element .slds-checkbox [type=checkbox]~.slds-checkbox--faux {
+            margin-right: .5rem;
+            margin-top: 0.3rem;
+        }
+        .errorMsg{
+            color: rgb(194, 57, 52);
+        }
+        .error{
+            background-color: white;
+            border-color: #c23934;
+            box-shadow: #c23934 0 0 0 1px inset;
+            background-clip: padding-box;
+            box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2;
+        }
+        .message.errorM3{
+            background-color: #c23934;
+            border-color: #c23934;
+            box-shadow: #c23934 0 0 0 1px inset;
+            background-clip: padding-box;
+            box-shadow: #c23934 0 0 0 1px inset, 0 0 3px #0070D2;
+            color:white;
+        }
+        h4{
+            color: white;
+        }
+        .slds-required {
+    
+            font-size: 1rem;
+        }
+    </style>
+   
+  </head>
+  <body>
+    
+    <div class="slds-page-header">
+      <div class="slds-grid">
+        <div class="slds-col slds-has-flexi-truncate">
+          <p class="slds-text-heading--label">Custom Client Team Edit</p>
+          <div class="slds-grid">
+            <div class="slds-grid slds-type-focus slds-no-space">
+              <h1 class="slds-text-heading--medium slds-truncate">New Custom Client Team</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <apex:form id="AddPanel" rendered="{!renderInsufficientPrivelegesBlock}">
+      <apex:pageMessages escape="False" id="pageMsg"></apex:pageMessages>
+      <apex:pageBlock Id="thePgblk">
+        <br/>
+        <div id="blockbtn" class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+          <apex:commandButton Id="savebtn" value="Save" action="{!SaveRec}" onClick="DisbaleBtn(this);" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+          <apex:actionStatus Id="replacebutton">
+            <apex:facet name="stop">
+              <apex:outputPanel >
+                <apex:commandButton value="Replace" action="{!ReplaceRec}" rendered="{!NOT(disableReplaceBtn)}" status="replacebutton" reRender="pageMsg" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+              </apex:outputPanel>
+            </apex:facet>
+            <apex:facet name="start">
+              <apex:outputPanel >
+                <apex:commandButton value="Replacing..." status="replacebutton" disabled="true" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+              </apex:outputPanel>
+            </apex:facet>
+          </apex:actionStatus>
+          <apex:commandButton value="Save & New" action="{!SaveNew}" onClick="DisbaleBtn(this);" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+          <apex:commandButton value="Cancel" immediate="true" action="{!cancel}" styleClass="slds-button slds-button--neutral"></apex:commandButton>
+        </div>
+        <div class="slds-box slds-col--padded">
+        <div title="Information" collapsible="False" id="pgblock0" class="slds-grid slds-wrap">
+          <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Information</span> </div>
+        </div>
+        <div columns="2" id="pgblock1" class="slds-grid slds-wrap">
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.custom_client_team__c.fields.Team_Member__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+              <label class="slds-text-heading"><abbr class="slds-required" title="required">*</abbr><span>{!$ObjectType.custom_client_team__c.fields.Team_Member__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                    <div class="slds-input-has-icon slds-input-has-icon--right" >
+                        <apex:inputField id="lookupNBACSecretary" required="true" value="{!CCTObj.Team_Member__c}" styleClass="slds-input" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant=""/>
+                        
+                        <script>
+                            var lkInput = document.getElementById("{!$Component.lookupNBACSecretary}");
+                            lkInput.style.visibility = "";
+                            var lkSpan = lkInput.parentElement;
+                            var lkLink = lkSpan.querySelector("a");
+                            lkLink.style.visibility = "";
+                            lkLink.className = "";
+                            lkLink.innerHTML = "<img class=\"slds-input__icon\" src=\""+"{!$Resource.SVGLookupImage}"+"\" width=\"23\" height=\"23\"/>";
+                        </script>
+                    </div>
+                    
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.Custom_Client_Team__c.fields.Client_Coordinator__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+              <label class="slds-text-heading"><span>{!$ObjectType.Custom_Client_Team__c.fields.Client_Coordinator__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                
+                    <apex:outputPanel rendered="{!IF($ObjectType.Custom_Client_Team__c.fields.Client_Coordinator_BM__c.updateable,True,False)}">
+                        <label class="slds-checkbox" >
+                            <apex:inputCheckbox id="inClientCoord" required="false" value="{!CCTObj.Client_Coordinator__c}"/>
+                            <span class="slds-checkbox--faux"></span>
+                        </label>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!IF($ObjectType.Custom_Client_Team__c.fields.Client_Coordinator_BM__c.updateable,False, True)}">
+                        <label class="slds-checkbox" >
+                        <apex:inputCheckbox id="inClientCoorddis" required="false" disabled="true" value="{!CCTObj.Client_Coordinator__c}"/>
+                        <span class="slds-checkbox--faux"></span>
+                        </label>
+                    </apex:outputPanel>
+                    
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div columns="2" id="pgblock2" class="slds-grid slds-wrap">
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.custom_client_team__c.fields.Client_Role__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+              <label class="slds-text-heading"><abbr class="slds-required" title="required">*</abbr><span>{!$ObjectType.custom_client_team__c.fields.Client_Role__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                <apex:inputField id="inROLE" required="true" value="{!CCTObj.Client_Role__c}" styleClass="slds-input"></apex:inputField>
+              </div>
+            </div>
+          </div>
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.Custom_Client_Team__c.fields.GTB__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-text-heading"><span>{!$ObjectType.Custom_Client_Team__c.fields.GTB__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                        <apex:outputPanel rendered="{!IF($ObjectType.Custom_Client_Team__c.fields.GTB__c.updateable,True,False)}">
+                        <label class="slds-checkbox" >
+                                <apex:inputCheckbox id="inClientgtb" required="false" value="{!CCTObj.GTB__c}"/>
+                            <span class="slds-checkbox--faux"></span>
+                        </label>
+                    </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF($ObjectType.Custom_Client_Team__c.fields.GTB__c.updateable,False,True)}">
+                        <label class="slds-checkbox" >
+                                <apex:inputCheckbox id="inClientGtb2" disabled="true" required="false" value="{!CCTObj.GTB__c}"/>
+                            <span class="slds-checkbox--faux"></span>
+                        </label>
+                    </apex:outputPanel>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+            <div columns="2" id="pgblockGtb" class="slds-grid slds-wrap">
+                <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.custom_client_team__c.fields.Account__c.Accessible=true,'block','none')}">
+                    <div class="slds-form-element slds-p-around--small">
+                        <label class="slds-text-heading"><abbr class="slds-required" title="required">*</abbr><span>{!$ObjectType.custom_client_team__c.fields.Account__c.label}</span> </label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-input-has-icon slds-input-has-icon--right" >
+                                <apex:inputText id="inACC" value="{!clientName}" styleClass="slds-input" html-aria-autocomplete="list" html-role="combobox" html-aria-expanded="false" html-aria-activedescendant="" html-readonly="true"/>
+
+                                <script>
+                        var lkInput = document.getElementById("{!$Component.inACC}");
+                        lkInput.style.visibility = "";
+                        var lkSpan = lkInput.parentElement;
+                        var lkLink = lkSpan.querySelector("a");
+                        lkLink.style.visibility = "";
+                        lkLink.className = "";
+                        lkLink.innerHTML = "<img class=\"slds-input__icon\" src=\""+"{!$Resource.SVGLookupImage}"+"\" width=\"23\" height=\"23\"/>";
+                    </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.Custom_Client_Team__c.fields.Client_Coordinator_BM__c.Accessible=true,'block','none')}">
+                    <div class="slds-form-element slds-p-around--small">
+                    <label class="slds-text-heading"><span>{!$ObjectType.Custom_Client_Team__c.fields.Client_Coordinator_BM__c.label}</span> </label>
+                        <div class="slds-form-element__control">
+
+                        <apex:outputPanel rendered="{!IF($ObjectType.Custom_Client_Team__c.fields.Client_Coordinator_BM__c.updateable,True,False)}">
+                                <label class="slds-checkbox" >
+                                <apex:inputCheckbox id="inClientCoordAssist" required="false" value="{!CCTObj.Client_Coordinator_BM__c}"/>
+                                    <span class="slds-checkbox--faux"></span>
+                                </label>
+                            </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF($ObjectType.Custom_Client_Team__c.fields.Client_Coordinator_BM__c.updateable,False,True)}">
+                                <label class="slds-checkbox" >
+                                <apex:inputCheckbox id="inClientCoordAssistdis" disabled="true" required="false" value="{!CCTObj.Client_Coordinator_BM__c}"/>
+                                    <span class="slds-checkbox--faux"></span>
+                                </label>
+                            </apex:outputPanel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        <apex:outputPanel rendered="{!AdminFlag}">
+        <div columns="2" id="pgblock3" class="slds-grid slds-wrap">
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.custom_client_team__c.fields.Client_Access__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+              <label class="slds-text-heading"><span>{!$ObjectType.custom_client_team__c.fields.Client_Access__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                <apex:inputField id="inCLIENT" value="{!CCTObj.Client_Access__c}" styleClass="slds-input"></apex:inputField>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.Custom_Client_Team__c.fields.Opportunity_Access__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+              <label class="slds-text-heading"><span>{!$ObjectType.Custom_Client_Team__c.fields.Opportunity_Access__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                <apex:inputField id="inOPP" value="{!CCTObj.Opportunity_Access__c}" styleClass="slds-input"></apex:inputField>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div columns="2" id="pgblock4"  class="slds-grid slds-wrap">
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.custom_client_team__c.fields.Contact_Access__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+              <label class="slds-text-heading"><span>{!$ObjectType.custom_client_team__c.fields.Contact_Access__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                <apex:inputField id="inCONTACT" value="{!CCTObj.Contact_Access__c}" styleClass="slds-input"></apex:inputField>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-2 slds-large-size--1-of-2" style="display : {!IF($ObjectType.Custom_Client_Team__c.fields.Case_Access__c.Accessible=true,'block','none')}">
+            <div class="slds-form-element slds-p-around--small">
+              <label class="slds-text-heading"><span>{!$ObjectType.Custom_Client_Team__c.fields.Case_Access__c.label}</span> </label>
+              <div class="slds-form-element__control">
+                <apex:inputField id="inCASE" value="{!CCTObj.Case_Access__c}" styleClass="slds-input"></apex:inputField>
+              </div>
+            </div>
+          </div>
+        </div>
+        </apex:outputPanel>
+        </div>
+      </apex:pageBlock>
+    </apex:form>
+    <apex:outputPanel rendered="{!Not(renderInsufficientPrivelegesBlock)}">
+        <TABLE width="100%" align="center">
+         <tr><td>
+         <font size="3"><b><apex:outputText >Insufficient Privileges</apex:outputText></b></font>
+         </td></tr>
+      <tr><td>&nbsp;</td></tr>
+         <tr><td>
+         You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary. 
+         </td></tr>
+      <tr><td>&nbsp;</td></tr>
+         <tr><td>
+         <apex:form >
+         <apex:outputText >Click</apex:outputText>
+         <apex:commandlink value="here" action="{!back}"/>
+         <apex:outputText > to return to the previous page.</apex:outputText>
+         </apex:form>
+         </td></tr>
+         </table>
+    </apex:outputPanel>
+  </body>
+  </html>
+</apex:page>

@@ -1,0 +1,833 @@
+<apex:page standardController="Business_Assessment__c" extensions="nbacPdfExtension" renderAs="pdf" applyBodyTag="false">
+    <head>
+        <style type="text/css" media="print">
+           @page {
+                size:A4;
+                <!--margin-top:1.75cm;-->
+                margin-top:1.0cm;
+                margin-left:1.0cm;
+                margin-right:1.0cm;
+                margin-bottom:1.5cm;
+   
+                @bottom-right {
+            		position: relative;
+            		bottom:10;
+            		right:10;
+                    content:counter(page);
+            		color:#909296;
+                    font-size:10pt;
+                    font-family:'Arial Unicode MS';
+            	}
+                @bottom-center {
+                    content: element(footer);
+                    color:#909296;
+                    font-size:10pt;
+                    font-family:'Arial Unicode MS';
+                    font-weight:bold;
+                }
+                @top-left{
+                   content: element(header);
+                }
+   				}   
+            
+            body { font-family: 'Arial Unicode MS'; font-size:12px;}
+            .companyName { font:10px; color: black; } 
+            #headerBar {
+                border-radius: 10px;
+                border: 1px solid #bec5c6;
+                background: #dae1ed;
+                padding: 5px;
+                font: 12px;
+            	page-break-inside: avoid;
+            }
+            #rich1 .sfdc_richtext img {
+                     width: 674px;
+            }
+           	.footer {
+                position: running(footer);
+                right: 2;
+                bottom: 0px;
+                left: 2;
+            	font-family:'Arial Unicode MS';
+                text-align: center;
+                color:#909296;
+                font-size:10pt;
+                font-family:'Arial Unicode MS';
+                font-weight:bold;
+            }
+            .valueStyle{
+                font: size:11px; color:#5d5f63;}
+            .detailBlock{
+                border: 1px solid #bec5c6;
+                padding: 10px;
+                text-align: center;
+            	vertical-align: text-top;
+                font: 10px;
+            	width: 200px;
+            	page-break-inside: avoid;
+            }
+            .detailBlockRight{
+                border: 1px solid #bec5c6;
+                padding: 10px;
+                font: 10px;
+            	vertical-align: text-top;
+            	width: 250px;
+            	page-break-inside: avoid;
+            }
+            .detailBlockFull{
+                border: 1px solid #bec5c6;
+                padding: 10px;
+                font: 10px;
+            	vertical-align: text-top;
+            	page-break-inside: avoid;
+            }
+            .detailBlockFullCenter{
+                border: 1px solid #bec5c6;
+                padding: 10px;
+                font: 10px;
+            	vertical-align: text-top;
+            	page-break-inside: avoid;
+            	text-align: center;
+            }
+        </style>
+    </head>
+    <div class="footer">
+        <table style="width:520px" align="left">
+            <tr>
+            	<td>
+                    <apex:outputText value="{0,date,dd/MM/YYYY}">
+            		<apex:param value="{!NOW()}" />
+            		</apex:outputText>
+                </td>
+                <td>
+                    {!Business_Assessment__c.Account__r.Name}
+                </td>
+            </tr>    
+        </table>
+    </div>
+    <body> 
+        <center>
+        <h3>New Business Approval Committee - {!Business_Assessment__c.Name}</h3>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (Business_Assessment__c.Account__r.Primary_Relationship_Holder__c == 'Personal Banking' || Business_Assessment__c.Account__r.Primary_Relationship_Holder__c == 'Commercial Banking'|| Business_Assessment__c.Account__r.Primary_Relationship_Holder__c == 'Business Banking'|| Business_Assessment__c.Account__r.Primary_Relationship_Holder__c == 'Other PBB Divisions') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <b>{!Business_Assessment__c.Account__r.Primary_Relationship_Holder__c} client</b><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && Business_Assessment__c.Account__r.Primary_Relationship_Holder__c == 'Corporate and Investment Banking' && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <b>Prospect client</b><br/>
+                </apex:outputPanel>
+            <b>{!Business_Assessment__c.Account__r.Name}</b><br/>
+            {!Business_Assessment__c.Submission_Type__c}<br/>
+            <apex:outputText value="{0,date,dd/MM/YYYY}">
+            	<apex:param value="{!NOW()}" />
+            </apex:outputText><br/>
+            Confidential Price Sensitive<br/>
+        </center>
+        <p id="headerBar">Client Details</p>  
+        <apex:panelGrid columns="3" id="clientDetailsGrid" width="100%" columnClasses="detailBlock">
+            <apex:panelGroup id="theGroup1">
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Client Rating"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Client_Rating__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Construction Risk Grade"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Construction_Risk_Grade__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Operations Risk Grade"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Operations_Risk_Grade__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Client Sector"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Client_Sector__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Client Country of Risk"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Client_Country_of_Risk__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Economic Group Sector Risk Appetite"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Economic_Group_Sector_Risk_Appetite__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Group Parent Client CROC" id="gpcc_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.YTD_Group_Parent_Client_CROC__c} %" styleClass="valueStyle" id="gpcc"/><br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Economic Group Client Rating" id="egcrr_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Economic_Group_Client_Risk_Rating__c}" styleClass="valueStyle" id="egcrr"/><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Entities' Risk Rating" id="err_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Entities_Risk_Rating__c}" styleClass="valueStyle" id="err"/><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Economic Group Client Sector" id="egcs_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Economic_Group_Client_Sector_Temp__c}" styleClass="valueStyle" id="egcs"/><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Economic Group Client Country of Risk" id="egccr_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Economic_Group_Client_Country_of_Risk__c}" styleClass="valueStyle" id="egccr"/><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Sector/Country Risk Appetite" id="cra_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Economic_Group_Sector_Risk_Appetite__c}" styleClass="valueStyle" id="cra"/>
+                </apex:outputPanel>
+
+            </apex:panelGroup>
+                <apex:panelGroup id="theGroup2">
+
+                    <apex:outputText value="Risk Classification" id="rc_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Risk_Classification__c}" styleClass="valueStyle" id="rc"/><br/>
+
+                    <apex:outputText value="Complexity" id="c_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Complexity__c}" styleClass="valueStyle" id="c"/><br/>
+
+                    <apex:outputText value="Decision Emphasis" id="de_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Decision_Emphasis__c}" styleClass="valueStyle" id="de"/><br/>
+
+                    <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                        <apex:outputText value="Construction LGD"/><br/>
+                        <apex:outputText value="{!Business_Assessment__c.Construction_LGD__c}" styleClass="valueStyle" /><br/>
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                        <apex:outputText value="Operation LGD"/><br/>
+                        <apex:outputText value="{!Business_Assessment__c.Operation_LGD__c}" styleClass="valueStyle" /><br/>
+                    </apex:outputPanel>
+                    
+                    <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                        <apex:outputText value="Client LGD" id="clgd_label"/><br/>
+                        <apex:outputText value="{!Business_Assessment__c.Client_LGD__c} %" styleClass="valueStyle" id="clgd"/><br/>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel rendered="{!IF(CCAPMap != NULL , True, False)}">
+                        <apex:outputText value="CCAP" id="ccap_label"/><br/>
+                        <apex:repeat value="{!CCAPMap}" var="accountName">
+                            <apex:outputText value="{!accountName}" />
+                            &nbsp;ZAR&nbsp;<apex:outputText value="{!CCAPMap[accountName]}" /><br/>
+                    </apex:repeat>
+                    </apex:outputPanel>
+
+                </apex:panelGroup>
+                <apex:panelGroup id="theGroup3">
+                    <apex:outputText value="Ultimate Shareholders" id="ul_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Ultimate_Shareholders__c}" styleClass="valueStyle" id="ul"/><br/>
+
+                    <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                        <apex:outputText value="Sponsors"/><br/>
+                        <apex:outputText value="{!Business_Assessment__c.Sponsors__c}" styleClass="valueStyle" /><br/>
+                    </apex:outputPanel>
+
+
+                    <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                        <apex:outputText value="Group Directors" id="gd_label"/><br/>
+                        <apex:outputText value="{!Business_Assessment__c.Group_Directors__c}" styleClass="valueStyle" id="gd"/><br/>
+                    </apex:outputPanel>
+
+
+                </apex:panelGroup>
+        </apex:panelGrid>
+        <p id="headerBar">Transaction Counterparties</p>
+        <apex:panelGrid columns="2" id="transactionCounterpartiesGrid" width="100%" styleClass="detailTable" columnClasses="detailBlockRight">
+            <apex:panelGroup id="theGroup1d2">
+
+                <apex:outputText value="Group Parent Client Name" id="cn_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Account__r.Name}" styleClass="valueStyle" id="cn"/><br/>
+                <apex:outputText value="Gearing Metric" id="gm_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Gearing_Metric__c}" styleClass="valueStyle" id="gm"/><br/>
+
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Off Taker"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Off_Taker__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Max Transaction Gearing"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Max_Transaction_Gearing__c} %" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Client Gearing Pre-transaction" id="cg_pre_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Client_Gearing_PreTransaction__c}" styleClass="valueStyle" id="cg_pre"/><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture')}">
+                    <apex:outputText value="Client Gearing Post-transaction" id="cg_post_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Client_Gearing_PostTransaction__c}" styleClass="valueStyle" id="cg_post"/><br/>
+                </apex:outputPanel>
+
+            </apex:panelGroup>
+                <apex:panelGroup id="theGroup2d2">
+                    <apex:outputText value="Nature of Business" id="nob_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Nature_of_Business__c}" styleClass="valueStyle" id="nob"/><br/>
+                    <br/>                
+                </apex:panelGroup>
+                <apex:panelGroup id="theGroup3d2">
+                    <apex:outputText value="Guarantor Name" id="gn_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Guarantor_Name__r.name}" styleClass="valueStyle" id="gn"/><br/>
+                    <apex:outputText value="Gearing Metric" id="gm2_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Gearing_Metric__c}" styleClass="valueStyle" id="gm2"/><br/>
+                    <apex:outputText value="Guarantor Gearing Pre-transaction" id="theSecond3d2_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Guarantor_Gearing_PreTransaction__c}" styleClass="valueStyle" id="gm3"/><br/>
+                    <apex:outputText value="Guarantor Gearing Post-transaction" id="theThird3d2_label"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Guarantor_Gearing_PostTransaction__c}" styleClass="valueStyle" id="gm4"/><br/>
+                </apex:panelGroup>
+            <apex:panelGroup id="theGroup4d2">
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Export Credit Agency"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Export_Credit_Agency__c}" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Political Risk Cover"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Political_Risk_Cover__c} %" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+                <apex:outputPanel rendered="{!CONTAINS(Business_Assessment__c.RecordType.DeveloperName,'NBAC_Joint_Venture') && (isCibNbacSpvNoCif || isCibNbacSpvCif)}">
+                    <apex:outputText value="Commercial Risk Cover"/><br/>
+                    <apex:outputText value="{!Business_Assessment__c.Commercial_Risk_Cover__c} %" styleClass="valueStyle" /><br/>
+                </apex:outputPanel>
+            </apex:panelGroup>
+        </apex:panelGrid>
+        <p id="headerBar">Action Items</p>
+        <apex:panelGrid columns="1" id="actionItemsGrid" width="100%" styleClass="detailBlockFull">
+       		<apex:pageBlock >
+                <apex:pageBlockTable value="{!ActionItems}" var="item" width="100%" styleClass="valueStyle">
+                    <apex:column value="{!item.Account.Name}" headerClass="companyName"/>
+                    <apex:column value="{!item.Subject}" headerClass="companyName"/>
+                    <apex:column value="{!item.Owner.Name}" headerClass="companyName" headerValue="Assigned To"/>
+                    <apex:column value="{!item.ActivityDate}" headerClass="companyName"/>
+                </apex:pageBlockTable>
+        	</apex:pageBlock>
+        </apex:panelGrid>
+        <p id="headerBar">Transaction Parties</p>
+        <apex:panelGrid columns="3" id="transactionPartiesGrid" width="100%" columnClasses="detailBlock">
+            <apex:panelGroup id="advisorGroup">
+                <apex:outputText value="Advisor" id="advisor_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Advisor__c}" styleClass="valueStyle" id="advisor"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="leadManagerGroup">
+                <apex:outputText value="Mandated Lead Arranger" id="mla_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Mandated_Lead_Arranger__c}" styleClass="valueStyle" id="mla"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="otherLenderGroup">
+                <apex:outputText value="Other Lenders" id="ol_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Other_Lenders__c}" styleClass="valueStyle" id="ol"/><br/>
+            </apex:panelGroup>
+        </apex:panelGrid>
+        <p id="headerBar" style = "page-break-before: always;">Transaction Profile</p>
+        <apex:panelGrid columns="1" id="transactionProfileGrid" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputField value="{!Business_Assessment__c.Transaction_Description__c}" id="tp"/>
+        </apex:panelGrid>
+        <p id="headerBar">Strategic Rationale</p>
+        <apex:panelGrid columns="1" id="strategicRationaleGrid" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputField value="{!Business_Assessment__c.Strategic_Rationale__c}" id="sp"/>
+        </apex:panelGrid>
+        <p id="headerBar">Existing Client Revenue &amp; Share of Wallet</p>
+        <apex:panelGrid columns="2" id="ancillaryBusinessGrid" width="100%" columnClasses="detailBlockRight">
+            <apex:panelGroup id="revenueGroup">
+                <center><apex:outputText value="PY/YTD Revenue" id="revenue_label" /><br/></center>
+                <table stye="width:100%" class="valueStyle">
+                    <tr>
+                        <td><apex:outputText value="GM:" id="gmRevenue_label"/></td>
+                        <td><apex:outputField value="{!Business_Assessment__c.Global_Markets_PY_Revenue__c}"/></td>
+                        <td>/</td>
+                        <td><apex:outputField value="{!Business_Assessment__c.Global_Markets_CY_Revenue__c}" styleClass="valueStyle"/></td>
+                    </tr>
+                     <tr>
+                        <td><apex:outputText value="IB:" id="ibRevenue_label"/></td>
+                        <td><apex:outputField value="{!Business_Assessment__c.Investment_Banking_PY_Revenue__c}" styleClass="valueStyle"/></td>
+                        <td>/</td>
+                        <td><apex:outputField value="{!Business_Assessment__c.Investment_Banking_CY_Revenue__c}" styleClass="valueStyle"/></td>
+                    </tr>
+                    <tr>
+                        <td><apex:outputText value="TPS:" id="tpsRevenue_label"/></td>
+                        <td><apex:outputField value="{!Business_Assessment__c.TPS_PY_Revenue__c}" styleClass="valueStyle"/></td>
+                        <td>/</td>
+                        <td><apex:outputField value="{!Business_Assessment__c.TPS_CY_Revenue__c}" styleClass="valueStyle"/></td>
+                    </tr>
+                </table>
+				<br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="walletGroup">
+                <center><apex:outputText value="Share of Wallet (Total/SBG%)" id="wallet_label"/><br/></center>
+                <table stye="width:100%" class="valueStyle">
+                    <tr>
+                        <td><apex:outputText value="GM:" id="gmWallet_label"/></td>
+                        <td><apex:outputField value="{!Business_Assessment__c.GM_Share_of_Wallet_Existing_Total__c}"/></td>
+                        <td>/</td>
+                        <td><apex:outputField value="{!Business_Assessment__c.GM_Share_of_Wallet_Existing_SBG__c}"/></td>
+                    </tr>
+                     <tr>
+                        <td><apex:outputText value="IB:" id="ibWallet_label"/></td>
+                        <td><apex:outputField value="{!Business_Assessment__c.IB_Share_of_Wallet_Existing_Total__c}"/></td>
+                        <td>/</td>
+                        <td><apex:outputField value="{!Business_Assessment__c.IB_Share_of_Wallet_Existing_SBG__c}"/></td>
+                    </tr>
+                    <tr>
+                        <td><apex:outputText value="TPS:" id="tpsWallet_label"/></td>
+                        <td><apex:outputField value="{!Business_Assessment__c.TPS_Share_of_Wallet_Existing_Total__c}"/></td>
+                        <td>/</td>
+                        <td><apex:outputField value="{!Business_Assessment__c.TPS_Share_of_Wallet_Existing_SBG__c}"/></td>
+                    </tr>
+                </table>
+            </apex:panelGroup>
+        </apex:panelGrid>
+        <p id="headerBar">Anticipated Cross-sell</p>
+        <apex:panelGrid columns="1" width="100%" columnClasses="detailBlockRight">
+            <apex:panelGroup >
+                <table width="100%" class="valueStyle">
+                    <tr>
+                        <td><apex:outputText value="Ancillary Revenue: "/><apex:outputField value="{!Business_Assessment__c.Ancillary_Revenue__c}"/></td>
+                    </tr>
+                </table>
+            </apex:panelGroup>
+            <apex:panelGroup rendered="{!IF(Business_Assessment__c.Ancillary_Revenue__c != 'Yes',TRUE, FALSE)}">
+                <table width="100%" class="valueStyle">
+                    <tr>
+                        <td><apex:outputText value="Commentary about the ancillary absence: "/><apex:outputField value="{!Business_Assessment__c.Commentary_About_The_Ancillary_Absence__c}"/></td>
+                    </tr>
+                </table>
+            </apex:panelGroup>
+            <apex:panelGroup rendered="{!IF(Business_Assessment__c.Ancillary_Revenue__c == 'Yes',TRUE, FALSE)}">
+                <table width="100%" class="valueStyle">
+                        <tr>
+                            <td>
+                                <apex:outputText value="Anticipated Ancillary Business for GM: "/>
+                                <apex:outputField value="{!Business_Assessment__c.Anticipated_Ancillary_Business_GM__c}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:outputText value="Anticipated Ancillary Business for IB: "/>
+                                <apex:outputField value="{!Business_Assessment__c.Anticipated_Ancillary_Business_IB__c}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <apex:outputText value="Anticipated Ancillary Business for TPS: "/>
+                                <apex:outputField value="{!Business_Assessment__c.Anticipated_Ancillary_Business_TPS__c}"/>
+                            </td>
+                        </tr>
+                </table>
+            </apex:panelGroup>
+            <apex:panelGroup rendered="{!IF(Business_Assessment__c.Ancillary_Revenue__c == 'Yes',TRUE, FALSE)}">
+                <table width="100%" class="valueStyle">
+                    <tr>
+                        <td><apex:outputText value="Estimated Ancillary Revenue"/></td>
+                    </tr>
+                    <tr>
+                        <td><apex:outputField value="{!Business_Assessment__c.Estimated_Ancillary_Revenue__c}"/></td>
+                    </tr>
+                </table>
+            </apex:panelGroup>
+        </apex:panelGrid>
+
+        <apex:panelGrid rendered="{!IF(Business_Assessment__c.Ancillary_Revenue__c == 'Yes',TRUE, FALSE)}">
+            <apex:panelGroup >
+            <table width="99%" style="width:99%; border-collapse: collapse; table-layout: fixed; margin: 1px 4px 10px 3px; font-size: 8pt;">
+                <tr>
+                    <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Opportunity Name</b>
+                        </p>
+                    </td>
+                    <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Opportunity Id</b>
+                        </p>
+                    </td>
+                    <td width="10%" style="width:10%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Client Name</b>
+                        </p>
+                    </td>
+                    <td width="10%" style="width:10%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Opportunity Owner</b>
+                        </p>
+                    </td>
+                    <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Parent Product</b>
+                        </p>
+                    </td>
+                    <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Estimated Close Date</b>
+                        </p>
+                    </td>
+                    <td width="13%" style="width:13%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Current Year Revenue</b>
+                        </p>
+                    </td>
+                    <td width="13%" style="width:13%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Total Revenue (Amount)</b>
+                        </p>
+                    </td>
+                    <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                        <p style="margin: 0px 0px 0px 0px; padding: 4px 6px 4px 6px;">
+                            <b>Opportunity Country</b>
+                        </p>
+                    </td>
+                </tr>
+
+                <apex:repeat value="{!ancillaryOpportunities}" var="rec">
+                    <tr>
+                        <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                            <apex:outputField value="{!rec.Opportunity__r.Name}"/>
+                        </td>
+                        <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                            <apex:outputField value="{!rec.Opportunity__r.Opportunity_ID__c}"/>
+                        </td>
+                        <td width="10%" style="width:10%; border: 1px solid; word-break: break-word;">
+                            <apex:outputField value="{!rec.Opportunity__r.Account.Name}"/>
+                        </td>
+                        <td width="10%" style="width:10%; border: 1px solid; word-break: break-word;">
+                            <apex:outputField value="{!rec.Opportunity__r.Owner.Name}"/>
+                        </td>
+                        <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                            <apex:outputField value="{!rec.Parent_Product__c}"/>
+                        </td>
+                        <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                            <apex:outputField value="{!rec.Opportunity__r.CloseDate}"/>
+                        </td>
+                        <td width="13%" style="width:13%; border: 1px solid; word-break: break-word;">
+                            <apex:outputText value="{0,number}">
+                                {!rec.Opportunity__r.CurrencyIsoCode} &nbsp;
+                                <apex:param value="{!rec.Opportunity__r.Current_Year_Revenue_Currency__c}"/>
+                            </apex:outputText>
+                        </td>
+                        <td width="13%" style="width:13%; border: 1px solid; word-break: break-word;">
+                            <apex:outputText value="{0,number}">
+                                {!rec.Opportunity__r.CurrencyIsoCode} &nbsp;
+                                <apex:param value="{!rec.Opportunity__r.Amount}"/>
+                            </apex:outputText>
+                        </td>
+                        <td width="11%" style="width:11%; border: 1px solid; word-break: break-word;">
+                            <apex:outputField value="{!rec.Opportunity__r.Opportunity_Country__c}"/>
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            </apex:panelGroup>
+        </apex:panelGrid>
+
+
+        <p id="headerBar"  style = "page-break-before: always;">Financial Analysis</p>
+        <apex:panelGrid columns="1" id="financialAnalysisGrid1" width="100%" styleClass="detailBlockFullCenter">
+           	<apex:pageBlock >
+            	<apex:pageBlockTable value="{!Business_Assessment__c.NBAC_Financial_Analysis__r}" var="item" width="100%" styleClass="valueStyle">
+                	<apex:column value="{!item.Indicator__c}" headerClass="companyName"/>
+                    <apex:column value="{!item.ValueIndicator__c}" headerClass="companyName"/>
+                    <apex:column value="{!item.Date__c}" headerClass="companyName"/>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+        </apex:panelGrid><br/>
+        <apex:panelGrid columns="1" id="financialAnalysisGrid2" width="100%" styleClass="detailBlockFull">
+            <apex:variable var="isheader" value="false" />
+        	<table width="100%">
+                <apex:outputPanel rendered="{!isheader == 'false'}">
+                    <tr>
+                        <td>Metric</td>
+                        <td>{!firstMetric.Metric_Year_1__c}</td>
+                        <td>{!firstMetric.Metric_Year_2__c}</td>
+                        <td>{!firstMetric.Metric_Year_3__c}</td>
+                        <td>{!firstMetric.Metric_Year_4__c}</td>
+                    </tr>
+                    <apex:variable var="isheader" value="true"/>
+                </apex:outputPanel>
+                <apex:repeat value="{!Business_Assessment__c.NBAC_Financial_Analysis__r}" var="item" >
+                    <tr class="valueStyle">	
+                        <td>{!item.Metric__c}</td>
+                        <td>{!item.ValueYear1__c}</td>
+                        <td>{!item.ValueYear2__c}</td>
+                        <td>{!item.ValueYear3__c}</td>
+                        <td>{!item.ValueYear4__c}</td>
+                    </tr>
+                </apex:repeat>  
+            </table>
+        </apex:panelGrid>
+   
+        <p id="headerBar">Treasury and Capital Management</p>
+	        <table width="100%" class="detailBlockFull">
+                <tr>
+                    <td> <apex:outputText value="TCM Details" id="tcmDetails_label" /></td>
+                </tr>
+            <tr>
+                <td id="rich1">
+                    <apex:outputField value="{!Business_Assessment__c.TCM_Details__c}" id="tcm_Details_test"/>
+                </td>
+            </tr>
+	        </table>
+        <br/>
+        <apex:panelGrid columns="1" id="tcmCommentaryGrid" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputText value="TCM Commentary" id="tcmCommentary_label" styleClass="companyName" />
+            <apex:outputField value="{!Business_Assessment__c.TCM_Commentary__c}" id="tcm_Commentary"/><br/>
+        </apex:panelGrid>
+        <p id="headerBar"  style = "page-break-before: always;">Distribution and Risk Management</p>
+        <apex:panelGrid columns="3" id="distributionAndRiskGrid" width="100%" columnClasses="detailBlock">
+            <apex:panelGroup id="underawriteAmount">
+                <apex:outputText value="{!$ObjectType.Business_Assessment__c.fields.Market_Deal_Size__c.Label}" id="mds_label"/><br/>
+                <apex:outputField value="{!Business_Assessment__c.Market_Deal_Size__c}" styleClass="valueStyle" id="mds"/><br/>
+                <apex:outputText value="{!$ObjectType.Business_Assessment__c.fields.SB_Gross_Participation__c.Label}" id="ua_label"/><br/>
+                <apex:outputField value="{!Business_Assessment__c.SB_Gross_Participation__c}" styleClass="valueStyle" id="ua"/><br/>
+                <apex:outputText value="{!$ObjectType.Business_Assessment__c.fields.SB_Hold__c.Label}" id="ah_label"/><br/>
+                <apex:outputField value="{!Business_Assessment__c.SB_Hold__c}" styleClass="valueStyle" id="ah"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="sbsaRoleGrid">
+                <apex:outputText value="{!$ObjectType.Business_Assessment__c.fields.Bank_Role__c.Label}" id="sr_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Bank_Role__c}" styleClass="valueStyle" id="sr"/><br/>
+                <apex:outputText value="{!$ObjectType.Business_Assessment__c.fields.Transaction_Type__c.Label}" id="tp_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Transaction_Type__c}" styleClass="valueStyle" id="tp2"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="creditRequirementGrid">
+                <apex:outputText value="{!$ObjectType.Business_Assessment__c.fields.SB_Sell_Down__c.Label}" id="creq_label"/><br/>
+                <apex:outputField value="{!Business_Assessment__c.SB_Sell_Down__c}" styleClass="valueStyle" id="creq"/><br/>
+                <apex:outputText value="Listed Instruments" id="li_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Listed_Instruments__c}" styleClass="valueStyle" id="li"/><br/>
+            </apex:panelGroup>
+        </apex:panelGrid>
+        <br/>
+        <table class="detailBlockFull" width="100%" >
+            <tr>
+                <td><apex:outputText value="Distribution Price" id="dp_label"/></td>
+            </tr>
+            <tr>
+                <td id="rich1">
+                    <apex:outputField value="{!Business_Assessment__c.Distribution_Price__c}" id="dp"/>
+                </td>
+            </tr>
+        </table>
+        <br/>           
+        <apex:panelGrid columns="1" id="potentialInvestorsGrid" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputText value="Potential Investors" id="pi_label" styleClass="companyName"/>
+            <apex:outputField value="{!Business_Assessment__c.Potential_Investors__c}" id="pi"/>
+        </apex:panelGrid>
+        <br/>
+        <apex:panelGrid columns="1" id="distributionCommentaryGrid" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle" >
+            <apex:outputText value="Distribution Commentary" id="dc_label" styleClass="companyName"/>
+            <apex:outputField value="{!Business_Assessment__c.Distribution_Commentary__c}" id="dc"/><br/>
+        </apex:panelGrid>
+        <br/>
+        <apex:panelGrid columns="1" id="riskCommentaryGrid" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputText value="Risk Commentary" id="rc2_label" styleClass="companyName"/>
+            <apex:outputField value="{!Business_Assessment__c.Risk_Commentary__c}" id="rc2"/><br/>
+        </apex:panelGrid>
+        
+        <p id="headerBar" style = "page-break-before: always;">Compliance</p>
+        <apex:panelGrid columns="4" id="complianceGrid1" width="100%" columnClasses="detailBlock">
+            <apex:panelGroup id="gccr_Status">
+                <apex:outputText value="GCCR Status" id="gccrStatus_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.GCCR_Status__c}" styleClass="valueStyle" id="gccr"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="kyc_Status">
+                <apex:outputText value="KYC Status" id="kycStatus_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.KYC_Status__c}" styleClass="valueStyle" id="kysStatus"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="edd_pep">
+                <apex:outputText value="EDD and PEP" id="edd_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.EDD_PEP__c}" styleClass="valueStyle" id="edd"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="sanctionsGroup">
+                <apex:outputText value="Sanctions" id="sanctions_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Sanctions__c}" styleClass="valueStyle" id="sanctions"/><br/>
+            </apex:panelGroup>
+        </apex:panelGrid>
+        <br/>
+        <p id="headerBar">Environmental and Social Risk Assessment</p>
+        <apex:panelGrid columns="4" id="environmentalAndSocialGrid1" width="100%" columnClasses="detailBlock">
+            <apex:panelGroup id="transactionRiskGroup">
+                <apex:outputText value="Transaction Risk" id="transactionRisk_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Transaction_Risk__c}" styleClass="valueStyle" id="transactionRisk"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="clientRiskGroup">
+                <apex:outputText value="Client Risk" id="clientRisk_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Client_Risk__c}" styleClass="valueStyle" id="clientRisk"/><br/>
+            </apex:panelGroup>           
+            <apex:panelGroup id="referenceNumberGroup">
+                <apex:outputText value="ENS Status" id="ENSStatus_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.ENS_status__c}" styleClass="valueStyle" id="ENSStatus"/><br/>
+            </apex:panelGroup>
+            <apex:panelGroup id="exceptionListGroup">
+                <apex:outputText value="Exception List" id="exceptionList_label"/><br/>
+                <apex:outputText value="{!Business_Assessment__c.Sanctions__c}" styleClass="valueStyle" id="exceptionList"/><br/>
+            </apex:panelGroup>
+        </apex:panelGrid>
+        <br/>
+        <apex:panelGrid columns="1" id="environmentalAndSocialGrid2" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputText value="Environmental and Social Risk Commentary" id="eAndS_label" styleClass="companyName"/><br/>
+            <apex:outputField value="{!Business_Assessment__c.ES_Risk_Commentary__c}" id="eAndS"/><br/>
+        </apex:panelGrid>
+        <p id="headerBar">Team</p>
+        <apex:panelGrid columns="2" id="teamGrid" width="100%" columnClasses="detailBlockRight">
+            <apex:panelGroup id="clientTeamGroup">
+                <apex:outputText value="Client Team" id="clientTeam_label"/><br/><br/>
+				<apex:pageBlock >
+                    <apex:pageBlockTable value="{!Team}" var="item" width="100%" styleClass="valueStyle">
+                        <apex:column value="{!item.Team_Member__r.Name}" headerClass="companyName"/>
+                        <apex:column value="{!item.Client_Role__c}" headerClass="companyName"/>
+                    </apex:pageBlockTable>
+        		</apex:pageBlock>
+            </apex:panelGroup>
+            <apex:panelGroup id="businessGroup">
+                <apex:outputText value="Opportunity Team Members" id="oppTeamMember_label"/><br/><br/>
+               	<apex:pageBlock >
+                    <apex:repeat value="{!OpportunityTeam}" var="item">
+                        <apex:outputText value="{!item.Name}"/>
+                        <apex:pageBlockTable value="{!item.OpportunityTeamMembers}" var="teamMember" width="100%" styleClass="valueStyle">
+                            <apex:column value="{!teamMember.User.Name}" headerClass="companyName" width="50%"/>
+                            <apex:column value="{!teamMember.TeamMemberRole}" headerClass="companyName" width="50%"/>
+                        </apex:pageBlockTable>
+                        <br/>
+                    </apex:repeat>
+                </apex:pageBlock>	
+            </apex:panelGroup> 
+        </apex:panelGrid><br/>
+        <apex:panelGrid columns="1" id="businessSponsorGrid" width="100%" styleClass="detailBlockFull">
+            <apex:outputText value="Business Sponsor" id="businessSponsor_label"/>
+            <apex:outputText value="{!Business_Assessment__c.Business_Sponsor__r.name}" styleClass="valueStyle" id="businessSponsor"/><br/>
+        </apex:panelGrid>
+        <p id="headerBar"  style = "page-break-before: always;">Annexure - Transaction Description</p>
+        <apex:panelGrid columns="1" id="transactionDescriptionGrid" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputField value="{!Business_Assessment__c.Additional_Transaction_Description__c}" id="transactionDescription"/><br/>
+        </apex:panelGrid>
+        <p id="headerBar"  style = "page-break-before: always;">Annexure - Strategic Rationale</p>
+        <apex:panelGrid columns="1" id="strategicRationaleGrid2" width="100%" styleClass="detailBlockFull" columnClasses="valueStyle">
+            <apex:outputField value="{!Business_Assessment__c.Additional_Strategic_Rationale__c}" id="addStrategicRationaleDescription"/><br/>
+        </apex:panelGrid>
+
+        <!-- REF FIELDS TO GO HERE -->
+       <apex:panelGrid columns="1" width="100%" rendered="{!IF(Business_Assessment__c.Development_Funding_Loan__c == 'Yes' && nbacRealEstateFinanceFields != null, TRUE, FALSE)}">
+            <p id="headerBar"  style = "page-break-before: always;">Real Estate Finance</p>
+             <apex:panelGroup >
+                 <table width="100%" class="valueStyle">
+                     <tr>
+                         <td><apex:outputText value="Development Funding Loan: "/><apex:outputField value="{!Business_Assessment__c.Development_Funding_Loan__c}"/></td>
+                     </tr>
+                 </table>   
+             </apex:panelGroup>
+            <apex:panelGroup >
+                <table style="border-collapse: collapse; margin: 1px 4px 10px 3px; font-size: 8pt; width: 100%;">
+                    <tr>
+                        <td style="word-break: break-word; font-weight: bold; vertical-align: top;">
+                            <div style="border: 1px solid; padding: 4px;">Metric:</div>
+                            <div style="border: 1px solid; padding: 4px;">Land Cost:</div>
+                            <div style="border: 1px solid; padding: 4px;">Improvement Cost / Construction Cost: </div>
+                            <div style="border: 1px solid; padding: 4px;">General / Sundry Costs:</div>
+                            <div style="border: 1px solid; padding: 4px;">Interest Limit:</div>
+                            <div style="border: 1px solid; padding: 4px;">Structuring Fee:</div>
+                            <div style="border: 1px solid; padding: 4px;">Other Finance Cost:</div>
+                            <div style="border: 1px solid; padding: 4px;">Consultant Professional fees:</div>
+                            <div style="border: 1px solid; padding: 4px;">Capital Amount:</div>
+                            <div style="border: 1px solid; padding: 4px;">Facility Amount: </div>
+                            <div style="border: 1px solid; padding: 4px;">Equity:</div>
+                            <div style="border: 1px solid; padding: 4px;">Total Budgeted Development Cost:</div>
+                            <div style="border: 1px solid; padding: 4px;">Loan to Cost:</div>
+                            <div style="border: 1px solid; padding: 4px;">Development Period:</div>
+                            <div style="border: 1px solid; padding: 4px;">Gross Building Area:</div>
+                        </td>
+                        <apex:repeat value="{!nbacRealEstateFinanceFields}" var="rec">
+                        <td style="word-break: break-word; vertical-align: top;">
+                            <div style="border: 1px solid; padding: 4px;">
+                                <b>{!rec.Metric__c}</b>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}" rendered="{!NOT(ISNULL(rec.Land_Cost__c))}">
+                                    <apex:param value="{!rec.Land_Cost__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Land_Cost__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}" rendered="{!NOT(ISNULL(rec.Improvement_Cost_Construction_Cost__c))}">
+                                    <apex:param value="{!rec.Improvement_Cost_Construction_Cost__c}" />
+                                  </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Improvement_Cost_Construction_Cost__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"   rendered="{!NOT(ISNULL(rec.General_Sundry_Costs__c))}">
+                                  <apex:param value="{!rec.General_Sundry_Costs__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.General_Sundry_Costs__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"   rendered="{!NOT(ISNULL(rec.Interest_Limit__c))}">
+                                  <apex:param value="{!rec.Interest_Limit__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Interest_Limit__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"   rendered="{!NOT(ISNULL(rec.Structuring_Fee__c))}">
+                                <apex:param value="{!rec.Structuring_Fee__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Structuring_Fee__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"  rendered="{!NOT(ISNULL(rec.Other_Finance_Cost__c))}">
+                                <apex:param value="{!rec.Other_Finance_Cost__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Other_Finance_Cost__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"   rendered="{!NOT(ISNULL(rec.Consultant_Professional_Fees__c))}">
+                                <apex:param value="{!rec.Consultant_Professional_Fees__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Consultant_Professional_Fees__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"  rendered="{!NOT(ISNULL(rec.Capital_Amount__c))}">
+                                <apex:param value="{!rec.Capital_Amount__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Capital_Amount__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"  rendered="{!NOT(ISNULL(rec.Facility_Amount__c))}">
+                                <apex:param value="{!rec.Facility_Amount__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Facility_Amount__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"   rendered="{!NOT(ISNULL(rec.Equity__c))}">
+                                <apex:param value="{!rec.Equity__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Equity__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="ZAR {0, number, #,###,###,###,###,##0}"  rendered="{!NOT(ISNULL(rec.Total_Budgeted_Development_Cost__c))}">
+                                <apex:param value="{!rec.Total_Budgeted_Development_Cost__c}" />
+                                </apex:outputText>
+                                <apex:outputText value="ZAR 0"  rendered="{!ISNULL(rec.Total_Budgeted_Development_Cost__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="{0,number,#,##0.00'%'}" rendered="{!NOT(ISNULL(rec.Loan_to_Cost__c))}">
+                                    <apex:param value="{!rec.Loan_to_Cost__c*100}"/>
+                                </apex:outputText>
+                                <apex:outputText value="-"  rendered="{!ISNULL(rec.Loan_to_Cost__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="{!rec.Development_Period__c}" rendered="{!NOT(ISNULL(rec.Development_Period__c))}"/>
+                                <apex:outputText value="-" rendered="{!ISNULL(rec.Development_Period__c)}"/>
+                            </div>
+                            <div style="border: 1px solid; padding: 4px;">
+                                <apex:outputText value="{!rec.Gross_Building_Area__c}" rendered="{!NOT(ISNULL(rec.Gross_Building_Area__c))}"/>
+                                <apex:outputText value="-" rendered="{!ISNULL(rec.Gross_Building_Area__c)}"/>
+                            </div>
+                        </td>
+                        </apex:repeat>
+                    </tr>
+                </table>
+            </apex:panelGroup>
+        </apex:panelGrid>
+
+        <apex:panelGrid columns="1" width="100%" rendered="{!IF(Business_Assessment__c.Development_Funding_Loan__c == 'No' && nbacRealEstateFinanceFields != null, TRUE, FALSE)}">
+            <p id="headerBar"  style = "page-break-before: always;">Real Estate Finance</p>
+             <apex:panelGroup >
+                 <table width="100%" class="valueStyle">
+                     <tr>
+                         <td><apex:outputText value="Development Funding Loan: "/><apex:outputField value="{!Business_Assessment__c.Development_Funding_Loan__c}"/></td>
+                     </tr>
+                 </table>   
+             </apex:panelGroup>
+        </apex:panelGrid>
+         <!-- REF FIELDS TO END GO HERE -->
+    </body>
+</apex:page>

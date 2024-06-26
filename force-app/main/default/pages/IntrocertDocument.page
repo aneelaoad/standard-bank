@@ -1,0 +1,631 @@
+<apex:page standardController="Account" extensions="IntrocertDocumentExtension" contentType="application/msWord#Introcert.doc"> 
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+
+    <head>
+        <title>Introspect - {!Account.name}</title>
+        <apex:outputText value="{!wordDirectives}" escape="false"/>
+
+        <style type="text/css">
+            @page {
+                size: 210mm 297mm;
+                margin: 15mm 12mm 5mm 14mm;
+                mso-page-orientation: portrait;
+            }
+
+            html, body {
+                height: 297mm;
+                width: 210mm;
+            }
+
+            div#page1 {
+                page: page1;
+            }
+
+            table {
+                width: 100%;
+                border: 1px solid #526FA9;
+                border-collapse: collapse;
+                /*border-radius: 4px;
+                border-spacing: 0px;*/
+
+                font-size: 0.65em;
+                font-family: "Arial", "Verdana", sans-serif;
+            }
+
+            table.firstTable td.highlight1 {
+                width: 28%;
+                vertical-align: bottom;
+                background-color: #AAB4D6;
+                color: #435098;
+                font-weight: bold;
+            }
+
+            table th,td {
+                border: 1px solid #185098;
+            }
+
+            td {
+                padding: 5px 5px 2px 5px;
+            }
+
+            td.heading, th {
+                padding-left: 5px;
+                text-align: left;
+                background-color: #185098;
+                color: white;
+                font-weight: bold;
+            }
+
+            td.highlight2 {
+                text-align: center;
+                vertical-align: middle;
+                padding: 5px 5px 2px 5px;
+                background-color: #DDE0EE;
+                color: #435098;
+                font-weight: bold;
+            }
+
+            th.highlight3,
+            td.highlight3 {
+                text-align: left;
+                padding: 5px 5px 2px 5px;
+                background-color: #DDE0EE;
+                color: #435098;
+                font-weight: bold;
+            }
+
+            table.logoTable {
+                margin-bottom: 10mm;
+                padding: 0;
+                border: 0;
+            }
+
+            table.logoTable td {
+                width: 50%;
+                border: 0;
+                vertical-align: top;
+            }
+
+            img.sbLogo {
+                float: left;
+                width: 205px;
+                height: 43px;
+            }
+
+            hr {
+                display: block;
+                margin-top: 10mm;
+                margin-bottom: 0;
+                padding: 0;
+                border: 1px solid black;
+            }
+
+            table.footer {
+                border: 0; 
+                border-collapse: collapse;
+                margin-bottom: 0;
+            }
+
+            table.footer td {
+                padding: 0;
+                border: 0; 
+                border-collapse: collapse;
+                vertical-align: bottom;
+                margin-bottom: 0;
+            }
+
+            .underlined {
+                text-decoration: underline;
+            }
+
+            .typed {
+                font-weight: normal;
+                color: black;
+            }
+
+            .printed {
+                color: #435098;
+                font-weight: normal;
+            }
+
+            .printedBold {
+                color: #435098;
+                font-weight: bold;
+            }
+
+            table.kycops {
+                border: 0;
+                border-collapse: separate;
+                border-spacing: 10px;
+            }
+
+            table.kycops td {
+                width: 47.5%;
+                border-top: 0;
+                border-right: 0;
+                border-bottom: 1px solid black;
+                border-left: 0;
+            }
+            
+            .checkbox {
+                font-size: 200%;
+            }
+            
+            table.signOff {
+                border: 0;
+                border-collapse: separate;
+                border-spacing: 10px;
+            }
+            
+            table.signOff tr {
+                height: 30px;
+            }
+            
+            table.signOff td {
+                border-top: 0;
+                border-right: 0;
+                border-bottom: 1px solid black;
+                border-left: 0;
+                padding-bottom: 1px;
+                font-size: 110%;
+                vertical-align: bottom;
+            }
+        </style>
+    </head>
+
+    <body lang="en" style="tab-interval: .5in">
+
+        <div id="page1">
+            <table class="logoTable">
+                <tr>
+                    <td>
+                    <apex:image value="{!logoUrl}" alt="Standard Bank" width="205" height="43" styleClass="sbLogo" />
+                    </td>
+                    <td style="text-align: right; color: #185098;">
+                        <span style="font-size: 16px; font-style: bold;">
+                            Internal Group
+                        </span>
+                        <br/>
+                        <span style="font-size: 14px; font-style: bold;">
+                            Introduction Certificate
+                        </span>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="firstTable">
+                <tr>
+                    <th colspan="5">1. Details of Customer</th>
+                </tr>
+
+                <tbody>
+                    <tr>
+                        <td class="highlight1">Full name of client</td>
+                        <td colspan="4">{!Account.name}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight1">CIF number</td>
+                        <td colspan="4">{!Account.cif__c}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight1">Client type (financial institution, corporate, individual, trust etc.)</td>
+                        <td colspan="4">{!Account.client_type_onboard__c}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight1">Registered office or permanent residential address</td>
+                        <td colspan="4">{!Account.billingStreet} {!Account.billingCity} {!Account.billingState} {!Account.billingPostalCode}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight1">Physical or Trading address</td>
+                        <td colspan="4">{!Account.correspondence_addr_line1__c} {!Account.correspondence_addr_line2__c} {!Account.correspondence_city__c} {!Account.correspondence_province_region__c} {!Account.correspondence_postal_code__c}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight1">Registration or Identity number</td>
+                        <td colspan="4">{!Account.registration_number__c}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight1">Relevant regulator or approved regulated market (where applicable)</td>
+                        <td colspan="4">{!Account.relevant_regulator_or_approved_regulated__c}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight1">In respect of a legal entity, names of controllers i.e. directors (or equivalent) trustees, officers, authorised persons, signatories</td>
+                        <td class="highlight2" style="width: 16%">Name and surname</td>
+                        <td class="highlight2" style="width: 16%">ID/Passport number</td>
+                        <td class="highlight2" style="width: 24%">Confirmation of residential address</td>
+                        <td class="highlight2" style="width: 16%">Designation</td>
+                    </tr>
+
+                    <tr>
+                        <td rowspan="14" class="highlight1" />
+                        <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                        <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                        <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                        <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                    </tr>
+                    
+                    <apex:repeat value="{!controllers}" var="c" first="1">
+                        <tr>
+                            <td style="border-left: 1px solid #185098;"><apex:outputText value="&nbsp;" escape="false" /></td>
+                            <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                            <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                            <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                        </tr>
+                    </apex:repeat>
+                    
+                    <tr>
+                        <td class="highlight1">In respect of a legal entity, the names of principal beneficial owners (over 25% shareholding), partners or members</td>
+                        <td class="highlight2">Name and surname/Company registration name</td>
+                        <td class="highlight2">ID/Passport number/Company registration number</td>
+                        <td class="highlight2">Confirmation of residential address</td>
+                        <td class="highlight2">% of Shares</td>
+                    </tr>
+                    
+                    <tr>
+                        <td rowspan="13" class="highlight1" />
+                        <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                        <td><apex:outputText value="&nbsp;" escape="false"/></td>
+                        <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                        <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                    </tr>
+                    
+                    <apex:repeat value="{!shareholders}" var="s" first="1">
+                        <tr>
+                            <td style="border-left: 1px solid #185098;"><apex:outputText value="&nbsp;" escape="false" /></td>
+                            <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                            <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                            <td><apex:outputText value="&nbsp;" escape="false" /></td>
+                        </tr>
+                    </apex:repeat>
+                    
+                </tbody>
+
+            </table>
+
+            <hr/>
+            
+            <table class="footer">
+                <tr>
+                    <td>
+                        <span style="font-weight: bold;">00159524</span><apex:outputText value="&nbsp;" escape="false"/><span style="font-size: 80%">2015-03</span>
+                    </td>
+
+                    <td style="text-align: center; font-size: 75%;">
+                        The Standard Bank of South Africa Limited (Reg. No. 1962/000738/06) An authorised financial services and registered credit provider (NCRCP15).
+                    </td>
+
+                    <td style="text-align: right;">
+                        Page <span style="font-weight: bold;">1</span> of <span style="font-weight: bold;">4</span>
+                    </td>
+                </tr>
+            </table>
+
+            <br clear="all" style="mso-special-character: line-break; page-break-before: always"/>
+
+            <table class="firstTable">
+                <tr>
+                    <th class="highlight3">2. Details of Group Company making the Introduction: The above named is a customer of <span style="font-weight: normal; color: black; text-decoration: underline;">Commercial Banking<apex:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false"/></span></th>
+                </tr>
+
+                <tbody>
+                    <tr>
+                        <td class="heading">3 We confirm that:</td>
+                    </tr>
+
+                    <tr>
+                        <td class="printedBold">
+                            <ol type="a">
+                                <li>
+                                    The customer was subsequently KYC approved on date (YYYY-MM-DD) <span style="font-weight: normal; color: black; text-decoration: underline;"><apex:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false"/></span>.<br/>
+                                    We have verified the identity of the customer in accordance with:<br/>
+                                    <apex:outputText value="&bull;" escape="false"/> The requirements of local law and regulation<br/>
+                                    <div style="margin-left: -30px; margin-top: 0; padding: 0;">Such information was obtained and verified on date (YYYY-MM-DD) <span style="font-weight: normal; color: black; text-decoration: underline;"><apex:outputText value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" escape="false"/></span>.</div>
+                                </li>
+                            </ol>
+
+                            <table class="kycops">
+                                <tr>
+                                    <td>
+                                        <span class="printedBold">KYC Ops:</span> <span class="printed">Name and Surname</span> <span class="typed">{!Account.owner.name}</span>
+                                    </td>
+                                    
+                                    <td style="width: 5%; border-bottom: 0;">
+                                    </td>
+                                    
+                                    <td>
+                                        <span class="printed">Personnel number</span> <span class="typed">{!Account.owner.employeeNumber}</span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="highlight3">
+                            (Please tick applicable block)<br/>
+                            <table style="border: 0;">
+                                <tr>
+                                    <td class="printedBold" style="border: 0; width: 15%; vertical-align: top;">
+                                        <apex:outputText value="&#x2610;" escape="false" rendered="{!Account.Risk__c != 'High'}" styleClass="checkbox" />
+                                        <apex:outputText value="&#x2611;" escape="false" rendered="{!Account.Risk__c == 'High'}" styleClass="checkbox" />
+                                        <apex:outputText value="&nbsp;&nbsp;" escape="false"/>High risk
+                                    </td>
+
+                                    <td style="border: 0; width: 2%; vertical-align: top;"><apex:outputText value="&bull;" escape="false"/></td>
+
+                                    <td class="printed" style="border: 0; width: 83%; vertical-align: top;">
+                                        A <span class="printedBold">"high risk"</span> rating may be as a result of sanction or politically exposed persons being linked to the client, the entity type (NPO, inter vivos trust, jurisdiction of the client, the ownership of the client, occupation or business activity (e.g. armament, gambling, conflict minerals). Enhanced due diligence must be completed for high risk clients.; or
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="printedBold" style="border: 0; width: 15%; vertical-align: top;">
+                                        <apex:outputText value="&#x2610;" escape="false" rendered="{!Account.Risk__c != 'Low'}" styleClass="checkbox" />
+                                        <apex:outputText value="&#x2611;" escape="false" rendered="{!Account.Risk__c == 'Low'}" styleClass="checkbox" />
+                                        <apex:outputText value="&nbsp;&nbsp;" escape="false"/>Low risk
+                                    </td>
+
+                                    <td style="border: 0; width: 2%; vertical-align: top;"><apex:outputText value="&bull;" escape="false"/></td>
+
+                                    <td class="printed" style="border: 0; width: 83%; vertical-align: top;">
+                                        A <span class="printedBold">"low risk"</span> customer may be as a result of the entity being listed or regulated in a stringent anti money laundering jurisdiction; or
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="printedBold" style="border: 0; width: 15%; vertical-align: top;">
+                                        <apex:outputText value="&#x2610;" escape="false" rendered="{!Account.Risk__c != 'Medium'}" styleClass="checkbox" />
+                                        <apex:outputText value="&#x2611;" escape="false" rendered="{!Account.Risk__c == 'Medium'}" styleClass="checkbox" />
+                                        <apex:outputText value="&nbsp;&nbsp;" escape="false"/>Medium risk
+                                    </td>
+
+                                    <td style="border: 0; width: 2%; vertical-align: top;"><apex:outputText value="&bull;" escape="false"/></td>
+
+                                    <td class="printed" style="border: 0; width: 83%; vertical-align: top;">
+                                        Where the customer is neither of the above, the customer is deemed as <span class="printedBold">"medium risk"</span> and reasons for classification are not required.
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="heading">Reasons for classification</td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 287px; color: black;" valign="top">{!Account.High_Risk_Reason__c}<apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="heading">Source of Wealth (including source of Income)<apex:outputText value="&nbsp;&ndash;&nbsp;" escape="false"/>Wealth refers to the activities that the customer is involved in that generate their regular income. Wealth includes profit from business activity (e.g. trade or services), previous investments, inheritance, funds from investors etc.</td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 287px; color: black;" valign="top">{!Account.Source_of_Wealth__c}<apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <hr/>
+            
+            <table class="footer">
+                <tr>
+                    <td>
+                        <span style="font-weight: bold;">00159524</span><apex:outputText value="&nbsp;" escape="false"/><span style="font-size: 80%">2015-03</span>
+                    </td>
+
+                    <td style="text-align: right;">
+                        Page <span style="font-weight: bold;">2</span> of <span style="font-weight: bold;">4</span>
+                    </td>
+                </tr>
+            </table>
+
+            <br clear="all" style="mso-special-character: line-break; page-break-before: always"/>
+
+            <table class="firstTable">
+
+                <tbody>
+                    <tr>
+                        <td class="heading">5 Nature of Relationship?</td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 210px; color: black;" valign="top">{!Account.Nature_of_Relationship__c}<apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="heading">6 Services/ Products expected or currently provided?</td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 210px; color: black;" valign="top">{!Account.Services_Products_Expected_or_currently__c}<apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="heading">7 Anticipated Level / Volume of Activity<apex:outputText value="&nbsp;&ndash;&nbsp;" escape="false"/>This refers to what the anticipated transactions are that the customer will enter with the Standard Bank Group entity.</td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 210px; color: black;" valign="top">{!Account.Anticipated_Level_Volume_of_Activity__c}<apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="heading">8 Nature of Business<apex:outputText value="&nbsp;&ndash;&nbsp;" escape="false"/>I.e. what is the main business activity of the customer?</td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 210px; color: black;" valign="top">{!Account.Nature_of_business_activity__c}<apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <hr/>
+            
+            <table class="footer">
+                <tr>
+                    <td>
+                        <span style="font-weight: bold;">00159524</span><apex:outputText value="&nbsp;" escape="false"/><span style="font-size: 80%">2015-03</span>
+                    </td>
+
+                    <td style="text-align: right;">
+                        Page <span style="font-weight: bold;">3</span> of <span style="font-weight: bold;">4</span>
+                    </td>
+                </tr>
+            </table>
+
+            <br clear="all" style="mso-special-character: line-break; page-break-before: always"/>
+
+            <table class="firstTable">
+
+                <tbody>
+                    
+                    <tr>
+                        <td class="heading" colspan="2">9 Is the Nature of Business and Nature of Relationship Inconsistent?</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="height: 145px; color: black;" valign="top">{!Account.Business_Relationship_Inconsistent__c}<apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="heading" style="width: 2%;"><apex:outputText value="&nbsp;" escape="false"/></td><td class="heading">FAIS</td>
+                    </tr>
+                    <tr>
+                        <td class="heading" colspan="2">10 What is the Client Net Asset Value (NAV) (i.e. Total Assets less Total liabilities)?</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="height: 145px; color: black;" valign="top"><apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="heading">11 If the client is an Asset Manager, what is the value of Assets that the client manages (i.e. Assets under Management)?</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="height: 145px; color: black;" valign="top"><apex:outputText value="&nbsp;" escape="false"/></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" class="printedBold" style="border-bottom: 0; border-collapse: collapse; font-size: 120%;">
+                            The Group Introductory Certificate is provided to assist the receiving group entity to complete customer due diligence on the customer. The receiving group entity however remains responsible for discharging its customer due diligence obligations under local laws and regulations.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" valign="bottom" style="height: 155px; border-top: 0; border-collapse: collapse;">
+                            
+                            <table class="signOff">
+                                <tr>
+                                    <td style="width: 18.5%;">
+                                        <span class="printed">Name and Surname</span>
+                                    </td>
+                                    
+                                    <td style="width: 30%;">
+                                        <p style="text-align: right;">
+                                            <span class="typed">{!Account.owner.name}</span>
+                                        </p>
+                                    </td>
+                                    
+                                    <td style="width: 3%; border-bottom: 0;"/>
+                                    
+                                    <td style="width: 18.5%;">
+                                        <span class="printed">Personnel number</span>
+                                    </td>
+                                    
+                                    <td style="width: 30%;">
+                                        <p style="text-align: right;">
+                                            <span class="typed">{!Account.owner.employeeNumber}</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td style="width: 18.5%;">
+                                        <span class="printed">Position</span>
+                                    </td>
+                                    
+                                    <td style="width: 30%;">
+                                        <p style="text-align: right;">
+                                            <span class="typed">{!Account.owner.title}</span>
+                                        </p>
+                                    </td>
+                                    
+                                    <td style="width: 3%; border-bottom: 0;"/>
+                                    
+                                    <td style="width: 18.5%;">
+                                        <span class="printed">Department</span>
+                                    </td>
+                                    
+                                    <td style="width: 30%;">
+                                        <p style="text-align: right;">
+                                            <span class="typed">{!Account.owner.user_division__c}</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td style="width: 18.5%;">
+                                        <span class="printed">Business unit</span>
+                                    </td>
+                                    
+                                    <td style="width: 30%;">
+                                        <p style="text-align: right;">
+                                            <span class="typed">{!Account.owner.business_unit__c}</span>
+                                        </p>
+                                    </td>
+                                    
+                                    <td style="width: 3%; border-bottom: 0;"/>
+                                    
+                                    <td style="width: 18.5%;">
+                                        <span class="printed">Date</span> <span class="printed" style="font-size: 80%;">(YYYY-MM-DD)</span>
+                                    </td>
+                                    
+                                    <td style="width: 30%;">
+                                        <p style="text-align: right;">
+                                            <span class="typed"><apex:outputText value="{0, date, yyyy-MM-dd}"><apex:param value="{!TODAY()}" /></apex:outputText></span>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+            
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            
+            <hr/>
+            
+            <table class="footer">
+                <tr>
+                    <td>
+                        <span style="font-weight: bold;">00159524</span><apex:outputText value="&nbsp;" escape="false"/><span style="font-size: 80%">2015-03</span>
+                    </td>
+
+                    <td style="text-align: right;">
+                        Page <span style="font-weight: bold;">4</span> of <span style="font-weight: bold;">4</span>
+                    </td>
+                </tr>
+            </table>
+
+            <span style="margin: 0; padding: 0; font-size: 0; color: white;">.</span>
+        </div>
+    </body>
+
+</html>
+</apex:page>

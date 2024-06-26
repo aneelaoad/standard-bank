@@ -1,0 +1,5 @@
+<apex:page standardController="Opportunity" 
+            extensions="StdBank_OpptyProdRedirect_Vf_Ext" 
+            action="{!redirect}" >
+    <apex:detail />
+</apex:page>

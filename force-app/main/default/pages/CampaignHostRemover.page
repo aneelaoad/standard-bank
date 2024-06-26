@@ -1,0 +1,120 @@
+<!-- Case #1168 Rudolf Niehaus 11/2011 -->
+<!-- Description: VF Page that enable users to remove hosts(bank contacts) from campaign members -->
+<!-- EN #15 Nitish Kumar 06/02/2013 -->
+<!-- Added User friendly messages -->
+<apex:page controller="CampaignHostsController" tabStyle="Campaign" standardStyleSheets="true" showHeader="true" sidebar="true" action="{!showRemovableHosts}">
+<style type="text/css">
+.infoTextA { font-weight:Bold;font-size:12px;background-color:yellow; }
+.infoTextB { font-weight:Bold;font-size:12px;background-color:#00FF33; }
+.infoTextC { font-weight:Bold;font-size:12px;background-color:#FF8000; }
+.infoTextD { font-weight:Bold;font-size:12px;background-color:red; }
+</style>
+<script type="text/javascript">
+    function clickclear(thisfield){
+    
+        thisfield.value = "";
+    
+    }
+    
+    function enterSearch(e){
+    
+        var key; 
+            
+        if(window.event){
+            key = window.event.keyCode; //IE
+        }else{
+            key = e.which; //firefox     
+        }
+        if(key == '13'){
+            actionSearchScript();
+            e.keyCode = null;   
+        }
+    }
+    
+    function reload(){
+        actionSearchScript();
+    }
+    function checkAll(cb){
+        var inputElem = document.getElementsByTagName("input");
+        
+        for(var i=0; i<inputElem.length; i++){
+            if(inputElem[i].id.indexOf("clickedOn")!=-1){
+                inputElem[i].checked = cb.checked;
+            }
+        }
+    }
+    
+    function showPanel() {
+            document.getElementById('hostPanel').style.display ="block";
+        }
+      function hidePanel() {
+            document.getElementById('hostPanel').style.display ="none";   
+        }
+    
+</script>
+    <apex:form >
+        <apex:actionFunction action="{!showRemovableHosts}" name="actionSearchScript"/>
+        <apex:pageBlock id="block">
+            <table>
+            <tr valign="bottom">
+            <td></td>
+            <td style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:11px;color:#4A4A56">Campaign</td>
+            </tr>
+            <tr>
+            <td width="1%"><img src="/s.gif" alt="Campaigns" class="pageTitleIcon" title="Campaigns"/></td>
+            <td width="99%" style="vertical-align:middle;font-weight:500;font-size: 21px;font-family: Arial, Helvetica, sans-serif;">Remove Host(s)</td>
+            </tr>
+            <tr>
+            <td colspan="2" ><div class="ptBreadcrumb"><a href="/{!campId}">&laquo; Back to Campaign: {!campName}</a></div></td>
+            <td></td>
+            </tr>
+            </table>
+            <br/>
+            <apex:pageBlockSection >
+            <apex:outputLabel value="{!nrSelectedMembers}" styleClass="infoTextA" rendered="{!styleSwapA}"/>
+            <apex:outputLabel value="{!nrSelectedMembers}" styleClass="infoTextB" rendered="{!styleSwapB}"/>
+            <apex:outputLabel value="{!nrSelectedMembers}" styleClass="infoTextC" rendered="{!styleSwapC}"/>
+            <apex:outputLabel value="{!noSearchResults}"   styleClass="infoTextD" rendered="{!isnoSearchResultsTrue}"/>
+            <apex:outputLabel value="{!noHostsSelected}"   styleClass="infoTextD" rendered="{!isnoHostsSelectedTrue}"/>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+            <apex:outputLabel value="Filter by Host Name" style="font-family: Arial, Helvetica, sans-serif;font-weight:Bold;font-size:1em;background-color:#E2E3E5;"/>
+            </apex:pageBlockSection>  
+            <apex:pageBlockSection columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:panelGroup >
+                    <apex:inputText id="filterText" value="{!filterText}" onclick="clickclear(this)" onkeypress="enterSearch(event);"/>
+                    <apex:commandButton id="filterBtn" value="Filter" action="{!showRemovableHosts}" rerender="block" status="status"/>
+                    <apex:commandButton action="{!removeHost}" value="Remove Selected Host(s)" disabled="{!OR(noHosts,memberNotChecked)}"/>
+                    <apex:commandButton action="{!Done}" value="Back To Members"/>
+                    </apex:panelGroup>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection >
+            </apex:pageBlockSection> 
+            <apex:actionStatus id="status" onStart="hidePanel();" onStop="showPanel();" >
+              <apex:facet name="start">
+                    Filtering Hosts... please wait...
+                  <img src="/img/loading32.gif"></img>
+                </apex:facet>
+              </apex:actionStatus>
+              <div id="hostPanel"> 
+                <apex:outputPanel id="thePanel" layout="block" rendered="{!memberAvailable}">
+                <apex:pageBlockTable value="{!removeResults}" var="h" columns="7">
+                    <apex:column >
+                    <apex:facet name="header"> 
+                        <apex:inputCheckbox onclick="checkAll(this)"/>
+                    </apex:facet>
+                        <apex:inputCheckbox value="{!h.checked}" id="clickedOn" />
+                    </apex:column>
+                    <apex:column value="{!h.host.Bank_Contact__r.Name}" headerValue="Contact Name"/>
+                    <apex:column value="{!h.host.Bank_Contact__r.Title}" headerValue="Title"/>
+                    <apex:column value="{!h.host.Bank_Contact__r.Email}" headerValue="Email Address"/>
+                    <apex:column value="{!h.host.Bank_Contact__r.User_Division_Sync__c}" headerValue="Division"/>
+                    <apex:column value="{!h.host.Bank_Contact__r.User_Business_Unit_Sync__c}" headerValue="Business Unit"/>
+                </apex:pageBlockTable>
+              </apex:outputPanel>
+             </div>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

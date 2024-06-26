@@ -1,0 +1,36 @@
+<apex:page controller="OSB_GeneralError_Ctrl">
+    <apex:stylesheet value="{!$Resource.OSBCssFiles + '/OSBGeneralError.css'}" />
+    <apex:stylesheet value="{!$Resource.OSB_icons_font + '/style.css'}" />
+    
+    <c:OSBHeader />
+    
+    <style>
+    	@font-face {
+          font-family: 'BentonSans';
+          src: url("{!URLFOR($Resource.OSB_BentonSansFont, '/BentonSans/BentonSans/BentonSans-Thin.otf')}");
+        }
+        
+        @font-face {
+          font-family: 'BentonSansLight';
+          src: url("{!URLFOR($Resource.OSB_BentonSansFont, '/BentonSans/BentonSans/BentonSans-Light.otf')}");
+          font-weight: 300;
+        }
+    </style>
+    
+    <div>
+        <div class="containerDiv">
+            <p class="ContentTitle">
+                Hmm… Well this is awkward
+            </p>
+            
+            <p class="contentText">
+                It seems there was an error. We apologise for this. Please come back a bit later. 
+            </p>
+            <center data-id="uitlink_link" data-text="General Error | Go to the homepage">
+                <apex:form >
+                	<apex:commandButton action="{!getHomePageURL}" value="Go to homepage" styleClass="primaryButton"/>
+                </apex:form>
+            </center>
+        </div>
+    </div>
+</apex:page>

@@ -1,0 +1,11 @@
+<!--
+ - Created by tsobota on 13.08.2018.
+ -->
+
+<apex:page id="RequestCC_CST_ChangeRedirect"  controller="RequestCC_CST_ChangeRedirect_Controller" action="{!redirect}">
+    <apex:slds />
+    <apex:form >
+        <apex:pageMessage severity="Error" summary="This feature is only available in Lightning experience." strength="1" rendered="{! not(isLightning)}"/>
+        <apex:commandButton styleClass="slds-align_absolute-center" action="{! goBackToClient}" value="Back" title="Back" rendered="{! not(isLightning)}"/>
+    </apex:form>
+</apex:page>

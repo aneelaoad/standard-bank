@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>15.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>EMEA_SOW_StandardBank_009: Used to override the standard ‘View’ function of an Opportunity. The Visualforce page will invoke a custom controller (Apex class) that will calculate whether the current Opportunity has at least one child ‘Product’ record. If it does not, the user will be redirected to the ‘New’ Product page with the parent Opportunity value pre-populated.</description>
+    <label>StdBank_OpptyProductRedirect_Vf</label>
+</ApexPage>

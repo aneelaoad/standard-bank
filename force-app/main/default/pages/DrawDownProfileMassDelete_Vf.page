@@ -1,0 +1,89 @@
+<!-- Case#141: Rudolf Niehaus -->
+<!-- This page allows uses to mass delete draw down records -->
+<apex:page standardController="Draw_Down_Profile__c" recordSetVar="selectedRecords" extensions="DrawDownProfileMassActions_Vf_Ext" standardStyleSheets="true">
+<script type="text/javascript">
+var recordId = "{!$CurrentPage.parameters.Id}";
+if ({!(ISNULL(selected))}){
+            if ({!isLightning}) {
+                alert('You have been redirected. Please select Draw Down Profiles to be deleted.');
+                if (sforce && sforce.one) {
+                    sforce.one.navigateToRelatedList('Draw_Down_Profiles__r', recordId);
+                }
+                else {
+                    window.parent.location = '/one/one.app#/sObject/' + recordId + '/rlName/Draw_Down_Profiles__r/view';
+                }
+            }
+            else {
+                alert('Please select at least one Draw Down Profile from the Product page for Mass Edit.');
+                window.parent.location = '/' + recordId;
+            }
+}
+</script>
+<style>
+.vfHelpText a {position:relative;}
+.vfHelpText a span {display: none;}
+.vfHelpText a:hover span {display: block;
+                          position:absolute;
+                          top:1.25em;
+                          padding:2px 5px;
+                          left:-15em; width:15em;
+                          z-index:100;
+                          border:1px solid orange;
+                          background-color:#FEFDB9;
+                          color:black;
+                         }
+ </style> 
+    <apex:sectionHeader title="Draw Down Profile"
+            subtitle="Delete Multiple Draw Down Profiles for Opportunity Product"
+            description="Delete Multiple Draw Down Profiles for an Opportunity Product by clicking the 'Delete' button." />
+    <apex:form >
+        <apex:pageBlock >
+        <table>
+        <tr>
+        <td>Product Information:</td>
+        </tr>
+        <tr>
+        <td>
+        <a style="color: #1468B6;text-decoration: none" href="/{!prodID}">{!prodCode}&nbsp;-&nbsp;{!prodProfile}</a>
+        </td>
+        </tr>
+        </table>
+        </apex:pageBlock>
+        <apex:pageBlock >
+        	<table>
+        	<tr>
+        	<td style="font-weight:bold;font-family: sans-serif;font-size: 11.5px">Residual Undrawn:</td>
+        	<td>
+        	<span class="vfHelpText">
+	        	<apex:outputLink value="javascript:return false;">
+	        	<img src="/s.gif" alt="" class="helpOrb" />
+	        	<span>{!$ObjectType.Draw_Down_Profile__c.fields.Residual_Undrawn__c.inlineHelpText}</span>
+	        	</apex:outputLink>
+        	</span>
+        	</td>
+        	<td style="font-family: sans-serif;font-size: 11.5px">{!currencyIsoCode}&nbsp;{!residualUndrawn}</td>
+        	</tr>
+        	</table>  
+        </apex:pageBlock>   
+        <apex:pageBlock >
+            <apex:pageBlockTable value="{!selectedRecords}" var="dw">
+                <apex:column headervalue="Draw Down Number" width="10%">
+                    <apex:outputfield value="{!dw.Draw_Down_Number__c}" />
+                </apex:column>
+                <apex:column headervalue="Funding Required" width="30%">
+                    <apex:outputfield value="{!dw.Funding_Required__c}"/>
+                </apex:column>
+                <apex:column headervalue="Draw Date" width="30%">
+                    <apex:outputfield value="{!dw.Draw_Date__c}"/>
+                </apex:column>
+                <apex:column headervalue="Draw Down Maturity Date" width="30%">
+                    <apex:outputfield value="{!dw.Draw_Down_Maturity_Date__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons lang="en" location="both">
+                <apex:commandButton value="Delete" action="{!deleteAll}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

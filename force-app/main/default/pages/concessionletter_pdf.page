@@ -1,0 +1,834 @@
+<!--
+@ Author        : Manoj Gupta
+@ Date          : 12th Nov 2016
+@ Description   : US:1593 CommB - CMS - 12 - RM Generates Concession Letter
+
+-->
+
+
+<apex:page controller="wrapperConcessionOpportunity" standardStylesheets="false" applyHTMLTag="false"  applybodyTag="false" showHeader="false">
+ 
+ <html style="margin-right: 30px;margin-top: 0px; margin-bottom: 20px; margin-left: 30px;">  
+   <head>
+         <apex:includeScript value="{!$Resource.Jquery1122}"/>
+         <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+         <style type="text/CSS">
+            body{
+               <!-- font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; -->  
+               font-family:"Helvetica Neue";      
+            }
+            
+
+            .center{
+                text-align:center;
+            }
+
+            .table-bordered {
+                border: 1px solid #000;
+                border-collapse : collapse;
+                font-size : .8em;
+            }
+            .table-signature {
+                border: 1px solid #000;
+                border-collapse : collapse;
+                page-break-inside: avoid;
+                
+            }
+               table.table-signature td {
+               vertical-align: bottom;
+                 height: 35px;
+                 width:  100px;
+                 page-break-inside: avoid;
+                 
+            }
+
+           thead>tr>th {
+                vertical-align: bottom;
+                border: 1px solid #000;
+                border-spacing: 0;
+                text-align:center;
+                border-collapse: collapse;
+                background : #202d79;
+                color:white;
+            }
+
+            td {
+                vertical-align: top;
+                border: 1px solid #000;
+                border-spacing: 0;
+                border-collapse: collapse;
+                text-align:center;
+            }
+
+            .header>td{
+                font-weight:bold;
+                background : #c4c4c4;               
+            }
+
+            .echoArea>td{
+                padding:10px;
+            }
+
+            @page {
+                            size: letter;
+                            margin: 25mm;
+                            margin-top: 0.8cm;
+                            
+                            @bottom-center {
+                                content: "Page " counter(page) " of " counter(pages);
+                            }
+                            
+                        
+                        }
+                        
+                        .page-break {
+                            display:block;
+                            page-break-after:always;
+                        }
+                        
+                        body {
+                            <!-- font-family: Arial Unicode MS;-->
+                            font-family:Helvetica Neue;
+                        }
+                        table.logoTable {
+                        margin-bottom: 10mm;
+                        padding: 0;
+                        border: 0;
+            } 
+                       
+            
+            
+
+        </style>
+    </head>
+    
+                <table width="100%">
+                <tr>
+
+                    <td style="border: 0; color: #185098;">
+                        <div align="right" >
+                            <apex:image id="theImage" value="{!$Resource.StandardBank_Header}"  width="100" height="100" />
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                  <td style="border: 0;padding-right: 12px;">
+                <div align="right" >
+                    <apex:outputText value="{0,date,d/M/yyyy}"> 
+                    <apex:param value="{!Today}" />
+                      </apex:outputText>
+                 </div>
+                 </td></tr><br/>
+                       
+            </table>
+            
+ <apex:outputPanel rendered="{!salname==null}">   
+To <input id="sname" type="text"/>
+</apex:outputPanel>
+ <apex:outputPanel rendered="{!salname!=null}">   
+To {!salname}
+</apex:outputPanel>
+<br/>{!Accname} <br/>
+{!Accaddress}<br/> 
+
+<br/><br/>
+
+<b> <span style='font-family:"Helvetica Neue"'>Client Number:</span></b> {!AccCIF} <br/><br/>  
+
+<!--Dear {!Accname}, <br/> -->
+
+ <apex:outputPanel rendered="{!actextname==null}">   
+Dear <input id="acname" type="text"/>,<br/>
+</apex:outputPanel>
+ <apex:outputPanel rendered="{!actextname!=null}">   
+Dear {!actextname},<br/>
+</apex:outputPanel>
+
+
+
+<b> <span style='font-family:"Helvetica Neue"'> Offer of a Concession on pricing (“Fees/Interest Rates/Offer”) by the Standard Bank of South Africa Limited (“we/us/our”) to {!Accname}</span></b>
+<br/> <br/>
+I am pleased to inform you that as a valued client you have been granted a concession on pricing for the services listed below. A concession is a discount on your pricing. This means that, subject to the conditions set out below, instead of paying the standard pricing for these service(s), you will be charged at the discounted pricing for the concession period.<br/><br/>
+
+<b> <span style='font-family:"Helvetica Neue"'>Please note that the pricing will revert to our standard pricing immediately after the expiry of the concession period, or should the conditions set out below not be met.</span></b><br/><br/>
+
+All our pricing is reviewed on the 1st of January of each year or as otherwise advised by us. Your pricing will therefore be updated on 1 January or as otherwise advised. However, the concession you have been granted will remain the same until the concession period expires, and such concession will be applied to any updated pricing.<br/>
+The concession will be effective once you have indicated your acceptance of this Offer by signing in the space provided below.<br/><br/> 
+
+Our Terms and Conditions and the standard fees are available at www.standardbank.co.za.<br/><br/>
+
+You are most welcome to contact me, your Relationship Manager, for any questions about pricing, or any of the business banking services we offer.
+<br/><br/>Yours sincerely, <br/>
+
+<br/>
+       
+       
+       <table width="100%" class="table-signature" style="border: 0;">
+              <tr>
+                <td style="border: 0;text-align: left;" >
+                  {!oppowner}<br/>
+                  Relationship Manager
+                </td>
+                <td style="border: 0;text-align: left;" >
+                  {!oppmanager}<br/>
+                  Business Suite Head
+                </td>
+              </tr>
+              
+                            <tr>
+                <td style="border: 0;text-align: left;" >
+                  {!oppownerphone}
+                </td>
+                <td style="border: 0;text-align: left;" >
+                  {!oppmanagerphone}
+                </td>
+              </tr>
+              
+                            <tr>
+                <td style="border: 0;text-align: left;" >
+                  {!oppowneremail}
+                </td>
+                <td  style="border: 0;text-align: left;">
+                  {!oppmanageremail}
+                </td>
+              </tr>
+       </table> <br/><br/><br/> 
+
+<!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
+
+
+
+    <body>
+     <b><u>RISK GROUP NUMBER: </u></b> {!Riskgroupnum}
+     <apex:variable value="{!0}" var="rowNum"/>
+     <apex:repeat value="{!selectedWrapperList}" var="cc">
+    <!-- <apex:outputText value="{!FLOOR(rowNum)}"/> -->
+     <apex:variable var="rowNum" value="{!rowNum + 1}"/> 
+  
+        <apex:outputPanel id="MerchDetail" rendered="{!cc.opp.RecordType.DeveloperName == 'Merchant_Acquiring'}">
+        <h4>{!FLOOR(rowNum)}. Merchant Acquiring </h4>
+
+                                
+        <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th> Merchant Number</th>
+            <th>First Channel/Fee Type</th>
+            <th>Fee/rate (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td>{!cc.opp.Merchant_Number__c}</td>
+                        <td>{!cc.opp.Transaction_Type__c}</td>
+                        <td>{!cc.opp.Commission_Rate__c}%</td>
+                        <td>
+                                                        <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                                                <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+                
+            </tbody>
+            
+            
+        </table>
+        <apex:outputPanel id="MA_COGDetail" rendered="{!cc.conditionofGrantlist.size>0}">
+        <h4> Condition of Grant</h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+            </apex:outputPanel> 
+        </apex:outputPanel>
+       
+        <apex:outputPanel id="TransactionalDetail" rendered="{!cc.opp.RecordType.DeveloperName == 'Transactional'}">
+               <h4>{!FLOOR(rowNum)}.  Transactional </h4>
+                <table width="100%" class="table-bordered" style="table-layout:fixed;white-space:normal">
+            <thead>
+                <tr>
+            <th>Product Account Number</th>
+            <th>Channel/Fee Type</th>
+            <th>Fee/rate (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td width="50%" style="overflow-wrap:break-all;word-break:break-all;">{!cc.opp.Product_Account_Number__c}</td>
+                        <td>{!cc.opp.Transaction_Type__c}</td>
+                        <td>ZAR&nbsp;{!cc.opp.Base_Rate__c}&nbsp;+&nbsp;{!cc.opp.Ad_Valorem__c}%</td>
+                        <td>
+                                                        <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                                                <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+               
+            </tbody>
+        </table>
+        <apex:outputPanel id="TransactCOGDetail" rendered="{!cc.conditionofGrantlist.size>0}">
+        <h4> Condition of Grant</h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+            </apex:outputPanel> 
+         </apex:outputPanel>
+         
+                 <apex:outputPanel id="TradeDetail" rendered="{!cc.opp.RecordType.DeveloperName == 'Trade'}">
+               <h4>{!FLOOR(rowNum)}.  Trade </h4>
+                <table width="100%" class="table-bordered" style="table-layout:fixed;white-space:normal">
+            <thead>
+                <tr>
+            <th>Product Account Number</th>
+            <th>Channel/Fee Type</th>
+            <th>Fee/rate (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td width="50%" style="overflow-wrap:break-all;word-break:break-all;">{!cc.opp.Product_Account_Number__c}</td>
+                        <td>{!cc.opp.Transaction_Type__c}</td>
+                        <td>Base Rate:&nbsp;ZAR&nbsp;{!cc.opp.Base_Rate__c}<br/>Ad Valorem:&nbsp;{!cc.opp.Ad_Valorem__c}%<br/>Maximum Fee:&nbsp;ZAR&nbsp;{!cc.opp.Maximum_Fee__c}</td>
+                        <td>
+                            <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                                               <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+               
+            </tbody>
+        </table>
+        <apex:outputPanel id="TradeCOGDetail" rendered="{!cc.conditionofGrantlist.size>0}">
+        <h4> Condition of Grant</h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+              </apex:outputPanel>
+         </apex:outputPanel>
+         
+         
+         
+                 <apex:outputPanel id="BOLDetail" rendered="{!cc.opp.RecordType.DeveloperName == 'BOL'}">
+               <h4>{!FLOOR(rowNum)}.  BOL </h4>
+                <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>BOL User ID</th>
+            <th>Channel/Fee Type</th>
+            <th>Fee/rate (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td>{!cc.opp.BOL_User_ID__c}</td>
+                        <td>{!cc.opp.BOL_Transaction_Type__c}</td>
+                        <td>ZAR&nbsp;{!cc.opp.Base_Rate__c}&nbsp;+&nbsp;{!cc.opp.Ad_Valorem__c}%</td>
+                        <td>
+                            <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                                                <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+               
+            </tbody>
+        </table>
+        <apex:outputPanel id="BOLCOGDetail" rendered="{!cc.conditionofGrantlist.size>0}">
+        <h4> Condition of Grant</h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+          </apex:outputPanel>    
+         </apex:outputPanel>
+         
+         
+                 <apex:outputPanel id="InvestmentDetail" rendered="{!cc.opp.RecordType.DeveloperName == 'Investments'}">
+               <h4>{!FLOOR(rowNum)}.  Investments </h4>
+                <table width="100%" class="table-bordered" style="table-layout:fixed;white-space:normal">
+            <thead>
+                <tr>
+            <th>Investments Product Type</th>
+            <th>Product Account Number</th>
+            <th>Channel/Fee Type</th>
+            <th>Fee/Interest to client (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td>{!cc.opp.Investment_Product_Type__c}</td>
+                        <td width="50%" style="overflow-wrap:break-all;word-break:break-all;">{!cc.opp.Product_Account_Number__c}</td>
+                        <td>Interest to Client</td>
+                        <td>{!cc.opp.Interest_To_Client__c}%</td>
+                        <td>
+                            <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        
+                        </td>
+                                                <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+               
+            </tbody>
+        </table>
+        <apex:outputPanel id="InvestCOGDetail" rendered="{!cc.conditionofGrantlist.size>0}">
+        <h4> Condition of Grant</h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+            </apex:outputPanel> 
+         </apex:outputPanel>
+         
+         
+         
+                 <apex:outputPanel id="CashAcquiringDetail" rendered="{!cc.opp.RecordType.DeveloperName == 'Cash_Acquiring'}">
+               <h4>{!FLOOR(rowNum)}.  Cash Acquiring </h4>
+                <table width="100%" class="table-bordered" style="table-layout:fixed;white-space:normal">
+            <thead>
+                <tr>
+            <th>Product Account Number</th>
+            <th>Channel/Fee Type</th>
+            <th>Fee/rate (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td width="50%" style="overflow-wrap:break-all;word-break:break-all;">{!cc.opp.Product_Account_Number__c}</td>
+                        <td>{!cc.opp.Cash_Acquiring_Channel_Type__c}</td>
+                        <td>ZAR&nbsp;{!cc.opp.Base_Rate__c}&nbsp;+&nbsp;{!cc.opp.Ad_Valorem__c}%</td>
+                        <td>
+                            <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+               
+            </tbody>
+        </table>
+         <apex:outputPanel id="CA_COGDetail" rendered="{!cc.conditionofGrantlist.size>0}">
+        <h4> Condition of Grant</h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+              </apex:outputPanel>
+         </apex:outputPanel>
+         
+      
+        <apex:outputPanel id="LendingDetail" rendered="{!AND(cc.opp.RecordType.DeveloperName == 'Lending',cc.opp.Lending_Product_Type__c <> 'Overdraft')}">
+               <h4>{!FLOOR(rowNum)}. Lending </h4>
+                <table width="100%" class="table-bordered" style="table-layout:fixed;white-space:normal">
+            <thead>
+                <tr>
+            <th>Lending Product Type</th>   
+            <th>Product Account Number</th>
+            <th>Channel/Fee Type</th>
+            <th>Fee/rate (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td>{!cc.opp.Lending_Product_Type__c}</td>                  
+                        <td width="50%" style="overflow-wrap:break-all;word-break:break-all;">{!cc.opp.Product_Account_Number__c}</td>
+                        <td>Margin Above Prime</td>
+                        <td>{!cc.opp.Margin_Above_Prime__c}%</td>
+                        <td>
+                            <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+               
+            </tbody>
+        </table>
+         <apex:outputPanel id="Lending_COGDetail" rendered="{!AND(cc.conditionofGrantlist.size>0,cc.opp.Lending_Product_Type__c <> 'Overdraft')}">
+        <h4> Condition of Grant</h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                        
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+         </apex:outputPanel>
+        </apex:outputPanel> 
+        
+        <apex:outputPanel id="LendingODDetail" rendered="{!AND(cc.opp.RecordType.DeveloperName == 'Lending',cc.opp.Lending_Product_Type__c == 'Overdraft')}">
+               <h4>{!FLOOR(rowNum)}. Lending </h4>
+                <table width="100%" class="table-bordered" style="table-layout:fixed;white-space:normal">
+            <thead>
+                <tr>
+            <th>Lending Product Type</th>   
+            <th>Product Account Number</th>
+            <th>Channel/Fee Type</th>
+            <th>Fee/rate (Incl. VAT)</th>
+            <th>Concession Start Date</th>    
+            <th>Concession End Date</th>          
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td>{!cc.opp.Lending_Product_Type__c}</td>                  
+                        <td width="50%" style="overflow-wrap:break-all;word-break:break-all;">{!cc.opp.Product_Account_Number__c}</td>
+                        <td>Margin Above Prime<br/>Initiation Fee<br/>Review Fee<br/>Review Extension Fee<br/>Average OD Utilisation<br/>Unutilised Facility Fee</td>
+                        <td>{!cc.opp.Margin_Above_Prime__c}%<br/>{!cc.opp.Initiation_Fee__c}%<br/>ZAR&nbsp;{!cc.opp.Review_Fee__c}<br/>{!cc.opp.Review_Extension_Fee__c}%<br/>{!cc.opp.Average_OD_Utilisation__c}%<br/>{!cc.opp.Unutilised_Facility_Fee__c}%</td>
+                        <td>                            
+                                <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.Start_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                                                <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cc.opp.End_Date__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+               
+            </tbody>
+        </table>
+         <apex:outputPanel id="Lending_OD_COGDetail" rendered="{!AND(cc.conditionofGrantlist.size>0,cc.opp.Lending_Product_Type__c == 'Overdraft')}">
+        <h4> Condition of Grant </h4>
+         <table width="100%" class="table-bordered" >
+            <thead>
+                <tr>
+            <th>Condition Measure</th>
+            <th>Condition Product</th>
+            <th>Value</th>
+            <th>Deadline</th>    
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!cc.conditionofGrantlist}" var="cg">
+               
+                    <tr>
+                        <td>{!cg.Condition_Measure__c}</td>
+                        <td>{!cg.Condition_Product__c}</td>
+                        <td>ZAR&nbsp;{!cg.Value__c}</td>
+                        <td>
+                             <apex:outputtext value="{0, date, d/M/yyyy}">
+                                <apex:param value="{!cg.Deadline__c}"></apex:param>
+                            </apex:outputtext>
+                        </td>
+                    </tr>
+            </apex:repeat>    
+            </tbody>
+             </table>
+         </apex:outputPanel>
+        </apex:outputPanel>
+         
+          </apex:repeat>
+          
+          <br/>
+          
+            <h4> Terms and Conditions</h4>
+            <table width="100%">
+              <tr>
+              <td style="border:0;font-size:14px;border-left-width: .1;width: 50px;">
+               1.
+              </td>
+                <td style="border:0;text-align: left;font-size:14px" >
+                This Offer replaces all previous pricing communications to you.
+                </td>
+              </tr>
+              <tr >
+                            <td style="border:0;font-size:14px;border-left-width: .1;width: 50px;">
+               2.
+              </td>
+                <td style="border: 0;  text-align: left;font-size:14px">
+                All pricing is quoted inclusive of VAT (unless otherwise indicated) and is valid for 14 days from the date of offer, after which the bank reserves the right to review the offer if not taken up.
+                </td>
+              </tr>
+               <tr>
+                             <td style="border:0;font-size:14px;border-left-width: .1;width: 50px;">
+               3.
+              </td>
+                <td style="border: 0;  text-align: left;font-size:14px">
+                  The concession is a discount that is given to you on your fees. Your fees may still change from time to time in accordance with our Terms and Conditions. The concession will apply to any updated fees. 
+                </td>
+              </tr>
+              <tr>
+                            <td style="border:0;font-size:14px;border-left-width: .1;width: 50px;">
+               4.
+              </td>
+                <td style="border: 0;  text-align: left;font-size:14px">
+                  The concession is only valid for the concession period or until any conditions that have been imposed are not fulfilled. 
+                </td>
+              </tr>
+              <tr>
+                            <td style="border:0;font-size:14px;border-left-width: .1;width: 50px;">
+               5.
+              </td>
+                <td style="border: 0; text-align: left;font-size:14px">
+                  If there is a conflict between the terms of this Offer and the Terms and Conditions, the terms of this Offer, only in relation to fees, and only to the extent of such conflict, shall prevail.<br/>The Terms and Conditions shall prevail in respect of all other matters. 
+              </td>
+              </tr>
+              <tr>
+                            <td style="border:0;font-size:14px;border-left-width: .1;width: 50px;">
+               6.
+              </td>
+                <td style="border: 0; text-align: left;font-size:14px">
+                  This Offer is addendum to and not a novation of the Terms and Conditions. All the terms of the Terms and Conditions will remain of full force and effect, unless specifically amended in this Offer.
+                </td>
+              </tr>
+          </table> 
+          <br/>
+<b> <span style='font-family:"Helvetica Neue"'>I/We hereby confirm my acceptance of this Offer.</span></b>
+         <table width="100%"  class="table-signature" >
+          <thead>
+            <tbody>
+
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>                        
+                        
+                        
+                    </tr>
+                    <tr>
+                        <td>Client’s Authorised Signatory</td>
+                        <td>Client’s Signature</td>
+                        <td>Date</td>
+                       
+                    </tr>
+          
+            </tbody></thead>
+             </table>    
+    </body>
+ <apex:form >    
+     <!--  <apex:commandButton action="{!generateDoc}" value="Save and Close"  />   -->
+     <apex:pageBlock >
+    <div align="center">
+
+  <!--<Button onclick="assignname();return false;" >Save and Close</button> -->
+  <apex:commandButton onclick="assignname(); return false;" value="Save and Close"  />
+   </div>
+    </apex:pageBlock>
+      
+<apex:actionFunction name="salname" oncomplete="red();">
+<apex:param name="Param1" value="" assignTo="{!salname}"/>
+<apex:param name="Param2" value="" assignTo="{!actextname}"/>
+</apex:actionFunction>
+
+
+<apex:actionFunction name="red" action="{!generateDoc}">
+</apex:actionFunction>
+      </apex:form>
+      
+      <script>
+          function assignname(){
+              var name = $('#sname').val();
+              var aname = $('#acname').val();
+              salname(name,aname);
+             
+          }
+
+      </script>
+       
+   </html>  
+   
+</apex:page>

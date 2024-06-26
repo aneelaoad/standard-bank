@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>25.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Case#141 - Rudolf Niehaus
+VF page that overrides the std edit button on the draw down object</description>
+    <label>DrawDownRedirect_Vf</label>
+</ApexPage>

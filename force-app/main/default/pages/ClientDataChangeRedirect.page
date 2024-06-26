@@ -1,0 +1,12 @@
+<!--
+ - Created by akepczynski on 12.04.2018.
+ -->
+
+<apex:page standardController="Client_Data_Change__c"
+           extensions="RedirectFromRelatedListToLex"
+           id="ClientDataChangeRedirect"
+           action="{!redirect}"     >
+    <apex:form >
+        <apex:variable value="{!componentName}" var="abc" />
+    </apex:form>
+</apex:page>

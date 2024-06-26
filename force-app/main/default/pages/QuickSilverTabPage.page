@@ -1,0 +1,169 @@
+<apex:page >
+    <style>
+        p.padding1{ padding-top: 20px; }
+        p.padding2{ padding-top: 10px; }
+    </style>
+
+    <!-- Commercial Banking Site Link Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="https://standardbank.sharepoint.com/sites/CBSA/SitePages/Commercial-Banking-SA.aspx" target="_blank">
+                Commercial Banking Site
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the link above to access Commercial Banking Site
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- End of Commercial Banking Site Link Definition Block -->
+
+
+    <!-- SBFC Leads Link Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="https://sbfc.value-ad.com/sbfc_cams_bank_leads_capture/index.html" target="_blank">
+                SBFC Leads
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the link above to access SBFC Lead
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- End of SBFC Leads Link Definition Block -->
+
+
+    <!-- QuickSilverButton Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="http://12858iisjnb0005/quicksilver/" target="_blank">
+                <apex:image url="{!URLFOR($Resource.Quicklinks, 'QuickSilverButton.png')}" width="200" alt="QuickSilver"/>
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the image above to access Quicksilver
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- end of Quicksilver Definition Block -->
+
+
+    <!-- PMT Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="http://qlikview.standardbank.co.za/QvAJAXZfc/opendoc.htm?document=pbb_cia%5Cpmt.qvw&lang=en-US&host=QVS%40psdc-001prqlk05" target="_blank">
+            <!--Old link (TBC)<apex:outputLink value="http://192.168.123.73/QvAJAXZfc/opendoc.htm?document=PMT.qvw&host=QVS%4030566appjnb0005" target="_blank">-->
+                Portfolio Management Tool (PMT)
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the link above to access Portfolio Management Tool (PMT)
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- end of PMT Definition Block -->
+
+
+    <!-- STM Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="http://12858iisjnb0005/smt/Default.aspx" target="_blank">
+                <apex:image url="{!URLFOR($Resource.Quicklinks, 'STMButton.png')}" width="200" alt="SMT"/>
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the image above to access Scenario Management Tool (SMT)
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- end of PMT Definition Block -->
+
+
+    <!-- CMS Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="http://10952iisprdsdc2:20201/pending-inbox" target="_blank">
+                Concessions Management System (CMS)
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the link above to access Concessions Management System (CMS)
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- CMS Definition Block -->
+
+
+    <!-- ProAct Origination Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="http://qlikview.standardbank.co.za/QvAJAXZfc/opendoc.htm?document=pbb.credit_business_customer%5Cproact%20originations.qvw&lang=en-US&host=QVS%40psdc-001prqlk05"
+                             target="_blank">
+                ProAct Origination
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the link above to access the ProAct Origination
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- end of ProAct Origination Definition Block -->
+
+
+    <!-- ProAct tool Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="http://qlikview.standardbank.co.za/QvAJAXZfc/opendoc.htm?document=PBB_CIA%2FCredit_dashboard%20Commercial.qvw&host=QVS%40psdc-001prqlk05" target="_blank">
+                ProAct Tool
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the link above to access the ProAct Tool
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- end of ProAct tool Definition Block -->
+
+
+    <!-- African Portal Definition Block -->
+    <p class="padding1">
+        <div style="font-size: 1.083em; margin-top: 35px;">
+            <apex:outputLink value="http://30566appjnb0005/QvAJAXZfc/opendoc.htm?document=RoA%20PDF%20Model.qvw&host=QVS%4030566appjnb0005" target="_blank">
+                Africa Portal
+            </apex:outputLink>
+        </div>
+    </p>
+    <apex:outputPanel >
+        <p class="padding2">
+            <div style="font-size: 1.083em; margin-top: -6px;">
+                Click on the link above to access the Africa Portal
+            </div>
+        </p>
+    </apex:outputPanel>
+    <!-- end of African Portal Definition Block -->
+</apex:page>

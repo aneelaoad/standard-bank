@@ -1,0 +1,9 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 09-22-2021
+  @last modified by  : TCK
+-->
+<apex:page controller="EAP_CommunityContent" action="{!doRedirectToPing}" >
+</apex:page>

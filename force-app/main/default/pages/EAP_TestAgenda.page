@@ -1,0 +1,10 @@
+<!--
+  @description       : 
+  @author            : TCK
+  @group             : 
+  @last modified on  : 05-17-2022
+  @last modified by  : TCK
+-->
+<apex:page renderAs="PDF">
+    VF Page in PDF Format
+ </apex:page>

@@ -1,0 +1,541 @@
+<!--
+  @description       : 
+  @author            : silva.macaneta@standardbank.co.za
+  @group             : 
+  @last modified on  : 11-12-2023
+  @last modified by  : silva.macaneta@standardbank.co.za
+-->
+<apex:page controller="CIB_CTRL_AOMandateGeneratePdf"
+  renderAs="advanced_pdf"
+  showHeader="false"
+  sidebar="false"
+  standardStylesheets="false"
+  applyBodyTag="false"
+  applyHtmlTag="false"
+>
+  <html>
+    <head>
+      <style type="text/css">
+        @page {
+          size: 8.27in 11.69in;
+          @top-right {
+            content: element(header);
+          }
+          @bottom-left {
+            content: element(footer);            
+          }
+          margin-bottom: 3cm;          
+        }
+        .avoid-page-break {
+          page-break-inside: avoid;
+        }        
+        div.header {
+          padding: 11px;
+          position: running(header);
+          font-weight: bold;
+          text-decoration: underline;
+        }
+        div.footer {
+          display: block;
+          padding: 20px;
+          position: running(footer);
+          font-size: x-small;
+        }
+        .pagenumber:before {
+          content: counter(page);
+        }
+        .pagecount:before {
+          content: counter(pages);
+        }
+        .page-break {
+          display: block;
+          page-break-after: always;
+        }
+        body {
+          font-family: "Tahoma", sans-serif;
+          margin: 20px;
+        }
+        table {
+          width: 100%;
+          margin-top: 20px;
+          border-collapse: collapse;
+        }
+        table.section {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+        }
+        table.section > tbody {
+          border: 1px solid #125eaa;
+          display: table-header-group;
+        }
+        .tg {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin: 0px auto;
+        }
+        .tg td,
+        th {
+          border-color: #125eaa;
+          border-style: solid;
+          border-width: 1px;
+          font-family: "Tahoma", sans-serif;
+          overflow: hidden;
+          padding: 10px 5px;
+          word-break: normal;
+        }
+        th.label,
+        th.heading,
+        th.sub-heading {
+          border-color: #125eaa;
+          border-style: solid;
+          border-width: 1px;
+        }
+        th.heading {
+          font-weight: bold;
+          background-color: #125eaa;
+          color: #ffffff;
+          text-align: left;
+          vertical-align: top;
+        }
+        th.sub-heading {
+          font-weight: bold;
+          background-color: #c9d3eb;
+          color: #125eab;
+          text-align: left;
+          vertical-align: top;
+        }
+        td.label,
+        td.value {
+          text-align: left;
+          vertical-align: top;
+          color: #125eaa;
+        }
+        .specimen-container {
+          margin: 2px;
+          padding: 4px;
+          height: 100%;
+          width: 96%;
+          border: 1px solid #125eaa;
+        }
+        .specimen-label {
+          min-height: 20px;
+          width: 100%;
+          color: #125eaa;
+          text-align: center;
+          vertical-align: middle;
+        }
+        .specimen-input {
+          min-height: 30px;
+          height: 100%;
+          color: black;
+        }
+        .strong,
+        .bold {
+          font-weight: 700;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          text-wrap: wrap;
+          text-align: left;
+          vertical-align: top;
+          color: #125eaa;
+          font-size: 10px;
+          font-weight: 300;
+        }
+        .bulleted::before {
+          content: "•";
+          position: absolute;
+          left: 0px;
+        }
+        .bulleted {
+          width: 100% !important;
+          padding-right: 30px;
+          margin-right: -30px;
+          padding-left: 30px;
+          position: relative;
+        }
+        .header {
+          font-weight: bold;
+          text-decoration: underline;
+        }
+        .content {
+          margin: 10px 0;
+        }
+        th,
+        td {
+          padding: 10px;
+          text-align: left;
+        }
+        .signature {
+          text-align: right;
+          margin-top: 20px;
+        }
+        .bottom-border {
+          border-bottom: 2px solid #125eaa;
+        }
+        .no-border,
+        .label.no-border {
+          border-color: white;
+          border-style: solid;
+          border-width: 1px;
+        }
+        .border, tbody.border, .section tbody.border {
+          border: 1px solid #125eaa !important;
+        }
+        .full-width {
+          width: 100%;
+          display: block;
+        }
+        thead {
+          display: table-header-group;
+        }
+        .pull-left {
+          display: block;
+          float: left;
+        }
+        .pull-right {
+          display: block;
+          float: right;
+        }
+        .text-right {
+          text-align: right;
+        }
+        .container {
+          float: right;
+          width: 100px;
+          padding: 10px;
+          border: 1px solid #125eaa;
+          border-radius: 4px !important;
+          margin: 4px;
+        }
+        .label {
+          margin-right: 50px;
+        }
+        tr,
+        th {
+          page-break-inside: avoid;
+        }
+        .no-border {
+          border: none !important;
+        }
+        .border-left {
+          border-left: 1px solid #125eaa;
+        }
+        .border-right {
+          border-right: 1px solid #125eaa;
+        }
+        .border-top {
+          border-top: 1px solid #125eaa;
+        }
+        .border-bottom {
+          border-bottom: 1px solid #125eaa;
+        }
+        .no-border-bottom {
+          border-bottom: none !important;
+        }
+        .no-border-top {
+          border-top: none !important;
+        }
+        .no-border-left {
+          border-left: none !important;
+        }
+        .no-border-right {
+          border-right: none !important;
+        }
+        .blue {
+          color: #125eaa;
+        }
+        .no-padding {
+          padding: 0 !important;
+        }
+
+        table table {
+          margin: 0;
+          border: none;
+        }
+        table td table {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin: 0px auto;
+        }
+        table td table {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin: 0px auto;
+        }
+        td.label:has(table) {
+          padding: 0px !important;
+        }
+        table.no-border * {
+          border: none !important;
+        }
+        .thick-border-bottom {
+          border-bottom: 2px solid #125eaa;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="footer">
+        <table class="no-border section">
+          <tbody>
+            <tr>
+              <td colspan="2" class="no-padding">
+                <div class="container">
+                  <div class="label">Initials</div>
+                  <div class="content"></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Standard Bank (Mauritius) Limited | Account Opening Form
+                (<apex:outputText value="{0,date,MMMM}">
+                  <apex:param value="{!TODAY()}" />
+                </apex:outputText>
+                {!YEAR(TODAY())})
+              </td>
+              <td class="text-right">
+                Page <span class="pagenumber"></span> of
+                <span class="pagecount"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <apex:image height="50"
+        url="{!URLFOR($Resource.MAU_ThemeOverrides,'/assets/logos/SB_blue_Logo_Original.png')}"
+      />
+      <div class="tg-wrap" width="100%">
+        <table class="no-border no-padding section" width="100%">
+          <colgroup>
+            <col width="60%" />
+            <col width="40%" />
+          </colgroup>
+          <tbody class="no-border no-padding">
+            <tr>
+              <td>
+                <span style="font-size: 24px; font-weight: 900px">
+                  Business Account Opening Form </span
+                ><br />
+                <span style="font-size: 10px; font-weight: 300px">
+                  Note: This form has been automatically, please verify all
+                  details before signing or reliance on its content.
+                </span>
+              </td>
+              <td class="text-right">Date: <apex:outputtext value="{!dateFormat}">
+                  <apex:param value="{!TODAY()}"></apex:param>
+                </apex:outputtext>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="no-padding">
+                <table class="section no-padding">
+                  <colgroup>
+                    <col width="100%" />
+                  </colgroup>
+                  <thead>
+                    <th class="heading">Application No.</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="label">{!applicationRecord.Name}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tg-wrap" width="100%">
+        <table class="tg section">
+          <colgroup>
+            <col width=" 50%" />
+            <col width=" 50%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th
+                class="heading"
+                colspan="2"
+                style="
+                  font-family: 'Tahoma', sans-serif;
+                  font-weight: bold;
+                  overflow: hidden;
+                  padding: 10px 5px;
+                  word-break: normal;
+                  background-color: #125eaa;
+                  color: #ffffff;
+                  text-align: left;
+                  vertical-align: top;
+                "
+              >
+                Account Type
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="label">Current Account</td>
+              <td class="value">
+                <c:CIB_PDF_BooleanPicklist value="{!applicationRecord.CIB_AT_IsCurrentAccount__c}" />
+              </td>              
+            </tr>
+            <apex:outputpanel rendered="{!applicationRecord.CIB_AT_IsCurrentAccount__c}"
+              layout="none"
+            >
+              <table class="tg section">
+                <colgroup>
+                  <col width="50%" />
+                  <col width="50%" />
+                </colgroup>
+                <tr>
+                  <td class="label">Current Accounts' Currencies</td>
+                  <td class="value">
+                    <c:CIB_ItemList values="{!applicationRecord.CIB_AT_CurrentAccountCurrencies__c}" />
+                  </td>
+                </tr>
+              </table>
+            </apex:outputpanel>
+            <table
+              class="tg section"
+              style="
+                table-layout: fixed;
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+                margin: 0px auto;
+              "
+            >
+              <tr>
+                <td
+                  class="label"
+                  style="
+                    border-color: #125eaa;
+                    border-style: solid;
+                    border-width: 1px;
+                    font-family: 'Tahoma', sans-serif;
+                    overflow: hidden;
+                    padding: 10px 5px;
+                    word-break: normal;
+                    text-align: left;
+                    vertical-align: top;
+                    color: #125eaa;
+                  "
+                >
+                  Current Account Plus
+                </td>
+                <td
+                  class="value"
+                  style="
+                    border-color: #125eaa;
+                    border-style: solid;
+                    border-width: 1px;
+                    font-family: 'Tahoma', sans-serif;
+                    overflow: hidden;
+                    padding: 10px 5px;
+                    word-break: normal;
+                    text-align: left;
+                    vertical-align: top;
+                  "
+                >
+                
+                <c:CIB_PDF_BooleanPicklist value="{!applicationRecord.CIB_AT_IsCurrentAccountPlus__c}" />
+                </td>                
+              </tr>
+            </table>
+            <apex:outputpanel rendered="{!applicationRecord.CIB_AT_IsCurrentAccountPlus__c}"
+              layout="none"
+            >
+              <table
+                class="tg section"
+                style="
+                  table-layout: fixed;
+                  width: 100%;
+                  border-collapse: collapse;
+                  border-spacing: 0;
+                  margin: 0px auto;
+                "
+              >
+                <tr>
+                  <td
+                    class="label"
+                    style="
+                      border-color: #125eaa;
+                      border-style: solid;
+                      border-width: 1px;
+                      font-family: 'Tahoma', sans-serif;
+                      overflow: hidden;
+                      padding: 10px 5px;
+                      word-break: normal;
+                      text-align: left;
+                      vertical-align: top;
+                      color: #125eaa;
+                    "
+                  >
+                    Current Accounts' Plus Currencies
+                  </td>
+                  <td
+                    class="value"
+                    style="
+                      border-color: #125eaa;
+                      border-style: solid;
+                      border-width: 1px;
+                      font-family: 'Tahoma', sans-serif;
+                      overflow: hidden;
+                      padding: 10px 5px;
+                      word-break: normal;
+                      text-align: left;
+                      vertical-align: top;
+                    "
+                  >
+                    <c:CIB_ItemList values="{!applicationRecord.CIB_AT_CurrentAccountPlusCurrencies__c}" />
+                  </td>
+                </tr>
+              </table>
+            </apex:outputpanel>
+          </tbody>
+        </table>
+      </div>
+      <c:CIB_PDF_EntityDetails />
+      <div class="page-break"></div>
+      <c:CIB_PDF_CommercialDetails />
+      <div class="page-break"></div>
+      <c:CIB_PDF_ContactDetails />
+      <div class="page-break"></div>
+      <c:CIB_PDF_ShareholderDetails />
+      <div class="page-break"></div>
+      <c:CIB_PDF_DirectorsDetails />
+      <div class="page-break"></div>
+      <c:CIB_PDF_AuthorisedSignatories />
+      <div class="page-break"></div>
+      <c:CIB_PDF_AuthorisedSignatoriesSpecimen />
+      <div class="page-break"></div>
+      <c:CIB_PDF_RelatedPartyDisclosures />
+      <div class="page-break"></div>
+      <c:CIB_PDF_CompanyDeclaration />
+      <div class="page-break"></div>
+      <c:CIB_PDF_GeneralTermsAndConditions />
+      <div class="page-break"></div>
+      <c:CIB_PDF_ElectronicInstructionIndemnity />
+      <div class="page-break"></div>
+      <c:CIB_PDF_AnnexureA />
+      <!-- <div class="page-break"></div>
+        <c:CIB_PDF_DetailsOfRelatedParties /> -->
+      <div class="page-break"></div>
+      <c:CIB_PDF_AnnexureB />
+      <div class="page-break"></div>
+      <c:CIB_PDF_CRSClassification />
+      <div class="page-break"></div>
+      <c:CIB_PDF_AnnexureDE />
+    </body>
+  </html>
+</apex:page>

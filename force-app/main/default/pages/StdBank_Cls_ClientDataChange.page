@@ -1,0 +1,137 @@
+<apex:page standardController="Client_Data_Change__c" extensions="StdBank_Cls_ClientDataChange">
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS202, 'assets/styles/salesforce-lightning-design-system.min.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS202, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+    <apex:pageMessages />
+    <apex:outputPanel rendered="{!isClassic}">
+        <apex:form >
+            <apex:sectionHeader title=" Client Data Change" />
+            <apex:pageBlock >
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton value="Save" action="{!save}"/>
+                    <apex:commandButton value="Cancel" action="{!cancelRequest}" immediate="true"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection title="New Client Coordinator Change Request" columns="2" collapsible="false">
+                    <apex:outputField value="{!Client_Data_Change__c.RecordTypeID}" label="Client Reference Data Change Record Type" />
+                    <br/>
+                    <apex:outputField value="{!Client_Data_Change__c.Client_Name__c}" />
+                    <apex:outputField value="{!Client_Data_Change__c.Status__c}" />
+                    <apex:outputField value="{!Client_Data_Change__c.Current_Client_Coordinator__c}"/>
+                    <apex:inputField value="{!Client_Data_Change__c.New_Client_Coordinator__c}" required="True"/>
+                    <apex:outputField value="{!Client_Data_Change__c.Current_Client_Coordinator_Role__c}" />
+                    <apex:inputField value="{!Client_Data_Change__c.New_Client_Coordinator_Role__c}" required="True"/>
+                </apex:pageBlockSection>    
+            </apex:pageBlock>
+        </apex:form>
+    </apex:outputPanel>
+    
+    <apex:outputPanel styleClass="slds" rendered="{!isLightning}">
+      <style>
+        html body.sfdcBody {
+          padding: 0; }
+
+        .slds-button-group .slds-button.leftRadius {
+          border-radius: 0.25rem 0 0 0.25rem; }
+      </style>
+
+      <div class="slds-page-header">
+        <div class="slds-grid">
+          <div class="slds-col slds-has-flexi-truncate">
+            <p class="slds-text-heading--label">Client Data Change</p>
+            <div class="slds-grid">
+              <div class="slds-grid slds-type-focus slds-no-space">
+                <h1 class="slds-text-heading--medium slds-truncate">New Client Data Change</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <apex:form styleClass="slds-form--stacked">
+        <div class="slds-button-group slds-text-align--center slds-show slds-m-vertical--medium" role="group" >
+          <apex:commandButton styleClass="slds-button slds-button--neutral buttonFix leftRadius" value="Save" action="{!save}" />
+          <apex:commandButton styleClass="slds-button slds-button--neutral buttonFix" value="Cancel" action="{!cancelRequest}" immediate="true"/>
+        </div>
+        
+        <div class="slds-box slds-col--padded">
+          <div class="slds-grid slds-wrap slds-grid--pull-padded">
+
+            <div class="slds-form-element slds-p-horizontal--x-small slds-m-vertical--small slds-size--1-of-1">
+                <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1"><span>Information</span> </div>
+            </div>
+              
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+              <label class="slds-form-element__label" for="cdcRecordType">Client Reference Data Change Record Type</label>
+              <div class="slds-form-element__control slds-has-divider--bottom">
+                <div class="slds-form-element__static">
+                  <apex:outputField id="cdcRecordType" value="{!Client_Data_Change__c.RecordTypeID}" />
+                </div>
+              </div>
+            </div>
+            
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+              <label class="slds-form-element__label" for="cdcStatus">Status</label>
+              <div class="slds-form-element__control slds-has-divider--bottom">
+                <div class="slds-form-element__static">
+                  <apex:outputField id="cdcStatus" value="{!Client_Data_Change__c.Status__c}" />
+                </div>
+              </div>
+            </div>
+            
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+              <label class="slds-form-element__label" for="cdcClientName">Client Name</label>
+              <div class="slds-form-element__control slds-has-divider--bottom">
+                <div class="slds-form-element__static">
+                  <apex:outputField id="cdcClientName" value="{!Client_Data_Change__c.Client_Name__c}" styleClass="slds-form-element__static"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+            &nbsp;
+            </div>                  
+
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+              <label class="slds-form-element__label" for="cdcCurrentClientCoordinator">Current Client Coordinator</label>
+              <div class="slds-form-element__control slds-has-divider--bottom">
+                <div class="slds-form-element__static">
+                  <apex:outputField id="cdcCurrentClientCoordinator" value="{!Client_Data_Change__c.Current_Client_Coordinator__c}" />
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+              <label class="slds-form-element__label" for="cdcNewClientCoordinator"><abbr class="slds-required" title="required">*</abbr> New Client Coordinator</label>
+              <div class="slds-form-element__control  slds-input-has-icon slds-input-has-icon--right">
+                <apex:inputField id="cdcNewClientCoordinator" value="{!Client_Data_Change__c.New_Client_Coordinator__c}" required="True" styleClass="slds-input" />
+                <script>
+                  var lkInput = document.getElementById("{!$Component.cdcNewClientCoordinator}");
+                  lkInput.style.visibility = "";
+                  var lkSpan = lkInput.parentElement;
+                  var lkLink = lkSpan.querySelector("a");
+                  lkLink.style.visibility = "";
+                  lkLink.className = "";
+                  lkLink.innerHTML = "<img class=\"slds-input__icon\" src=\""+"{!$Resource.SVGLookupImage}"+"\" width=\"23\" height=\"23\"/>";
+                </script>
+              </div>
+            </div>
+
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+              <label class="slds-form-element__label" for="cdcCurrentClientCoordinatorRole">Current Client Coordinator Role</label>
+              <div class="slds-form-element__control slds-has-divider--bottom">
+                <div class="slds-form-element__static">
+                  <apex:outputField id="cdcCurrentClientCoordinatorRole" value="{!Client_Data_Change__c.Current_Client_Coordinator_Role__c}" />
+                </div>
+              </div>
+            </div>
+
+            <div class="slds-form-element slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-2">
+              <label class="slds-form-element__label" for="cdcNewClientCoordinatorRole"><abbr class="slds-required" title="required">*</abbr> New Client Coordinator Role</label>
+              <div class="slds-form-element__control">
+                <apex:inputField id="cdcNewClientCoordinatorRole" value="{!Client_Data_Change__c.New_Client_Coordinator_Role__c}" required="True" styleClass="slds-select" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </apex:form>
+    </apex:outputPanel>
+</apex:page>

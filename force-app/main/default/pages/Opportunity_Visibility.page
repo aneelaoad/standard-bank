@@ -1,0 +1,164 @@
+<!--    @ Author        :     Abhishek Vaideeswaran                                                 -->
+<!--    @ Date          :     November 2015                                                         -->
+<!--    @ Description   :     Page used to display Opportunity Team members and Sharing information -->
+<apex:page standardController="Opportunity" sidebar="false" showHeader="true" standardStylesheets="false" extensions="OpportunityVisibilityController" tabStyle="Opportunity">
+    <apex:outputPanel rendered="{!NOT(isLightning)}">
+        <apex:sectionHeader title="Opportunities" subtitle="{!Opportunity.Name}" />  
+        <apex:pageBlock >                  
+            <apex:pagemessages />
+            <apex:pageBlockSection title="Opportunity Team Access" collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!TeamMemberListEmpty}"  style="font-family: Arial, Helvetica, sans-serif;color:Red;font-weight:Bold;font-size:13px;" rendered="{!IsTeamMemberEmpty}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem rendered="{!NOT(ISNULL(otmlst))}">
+                    <apex:outputPanel rendered="{!NOT(ISNULL(otmlst))}">
+                        <apex:pageBlockTable value="{!otmlst}" var="otmrec" rendered="{!NOT(ISNULL(otmlst))}">
+                            <apex:column value="{!otmrec.Name}" headerValue="Team Member"/>
+                            <apex:column value="{!otmrec.User_Division__c}" headerValue="Division"/>
+                            <apex:column value="{!otmrec.TeamMemberRole}" headerValue="Team Role"/>
+                            <apex:column value="{!otmrec.OpportunityAccessLevel}" headerValue="Access Level"/>
+                        </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection title="Opportunity Access" collapsible="false" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!ShareListEmpty}"  style="font-family: Arial, Helvetica, sans-serif;color:Red;font-weight:Bold;font-size:13px;" rendered="{!IsShareListEmpty}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!NOT(ISNULL(oslst))}">
+                    <apex:outputPanel rendered="{!NOT(ISNULL(oslst))}">
+                        <apex:pageBlockTable value="{!sharewrapperlist}" var="sharerec">
+                            <apex:column value="{!sharerec.Name}" headerValue="Shared With"/>
+                            <apex:column value="{!sharerec.UserDivision}" headerValue="User Division"/>
+                            <apex:column value="{!sharerec.Reason}" headerValue="Reason for Access"/>
+                            <apex:column value="{!sharerec.oppsharerec.OpportunityAccessLevel}" headerValue="Access Level"/>
+                        </apex:pageBlockTable>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:outputPanel>
+        
+    <!-- LIGHTNING STYLE -->
+    <apex:outputPanel styleClass="slds" rendered="{!isLightning}">
+    
+        <apex:actionStatus id="loaderStatus">
+            <apex:facet name="start">
+            <div class="slds-spinner_container">
+              <div class="slds-spinner--brand slds-spinner slds-spinner--medium" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+              </div>
+            </div>
+            </apex:facet>
+        </apex:actionStatus>
+        
+        <apex:stylesheet value="{!URLFOR($Resource.slds_standalone, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        <div class="slds-page-header">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <p class="slds-text-heading--label">Opportunities</p>
+                    <div class="slds-grid">
+                        <div class="slds-grid slds-type-focus slds-no-space">
+                            <h1 class="slds-text-heading--medium slds-truncate">{!Opportunity.Name}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <apex:pagemessages />
+        
+        <br/>
+        <!-- Opportunity Team Access -->
+        <div title="Opportunity Team Access" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-bottom: 5px;">
+            <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1">
+                <span>Opportunity Team Access</span>
+            </div>
+        </div>
+        
+        <apex:outputLabel value="{!TeamMemberListEmpty}"  style="font-family: Arial, Helvetica, sans-serif;color:Red;font-weight:Bold;font-size:13px;" rendered="{!IsTeamMemberEmpty}"/>
+        <apex:outputPanel rendered="{!NOT(ISNULL(otmlst))}">
+            <table class="slds-table slds-table--bordered slds-table--cell-buffer" >
+                <thead>
+                    <tr class="slds-text-title--caps">
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Team Member">Team Member</div>
+                        </th>
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Division">Division</div>
+                        </th>
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Team Role">Team Role</div>
+                        </th>
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Access Level">Access Level</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!otmlst}" var="otmrec" >
+                        <tr>
+                            <td>{!otmrec.Name}</td>
+                            <td>{!otmrec.User_Division__c}</td>
+                            <td>{!otmrec.TeamMemberRole}</td>
+                            <td>{!otmrec.OpportunityAccessLevel}</td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+        </apex:outputPanel>
+        
+        <br/>
+        <!-- Opportunity Access -->
+        <div title="Opportunity Access" showheader="true" columns="2" class="slds-grid slds-wrap" style="margin-bottom: 5px;">
+            <div class="slds-box slds-box--x-small slds-theme--shade slds-col slds-size--1-of-1">
+                <span>Opportunity Access</span>
+            </div>
+        </div>
+        
+        <apex:outputLabel value="{!ShareListEmpty}"  style="font-family: Arial, Helvetica, sans-serif;color:Red;font-weight:Bold;font-size:13px;" rendered="{!IsShareListEmpty}"/>
+        <apex:outputPanel rendered="{!NOT(ISNULL(oslst))}">
+            <table class="slds-table slds-table--bordered slds-table--cell-buffer" >
+                <thead>
+                    <tr class="slds-text-title--caps">
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Shared With">Shared With</div>
+                        </th>
+                        <th scope="col" >
+                            <div class="slds-truncate" title="User Division">User Division</div>
+                        </th>
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Reason for Access">Reason for Access</div>
+                        </th>
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Access Level">Access Level</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <apex:repeat value="{!sharewrapperlist}" var="sharerec" >
+                        <tr>
+                            <td>{!sharerec.Name}</td>
+                            <td>{!sharerec.UserDivision}</td>
+                            <td>{!sharerec.Reason}</td>
+                            <td>{!sharerec.oppsharerec.OpportunityAccessLevel}</td>
+                        </tr>
+                    </apex:repeat>
+                </tbody>
+            </table>
+        </apex:outputPanel>
+        
+        <br/>
+    <apex:form >
+        <div class="slds-button-group slds-text-align--center slds-show slds-m-bottom--x-small" role="group">
+            <apex:commandButton value="Back" action="{!backFromLightning}" status="loaderStatus" styleClass="slds-button slds-button--neutral" reRender="loaderStatus"/>
+        </div>
+    </apex:form>
+    </apex:outputPanel>
+</apex:page>

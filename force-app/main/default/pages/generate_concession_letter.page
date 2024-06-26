@@ -1,0 +1,66 @@
+<!--
+@ Author        : Manoj Gupta
+@ Date          : 12th Nov 2016
+@ Description   : US:1593 CommB - CMS - 12 - RM Generates Concession Letter
+
+-->
+<apex:page controller="wrapperConcessionOpportunity" sidebar="false">
+    <apex:form >
+
+    <div draggable="false" >
+    <apex:outputPanel id="panelId3">
+          <b>{!Accname}</b>   
+    
+        <apex:commandButton style="float: right;margin-right: 45%;" value="Generate Concession Letter" action="{!ProceedWithSelected}" disabled="true" rendered="{!count==0}" />
+        <apex:commandButton style="float: right;margin-right: 45%;" value="Generate Concession Letter" action="{!ProceedWithSelected}"  rendered="{!count>0}" />
+   
+    </apex:outputPanel> 
+   </div >
+    <apex:pagemessages />
+   <!-- <apex:commandButton value="Proceed with Selected to Next Page" action="{!ProceedWithSelectedToNextPage}" /> -->
+    <apex:pageBlock >
+    
+    <apex:actionFunction name="selectlst" action="{!countvalue}" reRender="panelId3"/>
+        <apex:outputPanel id="panelId" >
+
+           <apex:pageblockTable value="{!selectedWrapperList}" var="wrapRec" rendered="{!selectedList}">
+               <apex:column >
+                   <apex:inputCheckbox value="{!wrapRec.selected}" />
+               </apex:column>
+               <apex:column value="{!wrapRec.opp.Opportunity__c}"/>
+               <apex:column headerValue="Concession#" style="width:100px" >
+               <apex:outputLink value="/{!wrapRec.opp.id}" target="_blank">
+                 {!wrapRec.opp.Name}
+               </apex:outputLink>
+               </apex:column>
+               
+               <apex:column value="{!wrapRec.opp.Status__c}"/>
+               <apex:column value="{!wrapRec.opp.Sub_Status__c}"/>
+               <apex:column headerValue="Record Type" value="{!wrapRec.opp.RecordType.Name}" />
+               <apex:column value="{!wrapRec.opp.Start_Date__c}"/>
+               <apex:column value="{!wrapRec.opp.End_Date__c}"/>
+               
+
+          </apex:pageblockTable>
+          
+          <apex:pageblockTable value="{!wrapperList}" var="wrapRec" rendered="{!normalList}">
+               <apex:column >
+                   <apex:inputCheckbox value="{!wrapRec.selected}" onclick="selectlst();"/>
+               </apex:column>
+               <apex:column value="{!wrapRec.opp.Opportunity__c}"/>
+               <apex:column headerValue="Concession#" style="width:100px" rendered="{!wrapperList.size>0}">
+               <apex:outputLink value="/{!wrapRec.opp.id}" target="_blank">
+                     {!wrapRec.opp.Name}
+                </apex:outputLink>
+                </apex:column>
+               <apex:column value="{!wrapRec.opp.Status__c}"/>
+               <apex:column value="{!wrapRec.opp.Sub_Status__c}"/>
+               <apex:column headerValue="Record Type" value="{!wrapRec.opp.RecordType.Name}" rendered="{!wrapperList.size>0}"/>
+               <apex:column value="{!wrapRec.opp.Start_Date__c}"/>
+               <apex:column value="{!wrapRec.opp.End_Date__c}"/>
+               
+          </apex:pageblockTable> 
+          </apex:outputPanel>      
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

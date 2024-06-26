@@ -1,0 +1,16 @@
+<apex:page standardController="Client_Plan__c" showHeader="false" sidebar="false">
+
+<script type="text/javascript">
+function CloseWindow(){
+      window.opener.location.reload();
+      window.self.close();  
+}
+</script>
+  <br/><br/>
+  <apex:form >
+  <div align="center">
+  <apex:commandButton style="align:center;" onclick="CloseWindow()" value="Close & Refresh" id="Close"/>
+  </div></apex:form>
+  <br/><br/>
+  <apex:relatedList list="AttachedContentDocuments" rendered="true"/>
+</apex:page>

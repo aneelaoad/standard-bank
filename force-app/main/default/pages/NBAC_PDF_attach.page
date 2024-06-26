@@ -1,0 +1,4 @@
+<apex:page action="{!attachPDF}" extensions="attachNBACPdf" standardController="Business_Assessment__c">
+    <apex:pageMessages ></apex:pageMessages><!-- included for display of errors should they occur -->
+	<apex:detail inlineEdit="true" relatedList="true"></apex:detail> <!-- included so Business Assessment detail information is visible when errors occur -->
+</apex:page>

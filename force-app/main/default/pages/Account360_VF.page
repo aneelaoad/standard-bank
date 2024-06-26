@@ -1,0 +1,673 @@
+<apex:page standardController="Account" extensions="Account360_Vf_Ext" standardStyleSheets="true" sidebar="false" showHeader="false" lightningstylesheets="false">
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'jquery-1.3.2.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'excanvas.compiled.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'jquery.bgiframe.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.X360StaticFiles, 'jquery.bt.min.js')}"/> 
+        <style>
+            @page{
+            size: landscape;
+            margin: 2cm;
+            font-family:"Arial";
+            }
+            html,
+            a {
+            color: #02377A;
+            }
+            
+            span#content {display: none;}
+            span#content2 {display: none;}
+            
+            .odd {
+            background: #ccc;
+            }
+            .even {  
+            }
+            
+            .headerRight{
+            text-align:right;
+            }
+            .InfoTextAlignment {
+                text-align: justify;
+            }
+
+        </style>
+        
+        <script type="text/javascript">
+        var $j = jQuery.noConflict();  
+        $j(document).ready(function(){      
+            
+            $j(".ShowTip").bt({
+                contentSelector: "$j(this).children('span#content').html()",
+                fill: '#E5FAF7', 
+                strokeStyle: '#B7B7B7',
+                width: 350,
+                shadow: 'color:#333',
+                border: 'color:#eee',
+                spikeLength: 10, 
+                spikeGirth: 10, 
+                padding: 8, 
+                positions: ['left', 'right', 'bottom'],
+                cssStyles: {
+                    fontFamily: 'Arial', 
+                    fontSize: '9.5px'
+                }
+            });
+            $j(".ShowInfo").bt({
+                contentSelector: "$j(this).children('span#content2').html()",
+                fill: '#FCF6A0', 
+                strokeStyle: '#B7B7B7',
+                width: 300,
+                shadow: 'color:#C5C5C5',
+                border: 'color:#eee',
+                spikeLength: 10, 
+                spikeGirth: 10, 
+                padding: 8, 
+                positions: ['left', 'right', 'bottom'],
+                cssStyles: {
+                    fontFamily: 'Arial', 
+                    fontSize: '9.5px'
+                }
+            });
+        });
+        
+        function versionMessage(){
+            alert("A new PDF version was added to the 360-degree Account Overview related list for this Account");
+        }
+        
+        var totalCase = 0;
+        
+        function selectionCountCase(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalCase;
+            }else{
+                --totalCase;
+            }
+            
+            var x = (totalCase + max);
+            
+            if(x > 10){
+                alert(" 5 is the maximum number of Cases you may select");
+                input.checked = false;
+                --totalCase;
+            }
+        }
+        var totalContact = 0;
+        
+        function selectionCountContact(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalContact;
+            }else{
+                --totalContact;
+            }
+            
+            var x = (totalContact + max);
+            
+            if(x > 10){
+                alert(" 10 is the maximum number of Contacts you may select");
+                input.checked = false;
+                --totalContact;
+            }
+        }
+        
+        
+        var totalAp = 0;
+        
+        function selectionCountAP(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalAp;
+            }else{
+                --totalAp;
+            }
+            
+            var x = (totalAp + max);
+            
+            if(x > 10){
+                alert(" 10 is the maximum number of Action Plan you may select");
+                input.checked = false;
+                --totalAp;
+            }
+        }
+
+        var totalOpps = 0;
+
+        function selectionCountOpp(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalOpps;
+            }else{
+                --totalOpps;
+            }
+            
+            var x = (totalOpps + max);
+            console.log("Total Opps: ", x);
+            if(totalOpps > 10){
+                alert(" 10 is the maximum number of Opportunities you may select");
+                input.checked = false;
+                --totalOpps;
+            }
+        }
+
+        var totalFinancialAccounts = 0;
+        
+        function selectionCountFinancialAccount(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalFinancialAccounts;
+            }else{
+                --totalFinancialAccounts;
+            }
+            
+            var x = (totalFinancialAccounts + max);
+            
+            if(x > 10){
+                alert(" 10 is the maximum number of Facilities you may select");
+                input.checked = false;
+                --totalFinancialAccounts;
+            }
+        }
+        var totalTask = 0;
+        
+        function selectionCountTask(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalTask;
+            }else{
+                --totalTask;
+            }
+            
+            var x = (totalTask + max);
+            
+            if(x > 10){
+                alert(" 5 is the maximum number of Tasks you may select");
+                input.checked = false;
+                --totalOppo;
+            }
+        }
+
+        var totalAccRel = 0;
+        
+        function selectionCountAccRelationship(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalAccRel;
+            }else{
+                --totalAccRel;
+            }
+            
+            var x = (totalAccRel + max);
+            
+            if(x > 10){
+                alert(" 5 is the maximum number of account relationships you may select");
+                input.checked = false;
+                --totalAccRel;
+            }
+        }
+
+        var totalProd = 0;
+        
+        function selectionCountProd(input,max){
+            var c = input.checked;
+            
+            if(c==true){
+                ++totalProd;
+            }else{
+                --totalProd;
+            }
+            
+            var x = (totalProd + max);
+            
+            if(x > 10){
+                alert(" 10 is the maximum number of Current Product Holdings you may select");
+                input.checked = false;
+                --totalProd;
+            }
+        }
+        </script>
+    </head>
+    <apex:form >
+        <table width="100%">
+            <tr bgcolor="#FFFFFF">
+                <td align="left" width="50%" style="font: bold;font-size: Large;color: #02377A;font-style: font-family:sans-serif">
+                    <apex:outputText >{!Account.name}</apex:outputText>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <table width="100%" >
+            <tr ><td width="30%">
+                <table width="90%">
+                    <tr>
+                        <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Business Strategic Plans</td>
+                    </tr>
+                    <tr rowspan="2">
+                        <td  height="30" class="InfoTextAlignment">{!Account.Challenges_Opportunities__c}</td>
+                    </tr>
+                    <tr>
+                        <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Short Term Objectives</td>
+                    </tr>
+                    <tr >
+                        <td height="30" class="InfoTextAlignment">{!Account.Client_Strategy__c}</td>
+                    </tr>
+                    <tr>
+                        <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Medium to Long Term Objectives </td>
+                    </tr>
+                    <tr >
+                        <td height="30" class="InfoTextAlignment">{!Account.Long_Term_Strategy__c}</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Client Marketing Strategy</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" class="InfoTextAlignment">{!Account.Client_Marketing_Strategy__c}</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Top Client Indicator</td>
+                    </tr>
+                    <tr>
+                        <td  height="30" class="InfoTextAlignment"></td>
+                    </tr>
+                </table>
+                </td>
+                <td  width="90%" >
+                    <table width="90%">
+                        <tr>
+                            <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Description</td>
+                        </tr>
+                        <tr >
+                            <td  height="30" class="InfoTextAlignment">{!Account.Description}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Market Share</td>
+                        </tr>
+                        <tr >
+                            <td height="30" class="InfoTextAlignment">{!Account.Market_Share_Percentage__c}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Number of Employees </td>
+                        </tr>
+                        <tr >
+                            <td height="30" class="InfoTextAlignment">{!Account.Total_Number_of_Employees__c}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Transregional Presence</td>
+                        </tr>
+                        <tr >
+                            <td height="30" class="InfoTextAlignment">{!Account.Transregional__c}</td>
+                        </tr>
+                        <tr>
+                            <td height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Service Issue Summary</td>
+                        </tr>
+                        <tr >
+                            <td height="30" class="InfoTextAlignment">{!Account.Service_Issue_Summary__c}</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Sector</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" class="InfoTextAlignment">{!Account.Client_Sector__c}</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" style="font-weight:bold;color:#595959;font-style: font-family:sans-serif;">Sub Sector</td>
+                        </tr>
+                        <tr>
+                            <td  height="30" class="InfoTextAlignment">{!Account.Client_Sub_Sector__c}</td>
+                        </tr>
+                        
+                    </table>
+                </td>
+            </tr>
+            <tr height="270" >
+                <td width="40%" valign="top" COLSPAN="1" style="font-size: small;color: #02377A;font-family:sans-serif">
+                    <table width="90%" cellspacing="0" cellpadding="8">
+                        <tr bgcolor="#02377A">
+                            <td style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" > {!Account.CurrencyIsoCode} Billions</td>
+                            <td style="font-weight:bold;color:#ffffff">Previous Year</td>
+                            <td style="font-weight:bold;color:#ffffff">Current Year</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;" >Turnover</td><td style="font: normal"></td><td style="font: normal">{!Account.AnnualRevenue}</td>
+                        </tr>
+                        
+                    </table>
+                    <br/>
+                    <table width="90%" cellspacing="0" cellpadding="8">
+                        <tr bgcolor="#02377A">
+                            <td style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Primary Owners</td>
+                            <td style="font-weight:bold;color:#ffffff">Limits</td>
+                            <td style="font-weight:bold;color:#ffffff"></td>
+                        </tr>
+                        <apex:repeat value="{!FinancialAccounts}" var="fin">
+                            <tr>
+                            <td>
+                                <a href="/{!fin.finAcc.Id}" class="ShowTip" target="_blank">{!fin.finAcc.FinServ__FinancialAccountType__c}
+                                    <span id="content" >
+                                        <table>
+                                            <tr width="100%" style="color: black"><td style="font-size:10pt;font-weight:bold">Financial Account</td></tr>
+                                            <tr><td></td></tr>
+                                            <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Type &nbsp;&nbsp;&nbsp;</td><td align="left">{!fin.finAcc.FinServ__FinancialAccountType__c}</td></tr>
+                                            <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Active Limit &nbsp;&nbsp;&nbsp;</td><td align="left">{!fin.finAcc.FinServ__TotalCreditLimit__c}</td></tr>
+                                            <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Sanctioned Limit &nbsp;&nbsp;&nbsp;</td><td align="left">{!fin.finAcc.Sanctioned_Limit__c}</td></tr>
+                                            <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Balance &nbsp;&nbsp;&nbsp;</td><td align="left">{!fin.finAcc.FinServ__Balance__c}</td></tr>
+                                           </table>
+                                    </span>
+                                </a>
+                            </td>
+                            <td> <apex:outputText value="{!fin.finAcc.CurrencyIsoCode} {!fin.finAcc.Sanctioned_Limit__c}" />
+                            </td>
+                            <td><apex:inputCheckBox value="{!fin.checked}" onclick="selectionCountFinancialAccounts(this,{!countfinancialAccount})" />
+                            </td>
+                        </tr>
+                        </apex:repeat>
+                    </table>    
+                </td>
+                <td valign="top" style="font: normal;font-size: small;font-family:sans-serif;">
+                    <table width="100%" cellspacing="0" cellpadding="8">
+                        <tr bgcolor="#02377A">
+                            <td style="font-weight:bold;color:#ffffff">Contact Name</td>
+                            <td style="font-weight:bold;color:#ffffff">Role</td>
+                            <td style="font-weight:bold;color:#ffffff">Status</td>
+                            <td style="font-weight:bold;color:#ffffff">Valid From</td>
+                            <td style="font-weight:bold;color:#ffffff">Valid To</td>
+                            <td style="font-weight:bold;color:#ffffff"></td>
+                        </tr>
+                        <apex:repeat value="{!AccountContactRelationships}" var="accConRel">
+                            
+                            <tr >
+                                <td>
+                                    <a href="/{!accConRel.acc.Id}" class="ShowTip" target="_blank">{!accConRel.acc.Contact__r.Name}
+                                        <span id="content" >
+                                            <table>
+                                                <tr width="100%" style="color: black"><td style="font-size:10pt;font-weight:bold">Contact</td></tr>
+                                                <tr><td></td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Contact Name &nbsp;&nbsp;&nbsp;</td><td align="left">{!accConRel.acc.Contact__r.Name}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Role &nbsp;&nbsp;&nbsp;</td><td align="left">{!accConRel.acc.Role__c}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Status &nbsp;&nbsp;&nbsp;</td><td align="left">{!accConRel.acc.Status__c}</td></tr>
+                                            </table>
+                                        </span>
+                                    </a>    
+                                </td>
+                                <td><apex:outputText value="{!accConRel.acc.Role__c}"></apex:outputText></td>
+                                <td><apex:outputText value="{!accConRel.acc.Status__c}"></apex:outputText></td>
+                                <td><apex:outputText value="{!accConRel.acc.Valid_From__c}"></apex:outputText></td>
+                                <td><apex:outputText value="{!accConRel.acc.Valid_To__c}"></apex:outputText></td>
+  
+                                <td><apex:inputCheckBox value="{!accConRel.checked}"  /></td>
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                    
+                </td>
+                
+            </tr>
+        </table>
+        <table width="100%">
+            <tr bgcolor="#FFFFFF">
+                <td align="left" width="50%" style="font: bold;font-size: Large;color: #02377A;font-family:sans-serif">
+                    <apex:outputText >Game Plan</apex:outputText>
+                </td>
+            </tr>
+        </table>
+        
+        <hr />
+       
+        <table width="100%" >
+            <tr height="270">
+                <td width="100%" valign="top" style="font-size: small;color: #02377A;font-family:sans-serif">
+                    
+                    <table width="100%" cellspacing="0" cellpadding="8">
+                        <tr bgcolor="#02377A">
+                            <td width="15%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Objective of the Meeting/Client Visit</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Name</td>
+                            <td width="7%" style="font-weight:bold;color:#ffffff">Due Date</td>
+                            <td width="15%" style="font-weight:bold;color:#ffffff">Objective of Engagement</td>
+                            <td width="15%" style="font-weight:bold;color:#ffffff">Expected Outcome</td>
+                            <td width="15%" style="font-weight:bold;color:#ffffff">Comments</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Assigned To</td>
+                            <td width="3%" style="font-weight:bold;color:#ffffff"></td>
+                        </tr>
+                        <apex:repeat value="{!Tasks}" var="task">
+                            <tr>
+                                <td width="15%">
+                                    <a href="/{!task.tsk.Id}" class="ShowTip" target="_blank">{!task.tsk.Subject}
+                                        <span id="content" >
+                                            <table>
+                                                <tr width="100%" style="color: black"><td style="font-size:10pt;font-weight:bold">Task</td></tr>
+                                                <tr><td></td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Subject&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.Subject}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Description&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.Description}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Assigned to&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.Owner.Name}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Status&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.Status}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Priority&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.Priority}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Type&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.Type}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Due Date&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.ActivityDate}</td></tr>
+                                                <tr width="100%"><td width="30%" align="right" style="font-weight:bold">Account Name&nbsp;&nbsp;&nbsp;</td><td align="left">{!task.tsk.Account.Name}</td></tr>
+                                            </table>
+                                        </span>
+                                    </a>
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!task.tsk.What.Name}" />
+                                </td>
+                                <td width="7%"> 
+                                    <apex:outputText value="{0,date,dd/MM/yyyy}"><apex:param value="{!task.tsk.ActivityDate}"/></apex:outputText>
+                                </td>
+                                <td width="15%"> 
+                                    <apex:outputText value="{!task.tsk.FinServ__Objectives__c}" />
+                                </td>
+                                <td width="15%"> 
+                                    <apex:outputText value="{!task.tsk.FinServ__Expectations__c}" />
+                                </td>
+                                <td width="15%"> 
+                                    <apex:outputText value="{!task.tsk.Description}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!task.tsk.Owner.Name}" />
+                                </td>
+                                <td width="3%">
+                                    <apex:inputCheckBox value="{!task.checked}" onclick="selectionCountTask(this,{!CountTask})" />
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table> 
+                    <br/>
+                    
+                    
+                    <table width="100%" cellspacing="0" cellpadding="8">
+                        <tr bgcolor="#02377A">
+                            <td width="17%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Cases</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Type</td>
+                            <td width="15%" style="font-weight:bold;color:#ffffff">Account Number</td>
+                            <td width="25%" style="font-weight:bold;color:#ffffff">Description</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Status</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Case Owner</td>
+                            <td width="10%" style="font-weight:bold;color:#ffffff">Created Date</td>
+                            <td width="3%" style="font-weight:bold;color:#ffffff"></td>
+                        </tr>
+                        <apex:repeat value="{!Cases}" var="c">
+                            <tr>
+                                <td width="17%">
+                                    <a href="/{!c.ca.id}" class="ShowTip" target="_blank">{!c.ca.Subject}
+                                        <span id="content" >
+                                            <table>
+                                                <tr width="100%" style="color: black"><td style="font-size:10pt;font-weight:bold">Cases</td></tr>
+                                                <tr><td></td></tr>
+                                                <tr width="100%"><td align="right" style="font-weight:bold">Description&nbsp;&nbsp;&nbsp;</td><td align="left">{!c.ca.Description}</td></tr>
+                                                <tr width="100%"><td align="right" style="font-weight:bold">Account Name&nbsp;&nbsp;&nbsp;</td><td align="left">{!c.ca.Account.Name}</td></tr>
+                                                <tr width="100%"><td align="right" style="font-weight:bold">Priority&nbsp;&nbsp;&nbsp;</td><td align="left">{!c.ca.Priority}</td></tr>
+                                                <tr width="100%"><td align="right" style="font-weight:bold">Case Owner&nbsp;&nbsp;&nbsp;</td><td align="left">{!c.ca.Owner.Name}</td></tr>
+                                                <tr width="100%"><td align="right" style="font-weight:bold">Date&nbsp;&nbsp;&nbsp;</td><td align="left">{!c.ca.CreatedDate}</td></tr>
+                                            </table>  
+                                        </span>
+                                    </a>
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!c.ca.Type}" />
+                                </td>
+                                <td width="15%"> 
+                                    <apex:outputText value="{!c.ca.Account.Name}" />
+                                </td>
+                                <td width="25%"> 
+                                    <apex:outputText value="{!c.ca.Description}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!c.ca.Status}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{!c.ca.Owner.Name}" />
+                                </td>
+                                <td width="10%"> 
+                                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                        <apex:param value="{!c.ca.CreatedDate}"/>
+                                    </apex:outputText>
+                                </td>
+                                <td width="3%">
+                                    <apex:inputCheckBox value="{!c.checked}" onclick="selectionCountCase(this,{!CountCase})" />
+                                </td>
+                            </tr>
+                        </apex:repeat>
+                    </table> 
+                    <br/>
+                </td>
+            </tr>
+            </table>
+           
+        <br/><br/><br/>
+        <table width="100%">
+            <tr bgcolor="#FFFFFF">
+                <td align="left" width="50%" style="font: bold;font-size: Large;color: #02377A;font-family:sans-serif">
+                    <apex:outputText >Open Opportunities</apex:outputText>
+                </td>
+            </tr>
+        </table>
+        
+        <hr />
+        <table width="100%" >
+        <tr width="100%">
+            <td width="39%">
+                <table width="100%" cellspacing="0" cellpadding="8">
+                    <tr bgcolor="#02377A">
+                        <td width="30%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Opportunity Name</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Stage</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Total Revenue (Amount)</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Estimated Close Date</td>
+                        <td width="4%" style="font-weight:bold;color:#ffffff"></td>
+                    </tr>
+                </table>
+            </td>
+            </tr>
+            <tr>
+            <td width="39%">
+                <table width="100%" cellspacing="0" cellpadding="8">
+                    <apex:repeat value="{!Opportunities}" var="opportunity">
+                        <tr>
+                        <td width="30%">
+                            <apex:outputText value="{!opportunity.opp.Name}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!opportunity.opp.StageName}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!opportunity.opp.Amount}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!opportunity.opp.CloseDate}" />
+                        </td>
+                        <td width="4%">
+                            <apex:inputCheckBox value="{!opportunity.checked}" onclick="selectionCountOpp(this,{!CountOpp})" />
+                        </td>
+                        </tr>
+                    </apex:repeat>
+                </table> 
+            </td>
+          
+        </tr>
+    </table>
+    <br/> <br/>
+    <br/><br/><br/>
+        <table width="100%">
+            <tr bgcolor="#FFFFFF">
+                <td align="left" width="50%" style="font: bold;font-size: Large;color: #02377A;font-family:sans-serif">
+                    <apex:outputText >Account-Account Relationships</apex:outputText>
+                </td>
+            </tr>
+        </table>
+        
+        <hr />
+        <table width="100%" >
+        <tr width="100%">
+            <td width="39%">
+                <table width="100%" cellspacing="0" cellpadding="8">
+                    <tr bgcolor="#02377A">
+                        <td width="30%" style="font-weight:bold;color:#ffffff;font-style: font-family:sans-serif;" >Related Account</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Active</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Association Type</td>
+                        <td width="22%" style="font-weight:bold;color:#ffffff">Related Role</td>
+                        <td width="4%" style="font-weight:bold;color:#ffffff"></td>
+                    </tr>
+                </table>
+            </td>
+            </tr>
+            <tr>
+            <td width="39%">
+                <table width="100%" cellspacing="0" cellpadding="8">
+                    <apex:repeat value="{!AccountRelationships}" var="accRel">
+                        <tr>
+                        <td width="30%">
+                            <apex:outputText value="{!accRel.acc.FinServ__RelatedAccount__r.Name}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputField value="{!accRel.acc.FinServ__Active__c}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!accRel.acc.FinServ__AssociationType__c}" />
+                        </td>
+                        <td width="22%"> 
+                            <apex:outputText value="{!accRel.acc.FinServ__Role__r.Name}" />
+                        </td>
+                        <td width="4%"> 
+                            <apex:inputCheckBox value="{!accRel.checked}" onclick="selectionCountAccRelationship(this,{!CountAccRel})" />
+                        </td>
+                        </tr>
+                    </apex:repeat>
+                </table> 
+            </td>
+          
+        </tr>
+    </table>
+    <br/> <br/>
+        <table border="0" width="100%">
+            <tr>
+                <td></td>
+                <td style="font-size:8pt;font-weight:normal;color: #F60A0A" align="center" valign="top">
+                    This document is only available to authorised users as it may contain confidential and price sensitive information, take appropriate care before distributing.
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td align="left" style="font-size:10pt;font-weight:bold;color: #6E6D6D">
+                </td>
+                <td align="center" width="75%">
+                    <apex:commandButton action="{!save360}" value="Save Page" id="acctheButton"/>&nbsp;
+                    <apex:commandButton onclick="x=window.open('{!urlfor($Page.Account360PDF_vf,null,[id=account.id])}','Account360PDF_Vf','height=600,width=800,resizable=1');return false;" value="Print PDF"/>&nbsp;
+                </td>
+                <td align="right">
+                    <a href="https://www.standardbank.co.za" target="_blank">
+                        <apex:image url="/resource/1495458493000/Standard_Bank_Logo" width="150" height="30"/>
+                    </a>
+                </td>
+            </tr>
+        </table>
+        
+    </apex:form>
+</apex:page>

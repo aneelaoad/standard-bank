@@ -1,0 +1,86 @@
+<apex:page controller="SA_AddCustomClientTeam" tabstyle="Account" id="thePage">
+  <script>
+        function  DisbaleBtn (ele){
+            ele.setAttribute("class", "btnDisabled");
+            ele.value= "Saving...";
+           }
+   </script> 
+  <apex:sectionHeader title="Custom Client Team Edit" subtitle="New Custom Client Team" rendered="{!renderInsufficientPrivelegesBlock}"/>
+     <apex:form id="AddPanel" rendered="{!renderInsufficientPrivelegesBlock}">
+     
+         <apex:Pagemessages escape="False" id="pageMsg"/>
+          
+            <apex:pageBlock title="Custom Client Team Edit" Id="thePgblk">
+                          
+                <apex:pageBlockButtons id="blockbtn">
+                  <!-- <apex:commandButton value="Replace" action="{!ReplaceRec}"  rendered="{!NOT(disableReplaceBtn)}"/> -->
+                    <apex:commandButton Id="savebtn" value="Save" action="{!SaveRec}" onClick="DisbaleBtn(this);" />   
+                     <apex:actionStatus Id="replacebutton">  
+                            <apex:facet name="stop">          
+                                 <apex:outputPanel >          
+                                    <apex:commandButton value="Replace" action="{!ReplaceRec}" rendered="{!NOT(disableReplaceBtn)}" status="replacebutton" reRender="pageMsg"/>            
+                                 </apex:outputPanel>          
+                            </apex:facet>         
+                            <apex:facet name="start">         
+                             <apex:outputPanel >          
+                                  <apex:commandButton value="Replacing..." status="replacebutton" disabled="true" />          
+                              </apex:outputPanel>            
+                            </apex:facet>         
+                     </apex:actionStatus>
+                    <apex:commandButton value="Save & New" action="{!SaveNew}" onClick="DisbaleBtn(this);" />                
+                    <apex:commandButton value="Cancel" immediate="true" action="{!cancel}"/>
+                </apex:pageBlockButtons>
+                
+                <apex:pageBlockSection title="Information" collapsible="False" id="pgblock0">
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection columns="2" id="pgblock1">
+                    <apex:inputField id="inTEAM" required="true" value="{!CCTObj.Team_Member__c}"/>
+                    <apex:inputField id="inClientCoord" required="false" value="{!CCTObj.Client_Coordinator__c}"/>
+                    
+                </apex:pageBlockSection>
+    
+                <apex:pageBlockSection columns="2" id="pgblock2">
+                    <apex:inputField id="inROLE" required="true" value="{!CCTObj.Client_Role__c}" />
+                    <apex:inputField id="inClientCoordAssist" required="false" value="{!CCTObj.GTB__c}"/>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection columns="2" id="pgblock6">
+                    <apex:outputField id="inACC" value="{!CCTObj.Account__c}"  />
+                    <apex:inputField id="inGtB" value="{!CCTObj.Client_Coordinator_BM__c}"  />
+                </apex:pageBlockSection>
+                
+              
+                <apex:pageBlockSection columns="2" id="pgblock3" rendered="{!AdminFlag}">
+                    <apex:inputField id="inCLIENT" value="{!CCTObj.Client_Access__c}"  />
+                    <apex:inputField id="inOPP" value="{!CCTObj.Opportunity_Access__c}"  />
+                </apex:pageBlockSection>
+                                
+                <apex:pageBlockSection columns="2" id="pgblock4" rendered="{!AdminFlag}">                
+                    <apex:inputField id="inCONTACT" value="{!CCTObj.Contact_Access__c}"  />
+                    <apex:inputField id="inCASE" value="{!CCTObj.Case_Access__c}" />
+                </apex:pageBlockSection>
+                
+            </apex:pageBlock>
+              
+     </apex:form> 
+     <apex:OutputPanel rendered="{!Not(renderInsufficientPrivelegesBlock)}">
+      <TABLE width="100%" align="center">
+         <tr><td>
+         <font size="3"><b><apex:outputText >Insufficient Privileges</apex:outputText></b></font>
+         </td></tr>
+      <tr><td>&nbsp;</td></tr>
+         <tr><td>
+         You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary. 
+         </td></tr>
+      <tr><td>&nbsp;</td></tr>
+         <tr><td>
+         <apex:form >
+         <apex:outputText >Click</apex:outputText>
+         <apex:commandlink value="here" action="{!back}"/>
+         <apex:outputText > to return to the previous page.</apex:outputText>
+         </apex:form>
+         </td></tr>
+         </table>
+     </apex:OutputPanel>       
+</apex:page>

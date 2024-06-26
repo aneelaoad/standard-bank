@@ -1,0 +1,270 @@
+<apex:page doctype="html-5.0" showHeader="false" sidebar="false" standardStylesheets="false" controller="OMDashboardController" readOnly="true">
+<div>
+<script>
+  $("#header").html("Opportunity Management Dashboard");
+</script>
+    <header>
+        <div class="row" id="top-tabs">
+            <div class="col col-sm-4 active" id="all" hm-tap="handleToggle($event)">
+                <h1 class="h3">All Opportunities</h1>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <dl class="dl-horizontal">
+                            <dt>CY Rev</dt>
+                            <dd class="text-primary">R{{allOpportunitiesCYRev}}</dd>
+
+                            <dt>Total Rev</dt>
+                            <dd class="text-primary">R{{allOpportunitiesTotalRev}}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="h2">{{oppNumber}}</div>
+                        <small>Opportunities</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-4" id="pipeline" hm-tap="handleToggle($event)">
+                <h1 class="h3">Pipeline Opportunities</h1>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <dl class="dl-horizontal">
+                            <dt>CY Rev</dt>
+                            <dd class="text-primary">R{{allOpportunityPipelineDivlstCYRev}}</dd>
+
+                            <dt>Total Rev</dt>
+                            <dd class="text-primary">R{{allOpportunityPipelineDivlstCYTotalRev}}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="h2">{{pipeOpCount}}</div>
+                        <small>Opportunities</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-sm-4" id="closed" hm-tap="handleToggle($event)">
+                <h1 class="h3">Closed Opportunities</h1>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <dl class="dl-horizontal">
+                            <dt>CY Won Rev</dt>
+                            <dd class="text-primary">R{{allClosedOpportunitylstCYWonRev}}</dd>
+
+                            <dt>CY Lost Rev</dt>
+                            <dd class="text-primary">R{{allClosedOpportunitylstCYLostRev}}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="h2">{{closedOpCount}}</div>
+                        <small>Conv Ratio</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="heading-bar text-center darken">
+            <button class="btn btn-default btn-sm pull-right" id="toggle-chart" hm-tap="toggleChart();"><img src="{!URLFOR($Resource.OMDashBoardResources, 'resources/img/minus.png')}" /></button>
+            <h1 class="h4 title">{{heading}}</h1>
+        </div>
+    </header>
+
+    <section class="heading-bar heading-bar-sm">
+        <span class="h4 title">Sectors</span>
+        <button id="toggleFrancoSector" class="btn btn-default btn-sm btn-sm-spaced" hm-tap="toggleFrancoSector($event);"><img src="{!URLFOR($Resource.OMDashBoardResources, 'resources/img/arrow-left.png')}" /> <img src="{!URLFOR($Resource.OMDashBoardResources, 'resources/img/arrow-right.png')}" /></button>
+        <span class="h4 title active">Franco</span>
+    </section>
+
+    <section class="row" id="chart-container" hm-tap="hideToolTip($event)">
+        <div class="col-sm-2">
+            <nav ng-class="{disabled: activeDF=='all'}">
+                <button class="btn btn-primary btn-block active" hm-tap="drillDownGraph('All',$event);">
+                    <img src="{!URLFOR($Resource.OMDashBoardResources, 'resources/img/map.png')}" ng-show="activeDFIcon == 'map'" class="menu-icon"/>
+                    <img src="{!URLFOR($Resource.OMDashBoardResources, 'resources/img/cog.png')}" ng-show="activeDFIcon == 'cog'" class="menu-icon"/> All
+                </button>
+                <button class="btn btn-primary btn-block" ng-show="opp.oppFranco" hm-tap="drillDownGraph(opp.oppFranco,$event);" ng-repeat="opp in activeTabFranco">
+                <img src="{!URLFOR($Resource.OMDashBoardResources, 'resources/img/map.png')}" class="menu-icon"/>
+                 {{opp.oppFranco}}
+                </button>
+                <button class="btn btn-primary btn-block" ng-show="opp.oppSector" hm-tap="drillDownGraph(opp.oppSector,$event);" ng-repeat="opp in activeTabFranco">
+                    <img src="{!URLFOR($Resource.OMDashBoardResources, 'resources/img/cog.png')}" class="menu-icon"/> {{opp.oppSector}}
+                </button>
+            </nav>
+        </div>
+        <div class="col-sm-10 padding-top">
+            <div class="clearfix"></div>
+            
+            <div id="chart" class="toggle-chart-map"></div>
+        </div>
+    </section>
+
+    <section class="row gridData" id="allTab">
+        <h3 class="h4 spaced-heading" ng-show="activeDSF == 'franco'"><strong>All CY Opportunity Est Revenue by Client Franco ('000)</strong></h3>
+        <h3 class="h4 spaced-heading" ng-show="activeDSF == 'sector'"><strong>All CY Opportunity Est Revenue by Client Sector ('000)</strong></h3>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th ng-show="activeDSF == 'franco'">Franco</th>
+                        <th ng-show="activeDSF == 'sector'">Client Sector</th>
+                        <th>Total</th>
+                        <th>Pipeline</th>
+                        <th>Won</th>
+                        <th>Lost</th>
+                        <th>Conversion Ratio</th>
+                        <th>% Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-init="convPerc = (opp.convRatio - opp.convRatioPM) * 100" ng-repeat="opp in allOpportunities">
+                        <td ng-show="opp.oppFranco">{{opp.oppFranco}}</td>
+                        <td ng-show="opp.oppSector">{{opp.oppSector}}</td>
+                        <td class="text-right">R{{(opp.pipeLineRev + opp.ClosedWonRev + opp.ClosedLostRev) / 1000 | number:0}}</td>
+                        <td class="text-right">R{{opp.pipeLineRev / 1000 | number:0}}</td>
+                        <td class="text-right">R{{opp.ClosedWonRev / 1000 | number:0}}</td>
+                        <td class="text-right">R{{opp.ClosedLostRev / 1000 | number:0}}</td>
+                        <td class="text-center">{{opp.convRatio * 100 | number:0}}%</td>
+                        <td class="text-center text-danger" ng-show="convPerc < 0">{{convPerc | number:0}}%</td>
+                        <td class="text-center" ng-show="convPerc == 0">{{convPerc | number:0}}%</td>
+                        <td class="text-center text-success" ng-show="convPerc > 0">+{{convPerc | number:0}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>        
+    </section>
+    
+    <section class="row hidden gridData" id="pipelineTab">
+        <h3 class="h4 spaced-heading" ng-show="activeDSF == 'franco'"><strong>{!$Label.Top_Opportunity_Message} {{selectedItem}} ('000)</strong></h3>
+        <h3 class="h4 spaced-heading" ng-show="activeDSF == 'sector'"><strong>{!$Label.Top_Opportunity_Message} {{selectedItem}} ('000)</strong></h3>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Opportunity Name</th>
+                        <th>Client Name</th>
+                        <th ng-show="activeDSF == 'franco'">Client Franco</th>
+                        <th ng-show="activeDSF == 'sector'">Client Sector</th>
+                        <th>CY Revenue</th>
+                        <th>Total Revenue</th>
+                    </tr>
+                </thead>
+                <tbody ng-show="topOpp != ''">
+                    <tr ng-repeat="opp in topOpp">
+                        <td hm-tap="openInternalLink(opp.oppId);"><u class="text-primary">{{opp.oppName}}</u></td>
+                        <td hm-tap="openInternalLink(opp.clientId);"><u class="text-primary">{{opp.clientName}}</u></td>
+                        <td ng-show="opp.oppFranco">{{opp.oppFranco}}</td>
+                        <td ng-show="opp.oppSector">{{opp.oppSector}}</td>
+                        <td class="text-right">R{{opp.cYearRev / 1000 | number:0}}</td>
+                        <td class="text-right">R{{opp.tYearRev / 1000 | number:0}}</td>
+                    </tr>
+                </tbody>
+                <tbody ng-show="topOpp == ''">
+                    <tr>
+                        <td colspan="6">There are currently no opportunities for {{selectedItem}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="row hidden gridData" id="closedTab">
+    <div ng-show="drilledDown == false">
+      <h3 class="h4 spaced-heading" ng-show="activeDSF == 'franco'"><strong>All CY Closed Opportunity Est Revenue by Client Franco ('000)</strong></h3>
+      <h3 class="h4 spaced-heading" ng-show="activeDSF == 'sector'"><strong>All CY Closed Opportunity Est Revenue by Client Sector ('000)</strong></h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th ng-show="activeDSF == 'franco'">Franco</th>
+                    <th ng-show="activeDSF == 'sector'">Client Sector</th>
+                    <th>Total</th>
+                    <th>Won</th>
+                    <th>Lost</th>
+                    <th>Conversion Ratio</th>
+                    <th>% Change</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-init="convPerc = (opp.convRatio - opp.convRatioLM) * 100" ng-repeat="opp in allClosedOpportunitylst">
+                    <td ng-show="opp.oppFranco">{{opp.oppFranco}}</td>
+                    <td ng-show="opp.oppSector">{{opp.oppSector}}</td>
+                    <td class="text-right">R{{(opp.ClosedWonCYRev + opp.ClosedLostCYRev) / 1000 | number:0}}</td>
+                    <td class="text-right">R{{opp.ClosedWonCYRev / 1000 | number:0}}</td>
+                    <td class="text-right">R{{opp.ClosedLostCYRev / 1000 | number:0}}</td>
+                    <td class="text-center">{{opp.convRatio * 100 | number:0}}%</td>
+                    <td class="text-center text-danger" ng-show="convPerc < 0">{{convPerc | number:0}}%</td>
+                    <td class="text-center" ng-show="convPerc == 0">{{convPerc | number:0}}%</td>
+                    <td class="text-center text-success" ng-show="convPerc > 0">+{{convPerc | number:0}}%</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ng-show="drilledDown == true">
+      <h3 class="h4 spaced-heading"><strong>Top 5 Won Opportunities for {{selectedItem}} ('000)</strong></h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Client </th>
+                    <th>Opportunity Name</th>
+                    <th>Total Revenue</th>
+                    <th>Current Year Revenue</th>
+                </tr>
+            </thead>
+            <tbody ng-show="top5WonClosedOpportunitylst != ''">
+                <tr ng-repeat="opp in top5WonClosedOpportunitylst">
+                  <td hm-tap="openInternalLink(opp.clientId);"><u class="text-primary">{{opp.clientName}}</u></td>
+                  <td hm-tap="openInternalLink(opp.oppId);"><u class="text-primary">{{opp.oppName}}</u></td>
+                  <td class="text-right">R{{opp.tYearRev / 1000 | number:0}}</td>
+                  <td class="text-right">R{{opp.cYearRev / 1000 | number:0}}</td>
+                </tr>
+            </tbody>
+            <tbody ng-show="top5WonClosedOpportunitylst == ''">
+                <tr>
+                    <td colspan="4">There are currently no won opportunities for {{selectedItem}}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div ng-show="drilledDown == true">
+      <h3 class="h4 spaced-heading"><strong>Top 5 Lost Opportunities for {{selectedItem}} ('000)</strong></h3>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Client </th>
+                    <th>Opportunity Name</th>
+                    <th>Total Revenue</th>
+                    <th>Current Year Revenue</th>
+                </tr>
+            </thead>
+            <tbody ng-show="top5LostClosedOpportunitylst != ''">
+                <tr ng-repeat="opp in top5LostClosedOpportunitylst">
+                  <td hm-tap="openInternalLink(opp.clientId);"><u class="text-primary">{{opp.clientName}}</u></td>
+                  <td hm-tap="openInternalLink(opp.oppId);"><u class="text-primary">{{opp.oppName}}</u></td>
+                  <td class="text-right">R{{opp.tYearRev / 1000 | number:0}}</td>
+                  <td class="text-right">R{{opp.cYearRev / 1000 | number:0}}</td>
+                </tr>
+            </tbody>
+            <tbody ng-show="top5LostClosedOpportunitylst == ''">
+                <tr>
+                    <td colspan="4">There are currently no lost opportunities for {{selectedItem}}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+</apex:page>

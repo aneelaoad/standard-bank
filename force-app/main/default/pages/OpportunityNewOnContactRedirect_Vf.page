@@ -1,0 +1,26 @@
+<apex:page standardController="Contact" extensions="OpportunityNewRedirect_Vf_Ext" action="{!redirect}">
+
+<apex:messages />
+
+<div id="waitdsp" >
+    <center>
+        <br/><br/>
+        <apex:outputtext style="font-family: Salesforce Sans, Arial, sans-serif;font-size: 14px;" value="Loading..."/>
+        <br/><br/>
+        <img src="{!$Resource.SF1_Loading_GIF}" alt="" title="Redirecting..." width="196"/>
+    </center>
+</div>
+<apex:form >
+    <apex:inputHidden value="{!Contact.AccountId}" />
+</apex:form>
+<script>
+        if( (typeof sforce != 'undefined') && (sforce != null) ) {
+            console.log('redirect to: ' + "{!urlStrSF1}");
+             sforce.one.navigateToURL("{!urlStrSF1}");
+         }else{
+             window.location.href = "{!urlStr}";
+         }
+
+</script>
+  
+</apex:page>
