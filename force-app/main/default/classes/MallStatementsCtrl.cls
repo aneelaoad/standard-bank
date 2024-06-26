@@ -73,5 +73,18 @@ public with sharing class MallStatementsCtrl {
            
         }
     }
+
+
+    @AuraEnabled
+    public static void deleteStatement(String statementId) {
+        try {
+            // Implement deletion logic based on the statementId
+            // Example: Delete statement record from database
+
+            // Optionally, return a success message or handle cleanup
+        } catch (Exception e) {
+            throw new AuraHandledException('Error deleting statement: ' + e.getMessage());
+        }
+    }
  
 }

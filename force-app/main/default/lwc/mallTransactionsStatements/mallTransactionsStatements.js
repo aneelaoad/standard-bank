@@ -73,21 +73,10 @@ export default class MallTransactionsStatements extends LightningElement {
         this.error = error;
         console.error('Error downloading document: ', error);
     } finally {
-        selectedBtn.classList.toggle("hidden");
+        this.closeContextMenu(documentUUID);
     }
 }
- /**
-   * @method showContextMenu
-   * @description Toggles the context menu ie. view, delelet and download for a statement.
-   * @param {Event} event - The event object from the button click.
-   */
-  showContextMenu(event) {
-    const documentUUID = event.currentTarget.dataset.documentuuid;
-    this.statements = this.statements.map(statement => ({
-      ...statement,
-      showMenu: statement.uid === documentUUID ? !statement.showMenu : false
-    }));
-  }
+ 
 
  /**
    * @method viewStatement
@@ -100,7 +89,8 @@ export default class MallTransactionsStatements extends LightningElement {
 
     // Find the statement with the matching UUID
     const selectedStatement = this.statements.find(statement => statement.uid === documentUUID);
-
+    selectedStatement.showMenu= false;
+    console.log('selectedStatement: ',JSON.stringify(selectedStatement));
     // Prepare the message with statement details
     const message = `Account Name: ${selectedStatement.title}
                      Date From: ${selectedStatement.strDate}
@@ -114,6 +104,8 @@ export default class MallTransactionsStatements extends LightningElement {
       variant: 'Success'
     });
     this.dispatchEvent(toastEvent);
+    this.closeContextMenu(documentUUID);
+    
   }
 
 
@@ -126,5 +118,33 @@ export default class MallTransactionsStatements extends LightningElement {
     const documentUUID = event.currentTarget.dataset.documentuuid;
     console.log('Delete statement:', documentUUID);
     // Implement delete functionality
+    this.closeContextMenu(documentUUID);
   }
+
+
+
+
+  /**
+   * @method showContextMenu
+   * @description Toggles the context menu ie. view, delelet and download for a statement.
+   * @param {Event} event - The event object from the button click.
+   */
+  showContextMenu(event) {
+    const documentUUID = event.currentTarget.dataset.documentuuid;
+    this.statements = this.statements.map(statement => ({
+      ...statement,
+      showMenu: statement.uid === documentUUID ? !statement.showMenu : false
+    }));
+  }
+   /**
+     * @method closeContextMenu
+     * @description Closes the context menu for the statement with the specified UUID.
+     * @param {String} documentUUID - The UUID of the statement to close the context menu for.
+     */
+   closeContextMenu(documentUUID) {
+    this.statements = this.statements.map(statement => ({
+        ...statement,
+        showMenu: statement.uid === documentUUID ? false : statement.showMenu
+    }));
+}
 }
