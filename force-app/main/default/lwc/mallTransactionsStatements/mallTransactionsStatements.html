@@ -13,21 +13,15 @@
                                 <div class="documentSection_listInfo_fl">
                                     <span><img src={icn_document_statement}></span>
                                     <div class="documentSection_list_flText">
-                                        <strong data-documentuuid={statement.uid} onclick={viewStatement}>{statement.title}</strong>
+                                        <strong data-documentuuid={statement.uid} data-publicurl={statement.publicUrl} onclick={viewStatement}>{statement.title}</strong>
                                         <small>{statement.strDate}</small>
                                     </div>
                                 </div>
                                 <div class="documentSection_listInfo_fr">
-                                    <button data-documentuuid={statement.uid} onclick={handleUnstampedDocumentDownload}><img src={icn_download_statement}></button>
+                                    <button data-documentuuid={statement.uid} data-downloadurl={statement.downloadUrl} onclick={handleUnstampedDocumentDownload}><img src={icn_download_statement}></button>
                                 </div>
                             </div>
-                            <!-- <template if:true={statement.showMenu}>
-                                <div class="context-menu">
-                                    <button data-documentuuid={statement.uid} onclick={viewStatement}>View</button>
-                                    <button data-documentuuid={statement.uid} onclick={deleteStatement}>Delete</button>
-                                    <button data-documentuuid={statement.uid} onclick={handleUnstampedDocumentDownload}>Download</button>
-                                </div>
-                            </template> -->
+                           
                         </li>
                     </template>
                 </ul>

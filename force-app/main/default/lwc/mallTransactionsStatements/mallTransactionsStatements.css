@@ -53,27 +53,3 @@
 
 
 
-.context-menu {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  padding: 10px;
-  display: flex;
-  width: 100%;
-    flex-direction: column;
-}
-
-.context-menu button {
-  background: none;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  text-align: left;
-}
-
-.context-menu button:hover {
-  background-color: #f0f0f0;
-}
-

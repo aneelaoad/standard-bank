@@ -138,10 +138,10 @@ public with sharing class CTRL_MallDocumentManagement {
      * @return String
      */
     @AuraEnabled
-    public static String getCustomerDocumentByUUID(String documentUUID) {
+    public static MallDocumentLinkResponse getCustomerDocumentByUUID(String documentUUID) {
         try {
             String pingBPGUID = getCustomerPBGUID();
-            String documentUrl;
+            MallDocumentLinkResponse documentUrls;
 
             if(String.isBlank(pingBPGUID)){
                 throw MallExceptionUtil.throwAuraException('CTRL_MallDocumentManagement.getCustomerDocumentByUUID', new AuraHandledException('Customer BPGUID should not be empty'));
@@ -149,9 +149,9 @@ public with sharing class CTRL_MallDocumentManagement {
 
             if(String.isNotBlank(pingBPGUID)) {
                 API_MallCustomerDocumentManagement.DocumentDownloadResponse documentDownloadResponse= new API_MallCustomerDocumentManagement().getCustomerDocumentByUUID(pingBPGUID, documentUUID);
-                documentUrl = new CTRL_MallDocumentManagement().createDocumentForDownload(documentDownloadResponse);
+                documentUrls = new CTRL_MallDocumentManagement().createDocumentForDownload(documentDownloadResponse);
             }
-            return documentUrl;
+            return documentUrls;
         } catch(Exception e) {
             throw MallExceptionUtil.throwAuraException('CTRL_MallDocumentManagement.getCustomerDocumentByUUID', e);
         }
@@ -184,19 +184,19 @@ public with sharing class CTRL_MallDocumentManagement {
      * @param documentDownloadResponse API_MallCustomerDocumentManagement.DocumentDownloadResponse
      * @return String
      */
-    public String createDocumentForDownload(API_MallCustomerDocumentManagement.DocumentDownloadResponse documentDownloadResponse) { 
+    public MallDocumentLinkResponse createDocumentForDownload(API_MallCustomerDocumentManagement.DocumentDownloadResponse documentDownloadResponse) { 
         try {
-            String documentUrl;
+            MallDocumentLinkResponse documentLinks;
             ContentVersion contentVersion = new ContentVersion();
             contentVersion.Title = documentDownloadResponse.fileName;
             contentVersion.PathOnClient = documentDownloadResponse.fileName;
             contentVersion.VersionData = EncodingUtil.base64Decode(documentDownloadResponse.content);
             insert contentVersion;
-            Map<Id,String> contentIdVsLink = new CTRL_MallDocumentManagement().makeImageUrlPublic(new List<String>{contentVersion.Id});
+            Map<Id,MallDocumentLinkResponse> contentIdVsLink = new CTRL_MallDocumentManagement().makeImageUrlPublic(new List<String>{contentVersion.Id});
             if(contentIdVsLink != NULL) {
-                documentUrl = contentIdVsLink.get(contentVersion.Id);
+                documentLinks = contentIdVsLink.get(contentVersion.Id);
             }
-            return documentUrl; 
+            return documentLinks; 
         } catch(Exception e) {
             throw MallExceptionUtil.throwAuraException('CTRL_MallDocumentManagement.createDocumentForDownload', e);
         }   
@@ -208,11 +208,11 @@ public with sharing class CTRL_MallDocumentManagement {
      *  @param contentVersionIds List<String>     
      *  @return : Map<Id, String>
      */
-    public Map<Id, String> makeImageUrlPublic(List<String> contentVersionIds) {
+    public Map<Id, MallDocumentLinkResponse> makeImageUrlPublic(List<String> contentVersionIds) {
         try {
             List<ContentVersion> contentVersions = new List<ContentVersion>();
             List<ContentDistribution> contentDistributions = new List<ContentDistribution>();
-            Map<Id, String> contentVersionIdToContentUrl = new Map<Id, String>();
+            Map<Id, MallDocumentLinkResponse> contentVersionIdToContentUrl = new Map<Id, MallDocumentLinkResponse>();
             Set<Id> contentVersionIdsSet = new Set<Id>();
             contentVersionIdsSet.addAll((List<Id>)contentVersionIds);
             contentVersions = SEL_ContentVersion.newInstance().selectById(contentVersionIdsSet);
@@ -237,7 +237,10 @@ public with sharing class CTRL_MallDocumentManagement {
             contentDistributions = SEL_ContentDistribution.newInstance().selectById(contentDistributionIdsSet);
             for(ContentDistribution contentDistribution: contentDistributions) {
                 String publicUrl = contentDistribution.ContentDownloadurl;
-                contentVersionIdToContentUrl.put(contentDistribution.ContentVersionId, publicUrl);
+                MallDocumentLinkResponse mallDocResponse = new MallDocumentLinkResponse();
+                mallDocResponse.downloadUrl = contentDistribution.ContentDownloadurl;
+                mallDocResponse.publicViewUrl = contentDistribution.DistributionPublicUrl;
+                contentVersionIdToContentUrl.put(contentDistribution.ContentVersionId, mallDocResponse);
             }
             return contentVersionIdToContentUrl;
         } catch(Exception e) {
@@ -262,5 +265,16 @@ public with sharing class CTRL_MallDocumentManagement {
             pingBPGUID = currentUser.Ping_BPGUID__c;
         }
         return pingBPGUID;
+    }
+
+   
+
+    public class MallDocumentLinkResponse {
+
+        @AuraEnabled
+        public string downloadUrl;
+        @AuraEnabled
+        public string publicViewUrl;
+        
     }
 }
