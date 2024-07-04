@@ -219,7 +219,6 @@ export default class SbgNavigationBar extends NavigationMixin(
         "number"
       );
 
-      console.log('sub nav::: ', JSON.stringify(this.topLeftNavItems));
     } else if (error) {
       this.topLeftNavItems = [];
     }
@@ -237,6 +236,8 @@ export default class SbgNavigationBar extends NavigationMixin(
       this.topRightNavItems = this.setUpTranslatedLabels([
         ...this.topRightNavItems
       ]);
+
+
     } else if (error) {
       this.topRightNavItems = [];
     }
@@ -264,6 +265,9 @@ export default class SbgNavigationBar extends NavigationMixin(
       this.bottomLeftNavItems = this.setUpTranslatedLabels([
         ...this.bottomLeftNavItems
       ]);
+
+      console.log('bottomLeftNavItems::: ', JSON.stringify(this.bottomLeftNavItems));
+
     } else if (this.userProfile && data && tenantEditMode) {
       this.bottomLeftNavItems = [];
     } else if (!this.userProfile) {
@@ -903,12 +907,45 @@ export default class SbgNavigationBar extends NavigationMixin(
   }
 
   //Navigation Item click handler method
-  handleNavItemClick(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const link = event.currentTarget.dataset.link;
-    if (link) {
-      this.navigateToWebPage(getBaseUrl() + link);
+  // handleNavItemClick(event) {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  //   const link = event.currentTarget.dataset.link;
+  //   if (link) {
+  //     this.navigateToWebPage(getBaseUrl() + link);
+  //   }
+  // }
+
+
+  handleBottomLeftMenu(event){
+    console.log('clicked');
+    console.log(event);
+
+    const clickedItemLabel = event.currentTarget.dataset.text;
+    console.log('clickedItemLabel: ',clickedItemLabel);
+
+    if (clickedItemLabel === 'Our Solutions') {
+        this.showSubNavigationBar =   !this.showSubNavigationBar;
+    } else {
+        this.showSubNavigationBar = false;
     }
+}
+  
+handleOutsideClick(event) {
+  const navItem = this.template.querySelector('li[data-value="our-solutions"]');
+  if (navItem && !navItem.contains(event.target)) {
+      this.showSubNavigationBar = false;
   }
+}
+
+
+connectedCallback() {
+  // Attach an event listener to the document to listen for clicks outside the nav items
+  document.addEventListener('click', this.handleOutsideClick.bind(this));
+}
+
+disconnectedCallback() {
+  // Clean up the event listener when the component is destroyed
+  document.removeEventListener('click', this.handleOutsideClick.bind(this));
+}
 }

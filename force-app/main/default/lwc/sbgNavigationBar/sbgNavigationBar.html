@@ -48,10 +48,11 @@
             key={navItem.MasterLabel}
             onclick={handleNavItemClick}
             data-value={navItem.MasterLabel}
-            data-link={navItem.URL_Link__c}
+            
+           
           >
             <a
-              href={navItem.URL_Link__c}
+              onclick={handleBottomLeftMenu}
               class="nav-item"
               target=""
               data-intent="navigational"
@@ -60,6 +61,7 @@
               data-type="click"
               data-text={navItem.MasterLabel}
               data-text-after="link"
+              
               >{navItem.translatedLabel}</a
             >
           </li>
