@@ -14,6 +14,6 @@
 
 .mainNav_col ul li { padding: 10px 0px;}
 
-.mainNav_col ul li a { display: block; line-height: 19px; font-size: 14px; color: #000;}
+.mainNav_col ul li a { display: block; line-height: 19px; font-size: 14px; color: #000; max-width: 150px;}
 
 .mainNav_col ul li a:hover {text-decoration: none !important;}

@@ -266,7 +266,7 @@ export default class SbgNavigationBar extends NavigationMixin(
         ...this.bottomLeftNavItems
       ]);
 
-      console.log('bottomLeftNavItems::: ', JSON.stringify(this.bottomLeftNavItems));
+      
 
     } else if (this.userProfile && data && tenantEditMode) {
       this.bottomLeftNavItems = [];
@@ -275,6 +275,18 @@ export default class SbgNavigationBar extends NavigationMixin(
     } else if (error) {
       this.bottomLeftNavItems = [];
     }
+
+        
+
+    // this.bottomLeftNavItems.forEach(navItem => {
+    //   if (navItem.URL_Link__c && IS_GUEST) {
+    //     navItem.URL_Link__c = '';
+    //   }
+    
+    // });
+
+
+    
   }
 
   @wire(getNavItems, { position: "Bottom Right" })
@@ -907,14 +919,33 @@ export default class SbgNavigationBar extends NavigationMixin(
   }
 
   //Navigation Item click handler method
-  // handleNavItemClick(event) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   const link = event.currentTarget.dataset.link;
-  //   if (link) {
-  //     this.navigateToWebPage(getBaseUrl() + link);
+  handleNavItemClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const link = event.currentTarget.dataset.link;
+    // if (link) {
+    //   this.navigateToWebPage(getBaseUrl() + link);
+    // }
+
+    const clickedItemLabel = event.currentTarget.dataset.value;
+    if (this.showSubNavigationBar) {
+      this.showSubNavigationBar = false;
+      return;
+    }
+    this.showSubNavigationBar = clickedItemLabel === 'Our Solutions' && IS_GUEST;
+    if (!this.showSubNavigationBar && link) {
+       this.navigateToWebPage(getBaseUrl() + link);
+    }
+
+  //   if (clickedItemLabel === 'Our Solutions' && IS_GUEST) {
+     
+  //         this.showSubNavigationBar = !this.showSubNavigationBar;
   //   }
+  //  else {
+  //     this.showSubNavigationBar = false;
   // }
+  }
 
 
   handleBottomLeftMenu(event){
@@ -925,7 +956,12 @@ export default class SbgNavigationBar extends NavigationMixin(
     console.log('clickedItemLabel: ',clickedItemLabel);
 
     if (clickedItemLabel === 'Our Solutions') {
-        this.showSubNavigationBar =   !this.showSubNavigationBar;
+      
+        // // this.showSubNavigationBar =   !this.showSubNavigationBar;
+        // if(IS_GUEST){
+
+        // }
+
     } else {
         this.showSubNavigationBar = false;
     }
