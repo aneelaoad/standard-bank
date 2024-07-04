@@ -29,7 +29,7 @@
         </template>
       </a>
     </div>
-    <template if:false={isStoreProfileEdit}>
+    <!--<template if:false={isStoreProfileEdit}>
       <div class="search-container">
         <template if:true={enableCategory}>
           <c-mall-category-selection
@@ -38,7 +38,7 @@
         </template>
         <c-mall-search></c-mall-search>
       </div>
-    </template>
+    </template>-->
     <div class="grid-row-3">
       <ul class="nav-primary" role="navigation" aria-label={menuLabel}>
         <!--Bottom left nav items Primary nav children-->
@@ -642,5 +642,8 @@
       onclosemodal={handleCloseSignupInstructions}
     >
     </c-mall-signup-instructions-screen>
+  </template>
+  <template if:true={showSubNavigationBar}>
+    <c-mall-sub-navigation-bar></c-mall-sub-navigation-bar>
   </template>
 </template>

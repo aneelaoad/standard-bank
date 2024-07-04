@@ -81,6 +81,7 @@ export default class SbgNavigationBar extends NavigationMixin(
   @track isStoreProfileEdit = undefined;
   @track isStoreProfileView = true;
   @track isStoreProfile = false;
+  showSubNavigationBar = false;
 
   get visibilityClass() {
     return this.hasMultipleLangugages ? "slds-visible" : "slds-hidden";
@@ -217,6 +218,8 @@ export default class SbgNavigationBar extends NavigationMixin(
         data,
         "number"
       );
+
+      console.log('sub nav::: ', JSON.stringify(this.topLeftNavItems));
     } else if (error) {
       this.topLeftNavItems = [];
     }

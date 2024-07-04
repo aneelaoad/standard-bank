@@ -196,7 +196,7 @@ public with sharing class CTRL_MallDocumentManagement {
             if(contentIdVsLink != NULL) {
                 documentLinks = contentIdVsLink.get(contentVersion.Id);
             }
-            return documentLinks; 
+            return documentLinks;   
         } catch(Exception e) {
             throw MallExceptionUtil.throwAuraException('CTRL_MallDocumentManagement.createDocumentForDownload', e);
         }   
