@@ -276,7 +276,8 @@ export default class SbgNavigationBar extends NavigationMixin(
       this.bottomLeftNavItems = [];
     }
 
-        
+    
+   
 
     // this.bottomLeftNavItems.forEach(navItem => {
     //   if (navItem.URL_Link__c && IS_GUEST) {
@@ -929,22 +930,25 @@ export default class SbgNavigationBar extends NavigationMixin(
     // }
 
     const clickedItemLabel = event.currentTarget.dataset.value;
-    if (this.showSubNavigationBar) {
-      this.showSubNavigationBar = false;
-      return;
-    }
-    this.showSubNavigationBar = clickedItemLabel === 'Our Solutions' && IS_GUEST;
-    if (!this.showSubNavigationBar && link) {
-       this.navigateToWebPage(getBaseUrl() + link);
-    }
+    // if (this.showSubNavigationBar) {
+    //   this.showSubNavigationBar = false;
+    //   return;
+    // }
+    // this.showSubNavigationBar = clickedItemLabel === 'Our Solutions' && IS_GUEST;
+    // if (!this.showSubNavigationBar && link) {
+    //    this.navigateToWebPage(getBaseUrl() + link);
+    // }
 
-  //   if (clickedItemLabel === 'Our Solutions' && IS_GUEST) {
+    if (clickedItemLabel === 'Our Solutions') {
      
-  //         this.showSubNavigationBar = !this.showSubNavigationBar;
-  //   }
-  //  else {
-  //     this.showSubNavigationBar = false;
-  // }
+          this.showSubNavigationBar = !this.showSubNavigationBar;
+    }
+   else {
+    if(link){
+      this.showSubNavigationBar = false;
+      this.navigateToWebPage(getBaseUrl() + link);
+    }
+  }
   }
 
 
@@ -974,10 +978,13 @@ handleOutsideClick(event) {
   }
 }
 
-
+showDropdownIcon= false
 connectedCallback() {
   // Attach an event listener to the document to listen for clicks outside the nav items
   document.addEventListener('click', this.handleOutsideClick.bind(this));
+
+  
+
 }
 
 disconnectedCallback() {

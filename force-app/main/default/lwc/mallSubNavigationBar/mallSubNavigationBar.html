@@ -1,6 +1,6 @@
 <template>
     <div class="mainNav">
-        <button onclick={navigateToInternalPage}>View all solutions <span><img src={arrowIcon}></span></button>
+        <button><a href="/s/our-solutions">View all solutions</a> <span><img src={arrowIcon}></span></button>
         <div class="mainNav_info">
             <template for:each={sortedNavigationItems} for:item="category">
             <div key={category.id} class="mainNav_col">

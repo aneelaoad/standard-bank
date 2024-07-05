@@ -75,6 +75,8 @@ public with sharing class SBGNavigationBarController {
         List<SBG_Navigation_Items__mdt> navItemsFiltered = new List<SBG_Navigation_Items__mdt>();
         try{
             navItems = SBG_Navigation_Items__mdt.getAll().values();
+             System.debug('nav items: '+navItems);
+
             if(Auth.CommunitiesUtil.isGuestUser()) {
                 for(Integer row = 0; row < navItems.size(); row++) {
                     if(navItems[row].Available_for_guest_user__c == TRUE && navItems[row].Item_Position__c == position && navItems[row].IsActive__c == TRUE) {
@@ -96,6 +98,7 @@ public with sharing class SBGNavigationBarController {
         }catch(Exception e){ 
             throw MallExceptionUtil.throwAuraException('SBGNavigationBarController.getNavItems', e); 
         }
+       System.debug('nav items: '+navItemsFiltered);
         return navItemsFiltered;
     }
 

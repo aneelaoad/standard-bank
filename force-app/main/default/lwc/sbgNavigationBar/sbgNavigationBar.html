@@ -61,8 +61,11 @@
               data-text={navItem.MasterLabel}
               data-text-after="link"
               
-              >{navItem.translatedLabel}</a
-            >
+              >{navItem.translatedLabel}
+              <template if:true={navItem.Icon__c}>
+                <span class="dropdown-icon" >&#9662;</span>
+            </template>
+            </a >
           </li>
         </template>
         <li class="dropdown mobile-country--dropdown">
