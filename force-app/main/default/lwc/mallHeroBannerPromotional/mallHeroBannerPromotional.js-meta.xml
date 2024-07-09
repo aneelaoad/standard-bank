@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Mall Hero Banner Promotional</masterLabel>
+    <description>You can load mid page banner with various backing colours</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+      </targets>
+      <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+          <property name="heading" label="Small title" type="String" />
+          <property name="description" label="Large title" type="String" />
+          <property name="subText" label="Description" type="String" />
+    
+          <property name="buttonLabel" label="Button label" type="String" default="Label" />
+          <property name="buttonTitle" label="Button Title" type="String" default="Title" />
+          <property name="destinationUrl" label="Community page url or absolute url" type="String" />
+          <property name="action" label="Action" type="String" default="navigateToUrl" />
+          <property name="variant" label="[base, neutral, brand, brand-outline, destructive, destructive-text, inverse, success]" type="String" default="brand" />
+          <property name="disabled" label="Disabled" type="Boolean" default="false" />
+          <property name="wClass" label="Predefined width [w236, w280, w300, w340, w340C]" type="String" default="w300" />
+
+          <property name="interactionIntent" label="Interaction tagging intent" type="String" />
+          <property name="interactionType" label="Interaction tagging type" type="String" />
+          <property name="interactionText" label="Interaction tagging text" type="String" />
+          <property name="interactionScope" label="Interaction tagging scope" type="String" />
+    
+          <property name="imagePath" label="Image path Mobile / Default" type="String" />
+          <property name="imagePathTablet" label="Image path Tablet" type="String" />
+          <property name="imagePathDesktop" label="Image path Desktop" type="String" />
+          
+          <property name="showButton" label="Show button" type="Boolean" default="true" />
+          <property name="customBannerStyles" label="Apply custom banner styles" type="Boolean" default="false"/>
+          <property name="applyColourContrastInversion" label="Invert text colour" type="Boolean"/>
+          <property name="customBackgroundColour" label="Apply custom colour to banner background" description="This only applies if custom banner styles is applied" type="Color"/>
+          <property name="enableTitleGradientUnderline" label="Add title underline" type="Boolean" default="false"/>
+        </targetConfig>
+      </targetConfigs>
+</LightningComponentBundle>

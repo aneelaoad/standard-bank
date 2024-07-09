@@ -10,7 +10,7 @@
                 <template lwc:if={deviceNotRegistered}>
                     <c-osb-new-device-modal-lwc
                         onupdatedeviceregistered={handleDeviceRegistered}
-                        indashboard="true"
+                        indashboard={dashboardValue}
                     >
                     </c-osb-new-device-modal-lwc>
                 </template>

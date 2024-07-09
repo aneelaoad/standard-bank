@@ -82,7 +82,6 @@
                                 <p class="sub-text">
                                     Install via the App or Play Store
                                 </p>
-                                <!-- <br></br> -->
                                 <div class="appOrPayStore slds-grid">
                                     <img
                                         class="img slds-col appStore_image"
@@ -213,7 +212,7 @@
                                                         data-intent="confirmational"
                                                         data-scope="new device"
                                                         data-text="new device | reload QR code"
-                                                    />/>
+                                                    />
                                                 </div>
                                             </template>
                                             <template if:false={reloadQr}>
@@ -226,7 +225,6 @@
                                                         in</span
                                                     >
                                                     <span></span>
-                                                    <!-- <br> -->
                                                     <template
                                                         if:true={timerDisplay}
                                                     >
@@ -602,5 +600,13 @@
                 <div class="popUp-overlay popUp-invisible"></div>
             </div>
         </section>
+    </template>
+    <template lwc:if={showOTPModal}>
+        <c-osb-otp-modal
+        otpreason={otpReason}
+        otpmessage={otpMessage}
+        oncancelotp={cancelOTPInitiation}
+        onsuccessotp={successOTPInitiation}
+        ></c-osb-otp-modal>
     </template>
 </template>

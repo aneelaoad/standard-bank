@@ -14,15 +14,11 @@ import USER_MALLSTATE_CHANGED_EVT from "@salesforce/messageChannel/UserMallState
 import IS_GUEST from "@salesforce/user/isGuest";
 import DEFAULT_MALL_COUNTRY from "@salesforce/label/c.DEFAULT_MALL_COUNTRY";
 import DEFAULT_MALL_LANGUAGE_ISO from "@salesforce/label/c.DEFAULT_MALL_LANGUAGE_ISO";
-import getProductsBySegmentAndCategoryIds from "@salesforce/apex/MallDataService.getProductsBySegmentAndCategoryIds";
 import getPromotionsBySegmentAndCategoryIds from "@salesforce/apex/MallDataService.getPromotionsBySegmentAndCategoryIds";
-import getEventsBySegmentAndCategoryIds from "@salesforce/apex/MallDataService.getEventsBySegmentAndCategoryIds";
-import getSolutionsBySegmentAndCategories from "@salesforce/apex/MallDataService.getSolutionsBySegmentAndCategories";
 import { getBaseUrl, navigateToWebPage } from "c/mallNavigation";
 import MALL_HOMEPAGE_TRUSTED_PARTNER_TITLE from "@salesforce/label/c.MALL_HOMEPAGE_TRUSTED_PARTNER_TITLE";
 import MALL_HOMEPAGE_SERVICES_TITLE from "@salesforce/label/c.MALL_HOMEPAGE_SERVICES_TITLE";
 import MALL_HOMEPAGE_SERVICES_COVER_DESCRIPTION from "@salesforce/label/c.MALL_HOMEPAGE_SERVICES_COVER_DESCRIPTION";
-import MALL_SOLUTIONS_COVER_DESC from "@salesforce/label/c.MALL_SOLUTIONS_COVER_DESC";
 import MALL_HOMEPAGE_GUIDED_SOLUTION_COVER_DESCRIPTION from "@salesforce/label/c.MALL_HOMEPAGE_GUIDED_SOLUTION_COVER_DESCRIPTION";
 import MALL_HOMEPAGE_POPULAR_SERVICES_COVER_DESCRIPTION from "@salesforce/label/c.MALL_HOMEPAGE_POPULAR_SERVICES_COVER_DESCRIPTION";
 import MALL_HOMEPAGE_BUSINESS_EVENT_COVER_DESCRIPTION from "@salesforce/label/c.MALL_HOMEPAGE_BUSINESS_EVENT_COVER_DESCRIPTION";
@@ -45,12 +41,12 @@ const DEFAULT_CATEGORY_NAME = "All";
 const PAGE_TITLE = "Business banking tailored to your needs";
 const PAGE_TITLE_TEXT =
   "Welcome to BCB Platform, an innovative space by Standard Bank, offering diverse business solutions and premium offerings across 'Bank, Borrow, and Grow' categories. Seamlessly connect with trusted brands, configure your dashboard with onboarded offerings, and explore business events and insights. Join us in this era of innovation, unlocking possibilities for your business success.";
-const TITLE_FIRST_PARAGRAPH = "Improve your wealth, effortlessly";
+const TITLE_FIRST_PARAGRAPH = "Your business is our top priority";
 const CONTENT_FIRST_PARAGRAPH =
-  "Grow your business with our banking, borrowing and growth solutions. Plus, thrive with our shared value insurance model by making use of ways to improve your financial health.";
-const TITLE_SECOND_PARAGRAPH = "Partner with other businesses";
+  "Get tailor-made banking solutions, use our financial health monitor and never worry about the status of your business’s finances. No two businesses are the same, that’s why we tailor your experience.";
+const TITLE_SECOND_PARAGRAPH = "We’re giving you your time back";
 const CONTENT_SECOND_PARAGRAPH =
-  "Leverage the reputation and network of established professionals to reach new audiences and build trust with potential clients or partners.";
+  "You can easily track your income and expenses, get expert industry knowledge and access all of your Standard Bank solutions in one place.";
 export default class MallStateConfig extends NavigationMixin(LightningElement) {
   pageTitle = PAGE_TITLE;
   pageTitleText = PAGE_TITLE_TEXT;
@@ -111,16 +107,8 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
 
   allShops;
   @track shopCollection;
-  allProducts;
-  @track productCollection;
-  allPromotions;
-  @track promotionCollection;
-  @track bannerCollection;
   @track staticBannerRecord;
-  @track guidedSolutionCollection;
-  @track serviceCollection;
-  @track businessEventCollection;
-  @track solutionCollection;
+  hasStaticBanner = false;
 
   runOnce = false;
   error = undefined;
@@ -312,6 +300,10 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
         DEFAULT_MALL_LANGUAGE_ISO
       );
 
+      this.countryName = mallStateConfig.mallUserSelectedCountry;
+      this.isSA = (this.countryName == DEFAULT_MALL_COUNTRY) ? true : false;
+      this.isUG = (this.countryName == 'Uganda') ? true : false;
+
       this.mallStateConfig = { ...mallStateConfig };
       mallCollection = await initialization({
         mallContext: JSON.stringify(this.mallStateConfig)
@@ -319,14 +311,7 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
 
       this.processSegmentInfo(mallCollection.segments);
       this.processCategoriesInfo(mallCollection.categories);
-      this.processSolutionCollection(mallCollection.solutions);
       this.processPromotionCollection(mallCollection.promotions);
-      this.processServiceCollectionInfo(mallCollection.services, null);
-      this.processBusinessEventCollection(mallCollection.events, null);
-      await this.getSolutionsBySegmentAndCategoryIds(
-        JSON.stringify(this.mallStateConfig),
-        mallStateConfig
-      );
       this.connectedCallBackRunOnce = true;
     } catch (error) {
       this.error = error;
@@ -352,19 +337,10 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
       ];
 
       let mallContext = JSON.stringify(mallStateConfig);
-      await this.getSolutionsBySegmentAndCategoryIds(
-        mallContext,
-        mallStateConfig
-      );
       await this.getPromotionsBySegmentAndCategory(
         mallContext,
         mallStateConfig
       );
-      await this.getProductsBySegmentAndCategories(
-        mallContext,
-        mallStateConfig
-      );
-      await this.getEventsBySegmentAndCategories(mallContext, mallStateConfig);
     } catch (error) {
       this.error = error;
     }
@@ -402,25 +378,6 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
     return tagIds;
   }
 
-  async getProductsBySegmentAndCategories(mallContext, params) {
-    try {
-      let offerings = await getProductsBySegmentAndCategoryIds({
-        mallContext: mallContext,
-        segmentIds: params.selectedSegmentIds,
-        categoryIds: params.selectedCategoryIds
-      });
-      let services = [];
-      offerings.map((offering) => {
-        if (offering.offeringType == "Service") {
-          services.push(offering);
-        }
-      });
-      this.processServiceCollectionInfo(services, null);
-    } catch (error) {
-      this.error = error;
-    }
-  }
-
   async getPromotionsBySegmentAndCategory(mallContext, params) {
     try {
       let promotions = await getPromotionsBySegmentAndCategoryIds({
@@ -441,52 +398,6 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
         }
       }
       this.processPromotionCollection(promotions, selectedCategoryName);
-    } catch (error) {
-      this.error = error;
-    }
-  }
-
-  async getSolutionsBySegmentAndCategoryIds(mallContext, params) {
-    try {
-      let selectedCategoryName;
-      if (
-        params &&
-        params.selectedCategoryNames &&
-        params.selectedCategoryNames.length
-      ) {
-        if (params.selectedCategoryNames[0] != DEFAULT_CATEGORY_NAME) {
-          selectedCategoryName = params.selectedCategoryNames[0];
-        } else {
-          selectedCategoryName = "";
-        }
-      }
-      let solutionsForSelectedCategory = [];
-      let solutionsResponse = await getSolutionsBySegmentAndCategories({
-        mallContext: mallContext,
-        segmentIds: params.selectedSegmentIds,
-        categoryIds: params.selectedCategoryIds
-      });
-
-      if (solutionsResponse && solutionsResponse.length > 0) {
-        solutionsForSelectedCategory = solutionsResponse[0].solutions;
-      }
-      this.processSolutionCollection(
-        solutionsForSelectedCategory,
-        selectedCategoryName
-      );
-    } catch (error) {
-      this.error = error;
-    }
-  }
-
-  async getEventsBySegmentAndCategories(mallContext, params) {
-    try {
-      let events = await getEventsBySegmentAndCategoryIds({
-        mallContext: mallContext,
-        segmentIds: params.selectedSegmentIds,
-        categoryIds: params.selectedCategoryIds
-      });
-      this.processBusinessEventCollection(events);
     } catch (error) {
       this.error = error;
     }
@@ -526,113 +437,6 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
     this.mallStateConfig.selectedCategoryIds = [...this.selectedCategoryIds];
   }
 
-  processServiceCollectionInfo(services, selectedCategoryName) {
-    let serviceCollectionObject = JSON.parse(
-      JSON.stringify(this.COLLECTION_STRUCT)
-    );
-    serviceCollectionObject.type = this.mallServicesTitle;
-    serviceCollectionObject.coverImage = {
-      description: this.mallPopularServicesDescription
-    };
-    let serviceCollection = this.processOfferingCollectionInfo(
-      services,
-      selectedCategoryName,
-      serviceCollectionObject
-    );
-    let baseUrl = getBaseUrl();
-    for (let row = 0; row < serviceCollection.list.length; row++) {
-      let serviceProcessed = { ...serviceCollection.list[row] };
-      serviceProcessed.hideModal = true;
-      serviceProcessed.url = serviceProcessed.desktopUrl;
-      serviceProcessed.readMoreUrl =
-        baseUrl +
-        "/mall/s/tag/" +
-        serviceProcessed.solutionId +
-        "?" +
-        "productId=" +
-        serviceProcessed.id;
-      serviceProcessed.buttonLabel = MALL_APPLY_NOW_BUTTON;
-      serviceProcessed.taggingText = serviceProcessed.name + " Service";
-      serviceProcessed.taggingTypeId = serviceProcessed.id;
-      serviceProcessed.taggingScope = "BCB Platform Services";
-      serviceCollection.list[row] = serviceProcessed;
-    }
-    this.serviceCollection = [serviceCollection];
-  }
-
-  processBusinessEventCollection(events, selectedCategoryName) {
-    let businessEventCollectionObject = JSON.parse(
-      JSON.stringify(this.COLLECTION_STRUCT)
-    );
-    businessEventCollectionObject.type = this.mallBusinessEventTitle;
-    businessEventCollectionObject.coverImage = {
-      description: this.mallBusinessEventDescription
-    };
-
-    if (!events) {
-      businessEventCollectionObject.list = [];
-      this.businessEventCollection = [];
-      return;
-    }
-
-    let businessEventCollection = [];
-    if (selectedCategoryName) {
-      businessEventCollection = events.filter(
-        (promotion) =>
-          promotion.tagName.toLowerCase() == selectedCategoryName.toLowerCase()
-      );
-    } else {
-      businessEventCollection = [...events];
-    }
-    businessEventCollectionObject.list = businessEventCollection;
-    businessEventCollectionObject.list = this.sortData(
-      "startDate",
-      "asc",
-      businessEventCollectionObject.list,
-      "datetime"
-    );
-    for (let row = 0; row < businessEventCollectionObject.list.length; row++) {
-      let eventProcessed = { ...businessEventCollectionObject.list[row] };
-      eventProcessed.hideModal = true;
-      eventProcessed.url = null;
-      eventProcessed.readMoreUrl = eventProcessed.desktopUrl;
-      eventProcessed.taggingText = eventProcessed.name + " business event";
-      eventProcessed.taggingTypeId = eventProcessed.id;
-      eventProcessed.taggingScope = "BCB Platform business events";
-      businessEventCollectionObject.list[row] = eventProcessed;
-    }
-    this.businessEventCollection = [businessEventCollectionObject];
-  }
-
-  processOfferingCollectionInfo(
-    offerings,
-    selectedCategoryName,
-    offeringCollectionObject
-  ) {
-    if (!offerings) {
-      offeringCollectionObject.list = [];
-      return [offeringCollectionObject];
-    }
-    let allOfferings = [...offerings];
-    let offeringCollection = [];
-    if (selectedCategoryName) {
-      offeringCollection = allOfferings.filter(
-        (offering) =>
-          offering.tagName.toLowerCase() == selectedCategoryName.toLowerCase()
-      );
-    } else {
-      offeringCollection = [...allOfferings];
-    }
-    offeringCollectionObject.list = [...offeringCollection];
-    offeringCollectionObject.list = this.sortData(
-      "createdDate",
-      "desc",
-      offeringCollectionObject.list,
-      "datetime"
-    );
-    return offeringCollectionObject;
-  }
-
   handleSignup() {
     putCookie("userDesiredPage", getBaseUrl() + "/mall/s/");
     putCookie("redirectToUserDesiredPage", "true");
@@ -649,6 +453,22 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
     });
   }
 
+  handleSwitch() {
+    putCookie("userDesiredPage", getBaseUrl() + "/mall/s/");
+    putCookie("redirectToUserDesiredPage", "true");
+    putCookie("redirectToExternalShopPage", "true");
+    //TODO :: GH :: SHould use the navigation mixin here
+    let switchUrl = "https://www.standardbank.co.za/southafrica/business/products-and-services/bank-with-us/switch-your-bank-account";
+    this[NavigationMixin.GenerateUrl]({
+      type: "standard__webPage",
+      attributes: {
+        url: switchUrl
+      }
+    }).then((generatedUrl) => {
+      window.open(generatedUrl, "_self");
+    });
+  }
+
   processPromotionCollection(promotions, selectedCategoryName) {
     let promotionCollectionObject = JSON.parse(
       JSON.stringify(this.COLLECTION_STRUCT)
@@ -656,77 +476,36 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
     promotionCollectionObject.type = "Promotions";
 
     if (!promotions) {
-      this.allPromotions = [];
       promotionCollectionObject.list = [];
-      this.bannerCollection = [];
-      this.promotionCollection = [promotionCollectionObject];
       return;
     }
-    this.allPromotions = [...promotions];
     let promotionCollection = [];
     if (selectedCategoryName) {
-      promotionCollection = this.allPromotions.filter(
+      promotionCollection = promotions.filter(
         (promotion) =>
           promotion.tagName.toLowerCase() ==
             selectedCategoryName.toLowerCase() &&
           !promotion.isDefaultCategoryBanner
       );
     } else {
-      promotionCollection = this.allPromotions.filter(
+      promotionCollection = promotions.filter(
         (promotion) => promotion.isDefaultCategoryBanner
       );
     }
     promotionCollectionObject.list = promotionCollection;
-    this.bannerCollection = promotionCollection.filter(
+    let bannerCollection = promotionCollection.filter(
       (promotion) => promotion.promotionType === "Banner"
     );
-    this.bannerCollection = this.sortData(
+    bannerCollection = this.sortData(
       "rank",
       "asc",
-      this.bannerCollection,
+      bannerCollection,
       "number"
     );
-    if (this.bannerCollection.length > 0) {
-      this.staticBannerRecord = this.bannerCollection[0];
+    if (bannerCollection.length > 0) {
+      this.hasStaticBanner = true;
+      this.staticBannerRecord = bannerCollection[0];
     }
-    this.promotionCollection = promotionCollection.filter(
-      (promotion) => promotion.promotionType === "Promotion"
-    );
-    this.promotionCollection = this.sortData(
-      "rank",
-      "asc",
-      this.promotionCollection,
-      "number"
-    );
-  }
-
-  processSolutionCollection(solutions, selectedCategoryName) {
-    let solutionCollectionObject = JSON.parse(
-      JSON.stringify(this.COLLECTION_STRUCT)
-    );
-    solutionCollectionObject.type = "Solutions";
-    solutionCollectionObject.coverImage = {
-      description: MALL_SOLUTIONS_COVER_DESC
-    };
-
-    if (!solutions) {
-      solutionCollectionObject.list = [];
-      this.solutionCollection = [];
-      return;
-    }
-    solutionCollectionObject.list = [...solutions];
-    for (let row = 0; row < solutionCollectionObject.list.length; row++) {
-      let solutionProcessed = { ...solutionCollectionObject.list[row] };
-      solutionProcessed.url = null;
-      solutionProcessed.hideModal = true;
-      solutionProcessed.readMoreUrl =
-        getBaseUrl() + "/mall/s/tag/" + solutionProcessed.id;
-      solutionProcessed.taggingText = solutionProcessed.name + " solutions";
-      solutionProcessed.taggingTypeId = solutionProcessed.id;
-      solutionProcessed.taggingScope = "BCB Platform solutions";
-      solutionCollectionObject.list[row] = solutionProcessed;
-    }
-    this.solutionCollection = [solutionCollectionObject];
   }
 
   sortData(fieldName, sortDirection, array, type) {
@@ -774,7 +553,7 @@ export default class MallStateConfig extends NavigationMixin(LightningElement) {
     let link = getBaseUrl() + "/mall/s/solutions-catalogue";
     this.navigateToWebPage(link);
   }
-  mallHomeBanner1 = mallHomeBanners + "/CombinedBannerImage.png";
+  
   mallHomeBanner2 = mallHomeBanners + "/DesktopView.jpg";
   mallHomeOperationsImage = mallHomeBanners + "/Opperations.png";
   mallGridImage1 = mallHomeGridImages + "/GridImage1.PNG";

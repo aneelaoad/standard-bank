@@ -45,7 +45,14 @@ export default class mallBenefitsList extends NavigationMixin(
 
     // Simangaliso Start
     titleFirstParagraph = TITLE_FIRST_PARAGRAPH;
-    benefitsIconScales = benefitsIcons+"/mallBenefits/icons/icn_bulb.png";
+    benefitsIconBulb = benefitsIcons+"/mallBenefits/icons/icn_bulb.png";
+    benefitsIconScales = benefitsIcons+"/mallBenefits/icons/icn_scales.png";
+    benefitsIconDocCert = benefitsIcons+"/mallBenefits/icons/icn_document_certificate.png";
+    benefitsIconBoxTrack = benefitsIcons+"/mallBenefits/icons/icn_box_track.png";
+    benefitsIconArrowLeft = benefitsIcons+"/mallBenefits/icons/icn_chevron_left.png";
+    benefitsIconArrowRight = benefitsIcons+"/mallBenefits/icons/icn_chevron_right.png";
+    
+
     //Simangaliso End
   @api set collection(collection) {
     if (this.mockEnabled) {

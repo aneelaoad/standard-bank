@@ -152,7 +152,7 @@
                         <c-osb-new-device-modal-lwc
                             onmfadeviceregistered={handleMFADevice}
                             onupdatedeviceregistered={handleMFAModal}
-                            indashboard="false"
+                            indashboard={dashboardValue}
                         ></c-osb-new-device-modal-lwc>
                     </template>
                     <template if:true={cantAddDevice}>
@@ -171,6 +171,14 @@
                             icon="QuestionMark"
                         >
                         </c-osb-market-gram-popup-lwc>
+                    </template>
+                    <template lwc:if={showOTPModal}>
+                        <c-osb-otp-modal
+                        otpreason={otpReason}
+                        otpmessage={otpMessage}
+                        oncancelotp={cancelOTPInitiation}
+                        onsuccessotp={successOTPInitiation}
+                        ></c-osb-otp-modal>
                     </template>
                 </lightning-layout-item>
             </lightning-layout>

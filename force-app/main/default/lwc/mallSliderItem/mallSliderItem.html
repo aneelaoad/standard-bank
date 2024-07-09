@@ -1,0 +1,35 @@
+<template>
+    <template for:each={slidesData} for:item="slide">
+        <lightning-layout horizontal-align="center" key={slide.index}>
+            
+            <lightning-layout-item padding="around-small">
+                
+                <div  style="width: 100%; height: 100%; justify-content: flex-start; align-items: flex-start; gap: 21px; display: inline-flex">
+                    <div style="padding: 20px; background: white; box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.25); border-radius: 10px; flex-direction: column; justify-content: flex-start; align-items: center; display: inline-flex">
+                        <div style="padding: 10px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex">
+                            <div style="width: 68.73px; height: 70.35px; position: relative">
+                                <div style="width: 57.28px; height: 58.63px; left: 5.73px; top: 5.86px; position: absolute; background: white"><img
+                                    loading="lazy"
+                                    src={slide.iconURL}
+                                    alt={slide.imageAlt}
+                                  /></div>
+                            </div>
+                        </div>
+                        <div style="flex-direction: column; justify-content: center; align-items: center; display: flex">
+                            <div style="padding-left: 10px; padding-right: 10px; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
+                                <div style="text-align: center; color: #1A314D; font-size: 20px; font-family: Benton Sans Pro; font-weight: 500; line-height: 26px; word-wrap: break-word">{slide.cardTitle}</div>
+                            </div>
+                            <div style="padding: 10px; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
+                                <div style="width: 320px; text-align: center; color: #1A314D; font-size: 15px; font-family: Benton Sans Pro; font-weight: 400; line-height: 22.50px; word-wrap: break-word">{slide.cardDescription}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </lightning-layout-item>
+        </lightning-layout>
+    </template>
+    
+
+    
+</template>

@@ -14,13 +14,16 @@ import MALL_SIGN_UP_OR_SIGN_IN from "@salesforce/label/c.MALL_SIGN_UP_OR_SIGN_IN
 import mallIcons from "@salesforce/resourceUrl/mallIcons";
 import { addAnalyticsInteractions } from "c/mallAnalyticsTagging";
 import mallInsightImages from "@salesforce/resourceUrl/mallInsightImages";
+import DEFAULT_MALL_COUNTRY from "@salesforce/label/c.DEFAULT_MALL_COUNTRY";
+
 const MALL_INSIGHTS_HEADING = "Insights";
 const MALL_INSIGHTS_MIN_READ_TEXT = "min read";
 const MALL_INSIGHTS_LIMIT = 5;
+
 export default class MallStateInsights extends NavigationMixin(
   LightningElement
 ) {
-  isGuestUser = false;
+  isGuestUser = true;
   @track insights = [];
   @track topInsight;
   @track secondInsight;
@@ -111,6 +114,7 @@ export default class MallStateInsights extends NavigationMixin(
       this.richTextContent = truncatedContent + "...Read more";
     }
     this.isGuestUser = IS_GUEST;
+    this.getInsightsByCategoryIds();
     this.subscribeToMallStateChangeMessageChannel();
   }
 
@@ -139,7 +143,7 @@ export default class MallStateInsights extends NavigationMixin(
 
   async getInsightsByCategoryIds() {
   try {
-    let insights = await getInsights({country: this.mallStateConfig.mallUserSelectedCountry, category: 'Insights'});
+    let insights = await getInsights({country: DEFAULT_MALL_COUNTRY, category: 'Insights'});
     this.processInsightCollection(insights);
   } catch (error) {
     this.error = error;

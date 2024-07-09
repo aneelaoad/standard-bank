@@ -925,19 +925,10 @@ export default class SbgNavigationBar extends NavigationMixin(
     event.stopPropagation();
     
     const link = event.currentTarget.dataset.link;
-    // if (link) {
-    //   this.navigateToWebPage(getBaseUrl() + link);
-    // }
+  
 
     const clickedItemLabel = event.currentTarget.dataset.value;
-    // if (this.showSubNavigationBar) {
-    //   this.showSubNavigationBar = false;
-    //   return;
-    // }
-    // this.showSubNavigationBar = clickedItemLabel === 'Our Solutions' && IS_GUEST;
-    // if (!this.showSubNavigationBar && link) {
-    //    this.navigateToWebPage(getBaseUrl() + link);
-    // }
+    
 
     if (clickedItemLabel === 'Our Solutions') {
      
@@ -949,6 +940,22 @@ export default class SbgNavigationBar extends NavigationMixin(
       this.navigateToWebPage(getBaseUrl() + link);
     }
   }
+
+    // if (link) {
+    //   this.navigateToWebPage(getBaseUrl() + link);
+    // }
+
+    // if (this.showSubNavigationBar) {
+    //   this.showSubNavigationBar = false;
+    //   return;
+    // }
+    // this.showSubNavigationBar = clickedItemLabel === 'Our Solutions' && IS_GUEST;
+    // if (!this.showSubNavigationBar && link) {
+    //    this.navigateToWebPage(getBaseUrl() + link);
+    // }
+
+
+  
   }
 
 

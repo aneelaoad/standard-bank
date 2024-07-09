@@ -1,11 +1,44 @@
+<!--
+  @description       : 
+  @author            : devi.ravuri@standardbank.co.za
+  @group             : 
+  @last modified on  : 28 MAY 2024
+  @last modified by  : Narendra 
+  @Modification Description : SFP-38041
+-->
 <template>
+	<template lwc:if={cardDeliveryModal}>
+		<template for:each={cardDeliveryInfo} for:item="item" for:index="index">
+			<c-aob_comp_modal2 key={item.id} header="Card delivery" onclosed={closeModal} hasheader="true">
+				<div slot="content">
+					<div class="aob_form-sub-title">
+						{item.text}
+						
+						<div class="sub-text">
+							<a><img width="18" class="aob_tooltip_icon" alt="" src={infoIMG}>{item.subText}</a>
+						</div>
+						<br/>
+					</div>
+				</div>
+				<div slot="footer">
+					<div class="card-delivery-continue-btn">
+						<lightning-button
+							class="slds-size_1-of-2 aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center"
+							data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
+							data-name="debitCard" data-text={adobeDataTextBack} variant="brand" label="CONTINUE"
+							title="CONTINUE" onclick={continueToNextPage}>
+						</lightning-button>
+					</div>
+				</div>
+			</c-aob_comp_modal2>
+		</template>
+	</template>
 	<c-aob_application-settings teams={teams} onrecords={handleResultChange}></c-aob_application-settings>
 	<div class="aob_card_container slds-p-horizontal_large slds-p-vertical_x-large ao-border-radius card-padding">
 		<!--Form Header-->
 		<c-aob_comp_spinner if:false={isLoaded}></c-aob_comp_spinner>
-		<c-aob_comp_form-header put-title-left="true"
-			title="Get the debit card by default or upgrade to the cheque card for added benefits"
-			sub-title="Select your preferred card">
+		<c-aob_comp_form-header put-title-left="true" title="Select your preferred card"
+			sub-title="Get the debit card by default or upgrade to the cheque card for added benefits">
 		</c-aob_comp_form-header>
 		<div class="slds-grid slds-gutters_x-small slds-wrap slds-grid_align-center">
 			<div class="aob_form_input slds-col slds-m-top_xx-large slds-small-size_1-of-1 slds-large-size_1-of-2">
@@ -30,7 +63,7 @@
 								class="slds-size_1-of-2 aob_mobile_1_of_1  slds-m-vertical_xx-small aob_text_align_center"
 								data-id="link_content" data-intent="navigational" data-scope={adobeDataScopeApp}
 								data-name="debitCard" data-text={adobeDataTextBack} variant="brand" label="SELECT"
-								title="select" onclick={continueToNextPage}>
+								title="select" onclick={openCardDeliveryModal}>
 							</lightning-button>
 						</div>
 					</div>
@@ -49,7 +82,7 @@
 							<li>{label.AOB_ZA_Getfreeautomaticrate}</li>
 						</ul>
 						<div class="fee-info">
-							<h3><span>{label.AOB_R}</span>{label.AOB_ZA_NUM}</h3>
+							<h3><span>{label.AOB_R}</span>{label.AOB_ZA_NUM}</h3>  <!--SFP-38948-->
 							<p>{label.AOB_ZA_ANNUAL}</p>
 						</div>
 						<div class="slds-grid left-end">
@@ -72,10 +105,11 @@
 				variant="neutral" label="Back" title="Back" onclick={backToPreviousPage}></lightning-button>
 		</div>
 		<template if:true={isOpenCardDelivery}>
-			<c-aob_comp_card-delivery is-new={isNewToBank} is-modal-open={isOpenCardDelivery}  product-name={productName}
+			<c-aob_comp_card-delivery is-new={isNewToBank} is-modal-open={isOpenCardDelivery} product-name={productName}
 				application-id={applicationId} price={label.AOB_ZA_NUM} screen-name={screenName} previous-screen=''
 				oncancel={closePopup}></c-aob_comp_card-delivery>
 		</template>
 	</div>
-	<c-aob_comp_error technical={technicalerror} product-name={productName} content={errorMessage} onretry={retryInitiateAPI}></c-aob_comp_error>
+	<c-aob_comp_error technical={technicalerror} product-name={productName} content={errorMessage}
+		onretry={retryInitiateAPI}></c-aob_comp_error>
 </template>

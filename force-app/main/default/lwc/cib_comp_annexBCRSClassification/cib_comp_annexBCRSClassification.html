@@ -17,18 +17,20 @@
       <lightning-radio-group
         class="full-width"
         value={applicationRecord.CIB_AB_CRS_GIINNoProvidedType__c}
+        onchange={handleGIINNoProvidedTypeChange}
         data-type="application"
         name="CIB_AB_CRS_GIINNoProvidedType__c"
         label="If the entity is a financial institution but unable to provide a GIIN, please tick one of the reasons below."
         options={options}
         type="radio"
         data-fieldname="CIB_AB_CRS_GIINNoProvidedType__c"
-        required
+        required={isRequired1}
       ></lightning-radio-group>
     </div>
     <div class="aob_card-container sub-header">
       <lightning-radio-group
         class="full-width"
+        onchange={handleNonFinancialEntityTypeChange}
         value={applicationRecord.CIB_AB_CRS_NonFinancialEntityType__c}
         data-type="application"
         name="CIB_AB_CRS_NonFinancialEntityType__c"
@@ -36,7 +38,7 @@
         options={options1}
         type="radio"
         data-fieldname="CIB_AB_CRS_NonFinancialEntityType__c"
-        required
+        required={isRequired1}
       ></lightning-radio-group>
     </div>
     <c-cib_comp_flow-navigation

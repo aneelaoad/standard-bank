@@ -29,6 +29,7 @@ export default class OsbDashboardlwc extends LightningElement {
     TabName;
     providerId;
     userId = Id;
+    dashboardValue = true;
 
     @wire(MessageContext)
     MessageContext;

@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from "lwc";
+import { LightningElement, api, wire, track } from "lwc";
 import isGuest from "@salesforce/user/isGuest";
 import sbgVisualAssets from "@salesforce/resourceUrl/sbgVisualAssets";
 import USER_ID from "@salesforce/user/Id";
@@ -41,6 +41,8 @@ import MALL_CONTACT_BANKER_SEND_DESCRIPTION from '@salesforce/label/c.MALL_CONTA
 import MALL_SEND_BUTTON_LABEL from '@salesforce/label/c.MALL_SEND_BUTTON_LABEL';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { navigateToWebPage } from "c/mallNavigation";
+import getRelationshipManagerInfo from "@salesforce/apex/CTRL_Mall_ClientRelationshipManager.getRelationshipManagerInfo";
+
 
 const DEFAULT_ORIGIN = "BCB Platform";
 const DEFAULT_CASETYPE = "Contact your banker";
@@ -59,6 +61,7 @@ export default class MallContactYourBanker extends NavigationMixin(LightningElem
   countryContactUsEmail;
   mailToCountryContactUsEmail;
   navigateToWebPage = navigateToWebPage.bind(this);
+  @track relationManagerInfo = {};
 
   backIcon = sbgVisualAssets + "/icn_chevron_left.svg";
   sendMessageIcon = sbgVisualAssets + "/send_message.svg";
@@ -129,6 +132,7 @@ export default class MallContactYourBanker extends NavigationMixin(LightningElem
     const paramValue = this.getUrlParamValue(window.location.href, param);
     this.isFormSubmitted = paramValue;
     this.getCountryContactUsEmail();
+    this.fetchRelationshipManagerInfo();
   }
 
   showSuccessToast() {
@@ -345,5 +349,16 @@ export default class MallContactYourBanker extends NavigationMixin(LightningElem
         errors.push('Please enter your message');
     }
     return errors.join(', ');
+  }
+
+  async fetchRelationshipManagerInfo() {
+    try {
+      const relationManagerInfo = await getRelationshipManagerInfo();
+      this.relationManagerInfo = {...relationManagerInfo};
+      console.log(JSON.stringify(relationManagerInfo));
+    } catch(error) {
+      console.log(JSON.stringify(error));
+      this.error = error;
+    }
   }
 }

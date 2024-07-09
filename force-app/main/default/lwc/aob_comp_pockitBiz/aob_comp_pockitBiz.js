@@ -317,7 +317,7 @@ export default class Aob_comp_pockitBiz extends LightningElement {
         goBacktoPreviousStep({
             'applicationId': this.applicationId
         }).then(result => {
-            eval("$A.get('e.force:refreshView').fire();");
+            window.location.reload();
         }).catch(error => {
             this.failing = true;
             this.errorMessage = getErrorMessage.call(this, error);

@@ -30,6 +30,8 @@ import FireAdobeEvents from '@salesforce/resourceUrl/FireAdobeEvents';
 import { NavigationMixin } from "lightning/navigation";
 
 const RETRY_NUMBER = 1;
+import { createLogger } from 'sbgplatform/rflibLogger';
+const logger = createLogger('Aob_comp_summary');
 export default class Aob_comp_summary extends NavigationMixin(LightningElement) {
     @api teams = ["Self Assisted"];
     label = {};
@@ -104,7 +106,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
         'subTitle': 'MONTHLY FEE'
     },
     {
-        'price': '198.20',
+        'price': 'Zero', //SFP-38948 Cheque Card Annual Card Fee
         'currency': 'R',
         'oldPrice': '500',
         'subTitle': 'ANNUAL CARD FEES'
@@ -203,6 +205,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
             this.isLoaded = true;
             this.errorMessage = getErrorMessage.call(this, error);
             window.fireErrorEvent(this, this.errorMessage);
+            logger.debug('Error in connectedCallback.setApplicationStep ', error);
         });
 
         this.availableBundlesData();
@@ -275,6 +278,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
             }).catch(error => {
                 this.failing = true;
                 this.isLoaded = true;
+                logger.debug('Error in updateLineItems.removeSummaryProduct ', error);
             });
         }
     }
@@ -327,6 +331,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
         }).catch(error => {
             this.failing = true;
             this.isLoaded = true;
+            logger.debug('Error in availableBundlesData.avaialableBundlesData ', error);
         });
     }
     fetchPocketBizDetailsDisplay() {
@@ -347,6 +352,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
             this.isLoaded = true;
             this.errorMessage = getErrorMessage.call(this, error);
             window.fireErrorEvent(this, this.errorMessage);
+            logger.debug('Error in fetchPocketBizDetailsDisplay.pocketbizDetails ', error);
         });
     }
 
@@ -370,7 +376,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
         goBacktoPreviousStep({
             'applicationId': this.applicationId
         }).then(result => {
-            eval("$A.get('e.force:refreshView').fire();");
+            window.location.reload();
 
         })
             .catch(error => {
@@ -378,6 +384,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
                 this.isLoaded = true;
                 this.errorMessage = getErrorMessage.call(this, error);
                 window.fireErrorEvent(this, this.errorMessage);
+                logger.debug('Error in backToPreviousPage.goBacktoPreviousStep ', error);
 
             });
     }
@@ -397,6 +404,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
             this.isLoaded = true;
             this.errorMessage = getErrorMessage.call(this, error);
             window.fireErrorEvent(this, this.errorMessage);
+            logger.debug('Error in getMainProductInfo.mainProductData ', error);
 
         });
     }
@@ -456,6 +464,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
             this.errorMessage = getErrorMessage.call(this, error);
             this.adobePageTag.siteErrorCode = 'service error | ' + this.errorMessage;
             window.fireErrorCodeEvent(this, this.adobePageTag.siteErrorCode);
+            logger.debug('Error in createLead.createExternalLead ', error);
         });
     }
 
@@ -484,6 +493,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
             }
         }).catch(error => {
             this.isLoaded = true;
+            logger.debug('Error in retryInitiateAPI.incrementRetryApplication ', error);
         });
     }
 
@@ -516,7 +526,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
                 this.siteErrorCode = 'service error | ' + error;
                 window.fireErrorEvent(this, this.siteErrorCode);
             }
-
+            logger.debug('Error in CallSetDigitalOfferId.Cal_Set_Digital_OfferId ', error);
         });
     }
 
@@ -550,6 +560,7 @@ export default class Aob_comp_summary extends NavigationMixin(LightningElement) 
                 this.siteErrorCode = 'service error | ' + error;
                 window.fireErrorEvent(this, this.siteErrorCode);
             }
+            logger.debug('Error in callCreateContractAPI.Call_Created_Contract ', error);
 
         });
     }

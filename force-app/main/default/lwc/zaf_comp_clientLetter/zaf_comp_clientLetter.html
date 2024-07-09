@@ -9,41 +9,41 @@
   1.0   09-27-2023   Likhitha Karusala    Initial Version
 -->
 <template>
-	
-	
+
+
 	<lightning-quick-action-panel header="Send Client Pricing Letter">
 		<div lwc:if={isLoading} class="slds-is-relative" style="height:100px;">
 			<lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
 		</div>
-		
+
 		<div lwc:if={showModal}>
 			<div lwc:if={NoEmailmsg}>
 				<div style="background-color: #fdedea;border-style:solid;border-radius:5px;border-color: #f2a199;">
 					{NoEmail}
-				
-		                </div>
-						<div class="slds-align_absolute-center" style="margin-top: 15px;">
-					<lightning-button variant="brand" label="ok" class="slds-m-left_x-small" title=""
-						onclick={closeModal}></lightning-button>
-				</div>
 
-			</div>	
-			<div lwc:else>	
-			<p class={dynamicCss}>
-				{message}</p>
-			<div slot="footer">
+				</div>
 				<div class="slds-align_absolute-center" style="margin-top: 15px;">
 					<lightning-button variant="brand" label="ok" class="slds-m-left_x-small" title=""
 						onclick={closeModal}></lightning-button>
 				</div>
+
 			</div>
-			</div>	
-		</div>
-		
-		
 			<div lwc:else>
-				<div lwc:if={getListOfContacts}>
-				   <div if:true={showTable}>	
+				<p class={dynamicCss}>
+					{message}</p>
+				<div slot="footer">
+					<div class="slds-align_absolute-center" style="margin-top: 15px;">
+						<lightning-button variant="brand" label="ok" class="slds-m-left_x-small" title=""
+							onclick={closeModal}></lightning-button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div lwc:else>
+			<div lwc:if={getListOfContacts}>
+				<div if:true={showTable}>
 					<h2 style="font-size: 15px;margin-left:178px;"> {ClientLetterData.SelectPricing} {clientName}
 					</h2>
 					<br/>
@@ -51,17 +51,17 @@
 						style="font-size: 15px;background-color: rgb(234 237 253);border-style:solid;border-radius:5px;border-color: rgb(118 138 195);">
 						{ClientLetterData.updateClientMsg}</h2><br/>
 
-					
-					
-					
+
+
+
 
 					<table class="slds-table slds-table_cell-buffer slds-table_bordered">
 						<thead>
 							<tr class="slds-line-height_reset">
 								<th class="" scope="col">
 									<div class="slds-truncate">
-									
-										
+
+
 									</div>
 								</th>
 								<th class="" scope="col">
@@ -77,7 +77,8 @@
 									<div class="slds-truncate" title="Email">{ClientLetterData.email}</div>
 								</th>
 								<th class="" scope="col">
-									<div class="slds-truncate" title="Contact_Role_s_at_Client__c">{ClientLetterData.contactroles}
+									<div class="slds-truncate" title="Contact_Role_s_at_Client__c">
+										{ClientLetterData.contactroles}
 									</div>
 								</th>
 							</tr>
@@ -108,7 +109,11 @@
 									</th>
 									<th scope="col">
 										<div>
-											{con.Contact_Role_s_at_Client__c}
+											<ul>
+												<template for:each={con.roles} for:item="role">
+													<li key={role}>{role}</li>
+												</template>
+											</ul>
 										</div>
 									</th>
 								</tr>
@@ -116,33 +121,33 @@
 							</template>
 						</tbody>
 					</table>
-				  </div>		
-				</div>
-
-				<div class="slds-align_absolute-center" lwc:else>
-					<lightning-radio-group name="radioGroup" class="options-css" label={isClientSetText}
-						options={filteredOptions} value={value} type="radio" onchange={handleRadio}>
-					</lightning-radio-group>
-				</div>
-				
-				<div slot="footer">
-					<div class="slds-align_absolute-center" style="margin-top: 15px;">
-						<lightning-button variant="Neutral" label="Previous" title="" disabled={isdisable}
-							onclick={handleClickBack}></lightning-button>
-							
-								
-								 <lightning-button variant="brand" label="Next" class="slds-m-left_x-small" title=""
-							onclick={handleClickNext}></lightning-button>
-
-							
-
-						<lightning-button if:true={ispreview} variant="brand"  label="Preview" class="slds-m-left_x-small" title=""
-						onclick={handleGeneratePDF}></lightning-button>
-						
-					</div>
 				</div>
 			</div>
-		
+
+			<div class="slds-align_absolute-center" lwc:else>
+				<lightning-radio-group name="radioGroup" class="options-css" label={isClientSetText}
+					options={filteredOptions} value={value} type="radio" onchange={handleRadio}>
+				</lightning-radio-group>
+			</div>
+
+			<div slot="footer">
+				<div class="slds-align_absolute-center" style="margin-top: 15px;">
+					<lightning-button variant="Neutral" label="Previous" title="" disabled={isdisable}
+						onclick={handleClickBack}></lightning-button>
+
+
+					<lightning-button variant="brand" label="Next" class="slds-m-left_x-small" title=""
+						onclick={handleClickNext}></lightning-button>
+
+
+
+					<lightning-button if:true={ispreview} variant="brand" label="Preview" class="slds-m-left_x-small"
+						title="" onclick={handleGeneratePDF}></lightning-button>
+
+				</div>
+			</div>
+		</div>
+
 	</lightning-quick-action-panel>
 
 </template>

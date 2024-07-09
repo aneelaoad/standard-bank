@@ -10,6 +10,7 @@ export default class MallSmartNudge extends LightningElement {
 
     crossIcon = sbgIcons + "/OTHER/icn_cross.svg";
     powerAvatar = sbgVisualAssets+ "/poweravatar.png";
+    hideSmartNudge = false;
 
     @wire(getRecord, {
         recordId: USER_ID,
@@ -20,6 +21,10 @@ export default class MallSmartNudge extends LightningElement {
 
     get contactName() {
         return getFieldValue(this.user.data, NAME);
+    }
+
+    closeAction(){
+        this.hideSmartNudge = true;
     }
 
 }

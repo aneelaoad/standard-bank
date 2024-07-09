@@ -154,6 +154,6 @@
         </template>
     </div>
     <template lwc:if={deviceNotRegistered}>
-        <c-osb-new-device-modal-lwc onmfadeviceregistered={handleMFAUpdate} onupdatedeviceregistered={handleDeviceRegisteration} indashboard="false"></c-osb-new-device-modal-lwc>
+        <c-osb-new-device-modal-lwc onmfadeviceregistered={handleMFAUpdate} onupdatedeviceregistered={handleDeviceRegisteration} indashboard={dashboardValue}></c-osb-new-device-modal-lwc>
     </template>
 </template>

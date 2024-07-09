@@ -2,41 +2,52 @@
     <div class="explore-solutions-wrapper">
         <section class="inner-content">
             <header class="header-wrapper">
-                <h2 class="header">Explore our solutions</h2>
-                <p class="description">Access a wide range of solutions suited to meet your needs, whether you're starting, growing or managing your business.</p>
+                <h2 class="header">Our full range of solutions</h2>
+                <p class="description">Access a wide range of solutions suited to meet your needs, whether you are starting, growing or managing your business.</p>
             </header>
 
             <div class="divider"></div>
-
+            
             <section class="solution-tiles-wrapper">
+                
                 <section class="solution-tiles">
-                    <a class="tile" label="Bank" data-id="bank" onclick={handleNavigate}>
-                        <img src={bankIcon} class="tile-icon" />
-                        <p class="tile-label">Bank</p>
+                    <template for:each={paginatedData} for:item="item">
+                    <a key={item.Id} class="tile" label={item.label} data-title={item.label} data-id={item.id} onclick={handleMainNavigationCategoryAction}>
+                        <img src={item.iconFullPath} class="tile-icon" />
+                        <p class="tile-label">{item.label}</p>
                     </a>
-                    <a class="tile" label="Borrow" data-id="bank" onclick={handleNavigate}>
-                        <img src={borrowIcon} class="tile-icon" />
-                        <p class="tile-label">Borrow</p>
-                    </a>
-                    <a class="tile" label="Grow" data-id="bank" onclick={handleNavigate}>
-                        <img src={growIcon} class="tile-icon" />
-                        <p class="tile-label">Grow</p>
-                    </a>
-                    <a class="tile" label="Insure" data-id="bank" onclick={handleNavigate}>
-                        <img src={insureIcon} class="tile-icon" />
-                        <p class="tile-label">Insure</p>
-                    </a>
+                    </template>
                 </section>
                 <nav class="carousel-navigation-wrapper">
-                    <img src={chevronLeft} class="left-arrow" />
+                    <img src={chevronLeft} class="left-arrow" onclick={previousPage} />
                     <section class="page-tag-wrapper">
-                        <i class="page-tag active"></i>
-                        <i class="page-tag"></i>
+                        <template for:each={pages} for:item="page">
+                            <i key={page.id} class={page.cssClass}></i>
+                        </template>
                     </section>
-                    <img src={chevronRight} class="right-arrow" />
+                    <img src={chevronRight} class="right-arrow"  onclick={nextPage}/>
                 </nav>
             </section>
         </section>
     </div>
-    
+    <c-mall-solutions-modal  modal-header={modalTitle} show-modal={showModal} disable-next-button={disableNextbutton} onclose={handleCloseModal} onconfirm={handleConfirmAction}>
+            
+            <div class="solutionCards_outer">
+                <div class="solutionCards_inner">
+                    <div class="cardTitle"><h4>{selectedMainNavigationCategory.tagline}</h4></div>
+
+                        <div class="solutionCards" >
+                            <ul>
+                                <template for:each={subNavigationItems} for:item="item">
+                                <li key={item.Id}>
+                                    <button data-id={item.id} onclick={handleSubNavigationItemAction} class={item.buttonClass}><label>{item.label}</label></button>
+                                </li>
+                                </template>
+                            </ul>
+                        </div>
+                </div>
+            </div>
+            
+        
+    </c-mall-solutions-modal>
 </template>

@@ -1,63 +1,97 @@
 .hero-wrapper{
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .hero-column{
-  flex: 1;
+flex: 1;
 }
 
 .content-column{
-  display: flex;
-  flex: 1;
-  background-image: url("/sfsites/c/resource/sbgVisualAssets/satin-background-pattern.jpg"); 
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  align-items: center;
-  justify-content: center;
+display: flex;
+flex: 1;
+background-image: url("/sfsites/c/resource/sbgVisualAssets/satin-background-pattern.jpg"); 
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+align-items: center;
+justify-content: center;
 }
 
 .image-column{
-  flex: 2;
-  height: 348px;
-  display: block;
-  position: relative;
-  box-sizing: border-box;
+flex: 2;
+height: 348px;
+display: block;
+position: relative;
+box-sizing: border-box;
 }
 
 .image-column .hero-image{
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+object-fit: cover;
+width: 100%;
+height: 100%;
 }
 
 
 .content-column .hero-text-wrapper{
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  
-  gap: 1.5rem;
-  max-width: 300px;
- 
+display: flex;
+flex-direction: column;
+align-items: start;
+
+gap: 1.5rem;
+max-width: 300px;
+
 }
 .content-column .hero-text-wrapper .hero-title{
-    font-size: 3rem;
-    font-weight: 400;
-    line-height: 3.9rem;
-    text-align: left;
-    color: #fff;
-}
-.content-column .hero-text-wrapper .text-divider{
-  background-color: #6ACFF6;
-  height: 3px;
-  width: 100%;
-}
-.content-column .hero-text-wrapper .hero-description{
-  font-size: 16px;
+  font-size: 3rem;
   font-weight: 400;
-  line-height: 20.8px;
+  line-height: 3.9rem;
   text-align: left;
   color: #fff;
+}
+.content-column .hero-text-wrapper .text-divider{
+background-color: #6ACFF6;
+height: 3px;
+width: 100%;
+}
+.content-column .hero-text-wrapper .hero-description{
+font-size: 16px;
+font-weight: 400;
+line-height: 20.8px;
+text-align: left;
+color: #fff;
+}
+
+@media only screen and (max-width: 600px){
+.hero-wrapper{
+  flex-direction: column;
+}
+.content-column{
+  order: 2;
+}
+
+.image-column{
+  order: 1;  
+}
+
+.image-column .hero-image{
+  order: 1;
+  height: 12rem;
+}
+
+
+.content-column .hero-text-wrapper{
+  padding: 1.5rem 1rem 3rem 1rem;
+  gap: 1rem;
+  max-width: unset;
+}
+.content-column .hero-text-wrapper .hero-title{
+  text-align: left;
+  font-size: 1.25rem;
+  line-height: 1.625;
+}
+.content-column .hero-text-wrapper .hero-description{
+  font-size: 0.875rem;
+  line-height: 1.14rem;
+}
 }

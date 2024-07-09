@@ -12,7 +12,7 @@
 .solution_cardText { padding-left: 10px; width: calc(100% - 40px);}
 
 .solution_cardText strong { display: block; color: #fff; font-size: 16px; padding-bottom: 2px;}
-.solution_cardText p {  color: #fff; font-size: 12px; }
+.solution_cardText p {  color: #fff; font-size: 11px; }
 .solution_cardText p b { font-weight: bold;}
 
 .solution_cardDescription { width: 100%; padding-bottom: 15px; border-bottom: 1px solid #fff; width: 100%; min-height: 67px;}

@@ -1,0 +1,58 @@
+<template>
+    <section class="home-page-FAQ-wrapper">
+        <header><h2>FAQs</h2></header>
+        
+        <article class="tab-list" role="tablist">
+            <!--
+            <details onclick={handleDetails} class="tab-content" role="tab" open>
+                <summary class="tab-title" role="tabtitle">
+                    <h4>How does the platform work?</h4><img src={chevron} /></summary>
+                <div class="tab-panel" role="tabpanel">
+                    <p> BCB Platform connects you to a variety of products and services, at prices you'll love. Get personalised recommendations and promotions on your favourite offerings.</p>
+                    <p> sign up on BCB Platform click <a onclick={handleNavigate} data-id="sign-up" >here</a>. Use your existing Standard Bank ID while registering. These are the details that you would use for Internet Banking or Insurance online.</p>
+                </div>
+            </details>
+            
+            <details onclick={handleDetails} class="tab-content" role="tab">
+                <summary class="tab-title" role="tabtitle">
+                    <h4>How do I register on the platform?</h4><img src={chevron} /></summary>
+                <div class="tab-panel" role="tabpanel">
+                    <p>To sign up for the SBG Mall, click <a onclick={handleNavigate} data-id="sign-up" >here</a>.</p>
+                    <p>Please use your existing Standard Bank ID while registering. These are the details that you would use for Internet Banking or Insurance online.</p></div>
+            </details>
+
+            <details onclick={handleDetails} class="tab-content" role="tab">
+                <summary class="tab-title" role="tabtitle">
+                    <h4>Which stores are available on BCB platform?</h4><img src={chevron} /></summary>
+                <div class="tab-panel" role="tabpanel">You can find a full list of all the shops we offer at the moment by clicking <a onclick={handleNavigate} data-id="mall-shops" >here.</a></div>
+            </details>
+
+-->
+
+            
+            <lightning-accordion  active-section-name="A">
+
+                <lightning-accordion-section name="A" label="How does the platform work?">
+                    <p> BCB Platform connects you to a variety of products and services, at prices you'll love. Get personalised recommendations and promotions on your favourite offerings.</p>
+                    <p> sign up on BCB Platform click <a onclick={handleNavigate} data-id="sign-up" >here</a>. Use your existing Standard Bank ID while registering. These are the details that you would use for Internet Banking or Insurance online.</p>
+                </lightning-accordion-section>
+        
+                <lightning-accordion-section name="B" label="How do I register on the platform?">
+                    <p>To sign up for the SBG Mall, click <a onclick={handleNavigate} data-id="sign-up" >here</a>.</p>
+                    <p>Please use your existing Standard Bank ID while registering. These are the details that you would use for Internet Banking or Insurance online.</p>
+                </lightning-accordion-section>
+        
+                <lightning-accordion-section name="C" label="Which stores are available on BCB platform?">
+                    <p>You can find a full list of all the shops we offer at the moment by clicking <a onclick={handleNavigate} data-id="mall-shops" >here.</a></p>
+                </lightning-accordion-section>
+            </lightning-accordion>
+
+
+
+
+        </article>
+        <button class="sbds-button view-all" data-id="view-all" label="View All" onclick={handleNavigate}><label>View All</label></button>
+    </section>
+
+    
+</template>

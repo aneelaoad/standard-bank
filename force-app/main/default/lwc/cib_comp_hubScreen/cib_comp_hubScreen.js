@@ -1,5 +1,14 @@
+/***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 02-07-2024
+@ Name of the Class : CibCompHubScreen
+@ Description       : This class is used to manage the base section screen of the application.
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 02-07-2024
+@ Modification Description : SFP-39692
+***************************************************************************************/
 import { api, track, wire } from "lwc";
-import { NavigationMixin } from "lightning/navigation";
+import { CurrentPageReference, NavigationMixin } from "lightning/navigation";
 import {
   FlowAttributeChangeEvent,
   FlowNavigationNextEvent
@@ -10,7 +19,7 @@ import { loadScript } from "lightning/platformResourceLoader";
 import getSessionId from "@salesforce/apex/CIB_CTRL_ApplicationZipFileDownload.getSessionId";
 import MAU_ThemeOverrides from "@salesforce/resourceUrl/MAU_ThemeOverrides";
 import { refreshApex } from "@salesforce/apex";
-export default class Cib_comp_hubScreen extends NavigationMixin(
+export default class CibCompHubScreen extends NavigationMixin(
   Cib_comp_baseSectionScreen
 ) {
   libInitialized = false;
@@ -28,8 +37,20 @@ export default class Cib_comp_hubScreen extends NavigationMixin(
   @track assistanceRequestInputVariables = [];
   @track _isRendered = false;
 
+  @wire(CurrentPageReference)
+  getCurrentPageReference(currentPageReference) {
+    console.log(
+      "currentPageReference",
+      JSON.stringify(currentPageReference, null, 2)
+    );
+    this.currentPageReference = currentPageReference;
+    this.connectedCallback();
+  }
+
   connectedCallback() {
+    console.log("connectedCallback");
     super.connectedCallback();
+    this.getApplicatinSections();
     this.getSessionId();
   }
 
@@ -78,16 +99,13 @@ export default class Cib_comp_hubScreen extends NavigationMixin(
     return this.sections.filter((section) => section.Status__c === "Completed");
   }
 
-  @wire(getApplicatinSections, {
-    recordId: "$recordId"
-  })
-  wiredRecord(wiredSectionData) {
-    this._wiredSections = wiredSectionData;
-    const { error, data } = wiredSectionData;
-    if (data) {
+  async getApplicatinSections() {
+    try {
+      const data = await getApplicatinSections({
+        recordId: this.recordId
+      });
       this.sections = [...data].sort((a, b) => a.Order__c - b.Order__c);
-      // this.isLoaded = true;
-    } else if (error) {
+    } catch (error) {
       this.handleError(error);
     }
   }
@@ -118,7 +136,7 @@ export default class Cib_comp_hubScreen extends NavigationMixin(
     try {
       const data = await getSessionId();
       this.sessionId = data;
-      this.error = undefined;
+      this.error = null;
       loadScript(this, MAU_ThemeOverrides + "/assets/js/cometd/cometd.js").then(
         () => {
           this.initializecometd();
@@ -126,7 +144,7 @@ export default class Cib_comp_hubScreen extends NavigationMixin(
       );
     } catch (error) {
       this.handleError(error);
-      this.sessionId = undefined;
+      this.sessionId = null;
     }
   }
 
@@ -161,7 +179,7 @@ export default class Cib_comp_hubScreen extends NavigationMixin(
           }
         });
       } else {
-        this.handleError("Unable to connect to notification server");
+        cometdlib.disconnect();
       }
     });
   }

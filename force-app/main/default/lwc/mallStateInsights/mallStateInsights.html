@@ -3,11 +3,14 @@
     <div class="insight-section">
       <div class="container insights-container">
         <h3 class="partner-heading">Gain valuable knowledge</h3>
-        <h4 class="partner-sub-heading">View our expert-driven insights and get the advice and tools you need to make your smart business decisions</h4>
+        <h4 class="partner-sub-heading">Where are you in your business journey? Our expert-driven insights have the advice and tools you need to succeed, no matter where you are.</h4>
         <div class="insight-top-button-container">
-          <button class="insight-top-button">Starting a new business</button>
+          <!--<button class="insight-top-button">Starting a new business</button>
           <button class="insight-top-button">Managing your business</button>
-          <button class="insight-top-button">Growing your business</button>
+          <button class="insight-top-button">Growing your business</button>-->
+          <pre class="insight-top-tab">Starting a new business</pre>
+          <pre class="insight-top-tab">Managing your business</pre>
+          <pre class="insight-top-tab">Growing your business</pre>
         </div>
         <div class="insights-grid">
          <template if:true={topInsight}>
@@ -232,7 +235,7 @@
         </div>
       </template>
     </div>
-    <!--<template if:true={isGuestUser}>
+    <template if:true={isGuestUser}>
       <div slot="footer" class="footer-button">
         <a
           href={signupurl}
@@ -257,6 +260,6 @@
           >
         </a>
       </div>
-    </template>-->
+    </template>
   </c-mall-modal>
 </template>

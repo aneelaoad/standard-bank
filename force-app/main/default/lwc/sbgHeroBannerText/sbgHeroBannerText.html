@@ -3,33 +3,22 @@
     <div class="hero-banner-item-col__content">
       <div class="hero-banner-item-col__content-text base-spacing">
         <div class="hero-banner-item-col__title title title--main">
-          <!-- {heading} -->
-          Boost your business with reliable solutions
+          {heading}
         </div>
         <div class="title-gradient title-gradient--banner"></div>
         <span class="hero-banner-item-col__description">
-          <!-- {subText} -->
-          Boost your business with reliable solutions
+          {subText}
         </span>
 
         <template if:true={showButton}>
           <div class="hero-banner-item__button">
-            <c-mall-cmn-button
-              interaction-intent="informational"
-              interaction-scope="hero banner"
-              interaction-type="click"
-              interaction-text-before="buttonInteractionTextBefore"
-              action={action}
-              destination-url={destinationUrl}
-              variant={variant}
-              disabled={disabled}
-              label={buttonLabel}
-              title={buttonTitle}
-              w-class={wClass}
-              onclicked={handleClick}
-            ></c-mall-cmn-button>
+            <c-cmn-button interaction-intent="informational" interaction-scope="hero banner" interaction-type="button"
+              action={action} destination-url={destinationUrl} variant="brand" disabled={disabled} label={buttonLabel}
+              title={buttonTitle} w-class="w300"></c-cmn-button>
           </div>
         </template>
+        
+
       </div>
     </div>
   </div>

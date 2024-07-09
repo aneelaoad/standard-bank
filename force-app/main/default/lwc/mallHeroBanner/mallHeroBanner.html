@@ -1,0 +1,32 @@
+<template>
+  <div class="custom-mid-page-banner hero-banners" data-media={containerQueryOutput}>
+    <div class={bannerBackgroundClassList}>
+      <div class="theme-shield-container"></div>
+      <div class="banner-content">
+        <div class="banner-mid-page-white-item__box">
+          <div class="banner-mid-page-white-item__box-content">
+            <template if:true={isCarousel}></template>
+            <template if:true={heading}>
+              <div class="title title--module-title">{heading}</div>
+            </template>
+            <template if:true={description}>
+              <div class="title title--page">{description}</div>
+            </template>
+            <hr class="banner-accent-line" />
+            <template if:true={subText}>
+              <p class="banner-mid-page-white-item__description">{subText}</p>
+            </template>
+            <template if:true={showButton}>
+              <div class="banner-mid-page-white-item__button">
+                <a href="https://standardbank--bcwblsdev.sandbox.my.site.com/mall/s/sign-up">GET STARTED</a>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner-avatar banner-space">
+      <img src={imagePath} alt={heading} />
+    </div>
+  </div>
+</template>

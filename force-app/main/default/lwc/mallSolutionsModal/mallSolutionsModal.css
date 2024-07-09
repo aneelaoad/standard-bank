@@ -1,0 +1,29 @@
+.slds-modal__container {
+    width: 65%;
+    max-width: 65rem;
+}
+
+.footerSetting { width: 100%; display: flex; justify-content: space-between; padding:20px 24px; align-items: center;}
+
+.footerSetting button { min-width: 200px !important; border-radius: 8px !important; padding: 16px !important;   }
+    
+
+
+.cancelBTN  { background-color: #fff !important;}
+
+.nextBTN { background-color: #0062E1 !important;}
+
+.disableBtn{
+    background-color: #0062e18a !important; 
+}
+
+.popupHeader {background: rgb(0,98,248);
+    background: linear-gradient(90deg, rgba(0,98,248,1) 0%, rgba(0,51,170,1) 100%); padding: 15px 22px; border-top-left-radius: 10px; border-top-right-radius: 10px;}
+
+.popupHeader h2 { color: #fff !important;}
+
+.popupHeader { position: relative; width: 100%;}
+
+.popupHeader button { position: absolute; top: 8px !important;}
+
+.fillWhite  { fill: #fff !important; --slds-c-icon-color-foreground-default: #fff; }

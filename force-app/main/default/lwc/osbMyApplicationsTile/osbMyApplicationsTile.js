@@ -23,6 +23,7 @@ export default class OsbMyApplicationsTile extends NavigationMixin(
     deviceLinked;
     requiresmfa;
     showPopUp = false;
+    dashboardValue = true;
 
     @api registeredapps = [];
     @api multiple = false;

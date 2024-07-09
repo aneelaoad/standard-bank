@@ -1,3 +1,12 @@
+/***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 02-07-2024
+@ Name of the Class : CibCompDocumentUploader
+@ Description       : This class is used to manage the base section screen of the application.
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 02-07-2024
+@ Modification Description : SFP-39692
+***************************************************************************************/
 import { LightningElement, api, track } from "lwc";
 
 import getFile from "@salesforce/apex/CIB_CTRL_DocumentUploader.getFile";
@@ -6,7 +15,7 @@ import updateStatus from "@salesforce/apex/CIB_CTRL_DocumentUploader.updateStatu
 import PDFJS from "@salesforce/resourceUrl/PDFJS";
 import MAU_ThemeOverrides from "@salesforce/resourceUrl/MAU_ThemeOverrides";
 
-export default class Cib_comp_documentUploader extends LightningElement {
+export default class CibCompDocumentUploader extends LightningElement {
   uploadIcon = MAU_ThemeOverrides + "/assets/images/uploadIcon.png";
   signatureIcon = MAU_ThemeOverrides + "/assets/images/signatureIcon.svg";
   deleteIcon = MAU_ThemeOverrides + "/assets/images/deleteIcon.svg";
@@ -41,6 +50,12 @@ export default class Cib_comp_documentUploader extends LightningElement {
   }
   set documentType(value) {
     this._documentType = value;
+  }
+
+  get instanceUrl() {
+    return window.location.origin
+      .replace("lightning.force", "my.salesforce")
+      .replace("sandbox.preview.salesforce-experience", "my.salesforce");
   }
 
   get filesClass() {
@@ -190,21 +205,63 @@ export default class Cib_comp_documentUploader extends LightningElement {
     );
   }
 
-  handleFileChange(event) {
+  async handleFileChange(event) {
     const file = event.target.files[0];
     if (file.size > this.maxAllowedSize) {
       event.target.value = null;
-      this.validationMessage = "File size should be less than 1MB";
+      this.validationMessage = "File size should be less than 8MB";
+      return;
+    }
+    if (
+      this.acceptedFormats &&
+      !this.acceptedFormats.includes(file.name.split(".").pop())
+    ) {
+      event.target.value = null;
+      this.validationMessage = "File format not supported";
       return;
     }
     this.validationMessage = "";
     this.fileExists = true;
-    this.uploadWithProgress(file);
+    this.isUploading = true;
+
+    const view = this.base64ToUint8Array(await this.fileToBase64(file));
+    const entitydata = {
+      ContentLocation: "S",
+      Title: file.name,
+      PathOnClient: file.name
+    };
+    const cvInsertResponce = await this.insertMultiPartContentVersion(
+      this.gen_multipart(entitydata, view)
+    );
+    const contentVersions = await fetch(
+      this.instanceUrl +
+        `/services/data/v58.0/query?q=SELECT+ContentDocumentId+FROM+ContentVersion+WHERE+Id+=+'${cvInsertResponce.id}'`,
+      {
+        headers: {
+          Authorization: `Bearer ${this._sessionId}`,
+          "Content-Type": "application/json"
+        }
+      }
+    ).then((res) => res.json());
+
+    let contentDocumentId = contentVersions.records[0].ContentDocumentId;
+
+    this.uploadWithProgress(file, contentDocumentId);
   }
 
-  uploadWithProgress(file) {
+  async fileToBase64(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64Data = event.target.result.split(",")[1];
+        resolve(base64Data);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  uploadWithProgress(file, contentDocumentId) {
     this.progress = 0;
-    this.isUploading = true;
     this.filename = file.name;
     this.fileExtension = file.name.split(".").pop();
 
@@ -244,7 +301,7 @@ export default class Cib_comp_documentUploader extends LightningElement {
             documentId: this._documentId,
             documentType: this._documentType,
             documentName: file.name,
-            base64: base64Data,
+            contentDocumentId: contentDocumentId,
             documentExtension: file.name.split(".").pop(),
             documentStatus: this.isParticipantDocument ? "Pending" : "Uploaded"
           }
@@ -252,6 +309,86 @@ export default class Cib_comp_documentUploader extends LightningElement {
       );
     };
     reader.readAsDataURL(file);
+  }
+
+  insertMultiPartContentVersion(multipartForm) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open(
+        "POST",
+        this.instanceUrl + "/services/data/v50.0/sobjects/ContentVersion",
+        true
+      );
+      xhr.setRequestHeader("Authorization", "OAuth " + this._sessionId);
+      xhr.setRequestHeader(
+        "Content-Type",
+        "multipart/form-data; boundary=BOUNDARY"
+      );
+      xhr.upload.addEventListener("progress", (progressEvent) => {
+        if (progressEvent.lengthComputable) {
+          this.progress = Math.round(
+            (progressEvent.loaded / progressEvent.total) * 100
+          );
+        }
+      });
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 201) {
+            resolve(JSON.parse(xhr.responseText));
+          } else {
+            console.error("Error creating ContentVersion");
+            reject(JSON.parse(xhr.responseText));
+          }
+        }
+      };
+      xhr.send(multipartForm);
+    });
+  }
+
+  gen_multipart(entitydata, file) {
+    file = new Uint8Array(file);
+
+    let before = [
+      "--BOUNDARY",
+      'Content-Disposition: form-data; name="entity_content"',
+      "Content-Type: application/json",
+      "",
+      JSON.stringify(entitydata),
+      "",
+      "--BOUNDARY",
+      "Content-Type: application/octet-stream",
+      'Content-Disposition: form-data; name="VersionData"; filename="' +
+        entitydata.PathOnClient +
+        '"',
+      "",
+      ""
+    ].join("\n");
+    let after = "\n--BOUNDARY--";
+    let size = before.length + file.byteLength + after.length;
+    let uint8array = new Uint8Array(size);
+    let i = 0;
+
+    for (; i < before.length; i++) {
+      uint8array[i] = before.charCodeAt(i) & 0xff;
+    }
+    for (let j = 0; j < file.byteLength; i++, j++) {
+      uint8array[i] = file[j];
+    }
+    for (let j = 0; j < after.length; i++, j++) {
+      uint8array[i] = after.charCodeAt(j) & 0xff;
+    }
+    return uint8array.buffer;
+  }
+
+  base64ToUint8Array(base64) {
+    const binary = window.atob(base64);
+    const len = binary.length;
+    const buffer = new ArrayBuffer(len);
+    const view = new Uint8Array(buffer);
+    for (let i = 0; i < len; i++) {
+      view[i] = binary.charCodeAt(i);
+    }
+    return view;
   }
 
   get previewURI() {
@@ -275,5 +412,5 @@ export default class Cib_comp_documentUploader extends LightningElement {
     event.target.value = null;
   }
 
-  maxAllowedSize = 1 * 1024 * 1024; // 1MB
+  maxAllowedSize = 8 * 1024 * 1024; // 8MB
 }

@@ -1,0 +1,41 @@
+<!--***************************************************************************************
+@ Author            : silva.macaneta@standardbank.co.za
+@ Date              : 02-07-2024
+@ Name of the Class : Cib_comp_baseSectionScreen
+@ Description       : This class is used to manage the base section screen of the application.
+@ Last Modified By  : silva.macaneta@standardbank.co.za
+@ Last Modified On  : 02-07-2024
+@ Modification Description : SFP-39692
+***************************************************************************************/-->
+<template>
+  <template lwc:if={hasError}>
+    <div class="aob_card-container aob_card-error-variant">
+      <div class="aob_image">
+        <img src={warningIcon} alt="Warning Icon" />
+      </div>
+      <div class="aob_text">
+        <h3>There was a problem with application initialization.</h3>
+        <p>Please refresh your page.</p>
+      </div>
+      <div class="aob_button">
+        <button class="slds-button aob_btn-primary-outline" onclick={handleRefresh}>
+          Refresh
+        </button>
+      </div>
+    </div>
+  </template>
+  <template lwc:else>
+    <lightning-flow
+      lwc:if={isFlowDataLoaded}
+      flow-api-name={flowApiName}
+      flow-input-variables={flowInputVariables}
+      onstatuschange={handleFlowStatusChange}
+    ></lightning-flow>
+    <lightning-spinner
+      lwc:else
+      alternative-text="Loading"
+      size="large"
+      variant="base"
+    ></lightning-spinner>
+  </template>
+</template>

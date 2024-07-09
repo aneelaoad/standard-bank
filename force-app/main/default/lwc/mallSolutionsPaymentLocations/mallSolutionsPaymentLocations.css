@@ -1,29 +1,145 @@
-.solutions-payment-locations-wrapper{
-    margin-bottom: 4.5rem
+.solutions-payment-locations-wrapper {
+  margin-bottom: 4.5rem
+}
+
+.solutions-payment-locations-wrapper .main-header {
+  color: var(--neutrals-medium-grey-text-body, #1A314D);
+  font-size: 2.625rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  /* 3.4125rem */
+  margin-bottom: 1.5rem;
+}
+
+.solutions-payment-locations-wrapper .location-carousel-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 0.75rem;
+  border-right: 1px solid var(--neutrals-pale-grey-50, #E3E6EA);
+  border-bottom: 1px solid var(--neutrals-pale-grey-50, #E3E6EA);
+  border-left: 1px solid var(--neutrals-pale-grey-50, #E3E6EA);
+  background: var(--neutrals-white, #FFF);
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile img {
+  display: flex;
+  height: 17.8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  object-fit: cover;
+}
+
+.solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile p {
+  display: flex;
+  padding: 1.5625rem 0.625rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
+
+  color: var(--neutrals-medium-grey-text-body, #1A314D);
+  text-align: center;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 130%;
+  /* 1.3rem */
+}
+
+
+.carousel-navigation-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+  gap: 0.94rem;
+}
+
+.carousel-navigation-wrapper .left-arrow {
+  filter: invert(30%) sepia(74%) saturate(7500%) hue-rotate(206deg) brightness(98%) contrast(101%);
+}
+
+.carousel-navigation-wrapper .page-tag-wrapper {
+  display: flex;
+  gap: 0.31rem;
+}
+
+.carousel-navigation-wrapper .page-tag-wrapper .page-tag {
+  width: 1.875rem;
+  height: 0.1875rem;
+  border-radius: 0.25rem;
+  background: var(--neutrals-light-grey-text-subdued, #5C6C80);
+  opacity: 0.5;
+}
+
+.carousel-navigation-wrapper .page-tag-wrapper .page-tag.active {
+  background-color: #0062E1;
+  opacity: 1;
+}
+
+.carousel-navigation-wrapper .right-arrow {
+  filter: invert(30%) sepia(74%) saturate(7500%) hue-rotate(206deg) brightness(98%) contrast(101%);
+}
+
+@media only screen and (max-width: 600px) {
+
+  .solutions-payment-locations-wrapper {
+    position: relative;
+    display: flex;
+    margin-bottom: 8rem;
+    flex-direction: column;
+    gap: 1.5rem;
+    
   }
-  .solutions-payment-locations-wrapper .main-header{
-    color: var(--neutrals-medium-grey-text-body, #1A314D);
-    font-size: 2.625rem;
+  
+  .solutions-payment-locations-wrapper .main-header {
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 400;
-    line-height: 130%; /* 3.4125rem */
-    margin-bottom: 1.5rem;
+    line-height: 1.625rem;
   }
-  .solutions-payment-locations-wrapper .location-carousel-wrapper{
-    display: flex;
-    flex-direction: column;
+  
+  .solutions-payment-locations-wrapper .location-carousel-wrapper {
+    
   }
-  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper{
+  
+  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper {
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    width: 100%;
+    overflow: scroll;
   }
-  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile{
+  
+  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile {
+    
+    flex-shrink: 0;
+    width: 100%;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-    border-radius:  0.75rem;
+  
+    border-radius: 0.75rem;
     border-right: 1px solid var(--neutrals-pale-grey-50, #E3E6EA);
     border-bottom: 1px solid var(--neutrals-pale-grey-50, #E3E6EA);
     border-left: 1px solid var(--neutrals-pale-grey-50, #E3E6EA);
@@ -32,64 +148,16 @@
     text-decoration: none;
   }
   
-  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile img{
-    display: flex;
+  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile img {
+   
     height: 17.8rem;
-    flex-direction: column;
-    align-items: flex-start;
-    align-self: stretch;
-    object-fit: cover;
+ 
   }
   
-  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile p{
-    display: flex;
-    padding: 1.5625rem 0.625rem;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 0.625rem;
-    align-self: stretch;
-    
-    color: var(--neutrals-medium-grey-text-body, #1A314D);
-    text-align: center;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 130%; /* 1.3rem */
+  .solutions-payment-locations-wrapper .location-carousel-wrapper .location-tiles-wrapper .tile p {
+  
   }
   
   
-  .carousel-navigation-wrapper{
-      display: flex;
-      flex-direction: row;
-      
-      align-items: center;
-      justify-content: center;
-      margin-top: 2.5rem;
-      gap: 0.94rem;
-      }
-      
-  .carousel-navigation-wrapper .left-arrow{
-        filter: invert(30%) sepia(74%) saturate(7500%) hue-rotate(206deg) brightness(98%) contrast(101%);
-      }
-      
-  .carousel-navigation-wrapper .page-tag-wrapper{
-        display: flex;
-        gap: 0.31rem;
-      }
-      
-  .carousel-navigation-wrapper .page-tag-wrapper .page-tag{
-      width: 1.875rem;
-      height: 0.1875rem;
-      border-radius: 0.25rem;
-      background: var(--neutrals-light-grey-text-subdued, #5C6C80);
-      opacity: 0.5;
-      }
-      
-     .carousel-navigation-wrapper .page-tag-wrapper .page-tag.active{
-      background-color: #0062E1;
-      opacity: 1;
-      }
-      
-  .carousel-navigation-wrapper .right-arrow{
-        filter: invert(30%) sepia(74%) saturate(7500%) hue-rotate(206deg) brightness(98%) contrast(101%);
-      }
+  
+}

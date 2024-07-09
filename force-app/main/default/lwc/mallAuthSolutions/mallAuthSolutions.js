@@ -1,13 +1,12 @@
 import { LightningElement, wire } from 'lwc';
-import getMySolutions from '@salesforce/apex/MallAuthSolutionsCtrl.getMySolutions';
-import getCustomerAccountList from "@salesforce/apex/MallAuthSolutionsCtrl.getCustomerAccountList";
-import getCustomerAccountBalances from "@salesforce/apex/MallAuthSolutionsCtrl.getCustomerAccountBalances";
+import getMySolutions from '@salesforce/apex/CTRL_MallAuthSolutions.getMySolutions';
 
 
 
 export default class MallAuthSolutions extends LightningElement {
 
     mySolutions;
+    error;    
 
     @wire(getMySolutions)
     wiredMySolutions({ error, data }) {
@@ -18,6 +17,7 @@ export default class MallAuthSolutions extends LightningElement {
             console.error('@@Error:',error);
         }
     }
+    
 
     handleRedirectionAction(event){
         const redirectUrl = event.detail.redirectUrl;
@@ -31,35 +31,4 @@ export default class MallAuthSolutions extends LightningElement {
         }
         
     }
-
-    connectedCallback() {
-        this.getCustomerAccountListDetails();
-        //this.getCustomerAccountBalanceDetails();
-    }
-
-
-    async getCustomerAccountBalanceDetails() {
-        try {
-          let customerAccountBalanceResponse = await getCustomerAccountBalances();
-          console.log('@@Custom Account Balance', customerAccountBalanceResponse);
-
-        }catch (error) {
-            this.error = error;
-        }
-    }  
-
-    async getCustomerAccountListDetails() {
-        try {
-          let customerProfileAndAccountListResponse = await getCustomerAccountList();
-          console.log('@@Custom Account LIst', customerProfileAndAccountListResponse);
-
-          let customerAccountListDetails = customerProfileAndAccountListResponse.customerAccountListDetails;
-
-          if(!customerAccountListDetails && customerAccountListDetails.length <=0) {
-            return;
-          }
-        }catch (error) {
-            this.error = error;
-        }
-    }      
 }

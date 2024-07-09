@@ -1,0 +1,19 @@
+.managePayment_section { width: 100%; position: relative; background: rgb(0,98,225);background: linear-gradient(180deg, rgba(0,98,225,1) 0%, rgba(0,51,170,1) 100%);}
+
+.managePayment_section_inner { max-width: 830px; padding: 0px 20px; width: 100%; margin: auto;}
+
+.managePayment_section_detail { width: 100%; padding: 60px 0px;}
+
+.managePayment_avatar { width: 100%; }
+.managePayment_avatar span { width: 100%; display: block; max-width: 228px; margin: auto;}
+.managePayment_avatar span img { width: 100%; display: block;  }
+
+.managePayment_text { width: 100%;}
+
+.managePayment_text strong { display: block; max-width: 430px; color: #fff; font-size: 48px; font-weight: bold; padding-bottom: 25px; line-height: 62px;}
+.managePayment_text p {   max-width: 360px; color: #fff; font-size: 16px; line-height: 20px; padding-bottom: 25px; }
+
+.app_icons { width: 100%; display: flex; align-items: center; }
+
+.app_icons a { max-width: 115px; margin-right: 20px; display: block;}
+.app_icons a img { width: 100%;  display: block;}

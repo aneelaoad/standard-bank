@@ -10,104 +10,114 @@
 -->
 <template>
 
-    <lightning-quick-action-panel header="Email Client Pricing Letter">
+	<lightning-quick-action-panel header="Email Client Pricing Letter">
 
-            <div style="background-color: #fdedea;border-style:solid;border-radius:5px;border-color: #f2a199;" if:true ={NoEmailmsg}>
-                    {NoEmail}
-            
-            </div>
-            <div if:false ={closeEmailbox}>
-            
-              
+		<div style="background-color: #fdedea;border-style:solid;border-radius:5px;border-color: #f2a199;"
+			if:true={NoEmailmsg}>
+			{NoEmail}
 
-            <h2 if:true={showTable} style="font-size: 15px;margin-left:178px;" >  {ClientLetterData.SelectPricing} {clientName}</h2><br/>
-            <h2 if:true={showTable} style="font-size: 15px;background-color: rgb(234 237 253);border-style:solid;border-radius:5px;border-color: rgb(118 138 195);" > {ClientLetterData.updateClientMsg}</h2><br/>
+		</div>
+		<div if:false={closeEmailbox}>
 
 
-            <table if:true ={showTable} class="slds-table slds-table_cell-buffer slds-table_bordered">
-                    <thead>
-                        <tr class="slds-line-height_reset">
-                            <th class="" scope="col">
-                                <div class="slds-truncate">
-                                </div>
-                            </th>
-                             <th class="" scope="col">
-                                <div class="slds-truncate" title="Name">{ClientLetterData.Clientname}</div>
-                            </th>
-                            <th class="" scope="col">
-                                <div class="slds-truncate" title="LastName">{ClientLetterData.Contactname}</div>
-                            </th>
-                            <th class="" scope="col">
-                                    <div class="slds-truncate" title="LastName">{ClientLetterData.title}</div>
-                            </th>
-                            <th class="" scope="col">
-                                <div class="slds-truncate" title="Email">{ClientLetterData.email}</div>
-                            </th>
-                            <th class="" scope="col">
-                                <div class="slds-truncate" title="Contact_Role_s_at_Client__c">{ClientLetterData.contactroles}</div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <template for:each={ListOfContacts} for:item="con">
-                            <tr key={con.Id}>
-                                <th scope="col">
-                                    <div>
-                                        <lightning-input type="checkbox" value={con.isSelected} data-text={con.Email} data-id={con.Id} onchange={changeHandler}></lightning-input>
-                                    </div>
-                                </th>
-                                <th scope="col">
-                                    <div>{con.Account.Name}</div>
-                                </th>    
-                                <th scope="col">
-                                    <div>{con.Name}</div>
-                                </th>
-                                <th scope="col">
-                                    <div>{con.Title}</div>
-                                </th>                 
-                                <th scope="col">
-                                    <div>
-                                        <lightning-formatted-email value={con.Email}></lightning-formatted-email>
-                                    </div>
-                                </th>
-                                <th scope="col">
-                                    <div>
-                                        {con.Contact_Role_s_at_Client__c}
-                                    </div>
-                                </th>
-                            </tr>
-             
-                        </template>
-                    </tbody>
-                </table>
-            </div>
-            <div if:true ={showEmailbox}>
-                    Email sent successfully
-            
-            </div>
-    
-            <div if:false={isLoaded} class="slds-is-relative" style="height:200px;">
-                    <lightning-spinner
-                            alternative-text="Loading..." variant="brand">
-                    </lightning-spinner>
-             </div>
-            
-            <div if:true={showFootor} slot="footer">
-            
-                    <lightning-button variant="neutral" label="Cancel" onclick={closeAction}></lightning-button>
-            
-                    <lightning-button variant="brand" disabled ={disabledbutton} label="Send" class="slds-m-left_x-small" onclick={sendAction}></lightning-button>
-                    
-                    <lightning-button  variant="brand"  label="Preview" class="slds-m-left_x-small" 
-						onclick={handleGeneratePDF}></lightning-button>
-            </div>
-    
-            <div if:false={showFootor} slot="footer">
-            
-                    <lightning-button variant="brand" label="Ok" onclick={closeAction}></lightning-button>
-                                    
-            </div>
-            
-            </lightning-quick-action-panel>
-    
-    </template>
+
+			<h2 if:true={showTable} style="font-size: 15px;margin-left:178px;"> {ClientLetterData.SelectPricing}
+				{clientName}</h2><br/>
+			<h2 if:true={showTable}
+				style="font-size: 15px;background-color: rgb(234 237 253);border-style:solid;border-radius:5px;border-color: rgb(118 138 195);">
+				{ClientLetterData.updateClientMsg}</h2><br/>
+
+
+			<table if:true={showTable} class="slds-table slds-table_cell-buffer slds-table_bordered">
+				<thead>
+					<tr class="slds-line-height_reset">
+						<th class="" scope="col">
+							<div class="slds-truncate">
+							</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Name">{ClientLetterData.Clientname}</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="LastName">{ClientLetterData.Contactname}</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="LastName">{ClientLetterData.title}</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Email">{ClientLetterData.email}</div>
+						</th>
+						<th class="" scope="col">
+							<div class="slds-truncate" title="Contact_Role_s_at_Client__c">
+								{ClientLetterData.contactroles}</div>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<template for:each={ListOfContacts} for:item="con">
+						<tr key={con.Id}>
+							<th scope="col">
+								<div>
+									<lightning-input type="checkbox" value={con.isSelected} data-text={con.Email}
+										data-id={con.Id} onchange={changeHandler}></lightning-input>
+								</div>
+							</th>
+							<th scope="col">
+								<div>{con.Account.Name}</div>
+							</th>
+							<th scope="col">
+								<div>{con.Name}</div>
+							</th>
+							<th scope="col">
+								<div>{con.Title}</div>
+							</th>
+							<th scope="col">
+								<div>
+									<lightning-formatted-email value={con.Email}></lightning-formatted-email>
+								</div>
+							</th>
+							<th scope="col">
+								<div>
+									<ul>
+										<template for:each={con.conRoles} for:item="role">
+											<li key={role}>{role}</li>
+										</template>
+									</ul>
+								</div>
+							</th>
+						</tr>
+
+					</template>
+				</tbody>
+			</table>
+		</div>
+		<div if:true={showEmailbox}>
+			Email sent successfully
+
+		</div>
+
+		<div if:false={isLoaded} class="slds-is-relative" style="height:200px;">
+			<lightning-spinner alternative-text="Loading..." variant="brand">
+			</lightning-spinner>
+		</div>
+
+		<div if:true={showFootor} slot="footer">
+
+			<lightning-button variant="neutral" label="Cancel" onclick={closeAction}></lightning-button>
+
+			<lightning-button variant="brand" disabled={disabledbutton} label="Send" class="slds-m-left_x-small"
+				onclick={sendAction}></lightning-button>
+
+			<lightning-button variant="brand" label="Preview" class="slds-m-left_x-small" onclick={handleGeneratePDF}>
+			</lightning-button>
+		</div>
+
+		<div if:false={showFootor} slot="footer">
+
+			<lightning-button variant="brand" label="Ok" onclick={closeAction}></lightning-button>
+
+		</div>
+
+	</lightning-quick-action-panel>
+
+</template>

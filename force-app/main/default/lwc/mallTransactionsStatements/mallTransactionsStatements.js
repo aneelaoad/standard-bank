@@ -3,12 +3,12 @@
  * @description Lightning Web Component to manage and display transaction statements.
  * @created 2024-06-24
  */
-import { LightningElement, wire, track } from 'lwc';
+import { LightningElement, wire } from 'lwc';
 import sbgIcons from '@salesforce/resourceUrl/sbgIcons';
-import getStatements from '@salesforce/apex/MallStatementsCtrl.getStatements';
+import getStatements from '@salesforce/apex/CTRL_MallStatements.getStatements';
 import getCustomerDocumentByUUID from "@salesforce/apex/CTRL_MallDocumentManagement.getCustomerDocumentByUUID";
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getCustomerDocumentForViewing from "@salesforce/apex/CTRL_MallDocumentManagement.getCustomerDocumentForViewing";
+//import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+//import getCustomerDocumentForViewing from "@salesforce/apex/CTRL_MallDocumentManagement.getCustomerDocumentForViewing";
 
 /**
  * @class MallTransactionsStatements
@@ -19,16 +19,17 @@ export default class MallTransactionsStatements extends LightningElement {
   icn_document_statement = sbgIcons + '/OTHER/icn_document_statement.svg';
   icn_download_statement = sbgIcons + '/OTHER/icn_download_statement.svg';
   showSpinner = false;
-  error;
 
   statements = [];
+  error;
 
 
 
  /**
    * @wire getStatements
    * @description Fetches the list of statements from the server.
-   */
+  */
+
   @wire(getStatements)
   wiredStatements({ error, data }) {
     if (data) {
@@ -44,6 +45,7 @@ export default class MallTransactionsStatements extends LightningElement {
 
     }
   }
+   
  /**
    * @method redirectionAction
    * @description Redirects the user to the 'My Statements' page.
@@ -145,4 +147,28 @@ export default class MallTransactionsStatements extends LightningElement {
 
 
 
+
+  /**
+   * @method showContextMenu
+   * @description Toggles the context menu ie. view, delelet and download for a statement.
+   * @param {Event} event - The event object from the button click.
+   */
+  showContextMenu(event) {
+    const documentUUID = event.currentTarget.dataset.documentuuid;
+    this.statements = this.statements.map(statement => ({
+      ...statement,
+      showMenu: statement.uid === documentUUID ? !statement.showMenu : false
+    }));
+  }
+   /**
+     * @method closeContextMenu
+     * @description Closes the context menu for the statement with the specified UUID.
+     * @param {String} documentUUID - The UUID of the statement to close the context menu for.
+     */
+   closeContextMenu(documentUUID) {
+    this.statements = this.statements.map(statement => ({
+        ...statement,
+        showMenu: statement.uid === documentUUID ? false : statement.showMenu
+    }));
+}
 }

@@ -4,12 +4,17 @@ import OSB_Images from '@salesforce/resourceUrl/OSB_Images';
 import getQrCodeDetails from '@salesforce/apex/OSB_NewDeviceModal_CTRL.getQrCodeDetails';
 import getStatusofRegistration from '@salesforce/apex/OSB_NewDeviceModal_CTRL.getStatusofRegistration';
 import flagContact from '@salesforce/apex/OSB_NewDeviceModal_CTRL.flagContact';
+import sendOutMailOTP from '@salesforce/apex/OSB_OtpManagement_CTRL.sendOutMailOTP';
 import { addAnalyticsInteractions } from 'c/osbAdobeAnalyticsWrapperLwc';
 const hideMFA = 'Hide MFA';
 const linkedMFA = 'Device Linked to MFA';
+const addDeviceSuccess = 'Device Addition Successful';
 export default class OsbNewDeviceModalLwc extends NavigationMixin(
     LightningElement
 ) {
+
+    @api indashboard;
+
     phoneConfirmed = OSB_Images + '/phoneConfirmed.png';
     phoneWithSignInMethods = OSB_Images + '/phoneWithSignInMethods.png';
     appStore = OSB_Images + '/appStore.svg';
@@ -35,24 +40,28 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
     timerDisplay = false;
     regintervalId;
 
-    @api isAppInstalled = false;
-    @api step1 = false;
-    @api deviceAuthenticated = false;
-    @api showtutorial = false;
-    @api isOpen = false;
-    @api imageId;
-    @api indashboard;
-    @api error = false;
-    @api isLoading = false;
-    @api qrLoading;
-    @api isMobile = false;
-    @api isNotMobile = false;
-    @api selectedNavItem = 'DeviceManagement';
-    @api oobStatusHandle;
-    @api deviceInfo;
-    @api intervalId = 0;
-    @api reloadQr = false;
-    @api userContactId;
+    isAppInstalled = false;
+    step1 = false;
+    deviceAuthenticated = false;
+    showtutorial = false;
+    isOpen = false;
+    imageId;
+    isLoading = false;
+    qrLoading;
+    isMobile = false;
+    isNotMobile = false;
+    selectedNavItem = 'DeviceManagement';
+    oobStatusHandle;
+    deviceInfo;
+    intervalId = 0;
+    reloadQr = false;
+    userContactId;
+
+    showOTPModal = false;
+    otpReason = 'Device Addition';
+    otpMessage = 'Continue to add device';
+    otpSuccessful =  false;
+    deviceLinked = false;
 
     renderedCallback() {
         addAnalyticsInteractions(this.template);
@@ -76,50 +85,76 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
             this.step1 = false;
             this.isOpen = true;
         } else {
-            this.isOpen = false;
-            document.body.style.overflow = 'auto';
+            this.goToHome();
         }
     }
 
     goToLinkDevice() {
-        this.isAppInstalled = true;
-        this.step1 = false;
+        if(!this.otpSuccessful && this.indashboard){
+            this.isOpen = false;
+            this.showOTPModal = true;
+
+        }else{
+            this.isAppInstalled = true;
+            this.step1 = false;
+            this.isOpen = true;
+            this.reloadQr = false;
+            this.deviceAuthenticated = false;
+            this.waitingForAuth = false;
+            this.TimerStepCirle = false;
+            this.qrCodeBase64 = false;
+            getQrCodeDetails()
+                .then((result) => {
+                    this.QRresult = result;
+                    let qrArray = [];
+                    for (let i in this.QRresult) {
+                        qrArray.push([i, this.QRresult[i]]);
+                    }
+
+                    for (let j = 0; j < qrArray.length; j++) {
+                        if (qrArray[j][0] === 'qrImage') {
+                            this.qrCodeBase64 =
+                                'data:image/png;base64,' + qrArray[j][1];
+                        }
+                        if (qrArray[j][0] === 'oobStatusHandle') {
+                            this.oobStatusHandle = qrArray[j][1];
+                        }
+                    }
+                    this.qrLoading = false;
+                    this.waitingForAuth = false;
+                    this.startTimer();
+                    this.handleRegistration();
+                })
+                .catch((error) => {
+                    this.error = error;
+                    clearInterval(parseInt(this.regintervalId, 10));
+                    this.template
+                        .querySelector('c-osb-text-timer-lwc')
+                        .handleStopTimer();
+                    this.error = true;
+                    this.waitingForAuth = false;
+                    this.deviceAuthenticated = false;
+                });
+
+        }
+    }
+
+    successOTPInitiation(){
+        this.otpSuccessful = true;
+        this.showOTPModal = false;
+        this.step1 = true;
         this.isOpen = true;
-        this.reloadQr = false;
-        this.deviceAuthenticated = false;
-        this.waitingForAuth = false;
-        this.TimerStepCirle = false;
-        getQrCodeDetails()
-            .then((result) => {
-                this.QRresult = result;
-                let qrArray = [];
-                for (var i in this.QRresult) {
-                    qrArray.push([i, this.QRresult[i]]);
-                }
-                for (let j = 0; j < qrArray.length; j++) {
-                    if (qrArray[j][0] === 'qrImage') {
-                        this.qrCodeBase64 =
-                            'data:image/png;base64,' + qrArray[j][1];
-                    }
-                    if (qrArray[j][0] === 'oobStatusHandle') {
-                        this.oobStatusHandle = qrArray[j][1];
-                    }
-                }
-                this.qrLoading = false;
-                this.waitingForAuth = false;
-                this.startTimer();
-                this.handleRegistration();
-            })
-            .catch((error) => {
-                this.error = error;
-                clearInterval(parseInt(this.regintervalId));
-                this.template
-                    .querySelector('c-osb-text-timer-lwc')
-                    .handleStopTimer();
-                this.error = true;
-                this.waitingForAuth = false;
-                this.deviceAuthenticated = false;
-            });
+        this.reloadQr = true;
+        this.isNotMobile = true;
+    }
+
+    cancelOTPInitiation(){
+        this.otpSuccessful = false;
+        this.showOTPModal = false;
+        this.step1 = true;
+        this.isOpen = true;
+        this.reloadQr = true;
+        this.isNotMobile = true;
     }
 
     startTimer() {
@@ -134,7 +169,7 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
                 intervalTime = intervalTime - 3;
                 if (intervalTime === 0) {
                     helper.manageRegistrationStatus('-1');
-                    clearInterval(parseInt(this.regintervalId));
+                    clearInterval(parseInt(this.regintervalId, 10));
                     this.qrCodeBase64 = true;
                     this.waitingForAuth = false;
                     this.TimerStepCirle = false;
@@ -193,10 +228,11 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
             this.isAppInstalled = false;
             this.deviceAuthenticated = true;
             this.waitingForAuth = false;
-            clearInterval(parseInt(this.regintervalId));
+            clearInterval(parseInt(this.regintervalId, 10));
             this.template
                 .querySelector('c-osb-text-timer-lwc')
                 .handleStopTimer();
+            this.deviceLinked = true;
             let flagSiteFeature = true;
             flagContact({
                 flagValue: linkedMFA,
@@ -218,14 +254,14 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
             code === '4450'
         ) {
             if (this.deviceAuthenticated) {
-                clearInterval(parseInt(this.regintervalId));
+                clearInterval(parseInt(this.regintervalId, 10));
                 this.template
                     .querySelector('c-osb-text-timer-lwc')
                     .handleStopTimer();
             }
             if (code === '4401') {
                 this.reloadQr = true;
-                clearInterval(parseInt(this.regintervalId));
+                clearInterval(parseInt(this.regintervalId, 10));
                 this.template
                     .querySelector('c-osb-text-timer-lwc')
                     .handleStopTimer();
@@ -245,6 +281,9 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
             this.template
                 .querySelector('c-osb-text-timer-lwc')
                 .handleStopTimer();
+
+            this.MobiletimerDisplay = false;
+            this.timerDisplay = false;
         }
         this.isAppInstalled = false;
         this.showtutorial = false;
@@ -254,7 +293,7 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
     }
 
     handleCancel() {
-        clearInterval(parseInt(this.regintervalId));
+        clearInterval(parseInt(this.regintervalId, 10));
         if (this.MobiletimerDisplay || this.timerDisplay) {
             this.template
                 .querySelector('c-osb-text-timer-lwc')
@@ -270,13 +309,14 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
             this.deviceAuthenticated = false;
             this.waitingForAuth = false;
             this.TimerStepCirle = false;
+            this.MobiletimerDisplay = false;
+            this.timerDisplay = false;
         } else {
-            this.isOpen = false;
+            this.goToHome();
         }
     }
 
     reload() {
-        let userAgent = navigator.userAgent || navigator.vendor || window.opera;
         this.step1 = true;
         this.isOpen = true;
         this.isAppInstalled = false;
@@ -291,11 +331,7 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
         }
        this.isOpen= false;
         document.body.style.overflow = "auto";
-        if(this.indashboard.toLowerCase() === 'false'){
-            this.handleModal();
-        }else if(this.indashboard.toLowerCase() === 'true'){
-            this.handleModal();
-        }
+        this.handleModal();
     }
 
     closeErrorScreen() {
@@ -306,7 +342,7 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
     handleTimer(event) {
         this.timeLeft = event.detail;
         if (this.timeLeft === 0) {
-            clearInterval(parseInt(this.regintervalId));
+            clearInterval(parseInt(this.regintervalId, 10));
             this.template
                 .querySelector('c-osb-text-timer-lwc')
                 .handleStopTimer();
@@ -361,6 +397,9 @@ export default class OsbNewDeviceModalLwc extends NavigationMixin(
     }
 
     handleModal() {
+        if(this.deviceLinked){
+            sendOutMailOTP({otpReason : addDeviceSuccess});
+        }
         this.dispatchEvent(new CustomEvent('updatedeviceregistered'));
     }
 }

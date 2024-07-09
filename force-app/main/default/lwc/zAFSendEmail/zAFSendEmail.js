@@ -20,7 +20,7 @@ import { createLogger } from 'sbgplatform/rflibLogger';
 export default class ZAFSendEmail extends LightningElement {
     logger = createLogger('ZAFSendEmail');
     @api recordId;
-    @track showEmail; 
+    @track showEmail;
     @track checkedEmail = [];
     @track closeEmailbox = false;
     @track showFootor = true;
@@ -32,7 +32,8 @@ export default class ZAFSendEmail extends LightningElement {
     @track clientName;
     @track disabledbutton = true;
     @track showTable = false;
-    @track ispreview=true;
+    @track ispreview = true;
+    roles = [];
 
     /**
 	 * @description wire to get current Page record Id and to call send Email function
@@ -42,15 +43,15 @@ export default class ZAFSendEmail extends LightningElement {
         if (currentPageReference) {
             this.recordId = currentPageReference.state.recordId;
             this.sendEmail();
-           
+
         }
     }
     /**
      * @description handles to render metadata
      */
-      connectedCallback() {
-    this.handleClientLetterData();
-  }
+    connectedCallback() {
+        this.handleClientLetterData();
+    }
 
     /**
 	 * @description handles to send Emails of checked checkbox with recordId to apex
@@ -64,9 +65,9 @@ export default class ZAFSendEmail extends LightningElement {
                     this.showEmailbox = true;
                     this.showFootor = false;
                     this.isLoaded = true;
-                    
+
                 }
-                
+
             }).catch(error => {
                 this.NoEmailmsg = true;
                 this.NoEmail = this.ClientLetterData.EmailError;
@@ -74,7 +75,7 @@ export default class ZAFSendEmail extends LightningElement {
 
             })
     }
-    
+
 
     /**
 	 * @description handles to fetch All related records of client Account data and show in UI
@@ -84,9 +85,15 @@ export default class ZAFSendEmail extends LightningElement {
             .then((result) => {
                 if (result.length > 0) {
                     this.showTable = true;
-                    this.ListOfContacts = result;
+                    let res = JSON.parse(JSON.stringify(result));
+                    this.ListOfContacts = res;
                     let e = JSON.stringify(result);
-                    this.clientName = result[0].Account.Name;
+                    this.clientName = res[0].Account.Name;
+                    for (let i = 0; i < res.length; i++) {
+                        const contactRoles = res[i].Contact_Role_s_at_Client__c;
+                        this.roles = contactRoles.split(';').map(role => role.trim());
+                        this.ListOfContacts[i].conRoles = this.roles;
+                    }
 
                 } else if (result.length === 0) {
                     this.NoEmailmsg = true;
@@ -130,23 +137,22 @@ export default class ZAFSendEmail extends LightningElement {
       *@description Method i used to get the custom meta data
       */
     handleClientLetterData() {
-      getClientLetterJSON({ developerName: 'Client_sector' })
-        .then(result => {
-          this.ClientLetterData = JSON.parse(result.Description__c);
-        })
-        .catch(error => {
-          this.logger.error('An error occurred in Meta data:', error);
+        getClientLetterJSON({ developerName: 'Client_sector' })
+            .then(result => {
+                this.ClientLetterData = JSON.parse(result.Description__c);
+            })
+            .catch(error => {
+                this.logger.error('An error occurred in Meta data:', error);
 
-        });
+            });
     }
     /**
      * @description handles to preview PDF on other tab
      */
-   handleGeneratePDF()
-    {
-           window.open('/apex/ZAF_GeneratePricingLetterVFPage?id=' +this.recordId);
+    handleGeneratePDF() {
+        window.open('/apex/ZAF_GeneratePricingLetterVFPage?id=' + this.recordId);
     }
-    
-   
+
+
 
 }

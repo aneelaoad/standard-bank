@@ -122,7 +122,7 @@ button.slds-button.slds-button_mall.slds-button_mall {
 
 @media all and (min-width: 768px) {
   .slds-button.slds-button_mall .slds-rich-text-editor__output {
-    padding: 0.5625rem 2rem;
+    padding: 0.5625rem 5rem;
   }
 
   .slds-button_mall lightning-formatted-rich-text {
@@ -135,7 +135,8 @@ button.slds-button.slds-button_mall.slds-button_mall {
   ):not(.slds-button_icon-inverse):not(.slds-button--icon-inverse):hover {
   box-shadow: none;
   --THEME-ACCENT-LIGHT: var(--primary-accent, #00008c);
-  color: var(--white-color);
+  /*color: var(--white-color);*/
+  color: #0051ff;
 }
 
 .slds-button.slds-button_mall.slds-button_mall:not([disabled]):not(
@@ -202,6 +203,10 @@ button.slds-button.slds-button_mall.slds-button_mall {
 
 .w300 {
   width: 21.4286rem;
+}
+
+.w301 {
+  width: 14rem;
 }
 
 .w340 {

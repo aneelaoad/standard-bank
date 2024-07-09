@@ -567,11 +567,44 @@ lightning-formatted-rich-text {
 
 .insight-top-button-container {
   display: flex;
-  justify-content: space-between;
+align-items: flex-start;
+align-self: stretch;
+border-bottom: 1px solid var(--neutrals-pale-grey-50, #E3E6EA);
 }
 
 .insight-view-all-button {
   font-weight: bold;
   margin-top: 30px;
   color: #0062e1;
+}
+
+.insight-top-tab {
+  display: flex;
+padding-right: 1.5625rem;
+flex-direction: column;
+align-items: flex-start;
+gap: 0.625rem;
+color: var(--neutrals-light-grey-text-subdued, #5C6C80);
+text-align: center;
+
+/* 16/m_medium */
+font-family: "Benton Sans Pro";
+font-size: 1rem;
+font-style: normal;
+font-weight: 500;
+line-height: 130%; /* 1.3rem */
+
+}
+
+pre.insight-top-tab:hover {
+  border-bottom: 4px solid var(--primary-secondary-color, #0062E1);
+  color: var(--primary-secondary-color, #0062E1);
+text-align: center;
+
+/* 16/m_medium */
+font-family: "Benton Sans Pro";
+font-size: 1rem;
+font-style: normal;
+font-weight: 500;
+line-height: 130%; /* 1.3rem */
 }

@@ -49,7 +49,7 @@
             onclick={handleNavItemClick}
             data-value={navItem.MasterLabel}
             data-link={navItem.URL_Link__c}
-           
+            
           >
             <a
               class="nav-item"
@@ -63,6 +63,7 @@
               
               >{navItem.translatedLabel}
               <template if:true={navItem.Icon__c}>
+                <!-- <span class="dropdown-icon" >{navItem.Icon__c}</span> -->
                 <span class="dropdown-icon" >&#9662;</span>
             </template>
             </a >

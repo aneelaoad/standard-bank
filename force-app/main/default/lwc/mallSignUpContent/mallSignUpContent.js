@@ -11,6 +11,7 @@ import { mallStateName, setUserState, getUserState } from "c/sbgUserStateUtils";
 import pingCountries from "@salesforce/label/c.Countries_With_Ping";
 import sbgVisualAssets from "@salesforce/resourceUrl/sbgVisualAssets";
 import mallStaticBanners from "@salesforce/resourceUrl/MallStaticBanners";
+import mallIcons from "@salesforce/resourceUrl/mallIcons";
 import { getBaseUrl, navigateToWebPage } from "c/mallNavigation";
 import { NavigationMixin, CurrentPageReference } from "lightning/navigation";
 import { MallTranslationService } from "c/mallTranslationService";
@@ -69,6 +70,15 @@ export default class MallSignUpContent extends NavigationMixin(
   titleApplyTrue = false;
 
   sbLogoImage = sbgVisualAssets + "/sbg_bcb_platform_logo_register_shield.svg";
+
+  contactIcon = mallIcons + "/icn_call-centre.png";
+  chevIcon = mallIcons + "/ic_chevron-pagination-left.svg";
+
+
+  get latestUpdate() {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date().toLocaleDateString(undefined, options);
+  }
 
   get joineMessage() {
     return this.joinMessageShopper;

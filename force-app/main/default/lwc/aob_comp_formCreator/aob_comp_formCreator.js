@@ -988,7 +988,7 @@ export default class Aob_comp_formCreator extends NavigationMixin(LightningEleme
         goBacktoPreviousStep({
             'applicationId': this.applicationId
         }).then(result => {
-            eval("$A.get('e.force:refreshView').fire();");
+            window.location.reload();
 
         })
             .catch(error => {

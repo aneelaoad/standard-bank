@@ -145,7 +145,10 @@
 .nav-primary li a{
   text-decoration: none !important;
 }
-
+.is-nav-active {
+  background-color: #f0f0f0; /* Change this to your desired active background color */
+  font-weight: bold; /* Optional: make the active item bold */
+}
 .nav-top-right {
   grid-row-start: 1;
   grid-column-end: -1;

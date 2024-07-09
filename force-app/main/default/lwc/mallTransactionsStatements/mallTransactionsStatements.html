@@ -21,7 +21,13 @@
                                     <button data-documentuuid={statement.uid} data-downloadurl={statement.downloadUrl} onclick={handleUnstampedDocumentDownload}><img src={icn_download_statement}></button>
                                 </div>
                             </div>
-                           
+                            <!-- <template if:true={statement.showMenu}>
+                                <div class="context-menu">
+                                    <button data-documentuuid={statement.uid} onclick={viewStatement}>View</button>
+                                    <button data-documentuuid={statement.uid} onclick={deleteStatement}>Delete</button>
+                                    <button data-documentuuid={statement.uid} onclick={handleUnstampedDocumentDownload}>Download</button>
+                                </div>
+                            </template> -->
                         </li>
                     </template>
                 </ul>
@@ -36,4 +42,4 @@
             <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
         <!-- </div> -->
     </template>
-</template> 
+</template>

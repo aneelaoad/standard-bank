@@ -1,6 +1,6 @@
 import { LightningElement ,wire} from 'lwc';
 import Resources from "@salesforce/resourceUrl/sbgVisualAssets";
-import getSolutionLinks from '@salesforce/apex/MallSolutionsController.getSolutionLinks';
+import getSolutionLinks from '@salesforce/apex/CTRL_MallSolutions.getSolutionLinks';
 
 export default class MallGetStarted extends LightningElement {
   
@@ -12,15 +12,15 @@ export default class MallGetStarted extends LightningElement {
     wiredSolutionLinks({ error, data }) {
         if (data) {
             // this.solutionsData = data;
-            console.log('data : ',JSON.stringify( data));
+            //console.log('data : ',JSON.stringify( data));
             this.solutionsData = data.map(solution => ({
                 ...solution,
                 image: `${Resources}${solution.imageUrl}`
             }));
-            console.log('OUTPUT : ',JSON.stringify( this.solutionsData));
+            //console.log('OUTPUT : ',JSON.stringify( this.solutionsData));
 
         } else if (error) {
-            console.error('error fetching solution:',error);
+            //console.error('error fetching solution:',error);
         }
     }
 }

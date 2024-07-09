@@ -1,8 +1,9 @@
 import { LightningElement } from 'lwc';
 import { NavigationMixin } from "lightning/navigation";
+import icons from "@salesforce/resourceUrl/sbgIcons";
 
 export default class MallOurSolutionsProductSelection extends NavigationMixin(LightningElement) {
-
+    arrowSolidDown = icons + '/NAVIGATION/icn_arrow_solid_down.svg';
     handleNavigate(event) {
         event.preventDefault();
         const label = event.target.dataset.id;
@@ -57,5 +58,6 @@ export default class MallOurSolutionsProductSelection extends NavigationMixin(Li
        
     }
 
+    
 
 }

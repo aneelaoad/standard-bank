@@ -60,10 +60,48 @@
               </div>
             </div>
           </div>
-
-          <div
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-01">
+                <abbr class="slds-required" title="required">* </abbr>Customer
+                email</label
+              >
+              <div class="slds-form-element__control">
+                <lightning-input
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  variant="label-hidden"
+                  type="email"
+                  id="form-element-07"
+                  required
+                  aria-describedby="form-error-06"
+                  aria-invalid="true"
+                  name="Email__c"
+                  data-fieldname="Email__c"
+                  value={item.Email__c}
+                ></lightning-input>
+              </div>
+            </div>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
+            <template lwc:if={index}>
+              <div class="slds-p-top_medium" key={item.id}>
+                <img
+                  class="slds-p-top_large slds-p-left_large"
+                  src={delete_row_icon}
+                  alt="delete-row-icon"
+                  access-key={item.id}
+                  data-index={index}
+                  id={index}                  
+                  alternative-text="Delete Row"
+                  size="small"
+                  title="Delete Row"
+                  onclick={deleteParticipant}
+                />
+              </div>
+            </template>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12"
             ley={item}
-            class="slds-col slds-size_1-of-1 slds-large-size_5-of-12"
           >
             <div class="slds-form-element">
               <label class="slds-form-element__label" for="form-element-02">
@@ -72,6 +110,7 @@
               >
               <div class="slds-form-element__control">
                 <lightning-input
+                  type="number"
                   data-participant-sequence={item.CIB_Sequence__c}
                   data-index={index}
                   variant="label-hidden"
@@ -87,53 +126,32 @@
               </div>
             </div>
           </div>
-          <div class="slds-col slds-size_1-of-1 slds-large-size_2-of-12">
-            <template lwc:if={index}>
-              <div class="slds-p-top_medium" key={item.id}>
-                <img
-                  class="slds-p-top_large slds-p-left_large"
-                  src={delete_row_icon}
-                  alt="delete-row-icon"
-                  access-key={item.id}
-                  data-index={index}
-                  id={index}
-                  data-participant-sequence={item.CIB_Sequence__c}
-                  alternative-text="Delete Row"
-                  size="small"
-                  title="Delete Row"
-                  onclick={deleteParticipant}
-                />
-              </div>
-            </template>
-          </div>
-        </div>
-
-        <div
+          <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12"
           key={item}
-          class="slds-col slds-size_1-of-1 slds-large-size_5-of-12"
-        >
-          <div class="slds-form-element">
-            <label class="slds-form-element__label" for="form-element-">
-              <abbr class="slds-required" title="required">* </abbr>Custom
-              password</label
-            >
-            <div class="slds-form-element__control">
-              <lightning-input
-                data-index={index}
-                variant="label-hidden"
-                id="form-element-04"
-                type="password"
-                placeholder="Please Enter........."
-                required
-                aria-describedby="form-error-06"
-                aria-invalid="true"
-                min-length="06"
-                name="CIB_AD_CustomPassword__c"
-                data-fieldname="CIB_AD_CustomPassword__c"
-                data-participant-sequence={item.CIB_Sequence__c}
-                value={item.CIB_AD_CustomPassword__c}
+          >
+            <div class="slds-form-element">
+              <label class="slds-form-element__label" for="form-element-">
+                <abbr class="slds-required" title="required">* </abbr>Custom
+                password</label
               >
-              </lightning-input>
+              <div class="slds-form-element__control">
+                <lightning-input
+                  data-index={index}
+                  variant="label-hidden"
+                  id="form-element-04"
+                  type="password"
+                  placeholder="Please Enter........."
+                  required
+                  aria-describedby="form-error-06"
+                  aria-invalid="true"
+                  min-length="06"
+                  name="CIB_AD_CustomPassword__c"
+                  data-fieldname="CIB_AD_CustomPassword__c"
+                  data-participant-sequence={item.CIB_Sequence__c}
+                  value={item.CIB_AD_CustomPassword__c}
+                >
+                </lightning-input>
+              </div>
             </div>
           </div>
         </div>
@@ -222,7 +240,7 @@
       </ul>
     </div>
     <div class="aob_card-container">
-      <div class="aob_title-sm" title="required">signatures</div>
+      <div class="aob_title-sm" title="required">Signatures</div>
 
       <div class="slds-grid aob_col-gutter slds-wrap">
         <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
@@ -235,7 +253,6 @@
             variant="label-hidden"
             id="form-element-23"
             aria-describedby="form-error-02"
-            placeholder="Please enter"
             data-fieldname="CIB_AD_CustomerSignatureName__c"
             name="CIB_AD_CustomerSignatureName__c"
             aria-invalid="true"
@@ -256,7 +273,6 @@
             id="form-element-05"
             aria-describedby="form-error-02"
             aria-invalid="true"
-            placeholder="Please enter"
             variant="label-hidden"
             required
             data-fieldname="CIB_AD_CustomerSignatureAutority__c"
@@ -265,21 +281,40 @@
           ></lightning-input>
         </div>
       </div>
-
-      <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
-        <div
-          class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
-        >
-          <label class="slds-form-element__label mt_20" for="form-element-05">
-            <span class="slds-required" title="required">* </span>Date</label
+      <div class="slds-grid aob_col-gutter slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
           >
-          <c-cmn_comp_date-picker
-            data-type="application"
-            data-fieldname="CIB_AD_CustomerSignatureDate__c"
-            name="CIB_AD_CustomerSignatureDate__c"
-            value={applicationRecord.CIB_AD_CustomerSignatureDate__c}
-            required
-          ></c-cmn_comp_date-picker>
+            <label class="slds-form-element__label mt_20" for="form-element-05">
+              <span class="slds-required" title="required">* </span>Email</label
+            >
+            <lightning-input
+              type="email"
+              variant="label-hidden"
+              data-type="application"
+              data-fieldname="CIB_AD_CustomerSignatureEmail__c"
+              name="CIB_AD_CustomerSignatureEmail__c"
+              value={applicationRecord.CIB_AD_CustomerSignatureEmail__c}
+              required
+            ></lightning-input>
+          </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+          <div
+            class="slds-form-element slds-dropdown-trigger slds-dropdown-trigger_click aob_date-picker"
+          >
+            <label class="slds-form-element__label mt_20" for="form-element-05">
+              <span class="slds-required" title="required">* </span>Date</label
+            >
+            <c-cmn_comp_date-picker
+              data-type="application"
+              data-fieldname="CIB_AD_CustomerSignatureDate__c"
+              name="CIB_AD_CustomerSignatureDate__c"
+              value={applicationRecord.CIB_AD_CustomerSignatureDate__c}
+              required
+            ></c-cmn_comp_date-picker>
+          </div>
         </div>
       </div>
     </div>

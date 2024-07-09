@@ -107,8 +107,20 @@
 .left-end {
     justify-content: flex-end;
 }
-
-
+.card-delivery-continue-btn{
+    display: flex;
+    justify-content: center;
+}
+.sub-text{
+    margin-top: 1.5rem;
+}
+.card-delivery-continue-btn{
+    display: flex;
+    justify-content: center;
+}
+.sub-text{
+    margin-top: 1.5rem;
+}
 @media (max-width: 575px) {
     .account-card .card-img-sm {
         display: none;

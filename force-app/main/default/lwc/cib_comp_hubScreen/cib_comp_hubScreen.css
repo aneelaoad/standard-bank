@@ -9,7 +9,7 @@
   padding-top: 23px;
 }
 .aob_sec-title h6 {
-  font-family: "bentonsans-regular-webfont" !important;
+  font-family: "bentonsans-regular-webfont", Arial, Helvetica, sans-serif !important;
   font-style: normal;
   font-size: 20px;
   line-height: 24px;
@@ -33,7 +33,7 @@
   gap: 8px;
   min-height: 48px;
   min-width: 95px;
-  font-family: "bentonsans-bold-webfont" !important;
+  font-family: "bentonsans-regular-webfont", Arial, Helvetica, sans-serif !important;
   font-style: normal;
   font-size: 14px;
   line-height: normal;
@@ -51,7 +51,7 @@
   gap: 8px;
   min-height: 48px;
   min-width: 95px;
-  font-family: "bentonsans-bold-webfont" !important;
+  font-family: "bentonsans-regular-webfont", Arial, Helvetica, sans-serif !important;
   font-style: normal;
   font-size: 14px;
   line-height: normal;

@@ -1,0 +1,24 @@
+<template>
+  <div >
+    <lightning-messages></lightning-messages>
+    <div if:true={errorMessage}>
+      <h3 slot="title">
+        {errorMessage.statusText}
+      </h3>
+      <p class="slds-p-horizontal_small slds-text-color_error">{errorMessage.body.message}</p>
+    </div>
+    <h3 class="slds-section__title slds-theme_shade">
+      <span class="slds-truncate slds-p-around_x-small">{sectionTitle}</span>
+    </h3>
+    <div class=slds-box_border>
+      <lightning-record-form
+          record-id={recordId}
+          object-api-name={sObjectApiName}
+          fields={fields}
+          columns={columns}
+          onsuccess={handleSuccess}
+          mode="view">
+      </lightning-record-form>
+    </div>
+  </div>
+</template>

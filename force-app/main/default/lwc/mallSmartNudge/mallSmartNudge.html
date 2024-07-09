@@ -1,5 +1,5 @@
 <template>
-  <div class="smart-nudge-container">
+  <div class="smart-nudge-container" if:false={hideSmartNudge}>
       <div class="slds-text-heading_large heading-text">
         <template if:true={contactName}>  
           <strong>Hi {contactName}, </strong>
@@ -17,7 +17,7 @@
           </div>
           <button class="slds-button slds-button_outline-brand find-out-more-button"><label>Find out more</label></button>
         </div> 
-        <button class="close-card"><img src={crossIcon}></button>     
+        <button class="close-card" onclick={closeAction}><img src={crossIcon}></button>     
       </div>
   </div>
 </template>

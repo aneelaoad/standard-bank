@@ -1,0 +1,32 @@
+.reachout_section { width: 100%;  background-color: #fff;}
+
+.reachout_section_inner { width: 100%; max-width: 1176px; padding: 0px 20px; margin: auto;}
+
+.reachout_section_detail { width: 100%; padding: 100px 0px;}
+
+.reachout_tittle { width: 100%; padding-bottom: 30px;}
+
+.reachout_tittle h2  { color: #1A314D; font-size: 48px; line-height: 48px; padding-bottom: 30px; font-weight: bold;}
+
+.reachout_tittle p { color: #1A314D; font-size: 18px; line-height: 23px;}
+
+.reachout_col { width: 100%; padding-bottom: 30px;}
+
+.reachout_col_info { border-radius: 10px; overflow: hidden; width: 100%; position: relative; text-align: center; background-color: #fff; box-shadow: 0px 0px 4px #00000055;}
+
+.reachout_col_info strong { display: block; color: #1A314D; font-size: 16px; line-height: 20px; padding: 30px 20px 30px; font-weight: bold;  }
+.reachout_col_info p { color: #1A314D; font-size: 16px; line-height: 20px; padding: 0px 30px 55px; }
+
+.reachout_col_info button { border: 0px; background-color: #0062E1;  font-size: 16px; line-height: 20px; font-weight: bold; padding: 20px 10px; text-align: center; display: block; width: 100%; color: #fff;}
+
+
+.stayUptodate_form { width: 100%; max-width: 488px;}
+
+.stayUptodate_form strong { color: #1A314D; font-size: 18px; line-height: 22px; padding-bottom: 22px; display: block; font-weight: normal;}
+
+.stayUptodate_form input { width: 100%; margin-bottom: 5px; display: block; border: 1px solid #5C6C80; padding: 13px 12px 13px 12px; border-radius: 8px; color: #5C6C80; font-size: 16px; line-height: 21px;}
+
+.stayUptodate_form p { color: #5C6C80; font-size: 13px; line-height: 17px; padding-bottom: 40px;}
+.stayUptodate_form p a { color: #0033AA;}
+
+.stayUptodate_form button { background-color: #0062E1; border: 0px; border-radius: 8px; padding: 20px; color: #fff; font-size: 14px; line-height: 16px; display: block; text-transform: uppercase; text-align: center; font-weight: bold; width: 200px;}

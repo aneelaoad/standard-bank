@@ -6,7 +6,13 @@ import { NavigationMixin } from 'lightning/navigation';
 import { addAnalyticsInteractions } from 'c/osbAdobeAnalyticsWrapperLwc';
 import { refreshApex } from '@salesforce/apex';
 import flagContact from '@salesforce/apex/OSB_NewDeviceModal_CTRL.flagContact';
+import sendOutMailOTP from '@salesforce/apex/OSB_OtpManagement_CTRL.sendOutMailOTP';
 const linkedMFA = 'Device Linked to MFA';
+const addDevice = 'Device Addition';
+const removeDevice = 'Device Removal';
+const removeAllDevice = 'All Device Removal';
+const removeDeviceSuccess = 'Device Removal Successful';
+const removeAllDeviceSuccess = 'All Device Removal Successful';
 export default class OsbDeviceManagementLwc extends NavigationMixin(
     LightningElement
 ) {
@@ -70,6 +76,14 @@ export default class OsbDeviceManagementLwc extends NavigationMixin(
     refreshDeviceList;
 
     deviceUpdate = false;
+
+    showOTPModal = false;
+    otpReason;
+    otpMessage;
+
+    listOfDeviceToDelete;
+
+    dashboardValue = false;
 
     connectedCallback() {
         this.init();
@@ -187,17 +201,17 @@ export default class OsbDeviceManagementLwc extends NavigationMixin(
                     this.userlogged = true;
                 }
             })
-            .catch((result) => {
+            .catch(() => {
                 this.userlogged = false;
             });
     }
 
-    handleRemoveAllDevices(event) {
+    handleRemoveAllDevices() {
         this.removeAllDevices = false;
         let allDeviceAuthIdList = this.allDeviceAuthIdList;
         if (allDeviceAuthIdList.length > 0) {
             this.removeAllDevices = true;
-            this.devicesToDeleteList = allDeviceAuthIdList;
+            this.listOfDeviceToDelete = allDeviceAuthIdList
         } else {
             this.removeAllDevices = false;
         }
@@ -205,63 +219,45 @@ export default class OsbDeviceManagementLwc extends NavigationMixin(
 
     handleDeleteAllDevices(event) {
         this.allDevicesRemoved = false;
-        let optionSelected = event.detail;
-        let devicesToDeleteList = this.devicesToDeleteList;
-
-        if ((optionSelected === 'YES') & (devicesToDeleteList.length > 0)) {
-            deleteDevices({ authHandleList: devicesToDeleteList }).then(
-                (response) => {
-                    let responseList = response;
-
-                    if (responseList[0].statusCodeString === '4000') {
-                        window.scrollTo(0, 0);
-                        this.loading = true;
-                        setTimeout(function () {
-                            this.loading = false;
-                        }, 3000);
-                        this.allDevicesRemoved = true;
-                        this.toastMessage =
-                            'The devices have been successfully removed. Please wait for the page to reload.';
-
-                        let flagSiteFeature = false;
-                        flagContact({
-                            flagValue: linkedMFA,
-                            addFlag: flagSiteFeature
-                        });
-
-                        this.updateMFA();
-                    } else {
-                        window.scrollTo(0, 0);
-                        this.unexpectedError = true;
-                    }
-                }
-            );
-        }
-        if (optionSelected === 'NO') {
-            const selectedEvent = new CustomEvent('closepopupevent', {
-                detail: event.target.innerText
-            });
-            this.dispatchEvent(selectedEvent);
-        }
         this.removeAllDevices = false;
+        let optionSelected = event.detail;
+        let devicesToDeleteList = this.listOfDeviceToDelete;
+        
+        if ((optionSelected === 'YES') & (devicesToDeleteList.length > 0)) {
+            this.otpReason = removeAllDevice;
+            this.otpMessage = 'Continue to remove device';
+            this.showOTPModal = true;
+        }
     }
 
-    closeToast(event) {
+    closeToast() {
         this.showMessageToast = false;
     }
 
     handleDeleteDevice(event) {
         event.preventDefault();
         let devicesToDeleteList = event.detail;
+        this.listOfDeviceToDelete = devicesToDeleteList;
         this.deviceRemoved = false;
+        this.otpReason = removeDevice;
+        this.otpMessage = 'Continue to remove device';
+        this.showOTPModal = true;
+    }
+
+    continueToDelete(){
+        let devicesToDeleteList = this.listOfDeviceToDelete;
         let numOfDevices = this.noOfAuthenticators - devicesToDeleteList.length;
+        this.loading = true;
         deleteDevices({ authHandleList: devicesToDeleteList }).then(
             (response) => {
                 let responseList = response;
-
+                if(this.otpReason === removeDevice){
+                    sendOutMailOTP({otpReason : removeDeviceSuccess});
+                }else if(this.otpReason === removeAllDevice){
+                    sendOutMailOTP({otpReason : removeAllDeviceSuccess});
+                }
                 if (responseList[0].statusCodeString === '4000') {
                     window.scrollTo(0, 0);
-                    this.loading = true;
                     setTimeout(function () {
                         this.loading = false;
                     }, 3000);
@@ -284,7 +280,7 @@ export default class OsbDeviceManagementLwc extends NavigationMixin(
         );
     }
 
-    handleMFAModal(event) {
+    handleMFAModal() {
         if (this.deviceUpdate) {
             this.loading = true;
             setTimeout(function () {
@@ -296,7 +292,7 @@ export default class OsbDeviceManagementLwc extends NavigationMixin(
         this.updateMFA();
     }
 
-    handleMFADevice(event) {
+    handleMFADevice() {
         this.deviceUpdate = true;
         this.updateMFA();
     }
@@ -305,17 +301,39 @@ export default class OsbDeviceManagementLwc extends NavigationMixin(
         event.preventDefault();
         let noOfAuthenticators = this.noOfAuthenticators;
         if (noOfAuthenticators < 32) {
-            this.openModal = false;
-            let cmpTarget = this.openModal;
-            if (cmpTarget === false) {
-                let cmpTarget = (this.openModal = true);
-                cmpTarget?.classList?.add('slds-fade-in-open');
-                document.body.style.overflow = 'hidden';
-            } else {
-                this.openModal = false;
-            }
+            this.otpReason = addDevice;
+            this.otpMessage = 'Continue to Add device';
+            this.showOTPModal = true;
         } else {
             this.cantAddDevice = true;
         }
+    }
+
+    successOTPInitiation(){
+        this.showOTPModal = false;
+        if(this.otpReason === addDevice){
+            this.conitueAddDevice();
+        }else{
+            this.loading = true;
+            this.continueToDelete();
+        }
+    }
+
+    conitueAddDevice() {
+        this.openModal = false;
+        let cmpTarget = this.openModal;
+        if (cmpTarget === false) {
+            let cmpTarget = (this.openModal = true);
+            cmpTarget?.classList?.add('slds-fade-in-open');
+            document.body.style.overflow = 'hidden';
+        } else {
+            this.openModal = false;
+        }
+    }
+
+    cancelOTPInitiation(){
+        this.showOTPModal = false;
+        this.otpReason = '';
+        this.otpMessage = '';
     }
 }

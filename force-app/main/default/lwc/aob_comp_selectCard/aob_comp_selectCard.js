@@ -14,6 +14,8 @@ import FireAdobeEvents from '@salesforce/resourceUrl/FireAdobeEvents';
 import AOB_ThemeOverrides from '@salesforce/resourceUrl/AOB_ThemeOverrides';
 import getApplicantDataForAdobe from '@salesforce/apex/AOB_CTRL_FormCreator.getApplicantDataForAdobe';
 const RETRY_NUMBER = 1;
+import { createLogger } from 'sbgplatform/rflibLogger';
+const logger = createLogger('Aob_comp_selectCard');
 export default class Aob_comp_selectCard extends NavigationMixin(LightningElement) {
     @api teams = ["Self Assisted"];
     label = {};
@@ -68,7 +70,13 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
     errorMessage;
     isOpenCardDelivery = false;
     @api availableActions = [];
-
+    @track cardDeliveryModal = false;
+    infoIMG = AOB_ThemeOverrides + '/assets/images/info.png';
+    @track cardDeliveryInfo=[{
+        id:0,
+        text:"Please collect your card at your preferred branch",
+        subText:"Please have your South African ID with you when you visit your preferred branch"
+    }];
     connectedCallback() {
         this.productName = this.productName.toLowerCase();
         this.adobeDataScopeApp = this.productName + ' application';
@@ -102,6 +110,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.technicalerror = true;
             this.errorMessage = getErrorMessage.call(this, error);
             window.fireErrorEvent(this, this.errorMessage);
+            logger.debug('Error in connectedCallback.getApplicantDataForAdobe ', error);
         });
         loadScript(this, FireAdobeEvents).then(() => {
             if (!this.isEventFired) {
@@ -120,6 +129,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.failing = true;
             this.errorMessage = getErrorMessage.call(this, error);
             window.fireErrorEvent(this, this.errorMessage);
+            logger.debug('Error in connectedCallback.setApplicationStep ', error);
         });
     }
       handleResultChange(event) {
@@ -141,9 +151,12 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.failing = true;
             this.errorMessage = getErrorMessage.call(this, error);
             window.fireErrorEvent(this, this.errorMessage);
+            logger.debug('Error in ModalPopUp.setApplicationData ', error);
         });
     }
-
+    openCardDeliveryModal() {
+        this.cardDeliveryModal = true
+    }
     continueToNextPage(event) {
         let name = event.target.dataset.name
         window.fireButtonClickEvent(this, event);
@@ -166,6 +179,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.errorMessage = getErrorMessage.call(this, error);
             this.siteerror = 'service error | ' + this.errorMessage;
             window.fireErrorEvent(this, this.siteerror);
+            logger.debug('Error in continueToNextPage.setApplicationData', error);
         });
     }
 
@@ -179,6 +193,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.errorMessage = getErrorMessage.call(this, error);
             this.siteerror = 'service error | ' + this.errorMessage;
             window.fireErrorEvent(this, this.siteerror);
+            logger.debug('Error in clearChequeCardData.clearChequeCardInflight ', error);
         });
     }
 
@@ -187,6 +202,9 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             const navigateNextEvent = new FlowNavigationNextEvent();
             this.dispatchEvent(navigateNextEvent);
         }
+    }
+    closeModal() {
+        this.cardDeliveryModal = false
     }
     closePopup(event) {
         this.isLoaded = true;
@@ -215,6 +233,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.errorMessage = getErrorMessage.call(this, error);
             this.siteerror = 'service error | ' + this.errorMessage;
             window.fireErrorEvent(this, this.siteerror);
+            logger.debug('Error in initiateGetCustomerAPI.setApplicationData ', error);
         });
     }
 
@@ -235,6 +254,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.errorMessage = getErrorMessage.call(this, error);
             this.adobePageTag.siteErrorCode = 'service error | ' + this.errorMessage;
             window.fireErrorCodeEvent(this, this.adobePageTag.siteErrorCode);
+            logger.debug('Error in createLead.createExternalLead ', error);
         });
     }
 
@@ -289,6 +309,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.isLoaded = true;
             this.siteerror = 'service error | ' + this.errorMessage;
             window.fireErrorEvent(this, this.siteerror);
+            logger.debug('Error in callGetCustomerAPI.getCustomer ', error);
         });
     }
 
@@ -313,6 +334,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             }
         }).catch(error => {
             this.isLoaded = true;
+            logger.debug('Error in retryInitiateAPI.incrementRetryApplication ', error);
         });
     }
 
@@ -320,7 +342,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
         goBacktoPreviousStep({
             'applicationId': this.applicationId
         }).then(result => {
-            eval("$A.get('e.force:refreshView').fire();");
+            window.location.reload();
 
         }).catch(error => {
 
@@ -328,6 +350,7 @@ export default class Aob_comp_selectCard extends NavigationMixin(LightningElemen
             this.errorMessage = getErrorMessage.call(this, error);
             this.siteerror = 'service error | ' + this.errorMessage;
             window.fireErrorCodeEvent(this, this.siteerror);
+            logger.debug('Error in backToPreviousPage.goBacktoPreviousStep ', error);
         });
         window.fireButtonClickEvent(this, event);
 

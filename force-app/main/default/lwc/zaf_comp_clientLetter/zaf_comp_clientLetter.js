@@ -24,6 +24,7 @@ export default class Zaf_comp_clientLetter extends LightningElement {
   formData = {};
   checkedValue;
   clientName;
+  roles = [];
   message = "The Client doesn't have an active Pricing Arrangements associated to proceed. Please create a 'Pricing Arrangement'.";
   checkedEmail = [];
   isLoading = false;
@@ -260,6 +261,11 @@ export default class Zaf_comp_clientLetter extends LightningElement {
           this.ListOfContacts = res;
           let e = JSON.stringify(res);
           this.clientName = res[0].Account.Name;
+          for (let i = 0; i < res.length; i++) {
+            const contactRoles = res[i].Contact_Role_s_at_Client__c;
+            this.roles = contactRoles.split(';').map(role => role.trim());
+            this.ListOfContacts[i].roles=this.roles;
+          }
 
         } else {
           this.showModal=true;

@@ -1,5 +1,6 @@
 import { LightningElement, api } from "lwc";
 import { NAVIGATE_TO_URL } from "c/cmnButton";
+import { addAnalyticsInteractions } from 'c/acm_AdobeAnalytics';
 
 export default class SbgHeroBannerText extends LightningElement {
   @api heading;
@@ -18,10 +19,8 @@ export default class SbgHeroBannerText extends LightningElement {
 
   @api showButton;
 
-  handleClick() {
-    const clickEvent = new CustomEvent("buttonclick", {
-      detail: false
-    });
-    this.dispatchEvent(clickEvent);
+
+  renderedCallback(){
+    addAnalyticsInteractions(this.template);
   }
 }

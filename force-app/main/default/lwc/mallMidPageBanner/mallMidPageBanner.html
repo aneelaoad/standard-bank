@@ -1,0 +1,83 @@
+<template>
+  <template lwc:if={isHero}>
+    <div
+      class="custom-mid-page-banner hero-banners"
+      data-media={containerQueryOutput}
+    >
+      <div class={bannerBackgroundClassList}>
+        <template if:true={isHero}>
+          <div class="theme-shield-container">
+          </div>
+        </template>
+        <div>
+          <div class="banner-mid-page-white-item__box">
+            <div class="banner-mid-page-white-item__box-content">
+              <template if:true={isCarousel}> </template>
+              <template if:true={heading}>
+                <div class="title title--module-title">{heading}</div>
+              </template>
+              <template if:true={description}>
+                <p class="title title--page">{description}</p>
+              </template>
+              <template if:true={subText}>
+                <p class="banner-mid-page-white-item__description">{subText}</p>
+              </template>
+              <template if:true={showButton}>
+                <div class="banner-mid-page-white-item__button">
+                  <a href="https://www.standardbank.co.za/southafrica/business/products-and-services/bank-with-us/switch-your-bank-account">SWITCH</a>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="banner-avatar1">
+        <img src={imagePath} alt={heading} />
+      </div>
+    </div>
+  </template>
+  <template lwc:else>
+    <div class="custom-mid-page-banner" data-media={containerQueryOutput}>
+      <div class={bannerBackgroundClassList}>
+        <div>
+          <div class="banner-mid-page-white-item__box">
+            <div class="banner-mid-page-white-item__box-content">
+              <template if:true={isCarousel}> </template>
+              <template if:true={heading}>
+                <div class="title title--module-title">{heading}</div>
+              </template>
+              <template if:true={description}>
+                <div class="title title--page">{description}</div>
+              </template>
+              <!-- <hr class="banner-accent-line" /> -->
+              <template if:true={subText}>
+                <p class="banner-mid-page-white-item__description">{subText}</p>
+              </template>
+              <template if:true={showButton}>
+                <div class="banner-mid-page-white-item__button">
+                  <c-mall-cmn-button
+                    interaction-intent={buttonInteractionIntent}
+                    interaction-scope={buttonInteractionScope}
+                    interaction-type={buttonInteractionType}
+                    interaction-text={buttonInteractionText}
+                    interaction-text-before={buttonInteractionTextBefore}
+                    action={action}
+                    destination-url={handleSwitch}
+                    variant="mall"
+                    disabled={enabled}
+                    label={buttonLabel}
+                    title={buttonTitle}
+                    w-class="wAuto"
+                  ></c-mall-cmn-button>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="banner-avatar">
+        <img src={imagePath} alt={heading} />
+      </div>
+    </div>
+  </template>
+</template>

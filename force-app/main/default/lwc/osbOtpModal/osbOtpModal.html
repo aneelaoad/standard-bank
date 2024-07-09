@@ -1,0 +1,135 @@
+<template>
+    <template lwc:if={isLoading}>
+        <c-osb-loading-screenlwc></c-osb-loading-screenlwc>
+    </template>
+    <template lwc:else>
+        <div class="main-container">
+            <template lwc:if={showOTPScreen}>
+                <div class="otp-modal-main">
+                    <div class="modal-container">
+                        <div>
+                            <div class="heading">Enter One-Time PIN</div>
+                            <div class="otp-image-container">
+                                <img class="image-holder" src={OTPImage} />
+                            </div>
+                            <div class="text-container">
+                                <p>
+                                    A one-time pin has been sent to {userEmail}
+                                </p>
+                                <p class="smaller-text">
+                                    If you haven’t received the email, please
+                                    check your spam folder
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="input-container">
+                                <label>Please enter one-time PIN</label>
+                                <input
+                                    type="text"
+                                    name="otpDigits"
+                                    class="slds-input otp-input"
+                                    data-id="otpDigits"
+                                    required
+                                    maxlength="5"
+                                    minlength="5"
+                                    autocomplete="off"
+                                    onkeypress={removeErrorState}
+                                />
+                            </div>
+                            <template lwc:if={showErrorMessage}>
+                                <div
+                                    class="input-container-error"
+                                    data-id="otpDigitsError"
+                                >
+                                    {errorMessage}
+                                </div>
+                            </template>
+                            <template lwc:if={otpTimerBlocked}>
+                                <div class="input-container-error">
+                                    Too many failed attempts, please retry in
+                                    {otpTimer}
+                                </div>
+                            </template>
+                            <template lwc:if={showSupportAssistance}>
+                                <div class="input-container-error">
+                                    Too many failed attempts
+                                    <br />
+                                    Should you require assistance please contact
+                                    support
+                                </div>
+                            </template>
+                        </div>
+                        <template lwc:if={showOTPTimer}>
+                            <div class="smaller-text time-container">
+                                <template lwc:if={otpTimerValid}>
+                                    Your OTP will expire in: {otpTimer}
+                                </template>
+                                <template lwc:else>
+                                    Your OTP has expired, please click “Resend”
+                                </template>
+                            </div>
+                        </template>
+                        <div class="buttons-container">
+                            <button
+                                onclick={submitOTP}
+                                title="Submit"
+                                class="slds-button button-style primary-button-style"
+                                data-id="submit"
+                                data-text="OTP Modal | Submit"
+                                data-intent="confirmational"
+                                data-scope="OTP Modal"
+                            >
+                                Submit
+                            </button>
+                            <button
+                                onclick={resendOTP}
+                                title="Resend"
+                                class="slds-button button-style secondary-button-style disabled-button-style"
+                                data-id="resend"
+                                data-text="OTP Modal | Resend"
+                                data-intent="confirmational"
+                                data-scope="OTP Modal"
+                                disabled
+                            >
+                                Resend
+                            </button>
+                            <button
+                                onclick={cancel}
+                                title="Cancel"
+                                class="slds-button button-style tertiary-button-style"
+                                data-id="cancel"
+                                data-text="OTP Modal | Cancel"
+                                data-intent="confirmational"
+                                data-scope="OTP Modal"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template lwc:if={showOTPSuccessScreen}>
+                <div class="otp-success-modal-main">
+                    <div>
+                        <i class="msClass ms-icn_check_circle check-circle"></i>
+                    </div>
+                    <div class="success-header">OTP verified successfully</div>
+                    <div class="buttons-container">
+                        <button
+                            onclick={continueToDeviceManagement}
+                            title="Continue"
+                            class="slds-button button-style primary-button-style"
+                            data-id="continue"
+                            data-text="OTP Modal | Continue"
+                            data-intent="navigational"
+                            data-scope="OTP Modal"
+                        >
+                            {otpmessage}
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </template>
+</template>

@@ -1,5 +1,5 @@
 <!--
-  @description       : 
+  @description       : This is a comon component used to upload large documents up to 8MB.
   @author            : silva.macaneta@standardbank.co.za
   @group             : 
   @last modified on  : 11-10-2023
@@ -48,6 +48,7 @@
                       class="upload-icon"
                       lwc:if={fileExists}
                       onclick={openPreview}
+                      alt="file icon"
                     />
                     <lightning-progress-bar
                       lwc:if={isUploading}
@@ -68,11 +69,13 @@
                       src={deleteIcon}
                       class="upload-icon"
                       lwc:if={fileExists}
+                      alt="delete icon"
                     />
                     <img
                       src={uploadIcon}
                       class="upload-icon"
                       if:false={fileExists}
+                      alt="upload icon"
                     />
                   </label>
                 </div>
@@ -148,6 +151,7 @@
                         class="upload-icon"
                         lwc:if={fileExists}
                         onclick={openPreview}
+                        alt="file icon"
                       />
                       <lightning-progress-bar
                         lwc:if={isUploading}
@@ -168,12 +172,14 @@
                           src={deleteIcon}
                           class="upload-icon"
                           lwc:if={fileExists}
+                          alt="delete icon"
                         />
                       </button>
                       <img
                         src={uploadIcon}
                         class="upload-icon"
                         if:false={fileExists}
+                        alt="upload icon"
                       />
                     </label>
                   </div>
@@ -208,7 +214,7 @@
             title="Close"
             onclick={closePreview}
           >
-            <img src={closeIcon} class="survey_closed" />
+            <img src={closeIcon} class="survey_closed" alt="close icon" />
             <span class="slds-assistive-text">
               <label>Close</label>
             </span>
@@ -221,6 +227,7 @@
           style="border-radius: 0px 0px 8px 8px"
         >
           <iframe
+            title="document preview"
             lwc:if={isPdf}
             id="previewFrame"
             frame-src="self"
@@ -232,6 +239,7 @@
             lwc:else
             src={_url}
             style="width: 100%; height: 100%; border: none"
+            alt="document preview"
           />
         </div>
       </div>

@@ -19,6 +19,7 @@ export default class OsbMyShortcutTile extends LightningElement {
     deviceLinked;
     iconImage;
     requiresmfa;
+    dashboardValue = true;
 
     @api registeredapps = [];
     @api multiple = false;
