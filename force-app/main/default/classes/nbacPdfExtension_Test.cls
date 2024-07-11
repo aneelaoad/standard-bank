@@ -83,6 +83,24 @@ private static final String
         }
         Test.stopTest();
     }
+    
+    @IsTest
+	private static void testPDFREF() {
+        Business_Assessment__c assessment = [SELECT Account__c, Account__r.CIF__c From Business_Assessment__c];
+        ApexPages.StandardController controller;
+        nbacPdfExtension nbacPDF;
+            
+        controller = new ApexPages.StandardController(assessment);
+        nbacPDF = new nbacPdfExtension(controller);
+
+		Test.setMock(HttpCalloutMock.class, new IB_SRV_GatewayAPI_Mock(assessment.Account__r.CIF__c, 200));
+        Test.startTest(); 
+		List<NBAC_Real_Estate_Finance__c> refFields = nbacPDF.getNbacRealEstateFinanceFields(); 
+        Assert.areEqual(refFields.size(), 0, 'No Ref fields returned'); 
+        List<SB_Product__c> ancillary = nbacPDF.getAncillaryOpportunities(); 
+        Assert.areEqual(ancillary.size(), 0, 'No Ancillary Opportunity Products returned');  
+        Test.stopTest();
+    }
 
 	@IsTest
 	private static void testPDFQueryNegative() {

@@ -4,8 +4,8 @@
 @Name of the Class : AOB_API_HttpWfrNotify
 @description       : The REST Web Service to update the WFR Status on the Verification from BPM
 @Last Modified By  : Narendra 
-@Last Modified On  : 22 July 2023
-@Modification Description : SFP-27748
+@Last Modified On  : 03 July 2024
+@Modification Description : SFP-39934
 ***************************************************************************************/
 global with sharing class AOB_API_HttpWfrNotify extends CMN_API_HttpBaseInbound {
     
@@ -39,11 +39,12 @@ global with sharing class AOB_API_HttpWfrNotify extends CMN_API_HttpBaseInbound 
                     if(verification.size() > 0){
                         verification[0].AOB_WFR_Status__c = dtData.wfrStatus;
                         verification[0].AOB_WFR_ErrorCode__c = dtData.wfrMessage;
-                        verification[0].AOB_WFR_Message__c = dtData.wfrErrorCode;
-                        update verification[0];
+                        verification[0].AOB_WFR_Message__c = 'Inbound Message :'+dtData.wfrErrorCode;
                         if(dtData.wfrStatus == VERIFICATION_PASSED){
-                            callCompleteAoIDV(applicationId);
-                        }                        
+                            callCompleteAoIDV(applicationId,verification[0]);
+                        }else{
+                            update verification;
+                        } 
                         response.responseBody = Blob.valueOf('{"Id":"' + app[0].Id +'","code":"' + 200 + '","message":"' + SUCCESS_MESSAGE + '"} ');
                     }else{
                         response.responseBody = Blob.valueOf('{"Id":"' + app[0].Id +'","code":"' + 200 + '","message":"' + VERIFICATION_NOT_FOUND + '"} ');
@@ -125,18 +126,18 @@ global with sharing class AOB_API_HttpWfrNotify extends CMN_API_HttpBaseInbound 
 
     /**
     * @description mock process request URL to test exceptions
-    * @param applicationId this is the full http request structure
+    * @param applicationId String
+    * @param verificationRecord Verification__c
     */
-    @future(callout=true) 
-    public static void callCompleteAoIDV(String applicationId){ 
+    public static void callCompleteAoIDV(String applicationId, Verification__c verificationRecord){ 
         String totalResponse;
         AOB_API_CompleteAO_IDV customerServiceCall = new AOB_API_CompleteAO_IDV(applicationId);
         CMN_WebserviceCallQueue__c obj=CMN_DAL_DataFactory.newOutboundWebserviceQueue(AOB_API_CompleteAO_IDV.SERVICE_NAME);
-        if(!Test.isRunningTest()){
-            customerServiceCall.process(obj); 
-            insert obj;
-            totalResponse = 'Last API service : '+obj.CMN_Service__c +'\n Response Code : '+obj.CMN_StatusCode__c;
-            AOB_CTRL_FormCreator.updateApiService(applicationId, totalResponse);
-        }  
+        customerServiceCall.process(obj); 
+        insert obj;
+        verificationRecord.AOB_WFR_Message__c = verificationRecord.AOB_WFR_Message__c+' OutboundMessage:'+customerServiceCall.getResponseStatusCode() + 'WebServiceID:'+obj.Id;
+        update verificationRecord;
+        totalResponse = 'Last API service : '+obj.CMN_Service__c +'\n Response Code : '+obj.CMN_StatusCode__c;
+        AOB_CTRL_FormCreator.updateApiService(applicationId, totalResponse);
     } 
 }

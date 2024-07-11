@@ -23,6 +23,10 @@
  * @last modified by  : Maksim Dzianisik
  * @last modified on  : Apr 2024
  * @description       : SFP-38424 fixed ERS calculation
+ * 
+ * @last modified by  : Maksim Dzianisik
+ * @last modified on  : Jun 2024
+ * @description       : SFP-39185 fixed ERS calculation for product with empty draw down profile
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount')
 public with sharing class DMN_SB_Product extends fflib_SObjectDomain{
@@ -294,8 +298,18 @@ public with sharing class DMN_SB_Product extends fflib_SObjectDomain{
                                     prod.Opportunity__r.Actual_Close_Date__c :
                                     null;
             //SFP-16242: If product Division is IB then Draw Date is used for ERS calculations
-            Date dtIBProductDate = prod.Product_Division__c == 'Investment Banking' && prod.RecordType.Name == 'Lending and Commitments' ?
-                    prod.Earliest_Draw_Date_Rollup__c : NULL ;
+            Date dtIBProductDate = null;
+            if (prod.Product_Division__c == 'Investment Banking' && prod.RecordType.Name == 'Lending and Commitments') {
+                if (prod.Earliest_Draw_Date_Rollup__c != null) {
+                    dtIBProductDate = prod.Earliest_Draw_Date_Rollup__c;
+                }else {
+                    if (prod.Opportunity__r.StageName == DMN_Opportunity.ST_DEVELOP || prod.Opportunity__r.StageName == DMN_Opportunity.ST_LEAD) {
+                        dtIBProductDate = prod.Opportunity__r.CloseDate;
+                    } else if (prod.Opportunity__r.StageName == DMN_Opportunity.ST_CLOSED_WON) {
+                        dtIBProductDate = prod.Opportunity__r.Actual_Close_Date__c;
+                    }
+                }
+            }
             
             //SFP-38424 Prod incident with x2 ERS
             Boolean needErsBasedOnOpp = true;

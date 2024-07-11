@@ -7,6 +7,10 @@
 * @ Last Modified By  : Collen Phundulu
 * @ Last Modified On  : March 26, 2024
 * @ Modification Description : SFP-32369: Added logic to check if attendee is TxB user to share Event report with TxB Heads 
+*
+* @ Last Modified By  : Augustine Chirombo
+* @ Last Modified On  : June 13, 2024
+* @ Modification Description : SFP-39254: Added checks on map keys on user map for Report attendee contacts
 */
 public class DMN_CallReportAttendee {
     
@@ -28,22 +32,21 @@ public class DMN_CallReportAttendee {
         }
         if(contactUserMap.values().size() > 0){
             for (Call_Report_Attendees__c attendee : attendees) {
-                if (contactUserMap.get(attendee.Contact_id__c).User_Division__c == 'Transactional Products and Services') {
+                if(contactUserMap.containsKey(attendee.Contact_id__c)){
+                    if (contactUserMap.get(attendee.Contact_id__c).User_Division__c == DMN_User.TPS_DIVISION) {
                     eventReportsToShare.add(attendee.Call_Report__c);
                 }
+            } 
             } 
             
             if(!eventReportsToShare.isEmpty()) {
                 updateTxBEventReports(eventReportsToShare);
             }
         }
-        
-        
     }
     
     /**
-* Method is updating a Call_Report__c C_Suite_Attendance__c field based on the related attendee contact's contact category
-*
+    * @description Method is updating a Call_Report__c C_Suite_Attendance__c field based on the related attendee contact's contact category
 * @param attendees : list of attendees that have been changed
 */
     public static void updateEventReportCSuiteFlag(List<Call_Report_Attendees__c> attendees) {

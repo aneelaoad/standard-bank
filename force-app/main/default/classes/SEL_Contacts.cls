@@ -1,14 +1,11 @@
-/*****************************************************************************************
- *@Name of the Class: SEL_Contacts
- *@Description      : Contact Selector Layer class.
- *@Author           : Caro Reinecke (caro@khonology.com)
- *@Created Date     : 2018-09-07
- ******************************************************************************************
- *@Last Modified By         : Likhitha Karusala
- *@Last Modified On         : 29 Mar 2024
- *@Modification Description : SFP-30097 Added methods on SEL_Contacts
- ******************************************************************************************/
-@SuppressWarnings('PMD.ExcessivePublicCount,PMD.ExcessiveParameterList')
+/**
+ * @description Contact Selector Layer class.
+ *
+ * @author Caro Reinecke (caro@khonology.com)
+ *
+ * @date 2018-09-07
+ */
+@SuppressWarnings('PMD.ExcessivePublicCount')
 public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
 {
     /**
@@ -37,7 +34,6 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
                 Contact.Contact_Role_s_at_Client__c,
                 Contact.Email,
                 Contact.FirstName,
-                Contact.Account.Name,
                 Contact.Group_Parent_CIF_Number__c,
                 Contact.Id,
                 Contact.Identity_Number__c,
@@ -78,13 +74,11 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
 				Contact.BPID__c,
                 Contact.User_Division_Sync__c,
                 Contact.IndividualId,
-                Contact.HasOptedOutOfEmail,
+            	Contact.HasOptedOutOfEmail,
                 Contact.User_Business_Unit_Sync__c,
                 Contact.ExternalIdentifier__c,
                 Contact.ExternalCIFId__c,
                 Contact.ExternalCIFUUID__c,
-                Contact.IndividualId,
-                Contact.HasOptedOutOfEmail,
                 Contact.Manage_Site_Features__c,
                 Contact.CIF_Number__c,
                 Contact.Register_Mall_Tenant__c,
@@ -106,7 +100,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description Returns list of contacts by id
     *
     * @param idSet Set<Id> set of contact ids
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectById(Set<Id> idSet) {
@@ -119,7 +113,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description Returns list of contacts by id
     *
     * @param idSet Set<Id> set of contact ids
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectByPingUUID(Set<String> idSet) {
@@ -130,9 +124,9 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
 
     /**
     * @description Get records by ClientId
-	 *
+	*
     * @param  clientId Set of IDs
-	 *
+	*
     * @return List<Contact>
     */
     public List<Contact> selectByClientId(Set<Id> clientId) {
@@ -161,9 +155,9 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
 
     /**
     * @description Get records by OnboardAppId
-	 *
+	*
     * @param  onboardId Set of IDs
-	 *
+	*
     * @return List<Contact>
     */
     public List<Contact> selectByOnboardAppId(Set<Id> onboardId) {
@@ -178,7 +172,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description Returns record with cropped fields for registartion page
     *
     * @param idSet Set<Id> set of ids
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectByIdForRegistration(Set<Id> idSet) {
@@ -213,7 +207,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description Selects authorised person contact by related account id
     *
     * @param idSet Set<Id> set of related account ids
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectAuthorisedPersonByAccountId(Set<Id> idSet) {
@@ -230,7 +224,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description returns KYC contact list, by id of related account
     *
     * @param idSet Set<Id> set of ids
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectKYCContactByAccountId(Set<Id> idSet) {
@@ -247,7 +241,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description returns list of contacts by id of related User
     *
     * @param ids Set<Id> set of ids
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectByUserId(Set<Id> ids) {
@@ -269,7 +263,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @param emails Set<String> set of emails
     * @param idNumbers Set<String> set of custom identity numbers
     * @param passportNumbers Set<String> set of passport numbers
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectByEmailIdentityPassport(
@@ -290,7 +284,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description Returns lsit of contacts by custom identity number
     *
     * @param identityNumbers Set<String> set of custom identity numbers
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectByIdentityNumber(Set<String> identityNumbers) {
@@ -358,7 +352,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @param firstNames Set<String> set of first names
     * @param lastNames Set<String> set of last names
     * @param emails Set<String> set of emails
-	 *
+	*
     * @return list of selected contacts
     */
     public List<Contact> selectByFirstNameLastNameEmail(
@@ -400,7 +394,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     *
     * @param names Set<String> set of names
     * @param emails Set<String> set of emails
-	 *
+	*
     * @return list of selected contacs
     */
     public List<Contact> selectByNameEmailPingId(
@@ -453,11 +447,11 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
                     );
     }
 
-     /**
+    /**
     * @description Select contact with Business_Interests__c and Interests__c by related user id
     *
     * @param ids related user's id
-	 *
+	*
     * @return Contact
     */
 	public Contact selectByIdWithInterests(Id ids)
@@ -480,7 +474,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
      * @return list of contacts
      */
     public List<Contact> selectByIdWoSharing(Set<Id> ids) {
-        return new NoContactSharing().selectById(this, ids);
+        return new WithoutSharing().selectById(this, ids);
     }
 
     /**
@@ -493,7 +487,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
 	 */
 	public List<Contact> selectByExternalIdentifiersWoSharing(Set<String> externalIds)
 	{
-		return new NoContactSharing().selectByExternalIdentifiers(this, externalIds);
+		return new WithoutSharing().selectByExternalIdentifiers(this, externalIds);
 	}
 
 	/**
@@ -507,7 +501,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     public List<Contact> selectByIdentityNumberWoSharing(
         Set<String> identityNumbers
     ) {
-        return new NoContactSharing()
+        return new WithoutSharing()
             .selectByIdentityNumber(this, identityNumbers);
     }
 
@@ -520,7 +514,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
      * @return list of contacts
      */
     public List<Contact> selectByUserIdWoSharing(Set<Id> ids) {
-        return new NoContactSharing().selectContactByUserId(this, ids);
+        return new WithoutSharing().selectContactByUserId(this, ids);
     }
 
     /**
@@ -532,7 +526,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
      * @return list of contacts
      */
     public List<Contact> selectByIndustryUserIdWoSharing(Set<Id> ids) {
-        return new NoContactSharing().selectByIndustryUserId(this, ids);
+        return new WithoutSharing().selectByIndustryUserId(this, ids);
     }
 
     /**
@@ -547,10 +541,11 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
         Set<String> names,
         Set<String> emails
     ) {
-        return new NoContactSharing()
+        return new WithoutSharing()
             .selectContactByNameEmailPingId(this, names, emails);
     }        
 
+   
     /**
     * @description check if exists a SF's user with the validation code sended it
     *
@@ -600,13 +595,13 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     /**
      * @description Is used for omitting sharing setting, when needed
      */
-    private without sharing class NoContactSharing {
+    private without sharing class WithoutSharing {
         /**
         * @description Returns list of contacts by id without sharing
         *
         * @param selContact SEL_Contacts Contact selector instance
         * @param ids Set<Id> set of ids
-		 *
+		*
         * @return list of selected contacts
         */
         public List<Contact> selectById(SEL_Contacts selContact, Set<Id> ids) {
@@ -630,7 +625,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
         *
         * @param selContact SEL_Contacts Contact selector instance
         * @param identityNumbers Set<String> set of custom identity numbers
-		 *
+		*
         * @return list of selected contacts
         */
         public List<Contact> selectByIdentityNumber(
@@ -645,7 +640,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
         *
         * @param selContact SEL_Contacts Contact selector instance
         * @param ids Set<Id> set of related user's ids
-		 *
+		*
         * @return list of selected contacts
         */
         public List<Contact> selectContactByUserId(
@@ -660,7 +655,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
         *
         * @param selContact SEL_Contacts Contact selector instance
         * @param ids Set<Id> set of related user's ids
-		 *
+		*
         * @return list of selected contacts
         */
         public List<Contact> selectByIndustryUserId(
@@ -676,7 +671,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
         * @param selContact SEL_Contacts Contact selector instance
         * @param names Set<String> set of names
         * @param emails Set<String> set of emails
-		 *
+		*
         * @return list of selected contacts
         */
         public List<Contact> selectContactByNameEmailPingId(
@@ -691,7 +686,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
     * @description Select contact for Contact flow for handling consents 
     *
     * @param ids ids
-	 *
+	*
     * @return Contact
     */
     public Contact[] selectByIdforConsentFlow(Id[] ids)
@@ -720,7 +715,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
 	* @param groupPricing
     * @return List<Contact> list of selected contacts
     */
-    public List<Contact> selectContactByContactRole(Id clientAccount,String pricing,String groupPricing) {
+    public List<Contact> selectContactByContactRole(Id clientAccount) {
         return (List<Contact>) Database.query(
             newQueryFactory()
                 .selectField('Id')
@@ -732,7 +727,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
                 .selectField('Contact_Role_s_at_Client__c')
                 .selectField('Name')
                 .setCondition(
-                    'Contact_Role_s_at_Client__c in (:Pricing,:GroupPricing) and  AccountId =:clientAccount and Inactive__c = false'
+                    'Contact_Role_s_at_Client__c includes (\'Pricing Contact\',\'Group Pricing Contact\') and  AccountId =:clientAccount and Inactive__c = false'
                 )
                 .toSOQL()
         );
@@ -747,7 +742,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
 	* @param checkedMail
     * @return Contact list of selected contacts
     */
-    public Contact selectContactByEmail(Id clientAccount,String pricing,String groupPricing,String checkedMail) {
+    public Contact selectContactByEmail(Id clientAccount,String checkedMail) {
         return (Contact) Database.query(
             newQueryFactory()
                 .selectField('Id')
@@ -759,7 +754,7 @@ public inherited sharing class SEL_Contacts extends fflib_SObjectSelector
                 .selectField('Contact_Role_s_at_Client__c')
                 .selectField('Name')
                 .setCondition(
-                    'Contact_Role_s_at_Client__c in (:Pricing,:GroupPricing) and  AccountId =:clientAccount and Email =:checkedMail'
+                    'Contact_Role_s_at_Client__c includes (\'Pricing Contact\',\'Group Pricing Contact\') and  AccountId =:clientAccount and Email =:checkedMail'
                 )
                 .toSOQL()
         );

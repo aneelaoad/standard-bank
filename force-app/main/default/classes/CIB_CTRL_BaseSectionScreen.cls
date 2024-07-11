@@ -60,7 +60,7 @@ public without sharing class CIB_CTRL_BaseSectionScreen {
    * @param recordId
    * @return List<Application_Section__c>
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled(cacheable=false)
   public static List<Application_Section__c> getApplicatinSections(
     String recordId
   ) {

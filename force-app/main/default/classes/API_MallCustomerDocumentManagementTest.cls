@@ -47,7 +47,9 @@ private with sharing class API_MallCustomerDocumentManagementTest {
 
         Test.startTest();
         Test.SetMock(HttpCallOutMock.class, new MallDocumentMock());
-        String documentDownloadResponse = CTRL_MallDocumentManagement.getCustomerDocumentByUUID('0001100');
+       //String documentDownloadResponse = CTRL_MallDocumentManagement.getCustomerDocumentByUUID('0001100');
+
+        CTRL_MallDocumentManagement.MallDocumentLinkResponse documentDownloadResponse = CTRL_MallDocumentManagement.getCustomerDocumentByUUID('0001100');
         Assert.isTrue(documentDownloadResponse != NULL, 'document response should not be null');
         Test.stopTest();
     }

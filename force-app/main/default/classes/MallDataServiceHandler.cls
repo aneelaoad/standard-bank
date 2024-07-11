@@ -144,22 +144,6 @@ public with sharing class MallDataServiceHandler {
             tagWithShopsIdsSet.add(shop.tagId);
         }
         tagWithShopsIdsLst.addAll(tagWithShopsIdsSet);
-
-        //get products by segments and categories
-        List<DenormalizedProduct> offerings = getProductsBySegmentAndCategoryIds(segmentIds, activeCategoryIds);
-        List<DenormalizedProduct> products = new List<DenormalizedProduct>();
-        List<DenormalizedProduct> services = new List<DenormalizedProduct>();
-        List<DenormalizedProduct> guidedSolutions = new List<DenormalizedProduct>();
-
-        Set<String> tagWithProductsIdsSet = new Set<String>();
-        List<String> tagWithProductsIdsLst = new List<String>();
-        for(DenormalizedProduct offering : offerings ) {
-            tagWithProductsIdsSet.add(offering.tagId);
-            if(offering.offeringType == System.Label.MALL_OFFERING_TYPE_SERVICE) {
-                services.add(offering);
-            }
-        }
-        tagWithProductsIdsLst.addAll(tagWithProductsIdsSet);
         
         //get promotions by segments and categories
         List<DenormalizedPromotion> promotions = getPromotionsBySegmentAndCategoryIds(segmentIds, activeCategoryIds);
@@ -170,22 +154,12 @@ public with sharing class MallDataServiceHandler {
         }
         tagWithPromotionsIdsLst.addAll(tagWithPromotionsIdsSet);
 
-        //get business events by segments and categories
-        List<DenormalizedEvent> events = getEventsBySegmentAndCategoryIds(segmentIds, activeCategoryIds);
-        Set<String> tagWithEventsIdsSet = new Set<String>();
-        List<String> tagWithEventsIdsLst = new List<String>();
-        for(DenormalizedEvent event : events ) {
-            tagWithEventsIdsSet.add(event.tagId);
-        }
-        tagWithEventsIdsLst.addAll(tagWithEventsIdsSet);
-
         List<DenormalizedTag> categoriesWithShopsOrProductsOrPromotions = new List<DenormalizedTag>();
         //Add Categories From Shop Results
         for(DenormalizedTag activeCategory : activeCategories) {
             if(tagWithShopsIdsLst.contains(activeCategory.id) 
-                || tagWithProductsIdsLst.contains(activeCategory.id)
                 || tagWithPromotionsIdsLst.contains(activeCategory.id)
-                || tagWithEventsIdsLst.contains(activeCategory.id)) {
+                ) {
                 categoriesWithShopsOrProductsOrPromotions.add(activeCategory);
             }
         }
@@ -195,12 +169,7 @@ public with sharing class MallDataServiceHandler {
         denormalizedMallState.segments = segments;
         denormalizedMallState.categories = categoriesWithShopsOrProductsOrPromotions;
         denormalizedMallState.shops = shops;
-        denormalizedMallState.products = products;
-        denormalizedMallState.services = services;
-        denormalizedMallState.guidedSolutions = guidedSolutions;
         denormalizedMallState.promotions = promotions;
-        denormalizedMallState.events = events;
-        denormalizedMallState.solutions = solutions;
         denormalizedMallState.mallMultiLanguageContent = MallDataServiceHandler.mallMultiLanguageContent;
 
         return denormalizedMallState;

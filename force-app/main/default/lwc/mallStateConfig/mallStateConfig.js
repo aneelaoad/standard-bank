@@ -43,19 +43,27 @@ const PAGE_TITLE_TEXT =
   "Welcome to BCB Platform, an innovative space by Standard Bank, offering diverse business solutions and premium offerings across 'Bank, Borrow, and Grow' categories. Seamlessly connect with trusted brands, configure your dashboard with onboarded offerings, and explore business events and insights. Join us in this era of innovation, unlocking possibilities for your business success.";
 const TITLE_FIRST_PARAGRAPH = "Your business is our top priority";
 const CONTENT_FIRST_PARAGRAPH =
-  "Get tailor-made banking solutions, use our financial health monitor and never worry about the status of your business’s finances. No two businesses are the same, that’s why we tailor your experience.";
+  "The BCB Platform gives you access to our comprehensive banking, borrowing and investment solutions.";
+  const CONTENT_FIRST_PARAGRAPH_LOWER = "Get tailor-made banking solutions, use our financial health monitor and never worry about the status of your business’s finances. No two businesses are the same, that’s why we tailor your experience.";
 const TITLE_SECOND_PARAGRAPH = "We’re giving you your time back";
 const CONTENT_SECOND_PARAGRAPH =
-  "You can easily track your income and expenses, get expert industry knowledge and access all of your Standard Bank solutions in one place.";
+  "From start-ups to businesses looking to scale up, our solutions ensure you don’t waste time on mundane tasks. You have direct access to everything you need to ensure your business’s success.";
+  const CONTENT_SECOND_PARAGRAPH_LOWER = "You can easily track your income and expenses, get expert industry knowledge and access all of your Standard Bank solutions in one place.";
+  const OPPERATIONS_TITLE ="Explore the BCB Platform";
+  const OPPERATIONS_DESCRIPTION ="Watch a sneak peek of the platform before you get started"
 export default class MallStateConfig extends NavigationMixin(LightningElement) {
   pageTitle = PAGE_TITLE;
   pageTitleText = PAGE_TITLE_TEXT;
   titleFirstParagraph = TITLE_FIRST_PARAGRAPH;
   contentFirstParagraph = CONTENT_FIRST_PARAGRAPH;
+  contentFirstParagraphLower = CONTENT_SECOND_PARAGRAPH_LOWER;
   imgFirstParagraph = sbgVisualAssets + "/homepage-content-image-1.png";
   titleSecondParagraph = TITLE_SECOND_PARAGRAPH;
   contentSecondParagraph = CONTENT_SECOND_PARAGRAPH;
+  contentSecondParagraphLower = CONTENT_SECOND_PARAGRAPH_LOWER;
   imgSecondParagraph = sbgVisualAssets + "/homepage-content-image-2.png";
+  opperationsTitle = OPPERATIONS_TITLE;
+  opperationsDescription = OPPERATIONS_DESCRIPTION;
 
   //maintains the mall state based on hash fragments
   mallHashState = {

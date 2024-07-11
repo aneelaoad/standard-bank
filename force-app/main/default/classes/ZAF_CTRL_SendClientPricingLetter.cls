@@ -20,7 +20,7 @@ public class ZAF_CTRL_SendClientPricingLetter {
         try{
         List<zafin_rrp__Negotiated_Pricing__c> pricingAccount = new SEL_ZafinNegotiatedPricing().selectZafinNegotiationPricingByRecordId(recordId);
         Id clientAccount =   pricingAccount[0].zafin_rrp__Reporting_Customer__c;
-        return new SEL_Contacts().selectContactByContactRole(clientAccount,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_PRICING_CONTACT,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_GROUP_PRICING_CONTACT);
+        return new SEL_Contacts().selectContactByContactRole(clientAccount);
         }catch(Exception e){
           LOGGER.error('Any error message'+e);
          return null;
@@ -42,7 +42,7 @@ public class ZAF_CTRL_SendClientPricingLetter {
          List<contact> conList = new List<contact>();
          List<Messaging.SingleEmailMessage> singleMailList = new List<Messaging.SingleEmailMessage>();
         for(string checkedEmails:customEmail){
-        contact selectedContact = new SEL_Contacts().selectContactByEmail(clientID,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_PRICING_CONTACT,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_GROUP_PRICING_CONTACT,checkedEmails);
+        contact selectedContact = new SEL_Contacts().selectContactByEmail(clientID,checkedEmails);
             if(string.valueOf(selectedContact) != ''){
                 conList.add(selectedContact);
             }

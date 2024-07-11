@@ -1,9 +1,15 @@
 /**
  *
- * Controller class with logic invoked from the OneHub chat bot
+ * @description Controller class with logic invoked from the OneHub chat bot
  *
  * @author Konrad Bruszewski (konrad.bruszewski@standardbank.co.za)
  * @date January 2021
+ * 
+ * @LastModified June 2024
+ * @author Nokuthula Ndala (nokuthula.ndala@standardbank.co.za)
+ * @UserStory SFP-39324
+ * @LastModifiedReason Change to handleGPIResponse method to accomodate for Swift code changes
+ * 
  */
 @SuppressWarnings('PMD.CognitiveComplexity')
 public with sharing class OSB_VA_PaymentTracking_CTRL {
@@ -134,12 +140,20 @@ public with sharing class OSB_VA_PaymentTracking_CTRL {
         }
         List<Long> paymentEventTimes = new List<Long>();
         Map<Long, String> paymentEventTimeBicMap = new Map<Long, String>();
+        List<String> msgTypeList = new List<String>{'103', 'pacs.008.001'};
         for (Object paymentEvent : paymentEvents) {
             Map<String, Object> paymentEventMap = (Map<String, Object>) paymentEvent;
             Long paymentEventTime = paymentEventMap.get('last_update_date_time') != null ? Datetime.valueOf(((String) paymentEventMap.get('last_update_date_time')).replace('T', ' ')).getTime() : null;
             String state = (String) paymentEventMap.get('transaction_status');
             String msgType = (String) paymentEventMap.get('message_name_identification');
-            if (msgType == '103' && (state == 'ACCC' || state == 'ACSP')) {
+            Integer msgTypelength = msgType.length();
+
+            if (msgTypelength > 3){
+                Integer lastDotIndexOfmsgType = msgType.lastIndexOf('.');
+                msgType = msgType.substring(0, lastDotIndexOfmsgType);
+
+            }
+            if (msgTypeList.contains(msgType) && (state == 'ACCC' || state == 'ACSP')) {
                 paymentEventTimes.add(paymentEventTime);
                 paymentEventTimeBicMap.put(paymentEventTime, (String) paymentEventMap.get('to'));
             }

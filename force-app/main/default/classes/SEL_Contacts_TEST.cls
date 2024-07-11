@@ -78,6 +78,13 @@ private class SEL_Contacts_TEST {
         fflib_QueryFactory result = fflib_QueryFactory.lastQueryFactory;
 		Assert.isTrue(result.getCondition().containsIgnoreCase('Identity_Number__c IN: IdentityNumbers'), 'Different condition than expected');
     }
+    
+        @IsTest
+    static void shouldselectByExternalIdentifiers() {
+        SEL_Contacts.newInstance().selectByExternalIdentifiers(new Set<String>());
+        fflib_QueryFactory result = fflib_QueryFactory.lastQueryFactory;
+		Assert.isTrue(result.getCondition().containsIgnoreCase('ExternalIdentifier__c IN: externalIds'), 'Different condition than expected');
+    }
 
     @IsTest
     static void shouldSelectByOneHubManager() {
@@ -214,7 +221,7 @@ private class SEL_Contacts_TEST {
 		Test.stopTest();
     }
     
-    	@isTest
+	@isTest
 	static void selectContactByContactRoleTest() {
            Account testacc=new Account();
         testacc.name='Test Client';
@@ -228,9 +235,28 @@ private class SEL_Contacts_TEST {
         conTest.LastName = 'Test';
         insert conTest;
         SEL_Contacts contact = new SEL_Contacts();
-        contact.selectContactByContactRole(acc.Id ,'Pricing Contact','Group Pricing Contact');
+        contact.selectContactByContactRole(acc.Id);
         fflib_QueryFactory result = fflib_QueryFactory.lastQueryFactory;
-        Assert.isTrue(result.getCondition().containsIgnoreCase('Contact_Role_s_at_Client__c in (:Pricing,:GroupPricing) and  AccountId =:clientAccount and Inactive__c = false'), 'Query contains correct condition');
+        Assert.isTrue(result.getCondition().containsIgnoreCase('Contact_Role_s_at_Client__c includes (\'Pricing Contact\',\'Group Pricing Contact\') and  AccountId =:clientAccount and Inactive__c = false'), 'Query contains correct condition');
+    }
+    
+    	@isTest
+	static void selectContactByContactEmailTest() {
+           Account testacc=new Account();
+        testacc.name='Test Client';
+        insert testacc;
+        Account acc=[select id, name from Account where name='Test Client'];
+        
+        Contact conTest = new Contact();
+        conTest.Email = 'Test@test.com';
+        conTest.AccountId = acc.Id;
+        conTest.Contact_Role_s_at_Client__c ='Pricing Contact';
+        conTest.LastName = 'Test';
+        insert conTest;
+        SEL_Contacts contact = new SEL_Contacts();
+        contact.selectContactByEmail(acc.Id ,conTest.Email);
+        fflib_QueryFactory result = fflib_QueryFactory.lastQueryFactory;
+        Assert.isFalse(result.getCondition().containsIgnoreCase('Contact_Role_s_at_Client__c includes (\'Pricing Contact\',\'Group Pricing Contact\') and  AccountId =:clientAccount and Inactive__c = false'), 'Query contains correct condition');
     }
     
 }

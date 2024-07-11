@@ -6,8 +6,13 @@
 * @description added a new invocable method to be called from screen flow to resend the request
 * @author Raja Kumar(raja.kumar@standardbank.co.za)
 * @date Jan 2024
+****************************************************************
+* @description SFP-38486 - Added a method "postChatterMessage" to post chatter message
+* @author Aman Kumar
+* @date 23rd May, 2024
 */
-@SuppressWarnings('PMD.AvoidDeeplyNestedIfStmts')//due to complex requirement to craete the payload we had to use nested ifs and thats why suppressed the PMD here.
+//due to complex requirement to craete the payload we had to use nested ifs and thats why suppressed the PMD here.
+@SuppressWarnings('PMD.AvoidDeeplyNestedIfStmts')
 public without sharing class OMF_API_OnboardMyFundServiceJSON extends CMN_API_HttpBase{
     private static final sbgplatform.rflib_Logger LOGGER = sbgplatform.rflib_LoggerUtil.getFactory().createLogger('OMF_API_OnboardMyFundServiceJSON');
     private Id clientId;
@@ -135,7 +140,8 @@ public without sharing class OMF_API_OnboardMyFundServiceJSON extends CMN_API_Ht
         OnboardingResponse onboardingResponse  = new OnboardingResponse();
         if(res!=null){
             String responseJson = res.getBody();
-            Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(responseJson);
+            
+            Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(responseJson); 
             String salesforceId = (String)jsonMap.get('salesforce_id');
             Map<String, Object> requestStatusCode = (Map<String, Object>) jsonMap.get('RequestStatusCode');
             String success = (String) requestStatusCode.get('Success');
@@ -152,6 +158,7 @@ public without sharing class OMF_API_OnboardMyFundServiceJSON extends CMN_API_Ht
             }
             return onboardingResponse;
         }
+
         return onboardingResponse;
     }
     
@@ -159,6 +166,10 @@ public without sharing class OMF_API_OnboardMyFundServiceJSON extends CMN_API_Ht
         OMF_ManagedFund__c objManagedFundRecord = new OMF_ManagedFund__c();
         objManagedFundRecord.Id = managedFundId;
         objManagedFundRecord.RejectionReason__c = errorMessage;
+        // SFP-38486 - Calling postChatterMessage to post chatter and send an email
+        if(errorMessage.contains('was not found in Goldtier')){
+            postChatterMessage(objManagedFundRecord.Id);
+        }
         try {
             database.update(objManagedFundRecord,false);
         } catch (DmlException e) {
@@ -762,7 +773,41 @@ public without sharing class OMF_API_OnboardMyFundServiceJSON extends CMN_API_Ht
         }
         if(setContentDocumentId.size()>0){
             OMF_SendKYCDocuments.sendEmailWithAttachments(setContentDocumentId,managedFundRecordId,'Credit');
+        }        
+    }
+    /**
+    * @description  Method to send an email and post a chatter Error Message - Fund Exists in Salesforce but Not in Goldtier
+    * @param manageFundId Id 
+    */
+    public static void postChatterMessage(Id manageFundId) {
+        list < OMF_ManagedFund__c > omfList = new SEL_OMF_ManagedFunds().selectedByRecordId(manageFundId);
+        EmailTemplate[] listEmailTemplate = new SEL_EmailTemplate().selectByDeveloperName('OMF_FundNotExistInGoldtier');
+        if (listEmailTemplate.size() > 0 && omfList.size() > 0) {
+            //Send Email
+            Messaging.SingleEmailMessage message = Messaging.renderStoredEmailTemplate(listEmailTemplate[0].Id, omfList[0].CreatedById, omfList[0].Id);
+            Messaging.SingleEmailMessage singleEmail = new Messaging.SingleEmailMessage();
+            singleEmail.setTargetObjectId(omfList[0].CreatedById);
+            singleEmail.setSaveAsActivity(false); // Optional: Set to true if you want to save the email as an activity in Salesforce
+            singleEmail.setSubject(message.getSubject());
+            singleEmail.setPlainTextBody(message.getPlainTextBody());
+            singleEmail.setHtmlBody(message.getHtmlBody());
+            //Get RecipientAddress
+            User reciepient  = new SEL_Users().selectWithContactSyncFieldById(omfList[0].CreatedById);
+            singleEmail.setToAddresses(new List<String>{reciepient.email});
+            if (Limits.getEmailInvocations() < Limits.getLimitEmailInvocations()) {
+                Messaging.sendEmail(new List<Messaging.SingleEmailMessage>{ singleEmail });
+            }else {
+                LOGGER.INFO('Email limit exceeded, cannot send email at this time.');
+            }
+            //insert chatter Post
+            FeedItem objFeedItem = new FeedItem();
+            objFeedItem.ParentId = omfList[0].Id;
+            objFeedItem.Body = message.getPlainTextBody();
+            try {
+                Database.insert(objFeedItem, false);
+            } catch (DmlException e) {
+                LOGGER.error('An error occured while inserting the FeedItem record:', e);
+            }
         }
-        
     }
 }

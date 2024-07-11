@@ -38,10 +38,6 @@
       </div>
     </template>
 
-    <c-mall-slider-parent>
-      
-    </c-mall-slider-parent>
-
 <div class="opperations-container">
     <div class="grid-container-first-content">
       <div class="grid-section__first side-by-side-grid">
@@ -49,6 +45,9 @@
           <h5>{titleFirstParagraph}</h5>
           <lightning-formatted-rich-text
             value={contentFirstParagraph}
+          ></lightning-formatted-rich-text><br>
+          <lightning-formatted-rich-text
+          value={contentFirstParagraphLower}
           ></lightning-formatted-rich-text>
         </div>
         <div class="grid-column img-column">
@@ -80,6 +79,9 @@
           <h5>{titleSecondParagraph}</h5>
           <lightning-formatted-rich-text
             value={contentSecondParagraph}
+          ></lightning-formatted-rich-text><br>
+          <lightning-formatted-rich-text
+          value={contentSecondParagraphLower}
           ></lightning-formatted-rich-text>
         </div>
       </div>
@@ -88,17 +90,17 @@
     <c-mall-solutions-banner></c-mall-solutions-banner>
     <c-mall-state-insights></c-mall-state-insights>
     
-    <div class="grid-container-first-content">
+    <div class="opperations-outer-container">
       <div class="grid-section__first side-by-side-grid">
         <div class="grid-column">
-          <h5>Fine-tune your operations</h5>
+          <h5>{opperationsTitle}</h5>
           <lightning-formatted-rich-text
-            value="Improve efficiency and drive results with tools and features built to fuel growth across locations, channels and teams."
+            value={opperationsDescription}
           ></lightning-formatted-rich-text>
-          <div class="opperations-view-demo-button"><a>EXPLORE OUR DEMO</a></div>
+          <div class="opperations-view-demo-button"><a>WATCH OUR DEMO</a></div>
         </div>
         <div class="grid-column img-column">
-          <div class="img-wrapper">
+          <div class="opperations">
             <img
               loading="lazy"
               src={mallHomeOperationsImage}

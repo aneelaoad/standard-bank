@@ -1,8 +1,11 @@
 /**
- * @description Get User Information in a Chat Bot
- * @author Maham Hassan
- * @since 
- */
+* @description Get User Information in a Chat Bot
+* @author Ankit Kumar
+* @date Jan 5th 2023
+* @Last Modified By  : Ankit Kumar 
+* @Last Modified On  : 27 May 2024
+* @Modification Description : SFP-12233
+*/
 public with sharing class MallChatBot_GetUserInfo {
     /**
      * 
@@ -15,6 +18,8 @@ public with sharing class MallChatBot_GetUserInfo {
         public String sLastName;
         @InvocableVariable
         public String sEmail;
+        @InvocableVariable
+        public String sPhone;
         @InvocableVariable
         public String sContactID;
         @InvocableVariable
@@ -55,10 +60,11 @@ public with sharing class MallChatBot_GetUserInfo {
             if (sContactId != null && sContactId != '') {
                 List<Contact> contacts = SEL_Contacts.newInstance().selectById(new Set<Id>{(Id)sContactId});
                 if (contacts.size()>0) {
-                    outputParameter.sFirstName = contacts[0].FirstName;
-                    outputParameter.sLastName = contacts[0].LastName;
-                    outputParameter.sEmail = contacts[0].Email;
-                    outputParameter.sContactId = contacts[0].Id;
+                    outputParameter.sFirstName = contacts.get(0).FirstName;
+                    outputParameter.sLastName = contacts.get(0).LastName;
+                    outputParameter.sEmail = contacts.get(0).Email;
+                    outputParameter.sContactId = contacts.get(0).Id;
+                    outputParameter.sPhone = contacts.get(0).Phone;
                 }
             }
             outputParameters.add(outputParameter);

@@ -7,7 +7,11 @@
 @ Last Modified On  : 10-03-2023
 @ Modification Description : SFP
 ***************************************************************************************/
-public with sharing class CIB_CTRL_ApplicationZipFileDownload {
+public without sharing class CIB_CTRL_ApplicationZipFileDownload {
+  /**
+   * @description : The logger for this class.
+   * @var sbg.rflib_Logger
+   */
   private static final sbgplatform.rflib_Logger LOGGER = sbgplatform.rflib_LoggerUtil.getFactory()
     .createLogger('CIB_CTRL_ApplicationZipFileDownload');
 
@@ -18,11 +22,10 @@ public with sharing class CIB_CTRL_ApplicationZipFileDownload {
    */
   @AuraEnabled
   public static List<GetFileIdOutputWrapper> getfileIds(String recordId) {
-    Set<Id> contentDocumentIds = new Set<Id>();
-    List<Id> contentVersionIds = new List<Id>();
+    Set<Id> contDocIds = new Set<Id>();
     Set<id> documentIds = new Set<Id>();
     Map<Id, GetFileIdOutputWrapper> output = new Map<Id, GetFileIdOutputWrapper>();
-    Map<Id, Id> appDocIdToContentVersionId = new Map<Id, Id>();
+    Map<Id, Id> appDocIdToConVerId = new Map<Id, Id>();
 
     if (String.isBlank(recordId)) {
       return new List<GetFileIdOutputWrapper>();
@@ -49,15 +52,14 @@ public with sharing class CIB_CTRL_ApplicationZipFileDownload {
       ContentDocumentLink cdl : new SEL_ContentDocumentLink()
         .selectByLinkedEntityId(documentIds)
     ) {
-      appDocIdToContentVersionId.put(cdl.ContentDocumentId, cdl.LinkedEntityId);
+      appDocIdToConVerId.put(cdl.ContentDocumentId, cdl.LinkedEntityId);
     }
 
     for (
       ContentVersion cdv : new SEL_ContentVersion()
-        .selectByContentDocumentId(appDocIdToContentVersionId.keySet())
+        .selectByContentDocumentId(appDocIdToConVerId.keySet())
     ) {
-      contentVersionIds.add(cdv.Id);      
-      Id linkedEntityId = appDocIdToContentVersionId.get(cdv.ContentDocumentId);
+      Id linkedEntityId = appDocIdToConVerId.get(cdv.ContentDocumentId);
       GetFileIdOutputWrapper doc = output.get(linkedEntityId);
       doc.documentId = cdv.Id;
       doc.documentType += '.' + cdv.FileType.toLowerCase();
@@ -101,10 +103,15 @@ public with sharing class CIB_CTRL_ApplicationZipFileDownload {
    */
   @AuraEnabled
   public static String getSessionId() {
-    String content = '{sessionId:"' + UserInfo.getSessionId() + '"}';
-    Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(
-      content
-    );
-    return (String) jsonMap.get('sessionId');
+    try {
+      final String content = Page.CIB_APISessionIdHelper.getContent()
+        .toString();
+      Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(
+        content
+      );
+      return (String) jsonMap.get('sessionId');
+    } catch (Exception error) {
+      return UserInfo.getSessionId();
+    }
   }
 }

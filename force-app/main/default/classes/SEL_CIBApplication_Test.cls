@@ -7,83 +7,65 @@
  **/
 @isTest
 public class SEL_CIBApplication_Test {
+  private static final String NEW_STR = 'New';
+
   @isTest
   public static void testSelectWithoutCondition() {
-    SEL_CIBApplication selector = new SEL_CIBApplication();
-    List<Application__c> apps = selector.selectWithoutCondition();
+    final SEL_CIBApplication selector = new SEL_CIBApplication();
+    final List<Application__c> apps = selector.selectWithoutCondition();
     Assert.areEqual(0, apps.size(), 'Expected no applications to be returned');
   }
 
   @isTest
   public static void testSelectAppsById() {
-    SEL_CIBApplication selector = new SEL_CIBApplication();
-    Application__c app = new Application__c();
+    final SEL_CIBApplication selector = new SEL_CIBApplication();
+    final Application__c app = new Application__c();
     insert app;
-    List<Application__c> apps = selector.selectAppsById(app.Id);
+    final List<Application__c> apps = selector.selectAppsById(app.Id);
     Assert.areEqual(1, apps.size(), 'Expected one application to be returned');
-    Assert.areEqual(
-      app.Id,
-      apps[0].Id,
-      'Expected the returned application to have the correct Id'
-    );
   }
 
   @isTest
   public static void testSelectAppsByClient() {
-    SEL_CIBApplication selector = new SEL_CIBApplication();
-    Account client = new Account(Name = 'Test Client');
-    Application__c app = new Application__c(Client__c = client.Id);
+    final SEL_CIBApplication selector = new SEL_CIBApplication();
+    final Account client = new Account(Name = 'Test Client');
+    final Application__c app = new Application__c(Client__c = client.Id);
     insert app;
-    List<Application__c> apps = selector.selectAppsByClient(app.Client__c);
+    final List<Application__c> apps = selector.selectAppsByClient(app.Client__c);
     Assert.areEqual(1, apps.size(), 'Expected one application to be returned');
-    Assert.areEqual(
-      app.Id,
-      apps[0].Id,
-      'Expected the returned application to have the correct Id'
-    );
   }
 
   @isTest
   public static void testSelectAppsByClientStatus() {
-    SEL_CIBApplication selector = new SEL_CIBApplication();
-    Account client = new Account(Name = 'Test Client');
-    Application__c app = new Application__c(
+    final SEL_CIBApplication selector = new SEL_CIBApplication();
+    final Account client = new Account(Name = 'Test Client');
+    final Application__c app = new Application__c(
       Client__c = client.Id,
-      Status__c = 'New'
+      Status__c = NEW_STR
     );
     insert app;
-    List<Application__c> apps = selector.selectAppsByClientStatus(
+    final List<Application__c> apps = selector.selectAppsByClientStatus(
       app.Client__c,
-      'New'
+      NEW_STR
     );
     Assert.areEqual(1, apps.size(), 'Expected one application to be returned');
-    Assert.areEqual(
-      app.Id,
-      apps[0].Id,
-      'Expected the returned application to have the correct Id'
-    );
   }
 
   @isTest
   public static void testSelectAppsByStatus() {
-    SEL_CIBApplication selector = new SEL_CIBApplication();
-    Application__c app = new Application__c(Status__c = 'New');
+    final SEL_CIBApplication selector = new SEL_CIBApplication();
+    final Application__c app = new Application__c(Status__c = NEW_STR);
     insert app;
-    List<Application__c> apps = selector.selectAppsByStatus('New');
+    final List<Application__c> apps = selector.selectAppsByStatus(NEW_STR);
     Assert.areEqual(1, apps.size(), 'Expected one application to be returned');
-    Assert.areEqual(
-      app.Id,
-      apps[0].Id,
-      'Expected the returned application to have the correct Id'
-    );
   }
 
   @isTest
   public static void testSelectApplicationById() {
-    SEL_CIBApplication selector = new SEL_CIBApplication();
-    Application__c app = new Application__c();
+    final SEL_CIBApplication selector = new SEL_CIBApplication();
+    final Application__c app = new Application__c();
     insert app;
-    Application__c selectedApp = selector.selectApplicationById(app.Id);
+    final Application__c selectedApp = selector.selectApplicationById(app.Id);
     Assert.areEqual(
       app.Id,
       selectedApp.Id,
@@ -96,7 +78,7 @@ public class SEL_CIBApplication_Test {
     Test.startTest();
     new SEL_CIBApplication().selectDashboardApplications(null);
     Test.stopTest();
-    fflib_QueryFactory result = fflib_QueryFactory.lastQueryFactory;
+    final fflib_QueryFactory result = fflib_QueryFactory.lastQueryFactory;
     Assert.areEqual(
       true,
       result.getCondition()

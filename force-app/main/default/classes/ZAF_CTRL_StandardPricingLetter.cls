@@ -18,7 +18,7 @@ public class ZAF_CTRL_StandardPricingLetter {
     @AuraEnabled(cacheable = true)
     public static List<contact> sendEmailToController(Id recordId){
         try{
-            return new SEL_Contacts().selectContactByContactRole(recordId,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_PRICING_CONTACT,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_GROUP_PRICING_CONTACT);
+            return new SEL_Contacts().selectContactByContactRole(recordId);
         }catch(Exception e){
             LOGGER.error('Any error message'+e);
             return null;
@@ -54,7 +54,7 @@ public class ZAF_CTRL_StandardPricingLetter {
         List<contact> conList = new List<contact>();
                  List<Messaging.SingleEmailMessage> singleMailList = new List<Messaging.SingleEmailMessage>();
         for(string checkedEmails:customEmail){
-            contact con = new SEL_Contacts().selectContactByEmail(recordId,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_PRICING_CONTACT,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_GROUP_PRICING_CONTACT,checkedEmails);
+            contact con = new SEL_Contacts().selectContactByEmail(recordId,checkedEmails);
             if(string.valueOf(con) != ''){
                 conList.add(con);
             }
@@ -119,7 +119,7 @@ public class ZAF_CTRL_StandardPricingLetter {
         List<contact> conList = new List<contact>();
         List<Messaging.SingleEmailMessage> singleMailList = new List<Messaging.SingleEmailMessage>();
         for(string checkedEmails:customEmail){
-            contact con = new SEL_Contacts().selectContactByEmail(recordId,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_PRICING_CONTACT,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_GROUP_PRICING_CONTACT,checkedEmails);
+            contact con = new SEL_Contacts().selectContactByEmail(recordId,checkedEmails);
             if(string.valueOf(con) != ''){
                 conList.add(con);
             }
@@ -184,7 +184,7 @@ public class ZAF_CTRL_StandardPricingLetter {
         List<contact> conList = new List<contact>();
         List<Messaging.SingleEmailMessage> singleMailList = new List<Messaging.SingleEmailMessage>();
         for(string checkedEmails:customEmail){
-            contact con = new SEL_Contacts().selectContactByEmail(recordId,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_PRICING_CONTACT,ZAF_CTRL_ClientPricingLetterConstants.ZAFIN_GROUP_PRICING_CONTACT,checkedEmails);
+            contact con = new SEL_Contacts().selectContactByEmail(recordId,checkedEmails);
             if(string.valueOf(con) != ''){
                 conList.add(con);
             }

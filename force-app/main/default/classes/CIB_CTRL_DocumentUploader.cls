@@ -47,6 +47,11 @@ global without sharing class CIB_CTRL_DocumentUploader {
     public String base64 { get; set; }
 
     /**
+     * @description  : The ID of the content document associated with the uploaded document.
+     */
+    public String contentDocumentId { get; set; }
+
+    /**
      * @description  : The file extension of the uploaded document.
      */
     public String documentExtension { get; set; }
@@ -134,14 +139,14 @@ global without sharing class CIB_CTRL_DocumentUploader {
       input
     );
 
-    final ContentVersion cVersion = createContentVersion(
-      input.documentName,
-      input.base64,
-      input.documentExtension
-    );
+    // final ContentVersion cVersion = createContentVersion(
+    //   input.documentName,
+    //   input.base64,
+    //   input.documentExtension
+    // );
 
     createContentDocumentLink(
-      cVersion,
+      input.contentDocumentId,
       appDoc,
       applicationId,
       applicationParticipantId
@@ -149,7 +154,7 @@ global without sharing class CIB_CTRL_DocumentUploader {
 
     final UploadFileOutputWrapper output = new UploadFileOutputWrapper();
     output.documentId = appDoc.Id;
-    output.documentUrl = cVersion.VersionDataUrl;
+    output.documentUrl = input.contentDocumentId;
 
     return output;
   }
@@ -360,7 +365,7 @@ global without sharing class CIB_CTRL_DocumentUploader {
    * @return A list of ContentDocumentLink records created for the given ContentVersion and Application_Document__c record.
    */
   public static List<ContentDocumentLink> createContentDocumentLink(
-    ContentVersion cVersion,
+    String contentDocumentId,
     Application_Document__c appDoc,
     Id applicationId,
     Id applicationParticipantId
@@ -369,7 +374,7 @@ global without sharing class CIB_CTRL_DocumentUploader {
 
     ContentDocumentLink link = new ContentDocumentLink();
     link.LinkedEntityId = appDoc.Id;
-    link.ContentDocumentId = cVersion.ContentDocumentId;
+    link.ContentDocumentId = contentDocumentId;
     link.ShareType = 'V';
     links.add(link);
 

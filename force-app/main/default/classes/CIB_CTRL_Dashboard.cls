@@ -7,7 +7,7 @@
 @ Last Modified On  : 10-02-2023
 @ Modification Description : SFP-23731, SFP-25235
 ***************************************************************************************/
-public with sharing class CIB_CTRL_Dashboard {
+public without sharing class CIB_CTRL_Dashboard {
   private static final sbgplatform.rflib_Logger LOGGER = sbgplatform.rflib_LoggerUtil.getFactory()
     .createLogger('CIB_CTRL_Dashboard');
   /**
@@ -21,7 +21,7 @@ public with sharing class CIB_CTRL_Dashboard {
       .selectById(new Set<Id>{ userId })
       .get(0);
     List<Application__c> applications = new SEL_CIBApplication()
-      .selectDashboardApplications(loggedInUser.ContactId);
+      .selectDashboardApplications(loggedInUser.ContactId ?? loggedInUser.Contact_Sync_ID__c);
     return applications;
   }
   /**

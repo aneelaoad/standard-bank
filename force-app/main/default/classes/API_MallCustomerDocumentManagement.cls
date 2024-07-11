@@ -91,8 +91,6 @@ public with sharing class API_MallCustomerDocumentManagement extends CMN_API_Htt
             // targetEndpoint = getWebServiceEndPoint() + '/view/' + documentUUID + '?userId=' + userId;
             // System.debug('download point: '+getWebServiceEndPoint() + '/download/' + documentUUID + '?userId=' + userId);
             // System.debug('view point: '+getWebServiceEndPoint() + '/view/' + documentUUID + '?userId=' + userId);
-
-
             httpVerb = CMN_API_HttpBase.HTTP_VERB_GET;
             jsonBody = NULL;
             HTTPResponse response = API_MallCustomerDocumentManagement.sendHTTPRequest();

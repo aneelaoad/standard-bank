@@ -56,14 +56,15 @@ public class CTRL_MallDashboardWidgets {
     @AuraEnabled(cacheable=true)
     public static ResponseWrapper getCurrencyExchangeRates(String baseCode) {
         try{
-            API_Mall_GetForeignExchangeRate stub = new API_Mall_GetForeignExchangeRate(baseCode);
-            CMN_WebserviceCallQueue__c queueRecord = CMN_DAL_DataFactory.newOutboundWebserviceQueue(API_Mall_GetForeignExchangeRate.SERVICE_NAME);
-            stub.process(queueRecord); 
-            Map<String, Object> response = (Map<String, Object>) JSON.deserializeUntyped(stub.getResponseBody());
-            ResponseWrapper wrapperObj = new ResponseWrapper();
-            wrapperObj.statusCode = stub.getStatusCode();
-            wrapperObj.message = response;
-            return wrapperObj;
+            // API_Mall_GetForeignExchangeRate stub = new API_Mall_GetForeignExchangeRate(baseCode);
+            // CMN_WebserviceCallQueue__c queueRecord = CMN_DAL_DataFactory.newOutboundWebserviceQueue(API_Mall_GetForeignExchangeRate.SERVICE_NAME);
+            // stub.process(queueRecord); 
+            // Map<String, Object> response = (Map<String, Object>) JSON.deserializeUntyped(stub.getResponseBody());
+            // ResponseWrapper wrapperObj = new ResponseWrapper();
+            // wrapperObj.statusCode = stub.getStatusCode();
+            // wrapperObj.message = response;
+            // return wrapperObj;
+            return NULL;
         }
         catch(Exception e) {
             throw MallExceptionUtil.throwAuraException('CTRL_MallDashboardWidgets.getCurrencyExchangeRates', e);

@@ -48,7 +48,9 @@ public with sharing class CTRL_MallDocumentManagementTest {
         Test.startTest();
         Test.SetMock(HttpCallOutMock.class, new MallDocumentMock());
         String randomString = MALL_OAuth_Util.generateRandomString(15);
-        String mallDocumentResponse = CTRL_MallDocumentManagement.getCustomerDocumentByUUID('0001100');
+       // String mallDocumentResponse = CTRL_MallDocumentManagement.getCustomerDocumentByUUID('0001100');
+          CTRL_MallDocumentManagement.MallDocumentLinkResponse mallDocumentResponse = CTRL_MallDocumentManagement.getCustomerDocumentByUUID('0001100');
+
         ContentDistribution contentDistribution = [SELECT ID, ContentVersionId FROM ContentDistribution LIMIT 1];
         String status = CTRL_MallDocumentManagement.deleteDocumentDownloaded(contentDistribution.ContentVersionId);
         Assert.isTrue(mallDocumentResponse != NULL, 'document response should not be null');

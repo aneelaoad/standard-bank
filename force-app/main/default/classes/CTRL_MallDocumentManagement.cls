@@ -25,7 +25,7 @@ public with sharing class CTRL_MallDocumentManagement {
             MallCustomerAccountListResponse accountListResponse;
             String pingBPGUID = getCustomerPBGUID();
             if(String.isBlank(pingBPGUID)) {
-                throw MallExceptionUtil.throwAuraException('CTRL_MallDocumentManagement.getCustomerAccountList', new AuraHandledException('Customer BPGUID should not be empty'));
+               throw MallExceptionUtil.throwAuraException('CTRL_MallDocumentManagement.getCustomerAccountList', new AuraHandledException('Customer BPGUID should not be empty'));
             }
             if(String.isNotBlank(pingBPGUID)) {
                 accountListResponse = API_MallCustomerAccountList.getCustomerAccountList(pingBPGUID);
@@ -196,7 +196,7 @@ public with sharing class CTRL_MallDocumentManagement {
             if(contentIdVsLink != NULL) {
                 documentLinks = contentIdVsLink.get(contentVersion.Id);
             }
-            return documentLinks;   
+            return documentLinks; 
         } catch(Exception e) {
             throw MallExceptionUtil.throwAuraException('CTRL_MallDocumentManagement.createDocumentForDownload', e);
         }   

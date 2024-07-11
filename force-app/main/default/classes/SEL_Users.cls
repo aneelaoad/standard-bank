@@ -96,6 +96,7 @@ public inherited sharing class SEL_Users extends fflib_SObjectSelector {
         return Database.query(
                 newQueryFactory(false, false, true)
                         .selectField('Profile.Name')
+                        .selectField('UserRole.Name')
                         .setCondition('Id IN :ids')
                         .toSOQL()
         );

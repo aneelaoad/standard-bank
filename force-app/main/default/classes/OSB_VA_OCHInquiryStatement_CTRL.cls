@@ -6,6 +6,12 @@
  * 
  * @lastModifiedBy Aleksa Atanackovic (aleksa.atanackovic@standardbank.co.za)
  * @date May 2022
+ * 
+ * @LastModified June 2024
+ * @author Nokuthula Ndala (nokuthula.ndala@standardbank.co.za)
+ * @UserStory SFP-39324
+ * @LastModifiedReason Change to inquiryOCHStatement method to remove the errorLog
+ * 
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity, PMD.NcssMethodCount')
 public with sharing class OSB_VA_OCHInquiryStatement_CTRL {
@@ -75,7 +81,7 @@ public with sharing class OSB_VA_OCHInquiryStatement_CTRL {
      *
      * @param inputs List<StatementInput>
      *
-     * @return List<StatementOutput>
+     * @return List<OCHInquiryStatementOutput>
      * 
      * @author Aleksa Atanackovic (aleksa.atanackovic@standardbank.co.za)
      * @date April 2022
@@ -147,12 +153,13 @@ public with sharing class OSB_VA_OCHInquiryStatement_CTRL {
                     results.add(result);
                     break;
                 }
-                errorLog = new Log__c(Message__c = 'OCH Statement Inquiry request is: FAIL', Source__c = SOURCE_CLASS, Area__c = ONE_HUB, Type__c = String.valueOf(response.getStatusCode()) == '200' ? INFO : ERROR, Context_User__c = UserInfo.getUserId());
+               errorLog = new Log__c(Message__c = 'OCH Statement Inquiry request is: FAIL', Source__c = SOURCE_CLASS, Area__c = ONE_HUB, Type__c = String.valueOf(response.getStatusCode()) == '200' ? INFO : ERROR, Context_User__c = UserInfo.getUserId());
                 errorLog.Message__c += '\n' + 'ContactID: ' + input.contactId;
                 errorLog.Message__c += '\n' + 'Account number: ' + input.accountNumber;
                 errorLog.Message__c += '\n' + 'Access Token: ' + input.accessToken;
                 errorLog.Message__c += '\n' + 'Error in query OCH transactions for account details with error code: ' + response.getStatusCode();
-                errorLog.Message__c += '\n' + 'Response body: ' + response.getBody();
+                errorLog.Message__c += '\n' + 'Response body: ' + response.getBody(); 
+            
                 result.hasError = true;
                 result.actionType = OSB_SRV_BotPaymentTrackingHandler.CREATE_CHILD_CASE_ACTION;
                 result.errorMessage = System.Label.OSB_VA_BA_TechnicalErrorSingle;
@@ -161,13 +168,6 @@ public with sharing class OSB_VA_OCHInquiryStatement_CTRL {
                 results.add(result);
                 break;
             }
-            errorLog = new Log__c(Message__c = 'OCH Statement Inquiry is: SUCCESS', Source__c = SOURCE_CLASS, Area__c = ONE_HUB, Context_User__c = UserInfo.getUserId());
-            errorLog.Type__c = INFO;
-            errorLog.Message__c += '\n' + 'Account number: ' + input.accountNumber;
-            errorLog.Message__c += '\n' + 'Access Token: ' + input.accessToken;
-            errorLog.Message__c += '\n' + 'ContactID: ' + input.contactId;
-            errorLog.Message__c += '\n' + 'Status code: ' + response.getStatusCode();
-            errorLog.Message__c += '\n' + 'Response body: ' + response.getBody();
            
             Map<String, Object> respBody = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
             Object respData = (Object) respBody.get('accountStatement');

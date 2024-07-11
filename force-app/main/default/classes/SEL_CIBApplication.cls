@@ -116,6 +116,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
     'CIB_AD_CustomerSignatureName__c',
     'CIB_AD_CustomerSignatureDate__c',
     'CIB_AD_CustomerSignatureAutority__c',
+    'CIB_AD_CustomerSignatureEmail__c',
     'CIB_AD_CustomerName__c',
     'CIB_AD_AccountNumber__c',
     'CIB_ACI_TradingName__c',
@@ -296,6 +297,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
       Application__c.CIB_AD_CustomerSignatureName__c,
       Application__c.CIB_AD_CustomerSignatureDate__c,
       Application__c.CIB_AD_CustomerSignatureAutority__c,
+      Application__c.CIB_AD_CustomerSignatureEmail__c,
       Application__c.CIB_AD_CustomerName__c,
       Application__c.CIB_AD_AccountNumber__c,
       Application__c.CIB_ACI_TradingName__c,
@@ -389,7 +391,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
    * @return List<Application__c>
    */
   public List<Application__c> selectAppsById(String appId) {
-    fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
+    final fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
     fieldQueryFactory.setCondition('id = :appId');
     fieldQueryFactory.selectFields(fields);
     return Database.query(fieldQueryFactory.toSOQL());
@@ -401,7 +403,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
    * @return List<Application__c>
    */
   public List<Application__c> selectAppsByClient(String clientId) {
-    fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
+    final fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
     fieldQueryFactory.setCondition('Client__c = :clientId');
     fieldQueryFactory.selectFields(fields);
     return Database.query(FieldQueryFactory.toSOQL());
@@ -417,7 +419,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
     String clientId,
     String stat
   ) {
-    fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
+    final fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
     fieldQueryFactory.setCondition(
       'Client__c = :clientId AND Status__c  = :stat'
     );
@@ -430,7 +432,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
    * @return List<Application__c>
    */
   public List<Application__c> selectAppsByStatus(String stat) {
-    fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
+    final fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
     fieldQueryFactory.setCondition('Status__c  = :stat');
     fieldQueryFactory.selectFields(fields);
     return Database.query(fieldQueryFactory.toSOQL());
@@ -442,7 +444,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
    * @return Application__c
    */
   public Application__c selectApplicationById(String appId) {
-    fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
+    final fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
     fieldQueryFactory.setCondition('Id = :appId');
     fieldQueryFactory.selectFields(fields);
     return Database.query(fieldQueryFactory.toSOQL());
@@ -454,7 +456,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
    * @return List<Application__c>
    */
   public List<Application__c> selectByIds(List<Id> appId) {
-    fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
+    final fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
     fieldQueryFactory.setCondition('Id in :appId');
     fieldQueryFactory.selectFields(fields);
     return Database.query(fieldQueryFactory.toSOQL());
@@ -466,7 +468,7 @@ public with sharing class SEL_CIBApplication extends fflib_SObjectSelector {
    * @return List<Application__c>
    */
   public List<Application__c> selectDashboardApplications(Id contactId) {
-    fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
+    final fflib_QueryFactory fieldQueryFactory = newQueryFactory(false, false, false);
     fieldQueryFactory.selectFields(fields);
     fieldQueryFactory.subselectQuery('Application_Sections__r')
       .selectFields(new List<String>{ 'Id' })

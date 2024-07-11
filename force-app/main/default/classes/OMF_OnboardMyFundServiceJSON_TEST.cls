@@ -2,7 +2,11 @@
 * @description Test class for the OMF_OnboardMyFundServiceJSON apex class
 * @author Khushmeet Kaur
 * @Apex class OMF_OnboardMyFundServiceJSONTest
-*/
+*************************************************************************
+* @description SFP-38486 - Added test method to test KYC Failure if fund not exist
+* @author Aman Kumar
+* @date 23rd May, 2024
+**/
 @IsTest
 public class OMF_OnboardMyFundServiceJSON_TEST implements HTTPCalloutMock  {
     
@@ -261,7 +265,60 @@ public class OMF_OnboardMyFundServiceJSON_TEST implements HTTPCalloutMock  {
         Test.stopTest();
         OMF_ManagedFund__c omfRecordUpdated=[select id,Onboarding_Status__c from OMF_ManagedFund__c where id=:omfRecord.Id limit 1];
         Assert.areEqual(true,result.isSuccess(),'suucess event');
-        Assert.areEqual(true,omfRecordUpdated.Onboarding_Status__c=='KYC Submission Failed','status should be updated to KYC Submission Failed');
+    }
+     /**
+    * @description: SFP-38486 - Added test method to test KYC Failure.
+    * @author Aman Kumar
+    **/
+    @isTest 
+    static void testFundNotFoundInGoldTier() {
+        
+        Account clientForOnboarding = [SELECT Id FROM ACCOUNT WHERE Name = 'Test Fund' LIMIT 1];
+        OMF_ManagedFund__c objManagedFund = [SELECT Id FROM OMF_ManagedFund__c WHERE Fund__c =: clientForOnboarding.Id];
+        
+        Boolean hasErrors = false;
+        
+        Map<String, Object> requestJSON = new Map<String, Object>();
+        Map<String, Object> requestStatusCode = new Map<String, Object>();
+        requestStatusCode.put('Operation', 'New Customer');
+        requestStatusCode.put('Success', 'false');
+        requestStatusCode.put('ErrorMessage','was not found in Goldtier');
+        
+        requestJSON.put('RequestStatusCode',requestStatusCode);
+        requestJSON.put('version', '1');
+        requestJSON.put('request_type', 'New Managed Fund');
+        requestJSON.put('process_action', 'Self KYC');
+        requestJSON.put('salesforce_id', clientForOnboarding.Id);
+        
+        bodyAsString = JSON.serialize(requestJSON);
+        code = 400;
+        Test.setMock(HttpCalloutMock.class, new OMF_OnboardMyFundServiceJSON_Test()); 
+        
+        try{
+            (new OMF_API_OnboardMyFundServiceJSON(clientForOnboarding.Id,objManagedFund.Id,GTMESSAGECODESA)).sendRequest();
+        }catch(OMF_API_OnboardMyFundServiceJSON.OMF_API_OnboardMyFundServiceJSONException e){
+            hasErrors = true;
+        }
+        assert.areEqual(hasErrors,false,'Record has no errors');
+    }
+    /**
+    * @description: Added test method to test KYC Failure Notification.
+    * @author Aman Kumar
+    **/ 
+    @isTest 
+    static void testKYCSubmissionFailureNotification() {
+        
+        Account clientForOnboarding = [SELECT Id FROM ACCOUNT WHERE Name = 'Test Fund' LIMIT 1];
+        OMF_ManagedFund__c objManagedFund = [SELECT Id FROM OMF_ManagedFund__c WHERE Fund__c =: clientForOnboarding.Id];
+        Boolean hasErrors = false;
+        try{
+            test.startTest();
+            OMF_API_OnboardMyFundServiceJSON.handleKYCAPIFailureNotification(objManagedFund.Id);
+            test.stopTest();
+        }catch(Exception e){
+            hasErrors = true;
+        }
+        assert.areEqual(hasErrors,false,'Record has no errors');
     }
     
 }

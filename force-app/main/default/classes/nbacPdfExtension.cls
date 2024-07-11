@@ -12,6 +12,11 @@
  * @author Stane Murhula (stane.murhula@standarbank.co.za)
  * @UserStory SFP-36749
  * @LastModifiedReason Added getNbacRealEstateFinanceFields to show REF fields on NBAC PDF
+ * 
+ * @LastModifiedDate June 2024
+ * @author Augustine Chirombo 
+ * @UserStory SFP-39076
+ * @LastModifiedReason Resolution of null CCAP values to return zero
 ***/
 
 public class nbacPdfExtension {
@@ -96,10 +101,16 @@ public class nbacPdfExtension {
      * @return Map<String, String>
      */
     public Map<String, String> getCCAPMap() {
+        Map<String, String> ccapMap = new Map<String, String>(); 
         CiCcap_Controller.CcapWrapper ccapWrapper = CiCcap_Controller.getCcapValue(b.Id);
 
         if (ccapWrapper.isUserAllowedToViewCcap || !ccapWrapper.hasErrors) {
-            return ccapWrapper.accountName2Ccap;
+            for (String accountName : ccapWrapper.accountName2Ccap.keySet()) {
+                ccapMap.put(accountName, ' ZAR ' + (ccapWrapper.accountName2Ccap.get(accountName) ?? '0'));
+            }
+            if (ccapWrapper.hasErrors && (ccapWrapper.accountName2Ccap.keySet().size() == 0)){
+                ccapMap.put('Not Available', ''); 
+            }
         } else {
             List<EmailTemplate> templates = SEL_EmailTemplate.newInstance().selectByName('NBAC PDF CCAP Not Fetched');
 
@@ -120,7 +131,7 @@ public class nbacPdfExtension {
                 Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
             }
         }
-        return null;
+        return ccapMap;
     }
 
     /**
@@ -128,19 +139,18 @@ public class nbacPdfExtension {
      * @return List<SB_Product__c>
      */
     public List<SB_Product__c> getAncillaryOpportunities() {
-            return NBAC_AncillaryOpportunities_CTRL.getAncillaryOpportunities(b.Id);
+        return NBAC_AncillaryOpportunities_CTRL.getAncillaryOpportunities(b.Id);
     }
-
 
     /**
      * @description retrieve related Real Estate Finance Fields to show in PDF
      * @return List<NBAC_Real_Estate_Finance__c>
      */
     public List<NBAC_Real_Estate_Finance__c> getNbacRealEstateFinanceFields() {
-            try {
-                return NBACRealEstateFinanceController.getRefData(String.valueOf(b.Id));
-            } catch (Exception e) {
-                return null;
-            }
+        try {
+            return NBACRealEstateFinanceController.getRefData(String.valueOf(b.Id));
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -22,8 +22,12 @@ public with sharing class CTRL_MallAccountBalance {
         try {
             Map <String, String>  customerIdentificationInfo = getCustomerIdentificationInfo();
             String accountNumber;
+            String productName;
             if(String.IsnotBlank(customerIdentificationInfo.get(CUSTOMER_BPGUID_TEXT))) {
-                accountNumber = getAccountNumber(customerIdentificationInfo.get(CUSTOMER_BPGUID_TEXT));
+                //accountNumber = getAccountNumber(customerIdentificationInfo.get(CUSTOMER_BPGUID_TEXT));
+                MallCustomerAccountListResponse.CustomerAccountListDetails customerAccount = getCustomerAccount(customerIdentificationInfo.get(CUSTOMER_BPGUID_TEXT));
+                accountNumber = customerAccount.accountNumber;
+                productName = customerAccount.productName;
             }
             ResponseWrapper wrapperResponse = new ResponseWrapper();
             if (String.isNotBlank(accountNumber) && String.IsnotBlank(customerIdentificationInfo.get(CUSTOMER_BPID_TEXT))) {
@@ -37,15 +41,59 @@ public with sharing class CTRL_MallAccountBalance {
                 routeInfo.systemIdentificationNumber = String.valueOf(Math.mod(Math.abs(Crypto.getRandomInteger()), 1000));
                 routeInfo.applicationIdentificationNumber = String.valueOf(Math.mod(Math.abs(Crypto.getRandomInteger()), 1000));
                 request.routingInformation.add(routeInfo);
-                request.customerUUID = customerIdentificationInfo.get(CUSTOMER_BPID_TEXT);
-                request.customerIdNumber = CMN_UTIL_String.EMPTY;
+                //request.customerUUID = '0000104830';
+                //request.customerUUID = customerIdentificationInfo.get(CUSTOMER_BPID_TEXT);
+                //request.customerIdNumber = CMN_UTIL_String.EMPTY;
+                request.customerIdNumber = customerIdentificationInfo.get(CUSTOMER_BPID_TEXT);
                 request.customerRegNumber = CMN_UTIL_String.EMPTY;
                 request.accountNo = accountNumber;
+                //request.accountNo = '0000000081241739';
+                request.productName = productName;
                 mallAccountBalanceInfo.request = request;
                 HttpResponse responseHttp = new API_MallCustomerAccountBalance().getCustomerAccountBalance(System.JSON.serialize(mallAccountBalanceInfo));
-                Map <String, Object> response = (Map <String, Object> ) JSON.deserializeUntyped(responseHttp.getBody());
-                wrapperResponse.statusCode = responseHttp.getStatusCode();
-                wrapperResponse.message = response;
+
+                if (responseHttp.getStatusCode() == 200 && responseHttp.getHeader('Content-Type').contains('application/json')) {
+                    String responseBody = responseHttp.getBody();
+                    if (String.isNotBlank(responseBody)) {
+                        try {
+                            // Todo: Refactor this code
+                            String modifiedJsonResponse = responseBody.replace('"currency"', '"currencyISO"');
+                            MallAccountBalanceInfo accountBalanceInfo =  (MallAccountBalanceInfo) JSON.deserialize(modifiedJsonResponse, MallAccountBalanceInfo.class);
+                            accountBalanceInfo.request = request;
+                            Map <String, Object> response = (Map <String, Object> ) JSON.deserializeUntyped(responseHttp.getBody());
+                            wrapperResponse.statusCode = responseHttp.getStatusCode();
+                            wrapperResponse.message = response;
+                            wrapperResponse.accountBalanceInfo = accountBalanceInfo;
+                            // Process the deserialized object
+                        } catch (JSONException e) {
+                            System.debug('@@ CTRL_MallAccountBalance.Failed to deserialize JSON: ' + e.getMessage());
+                            // Handle the exception
+                        }
+                    } else {
+                        // Handle empty response body
+                        // Todo : Refactor this code
+                        wrapperResponse.accountBalanceInfo =  new MallAccountBalanceInfo();
+                        wrapperResponse.accountBalanceInfo.request = request;
+
+                        wrapperResponse.statusCode = responseHttp.getStatusCode();
+                        Map<String, Object> message = new Map<String, Object>();
+                        message.put('response', 'No Data found'); // Adding a string value
+                        wrapperResponse.message = message;
+  
+
+                    }
+                } else {
+                    System.debug('@@ CTRL_MallAccountBalance.Invalid response. Status code: ' + responseHttp.getStatusCode());
+                    // Handle empty response body
+                    // Todo : Refactor this code
+                    wrapperResponse.accountBalanceInfo =  new MallAccountBalanceInfo();
+                    wrapperResponse.accountBalanceInfo.request = request;
+
+                    wrapperResponse.statusCode = responseHttp.getStatusCode();
+                    Map<String, Object> message = new Map<String, Object>();
+                    message.put('response', 'No Data found'); // Adding a string value
+                    wrapperResponse.message = message;
+                }
             }
             return wrapperResponse;
         } catch (Exception e) {
@@ -60,6 +108,16 @@ public with sharing class CTRL_MallAccountBalance {
             accountNumber = response.customerAccountListDetails.get(0).accountNumber;
         }
         return accountNumber;
+    }
+
+
+    public static MallCustomerAccountListResponse.CustomerAccountListDetails getCustomerAccount(String customerBPGUID) {
+        MallCustomerAccountListResponse response = getCustomerAccountList(customerBPGUID);
+        MallCustomerAccountListResponse.CustomerAccountListDetails customerAccount;
+        if (response != NULL && response.customerAccountListDetails != NULL && !response.customerAccountListDetails.isEmpty()) {
+            customerAccount = response.customerAccountListDetails.get(0);
+        }
+        return customerAccount;
     }
 
     /**
@@ -135,5 +193,11 @@ public with sharing class CTRL_MallAccountBalance {
             get;
             set;
         }
+        @AuraEnabled
+        public MallAccountBalanceInfo accountBalanceInfo {
+            get;
+            set;
+        }
     }
+
 }

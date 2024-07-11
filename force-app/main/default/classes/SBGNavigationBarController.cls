@@ -75,7 +75,7 @@ public with sharing class SBGNavigationBarController {
         List<SBG_Navigation_Items__mdt> navItemsFiltered = new List<SBG_Navigation_Items__mdt>();
         try{
             navItems = SBG_Navigation_Items__mdt.getAll().values();
-             System.debug('nav items: '+navItems);
+       System.debug('nav items: '+navItems);
 
             if(Auth.CommunitiesUtil.isGuestUser()) {
                 for(Integer row = 0; row < navItems.size(); row++) {

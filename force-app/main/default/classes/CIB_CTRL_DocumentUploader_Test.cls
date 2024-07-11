@@ -3,7 +3,7 @@
  * @author            : silva.macaneta@standardbank.co.za
  * @group             :
  * @last modified on  : 10-06-2023
- * @last modified by  : silva.macaneta@standardbank.co.za
+ * @last modified by  : silva.macaneta@standardbank.co.za 
  **/
 @isTest
 public class CIB_CTRL_DocumentUploader_Test {
@@ -229,7 +229,7 @@ public class CIB_CTRL_DocumentUploader_Test {
 
     Test.startTest();
     final List<ContentDocumentLink> links = CIB_CTRL_DocumentUploader.createContentDocumentLink(
-      contentVersion,
+      contentVersion.ContentDocumentId,
       appDoc,
       application.Id,
       participant.Id
@@ -270,6 +270,19 @@ public class CIB_CTRL_DocumentUploader_Test {
     );
     insert testDocument;
 
+    ContentVersion cv = new ContentVersion();
+    cv.Title = 'Test Document';
+    cv.PathOnClient = 'test.txt';
+    cv.VersionData = Blob.valueOf('Test Content');
+    insert cv;
+    
+    String contentDocumentId = [
+      SELECT ContentDocumentId
+      FROM ContentVersion
+      WHERE Id = :cv.Id
+      LIMIT 1
+    ].ContentDocumentId;   
+
     final CIB_CTRL_DocumentUploader.UploadFileInputWrapper testInput = new CIB_CTRL_DocumentUploader.UploadFileInputWrapper();
     testInput.recordId = testApplication.Id;
     testInput.sectionId = section.Id;
@@ -278,6 +291,7 @@ public class CIB_CTRL_DocumentUploader_Test {
     testInput.base64 = EncodingUtil.base64Encode(Blob.valueOf('Test Content'));
     testInput.documentExtension = 'txt';
     testInput.documentStatus = TEST_DOCUMENT_STATUS;
+    testInput.contentDocumentId = contentDocumentId;
 
     Test.startTest();
     final CIB_CTRL_DocumentUploader.UploadFileOutputWrapper testOutput = CIB_CTRL_DocumentUploader.uploadFile(
