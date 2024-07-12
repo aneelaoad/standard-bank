@@ -1,7 +1,6 @@
 import { LightningElement , wire} from 'lwc';
 import mallHomeManagePayments from "@salesforce/resourceUrl/mallHomeManagePayments";
-import getAppStoreLinks from '@salesforce/apex/LinksSelector.getAppStoreLinks';
-import getContentUnitTranslations from '@salesforce/apex/LinksSelector.getContentUnitTranslationsForOfferingsByCategory';
+import getAppStoreLinks from '@salesforce/apex/SEL_Mall_Links.getAppStoreLinks';
 import DownloadAppHeading from '@salesforce/label/c.DownloadAppHeading';
 import DownloadAppDescription from '@salesforce/label/c.DownloadAppDescription';
 
@@ -62,13 +61,5 @@ export default class MallManageBankingPayments extends LightningElement {
         }
     }
 
-    @wire(getContentUnitTranslations)
-    wiredTranslation({error, data}) {
-        if (error) {
-            // TODO: Error handling
-            console.log('error fetching translation');
-        } else if (data) {
-            console.log('translations: ', JSON.stringify(data));
-        }
-    }
+    
 }

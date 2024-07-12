@@ -11,7 +11,6 @@
 
                 <figure class="solution-image">
                     <figcaption class="solution-tile-tag" >{solution.tag}</figcaption>
-                    <!-- <img src={solutionImage1} alt=""> -->
                     <img src={solution.image} alt="">
                 </figure>
 
@@ -23,11 +22,30 @@
                     <section class="solution-content-button-wrapper">
                         <button class="sbds-button learn-more"><label> <a href={solution.learnMoreLink} class="learn-more">Learn More</a> </label></button>
                         <button class="sbds-button apply-now"><label> <a href={solution.applyNowLink} class="apply-now">Apply Now</a> </label></button>
-                        <!-- <button class="sbds-button apply-now"><label>Apply Now</label></button> -->
                     </section>
                 </section>
             </div>
     </template>
+    <!-- <template for:each={offeringsData} for:item="solution">
+        <div class="solution-tile" key={solution.contentUnitTitle}>
+
+               <figure class="solution-image">
+                   <figcaption class="solution-tile-tag" >{solution.tagName}</figcaption>
+                   <img src={solution.contentUnitImageUrl} alt="">
+               </figure>
+
+               <section class="solution-content">
+                   <article class="solution-content-text">
+                       <h3>{solution.contentUnitTitle}</h3>
+                       <p>{solution.contentUnitText}</p>
+                   </article>
+                   <section class="solution-content-button-wrapper">
+                       <button class="sbds-button learn-more"><label> <a href={solution.desktopUrl} class="learn-more">Learn More</a> </label></button>
+                       <button class="sbds-button apply-now"><label> <a href={solution.applyNowLink} class="apply-now">Apply Now</a> </label></button>
+                   </section>
+               </section>
+           </div>
+   </template> -->
        </section>
     </section>
 </template>
