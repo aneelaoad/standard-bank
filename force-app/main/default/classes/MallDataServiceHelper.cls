@@ -376,6 +376,113 @@ public with sharing class MallDataServiceHelper {
         return denormalizedLinks;
     }
 
+     /**
+     * @description Denormalizes the links into DenormalizedProduct.
+     * @param tagLinks List of Tag Links.
+     * @param contentUnitTranslations Map of content unit translations.
+     * @return List of DenormalizedProduct.
+     */
+    public List<DenormalizedLink> denormalizeLinks(List<Tag_Link__c> tagLinks) {
+        List<DenormalizedLink> linksDenormalized = new List<DenormalizedLink>();
+        for(Tag_Link__c tagLink : tagLinks) {
+            DenormalizedLink linkDenormalized = new DenormalizedLink();
+            linkDenormalized.tagId = tagLink.Tag__c;
+            linkDenormalized.tagName = tagLink.Tag__r.Name;
+           
+            linkDenormalized.tagLinkName = tagLink.Link__r.Name;
+
+            
+            linksDenormalized.add(linkDenormalized);
+        }
+        return linksDenormalized;
+    }
+
+/**
+     * @description Prepares links for country.
+     * @param tagLinks List of Tag Links.
+     * @return List<Tag_Link__c> - List of prepared Tag Links.
+     */
+    public List<Tag_Link__c> prepareLinksForCountry(List<Tag_Link__c> tagLinks) {
+        List<String> tagIds = new List<String>();
+        List<String> categoryTagIds = new List<String>();
+        for(Tag_Link__c tagLink : tagLinks) {
+            if(tagLink.Tag__r.Parent__r.Name != 'Country') {
+                tagIds.add(tagLink.Tag__c);
+            }
+            if(tagLink.Tag__r.Parent__r.Name == 'Category') {
+                categoryTagIds.add(tagLink.Tag__c);
+            }
+        }
+
+        List<Tag_Link__c> tagLinksForCountry = new List<Tag_Link__c>();
+        Map<Id, List<Tag_Link__c>> mapProductIdTagLinks = new Map<Id, List<Tag_Link__c>>();
+        for(Tag_Link__c tagLink : tagLinks) {
+            if(!mapProductIdTagLinks.containsKey(tagLink.Link__c)) {
+                mapProductIdTagLinks.put(tagLink.Link__c, new List<Tag_Link__c>{tagLink});
+            } else {
+                List<Tag_Link__c> tagLinksLst = mapProductIdTagLinks.get(tagLink.Link__c);
+                tagLinksLst.add(tagLink);
+                mapProductIdTagLinks.put(tagLink.Link__c, tagLinksLst);
+            }
+        }
+
+        
+
+        return tagLinksForCountry;
+    }
+
+    /**
+     * @description Prepares links for language.
+     * @param tagLinks List of Tag Links.
+     * @return Map<String, Map<Id, Content_Unit_Translation__c>> - Map of content type to content unit translations.
+     */
+    public Map<String, Map<Id, Content_Unit_Translation__c>> prepareLinksForLanguage(List<Tag_Link__c> tagLinks) {
+        Set<String> linkIds = new Set<String>();
+        List<String> linkIdsLst = new List<String>();
+        List<String> userLanguages = getUserLanguages();
+
+        for(Tag_Link__c tagLink : tagLinks) {
+            linkIds.add(tagLink.Link__c);
+        }
+        linkIdsLst.addAll(linkIds);
+
+        List<Content_Unit_Translation__c> contentTranslationUnits = new List<Content_Unit_Translation__c>();
+        Map<Id, Content_Unit_Translation__c> mapLinkIdAndContentTranslation = new Map<Id, Content_Unit_Translation__c>();
+        String whereClause = 'Link__c IN (\'' + String.join(linkIdsLst, '\',\'') + '\')';
+        whereClause += ' AND Language_ISO__c IN (\'' + String.join(userLanguages, '\',\'') + '\')';
+
+        contentTranslationUnits = getContentUnitTranslations(whereClause);
+
+        for(Content_Unit_Translation__c contentTranslationUnit : contentTranslationUnits) {
+            if(mapLinkIdAndContentTranslation.containsKey(contentTranslationUnit.Link__c)) {
+                if(mapLinkIdAndContentTranslation.get(contentTranslationUnit.Link__c).Language_ISO__c == MallDataServiceHandler.DEFAULT_CONTENT_LANGUAGE_ISO
+                    && contentTranslationUnit.Language_ISO__c != MallDataServiceHandler.DEFAULT_CONTENT_LANGUAGE_ISO) {
+                    mapLinkIdAndContentTranslation.put(contentTranslationUnit.Link__c, contentTranslationUnit);
+                    MallDataServiceHandler.mallMultiLanguageContent = true;
+                }
+            } else {
+                mapLinkIdAndContentTranslation.put(contentTranslationUnit.Link__c, contentTranslationUnit);
+            }
+        }
+
+        Map<String, Map<Id, Content_Unit_Translation__c>> mapContentTypMapContentUnitTranslation = new Map<String, Map<Id, Content_Unit_Translation__c>>();
+        mapContentTypMapContentUnitTranslation.put(MallDataServiceHandler.CONTENT_UNIT_TRANSLATION, mapLinkIdAndContentTranslation);
+
+        return mapContentTypMapContentUnitTranslation;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * @description this method prepares the tags for the user selected language
      * @param tags List<Tag__c>

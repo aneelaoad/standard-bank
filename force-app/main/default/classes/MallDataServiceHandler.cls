@@ -407,11 +407,72 @@ public with sharing class MallDataServiceHandler {
         
         //De-duplicate the Products since there will be tagproduct for country as well as tag itself
         tagProducts = new MallDataServiceHelper().prepareProductsForCountry(tagProducts);
+        System.debug('tagproducts prepareProductsForCountry: '+tagProducts);
         //get the content translation based on user language
         Map<String,Map<Id,Content_Unit_Translation__c>> mapContentTypMapContentUnitTranslation = new MallDataServiceHelper().prepareProductsForLanguage(tagProducts);
+        System.debug('tagproducts contentUnit based on lan: '+mapContentTypMapContentUnitTranslation);
         
         return new MallDataServiceHelper().denormalizeProducts(tagProducts, mapContentTypMapContentUnitTranslation.get(CONTENT_UNIT_TRANSLATION));
     } 
+
+
+
+
+    /**
+     * 
+     * @description This method retrieves Tag Offerings by category names
+     * @param categoryNames List of category names
+     * @return List of DenormalizedProduct
+     */
+    
+    public List<DenormalizedProduct> getTagOfferingsByCategoryNames() {
+        System.debug('Tested');
+
+        String whereClause = 'Tag__r.Parent__r.Name != NULL';
+        List<Tag_Offering__c> tagOfferings = SEL_TagOfferings.newInstance().selectByCustomFilterCondition(whereClause);
+        System.debug('tagOfferings: '+tagOfferings);
+        List<DenormalizedProduct> denormalizedOfferings = prepareProductsForCountryAndLanguage(tagOfferings);
+        System.debug('denormalizedOfferings: '+denormalizedOfferings);
+
+        return denormalizedOfferings;
+    }
+
+/**
+ * @description Retrieves Tag Links by Category and Tag Name.
+ * @param categoryName The name of the category.
+ * @param tagName The name of the tag.
+ * @return List<Tag_Link__c> - List of Tag Links.
+ */
+    @AuraEnabled(cacheable=true)
+    public static List<DenormalizedLink> getTagLinksByCategoryAndTagName(String categoryName, String tagName) {
+        String condition = 'Tag__r.Parent__r.Name != null  AND Tag__r.Name != null ';
+        // String condition = 'Tag__r.Parent__r.Name = \'' + categoryName + '\' AND Tag__r.Name = \'' + tagName + '\'';
+        List<Tag_Link__c> tagLinks = SEL_TagLinks.newInstance().selectByCustomFilterCondition(condition);
+        System.debug('Tag Links: ' + tagLinks);
+
+        List<DenormalizedLink> denormalizedLinks = prepareLinksForCountryAndLanguage(tagLinks);
+        System.debug('denormalizedLinks: ' + denormalizedLinks);
+
+        return denormalizedLinks;
+}
+
+ /**
+     * @description This method prepares the links for country and language.
+     * @param tagLinks List of Tag Links.
+     * @return List of DenormalizedProduct.
+     */
+    public static List<DenormalizedLink> prepareLinksForCountryAndLanguage(List<Tag_Link__c> tagLinks) {
+        System.debug('tagLinks before prepareLinksForCountr: '+tagLinks);
+        // De-duplicate the Links since there will be tagLink for country as well as tag itself
+        tagLinks = new MallDataServiceHelper().prepareLinksForCountry(tagLinks);
+        System.debug('tagLinks after prepareLinksForCountry: ' + tagLinks);
+        
+        // Get the content translation based on user language
+       // Map<String, Map<Id, Content_Unit_Translation__c>> mapContentTypMapContentUnitTranslation = new MallDataServiceHelper().prepareLinksForLanguage(tagLinks);
+       // System.debug('tagLinks contentUnit based on lan: ' + mapContentTypMapContentUnitTranslation);
+        
+        return new MallDataServiceHelper().denormalizeLinks(tagLinks);
+    }
 
     /**
      * 
@@ -964,4 +1025,17 @@ public with sharing class MallDataServiceHandler {
         @AuraEnabled
         public List<DenormalizedTag> solutions;
     }
+
+
+
+    /**
+     * 
+     * @description Get Offerings by Category
+     * @return List<DenormalizedOffering>
+     */
+    public List<OfferingsSelector.DenormalizedOffering> getOfferingsByCategory() {
+        // Fetch offerings by category based on the user context
+        return new MallOfferingsCtrl().getOfferingsByCategory(userCountry, userContentLanguage);
+    }
+
 }

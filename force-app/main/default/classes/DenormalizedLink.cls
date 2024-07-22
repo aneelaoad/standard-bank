@@ -31,7 +31,12 @@ public with sharing class DenormalizedLink {
     public String iconUrl;
     @AuraEnabled
     public String countryTagId;
-
+    @AuraEnabled
+    public String tagId;
+    @AuraEnabled
+    public String tagName;
+    @AuraEnabled
+    public String tagLinkName;
 
     /**
      * 

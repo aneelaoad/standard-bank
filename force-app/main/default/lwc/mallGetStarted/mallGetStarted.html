@@ -26,22 +26,28 @@
                 </section>
             </div>
     </template>
-    <!-- <template for:each={offeringsData} for:item="solution">
+    <!-- <template for:each={offeringsList} for:item="solution">
         <div class="solution-tile" key={solution.contentUnitTitle}>
 
                <figure class="solution-image">
                    <figcaption class="solution-tile-tag" >{solution.tagName}</figcaption>
-                   <img src={solution.contentUnitImageUrl} alt="">
+                   <img src={solution.imageUrl} alt="">
                </figure>
 
                <section class="solution-content">
                    <article class="solution-content-text">
-                       <h3>{solution.contentUnitTitle}</h3>
-                       <p>{solution.contentUnitText}</p>
+                       <h3>{solution.title}</h3>
+                      <p>
+                        <lightning-formatted-rich-text
+                         value={solution.text}
+                          
+                       ></lightning-formatted-rich-text>
+                      </p>
+                       
                    </article>
                    <section class="solution-content-button-wrapper">
                        <button class="sbds-button learn-more"><label> <a href={solution.desktopUrl} class="learn-more">Learn More</a> </label></button>
-                       <button class="sbds-button apply-now"><label> <a href={solution.applyNowLink} class="apply-now">Apply Now</a> </label></button>
+                       <button class="sbds-button apply-now"><label> <a href={solution.guestUrl} class="apply-now">Apply Now</a> </label></button>
                    </section>
                </section>
            </div>

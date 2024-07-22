@@ -116,6 +116,7 @@ public without sharing class ORG_Application {
             NBAC_Real_Estate_Finance__c.SObjectType => SEL_NbacRealEstateFinance.class,        
             Tag__c.SObjectType => SEL_Tags.class,
             Tag_Offering__c.SObjectType => SEL_TagOfferings.class,
+            Tag_Link__c.SObjectType => SEL_TagLinks.class,
             Tag_Provider__c.SObjectType => SEL_TagProviders.class,
             ProcessInstanceStep.SObjectType => SEL_ProcessInstanceSteps.class,
             ProcessInstanceWorkItem.SObjectType => SEL_ProcessInstanceWorkItems.class,

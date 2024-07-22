@@ -576,4 +576,16 @@ public with sharing class MallDataService {
       throw MallExceptionUtil.throwAuraException('MallDataService.getProductsBySegmentAndCategoryIds', e); 
     }
   }
+
+
+
+  @AuraEnabled(cacheable=true)
+    public static List<DenormalizedProduct> getTagOfferingsByCategoryNames() {
+      try {
+        return new MallDataServiceHandler().getTagOfferingsByCategoryNames();
+      } catch (Exception e) { 
+        throw MallExceptionUtil.throwAuraException('MallDataService.getTagOfferingsByCategoryNames', e); 
+      }
+    }
+
 }
